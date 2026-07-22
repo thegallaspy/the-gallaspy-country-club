@@ -1,0 +1,718 @@
+@import "tailwindcss";
+
+/* =========================================================
+   THE GALLASPY — BRAND SYSTEM
+========================================================= */
+
+:root {
+  --navy: #1e3557;
+  --navy-dark: #10263f;
+
+  --forest: #163a2f;
+  --forest-dark: #0b251e;
+
+  --gold: #b89146;
+  --gold-light: #ffd76a;
+
+  --ivory: #f7f4ee;
+  --cream: #eee8dc;
+  --white: #ffffff;
+
+  --page-width: 1060px;
+  --reading-width: 680px;
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  margin: 0;
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: clip;
+
+  background: var(--ivory);
+  color: var(--navy);
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+}
+
+section {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* =========================================================
+   CENTER EVERY HOMEPAGE SECTION
+========================================================= */
+
+/*
+  This centers the main content wrapper inside each section.
+
+  Absolute background overlays are excluded so the hero and
+  image overlays continue covering the full section.
+*/
+
+main > section > div:not(.absolute):not([class*="absolute"]) {
+  width: calc(100% - 48px);
+  max-width: var(--page-width);
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/*
+  Nested containers that already use mx-auto remain centered.
+*/
+
+main section .mx-auto {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Standard reusable containers */
+
+.site-container {
+  width: calc(100% - 48px);
+  max-width: var(--page-width);
+  margin-inline: auto;
+}
+
+.content-container {
+  width: calc(100% - 48px);
+  max-width: var(--reading-width);
+  margin-inline: auto;
+}
+
+.section-shell {
+  width: 100%;
+  padding-block: 60px;
+}
+
+.section-shell-tight {
+  width: 100%;
+  padding-block: 46px;
+}
+
+/* =========================================================
+   TYPOGRAPHY
+========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: inherit;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 4.5vw, 4.35rem);
+  line-height: 1;
+}
+
+h2 {
+  font-size: clamp(2rem, 3.3vw, 3rem);
+  line-height: 1.07;
+}
+
+h3 {
+  font-size: clamp(1.4rem, 1.9vw, 1.8rem);
+  line-height: 1.16;
+}
+
+h4 {
+  font-size: 1.1rem;
+  line-height: 1.25;
+}
+
+p {
+  color: inherit;
+  font-size: 0.93rem;
+  line-height: 1.7;
+}
+
+.eyebrow {
+  color: var(--gold);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.64rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.section-heading {
+  width: 100%;
+  max-width: 700px;
+  margin: 12px auto 0;
+  color: var(--navy-dark);
+  text-align: center;
+}
+
+.section-description {
+  width: 100%;
+  max-width: 660px;
+  margin: 18px auto 0;
+  color: var(--navy);
+  text-align: center;
+}
+
+/* =========================================================
+   NO GREEN TEXT
+========================================================= */
+
+/*
+  Any existing Tailwind green-text classes are converted to navy.
+
+  Forest green remains available for section backgrounds.
+*/
+
+[class*="text-[#163A2F]"],
+[class*="text-[#163a2f]"],
+[class*="text-[#0B251E]"],
+[class*="text-[#0b251e]"],
+[class*="text-[#123C2D]"],
+[class*="text-[#123c2d]"],
+[class*="text-[#082A20]"],
+[class*="text-[#082a20]"] {
+  color: var(--navy) !important;
+}
+
+/* General brand text helpers */
+
+.text-brand-navy {
+  color: var(--navy) !important;
+}
+
+.text-brand-navy-dark {
+  color: var(--navy-dark) !important;
+}
+
+.text-brand-gold {
+  color: var(--gold) !important;
+}
+
+.text-brand-gold-light {
+  color: var(--gold-light) !important;
+}
+
+.text-brand-white {
+  color: var(--white) !important;
+}
+
+/* =========================================================
+   LIGHT BACKGROUNDS
+========================================================= */
+
+.light-section {
+  background: var(--ivory);
+  color: var(--navy);
+}
+
+.cream-section {
+  background: var(--cream);
+  color: var(--navy);
+}
+
+.white-section {
+  background: var(--white);
+  color: var(--navy);
+}
+
+.light-section h1,
+.light-section h2,
+.light-section h3,
+.light-section h4,
+.cream-section h1,
+.cream-section h2,
+.cream-section h3,
+.cream-section h4,
+.white-section h1,
+.white-section h2,
+.white-section h3,
+.white-section h4 {
+  color: var(--navy-dark);
+}
+
+.light-section p,
+.cream-section p,
+.white-section p {
+  color: var(--navy);
+}
+
+/* =========================================================
+   DARK BACKGROUNDS
+========================================================= */
+
+.dark-section {
+  background: var(--navy-dark);
+  color: var(--white);
+}
+
+.forest-section {
+  background: var(--forest);
+  color: var(--white);
+}
+
+.navy-section {
+  background: var(--navy);
+  color: var(--white);
+}
+
+/*
+  Force all normal content inside dark sections to white.
+*/
+
+.dark-section h1,
+.dark-section h2,
+.dark-section h3,
+.dark-section h4,
+.dark-section p,
+.dark-section li,
+.dark-section a,
+.dark-section span,
+.forest-section h1,
+.forest-section h2,
+.forest-section h3,
+.forest-section h4,
+.forest-section p,
+.forest-section li,
+.forest-section a,
+.forest-section span,
+.navy-section h1,
+.navy-section h2,
+.navy-section h3,
+.navy-section h4,
+.navy-section p,
+.navy-section li,
+.navy-section a,
+.navy-section span {
+  color: inherit;
+}
+
+.dark-section .eyebrow,
+.forest-section .eyebrow,
+.navy-section .eyebrow {
+  color: var(--gold-light);
+}
+
+/* =========================================================
+   CORRECT EXISTING TAILWIND DARK SECTIONS
+========================================================= */
+
+/*
+  Your components use Tailwind background classes instead of
+  dark-section or forest-section.
+
+  These selectors make all text readable on those backgrounds.
+*/
+
+[class*="bg-[#163A2F]"],
+[class*="bg-[#163a2f]"],
+[class*="bg-[#0B251E]"],
+[class*="bg-[#0b251e]"],
+[class*="bg-[#123C2D]"],
+[class*="bg-[#123c2d]"],
+[class*="bg-[#082A20]"],
+[class*="bg-[#082a20]"],
+[class*="bg-[#1E3557]"],
+[class*="bg-[#1e3557]"],
+[class*="bg-[#10263F]"],
+[class*="bg-[#10263f]"] {
+  color: var(--white);
+}
+
+[class*="bg-[#163A2F]"] h1,
+[class*="bg-[#163A2F]"] h2,
+[class*="bg-[#163A2F]"] h3,
+[class*="bg-[#163A2F]"] h4,
+[class*="bg-[#163A2F]"] p,
+[class*="bg-[#163A2F]"] li,
+[class*="bg-[#163A2F]"] a,
+[class*="bg-[#0B251E]"] h1,
+[class*="bg-[#0B251E]"] h2,
+[class*="bg-[#0B251E]"] h3,
+[class*="bg-[#0B251E]"] h4,
+[class*="bg-[#0B251E]"] p,
+[class*="bg-[#0B251E]"] li,
+[class*="bg-[#0B251E]"] a,
+[class*="bg-[#123C2D]"] h1,
+[class*="bg-[#123C2D]"] h2,
+[class*="bg-[#123C2D]"] h3,
+[class*="bg-[#123C2D]"] h4,
+[class*="bg-[#123C2D]"] p,
+[class*="bg-[#123C2D]"] li,
+[class*="bg-[#123C2D]"] a,
+[class*="bg-[#082A20]"] h1,
+[class*="bg-[#082A20]"] h2,
+[class*="bg-[#082A20]"] h3,
+[class*="bg-[#082A20]"] h4,
+[class*="bg-[#082A20]"] p,
+[class*="bg-[#082A20]"] li,
+[class*="bg-[#082A20]"] a,
+[class*="bg-[#1E3557]"] h1,
+[class*="bg-[#1E3557]"] h2,
+[class*="bg-[#1E3557]"] h3,
+[class*="bg-[#1E3557]"] h4,
+[class*="bg-[#1E3557]"] p,
+[class*="bg-[#1E3557]"] li,
+[class*="bg-[#1E3557]"] a,
+[class*="bg-[#10263F]"] h1,
+[class*="bg-[#10263F]"] h2,
+[class*="bg-[#10263F]"] h3,
+[class*="bg-[#10263F]"] h4,
+[class*="bg-[#10263F]"] p,
+[class*="bg-[#10263F]"] li,
+[class*="bg-[#10263F]"] a {
+  color: var(--white) !important;
+}
+
+/*
+  Your lowercase background variants receive the same correction.
+*/
+
+[class*="bg-[#163a2f]"] *,
+[class*="bg-[#0b251e]"] *,
+[class*="bg-[#123c2d]"] *,
+[class*="bg-[#082a20]"] *,
+[class*="bg-[#1e3557]"] *,
+[class*="bg-[#10263f]"] * {
+  color: var(--white);
+}
+
+/* =========================================================
+   GOLD MUST REMAIN GOLD
+========================================================= */
+
+/*
+  These rules come after the dark-background rules so gold
+  labels and accents are not changed to white.
+*/
+
+[class*="text-[#FFD76A]"],
+[class*="text-[#ffd76a]"] {
+  color: var(--gold-light) !important;
+}
+
+[class*="text-[#B89146]"],
+[class*="text-[#b89146]"],
+[class*="text-[#C6A15B]"],
+[class*="text-[#c6a15b]"] {
+  color: var(--gold) !important;
+}
+
+/* =========================================================
+   MASTER-PLAN LEGEND
+========================================================= */
+
+/*
+  The legend background is forest green.
+
+  Everything inside it becomes white unless explicitly gold.
+*/
+
+.master-plan-legend {
+  background: var(--forest);
+  color: var(--white);
+}
+
+.master-plan-legend h2,
+.master-plan-legend h3,
+.master-plan-legend h4,
+.master-plan-legend p,
+.master-plan-legend li,
+.master-plan-legend span {
+  color: var(--white) !important;
+}
+
+.master-plan-legend .legend-eyebrow,
+.master-plan-legend .legend-number,
+.master-plan-legend .legend-accent {
+  color: var(--gold-light) !important;
+}
+
+.master-plan-legend .legend-number {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+
+  background: var(--ivory);
+  color: var(--navy-dark) !important;
+
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+/* =========================================================
+   IMAGES
+========================================================= */
+
+.feature-image {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 16px 42px rgba(16, 38, 63, 0.12);
+}
+
+.feature-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.master-plan-image {
+  width: 100%;
+  max-width: 860px;
+  margin: 28px auto 0;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 16px 42px rgba(16, 38, 63, 0.12);
+}
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.card-grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.premium-card {
+  min-width: 0;
+  min-height: 160px;
+  padding: 22px;
+
+  background: var(--white);
+  border: 1px solid rgba(30, 53, 87, 0.14);
+  border-radius: 15px;
+
+  color: var(--navy);
+}
+
+.premium-card h3,
+.premium-card h4 {
+  color: var(--navy-dark);
+}
+
+.premium-card p {
+  margin-top: 10px;
+  color: var(--navy);
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.primary-button,
+.secondary-button {
+  display: inline-flex;
+  min-height: 41px;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 21px;
+  border-radius: 999px;
+
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.primary-button {
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  color: var(--white);
+}
+
+.primary-button:hover {
+  background: var(--gold-light);
+  border-color: var(--gold-light);
+  color: var(--navy-dark);
+  transform: translateY(-2px);
+}
+
+.secondary-button {
+  background: transparent;
+  border: 1px solid currentColor;
+  color: inherit;
+}
+
+.secondary-button:hover {
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1024px) {
+  main > section > div:not(.absolute):not([class*="absolute"]),
+  .site-container,
+  .content-container {
+    width: calc(100% - 40px);
+  }
+
+  .section-shell {
+    padding-block: 54px;
+  }
+
+  .section-shell-tight {
+    padding-block: 42px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  main > section > div:not(.absolute):not([class*="absolute"]),
+  .site-container,
+  .content-container {
+    width: calc(100% - 30px);
+  }
+
+  .section-shell {
+    padding-block: 46px;
+  }
+
+  .section-shell-tight {
+    padding-block: 36px;
+  }
+
+  h1 {
+    font-size: clamp(2.25rem, 10vw, 3.2rem);
+  }
+
+  h2 {
+    font-size: clamp(1.85rem, 8vw, 2.55rem);
+  }
+
+  h3 {
+    font-size: clamp(1.35rem, 5.5vw, 1.75rem);
+  }
+
+  p {
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .premium-card {
+    min-height: auto;
+    padding: 20px;
+  }
+
+  .master-plan-image {
+    max-width: 100%;
+    margin-top: 24px;
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  main > section > div:not(.absolute):not([class*="absolute"]),
+  .site-container,
+  .content-container {
+    width: calc(100% - 24px);
+  }
+
+  .section-shell {
+    padding-block: 40px;
+  }
+
+  .section-shell-tight {
+    padding-block: 32px;
+  }
+
+  .eyebrow {
+    font-size: 0.59rem;
+    letter-spacing: 0.23em;
+  }
+}
