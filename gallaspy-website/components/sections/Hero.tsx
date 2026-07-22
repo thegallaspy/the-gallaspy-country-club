@@ -8,8 +8,8 @@ export default function Hero() {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    let revealTimer: ReturnType<typeof window.setTimeout> | undefined;
-    let entranceCheck: ReturnType<typeof window.setInterval> | undefined;
+    let revealTimer: number | undefined;
+    let entranceCheck: number | undefined;
 
     const revealHero = () => {
       revealTimer = window.setTimeout(() => {
@@ -35,11 +35,11 @@ export default function Hero() {
     }
 
     return () => {
-      if (revealTimer) {
+      if (revealTimer !== undefined) {
         window.clearTimeout(revealTimer);
       }
 
-      if (entranceCheck) {
+      if (entranceCheck !== undefined) {
         window.clearInterval(entranceCheck);
       }
     };
