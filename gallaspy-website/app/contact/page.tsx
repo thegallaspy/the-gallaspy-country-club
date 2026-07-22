@@ -1,134 +1,98 @@
-import Link from "next/link";
+import type { Metadata } from "next";
+import ContactForm from "@/components/forms/ContactForm";
+import { Navbar } from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 
-const futureDepartments = [
+export const metadata: Metadata = {
+  title: "Contact | The Gallaspy Golf & Country Club",
+  description:
+    "Contact The Gallaspy Development Group regarding membership, investment, partnerships, development, or The Gallaspy Golf & Country Club.",
+};
+
+const inquiryTypes = [
   {
-    title: "Golf Operations",
+    title: "Membership",
     description:
-      "Future opportunities may include golf professionals, caddie services, tournament operations, instruction, and member services.",
+      "Learn about future membership opportunities, club access, lifestyle benefits, and the Founding 250.",
   },
   {
-    title: "Hospitality & Dining",
+    title: "Investment",
     description:
-      "The clubhouse, Mercury Street Restaurant, private events, and member lodging will require exceptional hospitality professionals.",
+      "Request information regarding the development program, financing strategy, and qualified investment conversations.",
   },
   {
-    title: "Wellness & Recreation",
+    title: "Strategic Partnerships",
     description:
-      "Future roles may support fitness, spa services, aquatics, tennis, pickleball, wellness programming, and recreation.",
-  },
-  {
-    title: "Grounds & Maintenance",
-    description:
-      "Course conditioning, landscaping, facilities maintenance, sustainability, and property operations will be essential to the club.",
-  },
-  {
-    title: "Events & Experiences",
-    description:
-      "The event pavilion, vineyard, weddings, corporate retreats, tournaments, and member programming will create diverse opportunities.",
-  },
-  {
-    title: "Administration & Development",
-    description:
-      "Future needs may include finance, marketing, membership, human resources, development, and executive leadership.",
+      "Connect with us regarding development, hospitality, wellness, golf, real estate, construction, or community partnerships.",
   },
 ];
 
-const values = [
-  "Tradition",
-  "Family",
-  "Excellence",
-  "Hospitality",
-  "Integrity",
-  "Stewardship",
-];
-
-export default function CareersPage() {
+export default function ContactPage() {
   return (
-    <main className="bg-[#F7F4EE] text-[#163A2F]">
-      {/* Hero */}
-      <section className="bg-[#10263F] px-5 py-20 text-white sm:px-8 sm:py-24 lg:px-10 lg:py-28">
-        <div className="mx-auto w-full max-w-5xl text-center">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.42em] text-[#FFD76A] sm:text-xs">
-            Careers
+    <main className="bg-[#F7F4EE] text-[#10263F]">
+      <Navbar />
+
+      <section
+        className="relative flex min-h-[68vh] items-center justify-center overflow-hidden bg-cover bg-center px-5 pt-28 sm:px-8 lg:px-10"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(7,24,43,0.64), rgba(7,24,43,0.86)), url('/images/clubhouse.png')",
+        }}
+      >
+        <div className="mx-auto w-full max-w-5xl py-24 text-center text-white">
+          <p className="text-xs font-semibold uppercase tracking-[0.5em] text-[#FFD76A] sm:text-sm">
+            Contact The Gallaspy
           </p>
 
-          <h1 className="mx-auto mt-5 max-w-4xl font-serif text-[2.8rem] font-light leading-[1.05] sm:text-6xl lg:text-[4.5rem]">
-            Help Build a Legacy
-            <span className="block">for Generations</span>
+          <h1 className="mt-6 font-serif text-5xl font-light leading-[1.02] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
+            Begin the
+            <span className="block">Conversation</span>
           </h1>
 
-          <div className="mx-auto mt-7 h-px w-16 bg-[#B89146]" />
+          <div className="mx-auto mt-8 h-px w-24 bg-[#D4AF37]" />
 
-          <p className="mx-auto mt-7 max-w-2xl text-sm leading-7 text-white/72 sm:text-base sm:leading-8">
-            The Gallaspy Golf &amp; Country Club is envisioned as a landmark
-            private-club destination built around championship golf,
-            exceptional hospitality, family tradition, and enduring value.
+          <p className="mx-auto mt-8 max-w-3xl text-base leading-8 text-white/80 sm:text-lg">
+            Connect with The Gallaspy Development Group regarding membership,
+            investment, strategic partnerships, development opportunities, or
+            the future of The Gallaspy Golf &amp; Country Club.
           </p>
         </div>
       </section>
 
-      {/* Introduction */}
-      <section className="px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
-        <div className="mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.38em] text-[#9A793A]">
-              Future Opportunities
+      <section className="px-5 py-20 sm:px-8 sm:py-24 lg:px-10 lg:py-28">
+        <div className="mx-auto w-full max-w-7xl">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.45em] text-[#B89146]">
+              How We Can Help
             </p>
 
-            <h2 className="mt-4 font-serif text-4xl font-light leading-[1.08] text-[#10263F] sm:text-5xl">
-              A Team Defined by Service and Excellence
+            <h2 className="mt-5 font-serif text-4xl font-light leading-tight sm:text-5xl md:text-6xl">
+              A Destination Built Through Relationships
             </h2>
 
-            <div className="mt-6 h-px w-16 bg-[#B89146]" />
-          </div>
+            <div className="mx-auto mt-7 h-px w-20 bg-[#B89146]" />
 
-          <div className="space-y-6 text-sm leading-7 text-[#52605A] sm:text-base sm:leading-8">
-            <p>
-              The Gallaspy is currently in the planning and development stage.
-              Employment applications are not yet being accepted, but the
-              completed destination is expected to create opportunities across
-              golf, hospitality, dining, wellness, recreation, events,
-              maintenance, and administration.
-            </p>
-
-            <p>
-              As development advances, this page will be updated with official
-              openings, application instructions, and information about joining
-              the team.
+            <p className="mx-auto mt-7 max-w-3xl text-base leading-8 text-[#56616B] sm:text-lg">
+              Whether you are interested in becoming a future member,
+              participating as a strategic partner, or learning more about the
+              development opportunity, we welcome the conversation.
             </p>
           </div>
-        </div>
-      </section>
 
-      {/* Departments */}
-      <section className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
-        <div className="mx-auto w-full max-w-6xl">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.38em] text-[#9A793A]">
-              Areas of Opportunity
-            </p>
-
-            <h2 className="mt-4 font-serif text-4xl font-light leading-[1.08] text-[#10263F] sm:text-5xl">
-              Future Career Departments
-            </h2>
-
-            <div className="mx-auto mt-6 h-px w-16 bg-[#B89146]" />
-          </div>
-
-          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {futureDepartments.map((department) => (
+          <div className="mt-14 grid gap-5 md:grid-cols-3">
+            {inquiryTypes.map((item) => (
               <article
-                key={department.title}
-                className="rounded-[18px] border border-[#163A2F]/10 bg-[#F7F4EE] px-6 py-7 shadow-[0_12px_35px_rgba(16,38,63,0.06)]"
+                key={item.title}
+                className="rounded-[24px] border border-[#10263F]/10 bg-white p-8 shadow-[0_14px_45px_rgba(16,38,63,0.08)]"
               >
-                <h3 className="font-serif text-2xl font-light leading-tight text-[#10263F]">
-                  {department.title}
+                <div className="h-px w-14 bg-[#B89146]" />
+
+                <h3 className="mt-6 font-serif text-3xl font-light">
+                  {item.title}
                 </h3>
 
-                <div className="mt-4 h-px w-10 bg-[#B89146]" />
-
-                <p className="mt-4 text-sm leading-7 text-[#52605A]">
-                  {department.description}
+                <p className="mt-5 text-sm leading-7 text-[#56616B] sm:text-base">
+                  {item.description}
                 </p>
               </article>
             ))}
@@ -136,76 +100,72 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* Values */}
-      <section className="bg-[#163A2F] px-5 py-16 text-white sm:px-8 sm:py-20 lg:px-10">
-        <div className="mx-auto w-full max-w-6xl">
-          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-            <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.38em] text-[#FFD76A]">
-                Our Standard
+      <section className="bg-white px-5 py-20 sm:px-8 sm:py-24 lg:px-10 lg:py-28">
+        <div className="mx-auto grid w-full max-w-7xl gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+          <div className="lg:sticky lg:top-32">
+            <p className="text-xs font-semibold uppercase tracking-[0.45em] text-[#B89146]">
+              Send an Inquiry
+            </p>
+
+            <h2 className="mt-5 font-serif text-4xl font-light leading-tight sm:text-5xl">
+              Connect With Our Development Team
+            </h2>
+
+            <div className="mt-7 h-px w-20 bg-[#B89146]" />
+
+            <p className="mt-7 text-base leading-8 text-[#56616B]">
+              Please complete the inquiry form and select the area that best
+              represents your interest. Your message will be directed to the
+              appropriate contact.
+            </p>
+
+            <div className="mt-10 rounded-[24px] bg-[#10263F] p-7 text-white sm:p-9">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#FFD76A]">
+                The Gallaspy Development Group
               </p>
 
-              <h2 className="mt-4 font-serif text-4xl font-light leading-[1.08] sm:text-5xl">
-                The Values Behind Every Experience
-              </h2>
-
-              <p className="mt-6 max-w-xl text-sm leading-7 text-white/72 sm:text-base sm:leading-8">
-                Every future team member will help shape the experience,
-                culture, and reputation of The Gallaspy Golf &amp; Country Club.
+              <p className="mt-5 font-serif text-3xl font-light">
+                Metro Atlanta, Georgia
               </p>
-            </div>
 
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-              {values.map((value) => (
-                <div
-                  key={value}
-                  className="flex min-h-[100px] items-center justify-center rounded-[16px] border border-white/15 bg-white/[0.06] px-4 text-center"
-                >
-                  <p className="font-serif text-xl font-light text-white">
-                    {value}
-                  </p>
-                </div>
-              ))}
+              <div className="mt-7 space-y-4 text-sm leading-7 text-white/75">
+                <p>
+                  Development of The Gallaspy Golf &amp; Country Club is
+                  currently in its planning and pre-development stage.
+                </p>
+
+                <p>
+                  Meetings and project materials are available by appointment
+                  or upon request.
+                </p>
+              </div>
             </div>
           </div>
+
+          <ContactForm />
         </div>
       </section>
 
-      {/* Contact CTA */}
-      <section className="px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
-        <div className="mx-auto max-w-4xl rounded-[22px] border border-[#B89146]/35 bg-white px-6 py-12 text-center shadow-[0_18px_50px_rgba(16,38,63,0.08)] sm:px-10">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.38em] text-[#9A793A]">
-            Stay Connected
+      <section className="bg-[#10263F] px-5 py-20 text-center text-white sm:px-8 sm:py-24 lg:px-10">
+        <div className="mx-auto max-w-4xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.45em] text-[#FFD76A]">
+            A Legacy in the Making
           </p>
 
-          <h2 className="mt-4 font-serif text-4xl font-light leading-tight text-[#10263F] sm:text-5xl">
-            Follow the Development Journey
+          <h2 className="mt-5 font-serif text-4xl font-light leading-tight sm:text-5xl md:text-6xl">
+            Building Something Worth Believing In
           </h2>
 
-          <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-[#52605A] sm:text-base">
-            Career opportunities will be announced as the project advances.
-            General inquiries may be submitted through the contact page.
+          <p className="mx-auto mt-7 max-w-3xl text-base leading-8 text-white/75 sm:text-lg">
+            The Gallaspy Golf &amp; Country Club is being created through
+            vision, disciplined planning, strategic collaboration, and a
+            commitment to building long-term value for members, partners, and
+            the community.
           </p>
-
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center rounded-full border border-[#B89146] bg-[#B89146] px-7 py-3.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition duration-300 hover:-translate-y-1 hover:bg-[#10263F]"
-            >
-              Contact the Team
-            </Link>
-
-            <a
-              href="https://www.instagram.com/thegallaspy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full border border-[#10263F]/25 px-7 py-3.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#10263F] transition duration-300 hover:-translate-y-1 hover:border-[#B89146] hover:text-[#9A793A]"
-            >
-              Follow on Instagram
-            </a>
-          </div>
         </div>
       </section>
+
+      <Footer />
     </main>
   );
 }

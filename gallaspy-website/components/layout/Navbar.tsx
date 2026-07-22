@@ -2,387 +2,238 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const clubLinks = [
-  { label: "Golf", href: "/club#golf" },
-  { label: "Tennis", href: "/club#tennis" },
-  { label: "Wellness", href: "/club#wellness" },
-  { label: "Events", href: "/club#events" },
-  { label: "Restaurants", href: "/club#restaurants" },
-  { label: "Vineyard", href: "/club#vineyard" },
+  { title: "Golf", href: "/the-club/golf" },
+  { title: "Tennis", href: "/the-club/tennis" },
+  { title: "Wellness", href: "/the-club/wellness" },
+  { title: "Events", href: "/the-club/events" },
+  { title: "Restaurant", href: "/the-club/restaurant" },
+  { title: "Vineyard", href: "/the-club/vineyard" },
 ];
 
 const primaryLinks = [
-  { label: "Why the Gallaspy?", href: "/why-the-gallaspy" },
-  { label: "Founding 250", href: "/founding-250" },
-  { label: "Membership", href: "/membership" },
-  { label: "Invest", href: "/investment" },
-  { label: "Founder’s Letter", href: "/founders-letter" },
+  { title: "Why the Gallaspy", href: "/why-the-gallaspy" },
+  { title: "Master Plan", href: "/master-plan" },
+  { title: "Founding 250", href: "/founding-250" },
+  { title: "Membership", href: "/membership" },
+  { title: "Invest", href: "/invest" },
+  { title: "Founder’s Letter", href: "/founders-letter" },
 ];
 
 export function Navbar() {
-  const pathname = usePathname();
-
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isClubOpen, setIsClubOpen] = useState(false);
-  const [isMobileClubOpen, setIsMobileClubOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 36);
+      setIsScrolled(window.scrollY > 12);
     };
 
     handleScroll();
-
-    window.addEventListener("scroll", handleScroll, {
-      passive: true,
-    });
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  useEffect(() => {
+  const closeMenus = () => {
     setIsMobileOpen(false);
     setIsClubOpen(false);
-    setIsMobileClubOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
-    document.body.style.overflow = isMobileOpen ? "hidden" : "";
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isMobileOpen]);
-
-  const headerIsSolid = isScrolled || isMobileOpen;
-
-  const isActive = (href: string) => {
-    const basePath = href.split("#")[0];
-
-    if (basePath === "/") {
-      return pathname === "/";
-    }
-
-    return pathname === basePath;
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      <div
-        className={`mx-auto transition-all duration-500 ease-out ${
-          headerIsSolid
-            ? "max-w-[1360px] px-3 pt-3 sm:px-5 sm:pt-4"
-            : "max-w-none px-0 pt-0"
-        }`}
-      >
-        <div
-          className={`relative flex items-center justify-between border transition-all duration-500 ease-out ${
-            headerIsSolid
-              ? "h-[68px] rounded-[18px] border-white/10 bg-[#10263F]/92 px-4 shadow-[0_18px_55px_rgba(4,15,28,0.22)] backdrop-blur-2xl sm:h-[72px] sm:px-6 lg:h-[76px] lg:px-8"
-              : "h-[76px] rounded-none border-transparent bg-gradient-to-b from-[#071827]/65 to-transparent px-5 sm:h-[82px] sm:px-8 lg:h-[88px] lg:px-10"
-          }`}
+    <header
+      className={`fixed left-0 top-0 z-50 w-full transition-all duration-300 ${
+        isScrolled
+          ? "border-b border-white/10 bg-[#10263F]/95 shadow-lg backdrop-blur-md"
+          : "bg-[#10263F]/90 backdrop-blur-sm"
+      }`}
+    >
+      <div className="mx-auto flex h-[78px] w-full max-w-[1600px] items-center justify-between px-5 sm:px-8 lg:px-10">
+        {/* Logo */}
+        <Link
+          href="/"
+          onClick={closeMenus}
+          aria-label="The Gallaspy Golf and Country Club home"
+          className="flex shrink-0 items-center"
         >
-          {/* Logo */}
-          <Link
-            href="/"
-            aria-label="The Gallaspy Golf and Country Club home"
-            className="relative z-50 flex shrink-0 items-center"
+          <Image
+            src="/logos/logo.png"
+            alt="The Gallaspy Golf and Country Club"
+            width={60}
+            height={60}
+            priority
+            className="h-[54px] w-[54px] object-contain sm:h-[58px] sm:w-[58px]"
+          />
+        </Link>
+
+        {/* Desktop navigation */}
+        <nav className="hidden items-center gap-4 xl:flex 2xl:gap-5">
+          <div
+            className="relative"
+            onMouseEnter={() => setIsClubOpen(true)}
+            onMouseLeave={() => setIsClubOpen(false)}
           >
+            <button
+              type="button"
+              onClick={() => setIsClubOpen((current) => !current)}
+              className="flex h-[78px] items-center gap-2 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.17em] text-[#FFD76A] transition hover:text-white"
+              aria-expanded={isClubOpen}
+              aria-haspopup="true"
+            >
+              The Club
+
+              <span
+                className={`text-xs transition-transform duration-200 ${
+                  isClubOpen ? "rotate-180" : ""
+                }`}
+              >
+                ▾
+              </span>
+            </button>
+
             <div
-              className={`relative transition-all duration-500 ${
-                headerIsSolid
-                  ? "h-11 w-[152px] sm:h-12 sm:w-[166px]"
-                  : "h-12 w-[164px] sm:h-14 sm:w-[188px]"
+              className={`absolute left-1/2 top-full w-60 -translate-x-1/2 pt-2 transition-all duration-200 ${
+                isClubOpen
+                  ? "visible translate-y-0 opacity-100"
+                  : "invisible -translate-y-2 opacity-0"
               }`}
             >
-              <Image
-                src="/logos/logo.png"
-                alt="The Gallaspy Golf and Country Club"
-                fill
-                priority
-                sizes="188px"
-                className="object-contain object-left brightness-0 invert"
-              />
-            </div>
-          </Link>
-
-          {/* Desktop navigation */}
-          <nav
-            aria-label="Primary navigation"
-            className="hidden items-center gap-6 lg:flex xl:gap-8"
-          >
-            {/* The Club dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => setIsClubOpen(true)}
-              onMouseLeave={() => setIsClubOpen(false)}
-            >
-              <button
-                type="button"
-                aria-expanded={isClubOpen}
-                aria-haspopup="true"
-                onClick={() => setIsClubOpen((current) => !current)}
-                className="group relative flex items-center gap-2 py-6 text-[9px] font-bold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:text-[#FFD76A]"
-              >
-                <span>The Club</span>
-
-                <svg
-                  viewBox="0 0 20 20"
-                  aria-hidden="true"
-                  className={`h-3.5 w-3.5 transition-transform duration-300 ${
-                    isClubOpen ? "rotate-180" : ""
-                  }`}
-                >
-                  <path
-                    d="M5.5 7.5 10 12l4.5-4.5"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.6"
-                  />
-                </svg>
-
-                <span
-                  className={`absolute bottom-[15px] left-1/2 h-px -translate-x-1/2 bg-[#FFD76A] transition-all duration-300 ${
-                    isClubOpen ? "w-full opacity-100" : "w-0 opacity-0"
-                  }`}
-                />
-              </button>
-
-              <div
-                className={`absolute left-1/2 top-[62px] w-[270px] -translate-x-1/2 transition-all duration-300 ease-out ${
-                  isClubOpen
-                    ? "visible translate-y-0 scale-100 opacity-100"
-                    : "invisible -translate-y-3 scale-[0.97] opacity-0"
-                }`}
-              >
-                <div className="overflow-hidden rounded-[20px] border border-white/10 bg-[#10263F]/96 p-2.5 shadow-[0_28px_75px_rgba(4,15,28,0.32)] backdrop-blur-2xl">
+              <div className="overflow-hidden rounded-xl border border-white/10 bg-[#10263F] p-2 shadow-2xl">
+                {clubLinks.map((item) => (
                   <Link
-                    href="/club"
-                    className="block rounded-[14px] px-4 py-4 font-serif text-[22px] font-light text-white transition duration-300 hover:bg-white/[0.07] hover:text-[#FFD76A]"
+                    key={item.href}
+                    href={item.href}
+                    onClick={closeMenus}
+                    className="block rounded-lg px-4 py-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/85 transition hover:bg-[#B89146] hover:text-white"
                   >
-                    Explore The Club
+                    {item.title}
                   </Link>
-
-                  <div className="mx-4 my-1 h-px bg-white/10" />
-
-                  <div className="py-1">
-                    {clubLinks.map((link) => (
-                      <Link
-                        key={link.label}
-                        href={link.href}
-                        className="group flex items-center justify-between rounded-[12px] px-4 py-3 text-[9px] font-bold uppercase tracking-[0.18em] text-white/75 transition duration-300 hover:bg-white/[0.06] hover:text-[#FFD76A]"
-                      >
-                        <span>{link.label}</span>
-
-                        <span className="translate-x-0 text-[#FFD76A]/70 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100">
-                          →
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
+          </div>
 
-            {/* Main links */}
-            {primaryLinks.map((link) => {
-              const active = isActive(link.href);
+          {primaryLinks.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={closeMenus}
+              className="flex h-[78px] items-center whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.14em] text-[#FFD76A] transition hover:text-white"
+            >
+              {item.title}
+            </Link>
+          ))}
 
-              return (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className={`group relative py-6 text-[9px] font-bold uppercase tracking-[0.2em] transition-colors duration-300 ${
-                    active
-                      ? "text-[#FFD76A]"
-                      : "text-white hover:text-[#FFD76A]"
-                  }`}
-                >
-                  {link.label}
-
-                  <span
-                    className={`absolute bottom-[15px] left-1/2 h-px -translate-x-1/2 bg-[#FFD76A] transition-all duration-300 ${
-                      active
-                        ? "w-full opacity-100"
-                        : "w-0 opacity-0 group-hover:w-full group-hover:opacity-100"
-                    }`}
-                  />
-                </Link>
-              );
-            })}
-          </nav>
-                    {/* Mobile menu button */}
-          <button
-            type="button"
-            aria-label={isMobileOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isMobileOpen}
-            onClick={() => setIsMobileOpen((current) => !current)}
-            className="relative z-50 flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/[0.04] text-white backdrop-blur-md transition duration-300 hover:border-[#FFD76A]/70 hover:text-[#FFD76A] lg:hidden"
+          <Link
+            href="/contact"
+            onClick={closeMenus}
+            className="ml-1 inline-flex items-center justify-center rounded-full border border-[#FFD76A] bg-[#B89146] px-5 py-2.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition duration-300 hover:bg-white hover:text-[#10263F]"
           >
-            <span className="sr-only">
-              {isMobileOpen ? "Close menu" : "Open menu"}
-            </span>
+            Contact
+          </Link>
+        </nav>
 
-            <span className="relative block h-4 w-5">
-              <span
-                className={`absolute left-0 top-0 block h-px w-5 bg-current transition-all duration-300 ${
-                  isMobileOpen ? "top-[7px] rotate-45" : ""
-                }`}
-              />
+        {/* Mobile menu button */}
+        <button
+          type="button"
+          onClick={() => setIsMobileOpen((current) => !current)}
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-[#FFD76A]/60 text-[#FFD76A] transition hover:bg-[#FFD76A] hover:text-[#10263F] xl:hidden"
+          aria-label="Toggle navigation menu"
+          aria-expanded={isMobileOpen}
+        >
+          <span className="relative h-4 w-5">
+            <span
+              className={`absolute left-0 top-0 h-[2px] w-5 bg-current transition ${
+                isMobileOpen ? "translate-y-[7px] rotate-45" : ""
+              }`}
+            />
 
-              <span
-                className={`absolute left-0 top-[7px] block h-px w-5 bg-current transition-all duration-300 ${
-                  isMobileOpen ? "opacity-0" : "opacity-100"
-                }`}
-              />
+            <span
+              className={`absolute left-0 top-[7px] h-[2px] w-5 bg-current transition ${
+                isMobileOpen ? "opacity-0" : "opacity-100"
+              }`}
+            />
 
-              <span
-                className={`absolute left-0 top-[14px] block h-px w-5 bg-current transition-all duration-300 ${
-                  isMobileOpen ? "top-[7px] -rotate-45" : ""
-                }`}
-              />
-            </span>
-          </button>
-        </div>
+            <span
+              className={`absolute left-0 top-[14px] h-[2px] w-5 bg-current transition ${
+                isMobileOpen ? "-translate-y-[7px] -rotate-45" : ""
+              }`}
+            />
+          </span>
+        </button>
       </div>
 
       {/* Mobile navigation */}
       <div
-        className={`fixed inset-0 z-40 bg-[#10263F] transition-all duration-500 ease-out lg:hidden ${
+        className={`overflow-hidden border-t border-white/10 bg-[#10263F] transition-all duration-300 xl:hidden ${
           isMobileOpen
-            ? "visible translate-x-0 opacity-100"
-            : "invisible translate-x-full opacity-0"
+            ? "max-h-[950px] opacity-100"
+            : "max-h-0 border-t-transparent opacity-0"
         }`}
       >
-        {/* Background image */}
-        <Image
-          src="/images/hero.jpg"
-          alt=""
-          fill
-          sizes="100vw"
-          aria-hidden="true"
-          className="object-cover object-center opacity-[0.08]"
-        />
+        <nav className="mx-auto w-full max-w-3xl px-5 py-5 sm:px-8">
+          <button
+            type="button"
+            onClick={() => setIsClubOpen((current) => !current)}
+            className="flex w-full items-center justify-between border-b border-white/10 py-4 text-left text-[11px] font-semibold uppercase tracking-[0.18em] text-[#FFD76A]"
+          >
+            The Club
 
-        {/* Overlays */}
-        <div className="absolute inset-0 bg-[#10263F]/90" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#10263F]/70 via-[#10263F]/95 to-[#071827]" />
+            <span
+              className={`transition-transform ${
+                isClubOpen ? "rotate-180" : ""
+              }`}
+            >
+              ▾
+            </span>
+          </button>
 
-        <nav
-          aria-label="Mobile navigation"
-          className="relative z-10 h-full overflow-y-auto px-5 pb-10 pt-[108px] sm:px-8 sm:pt-[118px]"
-        >
-          <div className="mx-auto w-full max-w-xl">
-            <p className="mb-7 text-[9px] font-bold uppercase tracking-[0.36em] text-[#FFD76A]">
-              Private Club Navigation
-            </p>
-
-            {/* Mobile Club accordion */}
-            <div className="border-b border-white/12">
-              <button
-                type="button"
-                aria-expanded={isMobileClubOpen}
-                onClick={() =>
-                  setIsMobileClubOpen((current) => !current)
-                }
-                className="flex w-full items-center justify-between py-5 text-left"
-              >
-                <span className="font-serif text-3xl font-light text-white sm:text-4xl">
-                  The Club
-                </span>
-
-                <span
-                  className={`flex h-10 w-10 items-center justify-center rounded-full border border-[#FFD76A]/50 text-lg font-light text-[#FFD76A] transition-transform duration-300 ${
-                    isMobileClubOpen ? "rotate-45" : ""
-                  }`}
-                >
-                  +
-                </span>
-              </button>
-
-              <div
-                className={`grid overflow-hidden transition-all duration-500 ${
-                  isMobileClubOpen
-                    ? "grid-rows-[1fr] pb-6"
-                    : "grid-rows-[0fr]"
-                }`}
-              >
-                <div className="min-h-0">
-                  <Link
-                    href="/club"
-                    className="mb-2 block py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[#FFD76A]"
-                  >
-                    Explore The Club
-                  </Link>
-
-                  <div className="grid grid-cols-2 gap-x-5">
-                    {clubLinks.map((link) => (
-                      <Link
-                        key={link.label}
-                        href={link.href}
-                        className="border-b border-white/10 py-4 text-[10px] font-bold uppercase tracking-[0.16em] text-white/70 transition hover:text-[#FFD76A]"
-                      >
-                        {link.label}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>            {/* Primary mobile links */}
-            {primaryLinks.map((link) => (
+          <div
+            className={`grid overflow-hidden transition-all duration-300 ${
+              isClubOpen
+                ? "max-h-96 py-2 opacity-100"
+                : "max-h-0 py-0 opacity-0"
+            }`}
+          >
+            {clubLinks.map((item) => (
               <Link
-                key={link.label}
-                href={link.href}
-                className={`group flex items-center justify-between border-b border-white/12 py-5 font-serif text-3xl font-light transition sm:text-4xl ${
-                  isActive(link.href)
-                    ? "text-[#FFD76A]"
-                    : "text-white hover:text-[#FFD76A]"
-                }`}
+                key={item.href}
+                href={item.href}
+                onClick={closeMenus}
+                className="rounded-lg px-4 py-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/80 transition hover:bg-white/10 hover:text-[#FFD76A]"
               >
-                <span>{link.label}</span>
-
-                <span className="text-base font-light text-[#FFD76A]/60 transition-transform duration-300 group-hover:translate-x-1">
-                  →
-                </span>
+                {item.title}
               </Link>
             ))}
-
-            {/* Mobile CTA card */}
-            <div className="relative mt-9 overflow-hidden rounded-[22px] border border-[#FFD76A]/25 bg-white/[0.06] p-6 text-white shadow-[0_20px_55px_rgba(0,0,0,0.2)] backdrop-blur-md sm:p-7">
-              <div className="absolute -right-14 -top-14 h-36 w-36 rounded-full bg-[#FFD76A]/10 blur-3xl" />
-
-              <p className="relative text-[9px] font-bold uppercase tracking-[0.3em] text-[#FFD76A]">
-                A Legacy in the Making
-              </p>
-
-              <p className="relative mt-4 max-w-md font-serif text-2xl font-light leading-snug sm:text-3xl">
-                Championship golf, private-club living, and a vision built for
-                generations.
-              </p>
-
-              <Link
-                href="/contact"
-                className="relative mt-7 inline-flex min-h-[48px] items-center justify-center border border-[#FFD76A] bg-[#FFD76A] px-7 text-[9px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition duration-300 hover:bg-transparent hover:text-white"
-              >
-                Contact The Gallaspy
-                <span className="ml-3">→</span>
-              </Link>
-            </div>
-
-            <p className="mt-8 text-center text-[8px] font-semibold uppercase tracking-[0.26em] text-white/35">
-              Tradition · Family · Excellence
-            </p>
           </div>
+
+          {primaryLinks.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={closeMenus}
+              className="block border-b border-white/10 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#FFD76A] transition hover:text-white"
+            >
+              {item.title}
+            </Link>
+          ))}
+
+          <Link
+            href="/contact"
+            onClick={closeMenus}
+            className="mt-5 inline-flex w-full items-center justify-center rounded-full border border-[#FFD76A] bg-[#B89146] px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white hover:text-[#10263F]"
+          >
+            Contact
+          </Link>
         </nav>
       </div>
     </header>
   );
 }
+
+export default Navbar;
