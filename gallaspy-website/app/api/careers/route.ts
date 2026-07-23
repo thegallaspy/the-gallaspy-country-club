@@ -1,10 +1,8 @@
-import { put } from "@vercel/blob";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
 export const runtime = "nodejs";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+export const dynamic = "force-dynamic";
 
 const MAX_FILE_SIZE = 4 * 1024 * 1024;
 
@@ -16,6 +14,7 @@ const ALLOWED_FILE_TYPES = new Set([
 
 function getText(formData: FormData, field: string): string {
   const value = formData.get(field);
+
   return typeof value === "string" ? value.trim() : "";
 }
 
@@ -37,12 +36,22 @@ function safeFilename(filename: string): string {
 
 export async function POST(request: Request) {
   try {
-    if (!process.env.RESEND_API_KEY) {
+    const resendApiKey = process.env.RESEND_API_KEY;
+
+    if (!resendApiKey) {
+      console.error("RESEND_API_KEY is missing.");
+
       return NextResponse.json(
-        { error: "Email service is not configured." },
-        { status: 500 },
+        {
+          error: "Email service is not configured.",
+        },
+        {
+          status: 500,
+        },
       );
     }
+
+    const resend = new Resend(resendApiKey);
 
     const formData = await request.formData();
 
@@ -76,33 +85,52 @@ export async function POST(request: Request) {
 
     if (requiredFields.some((field) => !field)) {
       return NextResponse.json(
-        { error: "Please complete every required field." },
-        { status: 400 },
+        {
+          error: "Please complete every required field.",
+        },
+        {
+          status: 400,
+        },
       );
     }
 
-    if (!email.includes("@") || email.length > 254) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(email) || email.length > 254) {
       return NextResponse.json(
-        { error: "Please enter a valid email address." },
-        { status: 400 },
+        {
+          error: "Please enter a valid email address.",
+        },
+        {
+          status: 400,
+        },
       );
     }
 
     if (introduction.length > 1500) {
       return NextResponse.json(
-        { error: "Your professional introduction is too long." },
-        { status: 400 },
+        {
+          error: "Your professional introduction is too long.",
+        },
+        {
+          status: 400,
+        },
       );
     }
 
     if (consent !== "true") {
       return NextResponse.json(
-        { error: "Consent is required before submitting." },
-        { status: 400 },
+        {
+          error: "Consent is required before submitting.",
+        },
+        {
+          status: 400,
+        },
       );
     }
 
     const resumeValue = formData.get("resume");
+
     const resume =
       resumeValue instanceof File && resumeValue.size > 0
         ? resumeValue
@@ -115,51 +143,39 @@ export async function POST(request: Request) {
         }
       | undefined;
 
-    let storedResumePath = "Not stored";
-
     if (resume) {
       if (!ALLOWED_FILE_TYPES.has(resume.type)) {
         return NextResponse.json(
-          { error: "Resume must be a PDF, DOC, or DOCX file." },
-          { status: 400 },
+          {
+            error: "Resume must be a PDF, DOC, or DOCX file.",
+          },
+          {
+            status: 400,
+          },
         );
       }
 
       if (resume.size > MAX_FILE_SIZE) {
         return NextResponse.json(
-          { error: "Resume must be smaller than 4 MB." },
-          { status: 400 },
+          {
+            error: "Resume must be smaller than 4 MB.",
+          },
+          {
+            status: 400,
+          },
         );
       }
 
       const fileBuffer = Buffer.from(await resume.arrayBuffer());
-      const filename = safeFilename(resume.name);
 
       resumeAttachment = {
-        filename,
+        filename: safeFilename(resume.name),
         content: fileBuffer.toString("base64"),
       };
-
-      if (process.env.BLOB_READ_WRITE_TOKEN) {
-        const timestamp = new Date().toISOString().replaceAll(":", "-");
-        const blob = await put(
-          `career-applications/${timestamp}-${safeFilename(
-            `${firstName}-${lastName}-${filename}`,
-          )}`,
-          fileBuffer,
-          {
-            access: "private",
-            addRandomSuffix: true,
-            contentType: resume.type,
-          },
-        );
-
-        storedResumePath = blob.pathname;
-      }
     }
 
     const applicationToEmail =
-      process.env.CAREERS_TO_EMAIL || "thegallaspy@gmail.com";
+      process.env.CAREERS_TO_EMAIL || "TheGallaspy@gmail.com";
 
     const fromEmail =
       process.env.CAREERS_FROM_EMAIL ||
@@ -178,6 +194,7 @@ export async function POST(request: Request) {
             <p style="margin:0;color:#FFD76A;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:700;">
               The Gallaspy Future Talent Network
             </p>
+
             <h1 style="margin:10px 0 0;color:#ffffff;font-size:28px;font-weight:500;">
               New Career Interest Submission
             </h1>
@@ -189,24 +206,94 @@ export async function POST(request: Request) {
             </h2>
 
             <table style="width:100%;border-collapse:collapse;">
-              <tr><td style="padding:8px 0;font-weight:700;">Email</td><td style="padding:8px 0;">${escapeHtml(email)}</td></tr>
-              <tr><td style="padding:8px 0;font-weight:700;">Phone</td><td style="padding:8px 0;">${escapeHtml(phone)}</td></tr>
-              <tr><td style="padding:8px 0;font-weight:700;">Location</td><td style="padding:8px 0;">${escapeHtml(city)}, ${escapeHtml(state)}</td></tr>
-              <tr><td style="padding:8px 0;font-weight:700;">Area of Interest</td><td style="padding:8px 0;">${escapeHtml(department)}</td></tr>
-              <tr><td style="padding:8px 0;font-weight:700;">Employment Preference</td><td style="padding:8px 0;">${escapeHtml(employmentType)}</td></tr>
-              <tr><td style="padding:8px 0;font-weight:700;">Experience</td><td style="padding:8px 0;">${escapeHtml(experience)}</td></tr>
-              <tr><td style="padding:8px 0;font-weight:700;">Availability</td><td style="padding:8px 0;">${escapeHtml(availability)}</td></tr>
-              <tr><td style="padding:8px 0;font-weight:700;">LinkedIn / Portfolio</td><td style="padding:8px 0;">${professionalLink ? escapeHtml(professionalLink) : "Not provided"}</td></tr>
-              <tr><td style="padding:8px 0;font-weight:700;">Stored Resume</td><td style="padding:8px 0;">${escapeHtml(storedResumePath)}</td></tr>
+              <tr>
+                <td style="padding:8px 0;font-weight:700;">Email</td>
+                <td style="padding:8px 0;">${escapeHtml(email)}</td>
+              </tr>
+
+              <tr>
+                <td style="padding:8px 0;font-weight:700;">Phone</td>
+                <td style="padding:8px 0;">${escapeHtml(phone)}</td>
+              </tr>
+
+              <tr>
+                <td style="padding:8px 0;font-weight:700;">Location</td>
+                <td style="padding:8px 0;">
+                  ${escapeHtml(city)}, ${escapeHtml(state)}
+                </td>
+              </tr>
+
+              <tr>
+                <td style="padding:8px 0;font-weight:700;">
+                  Area of Interest
+                </td>
+                <td style="padding:8px 0;">
+                  ${escapeHtml(department)}
+                </td>
+              </tr>
+
+              <tr>
+                <td style="padding:8px 0;font-weight:700;">
+                  Employment Preference
+                </td>
+                <td style="padding:8px 0;">
+                  ${escapeHtml(employmentType)}
+                </td>
+              </tr>
+
+              <tr>
+                <td style="padding:8px 0;font-weight:700;">Experience</td>
+                <td style="padding:8px 0;">
+                  ${escapeHtml(experience)}
+                </td>
+              </tr>
+
+              <tr>
+                <td style="padding:8px 0;font-weight:700;">Availability</td>
+                <td style="padding:8px 0;">
+                  ${escapeHtml(availability)}
+                </td>
+              </tr>
+
+              <tr>
+                <td style="padding:8px 0;font-weight:700;">
+                  LinkedIn / Portfolio
+                </td>
+                <td style="padding:8px 0;">
+                  ${
+                    professionalLink
+                      ? escapeHtml(professionalLink)
+                      : "Not provided"
+                  }
+                </td>
+              </tr>
+
+              <tr>
+                <td style="padding:8px 0;font-weight:700;">Resume</td>
+                <td style="padding:8px 0;">
+                  ${
+                    resumeAttachment
+                      ? "Included as an email attachment"
+                      : "Not provided"
+                  }
+                </td>
+              </tr>
             </table>
 
             <div style="margin-top:24px;padding:20px;background:#F7F4EE;border-radius:12px;">
-              <p style="margin:0 0 8px;font-weight:700;">Professional Introduction</p>
-              <p style="margin:0;white-space:pre-wrap;">${escapeHtml(introduction)}</p>
+              <p style="margin:0 0 8px;font-weight:700;">
+                Professional Introduction
+              </p>
+
+              <p style="margin:0;white-space:pre-wrap;">
+                ${escapeHtml(introduction)}
+              </p>
             </div>
 
             <p style="margin:24px 0 0;color:#667085;font-size:12px;">
-              The applicant confirmed that this submission is an expression of future career interest and not an application for an active opening.
+              The applicant confirmed that this submission is an expression
+              of future career interest and not an application for an active
+              opening.
             </p>
           </div>
         </div>
@@ -215,10 +302,19 @@ export async function POST(request: Request) {
     });
 
     if (adminEmail.error) {
-      console.error("Career application email error:", adminEmail.error);
+      console.error(
+        "Career application email error:",
+        adminEmail.error,
+      );
+
       return NextResponse.json(
-        { error: "We could not submit your information. Please try again." },
-        { status: 500 },
+        {
+          error:
+            "We could not submit your information. Please try again.",
+        },
+        {
+          status: 500,
+        },
       );
     }
 
@@ -232,6 +328,7 @@ export async function POST(request: Request) {
             <p style="margin:0;color:#FFD76A;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:700;">
               The Gallaspy
             </p>
+
             <h1 style="margin:12px 0 0;color:#ffffff;font-size:28px;font-weight:500;">
               Thank You, ${escapeHtml(firstName)}
             </h1>
@@ -239,19 +336,21 @@ export async function POST(request: Request) {
 
           <div style="border:1px solid #E5DED1;border-top:0;padding:30px;border-radius:0 0 14px 14px;background:#ffffff;">
             <p>
-              We received your submission to The Gallaspy Future Talent Network for
+              We received your submission to The Gallaspy Future Talent
+              Network for
               <strong>${escapeHtml(department)}</strong>.
             </p>
 
             <p>
-              The Gallaspy Golf &amp; Country Club is currently in development. As formal
-              employment opportunities become available, submitted professional information
-              may be reviewed against future staffing needs.
+              The Gallaspy Golf &amp; Country Club is currently in
+              development. As formal employment opportunities become
+              available, submitted professional information may be reviewed
+              against future staffing needs.
             </p>
 
             <p>
-              This confirmation does not represent an interview invitation, active job
-              application, or offer of employment.
+              This confirmation does not represent an interview invitation,
+              active job application, or offer of employment.
             </p>
 
             <p style="margin-bottom:0;">
@@ -276,7 +375,9 @@ export async function POST(request: Request) {
         message:
           "Thank you. Your professional information has been submitted to The Gallaspy Future Talent Network.",
       },
-      { status: 200 },
+      {
+        status: 200,
+      },
     );
   } catch (error) {
     console.error("Career application route error:", error);
@@ -286,7 +387,9 @@ export async function POST(request: Request) {
         error:
           "An unexpected error occurred while submitting your information.",
       },
-      { status: 500 },
+      {
+        status: 500,
+      },
     );
   }
 }
