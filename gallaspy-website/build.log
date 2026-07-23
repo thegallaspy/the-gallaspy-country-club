@@ -1,0 +1,39 @@
+
+> gallaspy-website@0.1.0 build
+> next build --webpack
+
+▲ Next.js 16.2.10 (webpack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+
+warn - The `content` option in your Tailwind CSS configuration is missing or empty.
+warn - Configure your content sources or your generated CSS will be missing styles.
+warn - https://tailwindcss.com/docs/content-configuration
+Failed to compile.
+
+./app/globals.css
+Module not found: Can't resolve 'tailwindcss'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./app/globals.css
+
+./app/globals.css
+Error: Can't resolve 'tailwindcss'
+    at finishWithoutResolve (/workspaces/the-gallaspy-country-club/gallaspy-website/node_modules/next/dist/compiled/webpack/bundle5.js:1:191837)
+    at /workspaces/the-gallaspy-country-club/gallaspy-website/node_modules/next/dist/compiled/webpack/bundle5.js:1:192737
+    at /workspaces/the-gallaspy-country-club/gallaspy-website/node_modules/next/dist/compiled/webpack/bundle5.js:1:193370
+    at eval (eval at create (/workspaces/the-gallaspy-country-club/gallaspy-website/node_modules/next/dist/compiled/webpack/bundle5.js:14:9224), <anonymous>:16:1)
+    at /workspaces/the-gallaspy-country-club/gallaspy-website/node_modules/next/dist/compiled/webpack/bundle5.js:1:193370
+    at eval (eval at create (/workspaces/the-gallaspy-country-club/gallaspy-website/node_modules/next/dist/compiled/webpack/bundle5.js:14:9224), <anonymous>:27:1)
+    at /workspaces/the-gallaspy-country-club/gallaspy-website/node_modules/next/dist/compiled/webpack/bundle5.js:1:175252
+    at /workspaces/the-gallaspy-country-club/gallaspy-website/node_modules/next/dist/compiled/webpack/bundle5.js:1:193370
+    at eval (eval at create (/workspaces/the-gallaspy-country-club/gallaspy-website/node_modules/next/dist/compiled/webpack/bundle5.js:14:9224), <anonymous>:16:1)
+    at /workspaces/the-gallaspy-country-club/gallaspy-website/node_modules/next/dist/compiled/webpack/bundle5.js:1:208998
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+> Build failed because of webpack errors
