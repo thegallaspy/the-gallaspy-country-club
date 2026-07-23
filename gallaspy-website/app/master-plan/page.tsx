@@ -497,7 +497,7 @@ export default function MasterPlanPage() {
             </p>
 
             <Link
-              href="/investment"
+              href="/invest"
               className="mt-6 inline-flex min-h-[45px] items-center justify-center rounded-full border border-white/35 px-6 text-[10px] font-bold uppercase tracking-[0.18em] text-white transition hover:-translate-y-0.5 hover:border-[#FFD76A] hover:text-[#FFD76A]"
             >
               View Investment Page

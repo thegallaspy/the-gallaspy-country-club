@@ -402,11 +402,19 @@ export default function Founding250Page() {
                   {tier.release}
                 </p>
 
-                <h3 className="mt-5 font-serif text-3xl font-light">
+                <h3
+                  className={`mt-5 font-serif text-3xl font-light ${
+                    tier.featured ? "!text-[#10263F]" : "text-white"
+                  }`}
+                >
                   {tier.title}
                 </h3>
 
-                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] opacity-65">
+                <p
+                  className={`mt-2 text-xs font-semibold uppercase tracking-[0.16em] ${
+                    tier.featured ? "!text-[#1E3557]/65" : "text-white/65"
+                  }`}
+                >
                   {tier.availability}
                 </p>
 
@@ -414,21 +422,37 @@ export default function Founding250Page() {
 
                 <div className="mt-6 grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] opacity-60">
+                    <p
+                      className={`text-[10px] font-bold uppercase tracking-[0.18em] ${
+                        tier.featured ? "!text-[#1E3557]/60" : "text-white/60"
+                      }`}
+                    >
                       Initiation
                     </p>
 
-                    <p className="mt-2 font-serif text-3xl font-light">
+                    <p
+                      className={`mt-2 font-serif text-3xl font-light ${
+                        tier.featured ? "!text-[#10263F]" : "text-white"
+                      }`}
+                    >
                       {tier.initiation}
                     </p>
                   </div>
 
                   <div>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] opacity-60">
+                    <p
+                      className={`text-[10px] font-bold uppercase tracking-[0.18em] ${
+                        tier.featured ? "!text-[#1E3557]/60" : "text-white/60"
+                      }`}
+                    >
                       Monthly Dues
                     </p>
 
-                    <p className="mt-2 font-serif text-3xl font-light">
+                    <p
+                      className={`mt-2 font-serif text-3xl font-light ${
+                        tier.featured ? "!text-[#10263F]" : "text-white"
+                      }`}
+                    >
                       {tier.monthly}
                     </p>
                   </div>
@@ -436,7 +460,7 @@ export default function Founding250Page() {
 
                 <p
                   className={`mt-6 text-sm leading-7 ${
-                    tier.featured ? "text-[#1E3557]/75" : "text-white/72"
+                    tier.featured ? "!text-[#1E3557]/75" : "text-white/72"
                   }`}
                 >
                   {tier.description}

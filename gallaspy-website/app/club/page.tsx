@@ -5,7 +5,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "The Club | The Gallaspy Golf & Country Club",
   description:
-    "Explore championship golf, fine dining, wellness, racquet sports, vineyard experiences, lodging, and private events at The Gallaspy Golf & Country Club.",
+    "Explore championship golf, the Grand Clubhouse, fine dining, wellness, racquet sports, vineyard experiences, lodging, and private events at The Gallaspy Golf & Country Club.",
 };
 
 const amenities = [
@@ -17,11 +17,30 @@ const amenities = [
       "At the heart of The Gallaspy is an 18-hole championship golf course shaped around the natural beauty of the property. The experience is envisioned for players of every skill level, with thoughtful course design, first-class practice facilities, and a strong tradition of member competition.",
     image: "/images/golf.png",
     imageAlt: "Championship golf course at The Gallaspy",
+    href: "/club/golf",
+    buttonLabel: "Explore Championship Golf",
     features: [
       "18 Championship Holes",
       "Practice Facility",
       "Short-Game Complex",
       "Putting Course",
+    ],
+  },
+  {
+    id: "clubhouse",
+    eyebrow: "The Grand Clubhouse",
+    title: "The Heart of The Gallaspy",
+    description:
+      "The Grand Clubhouse is envisioned as the architectural and social centerpiece of the club. Members will gather here for dining, celebrations, golf traditions, private events, and the everyday moments that create a lasting sense of belonging.",
+    image: "/images/clubhouse.png",
+    imageAlt: "The Grand Clubhouse at The Gallaspy",
+    href: "/club/clubhouse",
+    buttonLabel: "Discover the Grand Clubhouse",
+    features: [
+      "Member Lounges",
+      "Golf Shop",
+      "Locker Rooms",
+      "18th Green Terrace",
     ],
   },
   {
@@ -32,6 +51,8 @@ const amenities = [
       "Mercury Street Restaurant is planned as the culinary heart of the club. Members will enjoy chef-driven menus, private dining, seasonal events, an elevated wine program, and outdoor terraces overlooking the club landscape.",
     image: "/images/mercurystreet.png",
     imageAlt: "Mercury Street Restaurant at The Gallaspy",
+    href: "/club/restaurant",
+    buttonLabel: "Discover Mercury Street",
     features: [
       "Chef-Driven Dining",
       "Private Dining Rooms",
@@ -47,6 +68,8 @@ const amenities = [
       "The wellness experience will combine fitness, recovery, spa treatments, and resort-style recreation in a private setting. Every space is intended to support balance, health, and a more complete club lifestyle.",
     image: "/images/wellness.png",
     imageAlt: "Wellness and spa facilities at The Gallaspy",
+    href: "/club/wellness",
+    buttonLabel: "Experience Wellness",
     features: [
       "Full-Service Spa",
       "Fitness Center",
@@ -62,6 +85,8 @@ const amenities = [
       "The racquet program will serve both competitive players and families. Tennis, pickleball, clinics, league play, and social programming will create an active, welcoming environment for members of all ages.",
     image: "/images/arrival.png",
     imageAlt: "Racquet and recreation experience at The Gallaspy",
+    href: "/club/racquet",
+    buttonLabel: "Explore the Racquet Club",
     features: [
       "Tennis Courts",
       "Pickleball Courts",
@@ -77,6 +102,8 @@ const amenities = [
       "The estate vineyard and future winery are envisioned as defining features of The Gallaspy. Members will gather for tastings, harvest dinners, private events, and seasonal experiences that connect hospitality with the natural character of the land.",
     image: "/images/vineyard.png",
     imageAlt: "Vineyard and winery at The Gallaspy",
+    href: "/club/vineyard",
+    buttonLabel: "Visit the Vineyard",
     features: [
       "Estate Vineyard",
       "Private Tastings",
@@ -92,6 +119,8 @@ const amenities = [
       "Luxury lodging will allow members and guests to extend their experience beyond a single day. Suites, cottages, and personalized hospitality will support weekend stays, family visits, executive retreats, and special celebrations.",
     image: "/images/lodging.png",
     imageAlt: "Luxury member lodging at The Gallaspy",
+    href: "/club/lodging",
+    buttonLabel: "Explore Member Lodging",
     features: [
       "Luxury Suites",
       "Guest Cottages",
@@ -107,6 +136,8 @@ const amenities = [
       "The Event Pavilion will be designed for weddings, galas, corporate retreats, charity gatherings, and private celebrations. Elegant architecture, flexible indoor-outdoor spaces, and exceptional service will make every event feel distinctive.",
     image: "/images/clubhouse.png",
     imageAlt: "Event Pavilion and clubhouse at The Gallaspy",
+    href: "/club/events",
+    buttonLabel: "Explore Private Events",
     features: [
       "Weddings & Galas",
       "Corporate Retreats",
@@ -148,18 +179,33 @@ export default function ClubPage() {
 
             <p className="mt-6 max-w-2xl text-sm leading-7 text-white/85 sm:text-base sm:leading-8">
               Every detail of The Gallaspy is being envisioned to bring
-              championship golf, exceptional hospitality, wellness,
-              recreation, and family traditions together in one extraordinary
-              private destination.
+              championship golf, exceptional hospitality, wellness, recreation,
+              and family traditions together in one extraordinary private
+              destination.
             </p>
 
             <Link
               href="#golf"
               className="mt-8 inline-flex min-h-[45px] items-center justify-center rounded-full border border-[#B89146] bg-[#B89146] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition hover:-translate-y-0.5 hover:bg-[#FFD76A] hover:text-[#10263F]"
             >
-              Explore the Amenities
+              Explore the Experiences
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Experience navigation */}
+      <section className="border-b border-[#1E3557]/10 bg-[#10263F] px-5 py-5 sm:px-8">
+        <div className="mx-auto flex w-full max-w-[1060px] gap-2 overflow-x-auto pb-1">
+          {amenities.map((amenity) => (
+            <Link
+              key={amenity.id}
+              href={`#${amenity.id}`}
+              className="inline-flex min-h-[38px] shrink-0 items-center justify-center rounded-full border border-white/20 px-4 text-[9px] font-bold uppercase tracking-[0.15em] text-white/80 transition hover:border-[#FFD76A] hover:text-[#FFD76A]"
+            >
+              {amenity.eyebrow}
+            </Link>
+          ))}
         </div>
       </section>
 
@@ -203,11 +249,15 @@ export default function ClubPage() {
           <section
             key={amenity.id}
             id={amenity.id}
-            className={index % 2 === 0 ? "bg-white" : "bg-[#F7F4EE]"}
+            className={`scroll-mt-24 ${
+              index % 2 === 0 ? "bg-white" : "bg-[#F7F4EE]"
+            }`}
           >
             <div className="mx-auto grid w-full max-w-[1060px] gap-10 px-5 py-16 sm:px-8 lg:grid-cols-2 lg:items-center lg:gap-16 lg:py-20">
-              <div
-                className={`relative min-h-[360px] overflow-hidden rounded-[22px] lg:min-h-[520px] ${
+              <Link
+                href={amenity.href}
+                aria-label={amenity.buttonLabel}
+                className={`group relative min-h-[360px] overflow-hidden rounded-[22px] lg:min-h-[520px] ${
                   imageFirst ? "lg:order-1" : "lg:order-2"
                 }`}
               >
@@ -216,9 +266,21 @@ export default function ClubPage() {
                   alt={amenity.imageAlt}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover"
+                  className="object-cover transition duration-700 group-hover:scale-[1.03]"
                 />
-              </div>
+
+                <div className="absolute inset-0 bg-gradient-to-t from-[#10263F]/55 via-transparent to-transparent opacity-70 transition group-hover:opacity-90" />
+
+                <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between p-6 text-white">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.2em]">
+                    View Experience
+                  </p>
+
+                  <span className="text-xl transition-transform group-hover:translate-x-1">
+                    →
+                  </span>
+                </div>
+              </Link>
 
               <div className={imageFirst ? "lg:order-2" : "lg:order-1"}>
                 <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
@@ -247,6 +309,14 @@ export default function ClubPage() {
                     </div>
                   ))}
                 </div>
+
+                <Link
+                  href={amenity.href}
+                  className="mt-8 inline-flex min-h-[45px] items-center justify-center rounded-full border border-[#B89146] bg-[#B89146] px-7 text-[10px] font-bold uppercase tracking-[0.18em] text-white transition hover:-translate-y-0.5 hover:bg-[#FFD76A] hover:text-[#10263F]"
+                >
+                  {amenity.buttonLabel}
+                  <span className="ml-3 text-base">→</span>
+                </Link>
               </div>
             </div>
           </section>
@@ -272,12 +342,21 @@ export default function ClubPage() {
             </p>
           </div>
 
-          <Link
-            href="/membership#membership-interest"
-            className="inline-flex min-h-[46px] shrink-0 items-center justify-center rounded-full border border-[#FFD76A] bg-[#FFD76A] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:-translate-y-0.5 hover:bg-white"
-          >
-            Become a Founding Member
-          </Link>
+          <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
+            <Link
+              href="/founding-250#registration"
+              className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[#FFD76A] bg-[#FFD76A] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:-translate-y-0.5 hover:bg-white"
+            >
+              Join the Founding 250
+            </Link>
+
+            <Link
+              href="/membership#membership-interest"
+              className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-white/35 px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition hover:-translate-y-0.5 hover:border-[#FFD76A] hover:text-[#FFD76A]"
+            >
+              Explore Membership
+            </Link>
+          </div>
         </div>
       </section>
     </main>
