@@ -6,132 +6,59 @@ import Founding250Form from "@/components/Founding250Form";
 export const metadata: Metadata = {
   title: "The Founding 250 | The Gallaspy Golf & Country Club",
   description:
-    "Discover The Founding 250, the original membership generation of The Gallaspy Golf & Country Club in Covington, Georgia.",
+    "Become part of the original membership generation of The Gallaspy Golf & Country Club in Metro Atlanta.",
 };
 
-const foundingBenefits = [
+const foundingPillars = [
   {
     number: "01",
-    title: "Founding Member Recognition",
+    title: "Legacy",
     description:
-      "Recognition as part of the original membership generation that helped establish The Gallaspy Golf & Country Club.",
+      "Help establish one of Georgia’s next great private golf and lifestyle clubs.",
   },
   {
     number: "02",
-    title: "Permanent Clubhouse Recognition",
+    title: "Recognition",
     description:
-      "The Founding 250 are intended to receive permanent recognition within the future clubhouse.",
+      "Receive permanent Founding Member recognition as part of the club’s original membership generation.",
   },
   {
     number: "03",
-    title: "Founding Events",
+    title: "Priority",
     description:
-      "Invitations to select development presentations, private gatherings, milestone celebrations, and founding member events.",
+      "Receive project updates, invitations, and future membership opportunities before broader public release.",
   },
   {
     number: "04",
-    title: "Early Project Access",
+    title: "Community",
     description:
-      "Priority communication regarding development progress, membership announcements, and future club opportunities.",
-  },
-  {
-    number: "05",
-    title: "Legacy Status",
-    description:
-      "A distinguished membership designation recognizing early belief in the club and its long-term vision.",
-  },
-  {
-    number: "06",
-    title: "Tradition Building",
-    description:
-      "The opportunity to help shape the traditions, values, community, and character that define the future club.",
+      "Join entrepreneurs, professionals, families, veterans, and community leaders who share a vision for excellence.",
   },
 ];
 
-const membershipReleases = [
-  {
-    release: "First Release",
-    title: "Charter Founder",
-    availability: "Memberships 1–100",
-    initiation: "$7,500",
-    monthly: "$595",
-    description:
-      "The earliest membership release for individuals and families who want to stand among the first supporters of The Gallaspy.",
-    featured: true,
-  },
-  {
-    release: "Second Release",
-    title: "Founding Member",
-    availability: "Memberships 101–250",
-    initiation: "$10,000",
-    monthly: "$650",
-    description:
-      "The second release completes the original Founding 250 and recognizes those who join during the club’s earliest chapter.",
-    featured: false,
-  },
+const timeline = [
+  { year: "2026", title: "Vision Begins" },
+  { year: "Phase I", title: "Land Acquisition" },
+  { year: "Phase II", title: "Planning & Design" },
+  { year: "Phase III", title: "Construction" },
+  { year: "Opening", title: "Opening Day" },
+  { year: "Legacy", title: "Tradition Lives On" },
 ];
 
-const processSteps = [
-  {
-    number: "01",
-    title: "Register Interest",
-    description:
-      "Join the Founding 250 interest list to receive project announcements, membership updates, and future release information.",
-  },
-  {
-    number: "02",
-    title: "Receive Updates",
-    description:
-      "Follow development progress, major milestones, private presentations, and formal membership announcements.",
-  },
-  {
-    number: "03",
-    title: "Formal Membership Release",
-    description:
-      "Qualified prospective members will receive information when official applications and membership agreements become available.",
-  },
-  {
-    number: "04",
-    title: "Membership Review",
-    description:
-      "Applications will be reviewed under the future membership policies, qualifications, and approval process of the club.",
-  },
-  {
-    number: "05",
-    title: "Founding Recognition",
-    description:
-      "Approved members within the first 250 memberships will receive their applicable founding designation.",
-  },
-];
-
-const principles = [
-  {
-    title: "Intentionally Limited",
-    description:
-      "Limiting the original membership generation preserves significance, exclusivity, and a strong sense of shared identity.",
-  },
-  {
-    title: "Built Around Community",
-    description:
-      "The Founding 250 will bring together individuals and families who value tradition, hospitality, golf, and meaningful relationships.",
-  },
-  {
-    title: "Designed for Generations",
-    description:
-      "The founding membership is intended to represent the beginning of traditions that can be shared with children and grandchildren.",
-  },
-  {
-    title: "Connected to the Vision",
-    description:
-      "Founding Members will receive a closer connection to the project as the club progresses from vision to development.",
-  },
+const benefits = [
+  "Founding Member recognition",
+  "Permanent place in the club’s history",
+  "Exclusive project updates",
+  "Invitations to select private events",
+  "Priority membership opportunities",
+  "Founding Charter Certificate",
 ];
 
 export default function Founding250Page() {
   return (
     <main className="bg-[#F7F4EE] text-[#1E3557]">
       {/* Hero */}
-      <section className="relative flex min-h-[78vh] items-center overflow-hidden px-5 pt-[72px] sm:px-8">
+      <section className="relative flex min-h-[88vh] items-center overflow-hidden px-5 pt-[72px] sm:px-8">
         <Image
           src="/images/arrival.png"
           alt="The future arrival experience at The Gallaspy Golf and Country Club"
@@ -141,134 +68,88 @@ export default function Founding250Page() {
           className="object-cover"
         />
 
-        <div className="absolute inset-0 bg-[#10263F]/65" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#10263F]/92 via-[#10263F]/65 to-[#10263F]/30" />
+        <div className="absolute inset-0 bg-[#10263F]/68" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#10263F]/95 via-[#10263F]/72 to-[#10263F]/28" />
 
-        <div className="relative z-10 mx-auto w-full max-w-[1060px] py-20 text-white sm:py-24">
-          <div className="max-w-3xl">
+        <div className="relative z-10 mx-auto w-full max-w-[1120px] py-24 text-white">
+          <div className="max-w-4xl">
             <p className="text-[10px] font-bold uppercase tracking-[0.38em] text-[#FFD76A]">
               The Original Membership Generation
             </p>
 
-            <h1 className="mt-5 font-serif text-[3rem] font-light leading-[0.98] text-white sm:text-6xl lg:text-[5rem]">
-              The Founding
-              <span className="block text-[#FFD76A]">250</span>
+            <h1 className="mt-6 max-w-4xl font-serif text-[3.25rem] font-light leading-[0.98] text-white sm:text-6xl lg:text-[5.4rem]">
+              Become One of the
+              <span className="block text-[#FFD76A]">Founding 250</span>
             </h1>
 
-            <div className="mt-6 h-px w-16 bg-[#B89146]" />
+            <div className="mt-7 h-px w-20 bg-[#B89146]" />
 
-            <p className="mt-6 max-w-2xl text-sm leading-7 text-white/85 sm:text-base sm:leading-8">
-              Become part of the first 250 memberships envisioned to establish
-              the culture, traditions, and enduring character of The Gallaspy
-              Golf &amp; Country Club.
+            <p className="mt-7 max-w-3xl text-base leading-8 text-white/88 sm:text-lg sm:leading-9">
+              Before the first fairway is shaped and before the clubhouse opens
+              its doors, there will be 250 individuals and families who believed
+              in the vision from the very beginning. Their names will forever be
+              part of The Gallaspy Golf &amp; Country Club story.
             </p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="#registration"
-                className="inline-flex min-h-[45px] items-center justify-center rounded-full border border-[#FFD76A] bg-[#FFD76A] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:-translate-y-0.5 hover:bg-white"
+                className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#FFD76A] bg-[#FFD76A] px-8 text-[10px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:-translate-y-0.5 hover:bg-white"
               >
-                Join the Interest List
+                Reserve Your Interest
               </Link>
 
               <Link
-                href="#founding-pricing"
-                className="inline-flex min-h-[45px] items-center justify-center rounded-full border border-white/60 bg-white/[0.05] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-white backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-[#FFD76A] hover:text-[#FFD76A]"
+                href="#why-founding-250"
+                className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-white/55 bg-white/[0.06] px-8 text-[10px] font-bold uppercase tracking-[0.2em] text-white backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-[#FFD76A] hover:text-[#FFD76A]"
               >
-                View Founding Pricing
+                Discover the Vision
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Introduction */}
-      <section className="bg-[#F7F4EE] px-5 py-16 sm:px-8 lg:py-20">
-        <div className="mx-auto grid w-full max-w-[1060px] gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-          <div>
+      {/* Why Founding 250 */}
+      <section
+        id="why-founding-250"
+        className="scroll-mt-24 bg-[#F7F4EE] px-5 py-16 sm:px-8 lg:py-24"
+      >
+        <div className="mx-auto w-full max-w-[1120px]">
+          <div className="mx-auto max-w-3xl text-center">
             <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
-              The Beginning of a Legacy
+              Why Founding 250?
             </p>
 
-            <h2 className="mt-4 font-serif text-[2.35rem] font-light leading-[1.08] text-[#10263F] sm:text-5xl">
-              Every Great Club
-              <span className="block">Has a Founding Story</span>
+            <h2 className="mt-4 font-serif text-[2.5rem] font-light leading-[1.08] text-[#10263F] sm:text-5xl">
+              More Than Early Membership
             </h2>
 
-            <div className="mt-6 h-px w-14 bg-[#B89146]" />
-          </div>
-
-          <div className="border-l border-[#B89146]/35 pl-6 sm:pl-8">
-            <p className="text-base leading-8 text-[#1E3557]">
-              The Founding 250 will represent the first individuals and
-              families invited to become part of The Gallaspy Golf &amp;
-              Country Club.
-            </p>
-
-            <p className="mt-5 text-sm leading-7 text-[#1E3557]/80">
-              This original membership generation will help establish the
-              values, relationships, customs, and traditions that shape the
-              club for decades to come. Founding status is intended to remain a
-              permanent part of the club’s history.
-            </p>
-          </div>
-        </div>
-
-        <div className="mx-auto mt-12 grid w-full max-w-[1060px] gap-4 sm:grid-cols-3">
-          {[
-            ["250", "Founding Memberships"],
-            ["2", "Founding Releases"],
-            ["1", "Original Generation"],
-          ].map(([value, label]) => (
-            <div
-              key={label}
-              className="rounded-[18px] border border-[#1E3557]/10 bg-white p-7 text-center"
-            >
-              <p className="font-serif text-5xl font-light text-[#10263F]">
-                {value}
-              </p>
-
-              <p className="mt-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#B89146]">
-                {label}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Why only 250 */}
-      <section className="bg-white px-5 py-16 sm:px-8 lg:py-20">
-        <div className="mx-auto w-full max-w-[1060px]">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
-              Why Only 250?
-            </p>
-
-            <h2 className="mt-4 font-serif text-[2.35rem] font-light leading-[1.08] text-[#10263F] sm:text-5xl">
-              A Founding Group With Meaning
-            </h2>
-
-            <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-[#1E3557]/80">
-              The original membership generation is intentionally limited to
-              preserve the significance of founding status and create a strong
-              community from the beginning.
+            <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-[#1E3557]/78 sm:text-base sm:leading-8">
+              The Founding 250 is an invitation to help shape the culture,
+              traditions, relationships, and legacy of the club from its first
+              chapter.
             </p>
           </div>
 
-          <div className="mt-10 grid gap-4 md:grid-cols-2">
-            {principles.map((principle) => (
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {foundingPillars.map((pillar) => (
               <article
-                key={principle.title}
-                className="rounded-[18px] border border-[#1E3557]/10 bg-[#F7F4EE] p-6 sm:p-7"
+                key={pillar.title}
+                className="group rounded-[20px] border border-[#1E3557]/10 bg-white p-7 transition hover:-translate-y-1 hover:border-[#B89146]/40 hover:shadow-xl"
               >
-                <h3 className="font-serif text-2xl font-light text-[#10263F]">
-                  {principle.title}
+                <p className="text-[10px] font-bold uppercase tracking-[0.26em] text-[#B89146]">
+                  {pillar.number}
+                </p>
+
+                <h3 className="mt-6 font-serif text-3xl font-light text-[#10263F]">
+                  {pillar.title}
                 </h3>
 
                 <div className="mt-4 h-px w-10 bg-[#B89146]" />
 
-                <p className="mt-4 text-sm leading-7 text-[#1E3557]/80">
-                  {principle.description}
+                <p className="mt-5 text-sm leading-7 text-[#1E3557]/76">
+                  {pillar.description}
                 </p>
               </article>
             ))}
@@ -276,262 +157,252 @@ export default function Founding250Page() {
         </div>
       </section>
 
-      {/* Recognition */}
-      <section className="bg-[#10263F] px-5 py-16 text-white sm:px-8 lg:py-20">
-        <div className="mx-auto grid w-full max-w-[1060px] gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
-          <div className="relative min-h-[440px] overflow-hidden rounded-[22px]">
+      {/* Timeline */}
+      <section className="bg-white px-5 py-16 sm:px-8 lg:py-24">
+        <div className="mx-auto w-full max-w-[1120px]">
+          <div className="max-w-3xl">
+            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
+              From Vision to Opening Day
+            </p>
+
+            <h2 className="mt-4 font-serif text-[2.5rem] font-light leading-[1.08] text-[#10263F] sm:text-5xl">
+              The Road to the Club
+            </h2>
+          </div>
+
+          <div className="relative mt-14">
+            <div className="absolute left-5 top-0 h-full w-px bg-[#B89146]/35 lg:left-0 lg:top-6 lg:h-px lg:w-full" />
+
+            <div className="grid gap-8 lg:grid-cols-6 lg:gap-4">
+              {timeline.map((item, index) => (
+                <article
+                  key={item.title}
+                  className="relative pl-14 lg:pl-0 lg:pt-14 lg:text-center"
+                >
+                  <div className="absolute left-[13px] top-1 flex h-4 w-4 items-center justify-center rounded-full border-4 border-white bg-[#B89146] shadow lg:left-1/2 lg:top-4 lg:-translate-x-1/2" />
+
+                  <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#B89146]">
+                    {item.year}
+                  </p>
+
+                  <h3 className="mt-2 font-serif text-xl font-light text-[#10263F]">
+                    {item.title}
+                  </h3>
+
+                  {index < timeline.length - 1 && (
+                    <span className="mt-3 hidden text-[#B89146] lg:block">→</span>
+                  )}
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Founders message */}
+      <section className="bg-[#10263F] px-5 py-16 text-white sm:px-8 lg:py-24">
+        <div className="mx-auto grid w-full max-w-[1120px] gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
+          <div className="relative min-h-[460px] overflow-hidden rounded-[24px] border border-white/10">
             <Image
-              src="/images/clubhouse.png"
-              alt="The future clubhouse at The Gallaspy"
+              src="/images/founders.png"
+              alt="Cameron Gallaspy-Davis and Deja McCoy, founders of The Gallaspy Development Group"
               fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
+              sizes="(max-width: 1024px) 100vw, 45vw"
               className="object-cover"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-[#10263F]/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#10263F]/45 via-transparent to-transparent" />
           </div>
 
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#FFD76A]">
-              Permanent Recognition
+              A Letter From the Founders
             </p>
 
-            <h2 className="mt-4 font-serif text-[2.35rem] font-light leading-[1.08] text-white sm:text-5xl">
-              A Place in the
-              <span className="block">History of the Club</span>
+            <h2 className="mt-4 font-serif text-[2.5rem] font-light leading-[1.08] text-white sm:text-5xl">
+              Believe in Something
+              <span className="block text-[#FFD76A]">Before It Exists</span>
             </h2>
 
-            <div className="mt-6 h-px w-14 bg-[#B89146]" />
+            <div className="mt-7 h-px w-16 bg-[#B89146]" />
 
-            <p className="mt-6 text-base leading-8 text-white/85">
-              The Founding 250 are intended to be permanently recognized
-              within the future clubhouse as the original membership
-              generation of The Gallaspy.
+            <blockquote className="mt-7 text-base leading-8 text-white/84 sm:text-lg sm:leading-9">
+              “The Gallaspy Golf &amp; Country Club represents more than a golf
+              course. It is our commitment to building a place where families
+              gather, friendships grow, and future generations create lasting
+              memories. Becoming one of our Founding 250 means believing in
+              something before it exists—and helping shape a legacy that will
+              endure for decades.”
+            </blockquote>
+
+            <p className="mt-8 text-sm font-bold uppercase tracking-[0.16em] text-[#FFD76A]">
+              Cameron Gallaspy-Davis &amp; Deja McCoy
             </p>
 
-            <p className="mt-5 text-sm leading-7 text-white/72">
-              The final form of recognition will be determined during
-              clubhouse design and may include a Founders Wall, permanent
-              membership registry, commemorative installation, or another
-              distinguished feature.
+            <p className="mt-2 text-xs uppercase tracking-[0.18em] text-white/55">
+              Founders, The Gallaspy Development Group
             </p>
           </div>
         </div>
       </section>
 
-      {/* Benefits */}
-      <section className="bg-[#F7F4EE] px-5 py-16 sm:px-8 lg:py-20">
-        <div className="mx-auto w-full max-w-[1060px]">
-          <div className="max-w-2xl">
+      {/* Benefits and counter */}
+      <section className="bg-[#F7F4EE] px-5 py-16 sm:px-8 lg:py-24">
+        <div className="mx-auto grid w-full max-w-[1120px] gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+          <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
-              Founding Membership
+              Founding Member Benefits
             </p>
 
-            <h2 className="mt-4 font-serif text-[2.35rem] font-light leading-[1.08] text-[#10263F] sm:text-5xl">
-              The Founding Experience
-            </h2>
-          </div>
-
-          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {foundingBenefits.map((benefit) => (
-              <article
-                key={benefit.title}
-                className="rounded-[18px] border border-[#1E3557]/10 bg-white p-6 transition hover:-translate-y-1 hover:shadow-lg"
-              >
-                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#B89146]">
-                  {benefit.number}
-                </p>
-
-                <h3 className="mt-5 font-serif text-2xl font-light text-[#10263F]">
-                  {benefit.title}
-                </h3>
-
-                <div className="mt-4 h-px w-10 bg-[#B89146]" />
-
-                <p className="mt-4 text-sm leading-7 text-[#1E3557]/80">
-                  {benefit.description}
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Founding pricing */}
-      <section
-        id="founding-pricing"
-        className="scroll-mt-24 bg-[#1E3557] px-5 py-16 text-white sm:px-8 lg:py-20"
-      >
-        <div className="mx-auto w-full max-w-[1060px]">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#FFD76A]">
-              Preliminary Founding Structure
-            </p>
-
-            <h2 className="mt-4 font-serif text-[2.35rem] font-light leading-[1.08] text-white sm:text-5xl">
-              Two Founding Releases
+            <h2 className="mt-4 font-serif text-[2.5rem] font-light leading-[1.08] text-[#10263F] sm:text-5xl">
+              A Permanent Place
+              <span className="block">in the Story</span>
             </h2>
 
-            <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-white/75">
-              The first 250 memberships are planned to be offered through two
-              separate founding releases.
-            </p>
-          </div>
-
-          <div className="mx-auto mt-12 grid max-w-4xl gap-5 md:grid-cols-2">
-            {membershipReleases.map((tier) => (
-              <article
-                key={tier.title}
-                className={`relative flex h-full flex-col rounded-[20px] border p-7 sm:p-8 ${
-                  tier.featured
-                    ? "border-[#FFD76A] bg-white text-[#10263F]"
-                    : "border-white/15 bg-white/[0.06] text-white"
-                }`}
-              >
-                {tier.featured && (
-                  <div className="absolute right-5 top-5 rounded-full bg-[#B89146] px-3 py-1 text-[9px] font-bold uppercase tracking-[0.16em] text-white">
-                    First Release
-                  </div>
-                )}
-
-                <p
-                  className={`text-[10px] font-bold uppercase tracking-[0.22em] ${
-                    tier.featured ? "text-[#B89146]" : "text-[#FFD76A]"
-                  }`}
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              {benefits.map((benefit) => (
+                <div
+                  key={benefit}
+                  className="flex min-h-[96px] items-center gap-4 rounded-[18px] border border-[#1E3557]/10 bg-white p-5"
                 >
-                  {tier.release}
-                </p>
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#10263F] text-sm text-[#FFD76A]">
+                    ✓
+                  </span>
 
-                <h3
-                  className={`mt-5 font-serif text-3xl font-light ${
-                    tier.featured ? "!text-[#10263F]" : "text-white"
-                  }`}
-                >
-                  {tier.title}
-                </h3>
-
-                <p
-                  className={`mt-2 text-xs font-semibold uppercase tracking-[0.16em] ${
-                    tier.featured ? "!text-[#1E3557]/65" : "text-white/65"
-                  }`}
-                >
-                  {tier.availability}
-                </p>
-
-                <div className="mt-6 h-px w-12 bg-[#B89146]" />
-
-                <div className="mt-6 grid grid-cols-2 gap-4">
-                  <div>
-                    <p
-                      className={`text-[10px] font-bold uppercase tracking-[0.18em] ${
-                        tier.featured ? "!text-[#1E3557]/60" : "text-white/60"
-                      }`}
-                    >
-                      Initiation
-                    </p>
-
-                    <p
-                      className={`mt-2 font-serif text-3xl font-light ${
-                        tier.featured ? "!text-[#10263F]" : "text-white"
-                      }`}
-                    >
-                      {tier.initiation}
-                    </p>
-                  </div>
-
-                  <div>
-                    <p
-                      className={`text-[10px] font-bold uppercase tracking-[0.18em] ${
-                        tier.featured ? "!text-[#1E3557]/60" : "text-white/60"
-                      }`}
-                    >
-                      Monthly Dues
-                    </p>
-
-                    <p
-                      className={`mt-2 font-serif text-3xl font-light ${
-                        tier.featured ? "!text-[#10263F]" : "text-white"
-                      }`}
-                    >
-                      {tier.monthly}
-                    </p>
-                  </div>
-                </div>
-
-                <p
-                  className={`mt-6 text-sm leading-7 ${
-                    tier.featured ? "!text-[#1E3557]/75" : "text-white/72"
-                  }`}
-                >
-                  {tier.description}
-                </p>
-
-                <Link
-                  href="#registration"
-                  className={`mt-7 inline-flex min-h-[45px] items-center justify-center rounded-full border px-6 text-[10px] font-bold uppercase tracking-[0.18em] transition hover:-translate-y-0.5 ${
-                    tier.featured
-                      ? "border-[#10263F] bg-[#10263F] text-white hover:bg-[#B89146]"
-                      : "border-[#FFD76A] text-[#FFD76A] hover:bg-[#FFD76A] hover:text-[#10263F]"
-                  }`}
-                >
-                  Register Interest
-                </Link>
-              </article>
-            ))}
-          </div>
-
-          <div className="mx-auto mt-8 max-w-4xl rounded-[16px] border border-white/15 bg-white/[0.05] px-6 py-5 text-center">
-            <p className="text-xs leading-6 text-white/65">
-              All pricing, dues, privileges, availability, application
-              requirements, payment schedules, recognition benefits, and launch
-              dates are preliminary and subject to change. Registration of
-              interest is not a membership purchase, reservation, application,
-              or guarantee of acceptance.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Process */}
-      <section className="bg-white px-5 py-16 sm:px-8 lg:py-20">
-        <div className="mx-auto w-full max-w-[1060px]">
-          <div className="max-w-2xl">
-            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
-              The Membership Journey
-            </p>
-
-            <h2 className="mt-4 font-serif text-[2.35rem] font-light leading-[1.08] text-[#10263F] sm:text-5xl">
-              From Interest
-              <span className="block">to Founding Membership</span>
-            </h2>
-          </div>
-
-          <div className="mt-10 space-y-4">
-            {processSteps.map((step) => (
-              <article
-                key={step.number}
-                className="grid gap-5 rounded-[18px] border border-[#1E3557]/10 bg-[#F7F4EE] p-6 md:grid-cols-[80px_1fr] sm:p-7"
-              >
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#10263F] text-sm font-bold text-white">
-                  {step.number}
-                </div>
-
-                <div>
-                  <h3 className="font-serif text-2xl font-light text-[#10263F]">
-                    {step.title}
-                  </h3>
-
-                  <p className="mt-3 text-sm leading-7 text-[#1E3557]/80">
-                    {step.description}
+                  <p className="text-sm font-medium leading-6 text-[#10263F]">
+                    {benefit}
                   </p>
                 </div>
-              </article>
-            ))}
+              ))}
+            </div>
+          </div>
+
+          <aside className="rounded-[24px] bg-[#1E3557] p-8 text-white sm:p-10">
+            <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-[#FFD76A]">
+              Founding Memberships
+            </p>
+
+            <p className="mt-7 font-serif text-7xl font-light text-white">250</p>
+            <p className="mt-2 text-xs font-bold uppercase tracking-[0.22em] text-white/55">
+              Total Available
+            </p>
+
+            <div className="my-8 h-px bg-white/15" />
+
+            <div className="grid grid-cols-2 gap-5">
+              <div>
+                <p className="font-serif text-4xl font-light text-white">0</p>
+                <p className="mt-2 text-[9px] font-bold uppercase tracking-[0.2em] text-white/55">
+                  Reserved
+                </p>
+              </div>
+
+              <div>
+                <p className="font-serif text-4xl font-light text-[#FFD76A]">
+                  250
+                </p>
+                <p className="mt-2 text-[9px] font-bold uppercase tracking-[0.2em] text-white/55">
+                  Remaining
+                </p>
+              </div>
+            </div>
+
+            <p className="mt-8 text-xs leading-6 text-white/60">
+              This counter is currently illustrative and can be connected to
+              your membership database when formal reservations begin.
+            </p>
+
+            <Link
+              href="#registration"
+              className="mt-8 inline-flex min-h-[46px] w-full items-center justify-center rounded-full border border-[#FFD76A] bg-[#FFD76A] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:-translate-y-0.5 hover:bg-white"
+            >
+              Join the Founding 250
+            </Link>
+          </aside>
+        </div>
+      </section>
+
+      {/* Certificate preview */}
+      <section className="bg-white px-5 py-16 sm:px-8 lg:py-24">
+        <div className="mx-auto grid w-full max-w-[1120px] gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
+              A Tangible Piece of History
+            </p>
+
+            <h2 className="mt-4 font-serif text-[2.5rem] font-light leading-[1.08] text-[#10263F] sm:text-5xl">
+              Founding Charter
+              <span className="block">Certificate</span>
+            </h2>
+
+            <p className="mt-6 text-sm leading-7 text-[#1E3557]/78 sm:text-base sm:leading-8">
+              Each approved Founding 250 member is intended to receive a
+              numbered charter certificate recognizing their place in the
+              original membership generation.
+            </p>
+
+            <p className="mt-5 text-sm leading-7 text-[#1E3557]/65">
+              Final certificate design, numbering, and eligibility will be
+              confirmed when formal membership documents are issued.
+            </p>
+          </div>
+
+          <div className="rounded-[24px] bg-[#10263F] p-4 shadow-2xl sm:p-7">
+            <div className="border border-[#B89146] bg-[#F7F4EE] px-6 py-12 text-center sm:px-12">
+              <p className="text-[9px] font-bold uppercase tracking-[0.38em] text-[#B89146]">
+                The Gallaspy Golf &amp; Country Club
+              </p>
+
+              <div className="mx-auto mt-7 h-px w-24 bg-[#B89146]" />
+
+              <p className="mt-8 font-serif text-4xl font-light text-[#10263F] sm:text-5xl">
+                Founding 250
+              </p>
+
+              <p className="mt-3 text-xs font-bold uppercase tracking-[0.25em] text-[#1E3557]/65">
+                Charter Member
+              </p>
+
+              <p className="mx-auto mt-8 max-w-md text-sm leading-7 text-[#1E3557]/72">
+                Presented in recognition of early belief, lasting commitment,
+                and membership in the original generation of The Gallaspy.
+              </p>
+
+              <p className="mt-10 font-serif text-2xl text-[#B89146]">
+                Member No. 001 of 250
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Disclaimer */}
+      {/* Registration form */}
+      <section
+        id="registration"
+        className="scroll-mt-24 bg-[#F7F4EE] px-5 py-16 sm:px-8 lg:py-24"
+      >
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-12 text-center">
+            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
+              Founding Membership Registration
+            </p>
+
+            <h2 className="mt-4 font-serif text-[2.6rem] font-light text-[#10263F] sm:text-5xl">
+              Reserve Your Interest
+            </h2>
+
+            <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-[#1E3557]/70">
+              Complete the form below to receive Founding 250 updates,
+              development announcements, private presentation invitations, and
+              future membership information.
+            </p>
+          </div>
+
+          <Founding250Form />
+        </div>
+      </section>
+
+      {/* Important information */}
       <section className="bg-[#EEE8DC] px-5 py-12 sm:px-8">
         <div className="mx-auto max-w-[900px] text-center">
           <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#B89146]">
@@ -540,71 +411,56 @@ export default function Founding250Page() {
 
           <p className="mt-4 text-xs leading-6 text-[#1E3557]/70">
             The Gallaspy Golf &amp; Country Club is currently in the planning
-            and development stage. The Founding 250 program described on this
-            page is conceptual and may be revised before any formal membership
-            offering. No payment should be submitted unless accompanied by
-            official membership documents issued by The Gallaspy Development
-            Group.
+            and development stage. The Founding 250 program is preliminary and
+            may be revised before any formal membership offering. Registration
+            of interest is not a membership purchase, reservation, application,
+            or guarantee of acceptance. No payment should be submitted unless
+            accompanied by official membership documents issued by The Gallaspy
+            Development Group.
           </p>
-        </div>
-      </section>
-
-      {/* Registration Form */}
-      <section
-        id="registration"
-        className="scroll-mt-24 bg-[#F7F4EE] px-5 py-16 sm:px-8 lg:py-20"
-      >
-        <div className="mx-auto max-w-5xl">
-          <div className="mb-12 text-center">
-            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
-              Founding Membership Registration
-            </p>
-
-            <h2 className="mt-4 font-serif text-[2.5rem] font-light text-[#10263F] sm:text-5xl">
-              Register Your Interest
-            </h2>
-
-            <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-[#1E3557]/70">
-              Complete the form below to receive Founding 250 updates,
-              membership announcements, private presentations, and future
-              application opportunities.
-            </p>
-          </div>
-
-          <Founding250Form />
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="bg-[#163A2F] px-5 py-16 text-white sm:px-8 lg:py-20">
-        <div className="mx-auto max-w-[820px] text-center">
+      <section className="relative overflow-hidden bg-[#163A2F] px-5 py-20 text-white sm:px-8 lg:py-28">
+        <Image
+          src="/images/clubhouse.png"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover opacity-20"
+        />
+
+        <div className="absolute inset-0 bg-[#163A2F]/88" />
+
+        <div className="relative z-10 mx-auto max-w-[900px] text-center">
           <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#FFD76A]">
-            The Founding Generation
+            A Legacy in the Making
           </p>
 
-          <h2 className="mt-4 font-serif text-[2.5rem] font-light leading-[1.08] text-white sm:text-5xl">
-            Help Begin a Tradition
-            <span className="block">That Lasts for Generations</span>
+          <h2 className="mt-5 font-serif text-[2.8rem] font-light leading-[1.05] text-white sm:text-6xl">
+            Help Build
+            <span className="block text-[#FFD76A]">the Legacy</span>
           </h2>
 
-          <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-white/75">
-            Register your interest to receive Founding 250 updates, development
-            announcements, and future membership information.
+          <p className="mx-auto mt-7 max-w-2xl text-sm leading-7 text-white/78 sm:text-base sm:leading-8">
+            Become part of the first generation and help shape a club designed
+            to serve families, leaders, and communities for decades to come.
           </p>
 
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
             <Link
               href="#registration"
-              className="inline-flex min-h-[45px] items-center justify-center rounded-full border border-[#FFD76A] bg-[#FFD76A] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:-translate-y-0.5 hover:bg-white"
+              className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#FFD76A] bg-[#FFD76A] px-8 text-[10px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:-translate-y-0.5 hover:bg-white"
             >
-              Join the Interest List
+              Join the Founding 250
             </Link>
 
             <Link
               href="/membership"
-              className="inline-flex min-h-[45px] items-center justify-center rounded-full border border-white/40 px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition hover:-translate-y-0.5 hover:border-[#FFD76A] hover:text-[#FFD76A]"
+              className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-white/45 px-8 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition hover:-translate-y-0.5 hover:border-[#FFD76A] hover:text-[#FFD76A]"
             >
-              View Membership
+              View All Memberships
             </Link>
           </div>
         </div>
