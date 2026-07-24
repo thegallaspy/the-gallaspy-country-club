@@ -78,39 +78,74 @@ const foundingBenefits = [
 
 const membershipTiers = [
   {
-    name: "Charter Founder",
-    availability: "Memberships 1–100",
+    name: "Founding 250",
+    availability: "Original Membership Generation",
     initiation: "$7,500",
-    monthly: "$595",
+    monthly: "$475",
     description:
-      "The earliest membership release for individuals and families who want to stand among the first supporters of The Gallaspy.",
+      "Reserved for the first 250 members who believe in The Gallaspy during its earliest chapter and help shape its culture, traditions, and legacy.",
+    features: [
+      "Founding membership recognition",
+      "Priority project and club updates",
+      "Access to future founding events",
+    ],
     featured: true,
   },
   {
-    name: "Founding Member",
-    availability: "Memberships 101–250",
-    initiation: "$10,000",
+    name: "Full Golf",
+    availability: "Primary Golf Membership",
+    initiation: "$15,000",
     monthly: "$650",
     description:
-      "The second founding release, completing the original group of 250 members who will help establish the club’s culture and traditions.",
+      "The complete golf and country club experience for individuals and families seeking championship golf, dining, wellness, recreation, and club traditions.",
+    features: [
+      "Full golf and practice privileges",
+      "Dining, wellness, recreation, and events",
+      "Family and guest access subject to club policies",
+    ],
     featured: false,
   },
   {
-    name: "Legacy Member",
-    availability: "Memberships 251–400",
-    initiation: "$15,000",
-    monthly: "$725",
+    name: "Executive",
+    availability: "For Members Under 40",
+    initiation: "$5,000",
+    monthly: "$425",
     description:
-      "A future membership release for individuals and families joining the club during its continued development and growth.",
+      "A reduced-entry full membership pathway created for rising professionals, entrepreneurs, and community leaders under the age of 40.",
+    features: [
+      "Golf, dining, social, and recreation access",
+      "Executive networking and club programming",
+      "Transitions to standard membership at the applicable age",
+    ],
     featured: false,
   },
   {
-    name: "Standard Membership",
-    availability: "Future Release",
-    initiation: "$25,000+",
-    monthly: "$850–$950",
+    name: "Legacy Membership",
+    availability: "Children of Existing Members",
+    initiation: "50% of current fee",
+    monthly: "Standard dues",
     description:
-      "Future full membership pricing anticipated following major development milestones and the formal opening of club facilities.",
+      "Available only to children of existing members, creating a clear pathway for families to carry their connection to The Gallaspy from one generation to the next.",
+    features: [
+      "Exclusive to eligible children of members",
+      "Initiation set at 50% of the current applicable fee",
+      "Monthly dues remain at the standard applicable rate",
+    ],
+    featured: false,
+  },
+  {
+    name: "Aspire Membership",
+    availability: "Community Access Pathway",
+    initiation: "$0",
+    monthly: "$275",
+    description:
+      "Designed for young professionals and ambitious families who want to become part of the community before they are ready for full membership.",
+    features: [
+      "Restaurant and selected social-event access",
+      "Limited practice-facility privileges",
+      "Four golf rounds per year",
+      "Potential upgrade credits toward a future Full Golf initiation fee",
+    ],
     featured: false,
   },
 ];
@@ -344,6 +379,33 @@ export default function MembershipPage() {
         </div>
       </section>
 
+
+      {/* Membership story */}
+      <section className="bg-[#F7F4EE] px-5 py-16 sm:px-8 lg:py-20">
+        <div className="mx-auto w-full max-w-[1060px]">
+          <div className="overflow-hidden rounded-[22px] border border-[#1E3557]/10 bg-white px-7 py-10 text-center shadow-sm sm:px-10 lg:px-16 lg:py-14">
+            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
+              Excellence Without Exclusivity
+            </p>
+
+            <blockquote className="mx-auto mt-6 max-w-4xl font-serif text-[2rem] font-light leading-[1.2] text-[#10263F] sm:text-[2.6rem]">
+              “The Gallaspy Golf &amp; Country Club was built for people who value
+              excellence—not status.”
+            </blockquote>
+
+            <div className="mx-auto mt-7 h-px w-16 bg-[#B89146]" />
+
+            <p className="mx-auto mt-7 max-w-3xl text-sm leading-7 text-[#1E3557]/80 sm:text-base sm:leading-8">
+              Our members include entrepreneurs, physicians, educators, executives,
+              veterans, community leaders, and families who believe in creating a
+              lasting legacy. Membership is designed to be attainable for those
+              committed to personal and professional growth while delivering an
+              exceptional private-club experience.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Membership pricing */}
       <section
         id="membership-pricing"
@@ -366,7 +428,7 @@ export default function MembershipPage() {
             </p>
           </div>
 
-          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {membershipTiers.map((tier) => (
               <article
                 key={tier.name}
@@ -398,7 +460,7 @@ export default function MembershipPage() {
 
                 <div className="mt-6 border-b border-current/15 pb-5">
                   <p className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-65">
-                    Initiation Fee
+                    Initiation
                   </p>
 
                   <p className="mt-2 font-serif text-4xl font-light">
@@ -408,7 +470,7 @@ export default function MembershipPage() {
 
                 <div className="mt-5">
                   <p className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-65">
-                    Monthly Dues
+                    Monthly
                   </p>
 
                   <p className="mt-2 font-serif text-3xl font-light">
@@ -426,9 +488,28 @@ export default function MembershipPage() {
                   {tier.description}
                 </p>
 
+                <ul className="mt-6 space-y-3">
+                  {tier.features.map((feature) => (
+                    <li
+                      key={feature}
+                      className={`flex gap-3 text-sm leading-6 ${
+                        tier.featured ? "text-[#1E3557]/75" : "text-white/72"
+                      }`}
+                    >
+                      <span
+                        aria-hidden="true"
+                        className={`mt-[0.55rem] h-1.5 w-1.5 shrink-0 rounded-full ${
+                          tier.featured ? "bg-[#B89146]" : "bg-[#FFD76A]"
+                        }`}
+                      />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
                 <Link
                   href="#membership-interest"
-                  className={`mt-7 inline-flex min-h-[44px] items-center justify-center rounded-full border px-5 text-center text-[10px] font-bold uppercase tracking-[0.18em] transition hover:-translate-y-0.5 ${
+                  className={`mt-auto pt-7 inline-flex min-h-[44px] items-center justify-center rounded-full border px-5 text-center text-[10px] font-bold uppercase tracking-[0.18em] transition hover:-translate-y-0.5 ${
                     tier.featured
                       ? "border-[#10263F] bg-[#10263F] text-white hover:bg-[#B89146]"
                       : "border-[#FFD76A] text-[#FFD76A] hover:bg-[#FFD76A] hover:text-[#10263F]"
