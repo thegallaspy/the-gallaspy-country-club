@@ -121,7 +121,7 @@ export default function EventsPage() {
       {/* Hero */}
       <section className="relative flex min-h-[82vh] items-center overflow-hidden px-5 sm:px-8">
         <Image
-          src="/images/events.png"
+          src="/images/event-pavilion.png"
           alt="Private events at The Gallaspy Golf and Country Club"
           fill
           priority
@@ -221,7 +221,7 @@ export default function EventsPage() {
 
           <div className="relative min-h-[460px] overflow-hidden rounded-[22px]">
             <Image
-              src="/images/events.png"
+              src="/images/event-pavilion.png"
               alt="Elegant event setting at The Gallaspy"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -467,7 +467,7 @@ export default function EventsPage() {
 
           <div className="relative min-h-[440px] overflow-hidden rounded-[22px]">
             <Image
-              src="/images/events.png"
+              src="/images/event-pavilion.png"
               alt="Private event planning at The Gallaspy"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -637,7 +637,7 @@ export default function EventsPage() {
       {/* Final CTA */}
       <section className="relative overflow-hidden bg-[#10263F] px-5 py-20 text-white sm:px-8 lg:py-28">
         <Image
-          src="/images/events.png"
+          src="/images/event-pavilion.png"
           alt=""
           fill
           sizes="100vw"
