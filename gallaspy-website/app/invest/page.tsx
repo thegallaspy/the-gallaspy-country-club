@@ -108,11 +108,11 @@ export default function InvestPage() {
           alt="Proposed master plan for The Gallaspy Golf and Country Club"
           fill
           priority
-          className="object-cover opacity-45"
+          className="object-cover opacity-20"
           sizes="100vw"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-r from-[#071625] via-[#071625]/90 to-[#071625]/35" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#071625] via-[#071625]/97 to-[#071625]/70" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#071625] via-transparent to-[#071625]/30" />
 
         <div className="relative z-10 mx-auto w-full max-w-[1500px] px-6 py-24 sm:px-8 lg:px-12">
@@ -121,12 +121,12 @@ export default function InvestPage() {
               A Landmark Development Opportunity
             </p>
 
-            <h1 className="font-serif text-5xl font-medium leading-[0.98] text-white sm:text-6xl md:text-7xl lg:text-[92px]">
+            <h1 className="font-serif text-5xl font-medium leading-[0.98] text-[#F8F6F2] drop-shadow-[0_3px_12px_rgba(0,0,0,0.75)] sm:text-6xl md:text-7xl lg:text-[92px]">
               Invest in a
               <span className="block text-[#D9B45B]">Legacy in the Making</span>
             </h1>
 
-            <p className="mt-8 max-w-3xl text-base leading-8 text-white/80 sm:text-lg">
+            <p className="mt-8 max-w-3xl text-base leading-8 text-[#F2F2F2] drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] sm:text-lg">
               The Gallaspy Golf & Country Club is envisioned as a premier
               private golf and lifestyle destination where championship golf,
               luxury hospitality, wellness, residential living, and enduring
