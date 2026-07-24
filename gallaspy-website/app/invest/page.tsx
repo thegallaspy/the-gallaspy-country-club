@@ -108,25 +108,25 @@ export default function InvestPage() {
           alt="Proposed master plan for The Gallaspy Golf and Country Club"
           fill
           priority
-          className="object-cover opacity-20"
+          className="object-cover opacity-45"
           sizes="100vw"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-r from-[#071625] via-[#071625]/97 to-[#071625]/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#071625] via-[#071625]/90 to-[#071625]/35" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#071625] via-transparent to-[#071625]/30" />
 
         <div className="relative z-10 mx-auto w-full max-w-[1500px] px-6 py-24 sm:px-8 lg:px-12">
           <div className="max-w-4xl">
-            <p className="mb-6 text-xs font-semibold uppercase tracking-[0.42em] text-[#D9B45B]">
+            <p className="mb-6 text-xs font-semibold uppercase tracking-[0.42em] !text-[#FFD76A]">
               A Landmark Development Opportunity
             </p>
 
-            <h1 className="font-serif text-5xl font-medium leading-[0.98] text-[#F8F6F2] drop-shadow-[0_3px_12px_rgba(0,0,0,0.75)] sm:text-6xl md:text-7xl lg:text-[92px]">
+            <h1 className="font-serif text-5xl font-medium leading-[0.98] !text-white sm:text-6xl md:text-7xl lg:text-[92px]">
               Invest in a
-              <span className="block text-[#D9B45B]">Legacy in the Making</span>
+              <span className="block !text-[#FFD76A]">Legacy in the Making</span>
             </h1>
 
-            <p className="mt-8 max-w-3xl text-base leading-8 text-[#F2F2F2] drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] sm:text-lg">
+            <p className="mt-8 max-w-3xl text-base leading-8 !text-white/80 sm:text-lg">
               The Gallaspy Golf & Country Club is envisioned as a premier
               private golf and lifestyle destination where championship golf,
               luxury hospitality, wellness, residential living, and enduring
@@ -136,14 +136,14 @@ export default function InvestPage() {
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-full bg-[#B89146] px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-white transition duration-300 hover:-translate-y-1 hover:bg-[#D9B45B]"
+                className="inline-flex items-center justify-center rounded-full bg-[#FFD76A] px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] !text-[#10263F] transition duration-300 hover:-translate-y-1 hover:bg-white"
               >
                 Request Investment Information
               </Link>
 
               <Link
                 href="/master-plan"
-                className="inline-flex items-center justify-center rounded-full border border-white/40 px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-white transition duration-300 hover:border-[#D9B45B] hover:bg-white/10 hover:text-[#D9B45B]"
+                className="inline-flex items-center justify-center rounded-full border border-white/40 px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-white transition duration-300 hover:border-[#D9B45B] hover:bg-white/10 hover:!text-[#FFD76A]"
               >
                 Explore the Master Plan
               </Link>
@@ -178,7 +178,7 @@ export default function InvestPage() {
               Executive Overview
             </p>
 
-            <h2 className="mt-5 font-serif text-4xl leading-tight sm:text-5xl lg:text-6xl">
+            <h2 className="mt-5 font-serif text-4xl leading-tight !text-white sm:text-5xl lg:text-6xl">
               More Than a Golf Club
             </h2>
           </div>
@@ -204,10 +204,10 @@ export default function InvestPage() {
       </section>
 
       {/* Why invest */}
-      <section className="bg-[#10263F] px-6 py-28 text-white sm:px-8 lg:px-12 lg:py-36">
+      <section className="bg-[#10263F] px-6 py-28 !text-white sm:px-8 lg:px-12 lg:py-36">
         <div className="mx-auto max-w-[1320px]">
           <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#D9B45B]">
+            <p className="text-xs font-semibold uppercase tracking-[0.35em] !text-[#FFD76A]">
               The Investment Case
             </p>
 
@@ -215,7 +215,7 @@ export default function InvestPage() {
               Why The Gallaspy
             </h2>
 
-            <p className="mt-6 text-base leading-8 text-white/70 sm:text-lg">
+            <p className="mt-6 text-base leading-8 !text-white/70 sm:text-lg">
               The proposed development is designed around four principles that
               support its long-term positioning and investment potential.
             </p>
@@ -227,7 +227,7 @@ export default function InvestPage() {
                 key={reason.number}
                 className="bg-[#10263F] p-8 transition duration-300 hover:bg-[#142F4D] sm:p-10 lg:p-12"
               >
-                <p className="font-serif text-4xl text-[#D9B45B]">
+                <p className="font-serif text-4xl !text-[#FFD76A]">
                   {reason.number}
                 </p>
 
@@ -235,7 +235,7 @@ export default function InvestPage() {
                   {reason.title}
                 </h3>
 
-                <p className="mt-4 leading-7 text-white/65">
+                <p className="mt-4 leading-7 !text-white/70">
                   {reason.description}
                 </p>
               </article>
@@ -259,7 +259,7 @@ export default function InvestPage() {
             <div className="absolute inset-0 bg-gradient-to-t from-[#071625]/80 via-transparent to-transparent" />
 
             <div className="absolute bottom-0 left-0 p-8 text-white sm:p-10">
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D9B45B]">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] !text-[#FFD76A]">
                 Diversified Destination
               </p>
 
@@ -351,16 +351,16 @@ export default function InvestPage() {
       <section className="px-6 py-28 sm:px-8 lg:px-12 lg:py-36">
         <div className="mx-auto max-w-[1320px]">
           <div className="grid overflow-hidden rounded-3xl bg-[#10263F] lg:grid-cols-2">
-            <div className="p-8 text-white sm:p-12 lg:p-16">
-              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#D9B45B]">
+            <div className="p-8 !text-white sm:p-12 lg:p-16">
+              <p className="text-xs font-semibold uppercase tracking-[0.35em] !text-[#FFD76A]">
                 Proposed Capital Framework
               </p>
 
-              <h2 className="mt-5 font-serif text-4xl leading-tight sm:text-5xl">
+              <h2 className="mt-5 font-serif text-4xl leading-tight !text-white sm:text-5xl">
                 Investment Structure
               </h2>
 
-              <p className="mt-6 leading-8 text-white/70">
+              <p className="mt-6 leading-8 !text-white/70">
                 The final capital structure will be developed with qualified
                 legal, financial, tax, development, and investment advisers.
                 The current concept anticipates a combination of founder
@@ -379,7 +379,7 @@ export default function InvestPage() {
                 ].map((item) => (
                   <div
                     key={item}
-                    className="border-l border-[#D9B45B] pl-4 text-sm leading-6 text-white/80"
+                    className="border-l border-[#D9B45B] pl-4 text-sm leading-6 !text-white/80"
                   >
                     {item}
                   </div>
@@ -459,19 +459,19 @@ export default function InvestPage() {
       </section>
 
       {/* CTA */}
-      <section className="relative overflow-hidden bg-[#071625] px-6 py-28 text-center text-white sm:px-8 lg:px-12 lg:py-36">
+      <section className="relative overflow-hidden bg-[#071625] px-6 py-28 text-center !text-white sm:px-8 lg:px-12 lg:py-36">
         <div className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-[#B89146]/10 blur-[120px]" />
 
         <div className="relative z-10 mx-auto max-w-4xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.4em] text-[#D9B45B]">
+          <p className="text-xs font-semibold uppercase tracking-[0.4em] !text-[#FFD76A]">
             Invitation to Partner
           </p>
 
-          <h2 className="mt-6 font-serif text-4xl leading-tight sm:text-5xl lg:text-7xl">
+          <h2 className="mt-6 font-serif text-4xl leading-tight !text-white sm:text-5xl lg:text-7xl">
             Help Build a Landmark Destination
           </h2>
 
-          <p className="mx-auto mt-7 max-w-3xl text-base leading-8 text-white/70 sm:text-lg">
+          <p className="mx-auto mt-7 max-w-3xl text-base leading-8 !text-white/70 sm:text-lg">
             We welcome conversations with qualified investors, lenders,
             development partners, operators, advisers, and strategic
             organizations interested in helping bring The Gallaspy vision to
@@ -481,20 +481,20 @@ export default function InvestPage() {
           <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-full bg-[#B89146] px-9 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-white transition duration-300 hover:-translate-y-1 hover:bg-[#D9B45B]"
+              className="inline-flex items-center justify-center rounded-full bg-[#FFD76A] px-9 py-4 text-xs font-semibold uppercase tracking-[0.2em] !text-[#10263F] transition duration-300 hover:-translate-y-1 hover:bg-white"
             >
               Request Investment Information
             </Link>
 
             <Link
               href="/founders-letter"
-              className="inline-flex items-center justify-center rounded-full border border-white/35 px-9 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-white transition duration-300 hover:border-[#D9B45B] hover:text-[#D9B45B]"
+              className="inline-flex items-center justify-center rounded-full border border-white/35 px-9 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-white transition duration-300 hover:border-[#D9B45B] hover:!text-[#FFD76A]"
             >
               Read the Founder’s Letter
             </Link>
           </div>
 
-          <p className="mx-auto mt-12 max-w-3xl text-xs leading-6 text-white/40">
+          <p className="mx-auto mt-12 max-w-3xl text-xs leading-6 !text-white/45">
             This website is provided for general informational purposes only
             and does not constitute an offer to sell or a solicitation to buy
             securities. Any investment opportunity would be offered only
