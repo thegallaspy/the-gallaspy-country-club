@@ -438,14 +438,7 @@ p {
   Your lowercase background variants receive the same correction.
 */
 
-[class*="bg-[#163a2f]"] *,
-[class*="bg-[#0b251e]"] *,
-[class*="bg-[#123c2d]"] *,
-[class*="bg-[#082a20]"] *,
-[class*="bg-[#1e3557]"] *,
-[class*="bg-[#10263f]"] * {
-  color: var(--white);
-}
+/* Removed overly broad descendant color override. */
 
 /* =========================================================
    GOLD MUST REMAIN GOLD
