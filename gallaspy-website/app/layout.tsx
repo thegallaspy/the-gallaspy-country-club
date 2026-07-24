@@ -7,6 +7,8 @@ import LoadingScreen from "@/components/ui/LoadingScreen";
 
 import "./globals.css";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://thegallaspy.com"),
 
