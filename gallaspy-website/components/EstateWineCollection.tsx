@@ -32,7 +32,7 @@ const wines = [
   },
 ];
 
-export default function EstateCollection() {
+export default function EstateWineCollection() {
   return (
     <section
       id="estate-collection"

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ClubNavigation } from "@/components/ClubNavigation";
-import EstateWineCollection from "@/components/club/EstateWineCollection";
+import EstateWineCollection from "@/components/EstateWineCollection";
 
 export const metadata: Metadata = {
   title: "Vineyard & Winery | The Gallaspy Golf & Country Club",
