@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ClubNavigation } from "@/components/ClubNavigation";
+import EstateWineCollection from "@/components/club/EstateWineCollection";
 
 export const metadata: Metadata = {
   title: "Vineyard & Winery | The Gallaspy Golf & Country Club",
@@ -254,6 +255,9 @@ export default function VineyardPage() {
           </div>
         </div>
       </section>
+
+      {/* The Gallaspy Estate Collection */}
+      <EstateWineCollection />
 
       {/* Experiences */}
       <section className="bg-white px-5 py-16 sm:px-8 lg:py-24">

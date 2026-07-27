@@ -87,19 +87,31 @@ export default function Hero() {
       {/* Hero content */}
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center text-center text-white">
         <div
-          className={`flex items-center justify-center gap-3 transition-all duration-1000 sm:gap-4 ${
+          className={`flex flex-col items-center transition-all duration-1000 ${
             isReady
               ? "translate-y-0 opacity-100"
               : "translate-y-5 opacity-0"
           }`}
         >
-          <span className="hidden h-px w-8 bg-[#FFD76A]/75 sm:block" />
+          {/* Falcon Crest */}
+          <Image
+            src="/images/falcon-logo.png"
+            alt="The Gallaspy Falcon"
+            width={120}
+            height={120}
+            priority
+            className="mb-7 h-auto w-[100px] object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.35)] sm:w-[110px] lg:w-[120px]"
+          />
 
-          <p className="text-[8px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A] sm:text-[10px] sm:tracking-[0.42em]">
-            Covington, Georgia
-          </p>
+          <div className="flex items-center gap-3 sm:gap-4">
+            <span className="hidden h-px w-8 bg-[#FFD76A]/75 sm:block" />
 
-          <span className="hidden h-px w-8 bg-[#FFD76A]/75 sm:block" />
+            <p className="text-[8px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A] sm:text-[10px] sm:tracking-[0.42em]">
+              Covington, Georgia
+            </p>
+
+            <span className="hidden h-px w-8 bg-[#FFD76A]/75 sm:block" />
+          </div>
         </div>
 
         <h1
