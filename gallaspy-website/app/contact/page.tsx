@@ -13,7 +13,7 @@ const inquiryTypes = [
   {
     title: "Membership",
     description:
-      "Learn about future membership opportunities, club access, lifestyle benefits, and the Founding 250.",
+      "Learn about future membership opportunities, club access, lifestyle benefits, and the Falcon Society.",
   },
   {
     title: "Investment",

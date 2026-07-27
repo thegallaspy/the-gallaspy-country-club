@@ -128,7 +128,7 @@ export default function ContactForm() {
               Select an option
             </option>
             <option value="Membership">Membership</option>
-            <option value="Founding 250">Founding 250</option>
+            <option value="Falcon Society">Falcon Society</option>
             <option value="Investment">Investment</option>
             <option value="Partnership">Strategic Partnership</option>
             <option value="General Inquiry">General Inquiry</option>

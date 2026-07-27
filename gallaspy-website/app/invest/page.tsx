@@ -432,7 +432,7 @@ export default function InvestPage() {
                 },
                 {
                   title: "Membership Pre-Interest",
-                  text: "Early initiatives such as the Founding 250 can help demonstrate market interest before full development.",
+                  text: "Early initiatives such as the Falcon Society can help demonstrate market interest before full development.",
                 },
                 {
                   title: "Long-Term Land Value",

@@ -27,7 +27,7 @@ export async function POST(request: Request) {
 
     // This will show submissions in your Codespaces terminal for now.
     console.log("=================================");
-    console.log("NEW FOUNDING 250 REGISTRATION");
+    console.log("NEW FALCON SOCIETY APPLICATION");
     console.log("=================================");
     console.log(data);
     console.log("=================================");
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       success: true,
       message:
-        "Thank you for your interest in becoming a Founding Member of The Gallaspy Golf & Country Club.",
+        "Thank you for your interest in the Falcon Society at The Gallaspy Golf & Country Club. One of only 100 Founding Members will be selected.",
     });
   } catch (error) {
     console.error(error);
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         success: false,
-        message: "Something went wrong.",
+        message: "Something went wrong. Please try again.",
       },
       { status: 500 }
     );

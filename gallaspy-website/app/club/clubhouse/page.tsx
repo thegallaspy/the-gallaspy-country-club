@@ -413,7 +413,7 @@ export default function ClubhousePage() {
           <div className="mx-auto mt-7 h-px w-16 bg-[#B89146]" />
           <p className="mx-auto mt-7 max-w-2xl text-sm leading-7 text-white/80 sm:text-base sm:leading-8">Become part of the founding generation and help shape the traditions, experiences, and culture that will define The Gallaspy for decades to come.</p>
           <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
-            <Link href="/founding-250#registration" className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[#FFD76A] bg-[#FFD76A] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:-translate-y-0.5 hover:bg-white">Join the Founding 250</Link>
+            <Link href="/falcon-society#registration" className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[#FFD76A] bg-[#FFD76A] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:-translate-y-0.5 hover:bg-white">Join the Falcon Society</Link>
             <Link href="/membership" className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-white/45 px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition hover:-translate-y-0.5 hover:border-[#FFD76A] hover:text-[#FFD76A]">View Membership</Link>
             <Link href="/club" className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-white/45 px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition hover:-translate-y-0.5 hover:border-[#FFD76A] hover:text-[#FFD76A]">Explore the Club</Link>
           </div>

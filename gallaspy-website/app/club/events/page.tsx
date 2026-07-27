@@ -666,10 +666,10 @@ export default function EventsPage() {
 
           <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
             <Link
-              href="/founding-250#registration"
+              href="/falcon-society#registration"
               className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[#FFD76A] bg-[#FFD76A] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:-translate-y-0.5 hover:bg-white"
             >
-              Join the Founding 250
+              Join the Falcon Society
             </Link>
 
             <Link

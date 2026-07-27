@@ -4,7 +4,7 @@ import { FormEvent, useState } from "react";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
-interface FoundingFormData {
+interface FalconSocietyFormData {
   firstName: string;
   lastName: string;
   email: string;
@@ -18,7 +18,7 @@ interface FoundingFormData {
   consent: boolean;
 }
 
-const initialFormData: FoundingFormData = {
+const initialFormData: FalconSocietyFormData = {
   firstName: "",
   lastName: "",
   email: "",
@@ -32,15 +32,15 @@ const initialFormData: FoundingFormData = {
   consent: false,
 };
 
-export default function Founding250Form() {
+export default function FalconSocietyForm() {
   const [formData, setFormData] =
-    useState<FoundingFormData>(initialFormData);
+    useState<FalconSocietyFormData>(initialFormData);
 
   const [status, setStatus] = useState<FormStatus>("idle");
   const [message, setMessage] = useState("");
 
   const updateField = (
-    field: keyof FoundingFormData,
+    field: keyof FalconSocietyFormData,
     value: string | boolean,
   ) => {
     setFormData((current) => ({
@@ -56,7 +56,7 @@ export default function Founding250Form() {
     setMessage("");
 
     try {
-      const response = await fetch("/api/founding-250", {
+      const response = await fetch("/api/falcon-society", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +74,7 @@ export default function Founding250Form() {
 
       setStatus("success");
       setMessage(
-        "Thank you. Your Founding 250 registration has been received. A member of The Gallaspy Development Group will contact you with the next steps.",
+        "Thank you. Your Falcon Society application has been received. A member of The Gallaspy Development Group will contact you with the next steps.",
       );
 
       setFormData(initialFormData);
@@ -128,7 +128,7 @@ export default function Founding250Form() {
     <div className="overflow-hidden rounded-[28px] border border-[#10263F]/10 bg-white shadow-[0_30px_90px_rgba(16,38,63,0.1)]">
       <div className="bg-[#10263F] px-7 py-9 text-white sm:px-10 sm:py-11">
         <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#FFD76A]">
-          Founding 250 Registration
+          Falcon Society Application
         </p>
 
         <h2 className="mt-4 font-serif text-4xl font-light sm:text-5xl">
@@ -136,9 +136,8 @@ export default function Founding250Form() {
         </h2>
 
         <p className="mt-5 max-w-2xl text-sm leading-7 text-white/70 sm:text-base">
-          Complete the form below to be considered for one of the first 250
-          founding membership opportunities at The Gallaspy Golf &amp; Country
-          Club.
+          Complete the form below to be considered for one of only 100 Founding Members
+          through the Falcon Society at The Gallaspy Golf &amp; Country Club.
         </p>
       </div>
 
@@ -209,7 +208,7 @@ export default function Founding250Form() {
             }
             options={[
               "Charter Founder",
-              "Founding Member",
+              "Falcon Society Member",
               "Legacy Member",
               "Standard Membership",
               "Corporate Membership",
@@ -258,7 +257,7 @@ export default function Founding250Form() {
             onChange={(event) =>
               updateField("comments", event.target.value)
             }
-            placeholder="Tell us what interests you most about becoming a founding member."
+            placeholder="Tell us what interests you most about becoming a Founding Member of the Falcon Society."
             className="w-full resize-none rounded-none border border-[#10263F]/15 bg-[#F8F5EE] px-4 py-4 text-sm text-[#10263F] outline-none transition placeholder:text-[#10263F]/40 focus:border-[#B89146] focus:ring-1 focus:ring-[#B89146]"
           />
         </div>
@@ -299,7 +298,7 @@ export default function Founding250Form() {
         >
           {status === "submitting"
             ? "Submitting Registration..."
-            : "Join the Founding 250 Interest List"}
+            : "Apply to the Falcon Society"}
 
           {status !== "submitting" && (
             <span className="ml-3 text-[#FFD76A]">→</span>

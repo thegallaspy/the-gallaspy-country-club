@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const membershipTiers = [
   {
     eyebrow: "First Release",
-    name: "Founding 250",
+    name: "Falcon Society",
     initiation: "$7,500",
     monthly: "$475",
     description:
@@ -454,10 +454,10 @@ export default function MembershipPage() {
           </div>
 
           <Link
-            href="/founding-250"
+            href="/falcon-society"
             className="inline-flex min-h-[45px] shrink-0 items-center justify-center rounded-full border border-[#FFD76A] bg-[#FFD76A] px-7 text-[10px] font-bold uppercase tracking-[0.2em] !text-[#10263F] transition hover:-translate-y-0.5 hover:bg-white"
           >
-            Explore the Founding 250
+            Explore the Falcon Society
           </Link>
         </div>
       </section>

@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import Founding250Form from "@/components/Founding250Form";
+import FalconSocietyForm from "@/components/FalconSocietyForm";
 
 export const metadata: Metadata = {
-  title: "The Founding 250 | The Gallaspy Golf & Country Club",
+  title: "Falcon Society | The Gallaspy Golf & Country Club",
   description:
-    "Become part of the original membership generation of The Gallaspy Golf & Country Club in Metro Atlanta.",
+    "Join the exclusive Falcon Society, one of only 100 founding members of The Gallaspy Golf & Country Club in Metro Atlanta.",
 };
 
 const foundingPillars = [
@@ -46,15 +46,15 @@ const timeline = [
 ];
 
 const benefits = [
-  "Founding Member recognition",
+  "One of only 100 Founding Members",
   "Permanent place in the club’s history",
   "Exclusive project updates",
   "Invitations to select private events",
   "Priority membership opportunities",
-  "Founding Charter Certificate",
+  "Falcon Society charter recognition",
 ];
 
-export default function Founding250Page() {
+export default function FalconSocietyPage() {
   return (
     <main className="bg-[#F7F4EE] text-[#1E3557]">
       {/* Hero */}
@@ -78,17 +78,17 @@ export default function Founding250Page() {
             </p>
 
             <h1 className="mt-6 max-w-4xl font-serif text-[3.25rem] font-light leading-[0.98] text-white sm:text-6xl lg:text-[5.4rem]">
-              Become One of the
-              <span className="block text-[#FFD76A]">Founding 250</span>
+              Become One of Only
+              <span className="block text-[#FFD76A]">100 Founding Members</span>
             </h1>
 
             <div className="mt-7 h-px w-20 bg-[#B89146]" />
 
             <p className="mt-7 max-w-3xl text-base leading-8 text-white/88 sm:text-lg sm:leading-9">
               Before the first fairway is shaped and before the clubhouse opens
-              its doors, there will be 250 individuals and families who believed
-              in the vision from the very beginning. Their names will forever be
-              part of The Gallaspy Golf &amp; Country Club story.
+              its doors, there will be only 100 individuals and families who
+              believed in the vision from the very beginning. Their names will
+              forever be part of The Gallaspy Golf &amp; Country Club story.
             </p>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -110,15 +110,15 @@ export default function Founding250Page() {
         </div>
       </section>
 
-      {/* Why Founding 250 */}
+      {/* Why Falcon Society */}
       <section
-        id="why-founding-250"
+        id="why-falcon-society"
         className="scroll-mt-24 bg-[#F7F4EE] px-5 py-16 sm:px-8 lg:py-24"
       >
         <div className="mx-auto w-full max-w-[1120px]">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
-              Why Founding 250?
+              Why Falcon Society?
             </p>
 
             <h2 className="mt-4 font-serif text-[2.5rem] font-light leading-[1.08] text-[#10263F] sm:text-5xl">
@@ -126,7 +126,7 @@ export default function Founding250Page() {
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-[#1E3557]/78 sm:text-base sm:leading-8">
-              The Founding 250 is an invitation to help shape the culture,
+              The Falcon Society is an invitation to help shape the culture,
               traditions, relationships, and legacy of the club from its first
               chapter.
             </p>
@@ -230,7 +230,7 @@ export default function Founding250Page() {
               “The Gallaspy Golf &amp; Country Club represents more than a golf
               course. It is our commitment to building a place where families
               gather, friendships grow, and future generations create lasting
-              memories. Becoming one of our Founding 250 means believing in
+              memories. Becoming one of our Founding Members means believing in
               something before it exists—and helping shape a legacy that will
               endure for decades.”
             </blockquote>
@@ -279,10 +279,10 @@ export default function Founding250Page() {
 
           <aside className="rounded-[24px] bg-[#1E3557] p-8 text-white sm:p-10">
             <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-[#FFD76A]">
-              Founding Memberships
+              Falcon Society Memberships
             </p>
 
-            <p className="mt-7 font-serif text-7xl font-light text-white">250</p>
+            <p className="mt-7 font-serif text-7xl font-light text-white">100</p>
             <p className="mt-2 text-xs font-bold uppercase tracking-[0.22em] text-white/55">
               Total Available
             </p>
@@ -299,7 +299,7 @@ export default function Founding250Page() {
 
               <div>
                 <p className="font-serif text-4xl font-light text-[#FFD76A]">
-                  250
+                  100
                 </p>
                 <p className="mt-2 text-[9px] font-bold uppercase tracking-[0.2em] text-white/55">
                   Remaining
@@ -316,7 +316,7 @@ export default function Founding250Page() {
               href="#registration"
               className="mt-8 inline-flex min-h-[46px] w-full items-center justify-center rounded-full border border-[#FFD76A] bg-[#FFD76A] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:-translate-y-0.5 hover:bg-white"
             >
-              Join the Founding 250
+              Join the Falcon Society
             </Link>
           </aside>
         </div>
@@ -336,7 +336,7 @@ export default function Founding250Page() {
             </h2>
 
             <p className="mt-6 text-sm leading-7 text-[#1E3557]/78 sm:text-base sm:leading-8">
-              Each approved Founding 250 member is intended to receive a
+              Each approved Falcon Society member is intended to receive a
               numbered charter certificate recognizing their place in the
               original membership generation.
             </p>
@@ -356,7 +356,7 @@ export default function Founding250Page() {
               <div className="mx-auto mt-7 h-px w-24 bg-[#B89146]" />
 
               <p className="mt-8 font-serif text-4xl font-light text-[#10263F] sm:text-5xl">
-                Founding 250
+                Falcon Society
               </p>
 
               <p className="mt-3 text-xs font-bold uppercase tracking-[0.25em] text-[#1E3557]/65">
@@ -369,7 +369,7 @@ export default function Founding250Page() {
               </p>
 
               <p className="mt-10 font-serif text-2xl text-[#B89146]">
-                Member No. 001 of 250
+                Member No. 001 of 100
               </p>
             </div>
           </div>
@@ -392,13 +392,13 @@ export default function Founding250Page() {
             </h2>
 
             <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-[#1E3557]/70">
-              Complete the form below to receive Founding 250 updates,
+              Complete the form below to receive Falcon Society updates,
               development announcements, private presentation invitations, and
               future membership information.
             </p>
           </div>
 
-          <Founding250Form />
+          <FalconSocietyForm />
         </div>
       </section>
 
@@ -411,7 +411,7 @@ export default function Founding250Page() {
 
           <p className="mt-4 text-xs leading-6 text-[#1E3557]/70">
             The Gallaspy Golf &amp; Country Club is currently in the planning
-            and development stage. The Founding 250 program is preliminary and
+            and development stage. The Falcon Society program is preliminary and
             may be revised before any formal membership offering. Registration
             of interest is not a membership purchase, reservation, application,
             or guarantee of acceptance. No payment should be submitted unless
@@ -453,7 +453,7 @@ export default function Founding250Page() {
               href="#registration"
               className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#FFD76A] bg-[#FFD76A] px-8 text-[10px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:-translate-y-0.5 hover:bg-white"
             >
-              Join the Founding 250
+              Join the Falcon Society
             </Link>
 
             <Link

@@ -19,7 +19,7 @@ const clubLinks = [
 const primaryLinks = [
   { title: "Why the Gallaspy", href: "/why-the-gallaspy" },
   { title: "Master Plan", href: "/master-plan" },
-  { title: "Founding 250", href: "/founding-250" },
+  { title: "Falcon Society", href: "/falcon-society" },
   { title: "Membership", href: "/membership" },
   { title: "Invest", href: "/invest" },
   { title: "Founder’s Letter", href: "/founders-letter" },
