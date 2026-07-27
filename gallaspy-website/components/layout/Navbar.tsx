@@ -57,8 +57,14 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    setIsMobileOpen(false);
-    setIsClubOpen(false);
+    const resetMenus = window.setTimeout(() => {
+      setIsMobileOpen(false);
+      setIsClubOpen(false);
+    }, 0);
+
+    return () => {
+      window.clearTimeout(resetMenus);
+    };
   }, [pathname]);
 
   useEffect(() => {

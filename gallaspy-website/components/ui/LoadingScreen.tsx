@@ -9,16 +9,19 @@ export default function LoadingScreen() {
   const [hasCheckedSession, setHasCheckedSession] = useState(false);
 
   useEffect(() => {
-    const hasEntered = sessionStorage.getItem("gallaspy-site-entered");
+    const checkSession = window.setTimeout(() => {
+      const hasEntered = sessionStorage.getItem("gallaspy-site-entered");
 
-    if (!hasEntered) {
-      setIsVisible(true);
-      document.body.style.overflow = "hidden";
-    }
+      if (!hasEntered) {
+        setIsVisible(true);
+        document.body.style.overflow = "hidden";
+      }
 
-    setHasCheckedSession(true);
+      setHasCheckedSession(true);
+    }, 0);
 
     return () => {
+      window.clearTimeout(checkSession);
       document.body.style.overflow = "";
     };
   }, []);
@@ -105,13 +108,13 @@ export default function LoadingScreen() {
         <div className="entrance-crest-wrap relative">
           <div className="crest-glow absolute left-1/2 top-1/2 h-44 w-44 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FFD76A]/12 blur-3xl sm:h-56 sm:w-56" />
 
-          <div className="entrance-crest relative h-28 w-28 sm:h-36 sm:w-36">
+          <div className="entrance-crest relative h-44 w-44 sm:h-56 sm:w-56">
             <Image
-              src="/logos/crest.png"
-              alt="The Gallaspy crest"
+              src="/logos/falcon-society-logo.png"
+              alt="The Gallaspy falcon logo"
               fill
               priority
-              sizes="144px"
+              sizes="224px"
               className="object-contain"
             />
           </div>
