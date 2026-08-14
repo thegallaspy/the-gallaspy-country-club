@@ -1,3 +1,4 @@
+import Image from "next/image";
 import InvitationalNav from "@/components/invitational/InvitationalNav";
 
 export default function InvitationalPage() {
@@ -7,16 +8,29 @@ export default function InvitationalPage() {
       {/* HERO */}
       <section className="flex min-h-[90vh] items-center bg-[#10263F] px-6 pt-28 text-white sm:px-8 lg:px-12">
         <div className="mx-auto w-full max-w-[1400px]">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#FFD76A]">
-            The Gallaspy Presents
-          </p>
+          <div className="flex flex-col items-start">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#FFD76A]">
+              The Gallaspy Presents
+            </p>
 
-          <h1 className="mt-6 max-w-5xl font-serif text-5xl leading-[0.98] sm:text-6xl md:text-7xl lg:text-[92px]">
-            The 2027
-            <span className="block text-[#FFD76A]">
-              Gallaspy Invitational
-            </span>
-          </h1>
+            <div className="mt-8">
+              <Image
+                src="/logos/gallaspy-invitational.png"
+                alt="The Gallaspy Invitational"
+                width={320}
+                height={320}
+                priority
+                className="h-auto w-[180px] sm:w-[220px] lg:w-[260px]"
+              />
+            </div>
+
+            <h1 className="mt-8 max-w-5xl font-serif text-5xl leading-[0.98] sm:text-6xl md:text-7xl lg:text-[92px]">
+              The 2027
+              <span className="block text-[#FFD76A]">
+                Gallaspy Invitational
+              </span>
+            </h1>
+          </div>
 
           <div className="mt-8 h-px w-24 bg-[#B89146]" />
 

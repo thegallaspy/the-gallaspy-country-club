@@ -1,8 +1,70 @@
+"use client";
+
+import Image from "next/image";
 import Link from "next/link";
+import { FormEvent, useState } from "react";
+import InvitationalNav from "@/components/invitational/InvitationalNav";
 
 export default function InvitationalRegisterPage() {
+  const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setSubmitting(true);
+    setError("");
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    const payload = {
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      city: formData.get("city"),
+      state: formData.get("state"),
+      playerInterest: formData.get("playerInterest"),
+      teamName: formData.get("teamName"),
+      shirtSize: formData.get("shirtSize"),
+      sponsorInterest: formData.get("sponsorInterest"),
+      notes: formData.get("notes"),
+    };
+
+    try {
+      const response = await fetch("/api/invitational/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Unable to submit registration.");
+      }
+
+      setSuccess(true);
+      form.reset();
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again."
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   return (
     <main className="min-h-screen bg-[#F5F0E6] text-[#10263F]">
+      <InvitationalNav />
+
       {/* HERO */}
       <section className="bg-[#10263F] px-6 pb-20 pt-32 text-white sm:px-8 lg:px-12">
         <div className="mx-auto max-w-[1200px]">
@@ -13,7 +75,18 @@ export default function InvitationalRegisterPage() {
             ← Back to Invitational
           </Link>
 
-          <p className="mt-12 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">
+          <div className="mt-10">
+            <Image
+              src="/logos/gallaspy-invitational.png"
+              alt="The Gallaspy Invitational"
+              width={300}
+              height={300}
+              priority
+              className="h-auto w-[150px] sm:w-[180px] lg:w-[205px]"
+            />
+          </div>
+
+          <p className="mt-8 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">
             The First Annual
           </p>
 
@@ -50,16 +123,16 @@ export default function InvitationalRegisterPage() {
 
           <div className="border-r border-[#10263F]/10 px-4 py-7">
             <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
-              Start
+              Prize Purse
             </p>
-            <p className="mt-2 font-serif text-xl">11:00 AM</p>
+            <p className="mt-2 font-serif text-xl">$10,000</p>
           </div>
 
           <div className="px-4 py-7">
             <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
-              Host Course
+              Start
             </p>
-            <p className="mt-2 font-serif text-xl">To Be Announced</p>
+            <p className="mt-2 font-serif text-xl">11:00 AM</p>
           </div>
         </div>
       </section>
@@ -77,272 +150,275 @@ export default function InvitationalRegisterPage() {
             </h2>
 
             <p className="mt-6 text-sm leading-7 text-[#10263F]/65">
-              The inaugural field is planned for 100 players. Submit your
-              interest to receive registration announcements, finalized player
-              pricing, host-course information, and tournament updates.
+              The inaugural field is planned for 100 players competing in a
+              4-person scramble for a $10,000 prize purse. Submit your interest
+              to receive registration announcements, finalized player pricing,
+              host-course information, and tournament updates.
             </p>
           </div>
 
           <div className="rounded-[22px] border border-[#10263F]/10 bg-white p-7 sm:p-9">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[#8B6A34]">
-              Registration Status
-            </p>
-
-            <h3 className="mt-4 font-serif text-3xl">
-              Priority Interest List
-            </h3>
-
-            <p className="mt-5 text-sm leading-7 text-[#10263F]/65">
-              Official paid registration has not opened yet. Joining the
-              interest list does not reserve a tournament position or require
-              payment.
-            </p>
-
-            <form className="mt-8 space-y-6">
-              {/* NAME */}
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label
-                    htmlFor="firstName"
-                    className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]"
-                  >
-                    First Name *
-                  </label>
-
-                  <input
-                    id="firstName"
-                    name="firstName"
-                    type="text"
-                    required
-                    className="h-[50px] w-full rounded-xl border border-[#10263F]/15 bg-[#F9F7F2] px-4 text-sm outline-none transition focus:border-[#B89146]"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="lastName"
-                    className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]"
-                  >
-                    Last Name *
-                  </label>
-
-                  <input
-                    id="lastName"
-                    name="lastName"
-                    type="text"
-                    required
-                    className="h-[50px] w-full rounded-xl border border-[#10263F]/15 bg-[#F9F7F2] px-4 text-sm outline-none transition focus:border-[#B89146]"
-                  />
-                </div>
-              </div>
-
-              {/* CONTACT */}
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]"
-                  >
-                    Email Address *
-                  </label>
-
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    className="h-[50px] w-full rounded-xl border border-[#10263F]/15 bg-[#F9F7F2] px-4 text-sm outline-none transition focus:border-[#B89146]"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="phone"
-                    className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]"
-                  >
-                    Phone Number *
-                  </label>
-
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    required
-                    className="h-[50px] w-full rounded-xl border border-[#10263F]/15 bg-[#F9F7F2] px-4 text-sm outline-none transition focus:border-[#B89146]"
-                  />
-                </div>
-              </div>
-
-              {/* LOCATION */}
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label
-                    htmlFor="city"
-                    className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]"
-                  >
-                    City
-                  </label>
-
-                  <input
-                    id="city"
-                    name="city"
-                    type="text"
-                    className="h-[50px] w-full rounded-xl border border-[#10263F]/15 bg-[#F9F7F2] px-4 text-sm outline-none transition focus:border-[#B89146]"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="state"
-                    className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]"
-                  >
-                    State
-                  </label>
-
-                  <input
-                    id="state"
-                    name="state"
-                    type="text"
-                    className="h-[50px] w-full rounded-xl border border-[#10263F]/15 bg-[#F9F7F2] px-4 text-sm outline-none transition focus:border-[#B89146]"
-                  />
-                </div>
-              </div>
-
-              {/* PLAYER INTEREST */}
-              <div>
-                <label
-                  htmlFor="playerInterest"
-                  className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]"
-                >
-                  How Would You Like to Register? *
-                </label>
-
-                <select
-                  id="playerInterest"
-                  name="playerInterest"
-                  required
-                  defaultValue=""
-                  className="h-[50px] w-full rounded-xl border border-[#10263F]/15 bg-[#F9F7F2] px-4 text-sm outline-none transition focus:border-[#B89146]"
-                >
-                  <option value="" disabled>
-                    Select an option
-                  </option>
-                  <option value="individual">Individual Player</option>
-                  <option value="two-players">2 Players</option>
-                  <option value="three-players">3 Players</option>
-                  <option value="team">Full 4-Person Team</option>
-                </select>
-              </div>
-
-              {/* HANDICAP + SHIRT */}
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label
-                    htmlFor="handicap"
-                    className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]"
-                  >
-                    Handicap / GHIN
-                  </label>
-
-                  <input
-                    id="handicap"
-                    name="handicap"
-                    type="text"
-                    placeholder="Optional"
-                    className="h-[50px] w-full rounded-xl border border-[#10263F]/15 bg-[#F9F7F2] px-4 text-sm outline-none transition focus:border-[#B89146]"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="shirtSize"
-                    className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]"
-                  >
-                    Polo Size
-                  </label>
-
-                  <select
-                    id="shirtSize"
-                    name="shirtSize"
-                    defaultValue=""
-                    className="h-[50px] w-full rounded-xl border border-[#10263F]/15 bg-[#F9F7F2] px-4 text-sm outline-none transition focus:border-[#B89146]"
-                  >
-                    <option value="" disabled>
-                      Select size
-                    </option>
-                    <option value="s">Small</option>
-                    <option value="m">Medium</option>
-                    <option value="l">Large</option>
-                    <option value="xl">XL</option>
-                    <option value="2xl">2XL</option>
-                    <option value="3xl">3XL</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* SPONSOR */}
-              <div>
-                <label
-                  htmlFor="sponsorInterest"
-                  className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]"
-                >
-                  Interested in Sponsorship?
-                </label>
-
-                <select
-                  id="sponsorInterest"
-                  name="sponsorInterest"
-                  defaultValue="no"
-                  className="h-[50px] w-full rounded-xl border border-[#10263F]/15 bg-[#F9F7F2] px-4 text-sm outline-none transition focus:border-[#B89146]"
-                >
-                  <option value="no">No</option>
-                  <option value="yes">
-                    Yes — Send Me Sponsorship Information
-                  </option>
-                  <option value="maybe">
-                    Possibly — I&apos;d Like to Learn More
-                  </option>
-                </select>
-              </div>
-
-              {/* NOTES */}
-              <div>
-                <label
-                  htmlFor="notes"
-                  className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]"
-                >
-                  Team Information or Notes
-                </label>
-
-                <textarea
-                  id="notes"
-                  name="notes"
-                  rows={4}
-                  placeholder="Team member names, questions, or additional information..."
-                  className="w-full rounded-xl border border-[#10263F]/15 bg-[#F9F7F2] px-4 py-3 text-sm outline-none transition focus:border-[#B89146]"
-                />
-              </div>
-
-              {/* NOTICE */}
-              <div className="border-l-2 border-[#B89146] bg-[#F5F0E6] px-5 py-4">
-                <p className="text-[11px] leading-6 text-[#10263F]/60">
-                  This form expresses player interest only. Your place in the
-                  tournament is not confirmed until official registration opens
-                  and payment is completed.
+            {success ? (
+              <div className="py-14 text-center">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#8B6A34]">
+                  Submission Received
                 </p>
-              </div>
 
-              {/* SUBMIT */}
-              <button
-                type="submit"
-                className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#10263F] px-8 text-[10px] font-semibold uppercase tracking-[0.22em] text-white transition duration-300 hover:bg-[#B89146]"
-              >
-                Join the Priority List
-              </button>
-            </form>
+                <h3 className="mt-5 font-serif text-4xl">
+                  You&apos;re on the priority list.
+                </h3>
+
+                <p className="mx-auto mt-5 max-w-lg text-sm leading-7 text-[#10263F]/65">
+                  Thank you for your interest in the 2027 Gallaspy
+                  Invitational. We&apos;ll use the information you submitted to
+                  keep you informed as official registration details are
+                  released.
+                </p>
+
+                <button
+                  type="button"
+                  onClick={() => setSuccess(false)}
+                  className="mt-8 inline-flex min-h-[50px] items-center justify-center rounded-full border border-[#10263F]/20 px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#10263F] transition hover:border-[#B89146] hover:text-[#B89146]"
+                >
+                  Submit Another Player
+                </button>
+              </div>
+            ) : (
+              <>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[#8B6A34]">
+                  Registration Status
+                </p>
+
+                <h3 className="mt-4 font-serif text-3xl">
+                  Priority Interest List
+                </h3>
+
+                <p className="mt-5 text-sm leading-7 text-[#10263F]/65">
+                  Official paid registration has not opened yet. Joining the
+                  interest list does not reserve a tournament position or
+                  require payment.
+                </p>
+
+                <form onSubmit={handleSubmit} className="mt-8 space-y-8">
+                  <div>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[#8B6A34]">
+                      Player Information
+                    </p>
+
+                    <div className="mt-5 grid gap-5 sm:grid-cols-2">
+                      <Field label="First Name" name="firstName" required />
+                      <Field label="Last Name" name="lastName" required />
+                    </div>
+
+                    <div className="mt-5 grid gap-5 sm:grid-cols-2">
+                      <Field
+                        label="Email Address"
+                        name="email"
+                        type="email"
+                        required
+                      />
+                      <Field
+                        label="Phone Number"
+                        name="phone"
+                        type="tel"
+                        required
+                      />
+                    </div>
+
+                    <div className="mt-5 grid gap-5 sm:grid-cols-2">
+                      <Field label="City" name="city" />
+                      <Field label="State" name="state" />
+                    </div>
+                  </div>
+
+                  <div className="border-t border-[#10263F]/10 pt-7">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[#8B6A34]">
+                      Registration Interest
+                    </p>
+
+                    <div className="mt-5 grid gap-5 sm:grid-cols-2">
+                      <div>
+                        <label
+                          htmlFor="playerInterest"
+                          className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]"
+                        >
+                          How Would You Like to Register? *
+                        </label>
+
+                        <select
+                          id="playerInterest"
+                          name="playerInterest"
+                          required
+                          defaultValue=""
+                          className="h-[50px] w-full rounded-xl border border-[#10263F]/15 bg-[#F9F7F2] px-4 text-sm outline-none transition focus:border-[#B89146]"
+                        >
+                          <option value="" disabled>
+                            Select an option
+                          </option>
+                          <option value="Individual Player">
+                            Individual Player
+                          </option>
+                          <option value="2 Players">2 Players</option>
+                          <option value="3 Players">3 Players</option>
+                          <option value="Full 4-Person Team">
+                            Full 4-Person Team
+                          </option>
+                        </select>
+                      </div>
+
+                      <Field
+                        label="Team Name"
+                        name="teamName"
+                        placeholder="Optional"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="border-t border-[#10263F]/10 pt-7">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[#8B6A34]">
+                      Player Shirt Size
+                    </p>
+
+                    <p className="mt-3 text-[11px] leading-6 text-[#10263F]/55">
+                      Player polos are planned as part of the tournament
+                      experience.
+                    </p>
+
+                    <div className="mt-5">
+                      <label
+                        htmlFor="shirtSize"
+                        className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]"
+                      >
+                        Polo Size *
+                      </label>
+
+                      <select
+                        id="shirtSize"
+                        name="shirtSize"
+                        required
+                        defaultValue=""
+                        className="h-[50px] w-full rounded-xl border border-[#10263F]/15 bg-[#F9F7F2] px-4 text-sm outline-none transition focus:border-[#B89146]"
+                      >
+                        <option value="" disabled>
+                          Select size
+                        </option>
+                        <option value="Small">Small</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Large">Large</option>
+                        <option value="XL">XL</option>
+                        <option value="2XL">2XL</option>
+                        <option value="3XL">3XL</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="border-t border-[#10263F]/10 pt-7">
+                    <label
+                      htmlFor="sponsorInterest"
+                      className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]"
+                    >
+                      Interested in Sponsorship?
+                    </label>
+
+                    <select
+                      id="sponsorInterest"
+                      name="sponsorInterest"
+                      defaultValue="No"
+                      className="h-[50px] w-full rounded-xl border border-[#10263F]/15 bg-[#F9F7F2] px-4 text-sm outline-none transition focus:border-[#B89146]"
+                    >
+                      <option value="No">No</option>
+                      <option value="Yes">
+                        Yes — Send Me Sponsorship Information
+                      </option>
+                      <option value="Maybe">
+                        Possibly — I&apos;d Like to Learn More
+                      </option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="notes"
+                      className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]"
+                    >
+                      Team Information or Notes
+                    </label>
+
+                    <textarea
+                      id="notes"
+                      name="notes"
+                      rows={4}
+                      placeholder="Team member names, additional shirt sizes, questions, or other information..."
+                      className="w-full rounded-xl border border-[#10263F]/15 bg-[#F9F7F2] px-4 py-3 text-sm outline-none transition focus:border-[#B89146]"
+                    />
+                  </div>
+
+                  <div className="border-l-2 border-[#B89146] bg-[#F5F0E6] px-5 py-4">
+                    <p className="text-[11px] leading-6 text-[#10263F]/60">
+                      This form expresses player interest only. Your place in
+                      the tournament is not confirmed until official
+                      registration opens and payment is completed.
+                    </p>
+                  </div>
+
+                  {error && (
+                    <div className="rounded-xl border border-red-200 bg-red-50 px-5 py-4">
+                      <p className="text-sm text-red-700">{error}</p>
+                    </div>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#10263F] px-8 text-[10px] font-semibold uppercase tracking-[0.22em] text-white transition duration-300 hover:bg-[#B89146] disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {submitting
+                      ? "Submitting..."
+                      : "Join the Priority List"}
+                  </button>
+                </form>
+              </>
+            )}
           </div>
         </div>
       </section>
     </main>
+  );
+}
+
+type FieldProps = {
+  label: string;
+  name: string;
+  type?: string;
+  required?: boolean;
+  placeholder?: string;
+};
+
+function Field({
+  label,
+  name,
+  type = "text",
+  required = false,
+  placeholder,
+}: FieldProps) {
+  return (
+    <div>
+      <label
+        htmlFor={name}
+        className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]"
+      >
+        {label}
+        {required ? " *" : ""}
+      </label>
+
+      <input
+        id={name}
+        name={name}
+        type={type}
+        required={required}
+        placeholder={placeholder}
+        className="h-[50px] w-full rounded-xl border border-[#10263F]/15 bg-[#F9F7F2] px-4 text-sm outline-none transition focus:border-[#B89146]"
+      />
+    </div>
   );
 }

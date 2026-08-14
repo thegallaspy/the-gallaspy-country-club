@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import InvitationalNav from "@/components/invitational/InvitationalNav";
 
 const scheduleItems = [
   {
@@ -17,31 +19,33 @@ const scheduleItems = [
     time: "11:00 AM",
     title: "Shotgun Start",
     description:
-      "The inaugural Gallaspy Invitational begins with the full field starting across the course.",
+      "The inaugural Gallaspy Invitational begins with the full 100-player field starting across the course.",
   },
   {
     time: "During Play",
     title: "On-Course Competitions",
     description:
-      "Team competition, closest-to-the-pin, longest drive, hole-in-one opportunities, and sponsor activations.",
+      "Team competition, closest-to-the-pin, longest drive, hole-in-one opportunities, and sponsor activations throughout the round.",
   },
   {
     time: "After Play",
     title: "Scoring & Hospitality",
     description:
-      "Scorecard collection, player hospitality, networking, and preparation for the awards presentation.",
+      "Scorecard collection, tournament scoring, player hospitality, networking, and preparation for the awards presentation.",
   },
   {
     time: "Closing",
     title: "Awards Presentation",
     description:
-      "Recognition of the winning team, contest winners, sponsors, partners, and the inaugural field.",
+      "Recognition of the winning team, $10,000 prize purse, contest winners, sponsors, partners, and the inaugural field.",
   },
 ];
 
 export default function InvitationalSchedulePage() {
   return (
     <main className="min-h-screen bg-[#F5F0E6] text-[#10263F]">
+      <InvitationalNav />
+
       {/* HERO */}
       <section className="bg-[#10263F] px-6 pb-20 pt-32 text-white sm:px-8 lg:px-12">
         <div className="mx-auto max-w-[1200px]">
@@ -52,7 +56,18 @@ export default function InvitationalSchedulePage() {
             ← Back to Invitational
           </Link>
 
-          <p className="mt-12 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">
+          <div className="mt-10">
+            <Image
+              src="/logos/gallaspy-invitational.png"
+              alt="The Gallaspy Invitational"
+              width={300}
+              height={300}
+              priority
+              className="h-auto w-[150px] sm:w-[180px] lg:w-[205px]"
+            />
+          </div>
+
+          <p className="mt-8 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">
             Tournament Day
           </p>
 
@@ -96,9 +111,9 @@ export default function InvitationalSchedulePage() {
 
           <div className="px-4 py-8">
             <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
-              Venue
+              Prize Purse
             </p>
-            <p className="mt-2 font-serif text-xl">To Be Announced</p>
+            <p className="mt-2 font-serif text-xl">$10,000</p>
           </div>
         </div>
       </section>
@@ -121,6 +136,18 @@ export default function InvitationalSchedulePage() {
                 Final timing may be adjusted based on the host course,
                 registration logistics, food service, and tournament operations.
               </p>
+
+              <div className="mt-8 border-l-2 border-[#B89146] pl-5">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#8B6A34]">
+                  Competition
+                </p>
+
+                <p className="mt-3 text-sm leading-7 text-[#10263F]/62">
+                  The tournament is planned as a 4-person scramble with a
+                  $10,000 prize purse, plus on-course contests and sponsor
+                  activations.
+                </p>
+              </div>
             </div>
 
             <div className="border-t border-[#10263F]/15">

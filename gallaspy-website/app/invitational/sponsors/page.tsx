@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import InvitationalNav from "@/components/invitational/InvitationalNav";
 
 const sponsorLevels = [
   {
@@ -63,6 +65,8 @@ const activationOpportunities = [
 export default function InvitationalSponsorsPage() {
   return (
     <main className="min-h-screen bg-[#F5F0E6] text-[#10263F]">
+      <InvitationalNav />
+
       {/* HERO */}
       <section className="bg-[#10263F] px-6 pb-24 pt-32 text-white sm:px-8 lg:px-12">
         <div className="mx-auto max-w-[1300px]">
