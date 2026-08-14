@@ -17,12 +17,11 @@ const clubLinks = [
 ];
 
 const primaryLinks = [
-  { title: "Why the Gallaspy", href: "/why-the-gallaspy" },
-  { title: "Master Plan", href: "/master-plan" },
-  { title: "Falcon Society", href: "/falcon-society" },
+  { title: "Our Story", href: "/why-the-gallaspy" },
   { title: "Membership", href: "/membership" },
+  { title: "The Invitational", href: "/invitational" },
+  { title: "Falcon Society", href: "/falcon-society" },
   { title: "Invest", href: "/invest" },
-  { title: "Founder’s Letter", href: "/founders-letter" },
 ];
 
 function isRouteActive(pathname: string, href: string) {
@@ -221,6 +220,7 @@ export function Navbar() {
 
           {primaryLinks.map((item) => {
             const active = isRouteActive(pathname, item.href);
+            const isInvitational = item.href === "/invitational";
 
             return (
               <Link
@@ -228,7 +228,12 @@ export function Navbar() {
                 href={item.href}
                 onClick={closeMenus}
                 aria-current={active ? "page" : undefined}
-                className={navLinkClass(active)}
+                className={[
+                  navLinkClass(active),
+                  isInvitational
+                    ? "text-[#FFD76A] hover:text-white"
+                    : "",
+                ].join(" ")}
               >
                 {item.title}
 
@@ -372,6 +377,7 @@ export function Navbar() {
 
           {primaryLinks.map((item) => {
             const active = isRouteActive(pathname, item.href);
+            const isInvitational = item.href === "/invitational";
 
             return (
               <Link
@@ -384,6 +390,7 @@ export function Navbar() {
                   "text-[11px] font-semibold uppercase tracking-[0.18em]",
                   "transition-colors duration-250",
                   active ? "text-white" : "text-[#FFD76A] hover:text-white",
+                  isInvitational ? "font-bold" : "",
                 ].join(" ")}
               >
                 {item.title}

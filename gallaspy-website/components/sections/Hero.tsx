@@ -50,7 +50,7 @@ export default function Hero() {
       {/* Cinematic background image */}
       <Image
         src="/images/hero.jpg"
-        alt="The proposed Gallaspy Golf and Country Club"
+        alt="The Gallaspy Golf and Country Club vision"
         fill
         priority
         sizes="100vw"
@@ -107,7 +107,7 @@ export default function Hero() {
             <span className="hidden h-px w-8 bg-[#FFD76A]/75 sm:block" />
 
             <p className="text-[8px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A] sm:text-[10px] sm:tracking-[0.42em]">
-              Covington, Georgia
+              Georgia · Est. 2026
             </p>
 
             <span className="hidden h-px w-8 bg-[#FFD76A]/75 sm:block" />
@@ -164,10 +164,10 @@ export default function Hero() {
           }`}
         >
           <Link
-            href="/membership"
+            href="/invitational"
             className="group relative inline-flex min-h-[50px] w-full items-center justify-center overflow-hidden border border-[#FFD76A] bg-[#FFD76A] px-6 text-[9px] font-semibold uppercase tracking-[0.19em] text-[#10263F] shadow-[0_16px_45px_rgba(0,0,0,0.2)] transition-all duration-500 hover:-translate-y-1 hover:bg-transparent hover:text-white sm:min-h-[52px] sm:w-auto sm:min-w-[215px] sm:px-8 sm:text-[10px] sm:tracking-[0.22em]"
           >
-            <span className="relative z-10">Explore Membership</span>
+            <span className="relative z-10">2027 Invitational</span>
 
             <span
               aria-hidden="true"
@@ -195,25 +195,6 @@ export default function Hero() {
               →
             </span>
           </Link>
-        </div>
-      </div>
-
-      {/* Project marker */}
-      <div
-        className={`absolute bottom-7 left-6 z-10 hidden transition-all delay-700 duration-1000 sm:block lg:bottom-9 lg:left-10 ${
-          isReady
-            ? "translate-y-0 opacity-100"
-            : "translate-y-4 opacity-0"
-        }`}
-      >
-        <div className="border-l border-[#FFD76A]/75 pl-4">
-          <p className="text-[8px] font-semibold uppercase tracking-[0.28em] text-[#FFD76A]">
-            Proposed Development
-          </p>
-
-          <p className="mt-2 text-[11px] tracking-[0.04em] text-white/65">
-            585.6 Acres · Metro Atlanta
-          </p>
         </div>
       </div>
 

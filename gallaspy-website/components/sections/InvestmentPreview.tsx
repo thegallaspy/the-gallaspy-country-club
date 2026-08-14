@@ -3,24 +3,24 @@ import AnimatedCounter from "@/components/ui/AnimatedCounter";
 
 const investmentPoints = [
   {
-    title: "Diversified Revenue",
+    title: "Long-Term Development",
     description:
-      "Membership, golf, dining, lodging, events, wellness, winery operations, and residential development.",
+      "A phased approach to establishing the golf, hospitality, lifestyle, and supporting real-estate components of The Gallaspy.",
   },
   {
-    title: "Phased Capital Strategy",
+    title: "Multiple Revenue Channels",
     description:
-      "A five-phase development approach designed to align infrastructure, amenities, and capital deployment.",
+      "Potential future revenue across membership, golf, hospitality, dining, events, lodging, wellness, and complementary development.",
   },
   {
-    title: "Long-Term Asset Value",
+    title: "Strategic Partnerships",
     description:
-      "A large-scale private-club destination supported by hospitality, residential, and underlying land value.",
+      "Opportunities to build relationships with landowners, brands, operators, developers, financial partners, and other aligned organizations.",
   },
   {
-    title: "Regional Opportunity",
+    title: "Georgia Opportunity",
     description:
-      "A strategically positioned destination near Metro Atlanta in the growing Covington and Newton County market.",
+      "A search focused on identifying the right Georgia property and market for the long-term Gallaspy vision.",
   },
 ];
 
@@ -39,21 +39,18 @@ export default function InvestmentPreview() {
           {/* Main content */}
           <div>
             <p className="text-[10px] font-semibold uppercase tracking-[0.42em] text-[#FFD76A] sm:text-xs">
-              Investment Opportunity
+              Development & Partnership
             </p>
 
             <h2 className="mt-4 max-w-2xl font-serif text-[2.5rem] font-light leading-[1.06] sm:text-5xl lg:text-[3.65rem]">
-              A Landmark Destination
-              <span className="block">Built for Long-Term Value</span>
+              A Long-Term Vision
+              <span className="block">Built Through Partnership</span>
             </h2>
 
             <div className="mt-6 h-px w-16 bg-[#B89146]" />
 
             <p className="mt-6 max-w-2xl text-sm leading-7 text-white/72 sm:text-base sm:leading-8">
-              The Gallaspy Golf &amp; Country Club is being envisioned as a
-              multidimensional private golf, hospitality, residential, and
-              lifestyle destination supported by diversified revenue,
-              strategic phasing, and long-term real-estate value.
+              The Gallaspy Golf &amp; Country Club is being envisioned as a future private golf and lifestyle destination in Georgia. The development strategy is centered on identifying the right property, building aligned partnerships, and advancing the vision in thoughtful phases.
             </p>
 
             {/* Investment points */}
@@ -85,10 +82,10 @@ export default function InvestmentPreview() {
             {/* CTAs */}
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link
-                href="/investment"
+                href="/invest"
                 className="group inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#FFD76A] bg-[#B89146] px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-white shadow-[0_14px_35px_rgba(0,0,0,0.18)] transition duration-300 hover:-translate-y-1 hover:bg-[#FFD76A] hover:text-[#10263F]"
               >
-                Explore Investment
+                Explore Development & Partnership
 
                 <span className="ml-3 transition-transform duration-300 group-hover:translate-x-1">
                   →
@@ -115,69 +112,52 @@ export default function InvestmentPreview() {
             <div className="relative z-10">
               <div className="border-b border-white/12 pb-6">
                 <p className="text-[9px] font-semibold uppercase tracking-[0.3em] text-[#FFD76A]">
-                  Project Overview
+                  Vision Overview
                 </p>
 
                 <h3 className="mt-3 font-serif text-3xl font-light leading-tight text-white sm:text-[2.25rem]">
-                  Development at a Glance
+                  The Vision at a Glance
                 </h3>
 
                 <p className="mt-3 max-w-md text-sm leading-6 text-white/62">
-                  Selected preliminary figures illustrating the scale and
-                  long-term vision of the proposed development.
+                  Selected vision markers that describe the intended scale and direction of The Gallaspy without tying the concept to a specific property.
                 </p>
               </div>
 
               <div className="grid grid-cols-2">
                 <Metric
-                  value={
-                    <span className="text-[1.75rem] sm:text-[2.25rem]">
-                      $330M–$380M
-                    </span>
-                  }
-                  label="Estimated Development"
+                  value={<AnimatedCounter end={18} />}
+                  label="Championship Holes"
                   borderRight
                   borderBottom
                 />
 
                 <Metric
-                  value={
-                    <AnimatedCounter
-                      end={585.6}
-                      decimals={1}
-                    />
-                  }
-                  label="Planned Acres"
+                  value={<AnimatedCounter end={12} />}
+                  label="Envisioned Destinations"
                   borderBottom
                 />
 
                 <Metric
-                  value={
-                    <AnimatedCounter
-                      end={300}
-                      suffix="+"
-                    />
-                  }
-                  label="Projected Jobs"
+                  value={<AnimatedCounter end={400} />}
+                  label="Membership Vision"
                   borderRight
                 />
 
                 <Metric
-                  value={<AnimatedCounter end={5} />}
-                  label="Development Phases"
+                  value={<AnimatedCounter end={10} suffix=" Years" />}
+                  label="Long-Term Vision"
                 />
               </div>
 
               {/* Capital approach */}
               <div className="mt-6 rounded-[16px] border border-[#FFD76A]/20 bg-[#10263F]/42 px-5 py-5">
                 <p className="text-[9px] font-semibold uppercase tracking-[0.25em] text-[#FFD76A]">
-                  Strategic Capital Approach
+                  Partnership Approach
                 </p>
 
                 <p className="mt-3 text-sm leading-6 text-white/68">
-                  The proposed capital structure may include founder
-                  contribution, private equity, debt financing, membership
-                  pre-sales, strategic partnerships, and phased capital calls.
+                  The long-term development path may involve a combination of land relationships, operating partners, brand partners, development expertise, and future financing structures appropriate to the property and phase.
                 </p>
               </div>
             </div>
@@ -211,24 +191,22 @@ export default function InvestmentPreview() {
 
           <div className="rounded-[20px] border border-[#FFD76A]/24 bg-[#B89146]/10 px-6 py-7">
             <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-[#FFD76A]">
-              For Investors &amp; Partners
+              For Development Partners
             </p>
 
             <h3 className="mt-3 font-serif text-2xl font-light text-white">
-              Review the Development Opportunity
+              Explore the Development Vision
             </h3>
 
             <p className="mt-3 text-sm leading-6 text-white/65">
-              Learn more about the development vision, investment structure,
-              phased execution strategy, projected value, and partnership
-              opportunities.
+              Learn more about the development vision, intended phases, partnership opportunities, and the long-term strategy for bringing The Gallaspy to life.
             </p>
 
             <Link
-              href="/investment"
+              href="/invest"
               className="mt-5 inline-flex items-center border-b border-[#FFD76A] pb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition duration-300 hover:text-[#FFD76A]"
             >
-              Investor Overview
+              Development & Partnership
               <span className="ml-2">→</span>
             </Link>
           </div>
@@ -236,12 +214,7 @@ export default function InvestmentPreview() {
 
         {/* Disclaimer */}
         <p className="mx-auto mt-7 max-w-4xl text-center text-[10px] leading-5 text-white/42">
-          All development costs, acreage, employment estimates, capital
-          structures, schedules, returns, and project details are preliminary,
-          conceptual, and subject to due diligence, financing, approvals,
-          market conditions, and future development decisions. Nothing on this
-          website constitutes an offer to sell or a solicitation to purchase
-          securities.
+          The development vision, scale, amenities, timing, partnership structure, and financing approach are conceptual and subject to land acquisition, due diligence, planning, approvals, market conditions, and future development decisions. The Gallaspy does not currently represent that a specific property has been acquired or secured. Nothing on this website constitutes an offer to sell or a solicitation to purchase securities.
         </p>
       </div>
     </section>

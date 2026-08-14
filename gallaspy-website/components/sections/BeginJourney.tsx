@@ -3,25 +3,25 @@ import Link from "next/link";
 
 const journeyOptions = [
   {
-    title: "Founding Membership",
+    title: "2027 Gallaspy Invitational",
     description:
-      "Register your interest in becoming part of the founding membership community.",
+      "Discover the inaugural tournament, player experience, sponsorship opportunities, and the first major golf tradition under The Gallaspy name.",
+    href: "/invitational",
+    label: "Explore the Invitational",
+  },
+  {
+    title: "Future Membership",
+    description:
+      "Register your interest in becoming part of the future Gallaspy membership community as the long-term club vision develops.",
     href: "/membership",
     label: "Explore Membership",
   },
   {
-    title: "Investment Opportunity",
+    title: "Development & Partnership",
     description:
-      "Review the vision, development strategy, and opportunities to participate.",
-    href: "/investment",
-    label: "View Investment",
-  },
-  {
-    title: "Founder’s Vision",
-    description:
-      "Discover the purpose, story, and long-term legacy behind The Gallaspy.",
-    href: "/founders-letter",
-    label: "Read the Letter",
+      "Explore the long-term development vision and opportunities for aligned landowners, brands, operators, developers, and strategic partners.",
+    href: "/invest",
+    label: "Explore Partnership",
   },
 ];
 
@@ -31,7 +31,7 @@ export default function BeginJourney() {
       <div className="absolute inset-0">
         <Image
           src="/images/arrival.png"
-          alt="Arrival experience at The Gallaspy Golf and Country Club"
+          alt="Conceptual vision for the arrival experience at The Gallaspy Golf and Country Club"
           fill
           sizes="100vw"
           className="object-cover"
@@ -55,9 +55,10 @@ export default function BeginJourney() {
           <div className="mx-auto mt-6 h-px w-16 bg-[#D4AF37]" />
 
           <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-white/72 sm:text-base sm:leading-8">
-            The Gallaspy is envisioned as more than a destination. It is being
-            created as a tradition for members, families, partners, and future
-            generations.
+            The Gallaspy is being built from the ground up around golf,
+            hospitality, community, and long-term legacy. The journey begins
+            now through the Invitational, future membership community, and
+            relationships that can help bring the larger vision to life.
           </p>
         </div>
 
@@ -97,7 +98,7 @@ export default function BeginJourney() {
           </p>
 
           <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">
-            Covington, Georgia
+            Georgia · Est. 2026
           </p>
         </div>
       </div>

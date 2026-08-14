@@ -207,20 +207,18 @@ export default function DevelopmentPlan() {
         {/* Section introduction */}
         <div className="mx-auto max-w-[760px] text-center">
           <p className="text-[10px] font-bold uppercase tracking-[0.38em] text-[#B89146] sm:text-[11px]">
-            Interactive Master Plan
+            Development Vision
           </p>
 
           <h2 className="mt-4 font-serif text-[2.2rem] font-normal leading-[1.08] text-[#10263F] sm:text-[2.7rem] lg:text-[3.35rem]">
-            Explore the Proposed
-            <span className="block">Development</span>
+            Explore the Vision for
+            <span className="block">The Gallaspy</span>
           </h2>
 
           <div className="mx-auto mt-5 h-px w-14 bg-[#B89146]" />
 
           <p className="mx-auto mt-5 max-w-[690px] text-sm leading-7 text-[#1E3557] sm:text-[15px]">
-            Select one of the twelve proposed destinations to learn how each
-            area contributes to the complete Gallaspy Golf &amp; Country Club
-            experience.
+            The Gallaspy is envisioned as a private golf and lifestyle destination in Georgia. Explore the signature experiences and destinations intended to shape the future club. Final design, scale, and placement will be determined by the property ultimately selected.
           </p>
         </div>
 
@@ -253,7 +251,7 @@ export default function DevelopmentPlan() {
             <div className="relative min-h-[360px] overflow-hidden bg-[#EDE8DE] sm:min-h-[500px] lg:min-h-[620px]">
               <Image
                 src="/images/numbercallout.png"
-                alt="Proposed master plan for The Gallaspy Golf and Country Club"
+                alt="Conceptual development vision for The Gallaspy Golf and Country Club"
                 fill
                 priority={false}
                 sizes="(max-width: 1024px) 100vw, 68vw"
@@ -407,7 +405,7 @@ export default function DevelopmentPlan() {
           <div className="flex items-end justify-between gap-8 border-b border-white/15 px-8 py-6">
             <div>
               <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#FFD76A]">
-                Proposed Destinations
+                Envisioned Destinations
               </p>
 
               <h3 className="mt-2 font-serif text-[2rem] font-normal text-white">
@@ -416,7 +414,7 @@ export default function DevelopmentPlan() {
             </div>
 
             <p className="max-w-[430px] text-right text-sm leading-6 text-white/70">
-              Each number corresponds with the proposed master-plan rendering.
+              Explore the destinations envisioned as part of The Gallaspy’s long-term development.
             </p>
           </div>
 
@@ -472,7 +470,7 @@ export default function DevelopmentPlan() {
             href="/master-plan"
             className="inline-flex min-w-[215px] items-center justify-center rounded-full border border-[#B89146] bg-[#B89146] px-7 py-3.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition duration-300 hover:-translate-y-1 hover:bg-[#10263F]"
           >
-            View Full Master Plan
+            Explore the Development Vision
           </Link>
         </div>
       </div>

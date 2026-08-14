@@ -8,38 +8,32 @@ const visionPillars = [
     eyebrow: "Championship Golf",
     title: "18 Holes",
     description:
-      "A tournament-caliber private golf experience shaped around the natural character of the property.",
+      "A tournament-caliber private golf experience envisioned to respond to the natural character of the future property.",
   },
   {
     number: "02",
     eyebrow: "Private Club Living",
-    title: "250–400 Homes",
+    title: "Future Residential",
     description:
-      "A future gated residential community envisioned for estate homes, villas, and family cottages.",
+      "A residential component envisioned for estate homes, villas, cottages, and multigenerational club living, subject to the eventual site and approvals.",
   },
   {
     number: "03",
     eyebrow: "Luxury Lifestyle",
     title: "12 Destinations",
     description:
-      "Dining, lodging, vineyards, events, wellness, recreation, and gathering places across the property.",
+      "Dining, lodging, vineyards, events, wellness, recreation, and gathering places envisioned as part of the future club experience.",
   },
   {
     number: "04",
     eyebrow: "Built for Generations",
-    title: "8–10 Years",
+    title: "Long-Term Vision",
     description:
-      "A phased development vision designed to create lasting value and a multigenerational club legacy.",
+      "A phased development vision intended to create lasting value, enduring traditions, and a multigenerational private-club legacy.",
   },
 ];
 
 const quickFacts = [
-  {
-    value: 585.6,
-    decimals: 1,
-    suffix: "",
-    label: "Planned Acres",
-  },
   {
     value: 18,
     decimals: 0,
@@ -50,13 +44,19 @@ const quickFacts = [
     value: 12,
     decimals: 0,
     suffix: "",
-    label: "Signature Destinations",
+    label: "Envisioned Destinations",
   },
   {
     value: 400,
     decimals: 0,
-    suffix: "+",
-    label: "Potential Residences",
+    suffix: "",
+    label: "Membership Vision",
+  },
+  {
+    value: 4,
+    decimals: 0,
+    suffix: "",
+    label: "Core Pillars",
   },
   {
     value: 10,
@@ -112,7 +112,7 @@ export default function Vision() {
               </Link>
 
               <p className="text-[9px] font-bold uppercase tracking-[0.24em] text-[#10263F]/45">
-                Covington, Georgia
+                Georgia
               </p>
             </div>
           </div>
@@ -124,7 +124,7 @@ export default function Vision() {
         <div className="relative mx-auto min-h-[620px] w-full max-w-[1380px] overflow-hidden rounded-[24px] shadow-[0_35px_90px_rgba(16,38,63,0.2)] sm:min-h-[700px] lg:min-h-[780px] lg:rounded-[30px]">
           <Image
             src="/images/masterplan-render.png"
-            alt="Proposed master plan for The Gallaspy Golf and Country Club"
+            alt="Conceptual development vision for The Gallaspy Golf and Country Club"
             fill
             sizes="(max-width: 768px) 100vw, 1380px"
             className="object-cover object-center transition-transform duration-[1800ms] hover:scale-[1.025]"
@@ -142,7 +142,7 @@ export default function Vision() {
                   </p>
 
                   <p className="text-[8px] font-semibold uppercase tracking-[0.22em] text-white/45">
-                    Proposed Master Plan
+                    Conceptual Development Vision
                   </p>
                 </div>
 
@@ -154,19 +154,18 @@ export default function Vision() {
                 </h3>
 
                 <p className="mt-6 max-w-md text-sm leading-7 text-white/72 sm:text-[15px]">
-                  A proposed 585.6-acre golf, hospitality, wellness,
-                  residential, and lifestyle destination near Metro Atlanta.
+                  An illustrative look at how championship golf, hospitality, wellness, recreation, residential living, and gathering places could come together at a future Gallaspy property.
                 </p>
               </div>
 
               <div className="grid grid-cols-2">
                 <div className="border-b border-r border-white/10 px-6 py-6 sm:px-8">
                   <p className="font-serif text-3xl font-light sm:text-4xl">
-                    <AnimatedCounter end={585.6} decimals={1} />
+                    <AnimatedCounter end={10} suffix=" Years" />
                   </p>
 
                   <p className="mt-2 text-[8px] font-bold uppercase tracking-[0.22em] text-[#FFD76A]">
-                    Acres
+                    Long-Term Vision
                   </p>
                 </div>
 
@@ -206,7 +205,7 @@ export default function Vision() {
                   href="/master-plan"
                   className="group flex min-h-[48px] w-full items-center justify-between border border-[#FFD76A]/70 px-5 text-[9px] font-bold uppercase tracking-[0.22em] text-white transition duration-300 hover:bg-[#FFD76A] hover:text-[#10263F]"
                 >
-                  Explore the Master Plan
+                  Explore the Development Vision
                   <span className="transition-transform duration-300 group-hover:translate-x-1">
                     →
                   </span>
@@ -287,11 +286,11 @@ export default function Vision() {
         <div className="mx-auto w-full max-w-[1280px]">
           <div className="mb-10 text-center">
             <p className="text-[9px] font-bold uppercase tracking-[0.38em] text-[#FFD76A]">
-              Project at a Glance
+              Vision at a Glance
             </p>
 
             <h3 className="mt-4 font-serif text-3xl font-light sm:text-4xl">
-              A Destination of Exceptional Scale
+              A Long-Term Vision for The Gallaspy
             </h3>
           </div>
 
@@ -321,9 +320,7 @@ export default function Vision() {
           </div>
 
           <p className="mx-auto mt-8 max-w-3xl text-center text-[10px] leading-5 text-white/45">
-            Acreage, residential counts, amenities, and development timing are
-            conceptual and remain subject to planning, approvals, financing,
-            and future development decisions.
+            These figures describe the long-term vision for The Gallaspy and are not tied to a currently owned or secured property. Final scale, residential program, amenities, and timing will remain subject to land acquisition, planning, approvals, financing, and future development decisions.
           </p>
         </div>
       </div>

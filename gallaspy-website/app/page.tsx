@@ -1,4 +1,5 @@
 import Hero from "@/components/sections/Hero";
+import InvitationalPreview from "@/components/sections/InvitationalPreview";
 import Vision from "@/components/sections/Vision";
 import GallaspyEstate from "@/components/sections/GallaspyEstate";
 import DevelopmentPlan from "@/components/sections/DevelopmentPlan";
@@ -11,6 +12,10 @@ export default function Home() {
   return (
     <>
       <Hero />
+
+      <Reveal>
+        <InvitationalPreview />
+      </Reveal>
 
       <Reveal>
         <Vision />
