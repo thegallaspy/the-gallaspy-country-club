@@ -5,7 +5,7 @@ const exploreLinks = [
   { name: "Why the Gallaspy?", href: "/why-the-gallaspy" },
   { name: "Master Plan", href: "/master-plan" },
   { name: "Membership", href: "/membership" },
-  { name: "Investment", href: "/investment" },
+  { name: "Development & Partnership", href: "/invest" },
   { name: "Founder’s Letter", href: "/founders-letter" },
 ];
 
@@ -65,7 +65,7 @@ export default function Footer() {
           </Link>
 
           <p className="mt-8 text-[9px] font-semibold uppercase tracking-[0.46em] text-[#FFD76A] sm:text-[10px]">
-            Covington, Georgia
+            Georgia
           </p>
 
           <h2 className="mt-5 max-w-5xl font-serif text-[2.55rem] font-light leading-[1.03] tracking-[-0.025em] text-white sm:text-5xl lg:text-[4.3rem]">
@@ -182,7 +182,7 @@ export default function Footer() {
               <p>
                 The Gallaspy Development Group
                 <br />
-                Covington, Georgia
+                Georgia
               </p>
 
               <div>

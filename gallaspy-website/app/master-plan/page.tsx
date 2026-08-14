@@ -5,7 +5,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Master Plan | The Gallaspy Golf & Country Club",
   description:
-    "Explore the proposed 585.6-acre master plan for The Gallaspy Golf & Country Club in Covington, Georgia.",
+    "Explore the conceptual development vision for The Gallaspy Golf & Country Club in Georgia.",
 };
 
 const planItems = [
@@ -73,7 +73,7 @@ const planItems = [
     number: "11",
     title: "Residential Community",
     description:
-      "A gated enclave planned for luxury estate homes, villas, and family cottages integrated into the club landscape.",
+      "A future residential component envisioned for estate homes, villas, and family cottages, subject to the property ultimately selected and applicable approvals.",
   },
   {
     number: "12",
@@ -88,7 +88,7 @@ const phases = [
     phase: "Phase I",
     title: "Land, Planning & Infrastructure",
     description:
-      "Site control, planning, engineering, approvals, roads, utilities, and essential infrastructure.",
+      "Site identification, land acquisition, due diligence, planning, engineering, approvals, roads, utilities, and essential infrastructure.",
   },
   {
     phase: "Phase II",
@@ -133,7 +133,7 @@ export default function MasterPlanPage() {
       <section className="relative flex min-h-[72vh] items-center overflow-hidden px-5 pt-[72px] sm:px-8">
         <Image
           src="/images/masterplan-render.png"
-          alt="Proposed master plan for The Gallaspy Golf and Country Club"
+          alt="Conceptual development vision for The Gallaspy Golf and Country Club"
           fill
           priority
           sizes="100vw"
@@ -146,11 +146,11 @@ export default function MasterPlanPage() {
         <div className="relative z-10 mx-auto w-full max-w-[1060px] py-20 text-white sm:py-24">
           <div className="max-w-3xl">
             <p className="text-[10px] font-bold uppercase tracking-[0.38em] text-[#FFD76A]">
-              The Master Plan
+              Development Vision
             </p>
 
             <h1 className="mt-5 font-serif text-[2.8rem] font-light leading-[1.02] text-white sm:text-6xl lg:text-[4.7rem]">
-              585.6 Acres
+              A Vision
               <span className="block">of Possibility</span>
             </h1>
 
@@ -159,14 +159,14 @@ export default function MasterPlanPage() {
             <p className="mt-6 max-w-2xl text-sm leading-7 text-white/85 sm:text-base sm:leading-8">
               The proposed master plan brings championship golf, hospitality,
               wellness, recreation, residential living, and future growth
-              together within one private destination in Covington, Georgia.
+              together within one private destination in Georgia.
             </p>
 
             <a
               href="#site-plan"
               className="mt-8 inline-flex min-h-[45px] items-center justify-center rounded-full border border-[#B89146] bg-[#B89146] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition hover:-translate-y-0.5 hover:bg-[#FFD76A] hover:text-[#10263F]"
             >
-              Explore the Plan
+              Explore the Vision
             </a>
           </div>
         </div>
@@ -205,10 +205,10 @@ export default function MasterPlanPage() {
 
         <div className="mx-auto mt-12 grid w-full max-w-[1060px] gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            ["585.6", "Total Acres"],
+            ["12", "Envisioned Destinations"],
             ["18", "Championship Holes"],
             ["5", "Development Phases"],
-            ["300+", "Projected Jobs"],
+            ["10 Years", "Long-Term Vision"],
           ].map(([value, label]) => (
             <div
               key={label}
@@ -233,11 +233,11 @@ export default function MasterPlanPage() {
         <div className="mx-auto w-full max-w-[1180px]">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
-              Proposed Site Plan
+              Conceptual Site Plan
             </p>
 
             <h2 className="mt-4 font-serif text-[2.35rem] font-light leading-[1.08] text-[#10263F] sm:text-5xl">
-              A Vision Designed Around the Land
+              A Vision Designed for the Right Property
             </h2>
 
             <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-[#1E3557]/80">
@@ -249,7 +249,7 @@ export default function MasterPlanPage() {
           <div className="relative mt-10 min-h-[420px] overflow-hidden rounded-[22px] border border-[#1E3557]/10 bg-[#F7F4EE] sm:min-h-[580px] lg:min-h-[720px]">
             <Image
               src="/images/numbercallout.png"
-              alt="Numbered proposed master plan for The Gallaspy"
+              alt="Numbered conceptual development vision for The Gallaspy"
               fill
               sizes="100vw"
               className="object-contain p-3 sm:p-5"
@@ -269,7 +269,7 @@ export default function MasterPlanPage() {
         <div className="mx-auto w-full max-w-[1060px]">
           <div className="max-w-2xl">
             <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
-              Master Plan Legend
+              Development Vision Legend
             </p>
 
             <h2 className="mt-4 font-serif text-[2.35rem] font-light leading-[1.08] text-[#10263F] sm:text-5xl">
@@ -308,7 +308,7 @@ export default function MasterPlanPage() {
           <div className="relative min-h-[440px] overflow-hidden rounded-[22px]">
             <Image
               src="/images/arrival.png"
-              alt="Arrival experience at The Gallaspy"
+              alt="Conceptual arrival experience at The Gallaspy"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
@@ -378,7 +378,7 @@ export default function MasterPlanPage() {
 
             <div className="mt-8 grid gap-3 sm:grid-cols-2">
               {[
-                "250–400 Estate Lots",
+                "Future Residential",
                 "Villas & Cottages",
                 "Private Courtyards",
                 "Gated Residential Enclave",
@@ -484,7 +484,7 @@ export default function MasterPlanPage() {
 
           <div className="rounded-[20px] border border-white/15 bg-white/[0.06] p-7 sm:p-8">
             <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#FFD76A]">
-              Investment
+              Development & Partnership
             </p>
 
             <h2 className="mt-4 font-serif text-3xl font-light text-white sm:text-4xl">
@@ -500,7 +500,7 @@ export default function MasterPlanPage() {
               href="/invest"
               className="mt-6 inline-flex min-h-[45px] items-center justify-center rounded-full border border-white/35 px-6 text-[10px] font-bold uppercase tracking-[0.18em] text-white transition hover:-translate-y-0.5 hover:border-[#FFD76A] hover:text-[#FFD76A]"
             >
-              View Investment Page
+              View Development & Partnership Page
             </Link>
           </div>
         </div>

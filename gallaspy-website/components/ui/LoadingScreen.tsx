@@ -121,9 +121,7 @@ export default function LoadingScreen() {
         </div>
 
         {/* Location */}
-        <p className="entrance-location mt-7 text-[9px] font-semibold uppercase tracking-[0.46em] text-[#FFD76A] sm:text-[10px]">
-          Covington, Georgia
-        </p>
+        
 
         {/* Club name */}
         <h1 className="entrance-title mt-5 font-serif text-4xl font-light leading-none text-white sm:text-5xl md:text-6xl">

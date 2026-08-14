@@ -15,7 +15,7 @@ export default function FoundersLetterPage() {
       <section className="relative flex min-h-[66vh] items-center overflow-hidden px-5 pt-[72px] sm:px-8">
         <Image
           src="/images/arrival.png"
-          alt="The arrival experience at The Gallaspy Golf and Country Club"
+          alt="Conceptual arrival experience for The Gallaspy Golf and Country Club"
           fill
           priority
           sizes="100vw"
@@ -128,12 +128,12 @@ export default function FoundersLetterPage() {
               </p>
 
               <p>
-                The proposed 585.6-acre setting in Covington, Georgia gives us
-                the opportunity to create something truly meaningful. The land
-                provides the room for championship golf, hospitality,
-                wellness, residential living, recreation, and long-term growth
-                while preserving privacy and the natural character of the
-                property.
+                The next major chapter is finding the right property in Georgia.
+                We are seeking a site with the scale, natural character,
+                accessibility, and long-term potential required to support
+                championship golf, hospitality, wellness, residential living,
+                recreation, and future growth. No permanent development site
+                has been selected or secured.
               </p>
 
               <p>

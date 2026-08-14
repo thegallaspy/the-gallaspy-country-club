@@ -18,13 +18,12 @@ export const metadata: Metadata = {
   },
 
   description:
-    "A premier private golf, wellness, hospitality, and lifestyle destination currently being envisioned in Metro Atlanta.",
+    "A future private golf, wellness, hospitality, and lifestyle destination being envisioned in Georgia.",
 
   keywords: [
     "Private Golf Club",
     "Country Club",
-    "Covington Georgia",
-    "Metro Atlanta",
+    "Georgia Golf",
     "Luxury Golf",
     "Golf Community",
     "Private Membership",
@@ -32,6 +31,7 @@ export const metadata: Metadata = {
     "Championship Golf",
     "Wellness",
     "Luxury Real Estate",
+    "Golf Lifestyle",
     "The Gallaspy",
   ],
 
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "The Gallaspy Golf & Country Club",
     description:
-      "A premier private golf and lifestyle destination in Metro Atlanta.",
+      "A future private golf and lifestyle destination being envisioned in Georgia.",
     url: "https://thegallaspy.com",
     siteName: "The Gallaspy Golf & Country Club",
     locale: "en_US",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "The Gallaspy Golf & Country Club",
     description:
-      "A premier private golf and lifestyle destination.",
+      "A future private golf and lifestyle destination being envisioned in Georgia.",
     images: ["/images/og-image.jpg"],
   },
 };

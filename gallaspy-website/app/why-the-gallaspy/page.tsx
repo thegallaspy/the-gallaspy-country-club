@@ -5,21 +5,21 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Why The Gallaspy | The Gallaspy Golf & Country Club",
   description:
-    "Discover the vision, location, lifestyle, legacy, and long-term development plan behind The Gallaspy Golf & Country Club in Covington, Georgia.",
+    "Discover the vision, lifestyle, legacy, and long-term development plan behind The Gallaspy Golf & Country Club in Georgia.",
 };
 
 const reasons = [
   {
     number: "01",
-    title: "A Strategic Location",
+    title: "A Strategic Search",
     description:
-      "Covington offers access to Metro Atlanta, expanding communities, major transportation routes, and a landscape capable of supporting a true destination club.",
+      "The search for The Gallaspy’s future home is focused on Georgia, with an emphasis on accessibility, natural character, long-term growth, and the scale required for a true destination club.",
   },
   {
     number: "02",
     title: "A Rare Land Opportunity",
     description:
-      "The 585.6-acre vision provides the scale required for championship golf, hospitality, wellness, residential living, recreation, and future growth.",
+      "The vision requires a substantial property capable of supporting championship golf, hospitality, wellness, residential living, recreation, and future growth.",
   },
   {
     number: "03",
@@ -204,7 +204,7 @@ export default function WhyTheGallaspyPage() {
       <section className="relative flex min-h-[78vh] items-center overflow-hidden px-5 pt-[72px] sm:px-8">
         <Image
           src="/images/masterplan-render.png"
-          alt="Proposed master plan for The Gallaspy Golf and Country Club"
+          alt="Conceptual development vision for The Gallaspy Golf and Country Club"
           fill
           priority
           sizes="100vw"
@@ -230,9 +230,9 @@ export default function WhyTheGallaspyPage() {
 
             <p className="mt-7 max-w-2xl text-sm leading-7 text-white/85 sm:text-base sm:leading-8">
               The Gallaspy Golf &amp; Country Club is being created as more than
-              a destination. It is a long-term vision for championship golf,
-              private hospitality, family traditions, wellness, and enduring
-              value in Covington, Georgia.
+               a destination. It is a long-term vision for championship golf,
+               private hospitality, family traditions, wellness, and enduring
+               legacy in Georgia.
             </p>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -247,7 +247,7 @@ export default function WhyTheGallaspyPage() {
                 href="/master-plan"
                 className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-white/55 bg-white/[0.05] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-white backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-[#FFD76A] hover:text-[#FFD76A]"
               >
-                Explore the Master Plan
+                Explore the Development Vision
               </Link>
             </div>
           </div>
@@ -295,7 +295,7 @@ export default function WhyTheGallaspyPage() {
           <div className="relative min-h-[440px] overflow-hidden rounded-[22px]">
             <Image
               src="/images/arrival.png"
-              alt="Arrival experience at The Gallaspy"
+              alt="Conceptual arrival experience for The Gallaspy"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
@@ -360,13 +360,13 @@ export default function WhyTheGallaspyPage() {
         </div>
       </section>
 
-      {/* Why Covington */}
+      {/* Why Georgia */}
       <section className="bg-[#1E3557] px-5 py-16 text-white sm:px-8 lg:py-24">
         <div className="mx-auto grid w-full max-w-[1060px] gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div className="relative min-h-[430px] overflow-hidden rounded-[22px]">
             <Image
               src="/images/masterplan-render.png"
-              alt="Proposed 585.6-acre home of The Gallaspy"
+              alt="Conceptual development vision for the future home of The Gallaspy"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
@@ -376,18 +376,18 @@ export default function WhyTheGallaspyPage() {
 
             <div className="absolute bottom-0 left-0 right-0 p-7">
               <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#FFD76A]">
-                Proposed Development Vision
+                Conceptual Development Vision
               </p>
 
               <p className="mt-2 font-serif text-2xl font-light text-white">
-                Covington, Georgia
+                Georgia
               </p>
             </div>
           </div>
 
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#FFD76A]">
-              Why Covington
+              Why Georgia
             </p>
 
             <h2 className="mt-4 font-serif text-[2.35rem] font-light leading-[1.08] text-white sm:text-5xl">
@@ -398,21 +398,21 @@ export default function WhyTheGallaspyPage() {
             <div className="mt-6 h-px w-14 bg-[#B89146]" />
 
             <p className="mt-6 text-base leading-8 text-white/85">
-              Covington provides the rare combination of natural beauty,
-              accessibility, available land, and proximity to one of the
-              Southeast&apos;s most important metropolitan areas.
+              Georgia is the focus of our search for the future home of The
+               Gallaspy Golf &amp; Country Club.
             </p>
 
             <p className="mt-5 text-sm leading-7 text-white/72">
-              The proposed 585.6-acre setting offers the space to create a
-              complete private destination while preserving privacy, open
-              views, landscaped arrival experiences, and future flexibility.
+              We are seeking a property with the scale, natural character,
+               accessibility, and long-term potential required to support
+               championship golf and a complete private-club destination. No
+               permanent site has been selected or secured.
             </p>
 
             <div className="mt-8 grid grid-cols-2 gap-3">
               {[
-                "Metro Atlanta Access",
-                "585.6-Acre Vision",
+                "Georgia",
+                "Future Site Search",
                 "Rolling Landscape",
                 "Long-Term Growth",
               ].map((item) => (
@@ -755,14 +755,14 @@ export default function WhyTheGallaspyPage() {
               href="/master-plan"
               className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-white/45 px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition hover:-translate-y-0.5 hover:border-[#FFD76A] hover:text-[#FFD76A]"
             >
-              Explore the Master Plan
+              Explore the Development Vision
             </Link>
 
             <Link
               href="/invest"
               className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-white/45 px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition hover:-translate-y-0.5 hover:border-[#FFD76A] hover:text-[#FFD76A]"
             >
-              Invest in the Vision
+              Explore Development & Partnership
             </Link>
           </div>
         </div>

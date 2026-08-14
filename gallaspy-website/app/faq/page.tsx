@@ -14,22 +14,22 @@ const faqSections = [
       {
         question: "What is The Gallaspy Golf & Country Club?",
         answer:
-          "The Gallaspy Golf & Country Club is a proposed private golf and lifestyle destination planned for Covington, Georgia. The vision brings together championship golf, luxury hospitality, wellness, dining, lodging, events, recreation, and residential living within one master-planned property.",
+          "The Gallaspy Golf & Country Club is a proposed private golf and lifestyle destination being envisioned for a future Georgia location. The vision brings together championship golf, luxury hospitality, wellness, dining, lodging, events, recreation, and residential living within one thoughtfully planned property.",
       },
       {
         question: "Where is the project planned?",
         answer:
-          "The project is planned for Covington, Georgia, in Newton County. The location was selected for its proximity to Metro Atlanta, access to major transportation routes, natural landscape, and long-term regional growth potential.",
+          "The Gallaspy is focused on identifying the right property in Georgia. No permanent development site has been selected or secured. The search emphasizes accessibility, natural character, long-term growth potential, and the scale required for the complete club vision.",
       },
       {
         question: "How large is the proposed development?",
         answer:
-          "The current master plan is based on approximately 585.6 acres. The property is intended to support the golf course, clubhouse district, restaurant, wellness facilities, lodging, vineyard, event spaces, residential areas, and operational facilities.",
+          "The current master plan is conceptual and illustrates the type of golf, hospitality, wellness, residential, recreation, and supporting uses envisioned for a future Gallaspy property. Final acreage and layout will depend on the site ultimately selected.",
       },
       {
         question: "Is the current master plan final?",
         answer:
-          "No. The images and site plans shown on the website are conceptual and are intended to communicate the development vision. Final plans will be subject to land control, architecture, engineering, financing, government approvals, environmental review, and development planning.",
+          "No. The images and site plans shown on the website are conceptual and are intended to communicate the development vision. Final plans will be subject to site selection and land acquisition, architecture, engineering, financing, government approvals, environmental review, and development planning.",
       },
     ],
   },
@@ -94,7 +94,7 @@ const faqSections = [
       {
         question: "How many residences are planned?",
         answer:
-          "The current vision anticipates approximately 250 to 400 residential opportunities. The final number will depend on land planning, infrastructure, environmental review, architecture, and government approvals.",
+          "A future residential component is part of the long-term vision. The final number, type, and placement of residences will depend on the property ultimately selected, land planning, infrastructure, environmental review, architecture, and government approvals.",
       },
       {
         question: "Will homeownership include club membership?",
@@ -159,7 +159,7 @@ const faqSections = [
       {
         question: "Where can I learn more about the investment opportunity?",
         answer:
-          "The Investment page provides an overview of the development scale, phased strategy, potential revenue sources, and long-term vision. Serious inquiries may also be submitted through the Contact page.",
+          "The Development & Partnership page provides an overview of the long-term vision, phased strategy, potential revenue channels, and partnership approach. Serious inquiries may also be submitted through the Contact page.",
       },
       {
         question: "Are the financial estimates guaranteed?",
@@ -329,10 +329,11 @@ export default function FAQPage() {
           </h2>
 
           <p className="mt-5 text-sm leading-7 text-[#1E3557]/80">
-            The Gallaspy Golf &amp; Country Club is a proposed development.
-            Plans, amenities, acreage allocations, timelines, costs,
-            projections, membership structures, residential offerings, and
-            operating models remain subject to change.
+            The Gallaspy Golf &amp; Country Club is a proposed development and
+            does not currently represent that a permanent development site has
+            been selected or secured. Plans, amenities, acreage, timelines,
+            costs, projections, membership structures, residential offerings,
+            and operating models remain subject to change.
           </p>
 
           <p className="mt-4 text-sm leading-7 text-[#1E3557]/80">
@@ -372,10 +373,10 @@ export default function FAQPage() {
                 href: "/membership",
               },
               {
-                title: "Investment",
+                title: "Development & Partnership",
                 description:
-                  "Review the development scale, phased strategy, and long-term investment vision.",
-                href: "/investment",
+                  "Review the development vision, phased strategy, partnership opportunities, and long-term approach.",
+                href: "/invest",
               },
             ].map((item) => (
               <article

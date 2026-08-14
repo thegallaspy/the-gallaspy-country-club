@@ -3,36 +3,36 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Investment Opportunity | The Gallaspy Golf & Country Club",
+  title: "Development & Partnership | The Gallaspy Golf & Country Club",
   description:
-    "Explore the investment opportunity behind The Gallaspy Golf & Country Club, a proposed private golf and lifestyle destination near Metro Atlanta.",
+    "Explore the development vision and partnership opportunities behind The Gallaspy Golf & Country Club, a proposed private golf and lifestyle destination in Georgia.",
 };
 
 const projectFacts = [
   {
-    value: "585.6",
-    label: "Proposed Acres",
+    value: "18",
+    label: "Championship Holes",
   },
   {
     value: "$330M–$380M",
-    label: "Estimated Development",
+    label: "Conceptual Full-Build Estimate",
   },
   {
     value: "8–10 Years",
     label: "Development Horizon",
   },
   {
-    value: "Metro Atlanta",
-    label: "Strategic Market",
+    value: "Georgia",
+    label: "Site Search",
   },
 ];
 
 const investmentReasons = [
   {
     number: "01",
-    title: "Strategic Location",
+    title: "Strategic Site Search",
     description:
-      "Positioned near Metro Atlanta in Covington, Georgia, the proposed development is designed to serve a growing regional market of families, executives, business leaders, and golf enthusiasts.",
+      "The search for The Gallaspy’s future home is focused on identifying the right Georgia property with strong accessibility, natural character, long-term growth potential, and the scale required for a destination club.",
   },
   {
     number: "02",
@@ -48,9 +48,9 @@ const investmentReasons = [
   },
   {
     number: "04",
-    title: "Long-Term Asset Value",
+    title: "Long-Term Development Value",
     description:
-      "The combination of land, golf, hospitality, residential offerings, and private-club programming is designed to create a distinctive destination with enduring value.",
+      "The combination of championship golf, hospitality, residential offerings, private-club programming, and thoughtful site development is intended to create a distinctive destination with enduring long-term value.",
   },
 ];
 
@@ -70,7 +70,7 @@ const phases = [
     phase: "Phase I",
     title: "Land, Planning & Infrastructure",
     description:
-      "Site control, due diligence, entitlement, engineering, master planning, utilities, access, and foundational infrastructure.",
+      "Site identification, land acquisition, due diligence, entitlement, engineering, master planning, utilities, access, and foundational infrastructure.",
   },
   {
     phase: "Phase II",
@@ -105,7 +105,7 @@ export default function InvestPage() {
       <section className="relative flex min-h-[760px] items-center overflow-hidden bg-[#071625] pt-[78px]">
         <Image
           src="/images/masterplan-render.png"
-          alt="Proposed master plan for The Gallaspy Golf and Country Club"
+          alt="Conceptual development vision for The Gallaspy Golf and Country Club"
           fill
           priority
           className="object-cover opacity-45"
@@ -118,11 +118,11 @@ export default function InvestPage() {
         <div className="relative z-10 mx-auto w-full max-w-[1500px] px-6 py-24 sm:px-8 lg:px-12">
           <div className="max-w-4xl">
             <p className="mb-6 text-xs font-semibold uppercase tracking-[0.42em] !text-[#FFD76A]">
-              A Landmark Development Opportunity
+              Development & Partnership Opportunity
             </p>
 
             <h1 className="font-serif text-5xl font-medium leading-[0.98] !text-white sm:text-6xl md:text-7xl lg:text-[92px]">
-              Invest in a
+              Help Build a
               <span className="block !text-[#FFD76A]">Legacy in the Making</span>
             </h1>
 
@@ -138,14 +138,14 @@ export default function InvestPage() {
                 href="/contact"
                 className="inline-flex items-center justify-center rounded-full bg-[#FFD76A] px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] !text-[#10263F] transition duration-300 hover:-translate-y-1 hover:bg-white"
               >
-                Request Investment Information
+                Request Partnership Information
               </Link>
 
               <Link
                 href="/master-plan"
                 className="inline-flex items-center justify-center rounded-full border border-white/40 px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-white transition duration-300 hover:border-[#D9B45B] hover:bg-white/10 hover:!text-[#FFD76A]"
               >
-                Explore the Master Plan
+                Explore the Development Vision
               </Link>
             </div>
           </div>
@@ -187,7 +187,7 @@ export default function InvestPage() {
             <p>
               The Gallaspy Golf & Country Club is being planned as a
               destination-scale private club and lifestyle community in
-              Covington, Georgia. The proposed vision brings together an
+              Georgia. The conceptual vision brings together an
               18-hole championship golf course, luxury clubhouse, fine dining,
               wellness, racquet sports, lodging, vineyard experiences, event
               venues, and residential development.
@@ -208,7 +208,7 @@ export default function InvestPage() {
         <div className="mx-auto max-w-[1320px]">
           <div className="max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-[0.35em] !text-[#FFD76A]">
-              The Investment Case
+              The Development Case
             </p>
 
             <h2 className="mt-5 font-serif text-4xl leading-tight sm:text-5xl lg:text-6xl">
@@ -250,7 +250,7 @@ export default function InvestPage() {
           <div className="relative min-h-[540px] overflow-hidden rounded-2xl">
             <Image
               src="/images/clubhouse.png"
-              alt="Proposed clubhouse at The Gallaspy Golf and Country Club"
+              alt="Conceptual clubhouse vision for The Gallaspy Golf and Country Club"
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -353,11 +353,11 @@ export default function InvestPage() {
           <div className="grid overflow-hidden rounded-3xl bg-[#10263F] lg:grid-cols-2">
             <div className="p-8 !text-white sm:p-12 lg:p-16">
               <p className="text-xs font-semibold uppercase tracking-[0.35em] !text-[#FFD76A]">
-                Proposed Capital Framework
+                Potential Capital Framework
               </p>
 
               <h2 className="mt-5 font-serif text-4xl leading-tight !text-white sm:text-5xl">
-                Investment Structure
+                Partnership & Capital Structure
               </h2>
 
               <p className="mt-6 leading-8 !text-white/70">
@@ -435,8 +435,8 @@ export default function InvestPage() {
                   text: "Early initiatives such as the Falcon Society can help demonstrate market interest before full development.",
                 },
                 {
-                  title: "Long-Term Land Value",
-                  text: "The land and master-planned components are intended to support value creation over an extended development horizon.",
+                  title: "Long-Term Development Value",
+                  text: "Thoughtful site selection, phased development, and integrated club components are intended to support value creation over an extended development horizon.",
                 },
                 {
                   title: "Professional Governance",
@@ -483,7 +483,7 @@ export default function InvestPage() {
               href="/contact"
               className="inline-flex items-center justify-center rounded-full bg-[#FFD76A] px-9 py-4 text-xs font-semibold uppercase tracking-[0.2em] !text-[#10263F] transition duration-300 hover:-translate-y-1 hover:bg-white"
             >
-              Request Investment Information
+              Request Partnership Information
             </Link>
 
             <Link
