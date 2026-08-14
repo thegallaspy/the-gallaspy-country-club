@@ -1,6 +1,9 @@
+import InvitationalNav from "@/components/invitational/InvitationalNav";
+
 export default function InvitationalPage() {
   return (
     <main className="bg-[#F5F0E6] text-[#10263F]">
+      <InvitationalNav />
       {/* HERO */}
       <section className="flex min-h-[90vh] items-center bg-[#10263F] px-6 pt-28 text-white sm:px-8 lg:px-12">
         <div className="mx-auto w-full max-w-[1400px]">
@@ -214,6 +217,126 @@ export default function InvitationalPage() {
                 </span>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+
+      {/* TOURNAMENT RESOURCES */}
+      <section className="bg-[#F5F0E6] px-6 py-24 sm:px-8 sm:py-28 lg:px-12 lg:py-32">
+        <div className="mx-auto max-w-[1400px]">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#8B6A34]">
+              Tournament Resources
+            </p>
+
+            <h2 className="mt-5 font-serif text-4xl sm:text-5xl lg:text-6xl">
+              Everything you need for the 2027 Invitational.
+            </h2>
+
+            <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-[#10263F]/62">
+              Explore player registration, partnership opportunities, the
+              working tournament-day schedule, and answers to frequently asked
+              questions.
+            </p>
+          </div>
+
+          <div className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            <a
+              href="/invitational/register"
+              className="group flex min-h-[250px] flex-col justify-between border border-[#10263F]/10 bg-white p-7 transition duration-300 hover:-translate-y-1 hover:border-[#B89146]/50 hover:shadow-[0_18px_50px_rgba(16,38,63,0.08)]"
+            >
+              <div>
+                <p className="text-[10px] font-semibold tracking-[0.22em] text-[#8B6A34]">
+                  01
+                </p>
+
+                <h3 className="mt-7 font-serif text-3xl">
+                  Player Registration
+                </h3>
+
+                <p className="mt-4 text-sm leading-7 text-[#10263F]/62">
+                  Join the priority list and receive official registration,
+                  pricing, venue, and player updates.
+                </p>
+              </div>
+
+              <span className="mt-8 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34] transition group-hover:text-[#10263F]">
+                Register Interest →
+              </span>
+            </a>
+
+            <a
+              href="/invitational/sponsors"
+              className="group flex min-h-[250px] flex-col justify-between border border-[#10263F]/10 bg-white p-7 transition duration-300 hover:-translate-y-1 hover:border-[#B89146]/50 hover:shadow-[0_18px_50px_rgba(16,38,63,0.08)]"
+            >
+              <div>
+                <p className="text-[10px] font-semibold tracking-[0.22em] text-[#8B6A34]">
+                  02
+                </p>
+
+                <h3 className="mt-7 font-serif text-3xl">
+                  Sponsorship
+                </h3>
+
+                <p className="mt-4 text-sm leading-7 text-[#10263F]/62">
+                  Explore founding partnership opportunities, brand
+                  activations, hospitality, gifting, and tournament exposure.
+                </p>
+              </div>
+
+              <span className="mt-8 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34] transition group-hover:text-[#10263F]">
+                Explore Partnership →
+              </span>
+            </a>
+
+            <a
+              href="/invitational/schedule"
+              className="group flex min-h-[250px] flex-col justify-between border border-[#10263F]/10 bg-white p-7 transition duration-300 hover:-translate-y-1 hover:border-[#B89146]/50 hover:shadow-[0_18px_50px_rgba(16,38,63,0.08)]"
+            >
+              <div>
+                <p className="text-[10px] font-semibold tracking-[0.22em] text-[#8B6A34]">
+                  03
+                </p>
+
+                <h3 className="mt-7 font-serif text-3xl">
+                  Tournament Schedule
+                </h3>
+
+                <p className="mt-4 text-sm leading-7 text-[#10263F]/62">
+                  Review the current tournament-day framework from player
+                  arrival through the awards presentation.
+                </p>
+              </div>
+
+              <span className="mt-8 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34] transition group-hover:text-[#10263F]">
+                View Schedule →
+              </span>
+            </a>
+
+            <a
+              href="/invitational/faq"
+              className="group flex min-h-[250px] flex-col justify-between border border-[#10263F]/10 bg-white p-7 transition duration-300 hover:-translate-y-1 hover:border-[#B89146]/50 hover:shadow-[0_18px_50px_rgba(16,38,63,0.08)]"
+            >
+              <div>
+                <p className="text-[10px] font-semibold tracking-[0.22em] text-[#8B6A34]">
+                  04
+                </p>
+
+                <h3 className="mt-7 font-serif text-3xl">
+                  Tournament FAQ
+                </h3>
+
+                <p className="mt-4 text-sm leading-7 text-[#10263F]/62">
+                  Find answers about format, field size, registration, venue
+                  status, prizes, contests, and sponsorship.
+                </p>
+              </div>
+
+              <span className="mt-8 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34] transition group-hover:text-[#10263F]">
+                Read FAQ →
+              </span>
+            </a>
           </div>
         </div>
       </section>
