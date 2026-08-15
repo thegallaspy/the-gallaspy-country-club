@@ -370,7 +370,7 @@ export default function InvitationalRegisterPage() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#10263F] px-8 text-[10px] font-semibold uppercase tracking-[0.22em] text-white transition duration-300 hover:bg-[#B89146] disabled:cursor-not-allowed disabled:opacity-60"
+                    className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#10263F] px-6 text-[10px] font-semibold uppercase tracking-[0.22em] text-white transition duration-300 hover:bg-[#B89146] disabled:cursor-not-allowed disabled:opacity-60 sm:px-8"
                   >
                     {submitting
                       ? "Submitting..."

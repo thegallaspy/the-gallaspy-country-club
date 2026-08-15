@@ -46,11 +46,11 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-[#10263F] px-5 pb-20 pt-[90px] sm:px-8 sm:pb-24 sm:pt-[96px] lg:min-h-screen lg:px-10 lg:pb-20 lg:pt-[100px]">
-      {/* Cinematic background image */}
+    <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-[#10263F] px-5 pb-24 pt-[90px] sm:px-8 sm:pb-24 sm:pt-[96px] lg:min-h-screen lg:px-10 lg:pb-20 lg:pt-[100px]">
+      {/* CINEMATIC BACKGROUND */}
       <Image
         src="/images/hero.jpg"
-        alt="The Gallaspy Golf and Country Club vision"
+        alt="The Gallaspy vision"
         fill
         priority
         sizes="100vw"
@@ -59,19 +59,18 @@ export default function Hero() {
         }`}
       />
 
-      {/* Image overlays */}
-      <div className="absolute inset-0 bg-[#10263F]/40 sm:bg-[#10263F]/35" />
+      {/* OVERLAYS */}
+      <div className="absolute inset-0 bg-[#10263F]/42 sm:bg-[#10263F]/36" />
 
-      <div className="absolute inset-0 bg-gradient-to-r from-[#071827]/55 via-[#10263F]/15 to-[#071827]/45" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#071827]/60 via-[#10263F]/18 to-[#071827]/48" />
 
-      <div className="absolute inset-0 bg-gradient-to-b from-[#10263F]/55 via-[#10263F]/10 to-[#071827]/95" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#10263F]/58 via-[#10263F]/10 to-[#071827]/96" />
 
-      {/* Extra mobile readability */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),transparent_50%)]" />
 
       <div className="absolute inset-0 shadow-[inset_0_0_120px_rgba(0,0,0,0.34)] sm:shadow-[inset_0_0_170px_rgba(0,0,0,0.38)]" />
 
-      {/* Desktop decorative lines */}
+      {/* DESKTOP DECORATIVE LINES */}
       <div
         className={`absolute left-5 top-1/2 hidden h-24 w-px -translate-y-1/2 bg-gradient-to-b from-transparent via-[#FFD76A]/55 to-transparent transition-opacity delay-700 duration-1000 lg:block ${
           isReady ? "opacity-100" : "opacity-0"
@@ -84,7 +83,7 @@ export default function Hero() {
         }`}
       />
 
-      {/* Hero content */}
+      {/* HERO CONTENT */}
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center text-center text-white">
         <div
           className={`flex flex-col items-center transition-all duration-1000 ${
@@ -93,7 +92,7 @@ export default function Hero() {
               : "translate-y-5 opacity-0"
           }`}
         >
-          {/* Falcon Crest */}
+          {/* FALCON CREST */}
           <Image
             src="/images/falcon-logo.png"
             alt="The Gallaspy Falcon"
@@ -114,6 +113,7 @@ export default function Hero() {
           </div>
         </div>
 
+        {/* TITLE */}
         <h1
           className={`mx-auto mt-5 max-w-[980px] font-serif text-[2.45rem] font-light leading-[0.96] tracking-[-0.025em] text-white transition-all delay-150 duration-[1200ms] min-[390px]:text-[2.75rem] sm:mt-6 sm:text-[4.2rem] md:text-[5rem] lg:text-[6.1rem] xl:text-[6.8rem] ${
             isReady
@@ -134,6 +134,7 @@ export default function Hero() {
           }`}
         />
 
+        {/* TAGLINE */}
         <p
           className={`mt-6 text-[9px] font-semibold uppercase tracking-[0.26em] text-[#FFD76A] transition-all delay-[400ms] duration-1000 sm:mt-7 sm:text-xs sm:tracking-[0.34em] ${
             isReady
@@ -144,30 +145,49 @@ export default function Hero() {
           A Legacy in the Making
         </p>
 
+        {/* DESCRIPTION */}
         <p
-          className={`mx-auto mt-5 max-w-[620px] px-1 text-[13px] font-light leading-6 text-white/85 transition-all delay-500 duration-1000 sm:mt-6 sm:px-0 sm:text-base sm:leading-8 md:text-[17px] ${
+          className={`mx-auto mt-5 max-w-[660px] text-[13px] font-light leading-6 text-white/85 transition-all delay-500 duration-1000 sm:mt-6 sm:text-base sm:leading-8 md:text-[17px] ${
             isReady
               ? "translate-y-0 opacity-100"
               : "translate-y-6 opacity-0"
           }`}
         >
-          A future private golf and lifestyle destination where championship
-          golf, timeless hospitality, family tradition, and enduring legacy
-          come together.
+          A future private golf and lifestyle destination being built around
+          championship golf, timeless hospitality, family tradition, and
+          enduring legacy.
         </p>
 
+        {/* INVITATIONAL CALLOUT */}
         <div
-          className={`mt-8 flex w-full max-w-[360px] flex-col items-center justify-center gap-3 transition-all delay-[650ms] duration-1000 sm:mt-10 sm:max-w-none sm:flex-row sm:gap-4 ${
+          className={`mt-7 flex flex-wrap items-center justify-center gap-x-2 gap-y-2 text-[8px] font-semibold uppercase tracking-[0.18em] text-white/65 transition-all delay-[575ms] duration-1000 sm:gap-x-3 sm:text-[9px] sm:tracking-[0.22em] ${
+            isReady
+              ? "translate-y-0 opacity-100"
+              : "translate-y-5 opacity-0"
+          }`}
+        >
+          <span>June 21, 2027</span>
+          <span className="text-[#FFD76A]">·</span>
+          <span>100 Players</span>
+          <span className="text-[#FFD76A]">·</span>
+          <span>4-Person Scramble</span>
+          <span className="text-[#FFD76A]">·</span>
+          <span>$10,000 Purse</span>
+        </div>
+
+        {/* PRIMARY CTA */}
+        <div
+          className={`mt-8 flex w-full max-w-[420px] flex-col items-center justify-center gap-3 transition-all delay-[650ms] duration-1000 sm:mt-10 sm:max-w-none sm:flex-row sm:gap-4 ${
             isReady
               ? "translate-y-0 opacity-100"
               : "translate-y-7 opacity-0"
           }`}
         >
           <Link
-            href="/invitational"
-            className="group relative inline-flex min-h-[50px] w-full items-center justify-center overflow-hidden border border-[#FFD76A] bg-[#FFD76A] px-6 text-[9px] font-semibold uppercase tracking-[0.19em] text-[#10263F] shadow-[0_16px_45px_rgba(0,0,0,0.2)] transition-all duration-500 hover:-translate-y-1 hover:bg-transparent hover:text-white sm:min-h-[52px] sm:w-auto sm:min-w-[215px] sm:px-8 sm:text-[10px] sm:tracking-[0.22em]"
+            href="/invitational/register"
+            className="group relative inline-flex min-h-[50px] w-full items-center justify-center overflow-hidden border border-[#FFD76A] bg-[#FFD76A] px-6 text-[9px] font-semibold uppercase tracking-[0.19em] text-[#10263F] shadow-[0_16px_45px_rgba(0,0,0,0.2)] transition-all duration-500 hover:-translate-y-1 hover:bg-transparent hover:text-white sm:min-h-[52px] sm:w-auto sm:min-w-[220px] sm:px-8 sm:text-[10px] sm:tracking-[0.22em]"
           >
-            <span className="relative z-10">2027 Invitational</span>
+            <span className="relative z-10">Player Registration</span>
 
             <span
               aria-hidden="true"
@@ -183,10 +203,10 @@ export default function Hero() {
           </Link>
 
           <Link
-            href="/invest"
-            className="group inline-flex min-h-[50px] w-full items-center justify-center border border-white/55 bg-[#10263F]/30 px-6 text-[9px] font-semibold uppercase tracking-[0.19em] text-white shadow-[0_16px_45px_rgba(0,0,0,0.14)] backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-[#FFD76A] hover:bg-[#10263F]/65 hover:text-[#FFD76A] sm:min-h-[52px] sm:w-auto sm:min-w-[215px] sm:px-8 sm:text-[10px] sm:tracking-[0.22em]"
+            href="/invitational/sponsors"
+            className="group inline-flex min-h-[50px] w-full items-center justify-center border border-white/55 bg-[#10263F]/30 px-6 text-[9px] font-semibold uppercase tracking-[0.19em] text-white shadow-[0_16px_45px_rgba(0,0,0,0.14)] backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-[#FFD76A] hover:bg-[#10263F]/65 hover:text-[#FFD76A] sm:min-h-[52px] sm:w-auto sm:min-w-[220px] sm:px-8 sm:text-[10px] sm:tracking-[0.22em]"
           >
-            Investment Overview
+            Sponsor the Invitational
 
             <span
               aria-hidden="true"
@@ -196,9 +216,34 @@ export default function Hero() {
             </span>
           </Link>
         </div>
+
+        {/* SECONDARY LINKS */}
+        <div
+          className={`mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 transition-all delay-[725ms] duration-1000 ${
+            isReady
+              ? "translate-y-0 opacity-100"
+              : "translate-y-5 opacity-0"
+          }`}
+        >
+          <Link
+            href="/invitational"
+            className="text-[8px] font-semibold uppercase tracking-[0.22em] text-white/60 transition hover:text-[#FFD76A] sm:text-[9px]"
+          >
+            Explore Invitational
+          </Link>
+
+          <span className="hidden h-3 w-px bg-white/20 sm:block" />
+
+          <Link
+            href="/invest"
+            className="text-[8px] font-semibold uppercase tracking-[0.22em] text-white/60 transition hover:text-[#FFD76A] sm:text-[9px]"
+          >
+            Investment Overview
+          </Link>
+        </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* SCROLL INDICATOR */}
       <a
         href="#vision"
         aria-label="Scroll to explore The Gallaspy"
@@ -219,7 +264,7 @@ export default function Hero() {
         </div>
       </a>
 
-      {/* Brand values */}
+      {/* BRAND VALUES */}
       <div
         className={`absolute bottom-7 right-6 z-10 hidden text-right transition-all delay-700 duration-1000 md:block lg:bottom-9 lg:right-10 ${
           isReady

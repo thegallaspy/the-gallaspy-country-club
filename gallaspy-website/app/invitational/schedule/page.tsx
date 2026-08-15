@@ -217,7 +217,7 @@ export default function InvitationalSchedulePage() {
 
           <Link
             href="/invitational/register"
-            className="mt-8 inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#B89146] px-8 text-[10px] font-semibold uppercase tracking-[0.22em] text-white transition hover:bg-white hover:text-[#10263F]"
+            className="mt-8 inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#B89146] px-6 text-[10px] font-semibold uppercase tracking-[0.22em] text-white transition hover:bg-white hover:text-[#10263F] sm:px-8"
           >
             Join the Priority List
           </Link>

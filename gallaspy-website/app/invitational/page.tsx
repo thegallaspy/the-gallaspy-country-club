@@ -43,14 +43,14 @@ export default function InvitationalPage() {
           <div className="mt-10 flex flex-wrap gap-4">
             <a
               href="#registration"
-              className="rounded-full bg-[#B89146] px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white hover:text-[#10263F]"
+              className="rounded-full bg-[#B89146] px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white hover:text-[#10263F] sm:px-8"
             >
               Player Registration
             </a>
 
             <a
               href="#sponsors"
-              className="rounded-full border border-white/25 px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition hover:border-[#FFD76A] hover:text-[#FFD76A]"
+              className="rounded-full border border-white/25 px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition hover:border-[#FFD76A] hover:text-[#FFD76A] sm:px-8"
             >
               Become a Sponsor
             </a>
@@ -437,14 +437,14 @@ export default function InvitationalPage() {
           <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
             <a
               href="/invitational/register"
-              className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#10263F] px-8 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#B89146]"
+              className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#10263F] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#B89146] sm:w-auto sm:px-8"
             >
               Register Interest
             </a>
 
             <a
               href="/contact"
-              className="inline-flex min-h-[52px] items-center justify-center rounded-full border border-[#10263F]/20 px-8 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#10263F] transition duration-300 hover:border-[#10263F] hover:bg-white"
+              className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full border border-[#10263F]/20 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#10263F] transition duration-300 hover:border-[#10263F] hover:bg-white sm:w-auto sm:px-8"
             >
               Contact The Gallaspy
             </a>

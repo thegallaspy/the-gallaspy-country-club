@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { FormEvent, useState } from "react";
 import InvitationalNav from "@/components/invitational/InvitationalNav";
 
 const sponsorLevels = [
@@ -63,6 +66,60 @@ const activationOpportunities = [
 ];
 
 export default function InvitationalSponsorsPage() {
+  const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setSubmitting(true);
+    setSuccess(false);
+    setError("");
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    const payload = {
+      companyName: formData.get("companyName"),
+      contactName: formData.get("contactName"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      website: formData.get("website"),
+      sponsorshipInterest: formData.get("sponsorshipInterest"),
+      message: formData.get("message"),
+    };
+
+    try {
+      const response = await fetch("/api/invitational/sponsors", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          result.error || "Unable to submit sponsorship inquiry."
+        );
+      }
+
+      form.reset();
+      setSuccess(true);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again."
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   return (
     <main className="min-h-screen bg-[#F5F0E6] text-[#10263F]">
       <InvitationalNav />
@@ -76,6 +133,17 @@ export default function InvitationalSponsorsPage() {
           >
             ← Back to Invitational
           </Link>
+
+          <div className="mt-10">
+            <Image
+              src="/logos/gallaspy-invitational.png"
+              alt="The Gallaspy Invitational"
+              width={300}
+              height={169}
+              priority
+              className="h-auto w-[180px] sm:w-[220px] lg:w-[250px]"
+            />
+          </div>
 
           <p className="mt-12 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">
             Founding Partnership Opportunities
@@ -99,14 +167,14 @@ export default function InvitationalSponsorsPage() {
           <div className="mt-10 flex flex-wrap gap-4">
             <a
               href="#opportunities"
-              className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#B89146] px-8 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-white hover:text-[#10263F]"
+              className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#B89146] px-6 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-white hover:text-[#10263F] sm:px-8"
             >
               Explore Opportunities
             </a>
 
             <a
               href="#inquiry"
-              className="inline-flex min-h-[52px] items-center justify-center rounded-full border border-white/25 px-8 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition hover:border-[#FFD76A] hover:text-[#FFD76A]"
+              className="inline-flex min-h-[52px] items-center justify-center rounded-full border border-white/25 px-6 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition hover:border-[#FFD76A] hover:text-[#FFD76A] sm:px-8"
             >
               Sponsor Inquiry
             </a>
@@ -321,15 +389,15 @@ export default function InvitationalSponsorsPage() {
 
             <div className="sm:col-span-2">
               <label
-                htmlFor="interest"
+                htmlFor="sponsorshipInterest"
                 className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.2em] text-[#FFD76A]"
               >
                 Partnership Interest
               </label>
 
               <select
-                id="interest"
-                name="interest"
+                id="sponsorshipInterest"
+                name="sponsorshipInterest"
                 defaultValue=""
                 className="h-[50px] w-full rounded-xl border border-white/15 bg-white/[0.07] px-4 text-sm text-white outline-none"
               >
@@ -374,7 +442,7 @@ export default function InvitationalSponsorsPage() {
             <div className="sm:col-span-2">
               <button
                 type="submit"
-                className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#B89146] px-8 text-[10px] font-semibold uppercase tracking-[0.22em] text-white transition hover:bg-white hover:text-[#10263F]"
+                className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#B89146] px-6 text-[10px] font-semibold uppercase tracking-[0.22em] text-white transition hover:bg-white hover:text-[#10263F] sm:px-8"
               >
                 Submit Sponsor Interest
               </button>

@@ -6,7 +6,7 @@ const faqs = [
   {
     question: "When is the 2027 Gallaspy Invitational?",
     answer:
-      "The inaugural Gallaspy Invitational is planned for May 24, 2027. Tournament-day activities are currently scheduled to begin with player arrival at 9:00 AM and an 11:00 AM shotgun start.",
+      "The inaugural Gallaspy Invitational is planned for June 21, 2027. Tournament-day activities are currently scheduled to begin with player arrival at 9:00 AM and an 11:00 AM shotgun start.",
   },
   {
     question: "What is the tournament format?",
@@ -106,7 +106,7 @@ export default function InvitationalFAQPage() {
             <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
               Date
             </p>
-            <p className="mt-2 font-serif text-xl">May 24, 2027</p>
+            <p className="mt-2 font-serif text-xl">June 21, 2027</p>
           </div>
 
           <div className="border-b border-[#10263F]/10 px-4 py-8 md:border-b-0 md:border-r">
@@ -225,14 +225,14 @@ export default function InvitationalFAQPage() {
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link
               href="/invitational/register"
-              className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#B89146] px-8 text-[10px] font-semibold uppercase tracking-[0.22em] text-white transition hover:bg-white hover:text-[#10263F]"
+              className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#B89146] px-6 text-[10px] font-semibold uppercase tracking-[0.22em] text-white transition hover:bg-white hover:text-[#10263F] sm:w-auto sm:px-8"
             >
               Join Priority List
             </Link>
 
             <Link
               href="/invitational/sponsors"
-              className="inline-flex min-h-[52px] items-center justify-center rounded-full border border-white/25 px-8 text-[10px] font-semibold uppercase tracking-[0.22em] text-white transition hover:border-[#FFD76A] hover:text-[#FFD76A]"
+              className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full border border-white/25 px-6 text-[10px] font-semibold uppercase tracking-[0.22em] text-white transition hover:border-[#FFD76A] hover:text-[#FFD76A] sm:w-auto sm:px-8"
             >
               Sponsor Opportunities
             </Link>

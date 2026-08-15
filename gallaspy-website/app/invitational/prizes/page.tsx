@@ -380,14 +380,14 @@ export default function InvitationalPrizesPage() {
           <div className="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
               href="/invitational/register"
-              className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#10263F] px-8 text-[10px] font-semibold uppercase tracking-[0.22em] text-white transition hover:bg-[#B89146]"
+              className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#10263F] px-6 text-[10px] font-semibold uppercase tracking-[0.22em] text-white transition hover:bg-[#B89146] sm:w-auto sm:px-8"
             >
               Join Player Priority List
             </Link>
 
             <Link
               href="/invitational/sponsors"
-              className="inline-flex min-h-[52px] items-center justify-center rounded-full border border-[#10263F]/20 px-8 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#10263F] transition hover:border-[#B89146] hover:text-[#B89146]"
+              className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full border border-[#10263F]/20 px-6 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#10263F] transition hover:border-[#B89146] hover:text-[#B89146] sm:w-auto sm:px-8"
             >
               Sponsor an Award
             </Link>
