@@ -1,7 +1,6 @@
 import Hero from "@/components/sections/Hero";
 import InvitationalPreview from "@/components/sections/InvitationalPreview";
 import Vision from "@/components/sections/Vision";
-import GallaspyEstate from "@/components/sections/GallaspyEstate";
 import DevelopmentPlan from "@/components/sections/DevelopmentPlan";
 import Experience from "@/components/sections/Experience";
 import InvestmentPreview from "@/components/sections/InvestmentPreview";
@@ -19,10 +18,6 @@ export default function Home() {
 
       <Reveal>
         <Vision />
-      </Reveal>
-
-      <Reveal>
-        <GallaspyEstate />
       </Reveal>
 
       <Reveal>

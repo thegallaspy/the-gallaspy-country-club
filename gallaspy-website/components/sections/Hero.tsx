@@ -46,7 +46,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-[#10263F] px-5 pb-24 pt-[90px] sm:px-8 sm:pb-24 sm:pt-[96px] lg:min-h-screen lg:px-10 lg:pb-20 lg:pt-[100px]">
+    <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-[#10263F] px-5 pb-16 pt-[76px] sm:px-8 sm:pb-20 sm:pt-[90px] lg:min-h-screen lg:px-10 lg:pb-20 lg:pt-[100px]">
       {/* CINEMATIC BACKGROUND */}
       <Image
         src="/images/hero.jpg"
@@ -99,7 +99,7 @@ export default function Hero() {
             width={120}
             height={120}
             priority
-            className="mb-7 h-auto w-[100px] object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.35)] sm:w-[110px] lg:w-[120px]"
+            className="mb-5 h-auto w-[88px] object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.35)] sm:mb-7 sm:w-[110px] lg:w-[120px]"
           />
 
           <div className="flex items-center gap-3 sm:gap-4">

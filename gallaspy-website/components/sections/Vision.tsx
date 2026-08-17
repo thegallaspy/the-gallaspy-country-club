@@ -195,7 +195,7 @@ export default function Vision() {
                   </p>
 
                   <p className="mt-2 text-[8px] font-bold uppercase tracking-[0.22em] text-[#FFD76A]">
-                    Potential Homes
+                    Membership Vision
                   </p>
                 </div>
               </div>

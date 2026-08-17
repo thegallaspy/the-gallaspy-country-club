@@ -15,7 +15,7 @@ const developmentHighlights = [
     eyebrow: "12 Destinations",
     title: "Signature Amenities",
     description:
-      "Dining, wellness, lodging, recreation, vineyards, events, and gathering places.",
+      "Golf, dining, wellness, lodging, recreation, events, and gathering places.",
   },
   {
     eyebrow: "One Legacy",
@@ -31,7 +31,7 @@ const destinations = [
     name: "Main Entrance & Security",
     category: "Arrival Experience",
     description:
-      "A distinguished entrance monument and staffed security gate designed to establish privacy, hospitality, and a memorable sense of arrival.",
+      "A distinguished entrance and private arrival experience envisioned to establish privacy, hospitality, and a memorable sense of place.",
     details: [
       "Private entry monument",
       "Staffed security gate",
@@ -44,7 +44,7 @@ const destinations = [
     name: "Gallaspy Boulevard",
     category: "Signature Drive",
     description:
-      "A landscaped, tree-lined boulevard guiding members and guests from the entrance toward the central clubhouse district.",
+      "A landscaped signature drive envisioned to guide members and guests from the entrance toward the heart of the future club.",
     details: [
       "Tree-lined arrival sequence",
       "Landscape and water features",
@@ -67,16 +67,16 @@ const destinations = [
   },
   {
     number: 4,
-    name: "Vineyard",
-    category: "Wine & Agriculture",
+    name: "Practice & Performance Center",
+    category: "Golf Development",
     description:
-      "An estate vineyard designed to support tastings, seasonal dinners, private events, and a distinctive member wine program.",
+      "A comprehensive practice and player-development destination envisioned for instruction, performance training, warm-up, and year-round improvement.",
     details: [
-      "Estate vineyard",
-      "Private wine tastings",
-      "Seasonal member experiences",
+      "Full practice range",
+      "Short-game complex",
+      "Putting and performance facilities",
     ],
-    link: "/club#vineyard",
+    link: "/club#golf",
   },
   {
     number: 5,
@@ -218,7 +218,11 @@ export default function DevelopmentPlan() {
           <div className="mx-auto mt-5 h-px w-14 bg-[#B89146]" />
 
           <p className="mx-auto mt-5 max-w-[690px] text-sm leading-7 text-[#1E3557] sm:text-[15px]">
-            The Gallaspy is envisioned as a private golf and lifestyle destination in Georgia. Explore the signature experiences and destinations intended to shape the future club. Final design, scale, and placement will be determined by the property ultimately selected.
+            The Gallaspy is envisioned as a private golf and lifestyle
+            destination in Georgia. Explore the signature experiences and
+            destinations intended to shape the future club. Final design,
+            scale, and placement will be determined by the property ultimately
+            selected.
           </p>
         </div>
 
@@ -414,7 +418,8 @@ export default function DevelopmentPlan() {
             </div>
 
             <p className="max-w-[430px] text-right text-sm leading-6 text-white/70">
-              Explore the destinations envisioned as part of The Gallaspy’s long-term development.
+              Explore the destinations envisioned as part of The Gallaspy&apos;s
+              long-term development.
             </p>
           </div>
 

@@ -7,16 +7,16 @@ const experiences = [
     eyebrow: "The Heart of The Gallaspy",
     title: "Championship Golf",
     description:
-      "A thoughtfully envisioned 18-hole championship course shaped by rolling fairways, strategic bunkering, dramatic greens, and a setting designed to be both memorable and rewarding.",
+      "At the center of the vision is an 18-hole championship golf course designed to reward strategy, shot-making, and memorable play while responding to the natural character of the future property.",
     image: "/images/golf.png",
-    imageAlt: "Championship golf experience at The Gallaspy",
+    imageAlt: "Conceptual championship golf experience at The Gallaspy",
     href: "/club#golf",
     linkLabel: "Explore Golf",
     features: [
       "18 championship holes",
       "Practice and short-game facilities",
-      "Walking and cart friendly",
-      "Tournament-quality experience",
+      "Walking and cart-friendly design",
+      "Tournament-ready experience",
     ],
   },
   {
@@ -24,16 +24,16 @@ const experiences = [
     eyebrow: "Signature Dining",
     title: "Mercury Street Restaurant",
     description:
-      "A refined dining destination envisioned with chef-driven menus, private dining, outdoor terraces, and a wine program connected to the future vineyard and winery.",
+      "A signature dining destination envisioned around chef-driven cuisine, thoughtful hospitality, private dining, outdoor terraces, and memorable gatherings at the heart of the future club.",
     image: "/images/mercurystreet.png",
-    imageAlt: "Mercury Street Restaurant at The Gallaspy",
+    imageAlt: "Conceptual Mercury Street Restaurant at The Gallaspy",
     href: "/club#restaurants",
     linkLabel: "Explore Dining",
     features: [
       "Chef-driven dining",
       "Private dining spaces",
-      "Outdoor terrace views",
-      "Integrated wine program",
+      "Outdoor terrace seating",
+      "Member and guest hospitality",
     ],
   },
   {
@@ -41,16 +41,16 @@ const experiences = [
     eyebrow: "Wellness & Recreation",
     title: "A Complete Club Lifestyle",
     description:
-      "Wellness, spa, pools, fitness, tennis, pickleball, member lodging, and year-round recreation come together to create a complete private-club lifestyle.",
+      "The long-term vision brings together wellness, fitness, pools, tennis, pickleball, lodging, recreation, and gathering spaces to create a private-club experience designed for more than golf.",
     image: "/images/wellness.png",
-    imageAlt: "Wellness and recreation at The Gallaspy",
+    imageAlt: "Conceptual wellness and recreation experience at The Gallaspy",
     href: "/club#wellness",
     linkLabel: "Explore Wellness",
     features: [
-      "Full-service wellness spa",
+      "Wellness and fitness",
       "Resort-style pools",
       "Tennis and pickleball",
-      "Member lodging",
+      "Future member lodging",
     ],
   },
 ];
@@ -188,14 +188,15 @@ export default function Experience() {
             <h3 className="mt-4 font-serif text-3xl font-light leading-tight sm:text-4xl lg:text-5xl">
               Designed Around the Way
               <span className="block">
-                Members Live, Gather, and Belong
+                People Gather, Connect, and Belong
               </span>
             </h3>
 
             <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-white/70 sm:text-base sm:leading-8">
               From early-morning golf to evening dining, family recreation,
-              wellness, events, and overnight stays, The Gallaspy is envisioned
-              as a private club experience that extends far beyond the course.
+              wellness, events, and overnight stays, The Gallaspy is being
+              envisioned as a private-club destination that extends far beyond
+              the course.
             </p>
 
             <Link

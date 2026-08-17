@@ -5,7 +5,7 @@ const investmentPoints = [
   {
     title: "Long-Term Development",
     description:
-      "A phased approach to establishing the golf, hospitality, lifestyle, and supporting real-estate components of The Gallaspy.",
+      "A phased approach to establishing the golf, hospitality, lifestyle, and supporting development components of The Gallaspy.",
   },
   {
     title: "Multiple Revenue Channels",
@@ -20,7 +20,7 @@ const investmentPoints = [
   {
     title: "Georgia Opportunity",
     description:
-      "A search focused on identifying the right Georgia property and market for the long-term Gallaspy vision.",
+      "A Georgia-focused property search centered on access, growth, natural character, market strength, and the long-term potential to support The Gallaspy vision.",
   },
 ];
 
@@ -50,7 +50,11 @@ export default function InvestmentPreview() {
             <div className="mt-6 h-px w-16 bg-[#B89146]" />
 
             <p className="mt-6 max-w-2xl text-sm leading-7 text-white/72 sm:text-base sm:leading-8">
-              The Gallaspy Golf &amp; Country Club is being envisioned as a future private golf and lifestyle destination in Georgia. The development strategy is centered on identifying the right property, building aligned partnerships, and advancing the vision in thoughtful phases.
+              The Gallaspy Golf &amp; Country Club is being envisioned as a
+              future private golf and lifestyle destination in Georgia. The
+              development strategy is centered on identifying the right
+              property, building aligned partnerships, and advancing the vision
+              in thoughtful phases.
             </p>
 
             {/* Investment points */}
@@ -85,7 +89,7 @@ export default function InvestmentPreview() {
                 href="/invest"
                 className="group inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#FFD76A] bg-[#B89146] px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-white shadow-[0_14px_35px_rgba(0,0,0,0.18)] transition duration-300 hover:-translate-y-1 hover:bg-[#FFD76A] hover:text-[#10263F]"
               >
-                Explore Development & Partnership
+                Explore Partnership Opportunities
 
                 <span className="ml-3 transition-transform duration-300 group-hover:translate-x-1">
                   →
@@ -120,7 +124,9 @@ export default function InvestmentPreview() {
                 </h3>
 
                 <p className="mt-3 max-w-md text-sm leading-6 text-white/62">
-                  Selected vision markers that describe the intended scale and direction of The Gallaspy without tying the concept to a specific property.
+                  Selected vision markers that describe the intended scale and
+                  direction of The Gallaspy without tying the concept to a
+                  specific property.
                 </p>
               </div>
 
@@ -145,8 +151,8 @@ export default function InvestmentPreview() {
                 />
 
                 <Metric
-                  value={<AnimatedCounter end={10} suffix=" Years" />}
-                  label="Long-Term Vision"
+                  value="Phased"
+                  label="Development Strategy"
                 />
               </div>
 
@@ -157,7 +163,10 @@ export default function InvestmentPreview() {
                 </p>
 
                 <p className="mt-3 text-sm leading-6 text-white/68">
-                  The long-term development path may involve a combination of land relationships, operating partners, brand partners, development expertise, and future financing structures appropriate to the property and phase.
+                  The long-term development path may involve a combination of
+                  land relationships, operating partners, brand partners,
+                  development expertise, and future financing structures
+                  appropriate to the property and phase.
                 </p>
               </div>
             </div>
@@ -199,7 +208,9 @@ export default function InvestmentPreview() {
             </h3>
 
             <p className="mt-3 text-sm leading-6 text-white/65">
-              Learn more about the development vision, intended phases, partnership opportunities, and the long-term strategy for bringing The Gallaspy to life.
+              Learn more about the development vision, intended phases,
+              partnership opportunities, and the long-term strategy for
+              bringing The Gallaspy to life.
             </p>
 
             <Link
@@ -214,7 +225,13 @@ export default function InvestmentPreview() {
 
         {/* Disclaimer */}
         <p className="mx-auto mt-7 max-w-4xl text-center text-[10px] leading-5 text-white/42">
-          The development vision, scale, amenities, timing, partnership structure, and financing approach are conceptual and subject to land acquisition, due diligence, planning, approvals, market conditions, and future development decisions. The Gallaspy does not currently represent that a specific property has been acquired or secured. Nothing on this website constitutes an offer to sell or a solicitation to purchase securities.
+          The development vision, scale, amenities, timing, partnership
+          structure, and financing approach are conceptual and subject to land
+          acquisition, due diligence, planning, approvals, market conditions,
+          and future development decisions. The Gallaspy does not currently
+          represent that a specific property has been acquired or secured.
+          Nothing on this website constitutes an offer to sell or a solicitation
+          to purchase securities.
         </p>
       </div>
     </section>

@@ -6,23 +6,23 @@ const journeyOptions = [
     eyebrow: "Play",
     title: "Join the 2027 Invitational",
     description:
-      "Join the player priority list for the inaugural Gallaspy Invitational and receive official registration, venue, pricing, and tournament updates.",
+      "Join the player priority list for the inaugural Gallaspy Invitational and receive official registration, venue, pricing, and tournament updates as they are released.",
     href: "/invitational/register",
     label: "Player Registration",
   },
   {
     eyebrow: "Partner",
-    title: "Sponsor the Invitational",
+    title: "Support the Invitational",
     description:
-      "Explore founding partnership opportunities, on-course activations, hospitality, player gifting, awards, and custom brand integrations.",
+      "Explore founding sponsorship opportunities, on-course activations, hospitality, player gifting, awards, and custom brand integrations for the inaugural event.",
     href: "/invitational/sponsors",
     label: "Explore Sponsorship",
   },
   {
-    eyebrow: "Future",
+    eyebrow: "Belong",
     title: "Follow the Club Vision",
     description:
-      "Register your interest in the future Gallaspy membership community and follow the journey as the long-term club vision develops.",
+      "Register your interest in the future Gallaspy membership community and follow the journey as the long-term private-club vision continues to take shape.",
     href: "/membership",
     label: "Future Membership",
   },
@@ -35,7 +35,7 @@ export default function BeginJourney() {
       <div className="absolute inset-0">
         <Image
           src="/images/arrival.png"
-          alt="Conceptual vision for the arrival experience at The Gallaspy Golf and Country Club"
+          alt="Conceptual vision for the future arrival experience at The Gallaspy Golf and Country Club"
           fill
           sizes="100vw"
           className="object-cover"
