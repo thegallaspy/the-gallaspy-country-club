@@ -1,14 +1,23 @@
-import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-const supabase = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
 export async function POST(request: Request) {
   try {
+    const resendApiKey = process.env.RESEND_API_KEY;
+
+    if (!resendApiKey) {
+      console.error("Missing RESEND_API_KEY");
+
+      return NextResponse.json(
+        {
+          error: "Registration email service is not configured.",
+        },
+        { status: 500 }
+      );
+    }
+
+    const resend = new Resend(resendApiKey);
+
     const body = await request.json();
 
     const {
@@ -101,9 +110,9 @@ export async function POST(request: Request) {
 
               <tr>
                 <td style="padding: 10px 0;"><strong>Team Name</strong></td>
-                <td style="padding: 10px 0;">${
-                  teamName || "Not provided"
-                }</td>
+                <td style="padding: 10px 0;">
+                  ${teamName || "Not provided"}
+                </td>
               </tr>
 
               <tr>
@@ -113,9 +122,9 @@ export async function POST(request: Request) {
 
               <tr>
                 <td style="padding: 10px 0;"><strong>Sponsor Interest</strong></td>
-                <td style="padding: 10px 0;">${
-                  sponsorInterest || "No"
-                }</td>
+                <td style="padding: 10px 0;">
+                  ${sponsorInterest || "No"}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -180,6 +189,7 @@ export async function POST(request: Request) {
             </p>
 
             <p style="margin: 0;">
+              June 21, 2027<br />
               4-Person Scramble<br />
               100-Player Field<br />
               $10,000 Tournament Purse<br />
@@ -207,7 +217,7 @@ export async function POST(request: Request) {
           >
             <p style="margin: 0;">
               <strong>The Gallaspy Invitational</strong><br />
-              The Gallaspy Development Group
+              The Gallaspy Development Group, LLC
             </p>
 
             <p style="font-size: 13px; color: #667085; margin-top: 8px;">

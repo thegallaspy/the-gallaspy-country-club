@@ -3,6 +3,8 @@ import InvitationalPreview from "@/components/sections/InvitationalPreview";
 import Vision from "@/components/sections/Vision";
 import DevelopmentPlan from "@/components/sections/DevelopmentPlan";
 import Experience from "@/components/sections/Experience";
+import WhyGallaspy from "@/components/sections/WhyGallaspy";
+import Founders from "@/components/sections/Founders";
 import InvestmentPreview from "@/components/sections/InvestmentPreview";
 import BeginJourney from "@/components/sections/BeginJourney";
 import Reveal from "@/components/ui/Reveal";
@@ -26,6 +28,14 @@ export default function Home() {
 
       <Reveal>
         <Experience />
+      </Reveal>
+
+      <Reveal>
+        <WhyGallaspy />
+      </Reveal>
+
+      <Reveal>
+        <Founders />
       </Reveal>
 
       <Reveal>
