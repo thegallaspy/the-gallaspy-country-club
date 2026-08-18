@@ -164,27 +164,31 @@ export default function InvestPage() {
           alt="Conceptual development vision for The Gallaspy Golf and Country Club"
           fill
           priority
-          className="object-cover opacity-45"
+          className="object-cover"
           sizes="100vw"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-r from-[#071625] via-[#071625]/92 to-[#071625]/38" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#071625] via-transparent to-[#071625]/30" />
+        {/* Stronger contrast overlays */}
+        <div className="absolute inset-0 bg-[#071625]/58" />
+
+        <div className="absolute inset-0 bg-gradient-to-r from-[#071625]/98 via-[#071625]/88 to-[#071625]/45" />
+
+        <div className="absolute inset-0 bg-gradient-to-t from-[#071625]/65 via-transparent to-[#071625]/30" />
 
         <div className="relative z-10 mx-auto w-full max-w-[1500px] px-6 py-24 sm:px-8 lg:px-12">
           <div className="max-w-4xl">
-            <p className="mb-6 text-xs font-semibold uppercase tracking-[0.42em] text-[#FFD76A]">
-              Development & Strategic Partnerships
+            <p className="mb-6 text-xs font-bold uppercase tracking-[0.42em] text-[#FFD76A]">
+              Development &amp; Strategic Partnerships
             </p>
 
-            <h1 className="font-serif text-5xl font-medium leading-[0.98] text-white sm:text-6xl md:text-7xl lg:text-[92px]">
+            <h1 className="font-serif text-5xl font-medium leading-[0.98] tracking-[-0.02em] text-white drop-shadow-[0_3px_16px_rgba(0,0,0,0.45)] sm:text-6xl md:text-7xl lg:text-[92px]">
               Building The Gallaspy
               <span className="block text-[#FFD76A]">
                 Will Take the Right Partners
               </span>
             </h1>
 
-            <p className="mt-8 max-w-3xl text-base leading-8 text-white/80 sm:text-lg">
+            <p className="mt-8 max-w-3xl text-base font-medium leading-8 text-white sm:text-lg">
               The Gallaspy Golf &amp; Country Club is a long-term vision for a
               private golf and lifestyle destination in Georgia. We welcome
               conversations with property owners, developers, operators,
@@ -195,14 +199,14 @@ export default function InvestPage() {
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-full bg-[#FFD76A] px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#10263F] transition duration-300 hover:-translate-y-1 hover:bg-white"
+                className="inline-flex items-center justify-center rounded-full bg-[#FFD76A] px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] text-[#10263F] shadow-lg transition duration-300 hover:-translate-y-1 hover:bg-white"
               >
                 Discuss a Partnership
               </Link>
 
               <Link
                 href="/master-plan"
-                className="inline-flex items-center justify-center rounded-full border border-white/40 px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-white transition duration-300 hover:border-[#D9B45B] hover:bg-white/10 hover:text-[#FFD76A]"
+                className="inline-flex items-center justify-center rounded-full border border-white/70 bg-[#071625]/30 px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] text-white backdrop-blur-sm transition duration-300 hover:border-[#FFD76A] hover:bg-white/10 hover:text-[#FFD76A]"
               >
                 Explore the Development Vision
               </Link>
@@ -248,8 +252,8 @@ export default function InvestPage() {
               The Gallaspy Golf &amp; Country Club is being envisioned as a
               destination-scale private club and lifestyle community in
               Georgia. The conceptual vision brings together championship golf,
-              a signature clubhouse, dining, wellness, racquet sports,
-              lodging, events, recreation, and complementary development.
+              a signature clubhouse, dining, wellness, racquet sports, lodging,
+              events, recreation, and complementary development.
             </p>
 
             <p>
