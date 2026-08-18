@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import Script from "next/script";
 
 import { Navbar } from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -80,9 +81,20 @@ type RootLayoutProps = {
 export default function RootLayout({
   children,
 }: RootLayoutProps) {
+  const squareScript =
+    process.env.NEXT_PUBLIC_SQUARE_ENVIRONMENT === "production"
+      ? "https://web.squarecdn.com/v1/square.js"
+      : "https://sandbox.web.squarecdn.com/v1/square.js";
+
   return (
     <html lang="en" className="scroll-smooth">
       <body className="bg-[#F7F4EE] text-[#10263F] antialiased selection:bg-[#B89146] selection:text-white">
+        {/* Square Web Payments SDK */}
+        <Script
+          src={squareScript}
+          strategy="afterInteractive"
+        />
+
         <LoadingScreen />
 
         <Navbar />
