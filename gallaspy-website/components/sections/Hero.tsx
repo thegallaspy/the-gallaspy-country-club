@@ -55,7 +55,9 @@ export default function Hero() {
         priority
         sizes="100vw"
         className={`object-cover object-[52%_center] transition-all duration-[9000ms] ease-out sm:object-center ${
-          isReady ? "scale-100 opacity-100" : "scale-[1.08] opacity-75"
+          isReady
+            ? "scale-100 opacity-100"
+            : "scale-[1.08] opacity-75"
         }`}
       />
 
@@ -130,7 +132,9 @@ export default function Hero() {
 
         <div
           className={`mt-7 h-px bg-[#FFD76A] transition-all delay-300 duration-[1200ms] sm:mt-8 ${
-            isReady ? "w-20 opacity-100 sm:w-24" : "w-0 opacity-0"
+            isReady
+              ? "w-20 opacity-100 sm:w-24"
+              : "w-0 opacity-0"
           }`}
         />
 
@@ -147,15 +151,15 @@ export default function Hero() {
 
         {/* DESCRIPTION */}
         <p
-          className={`mx-auto mt-5 max-w-[660px] text-[13px] font-light leading-6 text-white/85 transition-all delay-500 duration-1000 sm:mt-6 sm:text-base sm:leading-8 md:text-[17px] ${
+          className={`mx-auto mt-5 max-w-[700px] text-[13px] font-light leading-6 text-white/85 transition-all delay-500 duration-1000 sm:mt-6 sm:text-base sm:leading-8 md:text-[17px] ${
             isReady
               ? "translate-y-0 opacity-100"
               : "translate-y-6 opacity-0"
           }`}
         >
-          A future private golf and lifestyle destination being built around
-          championship golf, timeless hospitality, family tradition, and
-          enduring legacy.
+          A future private golf and lifestyle destination being built from the
+          ground up around championship golf, timeless hospitality, family
+          tradition, and enduring legacy.
         </p>
 
         {/* INVITATIONAL CALLOUT */}
@@ -166,18 +170,24 @@ export default function Hero() {
               : "translate-y-5 opacity-0"
           }`}
         >
+          <span>1st Annual Gallaspy Invitational</span>
+
+          <span className="text-[#FFD76A]">·</span>
+
           <span>June 21, 2027</span>
+
           <span className="text-[#FFD76A]">·</span>
-          <span>100 Players</span>
+
+          <span>100-Player Field</span>
+
           <span className="text-[#FFD76A]">·</span>
+
           <span>4-Person Scramble</span>
-          <span className="text-[#FFD76A]">·</span>
-          <span>$10,000 Purse</span>
         </div>
 
         {/* PRIMARY CTA */}
         <div
-          className={`mt-8 flex w-full max-w-[420px] flex-col items-center justify-center gap-3 transition-all delay-[650ms] duration-1000 sm:mt-10 sm:max-w-none sm:flex-row sm:gap-4 ${
+          className={`mt-8 flex w-full max-w-[440px] flex-col items-center justify-center gap-3 transition-all delay-[650ms] duration-1000 sm:mt-10 sm:max-w-none sm:flex-row sm:gap-4 ${
             isReady
               ? "translate-y-0 opacity-100"
               : "translate-y-7 opacity-0"
@@ -185,9 +195,11 @@ export default function Hero() {
         >
           <Link
             href="/invitational/register"
-            className="group relative inline-flex min-h-[50px] w-full items-center justify-center overflow-hidden border border-[#FFD76A] bg-[#FFD76A] px-6 text-[9px] font-semibold uppercase tracking-[0.19em] text-[#10263F] shadow-[0_16px_45px_rgba(0,0,0,0.2)] transition-all duration-500 hover:-translate-y-1 hover:bg-transparent hover:text-white sm:min-h-[52px] sm:w-auto sm:min-w-[220px] sm:px-8 sm:text-[10px] sm:tracking-[0.22em]"
+            className="group relative inline-flex min-h-[50px] w-full items-center justify-center overflow-hidden border border-[#FFD76A] bg-[#FFD76A] px-6 text-[9px] font-semibold uppercase tracking-[0.19em] text-[#10263F] shadow-[0_16px_45px_rgba(0,0,0,0.2)] transition-all duration-500 hover:-translate-y-1 hover:bg-transparent hover:text-white sm:min-h-[52px] sm:w-auto sm:min-w-[235px] sm:px-8 sm:text-[10px] sm:tracking-[0.22em]"
           >
-            <span className="relative z-10">Player Registration</span>
+            <span className="relative z-10">
+              Join Player Priority List
+            </span>
 
             <span
               aria-hidden="true"
@@ -204,7 +216,7 @@ export default function Hero() {
 
           <Link
             href="/invitational/sponsors"
-            className="group inline-flex min-h-[50px] w-full items-center justify-center border border-white/55 bg-[#10263F]/30 px-6 text-[9px] font-semibold uppercase tracking-[0.19em] text-white shadow-[0_16px_45px_rgba(0,0,0,0.14)] backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-[#FFD76A] hover:bg-[#10263F]/65 hover:text-[#FFD76A] sm:min-h-[52px] sm:w-auto sm:min-w-[220px] sm:px-8 sm:text-[10px] sm:tracking-[0.22em]"
+            className="group inline-flex min-h-[50px] w-full items-center justify-center border border-white/55 bg-[#10263F]/30 px-6 text-[9px] font-semibold uppercase tracking-[0.19em] text-white shadow-[0_16px_45px_rgba(0,0,0,0.14)] backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-[#FFD76A] hover:bg-[#10263F]/65 hover:text-[#FFD76A] sm:min-h-[52px] sm:w-auto sm:min-w-[235px] sm:px-8 sm:text-[10px] sm:tracking-[0.22em]"
           >
             Sponsor the Invitational
 
@@ -235,10 +247,10 @@ export default function Hero() {
           <span className="hidden h-3 w-px bg-white/20 sm:block" />
 
           <Link
-            href="/invest"
+            href="/why-the-gallaspy"
             className="text-[8px] font-semibold uppercase tracking-[0.22em] text-white/60 transition hover:text-[#FFD76A] sm:text-[9px]"
           >
-            Investment Overview
+            Discover Our Story
           </Link>
         </div>
       </div>

@@ -11,8 +11,8 @@ interface FalconSocietyFormData {
   phone: string;
   city: string;
   state: string;
-  membershipInterest: string;
-  golfHandicap: string;
+  golfInterest: string;
+  householdInterest: string;
   referralSource: string;
   comments: string;
   consent: boolean;
@@ -25,8 +25,8 @@ const initialFormData: FalconSocietyFormData = {
   phone: "",
   city: "",
   state: "",
-  membershipInterest: "",
-  golfHandicap: "",
+  golfInterest: "",
+  householdInterest: "",
   referralSource: "",
   comments: "",
   consent: false,
@@ -68,13 +68,13 @@ export default function FalconSocietyForm() {
 
       if (!response.ok) {
         throw new Error(
-          result.message || "Your registration could not be submitted.",
+          result.message || "Your interest could not be submitted.",
         );
       }
 
       setStatus("success");
       setMessage(
-        "Thank you. Your Falcon Society application has been received. A member of The Gallaspy Development Group will contact you with the next steps.",
+        "Thank you for your interest in the future Falcon Society. Your information has been received, and we'll keep you informed as The Gallaspy continues to develop.",
       );
 
       setFormData(initialFormData);
@@ -99,16 +99,24 @@ export default function FalconSocietyForm() {
         </div>
 
         <p className="relative mt-7 text-[10px] font-bold uppercase tracking-[0.34em] text-[#FFD76A]">
-          Registration Received
+          Interest Received
         </p>
 
         <h2 className="relative mt-4 font-serif text-4xl font-light text-white sm:text-5xl">
-          Welcome to the Beginning
+          Welcome to the Journey
         </h2>
 
         <p className="relative mx-auto mt-5 max-w-2xl text-base leading-8 text-white/70">
           {message}
         </p>
+
+        <div className="relative mx-auto mt-7 max-w-2xl border-t border-white/10 pt-6">
+          <p className="text-xs leading-6 text-white/50">
+            Your submission expresses interest only. It does not reserve,
+            guarantee, or constitute an application for a future Falcon Society
+            position or club membership.
+          </p>
+        </div>
 
         <button
           type="button"
@@ -116,9 +124,9 @@ export default function FalconSocietyForm() {
             setStatus("idle");
             setMessage("");
           }}
-          className="relative mt-9 inline-flex min-h-[50px] items-center justify-center border border-[#FFD76A] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-[#FFD76A] transition duration-300 hover:bg-[#FFD76A] hover:text-[#10263F]"
+          className="relative mt-9 inline-flex min-h-[50px] items-center justify-center rounded-full border border-[#FFD76A] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-[#FFD76A] transition duration-300 hover:bg-[#FFD76A] hover:text-[#10263F]"
         >
-          Submit Another Registration
+          Submit Another Interest
         </button>
       </div>
     );
@@ -126,9 +134,10 @@ export default function FalconSocietyForm() {
 
   return (
     <div className="overflow-hidden rounded-[28px] border border-[#10263F]/10 bg-white shadow-[0_30px_90px_rgba(16,38,63,0.1)]">
+      {/* FORM HEADER */}
       <div className="bg-[#10263F] px-7 py-9 text-white sm:px-10 sm:py-11">
         <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#FFD76A]">
-          Falcon Society Application
+          Falcon Society Interest
         </p>
 
         <h2 className="mt-4 font-serif text-4xl font-light sm:text-5xl">
@@ -136,111 +145,141 @@ export default function FalconSocietyForm() {
         </h2>
 
         <p className="mt-5 max-w-2xl text-sm leading-7 text-white/70 sm:text-base">
-          Complete the form below to be considered for one of only 100 Founding Members
-          through the Falcon Society at The Gallaspy Golf &amp; Country Club.
+          Stay connected to the future Falcon Society and the founding journey
+          of The Gallaspy Golf &amp; Country Club.
         </p>
+
+        <div className="mt-6 border-t border-white/10 pt-5">
+          <p className="max-w-2xl text-xs leading-6 text-white/50">
+            Formal Falcon Society memberships are not currently being offered.
+            This form is for expressions of interest and future communication
+            only.
+          </p>
+        </div>
       </div>
 
       <form
         onSubmit={handleSubmit}
         className="space-y-8 px-7 py-9 sm:px-10 sm:py-11"
       >
-        <div className="grid gap-6 md:grid-cols-2">
-          <FormField
-            label="First Name"
-            required
-            value={formData.firstName}
-            onChange={(value) => updateField("firstName", value)}
-            autoComplete="given-name"
-          />
+        {/* CONTACT INFORMATION */}
+        <div>
+          <p className="mb-6 text-[9px] font-bold uppercase tracking-[0.28em] text-[#B89146]">
+            Contact Information
+          </p>
 
-          <FormField
-            label="Last Name"
-            required
-            value={formData.lastName}
-            onChange={(value) => updateField("lastName", value)}
-            autoComplete="family-name"
-          />
+          <div className="grid gap-6 md:grid-cols-2">
+            <FormField
+              label="First Name"
+              required
+              value={formData.firstName}
+              onChange={(value) => updateField("firstName", value)}
+              autoComplete="given-name"
+            />
 
-          <FormField
-            label="Email Address"
-            required
-            type="email"
-            value={formData.email}
-            onChange={(value) => updateField("email", value)}
-            autoComplete="email"
-          />
+            <FormField
+              label="Last Name"
+              required
+              value={formData.lastName}
+              onChange={(value) => updateField("lastName", value)}
+              autoComplete="family-name"
+            />
 
-          <FormField
-            label="Phone Number"
-            required
-            type="tel"
-            value={formData.phone}
-            onChange={(value) => updateField("phone", value)}
-            autoComplete="tel"
-          />
+            <FormField
+              label="Email Address"
+              required
+              type="email"
+              value={formData.email}
+              onChange={(value) => updateField("email", value)}
+              autoComplete="email"
+            />
 
-          <FormField
-            label="City"
-            required
-            value={formData.city}
-            onChange={(value) => updateField("city", value)}
-            autoComplete="address-level2"
-          />
+            <FormField
+              label="Phone Number"
+              type="tel"
+              value={formData.phone}
+              onChange={(value) => updateField("phone", value)}
+              autoComplete="tel"
+            />
 
-          <FormField
-            label="State"
-            required
-            value={formData.state}
-            onChange={(value) => updateField("state", value)}
-            autoComplete="address-level1"
-            placeholder="Georgia"
-          />
+            <FormField
+              label="City"
+              value={formData.city}
+              onChange={(value) => updateField("city", value)}
+              autoComplete="address-level2"
+            />
+
+            <FormField
+              label="State"
+              value={formData.state}
+              onChange={(value) => updateField("state", value)}
+              autoComplete="address-level1"
+              placeholder="Georgia"
+            />
+          </div>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
-          <SelectField
-            label="Membership Interest"
-            required
-            value={formData.membershipInterest}
-            onChange={(value) =>
-              updateField("membershipInterest", value)
-            }
-            options={[
-              "Charter Founder",
-              "Falcon Society Member",
-              "Legacy Member",
-              "Standard Membership",
-              "Corporate Membership",
-              "Residential Membership",
-              "Undecided — Request More Information",
-            ]}
-          />
+        {/* INTEREST */}
+        <div className="border-t border-[#10263F]/10 pt-8">
+          <p className="mb-6 text-[9px] font-bold uppercase tracking-[0.28em] text-[#B89146]">
+            Tell Us About Your Interest
+          </p>
 
-          <FormField
-            label="Golf Handicap"
-            value={formData.golfHandicap}
-            onChange={(value) => updateField("golfHandicap", value)}
-            placeholder="Optional"
-          />
+          <div className="grid gap-6 md:grid-cols-2">
+            <SelectField
+              label="Golf Interest"
+              value={formData.golfInterest}
+              onChange={(value) =>
+                updateField("golfInterest", value)
+              }
+              options={[
+                "Avid Golfer",
+                "Recreational Golfer",
+                "Beginner / Learning",
+                "Family Golf Interest",
+                "Primarily Social / Lifestyle",
+                "Not Sure Yet",
+              ]}
+            />
+
+            <SelectField
+              label="Household Interest"
+              value={formData.householdInterest}
+              onChange={(value) =>
+                updateField("householdInterest", value)
+              }
+              options={[
+                "Individual",
+                "Couple / Partner",
+                "Family / Household",
+                "Multigenerational Family",
+                "Not Sure Yet",
+              ]}
+            />
+          </div>
         </div>
 
+        {/* REFERRAL */}
         <SelectField
           label="How Did You Hear About The Gallaspy?"
           value={formData.referralSource}
-          onChange={(value) => updateField("referralSource", value)}
+          onChange={(value) =>
+            updateField("referralSource", value)
+          }
           options={[
             "Family or Friend",
             "Social Media",
             "The Gallaspy Website",
+            "The Gallaspy Invitational",
             "Golf Community",
-            "Business or Investment Contact",
+            "Business or Professional Contact",
             "Local Community",
             "Search Engine",
             "Other",
           ]}
         />
 
+        {/* COMMENTS */}
         <div>
           <label
             htmlFor="comments"
@@ -257,11 +296,26 @@ export default function FalconSocietyForm() {
             onChange={(event) =>
               updateField("comments", event.target.value)
             }
-            placeholder="Tell us what interests you most about becoming a Founding Member of the Falcon Society."
-            className="w-full resize-none rounded-none border border-[#10263F]/15 bg-[#F8F5EE] px-4 py-4 text-sm text-[#10263F] outline-none transition placeholder:text-[#10263F]/40 focus:border-[#B89146] focus:ring-1 focus:ring-[#B89146]"
+            placeholder="Tell us what interests you most about the future Falcon Society and The Gallaspy."
+            className="w-full resize-none rounded-[12px] border border-[#10263F]/15 bg-[#F8F5EE] px-4 py-4 text-sm text-[#10263F] outline-none transition placeholder:text-[#10263F]/40 focus:border-[#B89146] focus:bg-white focus:ring-1 focus:ring-[#B89146]"
           />
         </div>
 
+        {/* DISCLOSURE */}
+        <div className="rounded-[16px] border border-[#B89146]/20 bg-[#F8F5EE] px-5 py-5">
+          <p className="text-[9px] font-bold uppercase tracking-[0.26em] text-[#B89146]">
+            Expression of Interest Only
+          </p>
+
+          <p className="mt-3 text-xs leading-6 text-[#10263F]/62">
+            The Falcon Society is a future founding-member concept. Submitting
+            this form does not constitute a membership application, offer,
+            acceptance, reservation, deposit, or financial commitment and does
+            not reserve or guarantee one of the future 100 positions.
+          </p>
+        </div>
+
+        {/* CONSENT */}
         <label className="flex cursor-pointer items-start gap-4 border-t border-[#10263F]/10 pt-7">
           <input
             type="checkbox"
@@ -274,40 +328,50 @@ export default function FalconSocietyForm() {
           />
 
           <span className="text-sm leading-6 text-[#10263F]/65">
-            I authorize The Gallaspy Development Group to contact me regarding
-            membership opportunities, project updates, events, and related
-            information. I understand that this registration is an expression
-            of interest and does not guarantee membership or create a financial
+            I authorize The Gallaspy Development Group, LLC to contact me
+            regarding the Falcon Society, future membership information,
+            project updates, events, and related Gallaspy communications. I
+            understand that this submission is an expression of interest only
+            and does not guarantee future membership or create a financial
             obligation.
           </span>
         </label>
 
+        {/* ERROR */}
         {status === "error" && (
           <div
             role="alert"
-            className="border border-red-300 bg-red-50 px-5 py-4 text-sm leading-6 text-red-800"
+            className="rounded-[12px] border border-red-300 bg-red-50 px-5 py-4 text-sm leading-6 text-red-800"
           >
             {message}
           </div>
         )}
 
-        <button
-          type="submit"
-          disabled={status === "submitting"}
-          className="inline-flex min-h-[54px] w-full items-center justify-center bg-[#10263F] px-8 text-[10px] font-bold uppercase tracking-[0.22em] text-white transition duration-300 hover:bg-[#B89146] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
-        >
-          {status === "submitting"
-            ? "Submitting Registration..."
-            : "Apply to the Falcon Society"}
+        {/* SUBMIT */}
+        <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <button
+            type="submit"
+            disabled={status === "submitting"}
+            className="inline-flex min-h-[54px] w-full items-center justify-center rounded-full bg-[#10263F] px-8 text-[10px] font-bold uppercase tracking-[0.22em] text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#B89146] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+          >
+            {status === "submitting"
+              ? "Submitting Interest..."
+              : "Express Falcon Society Interest"}
 
-          {status !== "submitting" && (
-            <span className="ml-3 text-[#FFD76A]">→</span>
-          )}
-        </button>
+            {status !== "submitting" && (
+              <span className="ml-3 text-[#FFD76A]">→</span>
+            )}
+          </button>
+
+          <p className="max-w-sm text-xs leading-5 text-[#10263F]/45">
+            No membership payment or deposit is required.
+          </p>
+        </div>
 
         <p className="text-xs leading-5 text-[#10263F]/45">
-          Your information will be used only for communications related to The
-          Gallaspy Golf &amp; Country Club and The Gallaspy Development Group.
+          Your information will be used for communications related to The
+          Gallaspy Golf &amp; Country Club, the future Falcon Society, and The
+          Gallaspy Development Group, LLC.
         </p>
       </form>
     </div>
@@ -354,7 +418,7 @@ function FormField({
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
         autoComplete={autoComplete}
-        className="h-13 w-full rounded-none border border-[#10263F]/15 bg-[#F8F5EE] px-4 py-4 text-sm text-[#10263F] outline-none transition placeholder:text-[#10263F]/40 focus:border-[#B89146] focus:ring-1 focus:ring-[#B89146]"
+        className="h-[54px] w-full rounded-[12px] border border-[#10263F]/15 bg-[#F8F5EE] px-4 text-sm text-[#10263F] outline-none transition placeholder:text-[#10263F]/40 focus:border-[#B89146] focus:bg-white focus:ring-1 focus:ring-[#B89146]"
       />
     </div>
   );
@@ -393,7 +457,7 @@ function SelectField({
         required={required}
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="h-[54px] w-full rounded-none border border-[#10263F]/15 bg-[#F8F5EE] px-4 text-sm text-[#10263F] outline-none transition focus:border-[#B89146] focus:ring-1 focus:ring-[#B89146]"
+        className="h-[54px] w-full rounded-[12px] border border-[#10263F]/15 bg-[#F8F5EE] px-4 text-sm text-[#10263F] outline-none transition focus:border-[#B89146] focus:bg-white focus:ring-1 focus:ring-[#B89146]"
       >
         <option value="">Select an option</option>
 

@@ -56,47 +56,66 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-2xl border border-[#B89146]/25 bg-white p-6 shadow-xl sm:p-8"
+      className="rounded-[24px] border border-[#B89146]/25 bg-white p-6 shadow-[0_20px_60px_rgba(16,38,63,0.08)] sm:p-8 lg:p-10"
     >
+      <div className="mb-8">
+        <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#B89146]">
+          Contact Form
+        </p>
+
+        <h3 className="mt-3 font-serif text-3xl font-light leading-tight text-[#10263F]">
+          Tell Us How We Can Help
+        </h3>
+
+        <p className="mt-4 max-w-2xl text-sm leading-7 text-[#56616B]">
+          Select the area that best matches your inquiry so we can route your
+          message appropriately.
+        </p>
+      </div>
+
       <div className="grid gap-6 md:grid-cols-2">
         <div>
           <label
             htmlFor="name"
-            className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-[#10263F]"
+            className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.18em] text-[#10263F]"
           >
-            Full Name
+            Full Name *
           </label>
 
           <input
             id="name"
             name="name"
             type="text"
+            autoComplete="name"
             required
-            className="w-full rounded-lg border border-[#10263F]/20 bg-[#F7F4EC] px-4 py-3 text-[#10263F] outline-none transition focus:border-[#B89146]"
+            placeholder="Your full name"
+            className="w-full rounded-[12px] border border-[#10263F]/20 bg-[#F7F4EC] px-4 py-3.5 text-sm text-[#10263F] outline-none transition placeholder:text-[#10263F]/35 focus:border-[#B89146] focus:bg-white"
           />
         </div>
 
         <div>
           <label
             htmlFor="email"
-            className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-[#10263F]"
+            className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.18em] text-[#10263F]"
           >
-            Email Address
+            Email Address *
           </label>
 
           <input
             id="email"
             name="email"
             type="email"
+            autoComplete="email"
             required
-            className="w-full rounded-lg border border-[#10263F]/20 bg-[#F7F4EC] px-4 py-3 text-[#10263F] outline-none transition focus:border-[#B89146]"
+            placeholder="you@example.com"
+            className="w-full rounded-[12px] border border-[#10263F]/20 bg-[#F7F4EC] px-4 py-3.5 text-sm text-[#10263F] outline-none transition placeholder:text-[#10263F]/35 focus:border-[#B89146] focus:bg-white"
           />
         </div>
 
         <div>
           <label
             htmlFor="phone"
-            className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-[#10263F]"
+            className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.18em] text-[#10263F]"
           >
             Phone Number
           </label>
@@ -105,16 +124,18 @@ export default function ContactForm() {
             id="phone"
             name="phone"
             type="tel"
-            className="w-full rounded-lg border border-[#10263F]/20 bg-[#F7F4EC] px-4 py-3 text-[#10263F] outline-none transition focus:border-[#B89146]"
+            autoComplete="tel"
+            placeholder="Your phone number"
+            className="w-full rounded-[12px] border border-[#10263F]/20 bg-[#F7F4EC] px-4 py-3.5 text-sm text-[#10263F] outline-none transition placeholder:text-[#10263F]/35 focus:border-[#B89146] focus:bg-white"
           />
         </div>
 
         <div>
           <label
             htmlFor="interest"
-            className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-[#10263F]"
+            className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.18em] text-[#10263F]"
           >
-            Area of Interest
+            Area of Interest *
           </label>
 
           <select
@@ -122,16 +143,43 @@ export default function ContactForm() {
             name="interest"
             required
             defaultValue=""
-            className="w-full rounded-lg border border-[#10263F]/20 bg-[#F7F4EC] px-4 py-3 text-[#10263F] outline-none transition focus:border-[#B89146]"
+            className="w-full rounded-[12px] border border-[#10263F]/20 bg-[#F7F4EC] px-4 py-3.5 text-sm text-[#10263F] outline-none transition focus:border-[#B89146] focus:bg-white"
           >
             <option value="" disabled>
               Select an option
             </option>
-            <option value="Membership">Membership</option>
-            <option value="Falcon Society">Falcon Society</option>
-            <option value="Investment">Investment</option>
-            <option value="Partnership">Strategic Partnership</option>
-            <option value="General Inquiry">General Inquiry</option>
+
+            <option value="Membership Interest">
+              Membership Interest
+            </option>
+
+            <option value="The Gallaspy Invitational">
+              The Gallaspy Invitational
+            </option>
+
+            <option value="Invitational Sponsorship">
+              Invitational Sponsorship
+            </option>
+
+            <option value="Land / Property Opportunity">
+              Land / Property Opportunity
+            </option>
+
+            <option value="Development & Strategic Partnership">
+              Development & Strategic Partnership
+            </option>
+
+            <option value="Falcon Society">
+              Falcon Society
+            </option>
+
+            <option value="Media & Press">
+              Media & Press
+            </option>
+
+            <option value="General Inquiry">
+              General Inquiry
+            </option>
           </select>
         </div>
       </div>
@@ -139,36 +187,52 @@ export default function ContactForm() {
       <div className="mt-6">
         <label
           htmlFor="message"
-          className="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-[#10263F]"
+          className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.18em] text-[#10263F]"
         >
-          Message
+          Message *
         </label>
 
         <textarea
           id="message"
           name="message"
-          rows={6}
+          rows={7}
           required
-          className="w-full resize-none rounded-lg border border-[#10263F]/20 bg-[#F7F4EC] px-4 py-3 text-[#10263F] outline-none transition focus:border-[#B89146]"
+          placeholder="Tell us more about your inquiry."
+          className="w-full resize-none rounded-[12px] border border-[#10263F]/20 bg-[#F7F4EC] px-4 py-4 text-sm leading-7 text-[#10263F] outline-none transition placeholder:text-[#10263F]/35 focus:border-[#B89146] focus:bg-white"
         />
+      </div>
+
+      <div className="mt-7 rounded-[14px] border border-[#B89146]/20 bg-[#F7F4EC] px-5 py-4">
+        <p className="text-[9px] font-bold uppercase tracking-[0.24em] text-[#B89146]">
+          Communication Notice
+        </p>
+
+        <p className="mt-2 text-xs leading-5 text-[#56616B]">
+          Information submitted through this form will be used to respond to
+          your inquiry and for related communication from The Gallaspy
+          Development Group, LLC.
+        </p>
       </div>
 
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-[#B89146] px-6 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-[#10263F] disabled:cursor-not-allowed disabled:opacity-60 sm:px-8"
+        className="mt-7 inline-flex min-h-[50px] w-full items-center justify-center rounded-full bg-[#B89146] px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#10263F] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:px-9"
       >
-        {status === "submitting" ? "Sending..." : "Send Message"}
+        {status === "submitting" ? "Sending..." : "Send Inquiry"}
       </button>
 
       {message && (
-        <p
-          className={`mt-5 text-center text-sm ${
-            status === "success" ? "text-green-700" : "text-red-700"
+        <div
+          role={status === "error" ? "alert" : "status"}
+          className={`mt-6 rounded-[12px] border px-5 py-4 text-sm leading-6 ${
+            status === "success"
+              ? "border-[#B89146]/30 bg-[#F7F4EC] text-[#10263F]"
+              : "border-red-200 bg-red-50 text-red-800"
           }`}
         >
           {message}
-        </p>
+        </div>
       )}
     </form>
   );

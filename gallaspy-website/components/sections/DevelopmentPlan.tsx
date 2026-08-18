@@ -6,22 +6,22 @@ import { useState } from "react";
 
 const developmentHighlights = [
   {
-    eyebrow: "18 Holes",
+    eyebrow: "The Game",
     title: "Championship Golf",
     description:
-      "A thoughtfully designed private golf experience integrated into the natural landscape.",
+      "An 18-hole private golf experience envisioned as the foundation of The Gallaspy.",
   },
   {
-    eyebrow: "12 Destinations",
-    title: "Signature Amenities",
+    eyebrow: "The Experience",
+    title: "Club & Lifestyle",
     description:
-      "Golf, dining, wellness, lodging, recreation, events, and gathering places.",
+      "Dining, wellness, hospitality, recreation, events, and gathering places envisioned around the future club.",
   },
   {
-    eyebrow: "One Legacy",
+    eyebrow: "The Legacy",
     title: "Designed for Generations",
     description:
-      "A private-club community created around family tradition and enduring value.",
+      "A private-club community envisioned around family tradition, belonging, and enduring value.",
   },
 ];
 
@@ -63,7 +63,7 @@ const destinations = [
       "Private dining rooms",
       "Outdoor terrace seating",
     ],
-    link: "/club#restaurants",
+    link: "/club/restaurant",
   },
   {
     number: 4,
@@ -76,33 +76,33 @@ const destinations = [
       "Short-game complex",
       "Putting and performance facilities",
     ],
-    link: "/club#golf",
+    link: "/club/golf",
   },
   {
     number: 5,
     name: "Event Pavilion",
     category: "Celebrations & Gatherings",
     description:
-      "A flexible event destination for weddings, member celebrations, corporate retreats, galas, and community traditions.",
+      "A flexible event destination envisioned for weddings, member celebrations, corporate retreats, galas, and future club traditions.",
     details: [
       "Weddings and celebrations",
       "Corporate retreats",
       "Indoor and outdoor events",
     ],
-    link: "/club#events",
+    link: "/club/events",
   },
   {
     number: 6,
     name: "Clubhouse",
     category: "The Social Heart",
     description:
-      "The central gathering place of The Gallaspy, bringing together dining, member lounges, locker rooms, hospitality, events, and club traditions.",
+      "Envisioned as the social heart of the future club, bringing together dining, member lounges, golf services, hospitality, events, and club traditions.",
     details: [
       "Member lounges",
       "Locker rooms and golf services",
       "Ballroom and terraces",
     ],
-    link: "/club",
+    link: "/club/clubhouse",
   },
   {
     number: 7,
@@ -115,53 +115,53 @@ const destinations = [
       "Fitness and recovery",
       "Resort-style pools",
     ],
-    link: "/club#wellness",
+    link: "/club/wellness",
   },
   {
     number: 8,
     name: "Tennis Center",
     category: "Racquet Sports",
     description:
-      "A dedicated racquet-sports center offering tennis, pickleball, instruction, member competition, and social programming.",
+      "A dedicated racquet-sports center envisioned for tennis, pickleball, instruction, member competition, and social programming.",
     details: [
       "Tennis courts",
       "Pickleball courts",
       "Clinics and tournaments",
     ],
-    link: "/club#tennis",
+    link: "/club/racquet",
   },
   {
     number: 9,
     name: "Member Lodging",
     category: "Private Hospitality",
     description:
-      "Private suites, cottages, and member accommodations designed for weekend stays, family visits, tournaments, and special occasions.",
+      "Private suites, cottages, and member accommodations envisioned for weekend stays, family visits, tournaments, and special occasions.",
     details: [
       "Member suites",
       "Private cottages",
       "Concierge hospitality",
     ],
-    link: "/club",
+    link: "/club/lodging",
   },
   {
     number: 10,
     name: "Championship Golf Course",
     category: "Golf",
     description:
-      "An 18-hole championship course shaped around the natural terrain, supported by practice facilities and a complete golf-development program.",
+      "An 18-hole championship course envisioned to respond to the natural character of the future property and supported by a complete practice environment.",
     details: [
       "18 championship holes",
       "Practice range",
       "Short-game and putting facilities",
     ],
-    link: "/club#golf",
+    link: "/club/golf",
   },
   {
     number: 11,
     name: "Residential Community",
     category: "Private Club Living",
     description:
-      "A gated residential enclave envisioned for luxury estate homes, villas, cottages, and multigenerational club living.",
+      "A gated residential enclave envisioned for luxury estate homes, villas, cottages, and multigenerational club living, subject to the eventual property and development approvals.",
     details: [
       "Luxury estate homes",
       "Villas and cottages",
@@ -174,7 +174,7 @@ const destinations = [
     name: "Maintenance & Grounds",
     category: "Club Operations",
     description:
-      "A dedicated operations complex supporting golf-course conditioning, landscape care, equipment storage, sustainability, and property maintenance.",
+      "A dedicated operations complex envisioned to support golf-course conditioning, landscape care, equipment storage, sustainability, and property maintenance.",
     details: [
       "Turf-care operations",
       "Equipment and storage",
@@ -204,7 +204,7 @@ export default function DevelopmentPlan() {
   return (
     <section className="overflow-hidden bg-[#F7F4EE] px-5 py-14 text-[#1E3557] sm:px-8 sm:py-16 lg:px-10 lg:py-20">
       <div className="mx-auto w-full max-w-[1120px]">
-        {/* Section introduction */}
+        {/* SECTION INTRODUCTION */}
         <div className="mx-auto max-w-[760px] text-center">
           <p className="text-[10px] font-bold uppercase tracking-[0.38em] text-[#B89146] sm:text-[11px]">
             Development Vision
@@ -219,14 +219,14 @@ export default function DevelopmentPlan() {
 
           <p className="mx-auto mt-5 max-w-[690px] text-sm leading-7 text-[#1E3557] sm:text-[15px]">
             The Gallaspy is envisioned as a private golf and lifestyle
-            destination in Georgia. Explore the signature experiences and
-            destinations intended to shape the future club. Final design,
-            scale, and placement will be determined by the property ultimately
-            selected.
+            destination in Georgia. Explore the development concepts intended
+            to shape the future club. Final design, scale, amenities, and
+            placement will be determined by the property ultimately selected
+            and future development decisions.
           </p>
         </div>
 
-        {/* Development highlights */}
+        {/* DEVELOPMENT HIGHLIGHTS */}
         <div className="mt-10 grid gap-4 md:grid-cols-3">
           {developmentHighlights.map((item) => (
             <article
@@ -248,10 +248,10 @@ export default function DevelopmentPlan() {
           ))}
         </div>
 
-        {/* Interactive plan */}
+        {/* INTERACTIVE PLAN */}
         <div className="mt-8 overflow-hidden rounded-[22px] border border-[#1E3557]/10 bg-white shadow-[0_22px_60px_rgba(16,38,63,0.13)]">
           <div className="grid lg:grid-cols-[1.45fr_0.75fr]">
-            {/* Image */}
+            {/* IMAGE */}
             <div className="relative min-h-[360px] overflow-hidden bg-[#EDE8DE] sm:min-h-[500px] lg:min-h-[620px]">
               <Image
                 src="/images/numbercallout.png"
@@ -264,7 +264,7 @@ export default function DevelopmentPlan() {
 
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#10263F]/25 via-transparent to-transparent" />
 
-              {/* Active destination badge */}
+              {/* ACTIVE CONCEPT BADGE */}
               <div className="absolute left-4 top-4 flex max-w-[calc(100%-2rem)] items-center gap-3 rounded-full border border-white/40 bg-[#10263F]/92 py-2 pl-2 pr-5 text-white shadow-lg backdrop-blur sm:left-6 sm:top-6">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#FFD76A] text-xs font-bold text-[#10263F]">
                   {selectedDestination.number}
@@ -276,11 +276,11 @@ export default function DevelopmentPlan() {
               </div>
 
               <div className="absolute bottom-4 left-4 rounded-full border border-white/30 bg-[#10263F]/80 px-4 py-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur sm:bottom-6 sm:left-6">
-                Select a destination below
+                Explore the concept plan
               </div>
             </div>
 
-            {/* Information panel */}
+            {/* INFORMATION PANEL */}
             <aside
               key={selectedDestination.number}
               className="flex min-h-[420px] flex-col justify-between bg-[#10263F] px-6 py-8 text-white sm:px-9 sm:py-10 lg:min-h-[620px]"
@@ -289,7 +289,7 @@ export default function DevelopmentPlan() {
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#FFD76A]">
-                      Destination {selectedDestination.number} of{" "}
+                      Concept {selectedDestination.number} of{" "}
                       {destinations.length}
                     </p>
 
@@ -327,16 +327,16 @@ export default function DevelopmentPlan() {
                   href={selectedDestination.link}
                   className="mt-8 inline-flex min-h-[43px] items-center justify-center rounded-full border border-[#B89146] px-6 text-[10px] font-bold uppercase tracking-[0.18em] text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#B89146]"
                 >
-                  Explore This Area
+                  Explore This Concept
                 </Link>
               </div>
 
-              {/* Previous and next controls */}
+              {/* PREVIOUS / NEXT CONTROLS */}
               <div className="mt-10 flex items-center justify-between border-t border-white/15 pt-6">
                 <button
                   type="button"
                   onClick={showPrevious}
-                  aria-label="View previous destination"
+                  aria-label="View previous development concept"
                   className="inline-flex min-h-[42px] items-center rounded-full border border-white/20 px-4 text-[9px] font-bold uppercase tracking-[0.18em] text-white transition hover:border-[#FFD76A] hover:text-[#FFD76A]"
                 >
                   ← Previous
@@ -361,7 +361,7 @@ export default function DevelopmentPlan() {
                 <button
                   type="button"
                   onClick={showNext}
-                  aria-label="View next destination"
+                  aria-label="View next development concept"
                   className="inline-flex min-h-[42px] items-center rounded-full border border-white/20 px-4 text-[9px] font-bold uppercase tracking-[0.18em] text-white transition hover:border-[#FFD76A] hover:text-[#FFD76A]"
                 >
                   Next →
@@ -371,7 +371,7 @@ export default function DevelopmentPlan() {
           </div>
         </div>
 
-        {/* Mobile destination selector */}
+        {/* MOBILE CONCEPT SELECTOR */}
         <div className="-mx-5 mt-6 overflow-x-auto px-5 pb-3 sm:-mx-8 sm:px-8 lg:hidden">
           <div className="flex w-max gap-3">
             {destinations.map((destination, index) => (
@@ -404,21 +404,21 @@ export default function DevelopmentPlan() {
           </div>
         </div>
 
-        {/* Desktop destination legend */}
+        {/* DESKTOP CONCEPT LEGEND */}
         <div className="mt-6 hidden overflow-hidden rounded-[20px] border border-[#B89146]/35 bg-[#163A2F] text-white shadow-[0_18px_45px_rgba(16,38,63,0.12)] lg:block">
           <div className="flex items-end justify-between gap-8 border-b border-white/15 px-8 py-6">
             <div>
               <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#FFD76A]">
-                Envisioned Destinations
+                Development Concepts
               </p>
 
               <h3 className="mt-2 font-serif text-[2rem] font-normal text-white">
-                Select an Area to Explore
+                Explore the Future Club Vision
               </h3>
             </div>
 
             <p className="max-w-[430px] text-right text-sm leading-6 text-white/70">
-              Explore the destinations envisioned as part of The Gallaspy&apos;s
+              Explore the concepts envisioned as part of The Gallaspy&apos;s
               long-term development.
             </p>
           </div>
@@ -455,21 +455,22 @@ export default function DevelopmentPlan() {
 
           <div className="border-t border-white/15 bg-[#10263F] px-8 py-4 text-center">
             <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#FFD76A]">
-              Championship Golf · Hospitality · Wellness · Residential ·
-              Recreation
+              Championship Golf · Hospitality · Wellness · Recreation ·
+              Community
             </p>
           </div>
         </div>
 
-        {/* Disclaimer */}
+        {/* DISCLAIMER */}
         <p className="mx-auto mt-6 max-w-[850px] text-center text-[11px] leading-5 text-[#1E3557]/60">
-          The master plan and amenity descriptions are conceptual and remain
-          subject to land acquisition, planning, engineering, governmental
-          approvals, financing, architectural design, and future development
+          The master plan, imagery, facilities, and amenity descriptions shown
+          are conceptual and remain subject to land acquisition, site
+          conditions, planning, engineering, governmental approvals, financing,
+          architectural design, market conditions, and future development
           decisions.
         </p>
 
-        {/* Full master plan button */}
+        {/* MASTER PLAN BUTTON */}
         <div className="mt-9 flex justify-center">
           <Link
             href="/master-plan"

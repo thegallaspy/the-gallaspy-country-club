@@ -8,15 +8,15 @@ const journeyOptions = [
     description:
       "Join the player priority list for the inaugural Gallaspy Invitational and receive official registration, venue, pricing, and tournament updates as they are released.",
     href: "/invitational/register",
-    label: "Player Registration",
+    label: "Join Priority List",
   },
   {
     eyebrow: "Partner",
-    title: "Support the Invitational",
+    title: "Development & Partnerships",
     description:
-      "Explore founding sponsorship opportunities, on-course activations, hospitality, player gifting, awards, and custom brand integrations for the inaugural event.",
-    href: "/invitational/sponsors",
-    label: "Explore Sponsorship",
+      "Explore opportunities to connect with The Gallaspy through property relationships, development expertise, operations, hospitality, strategic collaboration, and aligned partnerships.",
+    href: "/invest",
+    label: "Explore Partnerships",
   },
   {
     eyebrow: "Belong",
@@ -24,7 +24,7 @@ const journeyOptions = [
     description:
       "Register your interest in the future Gallaspy membership community and follow the journey as the long-term private-club vision continues to take shape.",
     href: "/membership",
-    label: "Future Membership",
+    label: "Membership Interest",
   },
 ];
 
@@ -64,8 +64,8 @@ export default function BeginJourney() {
 
           <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-white/72 sm:text-base sm:leading-8">
             The Gallaspy is being built from the ground up. Today, that journey
-            continues through the 2027 Invitational, founding partnerships, and
-            the community forming around the future club.
+            continues through the 2027 Invitational, strategic partnerships,
+            and the community forming around the future club.
           </p>
         </div>
 
@@ -74,7 +74,7 @@ export default function BeginJourney() {
           {journeyOptions.map((option) => (
             <article
               key={option.title}
-              className="group flex min-h-[260px] flex-col rounded-[18px] border border-white/12 bg-white/[0.065] px-6 py-7 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-[#FFD76A]/45 hover:bg-white/[0.1]"
+              className="group flex min-h-[270px] flex-col rounded-[18px] border border-white/12 bg-white/[0.065] px-6 py-7 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-[#FFD76A]/45 hover:bg-white/[0.1]"
             >
               <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-[#FFD76A]">
                 {option.eyebrow}
@@ -102,6 +102,20 @@ export default function BeginJourney() {
               </Link>
             </article>
           ))}
+        </div>
+
+        {/* INVITATIONAL SPONSORSHIP SECONDARY CTA */}
+        <div className="mt-8 flex justify-center">
+          <Link
+            href="/invitational/sponsors"
+            className="group inline-flex min-h-[46px] items-center justify-center rounded-full border border-white/25 bg-white/[0.04] px-7 text-[9px] font-semibold uppercase tracking-[0.22em] text-white/75 backdrop-blur-sm transition duration-300 hover:-translate-y-0.5 hover:border-[#FFD76A] hover:text-[#FFD76A]"
+          >
+            Interested in Sponsoring the 2027 Invitational?
+
+            <span className="ml-3 transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
+          </Link>
         </div>
 
         {/* FINAL BRAND LINE */}

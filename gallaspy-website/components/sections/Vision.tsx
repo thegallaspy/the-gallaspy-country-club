@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import AnimatedCounter from "@/components/ui/AnimatedCounter";
 
 const visionPillars = [
   {
@@ -8,61 +7,47 @@ const visionPillars = [
     eyebrow: "Championship Golf",
     title: "18 Holes",
     description:
-      "A tournament-caliber private golf experience envisioned to respond to the natural character of the future property.",
+      "A championship-caliber private golf experience envisioned to respond to the natural character, terrain, and identity of the future property.",
   },
   {
     number: "02",
-    eyebrow: "Private Club Living",
-    title: "Future Residential",
+    eyebrow: "Club Community",
+    title: "A Place to Belong",
     description:
-      "A residential component envisioned for estate homes, villas, cottages, and multigenerational club living, subject to the eventual site and approvals.",
+      "A private-club community envisioned around meaningful relationships, family traditions, shared experiences, and a lasting sense of belonging.",
   },
   {
     number: "03",
-    eyebrow: "Luxury Lifestyle",
-    title: "12 Destinations",
+    eyebrow: "Lifestyle & Hospitality",
+    title: "Beyond the Course",
     description:
-      "Dining, lodging, vineyards, events, wellness, recreation, and gathering places envisioned as part of the future club experience.",
+      "Dining, wellness, recreation, lodging, events, and gathering places envisioned to create a complete club experience beyond championship golf.",
   },
   {
     number: "04",
     eyebrow: "Built for Generations",
-    title: "Long-Term Vision",
+    title: "Long-Term Stewardship",
     description:
-      "A phased development vision intended to create lasting value, enduring traditions, and a multigenerational private-club legacy.",
+      "A thoughtful development vision intended to create lasting value, enduring traditions, and a multigenerational private-club legacy.",
   },
 ];
 
-const quickFacts = [
+const visionFacts = [
   {
-    value: 18,
-    decimals: 0,
-    suffix: "",
+    value: "18",
     label: "Championship Holes",
   },
   {
-    value: 12,
-    decimals: 0,
-    suffix: "",
-    label: "Envisioned Destinations",
+    value: "Georgia",
+    label: "Future Home",
   },
   {
-    value: 400,
-    decimals: 0,
-    suffix: "",
-    label: "Membership Vision",
+    value: "Private",
+    label: "Club Vision",
   },
   {
-    value: 4,
-    decimals: 0,
-    suffix: "",
-    label: "Core Pillars",
-  },
-  {
-    value: 10,
-    decimals: 0,
-    suffix: " Years",
-    label: "Long-Term Vision",
+    value: "Multi-Phase",
+    label: "Development Approach",
   },
 ];
 
@@ -72,7 +57,7 @@ export default function Vision() {
       id="vision"
       className="scroll-mt-24 overflow-hidden bg-[#F7F4EE] text-[#10263F]"
     >
-      {/* Editorial introduction */}
+      {/* EDITORIAL INTRODUCTION */}
       <div className="px-5 pb-14 pt-20 sm:px-8 sm:pb-16 sm:pt-24 lg:px-10 lg:pb-20 lg:pt-32">
         <div className="mx-auto grid w-full max-w-[1280px] gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-end lg:gap-20">
           <div>
@@ -94,10 +79,11 @@ export default function Vision() {
 
           <div className="lg:border-l lg:border-[#10263F]/12 lg:pl-12">
             <p className="max-w-2xl text-base leading-8 text-[#4E5E66] sm:text-lg sm:leading-9">
-              The Gallaspy Golf &amp; Country Club is envisioned as one of
-              Georgia&apos;s premier private golf and lifestyle destinations,
+              The Gallaspy Golf &amp; Country Club is being envisioned as a
+              distinctive private golf and lifestyle destination in Georgia,
               bringing together championship golf, hospitality, wellness,
-              recreation, vineyards, and future residential living.
+              recreation, gathering places, and a community built around
+              tradition and belonging.
             </p>
 
             <div className="mt-7 flex flex-wrap items-center gap-5">
@@ -106,20 +92,21 @@ export default function Vision() {
                 className="group inline-flex min-h-[50px] items-center justify-center bg-[#10263F] px-7 text-[9px] font-bold uppercase tracking-[0.22em] text-white transition duration-300 hover:bg-[#1E3557]"
               >
                 Discover Our Story
+
                 <span className="ml-4 transition-transform duration-300 group-hover:translate-x-1">
                   →
                 </span>
               </Link>
 
               <p className="text-[9px] font-bold uppercase tracking-[0.24em] text-[#10263F]/45">
-                Georgia
+                Georgia · Est. 2026
               </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Master plan feature */}
+      {/* MASTER PLAN FEATURE */}
       <div className="px-5 sm:px-8 lg:px-10">
         <div className="relative mx-auto min-h-[620px] w-full max-w-[1380px] overflow-hidden rounded-[24px] shadow-[0_35px_90px_rgba(16,38,63,0.2)] sm:min-h-[700px] lg:min-h-[780px] lg:rounded-[30px]">
           <Image
@@ -131,12 +118,13 @@ export default function Vision() {
           />
 
           <div className="absolute inset-0 bg-gradient-to-r from-[#071827]/95 via-[#10263F]/48 to-[#10263F]/5" />
+
           <div className="absolute inset-0 bg-gradient-to-t from-[#071827]/85 via-transparent to-[#071827]/18" />
 
           <div className="relative z-10 flex min-h-[620px] items-end px-5 py-6 sm:min-h-[700px] sm:px-8 sm:py-8 lg:min-h-[780px] lg:items-center lg:px-14 lg:py-14">
-            <div className="w-full max-w-[520px] overflow-hidden rounded-[24px] border border-white/15 bg-[#10263F]/82 text-white shadow-[0_28px_75px_rgba(0,0,0,0.3)] backdrop-blur-xl">
+            <div className="w-full max-w-[540px] overflow-hidden rounded-[24px] border border-white/15 bg-[#10263F]/82 text-white shadow-[0_28px_75px_rgba(0,0,0,0.3)] backdrop-blur-xl">
               <div className="border-b border-white/10 px-6 py-6 sm:px-8 sm:py-7">
-                <div className="flex items-center justify-between gap-5">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-5">
                   <p className="text-[9px] font-bold uppercase tracking-[0.38em] text-[#FFD76A]">
                     The Gallaspy
                   </p>
@@ -154,50 +142,37 @@ export default function Vision() {
                 </h3>
 
                 <p className="mt-6 max-w-md text-sm leading-7 text-white/72 sm:text-[15px]">
-                  An illustrative look at how championship golf, hospitality, wellness, recreation, residential living, and gathering places could come together at a future Gallaspy property.
+                  An illustrative look at how championship golf, hospitality,
+                  wellness, recreation, and gathering places could come
+                  together at a future Gallaspy property.
                 </p>
               </div>
 
+              {/* DEVELOPMENT PRINCIPLES */}
               <div className="grid grid-cols-2">
-                <div className="border-b border-r border-white/10 px-6 py-6 sm:px-8">
-                  <p className="font-serif text-3xl font-light sm:text-4xl">
-                    <AnimatedCounter end={10} suffix=" Years" />
-                  </p>
+                <VisionStat
+                  value="18"
+                  label="Championship Holes"
+                  rightBorder
+                  bottomBorder
+                />
 
-                  <p className="mt-2 text-[8px] font-bold uppercase tracking-[0.22em] text-[#FFD76A]">
-                    Long-Term Vision
-                  </p>
-                </div>
+                <VisionStat
+                  value="Private"
+                  label="Club Vision"
+                  bottomBorder
+                />
 
-                <div className="border-b border-white/10 px-6 py-6 sm:px-8">
-                  <p className="font-serif text-3xl font-light sm:text-4xl">
-                    <AnimatedCounter end={18} />
-                  </p>
+                <VisionStat
+                  value="Georgia"
+                  label="Future Home"
+                  rightBorder
+                />
 
-                  <p className="mt-2 text-[8px] font-bold uppercase tracking-[0.22em] text-[#FFD76A]">
-                    Golf Holes
-                  </p>
-                </div>
-
-                <div className="border-r border-white/10 px-6 py-6 sm:px-8">
-                  <p className="font-serif text-3xl font-light sm:text-4xl">
-                    <AnimatedCounter end={12} />
-                  </p>
-
-                  <p className="mt-2 text-[8px] font-bold uppercase tracking-[0.22em] text-[#FFD76A]">
-                    Destinations
-                  </p>
-                </div>
-
-                <div className="px-6 py-6 sm:px-8">
-                  <p className="font-serif text-3xl font-light sm:text-4xl">
-                    <AnimatedCounter end={400} suffix="+" />
-                  </p>
-
-                  <p className="mt-2 text-[8px] font-bold uppercase tracking-[0.22em] text-[#FFD76A]">
-                    Membership Vision
-                  </p>
-                </div>
+                <VisionStat
+                  value="Phased"
+                  label="Development"
+                />
               </div>
 
               <div className="border-t border-white/10 px-6 py-6 sm:px-8">
@@ -206,6 +181,7 @@ export default function Vision() {
                   className="group flex min-h-[48px] w-full items-center justify-between border border-[#FFD76A]/70 px-5 text-[9px] font-bold uppercase tracking-[0.22em] text-white transition duration-300 hover:bg-[#FFD76A] hover:text-[#10263F]"
                 >
                   Explore the Development Vision
+
                   <span className="transition-transform duration-300 group-hover:translate-x-1">
                     →
                   </span>
@@ -214,6 +190,7 @@ export default function Vision() {
             </div>
           </div>
 
+          {/* RENDERING LABEL */}
           <div className="absolute bottom-6 right-6 hidden items-center gap-3 text-white/55 lg:flex">
             <span className="h-px w-10 bg-[#FFD76A]/70" />
 
@@ -224,7 +201,7 @@ export default function Vision() {
         </div>
       </div>
 
-      {/* Vision pillars */}
+      {/* VISION PILLARS */}
       <div className="px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto w-full max-w-[1280px]">
           <div className="flex flex-col gap-5 border-b border-[#10263F]/12 pb-8 sm:flex-row sm:items-end sm:justify-between">
@@ -239,8 +216,9 @@ export default function Vision() {
             </div>
 
             <p className="max-w-lg text-sm leading-7 text-[#53616A]">
-              Each part of the destination is designed to complement the
-              others, creating a complete private-club experience.
+              Each part of the future destination is being considered as part
+              of a larger private-club experience centered on golf,
+              hospitality, community, and long-term stewardship.
             </p>
           </div>
 
@@ -281,7 +259,7 @@ export default function Vision() {
         </div>
       </div>
 
-      {/* Quick facts */}
+      {/* VISION AT A GLANCE */}
       <div className="bg-[#10263F] px-5 py-14 text-white sm:px-8 sm:py-16 lg:px-10 lg:py-20">
         <div className="mx-auto w-full max-w-[1280px]">
           <div className="mb-10 text-center">
@@ -290,26 +268,28 @@ export default function Vision() {
             </p>
 
             <h3 className="mt-4 font-serif text-3xl font-light sm:text-4xl">
-              A Long-Term Vision for The Gallaspy
+              Building the Foundation for The Gallaspy
             </h3>
           </div>
 
-          <div className="grid grid-cols-2 border-y border-white/12 sm:grid-cols-3 lg:grid-cols-5">
-            {quickFacts.map((fact, index) => (
+          <div className="grid grid-cols-2 border-y border-white/12 lg:grid-cols-4">
+            {visionFacts.map((fact, index) => (
               <div
                 key={fact.label}
                 className={`px-3 py-8 text-center sm:px-5 lg:py-10 ${
-                  index !== quickFacts.length - 1
+                  index !== visionFacts.length - 1
                     ? "border-b border-white/10 lg:border-b-0 lg:border-r"
                     : ""
                 }`}
               >
-                <p className="font-serif text-[2.25rem] font-light leading-none text-white sm:text-[2.8rem]">
-                  <AnimatedCounter
-                    end={fact.value}
-                    decimals={fact.decimals}
-                    suffix={fact.suffix}
-                  />
+                <p
+                  className={`font-serif font-light leading-none text-white ${
+                    fact.value.length > 6
+                      ? "text-[1.65rem] sm:text-[2rem]"
+                      : "text-[2.25rem] sm:text-[2.8rem]"
+                  }`}
+                >
+                  {fact.value}
                 </p>
 
                 <p className="mt-4 text-[8px] font-bold uppercase tracking-[0.22em] text-[#FFD76A]">
@@ -320,10 +300,53 @@ export default function Vision() {
           </div>
 
           <p className="mx-auto mt-8 max-w-3xl text-center text-[10px] leading-5 text-white/45">
-            These figures describe the long-term vision for The Gallaspy and are not tied to a currently owned or secured property. Final scale, residential program, amenities, and timing will remain subject to land acquisition, planning, approvals, financing, and future development decisions.
+            The imagery and development concepts shown represent the long-term
+            vision for The Gallaspy and are not depictions of a currently
+            owned, secured, or completed property. Final location, scale,
+            amenities, residential components, timing, and development plans
+            remain subject to land acquisition, planning, approvals,
+            financing, and future development decisions.
           </p>
         </div>
       </div>
     </section>
+  );
+}
+
+type VisionStatProps = {
+  value: string;
+  label: string;
+  rightBorder?: boolean;
+  bottomBorder?: boolean;
+};
+
+function VisionStat({
+  value,
+  label,
+  rightBorder = false,
+  bottomBorder = false,
+}: VisionStatProps) {
+  return (
+    <div
+      className={[
+        "px-5 py-6 sm:px-8",
+        rightBorder ? "border-r border-white/10" : "",
+        bottomBorder ? "border-b border-white/10" : "",
+      ].join(" ")}
+    >
+      <p
+        className={`font-serif font-light leading-none text-white ${
+          value.length > 6
+            ? "text-xl sm:text-2xl"
+            : "text-3xl sm:text-4xl"
+        }`}
+      >
+        {value}
+      </p>
+
+      <p className="mt-3 text-[8px] font-bold uppercase tracking-[0.2em] text-[#FFD76A]">
+        {label}
+      </p>
+    </div>
   );
 }

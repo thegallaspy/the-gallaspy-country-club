@@ -2,23 +2,26 @@ import Image from "next/image";
 import Link from "next/link";
 
 const exploreLinks = [
-  { name: "Why the Gallaspy?", href: "/why-the-gallaspy" },
-  { name: "Master Plan", href: "/master-plan" },
-  { name: "Membership", href: "/membership" },
-  { name: "Development & Partnership", href: "/invest" },
-  { name: "Founder’s Letter", href: "/founders-letter" },
+  { name: "Our Story", href: "/why-the-gallaspy" },
+  { name: "The Gallaspy Invitational", href: "/invitational" },
+  { name: "Membership Interest", href: "/membership" },
+  { name: "Falcon Society", href: "/falcon-society" },
+  { name: "Development & Partnerships", href: "/invest" },
 ];
 
 const clubLinks = [
-  { name: "Championship Golf", href: "/club#golf" },
-  { name: "Tennis", href: "/club#tennis" },
-  { name: "Wellness & Spa", href: "/club#wellness" },
-  { name: "Events", href: "/club#events" },
-  { name: "Mercury Street Restaurant", href: "/club#restaurants" },
-  { name: "Vineyard", href: "/club#vineyard" },
+  { name: "Club Overview", href: "/club" },
+  { name: "Championship Golf", href: "/club/golf" },
+  { name: "Clubhouse", href: "/club/clubhouse" },
+  { name: "Mercury Street Restaurant", href: "/club/restaurant" },
+  { name: "Wellness & Spa", href: "/club/wellness" },
+  { name: "Racquet", href: "/club/racquet" },
+  { name: "Member Lodging", href: "/club/lodging" },
+  { name: "Private Events", href: "/club/events" },
 ];
 
 const informationLinks = [
+  { name: "Founder’s Letter", href: "/founders-letter" },
   { name: "Gallery", href: "/gallery" },
   { name: "Careers", href: "/careers" },
   { name: "Frequently Asked Questions", href: "/faq" },
@@ -28,7 +31,7 @@ const informationLinks = [
 export default function Footer() {
   return (
     <footer className="relative overflow-hidden bg-[#081B2D] text-white">
-      {/* Background image */}
+      {/* BACKGROUND */}
       <div className="absolute inset-0">
         <Image
           src="/images/hero.jpg"
@@ -45,7 +48,7 @@ export default function Footer() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(184,145,70,0.1),transparent_36%)]" />
       </div>
 
-      {/* Closing statement */}
+      {/* CLOSING STATEMENT */}
       <div className="relative z-10 border-b border-white/10">
         <div className="mx-auto flex w-full max-w-7xl flex-col items-center px-5 pb-16 pt-20 text-center sm:px-8 sm:pb-20 sm:pt-24 lg:px-10 lg:pb-24 lg:pt-28">
           <Link
@@ -83,9 +86,9 @@ export default function Footer() {
 
           <p className="mt-7 max-w-2xl text-sm leading-7 text-white/65 sm:text-base sm:leading-8">
             The Gallaspy Golf &amp; Country Club is being envisioned as a
-            distinguished private destination where championship golf,
-            timeless hospitality, wellness, recreation, and family traditions
-            come together for generations.
+            distinguished private golf and lifestyle destination where
+            championship golf, timeless hospitality, wellness, recreation,
+            and family tradition come together for generations.
           </p>
 
           <div className="mt-9 flex w-full max-w-xl flex-col justify-center gap-3 sm:flex-row">
@@ -120,10 +123,10 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Main footer */}
+      {/* MAIN FOOTER */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
-        <div className="grid gap-12 border-b border-white/10 py-14 md:grid-cols-2 lg:grid-cols-[1.35fr_0.75fr_0.9fr_0.9fr_1fr] lg:gap-9 lg:py-16">
-          {/* Brand */}
+        <div className="grid gap-12 border-b border-white/10 py-14 md:grid-cols-2 lg:grid-cols-[1.35fr_0.8fr_0.95fr_0.9fr_1fr] lg:gap-9 lg:py-16">
+          {/* BRAND */}
           <div>
             <Link
               href="/"
@@ -165,22 +168,31 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Explore */}
-          <FooterColumn title="Explore" links={exploreLinks} />
+          {/* EXPLORE */}
+          <FooterColumn
+            title="Explore"
+            links={exploreLinks}
+          />
 
-          {/* Club */}
-          <FooterColumn title="The Club" links={clubLinks} />
+          {/* CLUB */}
+          <FooterColumn
+            title="The Club"
+            links={clubLinks}
+          />
 
-          {/* Information */}
-          <FooterColumn title="Information" links={informationLinks} />
+          {/* INFORMATION */}
+          <FooterColumn
+            title="Information"
+            links={informationLinks}
+          />
 
-          {/* Contact */}
+          {/* CONTACT */}
           <div>
             <FooterHeading>Contact</FooterHeading>
 
             <div className="mt-6 space-y-5 text-sm leading-6 text-white/62">
               <p>
-                The Gallaspy Development Group
+                The Gallaspy Development Group, LLC
                 <br />
                 Georgia
               </p>
@@ -191,24 +203,24 @@ export default function Footer() {
                 </p>
 
                 <a
-                  href="mailto:TheGallaspy@gmail.com"
+                  href="mailto:info@thegallaspy.com"
                   className="transition-colors duration-300 hover:text-[#FFD76A]"
                 >
-                  TheGallaspy@gmail.com
+                  info@thegallaspy.com
                 </a>
               </div>
 
               <div>
                 <p className="mb-1 text-[8px] font-semibold uppercase tracking-[0.24em] text-white/35">
-                  Telephone
+                  Website
                 </p>
 
-                <a
-                  href="tel:+14045431393"
+                <Link
+                  href="/"
                   className="transition-colors duration-300 hover:text-[#FFD76A]"
                 >
-                  404-543-1393
-                </a>
+                  thegallaspy.com
+                </Link>
               </div>
 
               <Link
@@ -228,11 +240,11 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom row */}
+        {/* BOTTOM ROW */}
         <div className="flex flex-col gap-5 py-7 text-[10px] leading-5 text-white/38 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {new Date().getFullYear()} The Gallaspy Golf &amp; Country Club.
-            All rights reserved.
+            © {new Date().getFullYear()} The Gallaspy Golf &amp; Country
+            Club. All rights reserved.
           </p>
 
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
@@ -270,7 +282,10 @@ type FooterColumnProps = {
   links: FooterLink[];
 };
 
-function FooterColumn({ title, links }: FooterColumnProps) {
+function FooterColumn({
+  title,
+  links,
+}: FooterColumnProps) {
   return (
     <div>
       <FooterHeading>{title}</FooterHeading>
@@ -292,7 +307,11 @@ function FooterColumn({ title, links }: FooterColumnProps) {
   );
 }
 
-function FooterHeading({ children }: { children: React.ReactNode }) {
+function FooterHeading({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <div>
       <p className="text-[9px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">

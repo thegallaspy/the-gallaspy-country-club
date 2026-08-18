@@ -5,20 +5,20 @@ const investmentPoints = [
   {
     title: "Long-Term Development",
     description:
-      "A phased approach to establishing the golf, hospitality, lifestyle, and supporting development components of The Gallaspy.",
+      "A phased approach to establishing the golf, hospitality, lifestyle, and supporting development components envisioned for The Gallaspy.",
   },
   {
     title: "Multiple Revenue Channels",
     description:
-      "Potential future revenue across membership, golf, hospitality, dining, events, lodging, wellness, and complementary development.",
+      "Potential future revenue may include membership, golf, hospitality, dining, events, lodging, wellness, and complementary development opportunities.",
   },
   {
     title: "Strategic Partnerships",
     description:
-      "Opportunities to build relationships with landowners, brands, operators, developers, financial partners, and other aligned organizations.",
+      "Opportunities to build relationships with landowners, brands, operators, developers, financial partners, and other organizations aligned with the long-term vision.",
   },
   {
-    title: "Georgia Opportunity",
+    title: "Georgia Property Search",
     description:
       "A Georgia-focused property search centered on access, growth, natural character, market strength, and the long-term potential to support The Gallaspy vision.",
   },
@@ -30,16 +30,16 @@ export default function InvestmentPreview() {
       id="investment-preview"
       className="relative overflow-hidden bg-[#10263F] px-5 py-16 text-white sm:px-8 sm:py-20 lg:px-10 lg:py-24"
     >
-      {/* Background details */}
+      {/* BACKGROUND DETAILS */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,215,106,0.12),transparent_38%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(22,58,47,0.55),transparent_42%)]" />
 
       <div className="relative z-10 mx-auto w-full max-w-6xl">
         <div className="grid items-start gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-16">
-          {/* Main content */}
+          {/* MAIN CONTENT */}
           <div>
             <p className="text-[10px] font-semibold uppercase tracking-[0.42em] text-[#FFD76A] sm:text-xs">
-              Development & Partnership
+              Development &amp; Partnership
             </p>
 
             <h2 className="mt-4 max-w-2xl font-serif text-[2.5rem] font-light leading-[1.06] sm:text-5xl lg:text-[3.65rem]">
@@ -53,11 +53,11 @@ export default function InvestmentPreview() {
               The Gallaspy Golf &amp; Country Club is being envisioned as a
               future private golf and lifestyle destination in Georgia. The
               development strategy is centered on identifying the right
-              property, building aligned partnerships, and advancing the vision
-              in thoughtful phases.
+              property, building aligned partnerships, and advancing the
+              vision through thoughtful phases.
             </p>
 
-            {/* Investment points */}
+            {/* DEVELOPMENT POINTS */}
             <div className="mt-9 grid gap-4 sm:grid-cols-2">
               {investmentPoints.map((point, index) => (
                 <article
@@ -83,7 +83,7 @@ export default function InvestmentPreview() {
               ))}
             </div>
 
-            {/* CTAs */}
+            {/* CTAS */}
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/invest"
@@ -109,7 +109,7 @@ export default function InvestmentPreview() {
             </div>
           </div>
 
-          {/* Statistics panel */}
+          {/* VISION PANEL */}
           <div className="relative overflow-hidden rounded-[24px] border border-white/14 bg-[#163A2F]/68 p-5 shadow-[0_26px_70px_rgba(0,0,0,0.2)] backdrop-blur-md sm:p-7">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,215,106,0.1),transparent_36%)]" />
 
@@ -124,9 +124,9 @@ export default function InvestmentPreview() {
                 </h3>
 
                 <p className="mt-3 max-w-md text-sm leading-6 text-white/62">
-                  Selected vision markers that describe the intended scale and
-                  direction of The Gallaspy without tying the concept to a
-                  specific property.
+                  Selected markers describing the intended direction of The
+                  Gallaspy while allowing the final development to respond to
+                  the property ultimately selected.
                 </p>
               </div>
 
@@ -139,24 +139,24 @@ export default function InvestmentPreview() {
                 />
 
                 <Metric
-                  value={<AnimatedCounter end={12} />}
-                  label="Envisioned Destinations"
+                  value="Georgia"
+                  label="Property Search"
                   borderBottom
-                />
-
-                <Metric
-                  value={<AnimatedCounter end={400} />}
-                  label="Membership Vision"
-                  borderRight
                 />
 
                 <Metric
                   value="Phased"
                   label="Development Strategy"
+                  borderRight
+                />
+
+                <Metric
+                  value="Long-Term"
+                  label="Club Vision"
                 />
               </div>
 
-              {/* Capital approach */}
+              {/* PARTNERSHIP APPROACH */}
               <div className="mt-6 rounded-[16px] border border-[#FFD76A]/20 bg-[#10263F]/42 px-5 py-5">
                 <p className="text-[9px] font-semibold uppercase tracking-[0.25em] text-[#FFD76A]">
                   Partnership Approach
@@ -173,20 +173,22 @@ export default function InvestmentPreview() {
           </div>
         </div>
 
-        {/* Investor distinction */}
+        {/* AUDIENCE DISTINCTION */}
         <div className="mt-12 grid gap-4 lg:grid-cols-2">
+          {/* FUTURE MEMBERS */}
           <div className="rounded-[20px] border border-white/12 bg-white/[0.045] px-6 py-7">
             <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-[#FFD76A]">
               For Future Members
             </p>
 
             <h3 className="mt-3 font-serif text-2xl font-light text-white">
-              Discover the Club Experience
+              Follow the Club Journey
             </h3>
 
             <p className="mt-3 text-sm leading-6 text-white/65">
-              Explore the golf, dining, wellness, hospitality, and recreation
-              envisioned for future members and their families.
+              Register your interest in the future club and follow the
+              development of the golf, dining, wellness, hospitality, and
+              recreation vision.
             </p>
 
             <Link
@@ -198,6 +200,7 @@ export default function InvestmentPreview() {
             </Link>
           </div>
 
+          {/* DEVELOPMENT PARTNERS */}
           <div className="rounded-[20px] border border-[#FFD76A]/24 bg-[#B89146]/10 px-6 py-7">
             <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-[#FFD76A]">
               For Development Partners
@@ -217,21 +220,21 @@ export default function InvestmentPreview() {
               href="/invest"
               className="mt-5 inline-flex items-center border-b border-[#FFD76A] pb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition duration-300 hover:text-[#FFD76A]"
             >
-              Development & Partnership
+              Development &amp; Partnership
               <span className="ml-2">→</span>
             </Link>
           </div>
         </div>
 
-        {/* Disclaimer */}
+        {/* DISCLAIMER */}
         <p className="mx-auto mt-7 max-w-4xl text-center text-[10px] leading-5 text-white/42">
           The development vision, scale, amenities, timing, partnership
           structure, and financing approach are conceptual and subject to land
           acquisition, due diligence, planning, approvals, market conditions,
           and future development decisions. The Gallaspy does not currently
           represent that a specific property has been acquired or secured.
-          Nothing on this website constitutes an offer to sell or a solicitation
-          to purchase securities.
+          Nothing on this website constitutes an offer to sell or a
+          solicitation to purchase securities.
         </p>
       </div>
     </section>

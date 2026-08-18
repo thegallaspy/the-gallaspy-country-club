@@ -5,7 +5,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "The Club | The Gallaspy Golf & Country Club",
   description:
-    "Explore championship golf, the Grand Clubhouse, fine dining, wellness, racquet sports, vineyard experiences, lodging, and private events at The Gallaspy Golf & Country Club.",
+    "Explore the vision for The Gallaspy Golf & Country Club — a future private golf and lifestyle destination envisioned around championship golf, hospitality, dining, wellness, recreation, lodging, and memorable experiences.",
 };
 
 const amenities = [
@@ -14,11 +14,12 @@ const amenities = [
     eyebrow: "Championship Golf",
     title: "Designed for Exceptional Play",
     description:
-      "At the heart of The Gallaspy is an 18-hole championship golf course shaped around the natural beauty of the property. The experience is envisioned for players of every skill level, with thoughtful course design, first-class practice facilities, and a strong tradition of member competition.",
+      "At the heart of the vision is an 18-hole championship golf course intended to respond to the natural character of the future property. The experience is envisioned around strategic play, thoughtful course design, practice facilities, and a strong tradition of member competition.",
     image: "/images/golf.png",
-    imageAlt: "Championship golf course at The Gallaspy",
+    imageAlt:
+      "Conceptual championship golf experience envisioned for The Gallaspy",
     href: "/club/golf",
-    buttonLabel: "Explore Championship Golf",
+    buttonLabel: "Explore the Golf Vision",
     features: [
       "18 Championship Holes",
       "Practice Facility",
@@ -31,11 +32,12 @@ const amenities = [
     eyebrow: "The Grand Clubhouse",
     title: "The Heart of The Gallaspy",
     description:
-      "The Grand Clubhouse is envisioned as the architectural and social centerpiece of the club. Members will gather here for dining, celebrations, golf traditions, private events, and the everyday moments that create a lasting sense of belonging.",
+      "The Grand Clubhouse is envisioned as the architectural and social centerpiece of the future club — a place designed for dining, celebrations, golf traditions, private events, and the everyday moments that create a lasting sense of belonging.",
     image: "/images/clubhouse.png",
-    imageAlt: "The Grand Clubhouse at The Gallaspy",
+    imageAlt:
+      "Conceptual Grand Clubhouse envisioned for The Gallaspy",
     href: "/club/clubhouse",
-    buttonLabel: "Discover the Grand Clubhouse",
+    buttonLabel: "Explore the Clubhouse Vision",
     features: [
       "Member Lounges",
       "Golf Shop",
@@ -48,11 +50,12 @@ const amenities = [
     eyebrow: "Mercury Street Restaurant",
     title: "Dining With a Sense of Place",
     description:
-      "Mercury Street Restaurant is planned as the culinary heart of the club. Members will enjoy chef-driven menus, private dining, seasonal events, an elevated wine program, and outdoor terraces overlooking the club landscape.",
+      "Mercury Street Restaurant is envisioned as a signature dining experience within the future club, bringing together chef-driven cuisine, private dining, seasonal gatherings, an elevated wine program, and outdoor hospitality.",
     image: "/images/mercurystreet.png",
-    imageAlt: "Mercury Street Restaurant at The Gallaspy",
+    imageAlt:
+      "Conceptual Mercury Street Restaurant envisioned for The Gallaspy",
     href: "/club/restaurant",
-    buttonLabel: "Discover Mercury Street",
+    buttonLabel: "Explore the Dining Vision",
     features: [
       "Chef-Driven Dining",
       "Private Dining Rooms",
@@ -65,15 +68,16 @@ const amenities = [
     eyebrow: "Wellness & Spa",
     title: "Restore, Recharge, Renew",
     description:
-      "The wellness experience will combine fitness, recovery, spa treatments, and resort-style recreation in a private setting. Every space is intended to support balance, health, and a more complete club lifestyle.",
+      "The wellness vision brings together fitness, recovery, spa experiences, and resort-style recreation in a private setting designed to support balance, health, and a more complete club lifestyle.",
     image: "/images/wellness.png",
-    imageAlt: "Wellness and spa facilities at The Gallaspy",
+    imageAlt:
+      "Conceptual wellness and spa experience envisioned for The Gallaspy",
     href: "/club/wellness",
-    buttonLabel: "Experience Wellness",
+    buttonLabel: "Explore the Wellness Vision",
     features: [
       "Full-Service Spa",
       "Fitness Center",
-      "Recovery Therapies",
+      "Recovery Experiences",
       "Resort-Style Pool",
     ],
   },
@@ -82,11 +86,12 @@ const amenities = [
     eyebrow: "Racquet Club",
     title: "Competition, Instruction, and Recreation",
     description:
-      "The racquet program will serve both competitive players and families. Tennis, pickleball, clinics, league play, and social programming will create an active, welcoming environment for members of all ages.",
+      "The future racquet program is envisioned for competitive players, families, and social play, with tennis, pickleball, instruction, leagues, and programming designed to create an active club community.",
     image: "/images/arrival.png",
-    imageAlt: "Racquet and recreation experience at The Gallaspy",
+    imageAlt:
+      "Conceptual racquet and recreation experience envisioned for The Gallaspy",
     href: "/club/racquet",
-    buttonLabel: "Explore the Racquet Club",
+    buttonLabel: "Explore the Racquet Vision",
     features: [
       "Tennis Courts",
       "Pickleball Courts",
@@ -99,15 +104,16 @@ const amenities = [
     eyebrow: "Vineyard & Winery",
     title: "A Signature Experience of the Club",
     description:
-      "The estate vineyard and future winery are envisioned as defining features of The Gallaspy. Members will gather for tastings, harvest dinners, private events, and seasonal experiences that connect hospitality with the natural character of the land.",
+      "A vineyard and future wine program are envisioned as distinctive elements of The Gallaspy experience, creating opportunities for tastings, seasonal dinners, private gatherings, and experiences connected to the character of the future property.",
     image: "/images/vineyard.png",
-    imageAlt: "Vineyard and winery at The Gallaspy",
+    imageAlt:
+      "Conceptual vineyard experience envisioned for The Gallaspy",
     href: "/club/vineyard",
-    buttonLabel: "Visit the Vineyard",
+    buttonLabel: "Explore the Vineyard Vision",
     features: [
       "Estate Vineyard",
       "Private Tastings",
-      "Harvest Dinners",
+      "Seasonal Dinners",
       "Member Wine Events",
     ],
   },
@@ -116,28 +122,30 @@ const amenities = [
     eyebrow: "Member Lodging",
     title: "A Private Retreat Within the Club",
     description:
-      "Luxury lodging will allow members and guests to extend their experience beyond a single day. Suites, cottages, and personalized hospitality will support weekend stays, family visits, executive retreats, and special celebrations.",
+      "Future member lodging is envisioned to extend The Gallaspy experience beyond a single day, supporting weekend stays, family visits, golf trips, executive retreats, and special celebrations.",
     image: "/images/lodging.png",
-    imageAlt: "Luxury member lodging at The Gallaspy",
+    imageAlt:
+      "Conceptual member lodging envisioned for The Gallaspy",
     href: "/club/lodging",
-    buttonLabel: "Explore Member Lodging",
+    buttonLabel: "Explore the Lodging Vision",
     features: [
-      "Luxury Suites",
+      "Member Suites",
       "Guest Cottages",
-      "Concierge Service",
+      "Personalized Hospitality",
       "Weekend Retreats",
     ],
   },
   {
     id: "events",
     eyebrow: "Event Pavilion",
-    title: "A Setting for Life’s Most Meaningful Moments",
+    title: "A Setting for Meaningful Moments",
     description:
-      "The Event Pavilion will be designed for weddings, galas, corporate retreats, charity gatherings, and private celebrations. Elegant architecture, flexible indoor-outdoor spaces, and exceptional service will make every event feel distinctive.",
+      "The future event experience is envisioned around weddings, galas, corporate retreats, charity gatherings, and private celebrations, with flexible indoor-outdoor spaces and hospitality designed for memorable occasions.",
     image: "/images/clubhouse.png",
-    imageAlt: "Event Pavilion and clubhouse at The Gallaspy",
+    imageAlt:
+      "Conceptual event and gathering experience envisioned for The Gallaspy",
     href: "/club/events",
-    buttonLabel: "Explore Private Events",
+    buttonLabel: "Explore the Events Vision",
     features: [
       "Weddings & Galas",
       "Corporate Retreats",
@@ -150,11 +158,11 @@ const amenities = [
 export default function ClubPage() {
   return (
     <main className="bg-[#F7F4EE] text-[#1E3557]">
-      {/* Hero */}
+      {/* HERO */}
       <section className="relative flex min-h-[74vh] items-center overflow-hidden px-5 pt-[72px] sm:px-8">
         <Image
           src="/images/hero.jpg"
-          alt="The Gallaspy Golf and Country Club"
+          alt="Conceptual vision for The Gallaspy Golf and Country Club"
           fill
           priority
           sizes="100vw"
@@ -167,34 +175,34 @@ export default function ClubPage() {
         <div className="relative z-10 mx-auto w-full max-w-[1060px] py-20 text-white sm:py-24">
           <div className="max-w-3xl">
             <p className="text-[10px] font-bold uppercase tracking-[0.38em] text-[#FFD76A]">
-              The Club
+              The Future Club Vision
             </p>
 
             <h1 className="mt-5 font-serif text-[2.8rem] font-light leading-[1.02] text-white sm:text-6xl lg:text-[4.7rem]">
               A Private Club
-              <span className="block">Unlike Any Other</span>
+              <span className="block">Designed for Generations</span>
             </h1>
 
             <div className="mt-6 h-px w-16 bg-[#B89146]" />
 
             <p className="mt-6 max-w-2xl text-sm leading-7 text-white/85 sm:text-base sm:leading-8">
-              Every detail of The Gallaspy is being envisioned to bring
-              championship golf, exceptional hospitality, wellness, recreation,
-              and family traditions together in one extraordinary private
-              destination.
+              The Gallaspy is envisioned as a future private golf and lifestyle
+              destination bringing together championship golf, hospitality,
+              dining, wellness, recreation, and family traditions in one
+              thoughtfully designed setting.
             </p>
 
             <Link
               href="#golf"
               className="mt-8 inline-flex min-h-[45px] items-center justify-center rounded-full border border-[#B89146] bg-[#B89146] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition hover:-translate-y-0.5 hover:bg-[#FFD76A] hover:text-[#10263F]"
             >
-              Explore the Experiences
+              Explore the Vision
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Experience navigation */}
+      {/* EXPERIENCE NAVIGATION */}
       <section className="border-b border-[#1E3557]/10 bg-[#10263F] px-5 py-5 sm:px-8">
         <div className="mx-auto flex w-full max-w-[1060px] gap-2 overflow-x-auto pb-1">
           {amenities.map((amenity) => (
@@ -209,7 +217,7 @@ export default function ClubPage() {
         </div>
       </section>
 
-      {/* Intro */}
+      {/* INTRO */}
       <section className="bg-[#F7F4EE] px-5 py-16 sm:px-8 lg:py-20">
         <div className="mx-auto grid w-full max-w-[1060px] gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           <div>
@@ -227,21 +235,21 @@ export default function ClubPage() {
 
           <div className="border-l border-[#B89146]/35 pl-6 sm:pl-8">
             <p className="text-base leading-8 text-[#1E3557]">
-              The Gallaspy is being designed as a place where members can move
-              naturally from golf and wellness to dining, recreation,
+              The Gallaspy is being envisioned as a place where future members
+              can move naturally from golf and wellness to dining, recreation,
               hospitality, and private celebrations.
             </p>
 
             <p className="mt-5 text-sm leading-7 text-[#1E3557]/80">
-              Each part of the club supports the next, creating an experience
-              that feels connected, personal, and worthy of becoming a
-              tradition for generations.
+              Each element is intended to complement the next, creating a
+              connected private-club experience capable of becoming part of
+              family traditions for generations.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Amenity sections */}
+      {/* AMENITY SECTIONS */}
       {amenities.map((amenity, index) => {
         const imageFirst = index % 2 === 0;
 
@@ -271,9 +279,16 @@ export default function ClubPage() {
 
                 <div className="absolute inset-0 bg-gradient-to-t from-[#10263F]/55 via-transparent to-transparent opacity-70 transition group-hover:opacity-90" />
 
+                {/* CONCEPT LABEL */}
+                <div className="absolute left-5 top-5 rounded-full border border-white/25 bg-[#10263F]/55 px-4 py-2 backdrop-blur-md">
+                  <p className="text-[8px] font-bold uppercase tracking-[0.2em] text-[#FFD76A]">
+                    Future Club Vision
+                  </p>
+                </div>
+
                 <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between p-6 text-white">
                   <p className="text-[9px] font-bold uppercase tracking-[0.2em]">
-                    View Experience
+                    Explore the Vision
                   </p>
 
                   <span className="text-xl transition-transform group-hover:translate-x-1">
@@ -315,6 +330,7 @@ export default function ClubPage() {
                   className="mt-8 inline-flex min-h-[45px] items-center justify-center rounded-full border border-[#B89146] bg-[#B89146] px-7 text-[10px] font-bold uppercase tracking-[0.18em] text-white transition hover:-translate-y-0.5 hover:bg-[#FFD76A] hover:text-[#10263F]"
                 >
                   {amenity.buttonLabel}
+
                   <span className="ml-3 text-base">→</span>
                 </Link>
               </div>
@@ -323,38 +339,56 @@ export default function ClubPage() {
         );
       })}
 
-      {/* Final CTA */}
+      {/* DEVELOPMENT NOTE */}
+      <section className="bg-[#F2ECE1] px-5 py-12 sm:px-8">
+        <div className="mx-auto max-w-[900px] text-center">
+          <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#B89146]">
+            The Vision Ahead
+          </p>
+
+          <p className="mx-auto mt-4 max-w-3xl text-sm leading-7 text-[#1E3557]/70">
+            The experiences shown on this page represent the long-term vision
+            for The Gallaspy. Final amenities, architecture, programming,
+            scale, and timing will depend on the property ultimately selected,
+            due diligence, planning, approvals, partnerships, and future
+            development decisions.
+          </p>
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
       <section className="bg-[#1E3557] px-5 py-16 text-white sm:px-8 lg:py-20">
         <div className="mx-auto flex w-full max-w-[1060px] flex-col items-center justify-between gap-8 text-center lg:flex-row lg:text-left">
           <div className="max-w-2xl">
             <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#FFD76A]">
-              Membership at The Gallaspy
+              Future Membership
             </p>
 
             <h2 className="mt-4 font-serif text-[2.35rem] font-light leading-[1.08] text-white sm:text-5xl">
-              More Than Amenities.
-              <span className="block">A Way of Life.</span>
+              Follow the Journey.
+              <span className="block">Express Your Interest.</span>
             </h2>
 
             <p className="mt-5 text-sm leading-7 text-white/75">
-              Become part of the founding generation and help shape the
-              traditions of a club being built to last.
+              Join the Membership Interest List to follow the development of
+              The Gallaspy and receive future information as the club vision
+              progresses.
             </p>
           </div>
 
           <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
             <Link
-              href="/falcon-society#registration"
+              href="/membership#membership-interest"
               className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[#FFD76A] bg-[#FFD76A] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:-translate-y-0.5 hover:bg-white"
             >
-              Join the Falcon Society
+              Membership Interest
             </Link>
 
             <Link
-              href="/membership#membership-interest"
+              href="/falcon-society"
               className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-white/35 px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition hover:-translate-y-0.5 hover:border-[#FFD76A] hover:text-[#FFD76A]"
             >
-              Explore Membership
+              Explore Falcon Society
             </Link>
           </div>
         </div>

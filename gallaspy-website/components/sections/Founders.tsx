@@ -1,17 +1,20 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const founders = [
   {
     name: "Cameron Gallaspy-Davis",
     role: "Founder & Managing Member",
+    image: "/images/founders/cameron.jpg",
     bio:
-      "Cameron leads the long-term vision for The Gallaspy, including the club concept, Invitational, development strategy, brand partnerships, and the effort to identify the right Georgia property for the future club.",
+      "Cameron leads the long-term vision for The Gallaspy, including the club concept, The Gallaspy Invitational, development strategy, brand partnerships, and the search for the right Georgia property to support the future club.",
   },
   {
     name: "Deja McCoy",
     role: "Co-Founder & Managing Member",
+    image: "/images/founders/deja.jpg",
     bio:
-      "Deja helps shape the future of The Gallaspy through brand development, hospitality vision, member experience, partnership strategy, and the broader mission of building something designed to endure across generations.",
+      "Deja helps shape The Gallaspy through brand development, hospitality vision, future member experience, partnership strategy, and the broader mission of creating something designed to endure across generations.",
   },
 ];
 
@@ -43,37 +46,57 @@ export default function Founders() {
             </p>
 
             <p className="mt-6 text-sm leading-7 text-[#52605A] sm:text-base sm:leading-8">
-              The project is being developed through The Gallaspy Development
-              Group, LLC, with a focus on building the brand, community,
-              partnerships, events, and foundation needed to support the future
-              club vision.
+              Through The Gallaspy Development Group, LLC, the founders are
+              building the brand, community, partnerships, events, and
+              development foundation intended to support the future club.
             </p>
           </div>
         </div>
 
         {/* FOUNDERS */}
-        <div className="mt-16 grid gap-5 lg:grid-cols-2">
+        <div className="mt-16 grid items-stretch gap-6 lg:grid-cols-2">
           {founders.map((founder, index) => (
             <article
               key={founder.name}
-              className="group relative overflow-hidden rounded-[24px] border border-[#10263F]/10 bg-[#F7F4EE] px-7 py-9 transition duration-300 hover:-translate-y-1 hover:border-[#B89146]/40 hover:shadow-[0_20px_55px_rgba(16,38,63,0.09)] sm:px-9 sm:py-10"
+              className="group flex h-full flex-col overflow-hidden rounded-[24px] border border-[#10263F]/10 bg-[#F7F4EE] transition duration-300 hover:-translate-y-1 hover:border-[#B89146]/40 hover:shadow-[0_24px_60px_rgba(16,38,63,0.12)]"
             >
-              <div className="absolute right-6 top-4 font-serif text-[5rem] font-light leading-none text-[#10263F]/[0.035] sm:text-[7rem]">
-                0{index + 1}
+              {/* PORTRAIT */}
+              <div className="relative h-[500px] w-full overflow-hidden bg-[#EAE4D8] sm:h-[620px] lg:h-[680px]">
+                <Image
+                  src={founder.image}
+                  alt={`${founder.name} — ${founder.role}`}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover object-center transition duration-[1200ms] ease-out group-hover:scale-[1.025]"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-[#071C17]/70 via-transparent to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-[#10263F]/65 to-transparent" />
+
+                {/* FOUNDER NUMBER */}
+                <div className="absolute left-5 top-5 flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-[#10263F]/45 backdrop-blur-md sm:left-6 sm:top-6">
+                  <span className="text-[9px] font-semibold tracking-[0.2em] text-[#FFD76A]">
+                    0{index + 1}
+                  </span>
+                </div>
+
+                {/* NAME & ROLE */}
+                <div className="absolute bottom-6 left-6 right-6 text-white sm:bottom-8 sm:left-8 sm:right-8">
+                  <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-[#FFD76A] sm:text-[10px]">
+                    {founder.role}
+                  </p>
+
+                  <h3 className="mt-3 font-serif text-[2.15rem] font-light leading-[1.02] sm:text-[2.8rem]">
+                    {founder.name}
+                  </h3>
+                </div>
               </div>
 
-              <div className="relative z-10">
-                <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-[#9A793A]">
-                  {founder.role}
-                </p>
+              {/* BIO */}
+              <div className="flex flex-1 flex-col px-6 py-7 sm:px-8 sm:py-8">
+                <div className="h-px w-12 bg-[#B89146] transition-all duration-300 group-hover:w-20" />
 
-                <h3 className="mt-5 max-w-md font-serif text-[2.35rem] font-light leading-[1.02] text-[#10263F] sm:text-[2.8rem]">
-                  {founder.name}
-                </h3>
-
-                <div className="mt-6 h-px w-12 bg-[#B89146] transition-all duration-300 group-hover:w-20" />
-
-                <p className="mt-6 max-w-xl text-sm leading-7 text-[#59666D] sm:text-base sm:leading-8">
+                <p className="mt-6 text-sm leading-7 text-[#59666D] sm:text-base sm:leading-8">
                   {founder.bio}
                 </p>
               </div>
@@ -94,30 +117,44 @@ export default function Founders() {
               </h3>
 
               <p className="mt-5 max-w-2xl text-sm leading-7 text-white/68 sm:text-base sm:leading-8">
-                The Gallaspy Development Group, LLC is the business entity
-                guiding the development of The Gallaspy Golf &amp; Country Club
-                vision and The Gallaspy Invitational.
+                The Gallaspy Development Group, LLC is the parent organization
+                advancing The Gallaspy Golf &amp; Country Club vision, The
+                Gallaspy Invitational, strategic partnerships, and related
+                long-term development initiatives.
               </p>
             </div>
 
             <div className="lg:border-l lg:border-white/15 lg:pl-10">
               <p className="text-sm leading-7 text-white/68">
-                The current focus is on building the foundation: establishing
-                the brand, producing the inaugural Invitational, developing
-                partnerships, growing the future membership community, and
-                identifying the right long-term development opportunity.
+                The current focus is on establishing the brand, producing the
+                inaugural Invitational, building strategic relationships,
+                growing the future membership community, and identifying the
+                right long-term development opportunity in Georgia.
               </p>
 
-              <Link
-                href="/founders-letter"
-                className="group mt-7 inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#FFD76A] px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition duration-300 hover:-translate-y-1 hover:bg-[#FFD76A] hover:text-[#10263F]"
-              >
-                Read the Founders&apos; Letter
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <Link
+                  href="/founders-letter"
+                  className="group inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#FFD76A] px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition duration-300 hover:-translate-y-1 hover:bg-[#FFD76A] hover:text-[#10263F]"
+                >
+                  Read the Founders&apos; Letter
 
-                <span className="ml-3 transition-transform duration-300 group-hover:translate-x-1">
-                  →
-                </span>
-              </Link>
+                  <span className="ml-3 transition-transform duration-300 group-hover:translate-x-1">
+                    →
+                  </span>
+                </Link>
+
+                <Link
+                  href="/why-the-gallaspy"
+                  className="group inline-flex min-h-[48px] items-center justify-center rounded-full border border-white/25 px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition duration-300 hover:-translate-y-1 hover:border-[#FFD76A] hover:text-[#FFD76A]"
+                >
+                  Our Story
+
+                  <span className="ml-3 transition-transform duration-300 group-hover:translate-x-1">
+                    →
+                  </span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

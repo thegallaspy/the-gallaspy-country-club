@@ -4,16 +4,16 @@ const principles = [
   {
     number: "01",
     eyebrow: "Built With Purpose",
-    title: "A Vision Being Built Deliberately",
+    title: "Developed With Intention",
     description:
-      "The Gallaspy is not being presented as a finished club. It is a long-term private golf and lifestyle vision being developed thoughtfully from the ground up, with each step intended to strengthen the foundation for what comes next.",
+      "The Gallaspy is a long-term private golf and lifestyle vision being built thoughtfully from the ground up. Each step is intended to strengthen the foundation for the property, partnerships, experiences, and traditions that will follow.",
   },
   {
     number: "02",
     eyebrow: "Rooted in Family",
-    title: "Designed to Become Generational",
+    title: "Created for Generations",
     description:
-      "Family, tradition, hospitality, and legacy sit at the center of The Gallaspy. The goal is to create something that can be experienced, remembered, and carried forward across generations.",
+      "Family, tradition, hospitality, and legacy sit at the center of The Gallaspy. The goal is to create something meaningful enough to be experienced, remembered, and carried forward across generations.",
   },
   {
     number: "03",
@@ -54,10 +54,10 @@ export default function WhyGallaspy() {
             </p>
 
             <p className="mt-6 text-sm leading-7 text-[#52605A] sm:text-base sm:leading-8">
-              The long-term vision is not only about developing a golf course.
-              It is about building a place centered on competition,
-              hospitality, relationships, family tradition, and a lasting sense
-              of belonging.
+              The long-term vision extends beyond developing a golf course. It
+              is about creating a place centered on competition, hospitality,
+              relationships, family tradition, and a lasting sense of
+              belonging.
             </p>
           </div>
         </div>

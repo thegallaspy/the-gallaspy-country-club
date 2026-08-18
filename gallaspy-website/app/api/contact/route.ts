@@ -1,3 +1,4 @@
+import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
@@ -5,15 +6,10 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 type ContactSubmission = {
-  firstName?: string;
-  lastName?: string;
+  name?: string;
   email?: string;
   phone?: string;
-  organization?: string;
-  city?: string;
-  state?: string;
   interest?: string;
-  preferredContact?: string;
   message?: string;
 };
 
@@ -29,45 +25,57 @@ function escapeHtml(value: string): string {
 export async function POST(request: Request) {
   try {
     const resendApiKey = process.env.RESEND_API_KEY;
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseServiceRoleKey =
+      process.env.SUPABASE_SERVICE_ROLE_KEY;
 
     if (!resendApiKey) {
-      console.error("RESEND_API_KEY is missing.");
+      console.error("Missing RESEND_API_KEY");
 
       return NextResponse.json(
-        { message: "Email service is not configured." },
+        {
+          error: "Contact email service is not configured.",
+        },
         { status: 500 },
       );
     }
 
-    const ownerEmail =
-      process.env.CONTACT_RECIPIENT_EMAIL ||
-      process.env.CAREERS_TO_EMAIL ||
-      "TheGallaspy@gmail.com";
+    if (!supabaseUrl || !supabaseServiceRoleKey) {
+      console.error("Missing Supabase environment variables");
 
-    const fromEmail =
-      process.env.RESEND_FROM_EMAIL ||
-      process.env.CAREERS_FROM_EMAIL ||
-      "The Gallaspy <onboarding@resend.dev>";
+      return NextResponse.json(
+        {
+          error: "Contact database is not configured.",
+        },
+        { status: 500 },
+      );
+    }
 
     const resend = new Resend(resendApiKey);
 
+    const supabase = createClient(
+      supabaseUrl,
+      supabaseServiceRoleKey,
+      {
+        auth: {
+          persistSession: false,
+          autoRefreshToken: false,
+        },
+      },
+    );
+
     const body = (await request.json()) as ContactSubmission;
 
-    const firstName = body.firstName?.trim() ?? "";
-    const lastName = body.lastName?.trim() ?? "";
-    const email = body.email?.trim() ?? "";
-    const phone = body.phone?.trim() || "Not provided";
-    const organization = body.organization?.trim() || "Not provided";
-    const city = body.city?.trim() || "Not provided";
-    const state = body.state?.trim() || "Not provided";
-    const interest = body.interest?.trim() ?? "";
-    const preferredContact = body.preferredContact?.trim() || "Email";
-    const message = body.message?.trim() ?? "";
+    const name = body.name?.trim();
+    const email = body.email?.trim().toLowerCase();
+    const phone = body.phone?.trim() || null;
+    const interest = body.interest?.trim();
+    const message = body.message?.trim();
 
-    if (!firstName || !lastName || !email || !interest || !message) {
+    if (!name || !email || !interest || !message) {
       return NextResponse.json(
         {
-          message:
+          error:
             "Please complete your name, email, area of interest, and message.",
         },
         { status: 400 },
@@ -78,42 +86,72 @@ export async function POST(request: Request) {
 
     if (!emailPattern.test(email)) {
       return NextResponse.json(
-        { message: "Please enter a valid email address." },
+        {
+          error: "Please enter a valid email address.",
+        },
         { status: 400 },
       );
     }
 
     if (message.length > 3000) {
       return NextResponse.json(
-        { message: "Your message is too long." },
+        {
+          error: "Your message is too long.",
+        },
         { status: 400 },
       );
     }
 
-    const fullName = `${firstName} ${lastName}`;
+    /*
+     * Save inquiry before sending email.
+     */
+    const { data: contactRecord, error: databaseError } =
+      await supabase
+        .from("contact_inquiries")
+        .insert({
+          name,
+          email,
+          phone,
+          interest,
+          message,
+          status: "new",
+        })
+        .select("id")
+        .single();
 
-    const safeFullName = escapeHtml(fullName);
-    const safeFirstName = escapeHtml(firstName);
+    if (databaseError) {
+      console.error("Contact database error:", databaseError);
+
+      return NextResponse.json(
+        {
+          error: "Unable to save your inquiry. Please try again.",
+        },
+        { status: 500 },
+      );
+    }
+
+    const safeName = escapeHtml(name);
     const safeEmail = escapeHtml(email);
-    const safePhone = escapeHtml(phone);
-    const safeOrganization = escapeHtml(organization);
-    const safeCity = escapeHtml(city);
-    const safeState = escapeHtml(state);
+    const safePhone = escapeHtml(phone || "Not provided");
     const safeInterest = escapeHtml(interest);
-    const safePreferredContact = escapeHtml(preferredContact);
     const safeMessage = escapeHtml(message).replaceAll("\n", "<br />");
 
-    const notificationResult = await resend.emails.send({
-      from: fromEmail,
-      to: [ownerEmail],
+    /*
+     * Email #1:
+     * Internal notification to The Gallaspy
+     */
+    const internalEmail = resend.emails.send({
+      from: "The Gallaspy <info@thegallaspy.com>",
+      to: ["info@thegallaspy.com"],
       replyTo: email,
-      subject: `New ${interest} Inquiry — ${fullName}`,
+      subject: `New ${interest} Inquiry — ${name}`,
       html: `
-        <div style="background:#f7f4ee;padding:40px 20px;font-family:Arial,sans-serif;color:#10263f;">
-          <div style="max-width:680px;margin:0 auto;background:#ffffff;border:1px solid #e4ded3;border-radius:18px;overflow:hidden;">
-            <div style="background:#10263f;padding:32px;text-align:center;">
-              <p style="margin:0;color:#d4af37;font-size:12px;letter-spacing:3px;text-transform:uppercase;">
-                The Gallaspy Development Group
+        <div style="background:#F7F4EE;padding:40px 20px;font-family:Arial,sans-serif;color:#10263F;">
+          <div style="max-width:680px;margin:0 auto;background:#ffffff;border:1px solid #E4DED3;border-radius:18px;overflow:hidden;">
+
+            <div style="background:#10263F;padding:32px;text-align:center;">
+              <p style="margin:0;color:#D4AF37;font-size:11px;letter-spacing:3px;text-transform:uppercase;">
+                The Gallaspy Development Group, LLC
               </p>
 
               <h1 style="margin:14px 0 0;color:#ffffff;font-family:Georgia,serif;font-weight:400;">
@@ -123,47 +161,69 @@ export async function POST(request: Request) {
 
             <div style="padding:32px;">
               <table style="width:100%;border-collapse:collapse;">
-                <tr>
-                  <td style="padding:10px 0;font-weight:bold;">Name</td>
-                  <td style="padding:10px 0;">${safeFullName}</td>
-                </tr>
+                <tbody>
 
-                <tr>
-                  <td style="padding:10px 0;font-weight:bold;">Email</td>
-                  <td style="padding:10px 0;">${safeEmail}</td>
-                </tr>
+                  <tr>
+                    <td style="padding:10px 0;font-weight:bold;">
+                      Name
+                    </td>
 
-                <tr>
-                  <td style="padding:10px 0;font-weight:bold;">Phone</td>
-                  <td style="padding:10px 0;">${safePhone}</td>
-                </tr>
+                    <td style="padding:10px 0;">
+                      ${safeName}
+                    </td>
+                  </tr>
 
-                <tr>
-                  <td style="padding:10px 0;font-weight:bold;">Organization</td>
-                  <td style="padding:10px 0;">${safeOrganization}</td>
-                </tr>
+                  <tr>
+                    <td style="padding:10px 0;font-weight:bold;">
+                      Email
+                    </td>
 
-                <tr>
-                  <td style="padding:10px 0;font-weight:bold;">Location</td>
-                  <td style="padding:10px 0;">${safeCity}, ${safeState}</td>
-                </tr>
+                    <td style="padding:10px 0;">
+                      ${safeEmail}
+                    </td>
+                  </tr>
 
-                <tr>
-                  <td style="padding:10px 0;font-weight:bold;">Interest</td>
-                  <td style="padding:10px 0;">${safeInterest}</td>
-                </tr>
+                  <tr>
+                    <td style="padding:10px 0;font-weight:bold;">
+                      Phone
+                    </td>
 
-                <tr>
-                  <td style="padding:10px 0;font-weight:bold;">
-                    Preferred Contact
-                  </td>
-                  <td style="padding:10px 0;">${safePreferredContact}</td>
-                </tr>
+                    <td style="padding:10px 0;">
+                      ${safePhone}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding:10px 0;font-weight:bold;">
+                      Area of Interest
+                    </td>
+
+                    <td style="padding:10px 0;">
+                      ${safeInterest}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding:10px 0;font-weight:bold;">
+                      Database Record
+                    </td>
+
+                    <td style="padding:10px 0;">
+                      ${contactRecord?.id || "Saved"}
+                    </td>
+                  </tr>
+
+                </tbody>
               </table>
 
-              <div style="margin-top:28px;padding:22px;background:#f7f4ee;border-radius:12px;">
-                <p style="margin:0 0 10px;font-weight:bold;">Message</p>
-                <p style="margin:0;line-height:1.7;">${safeMessage}</p>
+              <div style="margin-top:28px;padding:22px;background:#F7F4EE;border-radius:12px;">
+                <p style="margin:0 0 10px;font-weight:bold;">
+                  Message
+                </p>
+
+                <p style="margin:0;line-height:1.7;">
+                  ${safeMessage}
+                </p>
               </div>
             </div>
           </div>
@@ -171,48 +231,51 @@ export async function POST(request: Request) {
       `,
     });
 
-    if (notificationResult.error) {
-      console.error(
-        "Contact notification error:",
-        notificationResult.error,
-      );
-
-      return NextResponse.json(
-        { message: "Your inquiry could not be sent. Please try again." },
-        { status: 500 },
-      );
-    }
-
-    const confirmationResult = await resend.emails.send({
-      from: fromEmail,
+    /*
+     * Email #2:
+     * Confirmation to visitor
+     */
+    const confirmationEmail = resend.emails.send({
+      from: "The Gallaspy <info@thegallaspy.com>",
       to: [email],
+      replyTo: "info@thegallaspy.com",
       subject: "We Received Your Gallaspy Inquiry",
       html: `
-        <div style="background:#f7f4ee;padding:40px 20px;font-family:Arial,sans-serif;color:#10263f;">
-          <div style="max-width:680px;margin:0 auto;background:#ffffff;border:1px solid #e4ded3;border-radius:18px;overflow:hidden;">
-            <div style="background:#10263f;padding:38px 28px;text-align:center;">
-              <p style="margin:0;color:#d4af37;font-size:12px;letter-spacing:3px;text-transform:uppercase;">
-                A Legacy in the Making
+        <div style="background:#F7F4EE;padding:40px 20px;font-family:Arial,sans-serif;color:#10263F;">
+          <div style="max-width:680px;margin:0 auto;background:#ffffff;border:1px solid #E4DED3;border-radius:18px;overflow:hidden;">
+
+            <div style="background:#10263F;padding:38px 28px;text-align:center;">
+              <p style="margin:0;color:#D4AF37;font-size:11px;letter-spacing:3px;text-transform:uppercase;">
+                The Gallaspy
               </p>
 
               <h1 style="margin:16px 0 0;color:#ffffff;font-family:Georgia,serif;font-weight:400;">
-                Thank You, ${safeFirstName}
+                Thank You for Reaching Out
               </h1>
             </div>
 
             <div style="padding:34px;">
               <p style="font-size:16px;line-height:1.8;margin-top:0;">
-                We received your inquiry regarding
+                Hello ${safeName},
+              </p>
+
+              <p style="font-size:16px;line-height:1.8;">
+                Thank you for contacting
+                <strong>The Gallaspy Development Group, LLC.</strong>
+              </p>
+
+              <p style="font-size:16px;line-height:1.8;">
+                We've received your inquiry regarding
                 <strong>${safeInterest}</strong>.
               </p>
 
               <p style="font-size:16px;line-height:1.8;">
-                A representative of The Gallaspy Development Group will review
-                your message and follow up as soon as possible.
+                Your message will be reviewed and routed to the appropriate
+                conversation.
               </p>
 
-              <div style="margin-top:28px;padding:22px;background:#f7f4ee;border-radius:12px;">
-                <p style="margin:0;color:#7b642f;font-size:12px;letter-spacing:2px;text-transform:uppercase;">
+              <div style="margin-top:28px;padding:22px;background:#F7F4EE;border-left:3px solid #B89146;">
+                <p style="margin:0;color:#7B642F;font-size:11px;letter-spacing:2px;text-transform:uppercase;">
                   Your Message
                 </p>
 
@@ -222,32 +285,63 @@ export async function POST(request: Request) {
               </div>
 
               <p style="margin-top:30px;font-size:16px;line-height:1.8;">
-                Sincerely,<br />
-                <strong>The Gallaspy Development Group</strong><br />
-                The Gallaspy Golf &amp; Country Club
+                We appreciate your interest in The Gallaspy and look forward
+                to continuing the conversation.
               </p>
+
+              <div style="margin-top:34px;padding-top:22px;border-top:1px solid #E3DDD1;">
+                <p style="margin:0;">
+                  <strong>The Gallaspy</strong><br />
+                  The Gallaspy Development Group, LLC
+                </p>
+
+                <p style="font-size:13px;color:#667085;margin-top:8px;">
+                  thegallaspy.com
+                </p>
+              </div>
             </div>
           </div>
         </div>
       `,
     });
 
-    if (confirmationResult.error) {
-      console.error(
-        "Contact confirmation error:",
-        confirmationResult.error,
+    const [internalResult, confirmationResult] = await Promise.all([
+      internalEmail,
+      confirmationEmail,
+    ]);
+
+    if (internalResult.error || confirmationResult.error) {
+      console.error("Contact email error:", {
+        internal: internalResult.error,
+        confirmation: confirmationResult.error,
+      });
+
+      return NextResponse.json(
+        {
+          error:
+            "Your inquiry was saved, but one or more emails could not be sent.",
+        },
+        { status: 500 },
       );
     }
 
     return NextResponse.json(
-      { message: "Your inquiry was submitted successfully." },
+      {
+        success: true,
+        message: "Your inquiry was submitted successfully.",
+        recordId: contactRecord?.id,
+        internalEmailId: internalResult.data?.id,
+        confirmationEmailId: confirmationResult.data?.id,
+      },
       { status: 200 },
     );
   } catch (error) {
     console.error("Contact API error:", error);
 
     return NextResponse.json(
-      { message: "Something went wrong. Please try again." },
+      {
+        error: "Something went wrong. Please try again.",
+      },
       { status: 500 },
     );
   }
