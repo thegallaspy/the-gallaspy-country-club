@@ -342,7 +342,7 @@ export default function FalconSocietyPage() {
       <section className="bg-white px-5 py-16 sm:px-8 lg:py-24">
         <div className="mx-auto grid w-full max-w-[1120px] gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
+            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#8B6A34]">
               Conceptual Founding Recognition
             </p>
 
@@ -351,40 +351,43 @@ export default function FalconSocietyPage() {
               <span className="block">Concept</span>
             </h2>
 
-            <p className="mt-6 text-sm leading-7 text-[#1E3557]/78 sm:text-base sm:leading-8">
+            <p className="mt-6 text-sm leading-7 text-[#1E3557] sm:text-base sm:leading-8">
               One idea under consideration is a numbered founding charter
               certificate recognizing the eventual Falcon Society generation.
             </p>
 
-            <p className="mt-5 text-sm leading-7 text-[#1E3557]/65">
+            <p className="mt-5 text-sm leading-7 text-[#52605A]">
               The design, numbering, eligibility, wording, and availability of
               any future certificate will be determined only when formal
               membership documents are established.
             </p>
           </div>
 
+          {/* IMPROVED CERTIFICATE */}
           <div className="rounded-[24px] bg-[#10263F] p-4 shadow-2xl sm:p-7">
-            <div className="border border-[#B89146] bg-[#F7F4EE] px-6 py-12 text-center sm:px-12">
-              <p className="text-[9px] font-bold uppercase tracking-[0.38em] text-[#B89146]">
+            <div className="border border-[#B89146] bg-[#F7F4EE] px-6 py-12 text-center sm:px-12 sm:py-14">
+              <p className="text-[9px] font-bold uppercase tracking-[0.38em] text-[#8B6A34] sm:text-[10px]">
                 Concept Preview
               </p>
 
               <div className="mx-auto mt-7 h-px w-24 bg-[#B89146]" />
 
-              <p className="mt-8 font-serif text-4xl font-light text-[#10263F] sm:text-5xl">
+              <p className="mt-8 font-serif text-4xl font-light leading-tight text-[#10263F] sm:text-5xl">
                 Falcon Society
               </p>
 
-              <p className="mt-3 text-xs font-bold uppercase tracking-[0.25em] text-[#1E3557]/65">
+              <p className="mt-4 text-[10px] font-bold uppercase tracking-[0.25em] text-[#10263F] sm:text-xs">
                 Future Founding Recognition
               </p>
 
-              <p className="mx-auto mt-8 max-w-md text-sm leading-7 text-[#1E3557]/72">
+              <p className="mx-auto mt-8 max-w-md text-sm font-medium leading-7 text-[#1E3557] sm:text-base sm:leading-8">
                 A conceptual example of how future founding-member recognition
                 could be presented when formal membership begins.
               </p>
 
-              <p className="mt-10 font-serif text-2xl text-[#B89146]">
+              <div className="mx-auto mt-9 h-px w-12 bg-[#B89146]/60" />
+
+              <p className="mt-8 font-serif text-2xl font-medium text-[#8B6A34] sm:text-3xl">
                 Member No. ___ of 100
               </p>
             </div>
