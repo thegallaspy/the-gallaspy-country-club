@@ -94,14 +94,14 @@ export default function Hero() {
               : "translate-y-5 opacity-0"
           }`}
         >
-          {/* FALCON CREST */}
+          {/* UPDATED OFFICIAL GALLASPY FALCON LOGO */}
           <Image
-            src="/images/falcon-logo.png"
+            src="/images/falcon-logo-2026.png"
             alt="The Gallaspy Falcon"
-            width={120}
-            height={120}
+            width={160}
+            height={160}
             priority
-            className="mb-5 h-auto w-[88px] object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.35)] sm:mb-7 sm:w-[110px] lg:w-[120px]"
+            className="mb-5 h-auto w-[96px] object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.35)] sm:mb-7 sm:w-[118px] lg:w-[128px]"
           />
 
           <div className="flex items-center gap-3 sm:gap-4">
