@@ -3,84 +3,109 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Members Only Collection | The Gallaspy Apparel",
+  title: "Apparel | The Gallaspy Golf & Country Club",
   description:
-    "Explore the future Members Only apparel collection of The Gallaspy Golf & Country Club.",
+    "Explore The Gallaspy Collection, Members Only apparel, and the Falcon Society founding collection.",
 };
 
-const memberProducts = [
+const collections = [
   {
-    name: "Navy Falcon Polo",
-    category: "Polos",
-    image: "/images/apparel/members/navy-falcon-polo.jpg",
+    eyebrow: "Public Collection",
+    title: "The Gallaspy Collection",
+    description:
+      "Signature golf and lifestyle apparel representing The Gallaspy. Available to golfers and supporters through selected public releases.",
+    href: "/apparel/gallaspy",
+    action: "Shop the Collection",
+    access: "Public Purchase",
+    image:
+      "/images/apparel/gallaspy/gallaspy-collection.jpg",
+    imageAlt:
+      "The Gallaspy public apparel collection",
+    tone: "public" as const,
   },
   {
-    name: "White Falcon Polo",
-    category: "Polos",
-    image: "/images/apparel/members/white-falcon-polo.jpg",
+    eyebrow: "Private Club Collection",
+    title: "Members Only",
+    description:
+      "A private apparel collection reserved exclusively for members of The Gallaspy Golf & Country Club — designed as a lasting expression of club belonging.",
+    href: "/apparel/members",
+    action: "View Member Collection",
+    access: "Members Only",
+    image:
+      "/images/apparel/members/member-collection.jpg",
+    imageAlt:
+      "The Gallaspy Members Only apparel collection",
+    tone: "members" as const,
   },
   {
-    name: "Forest Green Falcon Polo",
-    category: "Polos",
-    image: "/images/apparel/members/forest-green-falcon-polo.jpg",
-  },
-  {
-    name: "Navy Falcon Hat",
-    category: "Headwear",
-    image: "/images/apparel/members/navy-falcon-hat.jpg",
-  },
-  {
-    name: "White Falcon Hat",
-    category: "Headwear",
-    image: "/images/apparel/members/white-falcon-hat.jpg",
-  },
-  {
-    name: "Forest Green Falcon Hat",
-    category: "Headwear",
-    image: "/images/apparel/members/forest-green-falcon-hat.jpg",
+    eyebrow: "Founding Collection",
+    title: "Falcon Society",
+    description:
+      "A founding collection reserved for the first 100 members who define the opening chapter of The Gallaspy and carry its earliest traditions forward.",
+    href: "/apparel/falcon-society",
+    action: "View Falcon Society",
+    access: "Founding 100",
+    image:
+      "/images/apparel/falcon-society/falcon-society-collection.jpg",
+    imageAlt:
+      "The Gallaspy Falcon Society apparel collection",
+    tone: "falcon" as const,
   },
 ];
 
-export default function MembersCollectionPage() {
+export default function ApparelPage() {
   return (
     <main className="overflow-hidden bg-[#F7F4EE] text-[#10263F]">
       {/* HERO */}
-      <section className="relative flex min-h-[68vh] items-center overflow-hidden bg-[#10263F] px-5 pt-[82px] text-white sm:px-8 lg:px-10">
+      <section className="relative flex min-h-[76vh] items-center overflow-hidden px-5 pt-[82px] text-white sm:px-8 lg:px-10">
         <Image
-          src="/images/apparel/members/member-collection.jpg"
-          alt="The Gallaspy Members Only apparel collection"
+          src="/images/apparel/apparel-hero.jpg"
+          alt="The Gallaspy apparel collection"
           fill
           priority
           sizes="100vw"
           className="object-cover"
         />
 
-        <div className="absolute inset-0 bg-[#071827]/68" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#071827]/95 via-[#071827]/76 to-[#071827]/35" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#071827]/75 via-transparent to-[#071827]/20" />
+        <div className="absolute inset-0 bg-[#071827]/58" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#071827]/96 via-[#071827]/70 to-[#071827]/24" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#071827]/78 via-transparent to-[#071827]/20" />
 
         <div className="relative z-10 mx-auto w-full max-w-6xl py-24">
           <div className="max-w-3xl">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.4em] text-[#FFD76A]">
-              Private Club Collection
+            <p className="text-[10px] font-semibold uppercase tracking-[0.42em] text-[#FFD76A]">
+              The Gallaspy Apparel
             </p>
 
-            <h1 className="mt-5 font-serif text-[3rem] font-light leading-[0.98] sm:text-6xl lg:text-[5rem]">
-              Members
-              <span className="block text-[#FFD76A]">Only</span>
+            <h1 className="mt-5 max-w-4xl font-serif text-[3rem] font-light leading-[0.98] sm:text-6xl lg:text-[5.2rem]">
+              Three Collections.
+              <span className="block text-[#FFD76A]">
+                Three Levels of Belonging.
+              </span>
             </h1>
 
             <div className="mt-7 h-px w-20 bg-[#B89146]" />
 
-            <p className="mt-7 max-w-2xl text-base leading-8 text-white/80 sm:text-lg">
-              A future private collection reserved for verified members of The
-              Gallaspy Golf &amp; Country Club.
+            <p className="mt-7 max-w-2xl text-base leading-8 text-white/82 sm:text-lg">
+              Signature Gallaspy apparel for the public, private merchandise
+              reserved for members, and a founding collection created for the
+              Falcon Society.
             </p>
 
-            <div className="mt-8 inline-flex rounded-full border border-[#FFD76A]/40 bg-[#10263F]/40 px-5 py-2.5 backdrop-blur-sm">
-              <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#FFD76A]">
-                Membership Required for Purchase
-              </p>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Link
+                href="/apparel/gallaspy"
+                className="inline-flex min-h-[50px] items-center justify-center rounded-full bg-[#FFD76A] px-8 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#10263F] transition hover:-translate-y-0.5 hover:bg-white"
+              >
+                Shop The Gallaspy Collection
+              </Link>
+
+              <Link
+                href="#collections"
+                className="inline-flex min-h-[50px] items-center justify-center rounded-full border border-white/45 bg-[#10263F]/25 px-8 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-[#FFD76A] hover:text-[#FFD76A]"
+              >
+                Explore All Collections
+              </Link>
             </div>
           </div>
         </div>
@@ -88,15 +113,17 @@ export default function MembersCollectionPage() {
 
       {/* INTRO */}
       <section className="px-5 py-20 sm:px-8 sm:py-24 lg:px-10">
-        <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+        <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end lg:gap-20">
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#B89146]">
-              The Member Collection
+            <p className="text-[10px] font-semibold uppercase tracking-[0.38em] text-[#B89146]">
+              The Collection Structure
             </p>
 
             <h2 className="mt-5 font-serif text-[2.6rem] font-light leading-tight sm:text-5xl">
-              The Falcon
-              <span className="block">Reserved for Members</span>
+              What You Wear
+              <span className="block">
+                Should Mean Something
+              </span>
             </h2>
 
             <div className="mt-7 h-px w-16 bg-[#B89146]" />
@@ -104,146 +131,213 @@ export default function MembersCollectionPage() {
 
           <div className="lg:border-l lg:border-[#10263F]/12 lg:pl-12">
             <p className="font-serif text-2xl font-light leading-relaxed sm:text-3xl">
-              Publicly visible. Privately available.
+              Public apparel represents the brand. Private apparel represents
+              belonging.
             </p>
 
             <p className="mt-6 text-sm leading-7 text-[#52605A] sm:text-base sm:leading-8">
-              The Member Collection uses the Falcon identity to distinguish
-              formal club membership from general brand support. Once
-              membership is established, purchase access will be limited to
-              verified members.
+              The Gallaspy Collection is available to golfers and supporters.
+              Members Only and Falcon Society apparel remain intentionally
+              restricted so each collection preserves the meaning behind the
+              status it represents.
             </p>
           </div>
         </div>
       </section>
 
-      {/* PRODUCT SHOWCASE */}
-      <section className="bg-white px-5 py-20 sm:px-8 sm:py-24 lg:px-10 lg:py-28">
-        <div className="mx-auto w-full max-w-6xl">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#B89146]">
-                Members Only
-              </p>
+      {/* COLLECTIONS */}
+      <section
+        id="collections"
+        className="scroll-mt-24 bg-white px-5 py-20 sm:px-8 sm:py-24 lg:px-10 lg:py-28"
+      >
+        <div className="mx-auto w-full max-w-6xl space-y-10">
+          {collections.map((collection, index) => {
+            const reverse = index === 1;
 
-              <h2 className="mt-4 font-serif text-[2.7rem] font-light sm:text-5xl">
-                Falcon Collection
-              </h2>
-            </div>
+            const panelClass =
+              collection.tone === "public"
+                ? "border-[#10263F]/10 bg-[#F7F4EE]"
+                : collection.tone === "members"
+                  ? "border-white/10 bg-[#10263F] text-white"
+                  : "border-[#D4AF37]/28 bg-[#0D3027] text-white shadow-[0_28px_80px_rgba(13,48,39,0.16)]";
 
-            <p className="max-w-md text-sm leading-7 text-[#52605A]">
-              These pieces may be displayed publicly, but purchase access will
-              require verified membership.
-            </p>
-          </div>
+            const eyebrowClass =
+              collection.tone === "public"
+                ? "text-[#B89146]"
+                : "text-[#FFD76A]";
 
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {memberProducts.map((product) => (
+            const dividerClass =
+              collection.tone === "public"
+                ? "bg-[#B89146]"
+                : "bg-[#FFD76A]";
+
+            const bodyClass =
+              collection.tone === "public"
+                ? "text-[#52605A]"
+                : "text-white/70";
+
+            const buttonClass =
+              collection.tone === "public"
+                ? "border-[#10263F] bg-[#10263F] text-white hover:border-[#B89146] hover:bg-[#B89146]"
+                : "border-[#FFD76A] text-white hover:bg-[#FFD76A] hover:text-[#10263F]";
+
+            return (
               <article
-                key={product.name}
-                className="group overflow-hidden rounded-[22px] border border-[#10263F]/10 bg-[#F7F4EE] transition duration-300 hover:-translate-y-1 hover:border-[#B89146]/35 hover:shadow-[0_20px_50px_rgba(16,38,63,0.1)]"
+                key={collection.title}
+                className={`overflow-hidden rounded-[28px] border ${panelClass}`}
               >
-                <div className="relative aspect-[4/5] overflow-hidden bg-[#ECE6DB]">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover transition duration-500 group-hover:scale-[1.02]"
-                  />
+                <div className="grid lg:grid-cols-2">
+                  {/* IMAGE */}
+                  <div
+                    className={`relative min-h-[420px] overflow-hidden sm:min-h-[520px] lg:min-h-[590px] ${
+                      reverse ? "lg:order-2" : ""
+                    }`}
+                  >
+                    <Image
+                      src={collection.image}
+                      alt={collection.imageAlt}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover transition duration-700 hover:scale-[1.025]"
+                    />
 
-                  <div className="absolute right-4 top-4 rounded-full border border-white/25 bg-[#10263F]/80 px-3 py-1.5 backdrop-blur-md">
-                    <p className="text-[8px] font-semibold uppercase tracking-[0.16em] text-[#FFD76A]">
-                      Member Exclusive
-                    </p>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#071827]/60 via-transparent to-transparent" />
+
+                    {collection.tone === "falcon" && (
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,215,106,0.08),transparent_38%)]" />
+                    )}
+
+                    <div className="absolute left-5 top-5 rounded-full border border-white/20 bg-[#10263F]/78 px-4 py-2 backdrop-blur-md sm:left-6 sm:top-6">
+                      <p className="text-[8px] font-semibold uppercase tracking-[0.2em] text-[#FFD76A]">
+                        {collection.access}
+                      </p>
+                    </div>
                   </div>
-                </div>
 
-                <div className="p-6">
-                  <p className="text-[9px] font-semibold uppercase tracking-[0.24em] text-[#B89146]">
-                    {product.category}
-                  </p>
-
-                  <h3 className="mt-4 font-serif text-[1.8rem] font-light leading-tight">
-                    {product.name}
-                  </h3>
-
-                  <div className="mt-6 rounded-[14px] border border-[#10263F]/10 bg-white px-4 py-4">
-                    <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#8B6A34]">
-                      Membership Required
+                  {/* CONTENT */}
+                  <div
+                    className={`flex min-h-[420px] flex-col justify-center p-8 sm:p-10 lg:min-h-[590px] lg:p-14 ${
+                      reverse ? "lg:order-1" : ""
+                    } ${
+                      collection.tone === "falcon"
+                        ? "lg:px-16"
+                        : ""
+                    }`}
+                  >
+                    <p
+                      className={`text-[9px] font-semibold uppercase tracking-[0.3em] ${eyebrowClass}`}
+                    >
+                      {collection.eyebrow}
                     </p>
 
-                    <p className="mt-2 text-xs leading-5 text-[#52605A]">
-                      Purchase access will be available only to verified members
-                      once formal club membership begins.
+                    <h2 className="mt-5 min-h-[3.2rem] font-serif text-4xl font-light leading-tight sm:text-5xl lg:min-h-[4rem]">
+                      {collection.title}
+                    </h2>
+
+                    <div
+                      className={`mt-6 h-px w-14 ${dividerClass}`}
+                    />
+
+                    <p
+                      className={`mt-6 max-w-xl text-sm leading-7 sm:text-base ${bodyClass}`}
+                    >
+                      {collection.description}
                     </p>
+
+                    <div className="mt-10">
+                      <Link
+                        href={collection.href}
+                        className={`inline-flex min-h-[50px] min-w-[220px] items-center justify-center rounded-full border px-7 text-[10px] font-semibold uppercase tracking-[0.2em] transition hover:-translate-y-0.5 ${buttonClass}`}
+                      >
+                        {collection.action}
+                        <span className="ml-3">→</span>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </article>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </section>
 
-      {/* MEMBERSHIP CONNECTION */}
-      <section className="bg-[#10263F] px-5 py-16 text-white sm:px-8 lg:px-10 lg:py-20">
-        <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[1fr_0.8fr] lg:items-center">
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-[#FFD76A]">
-              Future Member Access
-            </p>
+      {/* ACCESS LEVELS */}
+      <section className="bg-[#F7F4EE] px-5 py-20 sm:px-8 sm:py-24 lg:px-10">
+        <div className="mx-auto grid w-full max-w-6xl gap-6 md:grid-cols-3">
+          <AccessCard
+            number="01"
+            title="Public"
+            subtitle="The Gallaspy Collection"
+            description="Available for purchase by golfers, supporters, and customers without club membership."
+          />
 
-            <h2 className="mt-4 font-serif text-4xl font-light leading-tight sm:text-5xl">
-              Membership Comes First.
-              <span className="block">The Collection Follows.</span>
-            </h2>
+          <AccessCard
+            number="02"
+            title="Members"
+            subtitle="Members Only"
+            description="Reserved for verified members as a permanent expression of club belonging."
+          />
 
-            <p className="mt-6 max-w-2xl text-sm leading-7 text-white/68 sm:text-base">
-              The Member Collection is not currently for sale. Formal
-              membership access, eligibility, and purchasing procedures will be
-              established when club membership is officially launched.
-            </p>
-          </div>
-
-          <div className="lg:border-l lg:border-white/12 lg:pl-10">
-            <p className="text-sm leading-7 text-white/65">
-              Interested in the future club? Join the Membership Interest List
-              to follow development updates and future membership
-              announcements.
-            </p>
-
-            <Link
-              href="/membership"
-              className="mt-7 inline-flex min-h-[46px] items-center justify-center rounded-full border border-[#FFD76A] bg-[#FFD76A] px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#10263F] transition hover:bg-white"
-            >
-              Membership Interest
-            </Link>
-          </div>
+          <AccessCard
+            number="03"
+            title="Founding 100"
+            subtitle="Falcon Society"
+            description="Founding apparel reserved for the earliest members who define The Gallaspy's opening chapter."
+          />
         </div>
       </section>
 
-      {/* ACCESS NOTE */}
-      <section className="bg-[#EEE8DC] px-5 py-10 text-center sm:px-8">
-        <div className="mx-auto max-w-4xl">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#B89146]">
-            Member Collection Access
+      {/* FINAL NOTE */}
+      <section className="bg-[#EEE8DC] px-5 py-12 sm:px-8">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#B89146]">
+            Collection Access
           </p>
 
           <p className="mt-4 text-xs leading-6 text-[#52605A]">
-            Display of Member Collection merchandise does not constitute a
-            current membership offering or guarantee future access. Eligibility
-            to purchase member-exclusive merchandise will be governed by
-            formal membership requirements established by The Gallaspy.
+            Purchasing public Gallaspy merchandise does not confer membership,
+            Falcon Society status, club privileges, or priority membership
+            consideration. Members Only and Falcon Society collections remain
+            subject to their respective eligibility requirements.
           </p>
-
-          <Link
-            href="/apparel"
-            className="mt-6 inline-flex text-[10px] font-semibold uppercase tracking-[0.22em] text-[#8B6A34] transition hover:text-[#10263F]"
-          >
-            ← Back to All Apparel
-          </Link>
         </div>
       </section>
     </main>
+  );
+}
+
+function AccessCard({
+  number,
+  title,
+  subtitle,
+  description,
+}: {
+  number: string;
+  title: string;
+  subtitle: string;
+  description: string;
+}) {
+  return (
+    <article className="rounded-[22px] border border-[#10263F]/10 bg-white p-7">
+      <div className="flex items-center justify-between">
+        <p className="text-[9px] font-semibold uppercase tracking-[0.24em] text-[#B89146]">
+          {number}
+        </p>
+
+        <div className="h-px w-10 bg-[#B89146]" />
+      </div>
+
+      <h3 className="mt-6 font-serif text-3xl font-light">
+        {title}
+      </h3>
+
+      <p className="mt-2 text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
+        {subtitle}
+      </p>
+
+      <p className="mt-5 text-sm leading-7 text-[#52605A]">
+        {description}
+      </p>
+    </article>
   );
 }

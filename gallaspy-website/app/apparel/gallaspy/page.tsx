@@ -12,50 +12,68 @@ const products = [
   {
     name: "Navy Performance Polo",
     category: "Polos",
+    productType: "polo" as const,
     colorLabel: "Navy",
-    scriptImage: "/images/apparel/gallaspy/navy-script-polo.jpg",
-    crestImage: "/images/apparel/gallaspy/navy-crest-polo.jpg",
-    price: "$95",
+    scriptImage:
+      "/images/apparel/gallaspy/navy-script-polo.jpg",
+    crestImage:
+      "/images/apparel/gallaspy/navy-crest-polo.jpg",
+    price: "$70",
   },
   {
     name: "White Performance Polo",
     category: "Polos",
+    productType: "polo" as const,
     colorLabel: "White",
-    scriptImage: "/images/apparel/gallaspy/white-script-polo.jpg",
-    crestImage: "/images/apparel/gallaspy/white-crest-polo.jpg",
-    price: "$95",
+    scriptImage:
+      "/images/apparel/gallaspy/white-script-polo.jpg",
+    crestImage:
+      "/images/apparel/gallaspy/white-crest-polo.jpg",
+    price: "$70",
   },
   {
     name: "Forest Green Performance Polo",
     category: "Polos",
+    productType: "polo" as const,
     colorLabel: "Forest Green",
-    scriptImage: "/images/apparel/gallaspy/forest-green-script-polo.jpg",
-    crestImage: "/images/apparel/gallaspy/forest-green-crest-polo.jpg",
-    price: "$95",
+    scriptImage:
+      "/images/apparel/gallaspy/forest-green-script-polo.jpg",
+    crestImage:
+      "/images/apparel/gallaspy/forest-green-crest-polo.jpg",
+    price: "$70",
   },
   {
     name: "Navy Club Hat",
     category: "Headwear",
+    productType: "hat" as const,
     colorLabel: "Navy",
-    scriptImage: "/images/apparel/gallaspy/navy-script-hat.jpg",
-    crestImage: "/images/apparel/gallaspy/navy-crest-hat.jpg",
-    price: "$42",
+    scriptImage:
+      "/images/apparel/gallaspy/navy-script-hat.jpg",
+    crestImage:
+      "/images/apparel/gallaspy/navy-crest-hat.jpg",
+    price: "$45",
   },
   {
     name: "White Club Hat",
     category: "Headwear",
+    productType: "hat" as const,
     colorLabel: "White",
-    scriptImage: "/images/apparel/gallaspy/white-script-hat.jpg",
-    crestImage: "/images/apparel/gallaspy/white-crest-hat.jpg",
-    price: "$42",
+    scriptImage:
+      "/images/apparel/gallaspy/white-script-hat.jpg",
+    crestImage:
+      "/images/apparel/gallaspy/white-crest-hat.jpg",
+    price: "$45",
   },
   {
     name: "Forest Green Club Hat",
     category: "Headwear",
+    productType: "hat" as const,
     colorLabel: "Forest Green",
-    scriptImage: "/images/apparel/gallaspy/forest-green-script-hat.jpg",
-    crestImage: "/images/apparel/gallaspy/forest-green-crest-hat.jpg",
-    price: "$42",
+    scriptImage:
+      "/images/apparel/gallaspy/forest-green-script-hat.jpg",
+    crestImage:
+      "/images/apparel/gallaspy/forest-green-crest-hat.jpg",
+    price: "$45",
   },
 ];
 
@@ -74,7 +92,9 @@ export default function GallaspyCollectionPage() {
 
             <h1 className="mt-5 font-serif text-[3rem] font-light leading-[0.98] sm:text-6xl lg:text-[5rem]">
               The Gallaspy
-              <span className="block text-[#FFD76A]">Collection</span>
+              <span className="block text-[#FFD76A]">
+                Collection
+              </span>
             </h1>
 
             <div className="mt-7 h-px w-20 bg-[#B89146]" />
@@ -137,13 +157,13 @@ export default function GallaspyCollectionPage() {
               </p>
 
               <h2 className="mt-4 font-serif text-[2.7rem] font-light sm:text-5xl">
-                Polos & Headwear
+                Polos &amp; Headwear
               </h2>
             </div>
 
             <p className="max-w-md text-sm leading-7 text-[#52605A]">
-              Select Script or Crest on each product card to preview the
-              corresponding design.
+              Select Script or Crest on each product card, then choose your
+              size when purchasing a polo.
             </p>
           </div>
 
@@ -153,6 +173,7 @@ export default function GallaspyCollectionPage() {
                 key={product.name}
                 name={product.name}
                 category={product.category}
+                productType={product.productType}
                 colorLabel={product.colorLabel}
                 scriptImage={product.scriptImage}
                 crestImage={product.crestImage}
@@ -184,8 +205,8 @@ export default function GallaspyCollectionPage() {
 
           <div className="lg:border-l lg:border-white/12 lg:pl-10">
             <p className="text-sm leading-7 text-white/65">
-              Checkout will be activated once final pricing, inventory,
-              production, sizing, and fulfillment are ready.
+              Polos are $70 and hats are $45. Checkout is securely processed
+              through Square.
             </p>
 
             <Link
