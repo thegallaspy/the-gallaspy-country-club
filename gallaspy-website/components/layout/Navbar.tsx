@@ -18,6 +18,7 @@ const clubLinks = [
 
 const primaryLinks = [
   { title: "Invitational", href: "/invitational" },
+  { title: "Apparel", href: "/apparel" },
   { title: "Our Story", href: "/why-the-gallaspy" },
 ];
 
@@ -218,19 +219,14 @@ export function Navbar() {
               <div className="overflow-hidden rounded-[18px] border border-white/10 bg-[#10263F]/98 p-2.5 shadow-[0_24px_70px_rgba(0,0,0,0.32)] backdrop-blur-xl">
                 <div className="grid grid-cols-2 gap-1">
                   {clubLinks.map((item) => {
-                    const active = isRouteActive(
-                      pathname,
-                      item.href
-                    );
+                    const active = isRouteActive(pathname, item.href);
 
                     return (
                       <Link
                         key={item.href}
                         href={item.href}
                         onClick={closeMenus}
-                        aria-current={
-                          active ? "page" : undefined
-                        }
+                        aria-current={active ? "page" : undefined}
                         className={[
                           "rounded-xl px-4 py-3.5",
                           "text-[9px] font-semibold uppercase tracking-[0.15em]",
@@ -250,21 +246,16 @@ export function Navbar() {
             </div>
           </div>
 
-          {/* INVITATIONAL + OUR STORY */}
+          {/* INVITATIONAL + APPAREL + OUR STORY */}
           {primaryLinks.map((item) => {
-            const active = isRouteActive(
-              pathname,
-              item.href
-            );
+            const active = isRouteActive(pathname, item.href);
 
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={closeMenus}
-                aria-current={
-                  active ? "page" : undefined
-                }
+                aria-current={active ? "page" : undefined}
                 className={navLinkClass(active)}
               >
                 {item.title}
@@ -285,19 +276,13 @@ export function Navbar() {
           {/* MEMBERSHIP INTEREST */}
           <div
             className="relative"
-            onMouseEnter={() =>
-              setIsMembershipOpen(true)
-            }
-            onMouseLeave={() =>
-              setIsMembershipOpen(false)
-            }
+            onMouseEnter={() => setIsMembershipOpen(true)}
+            onMouseLeave={() => setIsMembershipOpen(false)}
           >
             <button
               type="button"
               onClick={() => {
-                setIsMembershipOpen(
-                  (current) => !current
-                );
+                setIsMembershipOpen((current) => !current);
                 setIsClubOpen(false);
               }}
               className={[
@@ -323,8 +308,7 @@ export function Navbar() {
                 className={[
                   "absolute inset-x-0 bottom-[17px] h-px origin-left bg-[#FFD76A]",
                   "transition-transform duration-300",
-                  isMembershipRoute ||
-                  isMembershipOpen
+                  isMembershipRoute || isMembershipOpen
                     ? "scale-x-100"
                     : "scale-x-0 group-hover:scale-x-100",
                 ].join(" ")}
@@ -344,19 +328,14 @@ export function Navbar() {
               <div className="overflow-hidden rounded-[18px] border border-white/10 bg-[#10263F]/98 p-2.5 shadow-[0_24px_70px_rgba(0,0,0,0.32)] backdrop-blur-xl">
                 <div className="grid gap-1">
                   {membershipLinks.map((item) => {
-                    const active = isRouteActive(
-                      pathname,
-                      item.href
-                    );
+                    const active = isRouteActive(pathname, item.href);
 
                     return (
                       <Link
                         key={item.href}
                         href={item.href}
                         onClick={closeMenus}
-                        aria-current={
-                          active ? "page" : undefined
-                        }
+                        aria-current={active ? "page" : undefined}
                         className={[
                           "rounded-xl px-4 py-3.5",
                           "text-[9px] font-semibold uppercase tracking-[0.15em]",
@@ -381,9 +360,7 @@ export function Navbar() {
             href="/contact"
             onClick={closeMenus}
             aria-current={
-              isRouteActive(pathname, "/contact")
-                ? "page"
-                : undefined
+              isRouteActive(pathname, "/contact") ? "page" : undefined
             }
             className={[
               "ml-1 inline-flex min-h-[42px] items-center justify-center rounded-full",
@@ -403,9 +380,7 @@ export function Navbar() {
         {/* MOBILE BUTTON */}
         <button
           type="button"
-          onClick={() =>
-            setIsMobileOpen((current) => !current)
-          }
+          onClick={() => setIsMobileOpen((current) => !current)}
           className={[
             "flex h-11 w-11 items-center justify-center rounded-full",
             "border border-[#FFD76A]/60 text-[#FFD76A]",
@@ -414,22 +389,15 @@ export function Navbar() {
             "focus-visible:ring-2 focus-visible:ring-[#FFD76A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#10263F]",
           ].join(" ")}
           aria-label={
-            isMobileOpen
-              ? "Close navigation menu"
-              : "Open navigation menu"
+            isMobileOpen ? "Close navigation menu" : "Open navigation menu"
           }
           aria-expanded={isMobileOpen}
           aria-controls="mobile-navigation"
         >
-          <span
-            className="relative h-4 w-5"
-            aria-hidden="true"
-          >
+          <span className="relative h-4 w-5" aria-hidden="true">
             <span
               className={`absolute left-0 top-0 h-[1.5px] w-5 bg-current transition-all duration-300 ${
-                isMobileOpen
-                  ? "translate-y-[7px] rotate-45"
-                  : ""
+                isMobileOpen ? "translate-y-[7px] rotate-45" : ""
               }`}
             />
 
@@ -443,9 +411,7 @@ export function Navbar() {
 
             <span
               className={`absolute left-0 top-[14px] h-[1.5px] w-5 bg-current transition-all duration-300 ${
-                isMobileOpen
-                  ? "-translate-y-[7px] -rotate-45"
-                  : ""
+                isMobileOpen ? "-translate-y-[7px] -rotate-45" : ""
               }`}
             />
           </span>
@@ -477,9 +443,7 @@ export function Navbar() {
             className={[
               "flex w-full items-center justify-between border-b border-white/10 py-4",
               "text-left text-[11px] font-semibold uppercase tracking-[0.18em]",
-              isClubRoute
-                ? "text-white"
-                : "text-[#FFD76A]",
+              isClubRoute ? "text-white" : "text-[#FFD76A]",
             ].join(" ")}
             aria-expanded={isClubOpen}
             aria-controls="mobile-club-menu"
@@ -506,19 +470,14 @@ export function Navbar() {
             ].join(" ")}
           >
             {clubLinks.map((item) => {
-              const active = isRouteActive(
-                pathname,
-                item.href
-              );
+              const active = isRouteActive(pathname, item.href);
 
               return (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={closeMenus}
-                  aria-current={
-                    active ? "page" : undefined
-                  }
+                  aria-current={active ? "page" : undefined}
                   className={[
                     "rounded-xl px-4 py-3.5",
                     "text-[10px] font-semibold uppercase tracking-[0.16em]",
@@ -534,21 +493,16 @@ export function Navbar() {
             })}
           </div>
 
-          {/* MOBILE PRIMARY LINKS */}
+          {/* MOBILE INVITATIONAL + APPAREL + OUR STORY */}
           {primaryLinks.map((item) => {
-            const active = isRouteActive(
-              pathname,
-              item.href
-            );
+            const active = isRouteActive(pathname, item.href);
 
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={closeMenus}
-                aria-current={
-                  active ? "page" : undefined
-                }
+                aria-current={active ? "page" : undefined}
                 className={[
                   "flex items-center justify-between border-b border-white/10 py-4",
                   "text-[11px] font-semibold uppercase tracking-[0.18em]",
@@ -574,17 +528,13 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => {
-              setIsMembershipOpen(
-                (current) => !current
-              );
+              setIsMembershipOpen((current) => !current);
               setIsClubOpen(false);
             }}
             className={[
               "flex w-full items-center justify-between border-b border-white/10 py-4",
               "text-left text-[11px] font-semibold uppercase tracking-[0.18em]",
-              isMembershipRoute
-                ? "text-white"
-                : "text-[#FFD76A]",
+              isMembershipRoute ? "text-white" : "text-[#FFD76A]",
             ].join(" ")}
             aria-expanded={isMembershipOpen}
             aria-controls="mobile-membership-menu"
@@ -594,9 +544,7 @@ export function Navbar() {
             <span
               aria-hidden="true"
               className={`transition-transform duration-300 ${
-                isMembershipOpen
-                  ? "rotate-180"
-                  : ""
+                isMembershipOpen ? "rotate-180" : ""
               }`}
             >
               ▾
@@ -613,19 +561,14 @@ export function Navbar() {
             ].join(" ")}
           >
             {membershipLinks.map((item) => {
-              const active = isRouteActive(
-                pathname,
-                item.href
-              );
+              const active = isRouteActive(pathname, item.href);
 
               return (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={closeMenus}
-                  aria-current={
-                    active ? "page" : undefined
-                  }
+                  aria-current={active ? "page" : undefined}
                   className={[
                     "rounded-xl px-4 py-3.5",
                     "text-[10px] font-semibold uppercase tracking-[0.16em]",
