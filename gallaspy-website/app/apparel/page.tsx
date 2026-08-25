@@ -16,7 +16,6 @@ const collections = [
       "Signature golf and lifestyle apparel representing The Gallaspy. Available to golfers and supporters through selected public releases.",
     href: "/apparel/gallaspy",
     action: "Shop the Collection",
-    access: "Public Purchase",
     image:
       "/images/apparel/gallaspy/gallaspy-collection.jpg",
     imageAlt:
@@ -30,7 +29,6 @@ const collections = [
       "A private apparel collection reserved exclusively for members of The Gallaspy Golf & Country Club — designed as a lasting expression of club belonging.",
     href: "/apparel/members",
     action: "View Member Collection",
-    access: "Members Only",
     image:
       "/images/apparel/members/member-collection.jpg",
     imageAlt:
@@ -44,7 +42,6 @@ const collections = [
       "A founding collection reserved for the first 100 members who define the opening chapter of The Gallaspy and carry its earliest traditions forward.",
     href: "/apparel/falcon-society",
     action: "View Falcon Society",
-    access: "Founding 100",
     image:
       "/images/apparel/falcon-society/falcon-society-collection.jpg",
     imageAlt:
@@ -207,11 +204,6 @@ export default function ApparelPage() {
                       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,215,106,0.08),transparent_38%)]" />
                     )}
 
-                    <div className="absolute left-5 top-5 rounded-full border border-white/20 bg-[#10263F]/78 px-4 py-2 backdrop-blur-md sm:left-6 sm:top-6">
-                      <p className="text-[8px] font-semibold uppercase tracking-[0.2em] text-[#FFD76A]">
-                        {collection.access}
-                      </p>
-                    </div>
                   </div>
 
                   {/* CONTENT */}

@@ -123,11 +123,6 @@ export default function FalconSocietyCollectionPage() {
               generation of The Gallaspy Golf &amp; Country Club.
             </p>
 
-            <div className="mt-8 inline-flex rounded-full border border-[#FFD76A]/40 bg-[#10263F]/40 px-5 py-2.5 backdrop-blur-sm">
-              <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#FFD76A]">
-                Display Only · Founding 100
-              </p>
-            </div>
           </div>
         </div>
       </section>

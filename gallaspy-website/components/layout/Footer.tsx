@@ -59,8 +59,8 @@ export default function Footer() {
             <div className="absolute inset-0 scale-75 rounded-full bg-[#FFD76A]/10 blur-3xl transition duration-700 group-hover:scale-100 group-hover:bg-[#FFD76A]/15" />
 
             <Image
-              src="/logos/crest.png"
-              alt="The Gallaspy crest"
+              src="/logos/logo.png"
+              alt="The Gallaspy logo"
               width={170}
               height={170}
               className="relative h-auto w-[108px] object-contain drop-shadow-[0_18px_35px_rgba(0,0,0,0.35)] sm:w-[125px]"

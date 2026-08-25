@@ -96,7 +96,7 @@ export default function Hero() {
         >
           {/* UPDATED OFFICIAL GALLASPY FALCON LOGO */}
           <Image
-            src="/logos/falcon-society-logo.png"
+            src="/images/falcon-logo-2026.png"
             alt="The Gallaspy Falcon"
             width={160}
             height={160}
