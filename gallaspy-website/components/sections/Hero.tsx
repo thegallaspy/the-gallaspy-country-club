@@ -162,29 +162,6 @@ export default function Hero() {
           tradition, and enduring legacy.
         </p>
 
-        {/* INVITATIONAL CALLOUT */}
-        <div
-          className={`mt-7 flex flex-wrap items-center justify-center gap-x-2 gap-y-2 text-[8px] font-semibold uppercase tracking-[0.18em] text-white/65 transition-all delay-[575ms] duration-1000 sm:gap-x-3 sm:text-[9px] sm:tracking-[0.22em] ${
-            isReady
-              ? "translate-y-0 opacity-100"
-              : "translate-y-5 opacity-0"
-          }`}
-        >
-          <span>1st Annual Gallaspy Invitational</span>
-
-          <span className="text-[#FFD76A]">·</span>
-
-          <span>June 21, 2027</span>
-
-          <span className="text-[#FFD76A]">·</span>
-
-          <span>100-Player Field</span>
-
-          <span className="text-[#FFD76A]">·</span>
-
-          <span>4-Person Scramble</span>
-        </div>
-
         {/* PRIMARY CTA */}
         <div
           className={`mt-8 flex w-full max-w-[440px] flex-col items-center justify-center gap-3 transition-all delay-[650ms] duration-1000 sm:mt-10 sm:max-w-none sm:flex-row sm:gap-4 ${
@@ -229,30 +206,6 @@ export default function Hero() {
           </Link>
         </div>
 
-        {/* SECONDARY LINKS */}
-        <div
-          className={`mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 transition-all delay-[725ms] duration-1000 ${
-            isReady
-              ? "translate-y-0 opacity-100"
-              : "translate-y-5 opacity-0"
-          }`}
-        >
-          <Link
-            href="/invitational"
-            className="text-[8px] font-semibold uppercase tracking-[0.22em] text-white/60 transition hover:text-[#FFD76A] sm:text-[9px]"
-          >
-            Explore Invitational
-          </Link>
-
-          <span className="hidden h-3 w-px bg-white/20 sm:block" />
-
-          <Link
-            href="/why-the-gallaspy"
-            className="text-[8px] font-semibold uppercase tracking-[0.22em] text-white/60 transition hover:text-[#FFD76A] sm:text-[9px]"
-          >
-            Discover Our Story
-          </Link>
-        </div>
       </div>
 
       {/* SCROLL INDICATOR */}

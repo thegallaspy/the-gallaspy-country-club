@@ -8,11 +8,14 @@ import Founders from "@/components/sections/Founders";
 import InvestmentPreview from "@/components/sections/InvestmentPreview";
 import BeginJourney from "@/components/sections/BeginJourney";
 import Reveal from "@/components/ui/Reveal";
+import HomeTransition from "@/components/sections/HomeTransition";
 
 export default function Home() {
   return (
     <>
       <Hero />
+
+      <HomeTransition />
 
       <Reveal>
         <InvitationalPreview />
