@@ -1,47 +1,134 @@
-import type { Metadata } from "next";
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
-export const metadata: Metadata = {
-  title: "Members Only Collection | The Gallaspy Apparel",
-  description:
-    "Explore the future Members Only apparel collection of The Gallaspy Golf & Country Club.",
-};
+type CollectionView = "men" | "women";
 
-const memberProducts = [
+const mensProducts = [
   {
     name: "Navy Falcon Polo",
     category: "Polos",
-    image: "/images/apparel/members/navy-falcon-polo.jpg",
+    image:
+      "/images/apparel/members/navy-falcon-polo.jpg",
   },
   {
     name: "White Falcon Polo",
     category: "Polos",
-    image: "/images/apparel/members/white-falcon-polo.jpg",
+    image:
+      "/images/apparel/members/white-falcon-polo.jpg",
   },
   {
     name: "Forest Green Falcon Polo",
     category: "Polos",
-    image: "/images/apparel/members/forest-green-falcon-polo.jpg",
+    image:
+      "/images/apparel/members/forest-green-falcon-polo.jpg",
   },
   {
     name: "Navy Falcon Hat",
     category: "Headwear",
-    image: "/images/apparel/members/navy-falcon-hat.jpg",
+    image:
+      "/images/apparel/members/navy-falcon-hat.jpg",
   },
   {
     name: "White Falcon Hat",
     category: "Headwear",
-    image: "/images/apparel/members/white-falcon-hat.jpg",
+    image:
+      "/images/apparel/members/white-falcon-hat.jpg",
   },
   {
     name: "Forest Green Falcon Hat",
     category: "Headwear",
-    image: "/images/apparel/members/forest-green-falcon-hat.jpg",
+    image:
+      "/images/apparel/members/forest-green-falcon-hat.jpg",
+  },
+];
+
+const womensProducts = [
+  {
+    name: "Navy Women's Falcon Polo",
+    category: "Women's Polos",
+    image:
+      "/images/apparel/members/women/navy-womens-falcon-polo.jpg",
+  },
+  {
+    name: "White Women's Falcon Polo",
+    category: "Women's Polos",
+    image:
+      "/images/apparel/members/women/white-womens-falcon-polo.jpg",
+  },
+  {
+    name: "Forest Green Women's Falcon Polo",
+    category: "Women's Polos",
+    image:
+      "/images/apparel/members/women/forest-green-womens-falcon-polo.jpg",
+  },
+  {
+    name: "Navy Women's Sleeveless Falcon Polo",
+    category: "Women's Sleeveless Polos",
+    image:
+      "/images/apparel/members/women/navy-womens-sleeveless-falcon-polo.jpg",
+  },
+  {
+    name: "White Women's Sleeveless Falcon Polo",
+    category: "Women's Sleeveless Polos",
+    image:
+      "/images/apparel/members/women/white-womens-sleeveless-falcon-polo.jpg",
+  },
+  {
+    name: "Forest Green Women's Sleeveless Falcon Polo",
+    category: "Women's Sleeveless Polos",
+    image:
+      "/images/apparel/members/women/forest-green-womens-sleeveless-falcon-polo.jpg",
+  },
+  {
+    name: "Navy Women's Falcon Skirt",
+    category: "Women's Skirts",
+    image:
+      "/images/apparel/members/women/navy-womens-falcon-skirt.jpg",
+  },
+  {
+    name: "White Women's Falcon Skirt",
+    category: "Women's Skirts",
+    image:
+      "/images/apparel/members/women/white-womens-falcon-skirt.jpg",
+  },
+  {
+    name: "Forest Green Women's Falcon Skirt",
+    category: "Women's Skirts",
+    image:
+      "/images/apparel/members/women/forest-green-womens-falcon-skirt.jpg",
+  },
+  {
+    name: "Navy Women's Falcon Dress",
+    category: "Women's Dresses",
+    image:
+      "/images/apparel/members/women/navy-womens-falcon-dress.jpg",
+  },
+  {
+    name: "White Women's Falcon Dress",
+    category: "Women's Dresses",
+    image:
+      "/images/apparel/members/women/white-womens-falcon-dress.jpg",
+  },
+  {
+    name: "Forest Green Women's Falcon Dress",
+    category: "Women's Dresses",
+    image:
+      "/images/apparel/members/women/forest-green-womens-falcon-dress.jpg",
   },
 ];
 
 export default function MembersCollectionPage() {
+  const [view, setView] =
+    useState<CollectionView>("men");
+
+  const activeProducts =
+    view === "men"
+      ? mensProducts
+      : womensProducts;
+
   return (
     <main className="overflow-hidden bg-[#F7F4EE] text-[#10263F]">
       {/* HERO */}
@@ -67,14 +154,16 @@ export default function MembersCollectionPage() {
 
             <h1 className="mt-5 font-serif text-[3rem] font-light leading-[0.98] sm:text-6xl lg:text-[5rem]">
               Members
-              <span className="block text-[#FFD76A]">Only</span>
+              <span className="block text-[#FFD76A]">
+                Only
+              </span>
             </h1>
 
             <div className="mt-7 h-px w-20 bg-[#B89146]" />
 
             <p className="mt-7 max-w-2xl text-base leading-8 text-white/80 sm:text-lg">
-              A future private collection reserved for verified members of The
-              Gallaspy Golf &amp; Country Club.
+              Falcon apparel reserved exclusively for members of The Gallaspy
+              Golf &amp; Country Club.
             </p>
 
             <div className="mt-8 inline-flex rounded-full border border-[#FFD76A]/40 bg-[#10263F]/40 px-5 py-2.5 backdrop-blur-sm">
@@ -96,7 +185,9 @@ export default function MembersCollectionPage() {
 
             <h2 className="mt-5 font-serif text-[2.6rem] font-light leading-tight sm:text-5xl">
               The Falcon
-              <span className="block">Reserved for Members</span>
+              <span className="block">
+                Reserved for Members
+              </span>
             </h2>
 
             <div className="mt-7 h-px w-16 bg-[#B89146]" />
@@ -108,19 +199,18 @@ export default function MembersCollectionPage() {
             </p>
 
             <p className="mt-6 text-sm leading-7 text-[#52605A] sm:text-base sm:leading-8">
-              The Member Collection uses the Falcon identity to distinguish
-              formal club membership from general brand support. Once
-              membership is established, purchase access will be limited to
-              verified members.
+              The Falcon identity distinguishes formal club membership from
+              general brand support. Member apparel is intended to remain a
+              permanent privilege of belonging to The Gallaspy.
             </p>
           </div>
         </div>
       </section>
 
-      {/* PRODUCT SHOWCASE */}
+      {/* COLLECTION */}
       <section className="bg-white px-5 py-20 sm:px-8 sm:py-24 lg:px-10 lg:py-28">
         <div className="mx-auto w-full max-w-6xl">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#B89146]">
                 Members Only
@@ -131,56 +221,64 @@ export default function MembersCollectionPage() {
               </h2>
             </div>
 
-            <p className="max-w-md text-sm leading-7 text-[#52605A]">
-              These pieces may be displayed publicly, but purchase access will
-              require verified membership.
+            <div className="inline-flex w-fit rounded-full border border-[#10263F]/12 bg-[#F7F4EE] p-1.5">
+              <button
+                type="button"
+                onClick={() => setView("men")}
+                className={`min-w-[120px] rounded-full px-6 py-3 text-[10px] font-semibold uppercase tracking-[0.2em] transition ${
+                  view === "men"
+                    ? "bg-[#10263F] text-white shadow-sm"
+                    : "text-[#10263F]/55 hover:text-[#10263F]"
+                }`}
+              >
+                Men
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setView("women")}
+                className={`min-w-[120px] rounded-full px-6 py-3 text-[10px] font-semibold uppercase tracking-[0.2em] transition ${
+                  view === "women"
+                    ? "bg-[#10263F] text-white shadow-sm"
+                    : "text-[#10263F]/55 hover:text-[#10263F]"
+                }`}
+              >
+                Women
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-col gap-3 border-t border-[#10263F]/10 pt-7 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="font-serif text-2xl font-light">
+                {view === "men"
+                  ? "Men's Member Collection"
+                  : "Women's Member Collection"}
+              </p>
+
+              <p className="mt-2 text-[9px] font-semibold uppercase tracking-[0.22em] text-[#B89146]">
+                Falcon Identity
+              </p>
+            </div>
+
+            <p className="max-w-lg text-sm leading-7 text-[#52605A]">
+              {view === "men"
+                ? "Member polos and headwear in Navy, White, and Forest Green."
+                : "Member polos, sleeveless polos, golf skirts, and dresses in Navy, White, and Forest Green."}
             </p>
           </div>
 
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {memberProducts.map((product) => (
-              <article
-                key={product.name}
-                className="group overflow-hidden rounded-[22px] border border-[#10263F]/10 bg-[#F7F4EE] transition duration-300 hover:-translate-y-1 hover:border-[#B89146]/35 hover:shadow-[0_20px_50px_rgba(16,38,63,0.1)]"
-              >
-                <div className="relative aspect-[4/5] overflow-hidden bg-[#ECE6DB]">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover transition duration-500 group-hover:scale-[1.02]"
-                  />
-
-                  <div className="absolute right-4 top-4 rounded-full border border-white/25 bg-[#10263F]/80 px-3 py-1.5 backdrop-blur-md">
-                    <p className="text-[8px] font-semibold uppercase tracking-[0.16em] text-[#FFD76A]">
-                      Member Exclusive
-                    </p>
-                  </div>
-                </div>
-
-                <div className="p-6">
-                  <p className="text-[9px] font-semibold uppercase tracking-[0.24em] text-[#B89146]">
-                    {product.category}
-                  </p>
-
-                  <h3 className="mt-4 font-serif text-[1.8rem] font-light leading-tight">
-                    {product.name}
-                  </h3>
-
-                  <div className="mt-6 rounded-[14px] border border-[#10263F]/10 bg-white px-4 py-4">
-                    <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#8B6A34]">
-                      Membership Required
-                    </p>
-
-                    <p className="mt-2 text-xs leading-5 text-[#52605A]">
-                      Purchase access will be available only to verified members
-                      once formal club membership begins.
-                    </p>
-                  </div>
-                </div>
-              </article>
-            ))}
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {activeProducts.map(
+              (product) => (
+                <MemberProductCard
+                  key={product.name}
+                  name={product.name}
+                  category={product.category}
+                  image={product.image}
+                />
+              )
+            )}
           </div>
         </div>
       </section>
@@ -190,26 +288,26 @@ export default function MembersCollectionPage() {
         <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[1fr_0.8fr] lg:items-center">
           <div>
             <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-[#FFD76A]">
-              Future Member Access
+              Member Privilege
             </p>
 
             <h2 className="mt-4 font-serif text-4xl font-light leading-tight sm:text-5xl">
               Membership Comes First.
-              <span className="block">The Collection Follows.</span>
+              <span className="block">
+                The Collection Follows.
+              </span>
             </h2>
 
             <p className="mt-6 max-w-2xl text-sm leading-7 text-white/68 sm:text-base">
-              The Member Collection is not currently for sale. Formal
-              membership access, eligibility, and purchasing procedures will be
-              established when club membership is officially launched.
+              Member Collection purchase access is reserved for verified
+              members and remains separate from public Gallaspy retail.
             </p>
           </div>
 
           <div className="lg:border-l lg:border-white/12 lg:pl-10">
             <p className="text-sm leading-7 text-white/65">
               Interested in the future club? Join the Membership Interest List
-              to follow development updates and future membership
-              announcements.
+              to follow development and membership announcements.
             </p>
 
             <Link
@@ -231,9 +329,8 @@ export default function MembersCollectionPage() {
 
           <p className="mt-4 text-xs leading-6 text-[#52605A]">
             Display of Member Collection merchandise does not constitute a
-            current membership offering or guarantee future access. Eligibility
-            to purchase member-exclusive merchandise will be governed by
-            formal membership requirements established by The Gallaspy.
+            public offer for sale. Eligibility to purchase member-exclusive
+            merchandise is restricted to verified club members.
           </p>
 
           <Link
@@ -245,5 +342,56 @@ export default function MembersCollectionPage() {
         </div>
       </section>
     </main>
+  );
+}
+
+function MemberProductCard({
+  name,
+  category,
+  image,
+}: {
+  name: string;
+  category: string;
+  image: string;
+}) {
+  return (
+    <article className="group overflow-hidden rounded-[22px] border border-[#10263F]/10 bg-[#F7F4EE] transition duration-300 hover:-translate-y-1 hover:border-[#B89146]/35 hover:shadow-[0_20px_50px_rgba(16,38,63,0.1)]">
+      <div className="relative aspect-[4/5] overflow-hidden bg-[#ECE6DB]">
+        <Image
+          src={image}
+          alt={name}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transition duration-500 group-hover:scale-[1.02]"
+        />
+
+        <div className="absolute right-4 top-4 rounded-full border border-white/25 bg-[#10263F]/82 px-3 py-1.5 backdrop-blur-md">
+          <p className="text-[8px] font-semibold uppercase tracking-[0.16em] text-[#FFD76A]">
+            Member Exclusive
+          </p>
+        </div>
+      </div>
+
+      <div className="p-6">
+        <p className="text-[9px] font-semibold uppercase tracking-[0.24em] text-[#B89146]">
+          {category}
+        </p>
+
+        <h3 className="mt-4 font-serif text-[1.8rem] font-light leading-tight">
+          {name}
+        </h3>
+
+        <div className="mt-6 rounded-[14px] border border-[#10263F]/10 bg-white px-4 py-4">
+          <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#8B6A34]">
+            Membership Required
+          </p>
+
+          <p className="mt-2 text-xs leading-5 text-[#52605A]">
+            Purchase access is reserved for verified members of The Gallaspy
+            Golf &amp; Country Club.
+          </p>
+        </div>
+      </div>
+    </article>
   );
 }

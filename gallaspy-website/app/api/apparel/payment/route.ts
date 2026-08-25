@@ -12,10 +12,29 @@ const PRODUCT_CATALOG = {
     priceCents: 7000,
     requiresSize: true,
   },
+
   hat: {
     name: "The Gallaspy Club Hat",
     priceCents: 4500,
     requiresSize: false,
+  },
+
+  "womens-polo": {
+    name: "The Gallaspy Women's Crest Polo",
+    priceCents: 7000,
+    requiresSize: true,
+  },
+
+  "womens-sleeveless-polo": {
+    name: "The Gallaspy Women's Sleeveless Crest Polo",
+    priceCents: 7000,
+    requiresSize: true,
+  },
+
+  "womens-skirt": {
+    name: "The Gallaspy Women's Crest Skirt",
+    priceCents: 7000,
+    requiresSize: true,
   },
 } as const;
 
@@ -30,7 +49,7 @@ const ALLOWED_DESIGNS = [
   "Crest",
 ] as const;
 
-const ALLOWED_POLO_SIZES = [
+const ALLOWED_SIZES = [
   "S",
   "M",
   "L",
@@ -63,7 +82,7 @@ type ApparelPaymentBody = {
 };
 
 function isProductType(value: string): value is ProductType {
-  return value === "polo" || value === "hat";
+  return value in PRODUCT_CATALOG;
 }
 
 function clean(value: unknown) {
@@ -87,10 +106,12 @@ export async function POST(request: NextRequest) {
 
     const accessToken = process.env.SQUARE_ACCESS_TOKEN;
     const locationId = process.env.SQUARE_LOCATION_ID;
+
     const squareEnvironment =
       process.env.SQUARE_ENVIRONMENT ?? "sandbox";
 
     const supabaseUrl = process.env.SUPABASE_URL;
+
     const supabaseSecretKey =
       process.env.SUPABASE_SECRET_KEY;
 
@@ -248,15 +269,15 @@ export async function POST(request: NextRequest) {
 
     if (
       product.requiresSize &&
-      !ALLOWED_POLO_SIZES.includes(
-        size as (typeof ALLOWED_POLO_SIZES)[number]
+      !ALLOWED_SIZES.includes(
+        size as (typeof ALLOWED_SIZES)[number]
       )
     ) {
       return NextResponse.json(
         {
           success: false,
           error:
-            "Please select a valid polo size.",
+            "Please select a valid apparel size.",
         },
         { status: 400 }
       );
@@ -364,10 +385,6 @@ export async function POST(request: NextRequest) {
     /*
      * ---------------------------------------------------------
      * SERVER-SIDE PRICING
-     *
-     * Polo: $70
-     * Hat: $45
-     * Flat shipping: $8.95 per order
      * ---------------------------------------------------------
      */
 
@@ -401,7 +418,7 @@ export async function POST(request: NextRequest) {
       randomUUID();
 
     const variation =
-      productType === "polo"
+      product.requiresSize
         ? `${color} / ${design} / ${size}`
         : `${color} / ${design}`;
 
@@ -556,7 +573,7 @@ export async function POST(request: NextRequest) {
           design,
 
           size:
-            productType === "polo"
+            product.requiresSize
               ? size
               : null,
 
@@ -611,7 +628,7 @@ export async function POST(request: NextRequest) {
 
     /*
      * ---------------------------------------------------------
-     * DATABASE FAILURE AFTER SUCCESSFUL PAYMENT
+     * DATABASE FAILURE AFTER PAYMENT
      * ---------------------------------------------------------
      */
 
@@ -642,11 +659,7 @@ export async function POST(request: NextRequest) {
 
     /*
      * ---------------------------------------------------------
-     * ORDER CONFIRMATION EMAILS
-     * ---------------------------------------------------------
-     *
-     * Payment and database storage have already succeeded.
-     * Email failures must NOT fail the order.
+     * EMAILS
      * ---------------------------------------------------------
      */
 
@@ -656,27 +669,18 @@ export async function POST(request: NextRequest) {
           new Resend(resendApiKey);
 
         const safeSize =
-          productType === "polo"
+          product.requiresSize
             ? size
             : "";
 
         const shippingAddress = [
           shippingAddress1,
-
           shippingAddress2,
-
           `${shippingCity}, ${shippingState} ${shippingPostalCode}`,
-
           "United States",
         ]
           .filter(Boolean)
           .join("<br />");
-
-        /*
-         * -----------------------------------------------------
-         * CUSTOMER CONFIRMATION
-         * -----------------------------------------------------
-         */
 
         const customerEmail =
           resend.emails.send({
@@ -692,196 +696,81 @@ export async function POST(request: NextRequest) {
               `Your Gallaspy Order Is Confirmed — ${orderReference}`,
 
             html: `
-              <div
-                style="
-                  background:#F7F4EE;
-                  padding:40px 20px;
-                  font-family:Arial,sans-serif;
-                  color:#10263F;
-                "
-              >
-                <div
-                  style="
-                    max-width:680px;
-                    margin:0 auto;
-                    background:#FFFFFF;
-                    border:1px solid #E5DED1;
-                    border-radius:20px;
-                    overflow:hidden;
-                  "
-                >
-                  <div
-                    style="
-                      background:#10263F;
-                      padding:34px 28px;
-                      text-align:center;
-                    "
-                  >
-                    <p
-                      style="
-                        margin:0;
-                        color:#B89146;
-                        font-size:11px;
-                        letter-spacing:3px;
-                        text-transform:uppercase;
-                      "
-                    >
+              <div style="background:#F7F4EE;padding:40px 20px;font-family:Arial,sans-serif;color:#10263F;">
+                <div style="max-width:680px;margin:0 auto;background:#FFFFFF;border:1px solid #E5DED1;border-radius:20px;overflow:hidden;">
+
+                  <div style="background:#10263F;padding:34px 28px;text-align:center;">
+                    <p style="margin:0;color:#B89146;font-size:11px;letter-spacing:3px;text-transform:uppercase;">
                       The Gallaspy Collection
                     </p>
 
-                    <h1
-                      style="
-                        margin:14px 0 0;
-                        color:#FFFFFF;
-                        font-family:Georgia,serif;
-                        font-size:32px;
-                        font-weight:400;
-                      "
-                    >
+                    <h1 style="margin:14px 0 0;color:#FFFFFF;font-family:Georgia,serif;font-size:32px;font-weight:400;">
                       Order Confirmed
                     </h1>
                   </div>
 
                   <div style="padding:34px;">
-                    <p
-                      style="
-                        margin-top:0;
-                        font-size:16px;
-                        line-height:1.8;
-                      "
-                    >
+                    <p style="margin-top:0;font-size:16px;line-height:1.8;">
                       Hello ${firstName},
                     </p>
 
-                    <p
-                      style="
-                        font-size:16px;
-                        line-height:1.8;
-                      "
-                    >
-                      Thank you for your purchase from
-                      The Gallaspy Collection. Your
-                      payment was successfully processed
-                      and your order has been received.
+                    <p style="font-size:16px;line-height:1.8;">
+                      Thank you for your purchase from The Gallaspy Collection.
+                      Your payment was successfully processed and your order
+                      has been received.
                     </p>
 
-                    <div
-                      style="
-                        margin:28px 0;
-                        padding:22px;
-                        background:#F7F4EE;
-                        border-left:3px solid #B89146;
-                      "
-                    >
-                      <p
-                        style="
-                          margin:0 0 8px;
-                          font-size:11px;
-                          letter-spacing:2px;
-                          text-transform:uppercase;
-                          color:#8B6A34;
-                        "
-                      >
+                    <div style="margin:28px 0;padding:22px;background:#F7F4EE;border-left:3px solid #B89146;">
+                      <p style="margin:0 0 8px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8B6A34;">
                         Order Reference
                       </p>
 
-                      <p
-                        style="
-                          margin:0;
-                          font-family:Georgia,serif;
-                          font-size:24px;
-                        "
-                      >
+                      <p style="margin:0;font-family:Georgia,serif;font-size:24px;">
                         ${orderReference}
                       </p>
                     </div>
 
-                    <table
-                      style="
-                        width:100%;
-                        border-collapse:collapse;
-                      "
-                    >
+                    <table style="width:100%;border-collapse:collapse;">
                       <tbody>
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Product
                           </td>
 
-                          <td
-                            style="
-                              padding:9px 0;
-                              text-align:right;
-                            "
-                          >
+                          <td style="padding:9px 0;text-align:right;">
                             ${product.name}
                           </td>
                         </tr>
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Color
                           </td>
 
-                          <td
-                            style="
-                              padding:9px 0;
-                              text-align:right;
-                            "
-                          >
+                          <td style="padding:9px 0;text-align:right;">
                             ${color}
                           </td>
                         </tr>
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Design
                           </td>
 
-                          <td
-                            style="
-                              padding:9px 0;
-                              text-align:right;
-                            "
-                          >
+                          <td style="padding:9px 0;text-align:right;">
                             ${design}
                           </td>
                         </tr>
 
                         ${
-                          productType === "polo"
+                          product.requiresSize
                             ? `
                               <tr>
-                                <td
-                                  style="
-                                    padding:9px 0;
-                                    font-weight:bold;
-                                  "
-                                >
+                                <td style="padding:9px 0;font-weight:bold;">
                                   Size
                                 </td>
 
-                                <td
-                                  style="
-                                    padding:9px 0;
-                                    text-align:right;
-                                  "
-                                >
+                                <td style="padding:9px 0;text-align:right;">
                                   ${safeSize}
                                 </td>
                               </tr>
@@ -890,180 +779,86 @@ export async function POST(request: NextRequest) {
                         }
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Quantity
                           </td>
 
-                          <td
-                            style="
-                              padding:9px 0;
-                              text-align:right;
-                            "
-                          >
+                          <td style="padding:9px 0;text-align:right;">
                             ${quantity}
                           </td>
                         </tr>
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Unit Price
                           </td>
 
-                          <td
-                            style="
-                              padding:9px 0;
-                              text-align:right;
-                            "
-                          >
+                          <td style="padding:9px 0;text-align:right;">
                             ${formatCurrency(unitPriceCents)}
                           </td>
                         </tr>
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Subtotal
                           </td>
 
-                          <td
-                            style="
-                              padding:9px 0;
-                              text-align:right;
-                            "
-                          >
+                          <td style="padding:9px 0;text-align:right;">
                             ${formatCurrency(subtotalCents)}
                           </td>
                         </tr>
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Shipping
                           </td>
 
-                          <td
-                            style="
-                              padding:9px 0;
-                              text-align:right;
-                            "
-                          >
+                          <td style="padding:9px 0;text-align:right;">
                             ${formatCurrency(shippingCents)}
                           </td>
                         </tr>
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Tax
                           </td>
 
-                          <td
-                            style="
-                              padding:9px 0;
-                              text-align:right;
-                            "
-                          >
+                          <td style="padding:9px 0;text-align:right;">
                             ${formatCurrency(taxCents)}
                           </td>
                         </tr>
 
                         <tr>
-                          <td
-                            style="
-                              padding:14px 0 6px;
-                              font-weight:bold;
-                              font-size:16px;
-                            "
-                          >
+                          <td style="padding:14px 0 6px;font-weight:bold;font-size:16px;">
                             Total Paid
                           </td>
 
-                          <td
-                            style="
-                              padding:14px 0 6px;
-                              text-align:right;
-                              font-weight:bold;
-                              font-size:16px;
-                              color:#8B6A34;
-                            "
-                          >
+                          <td style="padding:14px 0 6px;text-align:right;font-weight:bold;font-size:16px;color:#8B6A34;">
                             ${formatCurrency(totalCents)}
                           </td>
                         </tr>
                       </tbody>
                     </table>
 
-                    <div
-                      style="
-                        margin-top:28px;
-                        padding:22px;
-                        background:#F7F4EE;
-                        border-radius:12px;
-                      "
-                    >
-                      <p
-                        style="
-                          margin:0 0 10px;
-                          font-weight:bold;
-                        "
-                      >
+                    <div style="margin-top:28px;padding:22px;background:#F7F4EE;border-radius:12px;">
+                      <p style="margin:0 0 10px;font-weight:bold;">
                         Shipping Address
                       </p>
 
-                      <p
-                        style="
-                          margin:0;
-                          line-height:1.7;
-                        "
-                      >
+                      <p style="margin:0;line-height:1.7;">
                         ${shippingAddress}
                       </p>
                     </div>
 
-                    <p
-                      style="
-                        margin-top:28px;
-                        font-size:15px;
-                        line-height:1.8;
-                      "
-                    >
-                      We will send additional
-                      communication regarding
-                      fulfillment and shipping as
-                      your order progresses.
+                    <p style="margin-top:28px;font-size:15px;line-height:1.8;">
+                      We will send additional communication regarding
+                      fulfillment and shipping as your order progresses.
                     </p>
 
                     ${
                       payment.receipt_url
                         ? `
-                          <div
-                            style="
-                              margin-top:28px;
-                              text-align:center;
-                            "
-                          >
+                          <div style="margin-top:28px;text-align:center;">
                             <a
                               href="${payment.receipt_url}"
                               style="
@@ -1085,44 +880,19 @@ export async function POST(request: NextRequest) {
                         : ""
                     }
 
-                    <p
-                      style="
-                        margin-top:32px;
-                        font-size:12px;
-                        line-height:1.7;
-                        color:#667085;
-                      "
-                    >
-                      Purchasing Gallaspy apparel does
-                      not provide membership, Falcon
-                      Society status, club privileges,
-                      or priority membership
-                      consideration.
+                    <p style="margin-top:32px;font-size:12px;line-height:1.7;color:#667085;">
+                      Purchasing Gallaspy apparel does not provide membership,
+                      Falcon Society status, club privileges, or priority
+                      membership consideration.
                     </p>
 
-                    <div
-                      style="
-                        margin-top:30px;
-                        padding-top:22px;
-                        border-top:1px solid #E3DDD1;
-                      "
-                    >
+                    <div style="margin-top:30px;padding-top:22px;border-top:1px solid #E3DDD1;">
                       <p style="margin:0;">
-                        <strong>
-                          The Gallaspy
-                        </strong>
-                        <br />
-                        The Gallaspy Development Group,
-                        LLC
+                        <strong>The Gallaspy</strong><br />
+                        The Gallaspy Development Group, LLC
                       </p>
 
-                      <p
-                        style="
-                          margin-top:8px;
-                          font-size:13px;
-                          color:#667085;
-                        "
-                      >
+                      <p style="margin-top:8px;font-size:13px;color:#667085;">
                         thegallaspy.com
                       </p>
                     </div>
@@ -1131,12 +901,6 @@ export async function POST(request: NextRequest) {
               </div>
             `,
           });
-
-        /*
-         * -----------------------------------------------------
-         * INTERNAL ORDER NOTIFICATION
-         * -----------------------------------------------------
-         */
 
         const internalEmail =
           resend.emails.send({
@@ -1154,69 +918,24 @@ export async function POST(request: NextRequest) {
               `New Apparel Order — ${orderReference} — ${firstName} ${lastName}`,
 
             html: `
-              <div
-                style="
-                  background:#F7F4EE;
-                  padding:40px 20px;
-                  font-family:Arial,sans-serif;
-                  color:#10263F;
-                "
-              >
-                <div
-                  style="
-                    max-width:720px;
-                    margin:0 auto;
-                    background:#FFFFFF;
-                    border:1px solid #E5DED1;
-                    border-radius:20px;
-                    overflow:hidden;
-                  "
-                >
-                  <div
-                    style="
-                      background:#10263F;
-                      padding:32px;
-                    "
-                  >
-                    <p
-                      style="
-                        margin:0;
-                        color:#B89146;
-                        font-size:11px;
-                        letter-spacing:3px;
-                        text-transform:uppercase;
-                      "
-                    >
+              <div style="background:#F7F4EE;padding:40px 20px;font-family:Arial,sans-serif;color:#10263F;">
+                <div style="max-width:720px;margin:0 auto;background:#FFFFFF;border:1px solid #E5DED1;border-radius:20px;overflow:hidden;">
+
+                  <div style="background:#10263F;padding:32px;">
+                    <p style="margin:0;color:#B89146;font-size:11px;letter-spacing:3px;text-transform:uppercase;">
                       The Gallaspy Apparel
                     </p>
 
-                    <h1
-                      style="
-                        margin:12px 0 0;
-                        color:#FFFFFF;
-                        font-family:Georgia,serif;
-                        font-weight:400;
-                      "
-                    >
+                    <h1 style="margin:12px 0 0;color:#FFFFFF;font-family:Georgia,serif;font-weight:400;">
                       New Apparel Order
                     </h1>
                   </div>
 
                   <div style="padding:32px;">
-                    <table
-                      style="
-                        width:100%;
-                        border-collapse:collapse;
-                      "
-                    >
+                    <table style="width:100%;border-collapse:collapse;">
                       <tbody>
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Order Reference
                           </td>
 
@@ -1226,12 +945,7 @@ export async function POST(request: NextRequest) {
                         </tr>
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Square Payment ID
                           </td>
 
@@ -1241,12 +955,7 @@ export async function POST(request: NextRequest) {
                         </tr>
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Customer
                           </td>
 
@@ -1256,12 +965,7 @@ export async function POST(request: NextRequest) {
                         </tr>
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Email
                           </td>
 
@@ -1271,12 +975,7 @@ export async function POST(request: NextRequest) {
                         </tr>
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Phone
                           </td>
 
@@ -1286,12 +985,7 @@ export async function POST(request: NextRequest) {
                         </tr>
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Product
                           </td>
 
@@ -1301,12 +995,7 @@ export async function POST(request: NextRequest) {
                         </tr>
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Color
                           </td>
 
@@ -1316,12 +1005,7 @@ export async function POST(request: NextRequest) {
                         </tr>
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Design
                           </td>
 
@@ -1331,15 +1015,10 @@ export async function POST(request: NextRequest) {
                         </tr>
 
                         ${
-                          productType === "polo"
+                          product.requiresSize
                             ? `
                               <tr>
-                                <td
-                                  style="
-                                    padding:9px 0;
-                                    font-weight:bold;
-                                  "
-                                >
+                                <td style="padding:9px 0;font-weight:bold;">
                                   Size
                                 </td>
 
@@ -1352,12 +1031,7 @@ export async function POST(request: NextRequest) {
                         }
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Quantity
                           </td>
 
@@ -1367,12 +1041,7 @@ export async function POST(request: NextRequest) {
                         </tr>
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Unit Price
                           </td>
 
@@ -1382,12 +1051,7 @@ export async function POST(request: NextRequest) {
                         </tr>
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Subtotal
                           </td>
 
@@ -1397,12 +1061,7 @@ export async function POST(request: NextRequest) {
                         </tr>
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Shipping
                           </td>
 
@@ -1412,12 +1071,7 @@ export async function POST(request: NextRequest) {
                         </tr>
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Tax
                           </td>
 
@@ -1427,33 +1081,17 @@ export async function POST(request: NextRequest) {
                         </tr>
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Total Paid
                           </td>
 
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                              color:#8B6A34;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;color:#8B6A34;">
                             ${formatCurrency(totalCents)}
                           </td>
                         </tr>
 
                         <tr>
-                          <td
-                            style="
-                              padding:9px 0;
-                              font-weight:bold;
-                            "
-                          >
+                          <td style="padding:9px 0;font-weight:bold;">
                             Fulfillment
                           </td>
 
@@ -1464,29 +1102,12 @@ export async function POST(request: NextRequest) {
                       </tbody>
                     </table>
 
-                    <div
-                      style="
-                        margin-top:26px;
-                        padding:20px;
-                        background:#F7F4EE;
-                        border-radius:12px;
-                      "
-                    >
-                      <p
-                        style="
-                          margin:0 0 10px;
-                          font-weight:bold;
-                        "
-                      >
+                    <div style="margin-top:26px;padding:20px;background:#F7F4EE;border-radius:12px;">
+                      <p style="margin:0 0 10px;font-weight:bold;">
                         Shipping Address
                       </p>
 
-                      <p
-                        style="
-                          margin:0;
-                          line-height:1.7;
-                        "
-                      >
+                      <p style="margin:0;line-height:1.7;">
                         ${shippingAddress}
                       </p>
                     </div>
@@ -1573,7 +1194,7 @@ export async function POST(request: NextRequest) {
           design,
 
           size:
-            productType === "polo"
+            product.requiresSize
               ? size
               : null,
 

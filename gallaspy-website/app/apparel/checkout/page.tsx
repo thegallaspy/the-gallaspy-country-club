@@ -9,12 +9,39 @@ import {
   useState,
 } from "react";
 
-const PRODUCT_PRICES = {
-  polo: 70,
-  hat: 45,
+const PRODUCTS = {
+  polo: {
+    name: "Men's Performance Polo",
+    price: 70,
+    requiresSize: true,
+  },
+
+  hat: {
+    name: "Club Hat",
+    price: 45,
+    requiresSize: false,
+  },
+
+  "womens-polo": {
+    name: "Women's Crest Polo",
+    price: 70,
+    requiresSize: true,
+  },
+
+  "womens-sleeveless-polo": {
+    name: "Women's Sleeveless Crest Polo",
+    price: 70,
+    requiresSize: true,
+  },
+
+  "womens-skirt": {
+    name: "Women's Crest Skirt",
+    price: 70,
+    requiresSize: true,
+  },
 } as const;
 
-type ProductType = keyof typeof PRODUCT_PRICES;
+type ProductType = keyof typeof PRODUCTS;
 type DesignType = "Script" | "Crest";
 type ColorType = "Navy" | "White" | "Forest Green";
 
@@ -67,6 +94,22 @@ declare global {
   }
 }
 
+function isProductType(
+  value: string
+): value is ProductType {
+  return value in PRODUCTS;
+}
+
+function isWomensProduct(
+  value: ProductType
+) {
+  return (
+    value === "womens-polo" ||
+    value === "womens-sleeveless-polo" ||
+    value === "womens-skirt"
+  );
+}
+
 export default function ApparelCheckoutPage() {
   const [productType, setProductType] =
     useState<ProductType>("polo");
@@ -77,9 +120,11 @@ export default function ApparelCheckoutPage() {
   const [design, setDesign] =
     useState<DesignType>("Script");
 
-  const [size, setSize] = useState("M");
+  const [size, setSize] =
+    useState("M");
 
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] =
+    useState(1);
 
   const [acceptedTerms, setAcceptedTerms] =
     useState(false);
@@ -87,49 +132,77 @@ export default function ApparelCheckoutPage() {
   const [squareReady, setSquareReady] =
     useState(false);
 
-  const [paymentProcessing, setPaymentProcessing] =
-    useState(false);
+  const [
+    paymentProcessing,
+    setPaymentProcessing,
+  ] = useState(false);
 
   const [paymentError, setPaymentError] =
     useState("");
 
-  const [paymentSuccess, setPaymentSuccess] =
-    useState(false);
+  const [
+    paymentSuccess,
+    setPaymentSuccess,
+  ] = useState(false);
 
-  const [paymentId, setPaymentId] = useState("");
-  const [orderReference, setOrderReference] =
+  const [paymentId, setPaymentId] =
     useState("");
+
+  const [
+    orderReference,
+    setOrderReference,
+  ] = useState("");
+
   const [receiptUrl, setReceiptUrl] =
     useState("");
 
   const squareCardRef =
     useRef<SquareCard | null>(null);
 
-  const squareInitializingRef = useRef(false);
+  const squareInitializingRef =
+    useRef(false);
 
   /*
    * ---------------------------------------------------------
    * LOAD PRODUCT FROM URL
    *
-   * This lets a product card eventually send customers to:
+   * Examples:
    *
    * /apparel/checkout?product=polo&color=Navy&design=Script&size=M
+   *
+   * /apparel/checkout?product=womens-polo&color=Navy&design=Crest&size=M
    * ---------------------------------------------------------
    */
 
   useEffect(() => {
     const params =
-      new URLSearchParams(window.location.search);
+      new URLSearchParams(
+        window.location.search
+      );
 
     const product =
-      params.get("product")?.toLowerCase();
+      params
+        .get("product")
+        ?.toLowerCase();
 
-    const selectedColor = params.get("color");
-    const selectedDesign = params.get("design");
-    const selectedSize = params.get("size");
+    const selectedColor =
+      params.get("color");
 
-    if (product === "polo" || product === "hat") {
+    const selectedDesign =
+      params.get("design");
+
+    const selectedSize =
+      params.get("size");
+
+    if (
+      product &&
+      isProductType(product)
+    ) {
       setProductType(product);
+
+      if (isWomensProduct(product)) {
+        setDesign("Crest");
+      }
     }
 
     if (
@@ -144,7 +217,15 @@ export default function ApparelCheckoutPage() {
       selectedDesign === "Script" ||
       selectedDesign === "Crest"
     ) {
-      setDesign(selectedDesign);
+      if (
+        product &&
+        isProductType(product) &&
+        isWomensProduct(product)
+      ) {
+        setDesign("Crest");
+      } else {
+        setDesign(selectedDesign);
+      }
     }
 
     if (
@@ -159,19 +240,34 @@ export default function ApparelCheckoutPage() {
 
   /*
    * ---------------------------------------------------------
-   * ORDER TOTAL
+   * CURRENT PRODUCT
    * ---------------------------------------------------------
    */
 
+  const selectedProduct =
+    PRODUCTS[productType];
+
   const unitPrice =
-    PRODUCT_PRICES[productType];
+    selectedProduct.price;
+
+  const requiresSize =
+    selectedProduct.requiresSize;
+
+  const womensProduct =
+    isWomensProduct(productType);
+
+  /*
+   * ---------------------------------------------------------
+   * ORDER TOTAL
+   * ---------------------------------------------------------
+   */
 
   const subtotal = useMemo(
     () => unitPrice * quantity,
     [unitPrice, quantity]
   );
 
-  const shipping = 0;
+  const shipping = 8.95;
   const tax = 0;
 
   const total =
@@ -202,7 +298,10 @@ export default function ApparelCheckoutPage() {
         process.env
           .NEXT_PUBLIC_SQUARE_LOCATION_ID;
 
-      if (!applicationId || !locationId) {
+      if (
+        !applicationId ||
+        !locationId
+      ) {
         setPaymentError(
           "Square payment configuration is incomplete."
         );
@@ -210,14 +309,22 @@ export default function ApparelCheckoutPage() {
         return;
       }
 
-      squareInitializingRef.current = true;
+      squareInitializingRef.current =
+        true;
 
       try {
         let attempts = 0;
 
-        while (!window.Square && attempts < 40) {
-          await new Promise((resolve) =>
-            setTimeout(resolve, 250)
+        while (
+          !window.Square &&
+          attempts < 40
+        ) {
+          await new Promise(
+            (resolve) =>
+              setTimeout(
+                resolve,
+                250
+              )
           );
 
           attempts += 1;
@@ -235,7 +342,8 @@ export default function ApparelCheckoutPage() {
             locationId
           );
 
-        const card = await payments.card();
+        const card =
+          await payments.card();
 
         if (cancelled) {
           if (card.destroy) {
@@ -249,7 +357,8 @@ export default function ApparelCheckoutPage() {
           "#apparel-square-card-container"
         );
 
-        squareCardRef.current = card;
+        squareCardRef.current =
+          card;
 
         setSquareReady(true);
         setPaymentError("");
@@ -267,7 +376,8 @@ export default function ApparelCheckoutPage() {
           );
         }
       } finally {
-        squareInitializingRef.current = false;
+        squareInitializingRef.current =
+          false;
       }
     }
 
@@ -276,15 +386,19 @@ export default function ApparelCheckoutPage() {
     return () => {
       cancelled = true;
 
-      const card = squareCardRef.current;
+      const card =
+        squareCardRef.current;
 
       if (card?.destroy) {
-        card.destroy().catch(
-          () => undefined
-        );
+        card
+          .destroy()
+          .catch(
+            () => undefined
+          );
       }
 
-      squareCardRef.current = null;
+      squareCardRef.current =
+        null;
     };
   }, []);
 
@@ -327,44 +441,74 @@ export default function ApparelCheckoutPage() {
       return;
     }
 
-    const form = event.currentTarget;
-    const formData = new FormData(form);
+    const form =
+      event.currentTarget;
 
-    const firstName = String(
-      formData.get("firstName") || ""
-    ).trim();
+    const formData =
+      new FormData(form);
 
-    const lastName = String(
-      formData.get("lastName") || ""
-    ).trim();
+    const firstName =
+      String(
+        formData.get(
+          "firstName"
+        ) || ""
+      ).trim();
 
-    const email = String(
-      formData.get("email") || ""
-    ).trim();
+    const lastName =
+      String(
+        formData.get(
+          "lastName"
+        ) || ""
+      ).trim();
 
-    const phone = String(
-      formData.get("phone") || ""
-    ).trim();
+    const email =
+      String(
+        formData.get(
+          "email"
+        ) || ""
+      ).trim();
 
-    const shippingAddress1 = String(
-      formData.get("shippingAddress1") || ""
-    ).trim();
+    const phone =
+      String(
+        formData.get(
+          "phone"
+        ) || ""
+      ).trim();
 
-    const shippingAddress2 = String(
-      formData.get("shippingAddress2") || ""
-    ).trim();
+    const shippingAddress1 =
+      String(
+        formData.get(
+          "shippingAddress1"
+        ) || ""
+      ).trim();
 
-    const shippingCity = String(
-      formData.get("shippingCity") || ""
-    ).trim();
+    const shippingAddress2 =
+      String(
+        formData.get(
+          "shippingAddress2"
+        ) || ""
+      ).trim();
 
-    const shippingState = String(
-      formData.get("shippingState") || ""
-    ).trim();
+    const shippingCity =
+      String(
+        formData.get(
+          "shippingCity"
+        ) || ""
+      ).trim();
 
-    const shippingPostalCode = String(
-      formData.get("shippingPostalCode") || ""
-    ).trim();
+    const shippingState =
+      String(
+        formData.get(
+          "shippingState"
+        ) || ""
+      ).trim();
+
+    const shippingPostalCode =
+      String(
+        formData.get(
+          "shippingPostalCode"
+        ) || ""
+      ).trim();
 
     if (
       !firstName ||
@@ -396,32 +540,49 @@ export default function ApparelCheckoutPage() {
 
     try {
       /*
-       * Square uses this amount for card
-       * verification/tokenization.
+       * -------------------------------------------------------
+       * SQUARE TOKENIZATION
+       * -------------------------------------------------------
        *
-       * The API route independently recalculates
-       * the real amount before charging.
+       * The API route independently verifies the
+       * real product price before charging.
        */
 
       const verificationDetails = {
-        amount: total.toFixed(2),
+        amount:
+          total.toFixed(2),
 
-        currencyCode: "USD",
+        currencyCode:
+          "USD",
 
-        intent: "CHARGE" as const,
+        intent:
+          "CHARGE" as const,
 
-        customerInitiated: true,
+        customerInitiated:
+          true,
 
-        sellerKeyedIn: false,
+        sellerKeyedIn:
+          false,
 
         billingContact: {
-          givenName: firstName,
-          familyName: lastName,
+          givenName:
+            firstName,
+
+          familyName:
+            lastName,
+
           email,
+
           phone,
-          city: shippingCity,
-          state: shippingState,
-          countryCode: "US",
+
+          city:
+            shippingCity,
+
+          state:
+            shippingState,
+
+          countryCode:
+            "US",
         },
       };
 
@@ -446,7 +607,9 @@ export default function ApparelCheckoutPage() {
             .join(", ") ||
           "Card tokenization was unsuccessful.";
 
-        throw new Error(tokenError);
+        throw new Error(
+          tokenError
+        );
       }
 
       /*
@@ -455,68 +618,79 @@ export default function ApparelCheckoutPage() {
        * -------------------------------------------------------
        */
 
-      const response = await fetch(
-        "/api/apparel/payment",
-        {
-          method: "POST",
+      const response =
+        await fetch(
+          "/api/apparel/payment",
+          {
+            method: "POST",
 
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
 
-          body: JSON.stringify({
-            sourceId: tokenResult.token,
+            body: JSON.stringify({
+              sourceId:
+                tokenResult.token,
 
-            productType,
+              productType,
 
-            color,
+              color,
 
-            design,
+              design:
+                womensProduct
+                  ? "Crest"
+                  : design,
 
-            size:
-              productType === "polo"
-                ? size
-                : "",
+              size:
+                requiresSize
+                  ? size
+                  : "",
 
-            quantity,
+              quantity,
 
-            firstName,
-            lastName,
-            email,
-            phone,
+              firstName,
+              lastName,
+              email,
+              phone,
 
-            shippingAddress1,
-            shippingAddress2,
-            shippingCity,
-            shippingState,
-            shippingPostalCode,
+              shippingAddress1,
+              shippingAddress2,
+              shippingCity,
+              shippingState,
+              shippingPostalCode,
 
-            acceptedTerms,
-          }),
-        }
-      );
+              acceptedTerms,
+            }),
+          }
+        );
 
-      const result = await response.json();
+      const result =
+        await response.json();
 
       if (
         !response.ok ||
         !result.success
       ) {
         /*
-         * Payment was charged by Square but
-         * Supabase failed.
+         * Square succeeded, but the
+         * database failed.
          *
-         * DO NOT tell the customer to retry.
+         * Never tell a charged customer
+         * to submit another payment.
          */
 
-        if (result.paymentSucceeded) {
+        if (
+          result.paymentSucceeded
+        ) {
           setPaymentId(
-            result.paymentId || ""
+            result.paymentId ||
+              ""
           );
 
           setReceiptUrl(
-            result.receiptUrl || ""
+            result.receiptUrl ||
+              ""
           );
 
           throw new Error(
@@ -534,7 +708,8 @@ export default function ApparelCheckoutPage() {
       }
 
       setOrderReference(
-        result.orderReference || ""
+        result.orderReference ||
+          ""
       );
 
       setPaymentId(
@@ -588,8 +763,8 @@ export default function ApparelCheckoutPage() {
 
             <p className="mx-auto mt-7 max-w-xl text-sm leading-7 text-[#52605A] sm:text-base">
               Your payment was successfully
-              processed and your Gallaspy apparel
-              order has been recorded.
+              processed and your Gallaspy
+              apparel order has been recorded.
             </p>
 
             {orderReference && (
@@ -673,8 +848,8 @@ export default function ApparelCheckoutPage() {
           <p className="mt-7 max-w-2xl text-sm leading-7 text-white/70 sm:text-base">
             Review your apparel selection,
             provide shipping information, and
-            securely complete your payment through
-            Square.
+            securely complete your payment
+            through Square.
           </p>
         </div>
       </section>
@@ -699,21 +874,53 @@ export default function ApparelCheckoutPage() {
                 value={productType}
                 onChange={(value) => {
                   if (
-                    value === "polo" ||
-                    value === "hat"
+                    isProductType(value)
                   ) {
-                    setProductType(value);
+                    setProductType(
+                      value
+                    );
+
+                    if (
+                      isWomensProduct(
+                        value
+                      )
+                    ) {
+                      setDesign(
+                        "Crest"
+                      );
+                    }
                   }
                 }}
                 options={[
                   {
-                    value: "polo",
+                    value:
+                      "polo",
                     label:
-                      "Performance Polo — $70",
+                      "Men's Performance Polo — $70",
                   },
                   {
-                    value: "hat",
-                    label: "Club Hat — $45",
+                    value:
+                      "hat",
+                    label:
+                      "Club Hat — $45",
+                  },
+                  {
+                    value:
+                      "womens-polo",
+                    label:
+                      "Women's Crest Polo — $70",
+                  },
+                  {
+                    value:
+                      "womens-sleeveless-polo",
+                    label:
+                      "Women's Sleeveless Crest Polo — $70",
+                  },
+                  {
+                    value:
+                      "womens-skirt",
+                    label:
+                      "Women's Crest Skirt — $70",
                   },
                 ]}
               />
@@ -722,65 +929,106 @@ export default function ApparelCheckoutPage() {
                 label="Color"
                 value={color}
                 onChange={(value) =>
-                  setColor(value as ColorType)
+                  setColor(
+                    value as ColorType
+                  )
                 }
                 options={[
                   {
-                    value: "Navy",
-                    label: "Navy",
+                    value:
+                      "Navy",
+                    label:
+                      "Navy",
                   },
                   {
-                    value: "White",
-                    label: "White",
+                    value:
+                      "White",
+                    label:
+                      "White",
                   },
                   {
-                    value: "Forest Green",
-                    label: "Forest Green",
+                    value:
+                      "Forest Green",
+                    label:
+                      "Forest Green",
                   },
                 ]}
               />
 
               <SelectField
                 label="Design"
-                value={design}
-                onChange={(value) =>
-                  setDesign(
-                    value as DesignType
-                  )
+                value={
+                  womensProduct
+                    ? "Crest"
+                    : design
                 }
-                options={[
-                  {
-                    value: "Script",
-                    label: "Script",
-                  },
-                  {
-                    value: "Crest",
-                    label: "Crest",
-                  },
-                ]}
+                onChange={(value) => {
+                  if (
+                    !womensProduct
+                  ) {
+                    setDesign(
+                      value as DesignType
+                    );
+                  }
+                }}
+                options={
+                  womensProduct
+                    ? [
+                        {
+                          value:
+                            "Crest",
+                          label:
+                            "Crest",
+                        },
+                      ]
+                    : [
+                        {
+                          value:
+                            "Script",
+                          label:
+                            "Script",
+                        },
+                        {
+                          value:
+                            "Crest",
+                          label:
+                            "Crest",
+                        },
+                      ]
+                }
               />
 
-              {productType === "polo" && (
+              {requiresSize && (
                 <SelectField
                   label="Size"
                   value={size}
-                  onChange={setSize}
+                  onChange={
+                    setSize
+                  }
                   options={[
                     {
-                      value: "S",
-                      label: "Small",
+                      value:
+                        "S",
+                      label:
+                        "Small",
                     },
                     {
-                      value: "M",
-                      label: "Medium",
+                      value:
+                        "M",
+                      label:
+                        "Medium",
                     },
                     {
-                      value: "L",
-                      label: "Large",
+                      value:
+                        "L",
+                      label:
+                        "Large",
                     },
                     {
-                      value: "XL",
-                      label: "XL",
+                      value:
+                        "XL",
+                      label:
+                        "XL",
                     },
                   ]}
                 />
@@ -788,15 +1036,34 @@ export default function ApparelCheckoutPage() {
 
               <SelectField
                 label="Quantity"
-                value={String(quantity)}
+                value={String(
+                  quantity
+                )}
                 onChange={(value) =>
-                  setQuantity(Number(value))
+                  setQuantity(
+                    Number(value)
+                  )
                 }
                 options={Array.from(
-                  { length: 10 },
-                  (_, index) => ({
-                    value: String(index + 1),
-                    label: String(index + 1),
+                  {
+                    length:
+                      10,
+                  },
+                  (
+                    _,
+                    index
+                  ) => ({
+                    value:
+                      String(
+                        index +
+                          1
+                      ),
+
+                    label:
+                      String(
+                        index +
+                          1
+                      ),
                   })
                 )}
               />
@@ -923,9 +1190,7 @@ export default function ApparelCheckoutPage() {
               <SummaryRow
                 label="Product"
                 value={
-                  productType === "polo"
-                    ? "Performance Polo"
-                    : "Club Hat"
+                  selectedProduct.name
                 }
               />
 
@@ -936,10 +1201,14 @@ export default function ApparelCheckoutPage() {
 
               <SummaryRow
                 label="Design"
-                value={design}
+                value={
+                  womensProduct
+                    ? "Crest"
+                    : design
+                }
               />
 
-              {productType === "polo" && (
+              {requiresSize && (
                 <SummaryRow
                   label="Size"
                   value={size}
@@ -948,7 +1217,9 @@ export default function ApparelCheckoutPage() {
 
               <SummaryRow
                 label="Quantity"
-                value={String(quantity)}
+                value={String(
+                  quantity
+                )}
               />
             </div>
 
@@ -976,7 +1247,9 @@ export default function ApparelCheckoutPage() {
 
               <SummaryRow
                 label="Tax"
-                value={formatCurrency(tax)}
+                value={formatCurrency(
+                  tax
+                )}
               />
             </div>
 
@@ -986,28 +1259,38 @@ export default function ApparelCheckoutPage() {
               </span>
 
               <span className="font-serif text-3xl text-[#FFD76A]">
-                {formatCurrency(total)}
+                {formatCurrency(
+                  total
+                )}
               </span>
             </div>
 
             <label className="mt-7 flex cursor-pointer items-start gap-3">
               <input
                 type="checkbox"
-                checked={acceptedTerms}
-                onChange={(event) =>
+                checked={
+                  acceptedTerms
+                }
+                onChange={(
+                  event
+                ) =>
                   setAcceptedTerms(
-                    event.target.checked
+                    event
+                      .target
+                      .checked
                   )
                 }
                 className="mt-1 h-4 w-4 accent-[#B89146]"
               />
 
               <span className="text-xs leading-6 text-white/65">
-                I confirm that my product,
-                color, design, size, quantity,
-                contact information, and shipping
-                information are correct and agree
-                to the apparel purchase terms.
+                I confirm that my
+                product, color, design,
+                size, quantity, contact
+                information, and shipping
+                information are correct
+                and agree to the apparel
+                purchase terms.
               </span>
             </label>
 
@@ -1034,8 +1317,8 @@ export default function ApparelCheckoutPage() {
             </button>
 
             <p className="mt-4 text-center text-[10px] leading-5 text-white/45">
-              Secure payment processing provided
-              by Square.
+              Secure payment processing
+              provided by Square.
             </p>
           </div>
         </div>
@@ -1127,7 +1410,9 @@ function SelectField({
 }: {
   label: string;
   value: string;
-  onChange: (value: string) => void;
+  onChange: (
+    value: string
+  ) => void;
   options: Array<{
     value: string;
     label: string;
@@ -1141,19 +1426,29 @@ function SelectField({
 
       <select
         value={value}
-        onChange={(event) =>
-          onChange(event.target.value)
+        onChange={(
+          event
+        ) =>
+          onChange(
+            event.target.value
+          )
         }
         className="w-full rounded-[12px] border border-[#10263F]/15 bg-[#F7F4EE] px-4 py-3.5 text-sm text-[#10263F] outline-none transition focus:border-[#B89146] focus:bg-white"
       >
-        {options.map((option) => (
-          <option
-            key={option.value}
-            value={option.value}
-          >
-            {option.label}
-          </option>
-        ))}
+        {options.map(
+          (option) => (
+            <option
+              key={
+                option.value
+              }
+              value={
+                option.value
+              }
+            >
+              {option.label}
+            </option>
+          )
+        )}
       </select>
     </div>
   );
@@ -1182,8 +1477,11 @@ function SummaryRow({
 function formatCurrency(
   value: number
 ) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(value);
+  return new Intl.NumberFormat(
+    "en-US",
+    {
+      style: "currency",
+      currency: "USD",
+    }
+  ).format(value);
 }

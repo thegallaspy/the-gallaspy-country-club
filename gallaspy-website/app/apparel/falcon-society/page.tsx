@@ -1,23 +1,56 @@
-import type { Metadata } from "next";
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
-export const metadata: Metadata = {
-  title: "Falcon Society Collection | The Gallaspy Apparel",
-  description:
-    "Explore the Falcon Society apparel collection, reserved for the future founding generation of The Gallaspy Golf & Country Club.",
-};
+type CollectionView = "men" | "women";
 
 const founderPolos = [
   {
     name: "Founder Polo I",
+    category: "Founder Polos",
     image:
       "/images/apparel/falcon-society/red-founder-polo-1.jpg",
   },
   {
     name: "Founder Polo II",
+    category: "Founder Polos",
     image:
       "/images/apparel/falcon-society/red-founder-polo-2.jpg",
+  },
+];
+
+const womensFounderProducts = [
+  {
+    name: "Women's Founder Falcon Polo",
+    category: "Women's Founder Polos",
+    image:
+      "/images/apparel/falcon-society/women/red-founder-womens-falcon-polo.jpg",
+  },
+  {
+    name: "Women's Founder Sleeveless Falcon Polo",
+    category: "Women's Founder Polos",
+    image:
+      "/images/apparel/falcon-society/women/red-founder-womens-sleeveless-falcon-polo.jpg",
+  },
+  {
+    name: "Women's Founder Sleeveless Crest Polo",
+    category: "Women's Founder Polos",
+    image:
+      "/images/apparel/falcon-society/women/red-founder-womens-sleeveless-crest-polo.jpg",
+  },
+  {
+    name: "Women's Founder Falcon Skirt",
+    category: "Women's Founder Skirts",
+    image:
+      "/images/apparel/falcon-society/women/red-founder-womens-falcon-skirt.jpg",
+  },
+  {
+    name: "Women's Founder Falcon Dress",
+    category: "Women's Founder Dresses",
+    image:
+      "/images/apparel/falcon-society/women/red-founder-womens-falcon-dress.jpg",
   },
 ];
 
@@ -50,6 +83,9 @@ const hats = [
 ];
 
 export default function FalconSocietyCollectionPage() {
+  const [view, setView] =
+    useState<CollectionView>("men");
+
   return (
     <main className="overflow-hidden bg-[#F7F4EE] text-[#10263F]">
       {/* HERO */}
@@ -83,7 +119,7 @@ export default function FalconSocietyCollectionPage() {
             <div className="mt-7 h-px w-20 bg-[#B89146]" />
 
             <p className="mt-7 max-w-2xl text-base leading-8 text-white/82 sm:text-lg">
-              A limited collection created to represent the future founding
+              A limited collection created to represent the founding
               generation of The Gallaspy Golf &amp; Country Club.
             </p>
 
@@ -120,78 +156,103 @@ export default function FalconSocietyCollectionPage() {
             </p>
 
             <p className="mt-6 text-sm leading-7 text-white/68 sm:text-base sm:leading-8">
-              The Falcon Society Collection is intended to remain connected to
-              founding status. These pieces are displayed publicly as part of
-              The Gallaspy story, but are not offered for unrestricted public
-              purchase.
+              The Falcon Society Collection remains permanently connected to
+              founding status. These pieces represent recognition of The
+              Gallaspy&apos;s first 100 founding members and are never intended
+              for unrestricted public retail.
             </p>
           </div>
         </div>
       </section>
 
-      {/* FOUNDERS POLOS */}
+      {/* FOUNDER APPAREL */}
       <section className="bg-[#F7F4EE] px-5 py-20 sm:px-8 sm:py-24 lg:px-10 lg:py-28">
         <div className="mx-auto w-full max-w-6xl">
-          <div className="max-w-3xl">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#B89146]">
-              Founders Apparel
-            </p>
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-3xl">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#B89146]">
+                Founders Apparel
+              </p>
 
-            <h2 className="mt-4 font-serif text-[2.7rem] font-light sm:text-5xl">
-              The Red Founder Polos
-            </h2>
+              <h2 className="mt-4 font-serif text-[2.7rem] font-light sm:text-5xl">
+                The Founder Red Collection
+              </h2>
 
-            <p className="mt-6 max-w-2xl text-sm leading-7 text-[#52605A] sm:text-base">
-              Two signature red polos created specifically for the Falcon
-              Society founding collection.
-            </p>
-          </div>
+              <p className="mt-6 max-w-2xl text-sm leading-7 text-[#52605A] sm:text-base">
+                Founder Red is reserved exclusively for the Falcon Society,
+                distinguishing the Founding 100 from every other Gallaspy
+                collection.
+              </p>
+            </div>
 
-          <div className="mt-14 grid gap-6 lg:grid-cols-2">
-            {founderPolos.map((product) => (
-              <article
-                key={product.name}
-                className="group overflow-hidden rounded-[24px] border border-[#10263F]/10 bg-white transition duration-300 hover:-translate-y-1 hover:border-[#B89146]/35 hover:shadow-[0_22px_60px_rgba(16,38,63,0.1)]"
+            {/* MEN / WOMEN TABS */}
+            <div className="inline-flex w-fit rounded-full border border-[#10263F]/12 bg-white p-1.5 shadow-sm">
+              <button
+                type="button"
+                onClick={() => setView("men")}
+                className={`min-w-[120px] rounded-full px-6 py-3 text-[10px] font-semibold uppercase tracking-[0.2em] transition ${
+                  view === "men"
+                    ? "bg-[#10263F] text-white"
+                    : "text-[#10263F]/55 hover:text-[#10263F]"
+                }`}
               >
-                <div className="relative aspect-[4/5] overflow-hidden bg-[#ECE6DB]">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover transition duration-500 group-hover:scale-[1.02]"
-                  />
+                Men
+              </button>
 
-                  <div className="absolute right-5 top-5 rounded-full border border-white/25 bg-[#10263F]/82 px-4 py-2 backdrop-blur-md">
-                    <p className="text-[8px] font-semibold uppercase tracking-[0.18em] text-[#FFD76A]">
-                      Founding 100
-                    </p>
-                  </div>
-                </div>
-
-                <div className="p-7 sm:p-8">
-                  <p className="text-[9px] font-semibold uppercase tracking-[0.24em] text-[#B89146]">
-                    Falcon Society
-                  </p>
-
-                  <h3 className="mt-4 font-serif text-3xl font-light">
-                    {product.name}
-                  </h3>
-
-                  <div className="mt-6 border-t border-[#10263F]/10 pt-5">
-                    <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
-                      Founder Exclusive
-                    </p>
-
-                    <p className="mt-2 text-xs leading-6 text-[#52605A]">
-                      Displayed as part of the Falcon Society founding
-                      collection. Not available for public purchase.
-                    </p>
-                  </div>
-                </div>
-              </article>
-            ))}
+              <button
+                type="button"
+                onClick={() => setView("women")}
+                className={`min-w-[120px] rounded-full px-6 py-3 text-[10px] font-semibold uppercase tracking-[0.2em] transition ${
+                  view === "women"
+                    ? "bg-[#10263F] text-white"
+                    : "text-[#10263F]/55 hover:text-[#10263F]"
+                }`}
+              >
+                Women
+              </button>
+            </div>
           </div>
+
+          <div className="mt-10 border-t border-[#10263F]/10 pt-8">
+            <p className="font-serif text-2xl font-light">
+              {view === "men"
+                ? "Men's Founder Collection"
+                : "Women's Founder Collection"}
+            </p>
+
+            <p className="mt-2 text-[9px] font-semibold uppercase tracking-[0.22em] text-[#B89146]">
+              Founder Red · Founding 100 Exclusive
+            </p>
+          </div>
+
+          {/* MEN */}
+          {view === "men" && (
+            <div className="mt-10 grid gap-6 lg:grid-cols-2">
+              {founderPolos.map((product) => (
+                <FounderProductCard
+                  key={product.name}
+                  name={product.name}
+                  category={product.category}
+                  image={product.image}
+                  large
+                />
+              ))}
+            </div>
+          )}
+
+          {/* WOMEN */}
+          {view === "women" && (
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {womensFounderProducts.map((product) => (
+                <FounderProductCard
+                  key={product.name}
+                  name={product.name}
+                  category={product.category}
+                  image={product.image}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -210,8 +271,8 @@ export default function FalconSocietyCollectionPage() {
             </div>
 
             <p className="max-w-md text-sm leading-7 text-[#52605A]">
-              Five Falcon Society hats in the founding collection, presented
-              for display only.
+              Five Falcon Society hats complete the founding collection,
+              reserved exclusively for the Founding 100.
             </p>
           </div>
 
@@ -272,8 +333,8 @@ export default function FalconSocietyCollectionPage() {
 
           <p className="mx-auto mt-7 max-w-2xl text-sm leading-7 text-white/68 sm:text-base sm:leading-8">
             The value of the Falcon Society Collection comes from what it
-            represents. Its identity remains tied to the future founding
-            generation of The Gallaspy.
+            represents. Founder Red and the Falcon Society identity remain
+            permanently tied to The Gallaspy&apos;s founding generation.
           </p>
 
           <Link
@@ -308,5 +369,64 @@ export default function FalconSocietyCollectionPage() {
         </div>
       </section>
     </main>
+  );
+}
+
+function FounderProductCard({
+  name,
+  category,
+  image,
+  large = false,
+}: {
+  name: string;
+  category: string;
+  image: string;
+  large?: boolean;
+}) {
+  return (
+    <article className="group overflow-hidden rounded-[24px] border border-[#B89146]/20 bg-white transition duration-300 hover:-translate-y-1 hover:border-[#B89146]/50 hover:shadow-[0_24px_65px_rgba(16,38,63,0.12)]">
+      <div className="relative aspect-[4/5] overflow-hidden bg-[#ECE6DB]">
+        <Image
+          src={image}
+          alt={name}
+          fill
+          sizes={
+            large
+              ? "(max-width: 1024px) 100vw, 50vw"
+              : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          }
+          className="object-cover transition duration-500 group-hover:scale-[1.02]"
+        />
+
+        <div className="absolute left-0 top-0 h-1 w-full bg-[#B89146]" />
+
+        <div className="absolute right-5 top-5 rounded-full border border-[#FFD76A]/35 bg-[#10263F]/88 px-4 py-2 backdrop-blur-md">
+          <p className="text-[8px] font-semibold uppercase tracking-[0.18em] text-[#FFD76A]">
+            Founding 100
+          </p>
+        </div>
+      </div>
+
+      <div className="p-7 sm:p-8">
+        <p className="text-[9px] font-semibold uppercase tracking-[0.24em] text-[#B89146]">
+          {category}
+        </p>
+
+        <h3 className="mt-4 font-serif text-3xl font-light">
+          {name}
+        </h3>
+
+        <div className="mt-6 border-t border-[#10263F]/10 pt-5">
+          <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
+            Founder Exclusive
+          </p>
+
+          <p className="mt-2 text-xs leading-6 text-[#52605A]">
+            Part of the Falcon Society Founder Red collection. Reserved for
+            Founding 100 recognition and not available for public purchase.
+          </p>
+        </div>
+      </div>
+    </article>
   );
 }

@@ -1,81 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import ProductCard from "@/components/apparel/ProductCard";
+import GallaspyCollectionShop from "@/components/apparel/GallaspyCollectionShop";
 
 export const metadata: Metadata = {
   title: "The Gallaspy Collection | Apparel",
   description:
-    "Shop The Gallaspy Collection — signature golf and lifestyle apparel available to the public.",
+    "Shop The Gallaspy Collection — signature golf apparel for men and women.",
 };
-
-const products = [
-  {
-    name: "Navy Performance Polo",
-    category: "Polos",
-    productType: "polo" as const,
-    colorLabel: "Navy",
-    scriptImage:
-      "/images/apparel/gallaspy/navy-script-polo.jpg",
-    crestImage:
-      "/images/apparel/gallaspy/navy-crest-polo.jpg",
-    price: "$70",
-  },
-  {
-    name: "White Performance Polo",
-    category: "Polos",
-    productType: "polo" as const,
-    colorLabel: "White",
-    scriptImage:
-      "/images/apparel/gallaspy/white-script-polo.jpg",
-    crestImage:
-      "/images/apparel/gallaspy/white-crest-polo.jpg",
-    price: "$70",
-  },
-  {
-    name: "Forest Green Performance Polo",
-    category: "Polos",
-    productType: "polo" as const,
-    colorLabel: "Forest Green",
-    scriptImage:
-      "/images/apparel/gallaspy/forest-green-script-polo.jpg",
-    crestImage:
-      "/images/apparel/gallaspy/forest-green-crest-polo.jpg",
-    price: "$70",
-  },
-  {
-    name: "Navy Club Hat",
-    category: "Headwear",
-    productType: "hat" as const,
-    colorLabel: "Navy",
-    scriptImage:
-      "/images/apparel/gallaspy/navy-script-hat.jpg",
-    crestImage:
-      "/images/apparel/gallaspy/navy-crest-hat.jpg",
-    price: "$45",
-  },
-  {
-    name: "White Club Hat",
-    category: "Headwear",
-    productType: "hat" as const,
-    colorLabel: "White",
-    scriptImage:
-      "/images/apparel/gallaspy/white-script-hat.jpg",
-    crestImage:
-      "/images/apparel/gallaspy/white-crest-hat.jpg",
-    price: "$45",
-  },
-  {
-    name: "Forest Green Club Hat",
-    category: "Headwear",
-    productType: "hat" as const,
-    colorLabel: "Forest Green",
-    scriptImage:
-      "/images/apparel/gallaspy/forest-green-script-hat.jpg",
-    crestImage:
-      "/images/apparel/gallaspy/forest-green-crest-hat.jpg",
-    price: "$45",
-  },
-];
 
 export default function GallaspyCollectionPage() {
   return (
@@ -100,15 +31,15 @@ export default function GallaspyCollectionPage() {
             <div className="mt-7 h-px w-20 bg-[#B89146]" />
 
             <p className="mt-7 max-w-2xl text-base leading-8 text-white/72 sm:text-lg">
-              Signature golf apparel available in Navy, White, and Forest
-              Green, with your choice of Script or Crest design.
+              Signature golf apparel for men and women in Navy, White, and
+              Forest Green, created around the official Gallaspy identity.
             </p>
 
             <Link
               href="#products"
               className="mt-9 inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#FFD76A] bg-[#FFD76A] px-8 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#10263F] transition hover:-translate-y-0.5 hover:bg-white"
             >
-              View the Collection
+              Shop the Collection
             </Link>
           </div>
         </div>
@@ -123,8 +54,10 @@ export default function GallaspyCollectionPage() {
             </p>
 
             <h2 className="mt-5 font-serif text-[2.6rem] font-light leading-tight sm:text-5xl">
-              Choose Your Color.
-              <span className="block">Choose Your Mark.</span>
+              Built for the Game.
+              <span className="block">
+                Designed for The Gallaspy.
+              </span>
             </h2>
 
             <div className="mt-7 h-px w-16 bg-[#B89146]" />
@@ -132,57 +65,22 @@ export default function GallaspyCollectionPage() {
 
           <div className="lg:border-l lg:border-[#10263F]/12 lg:pl-12">
             <p className="font-serif text-2xl font-light leading-relaxed sm:text-3xl">
-              One collection. Two official Gallaspy designs.
+              A public collection with distinct men&apos;s and women&apos;s
+              apparel.
             </p>
 
             <p className="mt-6 text-sm leading-7 text-[#52605A] sm:text-base sm:leading-8">
-              Each product is available in the Gallaspy Script or Gallaspy
-              Crest design. The public collection is intentionally limited to
-              Navy, White, and Forest Green.
+              Men&apos;s polos and headwear are offered in Script and Crest
+              designs. The current women&apos;s collection is Crest-led, with
+              polos, sleeveless polos, and golf skirts in the core Gallaspy
+              palette.
             </p>
           </div>
         </div>
       </section>
 
-      {/* PRODUCTS */}
-      <section
-        id="products"
-        className="scroll-mt-24 bg-white px-5 py-20 sm:px-8 sm:py-24 lg:px-10 lg:py-28"
-      >
-        <div className="mx-auto w-full max-w-6xl">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#B89146]">
-                The Collection
-              </p>
-
-              <h2 className="mt-4 font-serif text-[2.7rem] font-light sm:text-5xl">
-                Polos &amp; Headwear
-              </h2>
-            </div>
-
-            <p className="max-w-md text-sm leading-7 text-[#52605A]">
-              Select Script or Crest on each product card, then choose your
-              size when purchasing a polo.
-            </p>
-          </div>
-
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {products.map((product) => (
-              <ProductCard
-                key={product.name}
-                name={product.name}
-                category={product.category}
-                productType={product.productType}
-                colorLabel={product.colorLabel}
-                scriptImage={product.scriptImage}
-                crestImage={product.crestImage}
-                price={product.price}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* MEN / WOMEN SHOP */}
+      <GallaspyCollectionShop />
 
       {/* COLLECTION NOTE */}
       <section className="bg-[#10263F] px-5 py-16 text-white sm:px-8 lg:px-10 lg:py-20">
@@ -194,19 +92,22 @@ export default function GallaspyCollectionPage() {
 
             <h2 className="mt-4 font-serif text-4xl font-light leading-tight sm:text-5xl">
               Publicly Available.
-              <span className="block">Distinctly Gallaspy.</span>
+              <span className="block">
+                Distinctly Gallaspy.
+              </span>
             </h2>
 
             <p className="mt-6 max-w-2xl text-sm leading-7 text-white/68 sm:text-base">
-              This is the public-facing apparel collection. Member and Falcon
-              Society collections remain separate from public retail.
+              This collection is available to golfers and supporters while
+              Members Only and Falcon Society apparel remain separate from
+              general retail.
             </p>
           </div>
 
           <div className="lg:border-l lg:border-white/12 lg:pl-10">
             <p className="text-sm leading-7 text-white/65">
-              Polos are $70 and hats are $45. Checkout is securely processed
-              through Square.
+              Public purchases are securely processed through Square.
+              Availability, sizes, and quantities may vary by release.
             </p>
 
             <Link
