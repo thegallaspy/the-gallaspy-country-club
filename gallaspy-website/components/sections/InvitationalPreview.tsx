@@ -24,11 +24,7 @@ export default function InvitationalPreview() {
             <div className="hidden h-px flex-1 bg-gradient-to-r from-[#B89146]/50 to-transparent sm:block" />
           </div>
 
-          <p className="mt-7 text-[9px] font-semibold uppercase tracking-[0.32em] text-[#8B6A34] sm:mt-8 sm:text-[10px]">
-            The First Annual · June 21, 2027
-          </p>
-
-          <h2 className="mt-4 max-w-3xl font-serif text-[2.55rem] font-light leading-[0.97] tracking-[-0.025em] sm:mt-5 sm:text-5xl md:text-6xl lg:text-[4.6rem]">
+          <h2 className="mt-8 max-w-3xl font-serif text-[2.55rem] font-light leading-[0.97] tracking-[-0.025em] sm:mt-10 sm:text-5xl md:text-6xl lg:text-[4.6rem]">
             The 2027
             <span className="block text-[#B89146]">
               Gallaspy Invitational
@@ -41,12 +37,6 @@ export default function InvitationalPreview() {
             A 100-player field competing in a 4-person scramble for a
             $10,000 tournament purse and the inaugural Golden Falcon
             Championship Trophy.
-          </p>
-
-          <p className="mt-4 max-w-xl text-sm leading-7 text-[#10263F]/60 sm:mt-5">
-            The Gallaspy Invitational is the first major golf experience under
-            The Gallaspy name — bringing together competition, hospitality,
-            partnership, and community in one signature annual event.
           </p>
 
           {/* PRIMARY ACTIONS */}
@@ -62,16 +52,6 @@ export default function InvitationalPreview() {
               </span>
             </Link>
 
-            <Link
-              href="/invitational/sponsors"
-              className="group inline-flex min-h-[52px] w-full items-center justify-center rounded-full border border-[#10263F]/20 bg-white/35 px-6 py-3 text-[9px] font-semibold uppercase tracking-[0.2em] text-[#10263F] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#B89146] hover:bg-white/70 hover:text-[#B89146] sm:w-auto sm:min-w-[220px] sm:px-8 sm:text-[10px]"
-            >
-              Sponsor the Invitational
-
-              <span className="ml-3 transition-transform duration-300 group-hover:translate-x-1">
-                →
-              </span>
-            </Link>
           </div>
 
           <Link
@@ -101,31 +81,8 @@ export default function InvitationalPreview() {
 
         {/* RIGHT */}
         <div className="border-t border-[#10263F]/15 pt-2 lg:border-l lg:border-t-0 lg:pl-16 lg:pt-0">
-          {/* FACT GRID */}
-          <div className="grid grid-cols-2 gap-x-5 sm:gap-x-8">
-            <TournamentFact
-              label="Date"
-              value="June 21, 2027"
-            />
-
-            <TournamentFact
-              label="Format"
-              value="4-Person Scramble"
-            />
-
-            <TournamentFact
-              label="Field"
-              value="100 Players"
-            />
-
-            <TournamentFact
-              label="Prize Purse"
-              value="$10,000"
-            />
-          </div>
-
           {/* GOLDEN FALCON */}
-          <div className="mt-8 sm:mt-10">
+          <div>
             <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-[#8B6A34] sm:text-[10px]">
               Championship
             </p>
@@ -181,25 +138,5 @@ export default function InvitationalPreview() {
         </div>
       </div>
     </section>
-  );
-}
-
-function TournamentFact({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
-  return (
-    <div className="border-b border-[#10263F]/15 py-6 sm:py-7">
-      <p className="text-[8px] font-semibold uppercase tracking-[0.24em] text-[#8B6A34] sm:text-[9px]">
-        {label}
-      </p>
-
-      <p className="mt-3 font-serif text-[1.7rem] font-light leading-tight sm:text-3xl">
-        {value}
-      </p>
-    </div>
   );
 }

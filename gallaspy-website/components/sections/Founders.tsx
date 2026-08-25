@@ -64,7 +64,7 @@ export default function Founders() {
               className="group flex h-full flex-col overflow-hidden rounded-[24px] border border-[#10263F]/10 bg-[#F7F4EE] transition duration-300 hover:-translate-y-1 hover:border-[#B89146]/40 hover:shadow-[0_24px_60px_rgba(16,38,63,0.12)]"
             >
               {/* PORTRAIT */}
-              <div className="relative h-[500px] w-full overflow-hidden bg-[#EAE4D8] sm:h-[620px] lg:h-[680px]">
+              <div className="relative h-[500px] w-full overflow-hidden bg-[#EAE4D8] sm:h-[620px] lg:h-[600px]">
                 {/* 
                   Separate image wrapper allows each portrait
                   to be scaled independently while the cards
@@ -132,18 +132,17 @@ export default function Founders() {
               </h3>
 
               <p className="mt-5 max-w-2xl text-sm leading-7 text-white/68 sm:text-base sm:leading-8">
-                The Gallaspy Development Group, LLC is the business entity
-                guiding the development of The Gallaspy Golf &amp; Country Club
-                vision and The Gallaspy Invitational.
+                The Gallaspy Development Group, LLC guides The Gallaspy Golf
+                &amp; Country Club vision and The Gallaspy Invitational.
               </p>
             </div>
 
             <div className="lg:border-l lg:border-white/15 lg:pl-10">
               <p className="text-sm leading-7 text-white/68">
-                The current focus is on building the foundation: establishing
-                the brand, producing the inaugural Invitational, developing
-                partnerships, growing the future membership community, and
-                identifying the right long-term development opportunity.
+                Current work includes building the brand, producing the
+                inaugural Invitational, developing partnerships, growing the
+                future membership community, and identifying the right
+                long-term development opportunity.
               </p>
 
               <Link

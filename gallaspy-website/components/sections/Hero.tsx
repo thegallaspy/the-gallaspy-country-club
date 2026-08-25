@@ -208,70 +208,7 @@ export default function Hero() {
 
       </div>
 
-      {/* SCROLL INDICATOR */}
-      <a
-        href="#vision"
-        aria-label="Scroll to explore The Gallaspy"
-        className={`group absolute bottom-4 left-1/2 z-10 -translate-x-1/2 transition-all delay-[800ms] duration-1000 sm:bottom-5 lg:bottom-8 ${
-          isReady
-            ? "translate-y-0 opacity-100"
-            : "translate-y-5 opacity-0"
-        }`}
-      >
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-[7px] font-semibold uppercase tracking-[0.28em] text-white/60 transition-colors duration-300 group-hover:text-[#FFD76A] sm:text-[8px] sm:tracking-[0.32em]">
-            Explore
-          </span>
-
-          <span className="relative h-8 w-px overflow-hidden bg-white/20 sm:h-11">
-            <span className="hero-scroll-line absolute left-0 top-0 h-4 w-px bg-[#FFD76A] sm:h-5" />
-          </span>
-        </div>
-      </a>
-
-      {/* BRAND VALUES */}
-      <div
-        className={`absolute bottom-7 right-6 z-10 hidden text-right transition-all delay-700 duration-1000 md:block lg:bottom-9 lg:right-10 ${
-          isReady
-            ? "translate-y-0 opacity-100"
-            : "translate-y-4 opacity-0"
-        }`}
-      >
-        <p className="text-[8px] font-semibold uppercase tracking-[0.28em] text-white/55">
-          Tradition · Family · Excellence
-        </p>
-      </div>
-
       <style jsx>{`
-        .hero-scroll-line {
-          animation: scrollLine 2.2s ease-in-out infinite;
-        }
-
-        @keyframes scrollLine {
-          0% {
-            opacity: 0;
-            transform: translateY(-100%);
-          }
-
-          30% {
-            opacity: 1;
-          }
-
-          70% {
-            opacity: 1;
-          }
-
-          100% {
-            opacity: 0;
-            transform: translateY(220%);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .hero-scroll-line {
-            animation: none;
-          }
-        }
       `}</style>
     </section>
   );

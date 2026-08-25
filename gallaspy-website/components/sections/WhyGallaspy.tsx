@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 const principles = [
   {
     number: "01",
@@ -67,7 +65,7 @@ export default function WhyGallaspy() {
           {principles.map((principle, index) => (
             <article
               key={principle.number}
-              className={`group px-1 py-10 sm:px-7 lg:min-h-[390px] lg:px-8 lg:py-12 ${
+              className={`group px-1 py-9 sm:px-7 lg:min-h-[340px] lg:px-8 lg:py-10 ${
                 index !== principles.length - 1
                   ? "border-b border-[#10263F]/12 lg:border-b-0 lg:border-r"
                   : ""
@@ -96,38 +94,6 @@ export default function WhyGallaspy() {
           ))}
         </div>
 
-        {/* BRAND STATEMENT */}
-        <div className="mt-14 grid gap-8 rounded-[24px] bg-[#10263F] px-6 py-10 text-white shadow-[0_24px_65px_rgba(16,38,63,0.15)] sm:px-10 sm:py-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:px-12">
-          <div>
-            <p className="text-[9px] font-semibold uppercase tracking-[0.35em] text-[#FFD76A]">
-              The Long View
-            </p>
-
-            <h3 className="mt-4 max-w-2xl font-serif text-3xl font-light leading-tight sm:text-4xl lg:text-5xl">
-              Built one relationship, one tradition, and one milestone at a
-              time.
-            </h3>
-          </div>
-
-          <div className="lg:border-l lg:border-white/15 lg:pl-10">
-            <p className="text-sm leading-7 text-white/68 sm:text-base sm:leading-8">
-              The 2027 Gallaspy Invitational is the first major public chapter
-              in that journey — creating a real golf experience today while the
-              long-term club vision continues to develop.
-            </p>
-
-            <Link
-              href="/why-the-gallaspy"
-              className="group mt-7 inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#FFD76A] px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition duration-300 hover:-translate-y-1 hover:bg-[#FFD76A] hover:text-[#10263F]"
-            >
-              Read Our Story
-
-              <span className="ml-3 transition-transform duration-300 group-hover:translate-x-1">
-                →
-              </span>
-            </Link>
-          </div>
-        </div>
       </div>
     </section>
   );

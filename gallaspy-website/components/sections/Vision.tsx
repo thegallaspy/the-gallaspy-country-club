@@ -32,25 +32,6 @@ const visionPillars = [
   },
 ];
 
-const visionFacts = [
-  {
-    value: "18",
-    label: "Championship Holes",
-  },
-  {
-    value: "Georgia",
-    label: "Future Home",
-  },
-  {
-    value: "Private",
-    label: "Club Vision",
-  },
-  {
-    value: "Multi-Phase",
-    label: "Development Approach",
-  },
-];
-
 export default function Vision() {
   return (
     <section
@@ -201,6 +182,15 @@ export default function Vision() {
         </div>
       </div>
 
+      <p className="mx-auto mt-6 max-w-3xl px-5 text-center text-[10px] leading-5 text-[#10263F]/55 sm:px-8 lg:mt-7">
+        The imagery and development concepts shown represent the long-term
+        vision for The Gallaspy and are not depictions of a currently owned,
+        secured, or completed property. Final location, scale, amenities,
+        residential components, timing, and development plans remain subject
+        to land acquisition, planning, approvals, financing, and future
+        development decisions.
+      </p>
+
       {/* VISION PILLARS */}
       <div className="px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto w-full max-w-[1280px]">
@@ -226,7 +216,7 @@ export default function Vision() {
             {visionPillars.map((item, index) => (
               <article
                 key={item.eyebrow}
-                className={`group relative px-1 py-9 sm:px-7 lg:min-h-[360px] lg:py-10 ${
+                  className={`group relative px-1 py-8 sm:px-7 lg:min-h-[320px] lg:py-8 ${
                   index !== visionPillars.length - 1
                     ? "border-b border-[#10263F]/12 lg:border-b-0 lg:border-r"
                     : ""
@@ -259,56 +249,6 @@ export default function Vision() {
         </div>
       </div>
 
-      {/* VISION AT A GLANCE */}
-      <div className="bg-[#10263F] px-5 py-14 text-white sm:px-8 sm:py-16 lg:px-10 lg:py-20">
-        <div className="mx-auto w-full max-w-[1280px]">
-          <div className="mb-10 text-center">
-            <p className="text-[9px] font-bold uppercase tracking-[0.38em] text-[#FFD76A]">
-              Vision at a Glance
-            </p>
-
-            <h3 className="mt-4 font-serif text-3xl font-light sm:text-4xl">
-              Building the Foundation for The Gallaspy
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-2 border-y border-white/12 lg:grid-cols-4">
-            {visionFacts.map((fact, index) => (
-              <div
-                key={fact.label}
-                className={`px-3 py-8 text-center sm:px-5 lg:py-10 ${
-                  index !== visionFacts.length - 1
-                    ? "border-b border-white/10 lg:border-b-0 lg:border-r"
-                    : ""
-                }`}
-              >
-                <p
-                  className={`font-serif font-light leading-none text-white ${
-                    fact.value.length > 6
-                      ? "text-[1.65rem] sm:text-[2rem]"
-                      : "text-[2.25rem] sm:text-[2.8rem]"
-                  }`}
-                >
-                  {fact.value}
-                </p>
-
-                <p className="mt-4 text-[8px] font-bold uppercase tracking-[0.22em] text-[#FFD76A]">
-                  {fact.label}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <p className="mx-auto mt-8 max-w-3xl text-center text-[10px] leading-5 text-white/45">
-            The imagery and development concepts shown represent the long-term
-            vision for The Gallaspy and are not depictions of a currently
-            owned, secured, or completed property. Final location, scale,
-            amenities, residential components, timing, and development plans
-            remain subject to land acquisition, planning, approvals,
-            financing, and future development decisions.
-          </p>
-        </div>
-      </div>
     </section>
   );
 }

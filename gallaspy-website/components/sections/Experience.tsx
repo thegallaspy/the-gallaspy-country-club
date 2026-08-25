@@ -83,7 +83,7 @@ export default function Experience() {
         </div>
 
         {/* EXPERIENCE ROWS */}
-        <div className="mt-14 space-y-16 lg:mt-16 lg:space-y-24">
+        <div className="mt-14 space-y-16 lg:mt-16 lg:space-y-20">
           {experiences.map((experience, index) => {
             const reverse = index % 2 === 1;
 
@@ -110,19 +110,6 @@ export default function Experience() {
 
                   <div className="absolute inset-0 bg-gradient-to-r from-[#071C17]/16 via-transparent to-transparent" />
 
-                  {/* IMAGE NUMBER */}
-                  <div className="absolute left-5 top-5 flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-[#10263F]/55 text-[10px] font-semibold tracking-[0.18em] text-[#FFD76A] backdrop-blur-md sm:left-6 sm:top-6">
-                    {experience.number}
-                  </div>
-
-                  {/* IMAGE LABEL */}
-                  <div className="absolute bottom-5 left-5 right-5 sm:bottom-6 sm:left-6 sm:right-6">
-                    <div className="inline-flex rounded-full border border-white/20 bg-[#10263F]/55 px-4 py-2 backdrop-blur-md">
-                      <p className="text-[9px] font-semibold uppercase tracking-[0.24em] text-white/85">
-                        Conceptual Gallaspy Experience
-                      </p>
-                    </div>
-                  </div>
                 </div>
 
                 {/* CONTENT */}
@@ -176,41 +163,6 @@ export default function Experience() {
           })}
         </div>
 
-        {/* CLOSING PANEL */}
-        <div className="relative mt-16 overflow-hidden rounded-[24px] bg-[#10263F] px-6 py-10 text-center text-white shadow-[0_22px_60px_rgba(16,38,63,0.18)] sm:px-10 sm:py-12 lg:mt-24">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,215,106,0.11),transparent_42%)]" />
-
-          <div className="relative z-10 mx-auto max-w-3xl">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.38em] text-[#FFD76A]">
-              One Complete Vision
-            </p>
-
-            <h3 className="mt-4 font-serif text-3xl font-light leading-tight sm:text-4xl lg:text-5xl">
-              Designed Around the Way
-              <span className="block">
-                People Gather, Connect, and Belong
-              </span>
-            </h3>
-
-            <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-white/70 sm:text-base sm:leading-8">
-              From early-morning golf to evening dining, family recreation,
-              wellness, events, and overnight stays, The Gallaspy is being
-              envisioned as a private-club destination that extends far beyond
-              the course.
-            </p>
-
-            <Link
-              href="/club"
-              className="mt-8 inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#FFD76A] px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition duration-300 hover:-translate-y-1 hover:bg-[#FFD76A] hover:text-[#10263F]"
-            >
-              Explore the Club Vision
-
-              <span className="ml-3" aria-hidden="true">
-                →
-              </span>
-            </Link>
-          </div>
-        </div>
       </div>
     </section>
   );
