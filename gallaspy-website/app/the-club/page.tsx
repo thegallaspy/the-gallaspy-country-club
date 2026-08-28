@@ -139,6 +139,96 @@ export default function TheClubPage() {
           </div>
         </div>
       </section>
-    </main>
+    
+      {/* CLUB BOARD */}
+      <section className="bg-[#10263F] text-white">
+        <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 lg:px-10 lg:py-16">
+          <div className="grid gap-10 lg:grid-cols-[1fr_360px] lg:items-center">
+            <div>
+              <div className="flex items-center gap-3">
+                <span className="h-2 w-2 bg-[#B3262D]" />
+                <p className="text-[8px] font-black uppercase tracking-[0.32em] text-[#FFD76A]">
+                  Around The Club
+                </p>
+              </div>
+
+              <h2 className="mt-5 max-w-[680px] text-[2.8rem] font-black uppercase leading-[0.86] tracking-[-0.055em] sm:text-[3.8rem]">
+                Golf first.
+                <span className="block font-serif font-light normal-case italic tracking-[-0.035em] text-white/72">
+                  The calendar follows.
+                </span>
+              </h2>
+
+              <p className="mt-6 max-w-[650px] text-sm leading-7 text-white/48">
+                The Gallaspy calendar will grow through rounds, matches,
+                tournaments, and gatherings as the club continues to take shape.
+              </p>
+            </div>
+
+            {/* PINNED NOTE */}
+            <aside className="relative rotate-[1deg] bg-[#F2E6B8] p-6 text-[#10263F] shadow-[0_25px_55px_rgba(0,0,0,0.28)] sm:p-7">
+              <div className="absolute left-1/2 top-[-8px] h-4 w-4 -translate-x-1/2 rounded-full bg-[#B3262D] shadow-sm" />
+
+              <div className="border-b border-[#10263F]/15 pb-4">
+                <p className="text-[8px] font-black uppercase tracking-[0.28em] text-[#8B6A34]">
+                  On The Board
+                </p>
+
+                <h3 className="mt-2 font-serif text-2xl font-semibold italic">
+                  Upcoming
+                </h3>
+              </div>
+
+              <div className="py-5">
+                <div className="flex items-start justify-between gap-5">
+                  <div>
+                    <p className="text-[8px] font-black uppercase tracking-[0.22em] text-[#B3262D]">
+                      Invitation Only
+                    </p>
+                    <p className="mt-2 text-lg font-black uppercase tracking-[-0.025em]">
+                      First Flight
+                    </p>
+                  </div>
+
+                  <span className="text-[8px] font-black uppercase tracking-[0.18em] text-[#10263F]/35">
+                    01
+                  </span>
+                </div>
+              </div>
+
+              <div className="border-t border-[#10263F]/15 py-5">
+                <div className="flex items-start justify-between gap-5">
+                  <div>
+                    <p className="text-[8px] font-black uppercase tracking-[0.22em] text-[#8B6A34]">
+                      Flagship Tournament
+                    </p>
+                    <p className="mt-2 text-lg font-black uppercase leading-tight tracking-[-0.025em]">
+                      The Gallaspy Invitational
+                    </p>
+                    <p className="mt-2 text-[9px] font-bold uppercase tracking-[0.16em] text-[#10263F]/50">
+                      June 21, 2027
+                    </p>
+                  </div>
+
+                  <span className="text-[8px] font-black uppercase tracking-[0.18em] text-[#10263F]/35">
+                    02
+                  </span>
+                </div>
+              </div>
+
+              <div className="border-t border-[#10263F]/15 pt-5">
+                <Link
+                  href="/play"
+                  className="text-[8px] font-black uppercase tracking-[0.22em] text-[#10263F] transition hover:text-[#B3262D]"
+                >
+                  View Club Activity →
+                </Link>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+</main>
   );
 }

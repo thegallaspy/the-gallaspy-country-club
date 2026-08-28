@@ -1,90 +1,179 @@
 import Link from "next/link";
 
-const waysToPlay = [
+const pillars = [
   {
     number: "01",
     title: "Play",
-    text: "Join rounds and club gatherings built around good golf, good people, and a shared respect for the game.",
+    lines: ["Rounds.", "Games.", "New Courses.", "New People."],
+    href: "/play",
+    cta: "Find Your Next Round",
+    theme: "navy",
   },
   {
     number: "02",
     title: "Compete",
-    text: "Step into events that give the club its competitive edge, from friendly matches to the Gallaspy Invitational.",
+    lines: ["Matches.", "Tournaments.", "Leaderboards.", "Pressure."],
+    href: "/invitational",
+    cta: "See Competition",
+    theme: "green",
   },
   {
     number: "03",
     title: "Gather",
-    text: "Be part of the dinners, conversations, celebrations, and traditions that make a club feel like more than golf.",
+    lines: ["Club Nights.", "Events.", "Community.", "Traditions."],
+    href: "/traditions",
+    cta: "See The Traditions",
+    theme: "cream",
   },
 ];
 
 export default function PlayWithUs() {
   return (
-    <section className="relative overflow-hidden bg-[#F7F4EE] px-5 py-20 text-[#10263F] sm:px-8 sm:py-24 lg:px-10 lg:py-32">
-      <div className="relative mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-24">
+    <section className="overflow-hidden bg-[#F3EFE6]">
+      {/* HEADER */}
+      <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-14 lg:px-10 lg:py-16">
+        <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
           <div>
-            <p className="text-[9px] font-semibold uppercase tracking-[0.34em] text-[#8B6A34] sm:text-[10px] sm:tracking-[0.4em]">
-              Play With Us
-            </p>
+            <div className="flex items-center gap-3">
+              <span className="h-2 w-2 bg-[#B3262D]" />
 
-            <div className="mt-5 h-px w-12 bg-[#B89146]" />
+              <p className="text-[8px] font-black uppercase tracking-[0.34em] text-[#8B6A34]">
+                How The Club Moves
+              </p>
+            </div>
+
+            <h2 className="mt-4 text-[2.9rem] font-black uppercase leading-[0.82] tracking-[-0.06em] text-[#10263F] sm:text-[4.2rem] lg:text-[4.8rem]">
+              Play.
+              <span className="text-[#B3262D]"> Compete.</span>
+              <span className="block">Gather.</span>
+            </h2>
           </div>
 
-          <div>
-            <h2 className="max-w-[900px] font-serif text-[2.8rem] font-light leading-[0.98] tracking-[-0.03em] sm:text-[3.8rem] md:text-[4.6rem] lg:text-[5.3rem]">
-              You don&apos;t have to wait
-              <span className="block italic text-[#8B6A34]">
-                for the clubhouse.
+          <div className="lg:justify-self-end">
+            <p className="max-w-[520px] font-serif text-lg font-light leading-7 text-[#10263F]/70 sm:text-xl">
+              The club starts with
+              <span className="italic text-[#8B6A34]">
+                {" "}
+                the people who play.
               </span>
-            </h2>
-
-            <p className="mt-8 max-w-[760px] text-[15px] font-light leading-7 text-[#10263F]/68 sm:text-[17px] sm:leading-8">
-              The Gallaspy is being built through participation. Every round,
-              event, match, and gathering gives the club another piece of its
-              identity.
             </p>
 
-            <div className="mt-10">
-              <Link
-                href="/play"
-                className="group inline-flex min-h-[50px] items-center justify-center border border-[#10263F] bg-[#10263F] px-7 text-[9px] font-semibold uppercase tracking-[0.2em] text-white transition-all duration-300 hover:-translate-y-1 hover:bg-transparent hover:text-[#10263F] sm:px-8 sm:text-[10px]"
-              >
-                See How To Join Us
-                <span className="ml-3 transition-transform duration-300 group-hover:translate-x-1">
-                  →
-                </span>
-              </Link>
-            </div>
+            <p className="mt-3 max-w-[520px] text-sm leading-6 text-[#10263F]/48">
+              Rounds become matches. Matches become events. Events become the
+              traditions that shape The Gallaspy.
+            </p>
           </div>
         </div>
+      </div>
 
-        <div className="mt-16 grid border-t border-[#10263F]/10 sm:mt-20 sm:grid-cols-3 lg:mt-24">
-          {waysToPlay.map((item, index) => (
+      {/* COMPACT PILLARS */}
+      <div className="grid lg:grid-cols-3">
+        {pillars.map((pillar) => {
+          const isNavy = pillar.theme === "navy";
+          const isGreen = pillar.theme === "green";
+          const isDark = isNavy || isGreen;
+
+          return (
             <article
-              key={item.title}
-              className={`group py-9 sm:px-7 sm:py-12 ${
-                index !== waysToPlay.length - 1
-                  ? "border-b border-[#10263F]/10 sm:border-b-0 sm:border-r"
-                  : ""
-              }`}
+              key={pillar.title}
+              className={`group relative overflow-hidden border-t ${
+                isNavy
+                  ? "border-white/10 bg-[#10263F] text-white"
+                  : isGreen
+                    ? "border-white/10 bg-[#0C352D] text-white"
+                    : "border-[#10263F]/15 bg-[#F8F5EE] text-[#10263F]"
+              } lg:border-l lg:first:border-l-0`}
             >
-              <div className="flex items-center justify-between">
-                <span className="text-[8px] font-semibold uppercase tracking-[0.26em] text-[#8B6A34]">
-                  {item.number}
-                </span>
-
-                <span className="h-px w-10 bg-[#B89146]/55 transition-all duration-300 group-hover:w-16" />
+              <div
+                className={`pointer-events-none absolute right-2 top-0 text-[7rem] font-black leading-none tracking-[-0.09em] sm:text-[8.5rem] ${
+                  isDark ? "text-white/[0.04]" : "text-[#10263F]/[0.04]"
+                }`}
+              >
+                {pillar.number}
               </div>
 
-              <h3 className="mt-8 font-serif text-[2rem] font-light tracking-[-0.02em] text-[#10263F] sm:text-[2.35rem]">
-                {item.title}
-              </h3>
+              <div className="relative z-10 p-7 sm:p-8 lg:p-9">
+                <div className="flex items-center justify-between">
+                  <span
+                    className={`text-[1.6rem] font-black tracking-[-0.05em] ${
+                      isDark ? "text-[#E15A60]" : "text-[#B3262D]"
+                    }`}
+                  >
+                    {pillar.number}
+                  </span>
 
-              <p className="mt-5 max-w-[320px] text-sm font-light leading-7 text-[#10263F]/60">
-                {item.text}
-              </p>
+                  <span
+                    className={`h-[3px] w-10 ${
+                      isDark ? "bg-[#FFD76A]" : "bg-[#B89146]"
+                    }`}
+                  />
+                </div>
+
+                <h3 className="mt-5 text-[2.8rem] font-black uppercase leading-[0.84] tracking-[-0.06em] sm:text-[3.3rem]">
+                  {pillar.title}
+                </h3>
+
+                <div className="mt-6 flex flex-wrap gap-x-2 gap-y-1">
+                  {pillar.lines.map((line) => (
+                    <span
+                      key={line}
+                      className={`text-[0.95rem] font-black uppercase tracking-[-0.02em] sm:text-[1rem] ${
+                        isDark ? "text-white/72" : "text-[#10263F]/68"
+                      }`}
+                    >
+                      {line}
+                    </span>
+                  ))}
+                </div>
+
+                <div
+                  className={`mt-8 border-t pt-5 ${
+                    isDark ? "border-white/15" : "border-[#10263F]/15"
+                  }`}
+                >
+                  <Link
+                    href={pillar.href}
+                    className={`text-[8px] font-black uppercase tracking-[0.22em] transition ${
+                      isDark
+                        ? "text-[#FFD76A] hover:text-white"
+                        : "text-[#10263F] hover:text-[#B3262D]"
+                    }`}
+                  >
+                    {pillar.cta} →
+                  </Link>
+                </div>
+              </div>
+
+              <div
+                className={`absolute bottom-0 left-0 h-[5px] w-0 transition-all duration-500 group-hover:w-full ${
+                  pillar.title === "Play"
+                    ? "bg-[#B3262D]"
+                    : pillar.title === "Compete"
+                      ? "bg-[#FFD76A]"
+                      : "bg-[#0C352D]"
+                }`}
+              />
             </article>
+          );
+        })}
+      </div>
+
+      {/* SPORT STRIP */}
+      <div className="bg-[#B3262D]">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-8 overflow-hidden px-5 py-3 sm:px-8 lg:px-10">
+          {[
+            "ROUNDS",
+            "MATCHES",
+            "EVENTS",
+            "TRADITIONS",
+            "THE GALLASPY",
+          ].map((item) => (
+            <span
+              key={item}
+              className="shrink-0 text-[7px] font-black uppercase tracking-[0.3em] text-white"
+            >
+              {item}
+            </span>
           ))}
         </div>
       </div>

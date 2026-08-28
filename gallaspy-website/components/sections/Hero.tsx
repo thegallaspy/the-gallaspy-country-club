@@ -30,15 +30,13 @@ export default function Hero() {
         }`}
       />
 
-      <div className="absolute inset-0 bg-[#10263F]/42 sm:bg-[#10263F]/36" />
+      <div className="absolute inset-0 bg-[#10263F]/18 sm:bg-[#10263F]/14" />
 
-      <div className="absolute inset-0 bg-gradient-to-r from-[#071827]/60 via-[#10263F]/18 to-[#071827]/48" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#071827]/38 via-transparent to-[#071827]/20" />
 
-      <div className="absolute inset-0 bg-gradient-to-b from-[#10263F]/58 via-[#10263F]/10 to-[#071827]/96" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#071827]/24 via-transparent to-[#071827]/72" />
 
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),transparent_50%)]" />
-
-      <div className="absolute inset-0 shadow-[inset_0_0_120px_rgba(0,0,0,0.34)] sm:shadow-[inset_0_0_170px_rgba(0,0,0,0.38)]" />
+      <div className="absolute inset-0 shadow-[inset_0_0_90px_rgba(0,0,0,0.18)] sm:shadow-[inset_0_0_120px_rgba(0,0,0,0.2)]" />
 
       <div
         className={`absolute left-5 top-1/2 hidden h-24 w-px -translate-y-1/2 bg-gradient-to-b from-transparent via-[#FFD76A]/55 to-transparent transition-opacity delay-700 duration-1000 lg:block ${
