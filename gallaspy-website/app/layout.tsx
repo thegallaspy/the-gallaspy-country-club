@@ -14,26 +14,24 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://thegallaspy.com"),
 
   title: {
-    default: "The Gallaspy Golf & Country Club",
-    template: "%s | The Gallaspy Golf & Country Club",
+    default: "The Gallaspy Golf Club",
+    template: "%s | The Gallaspy Golf Club",
   },
 
   description:
-    "A future private golf, wellness, hospitality, and lifestyle destination being envisioned in Georgia.",
+    "A golf club being built through the game. The Gallaspy brings golfers together through play, competition, gatherings, and traditions across Georgia.",
 
   keywords: [
-    "Private Golf Club",
-    "Country Club",
-    "Georgia Golf",
-    "Luxury Golf",
-    "Golf Community",
-    "Private Membership",
-    "Golf Course",
-    "Championship Golf",
-    "Wellness",
-    "Luxury Real Estate",
-    "Golf Lifestyle",
     "The Gallaspy",
+    "The Gallaspy Golf Club",
+    "Georgia Golf",
+    "Atlanta Golf",
+    "Golf Club",
+    "Golf Community",
+    "Golf Events",
+    "Golf Tournament",
+    "The Gallaspy Invitational",
+    "Georgia Golf Events",
   ],
 
   authors: [{ name: "The Gallaspy Development Group" }],
@@ -43,34 +41,35 @@ export const metadata: Metadata = {
   publisher: "The Gallaspy Development Group",
 
   icons: {
-    icon: "/logos/logo.png",
-    shortcut: "/logos/logo.png",
-    apple: "/logos/logo.png",
+    icon: "/logos/crest.png",
+    shortcut: "/logos/crest.png",
+    apple: "/logos/crest.png",
   },
 
   openGraph: {
-    title: "The Gallaspy Golf & Country Club",
+    title: "The Gallaspy Golf Club",
     description:
-      "A future private golf and lifestyle destination being envisioned in Georgia.",
+      "A golf club being built through the game, the people who play it, and the traditions created along the way.",
     url: "https://thegallaspy.com",
-    siteName: "The Gallaspy Golf & Country Club",
+    siteName: "The Gallaspy Golf Club",
     locale: "en_US",
     type: "website",
     images: [
       {
-        url: "/images/og-image.jpg",
+        url: "/images/home-hero.jpg",
         width: 1200,
         height: 630,
+        alt: "The Gallaspy Golf Club",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "The Gallaspy Golf & Country Club",
+    title: "The Gallaspy Golf Club",
     description:
-      "A future private golf and lifestyle destination being envisioned in Georgia.",
-    images: ["/images/og-image.jpg"],
+      "A golf club being built through the game, the people who play it, and the traditions created along the way.",
+    images: ["/images/home-hero.jpg"],
   },
 };
 
@@ -89,7 +88,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className="bg-[#F7F4EE] text-[#10263F] antialiased selection:bg-[#B89146] selection:text-white">
-        {/* Square Web Payments SDK */}
         <Script
           src={squareScript}
           strategy="afterInteractive"

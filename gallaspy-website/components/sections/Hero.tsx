@@ -8,60 +8,28 @@ export default function Hero() {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    let revealTimer: number | undefined;
-    let entranceCheck: number | undefined;
-
-    const revealHero = () => {
-      revealTimer = window.setTimeout(() => {
-        setIsReady(true);
-      }, 180);
-    };
-
-    const hasEnteredSite =
-      sessionStorage.getItem("gallaspy-site-entered") === "true";
-
-    if (hasEnteredSite) {
-      revealHero();
-    } else {
-      entranceCheck = window.setInterval(() => {
-        const hasNowEntered =
-          sessionStorage.getItem("gallaspy-site-entered") === "true";
-
-        if (hasNowEntered) {
-          window.clearInterval(entranceCheck);
-          revealHero();
-        }
-      }, 100);
-    }
+    const revealTimer = window.setTimeout(() => {
+      setIsReady(true);
+    }, 180);
 
     return () => {
-      if (revealTimer !== undefined) {
-        window.clearTimeout(revealTimer);
-      }
-
-      if (entranceCheck !== undefined) {
-        window.clearInterval(entranceCheck);
-      }
+      window.clearTimeout(revealTimer);
     };
   }, []);
 
   return (
     <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-[#10263F] px-5 pb-16 pt-[76px] sm:px-8 sm:pb-20 sm:pt-[90px] lg:min-h-screen lg:px-10 lg:pb-20 lg:pt-[100px]">
-      {/* CINEMATIC BACKGROUND */}
       <Image
-        src="/images/hero.jpg"
-        alt="The Gallaspy vision"
+        src="/images/home-hero.jpg"
+        alt="The Gallaspy Golf Club"
         fill
         priority
         sizes="100vw"
         className={`object-cover object-[52%_center] transition-all duration-[9000ms] ease-out sm:object-center ${
-          isReady
-            ? "scale-100 opacity-100"
-            : "scale-[1.08] opacity-75"
+          isReady ? "scale-100 opacity-100" : "scale-[1.08] opacity-75"
         }`}
       />
 
-      {/* OVERLAYS */}
       <div className="absolute inset-0 bg-[#10263F]/42 sm:bg-[#10263F]/36" />
 
       <div className="absolute inset-0 bg-gradient-to-r from-[#071827]/60 via-[#10263F]/18 to-[#071827]/48" />
@@ -72,7 +40,6 @@ export default function Hero() {
 
       <div className="absolute inset-0 shadow-[inset_0_0_120px_rgba(0,0,0,0.34)] sm:shadow-[inset_0_0_170px_rgba(0,0,0,0.38)]" />
 
-      {/* DESKTOP DECORATIVE LINES */}
       <div
         className={`absolute left-5 top-1/2 hidden h-24 w-px -translate-y-1/2 bg-gradient-to-b from-transparent via-[#FFD76A]/55 to-transparent transition-opacity delay-700 duration-1000 lg:block ${
           isReady ? "opacity-100" : "opacity-0"
@@ -85,18 +52,14 @@ export default function Hero() {
         }`}
       />
 
-      {/* HERO CONTENT */}
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center text-center text-white">
         <div
           className={`flex flex-col items-center transition-all duration-1000 ${
-            isReady
-              ? "translate-y-0 opacity-100"
-              : "translate-y-5 opacity-0"
+            isReady ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
           }`}
         >
-          {/* UPDATED OFFICIAL GALLASPY FALCON LOGO */}
           <Image
-            src="/logos/falcon-society-logo.png"
+            src="/logos/falcon.png"
             alt="The Gallaspy Falcon"
             width={160}
             height={160}
@@ -115,67 +78,59 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* TITLE */}
         <h1
           className={`mx-auto mt-5 max-w-[980px] font-serif text-[2.45rem] font-light leading-[0.96] tracking-[-0.025em] text-white transition-all delay-150 duration-[1200ms] min-[390px]:text-[2.75rem] sm:mt-6 sm:text-[4.2rem] md:text-[5rem] lg:text-[6.1rem] xl:text-[6.8rem] ${
-            isReady
-              ? "translate-y-0 opacity-100"
-              : "translate-y-10 opacity-0"
+            isReady ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }`}
         >
           The Gallaspy
 
           <span className="mt-2 block text-[0.68em] font-light leading-[1.02] tracking-[-0.01em] sm:mt-3">
-            Golf &amp; Country Club
+            Golf Club
           </span>
         </h1>
 
         <div
           className={`mt-7 h-px bg-[#FFD76A] transition-all delay-300 duration-[1200ms] sm:mt-8 ${
-            isReady
-              ? "w-20 opacity-100 sm:w-24"
-              : "w-0 opacity-0"
+            isReady ? "w-20 opacity-100 sm:w-24" : "w-0 opacity-0"
           }`}
         />
 
-        {/* TAGLINE */}
-        <p
-          className={`mt-6 text-[9px] font-semibold uppercase tracking-[0.26em] text-[#FFD76A] transition-all delay-[400ms] duration-1000 sm:mt-7 sm:text-xs sm:tracking-[0.34em] ${
-            isReady
-              ? "translate-y-0 opacity-100"
-              : "translate-y-6 opacity-0"
+        <div
+          className={`mt-6 transition-all delay-[400ms] duration-1000 sm:mt-7 ${
+            isReady ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
           }`}
         >
-          A Legacy in the Making
-        </p>
+          <p className="whitespace-nowrap font-serif text-[0.92rem] font-light tracking-[-0.015em] text-white sm:text-[1.3rem] md:text-[1.55rem] lg:text-[1.8rem]">
+            No course. No clubhouse. No history.
+          </p>
 
-        {/* DESCRIPTION */}
+          <p className="mt-2 font-serif text-[1.2rem] font-light italic text-[#FFD76A] sm:text-[1.55rem] md:text-[1.8rem]">
+            Yet.
+          </p>
+        </div>
+
         <p
-          className={`mx-auto mt-5 max-w-[700px] text-[13px] font-light leading-6 text-white/85 transition-all delay-500 duration-1000 sm:mt-6 sm:text-base sm:leading-8 md:text-[17px] ${
-            isReady
-              ? "translate-y-0 opacity-100"
-              : "translate-y-6 opacity-0"
+          className={`mx-auto mt-5 max-w-[720px] text-[13px] font-light leading-6 text-white/85 transition-all delay-500 duration-1000 sm:mt-6 sm:text-base sm:leading-8 md:text-[17px] ${
+            isReady ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
           }`}
         >
-          A future private golf and lifestyle destination being built from the
-          ground up around championship golf, timeless hospitality, family
-          tradition, and enduring legacy.
+          We&apos;re starting with the game and the people who play it —
+          bringing golfers together through rounds, competition, gatherings,
+          and the traditions we&apos;ll build along the way.
         </p>
 
-        {/* PRIMARY CTA */}
         <div
           className={`mt-8 flex w-full max-w-[440px] flex-col items-center justify-center gap-3 transition-all delay-[650ms] duration-1000 sm:mt-10 sm:max-w-none sm:flex-row sm:gap-4 ${
-            isReady
-              ? "translate-y-0 opacity-100"
-              : "translate-y-7 opacity-0"
+            isReady ? "translate-y-0 opacity-100" : "translate-y-7 opacity-0"
           }`}
         >
           <Link
-            href="/invitational/register"
+            href="/play"
             className="group relative inline-flex min-h-[50px] w-full items-center justify-center overflow-hidden border border-[#FFD76A] bg-[#FFD76A] px-6 text-[9px] font-semibold uppercase tracking-[0.19em] text-[#10263F] shadow-[0_16px_45px_rgba(0,0,0,0.2)] transition-all duration-500 hover:-translate-y-1 hover:bg-transparent hover:text-white sm:min-h-[52px] sm:w-auto sm:min-w-[235px] sm:px-8 sm:text-[10px] sm:tracking-[0.22em]"
           >
             <span className="relative z-10">
-              Join Player Priority List
+              Play With The Gallaspy
             </span>
 
             <span
@@ -192,10 +147,10 @@ export default function Hero() {
           </Link>
 
           <Link
-            href="/invitational/sponsors"
+            href="/why-the-gallaspy"
             className="group inline-flex min-h-[50px] w-full items-center justify-center border border-white/55 bg-[#10263F]/30 px-6 text-[9px] font-semibold uppercase tracking-[0.19em] text-white shadow-[0_16px_45px_rgba(0,0,0,0.14)] backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-[#FFD76A] hover:bg-[#10263F]/65 hover:text-[#FFD76A] sm:min-h-[52px] sm:w-auto sm:min-w-[235px] sm:px-8 sm:text-[10px] sm:tracking-[0.22em]"
           >
-            Sponsor the Invitational
+            Our Story
 
             <span
               aria-hidden="true"
@@ -205,11 +160,7 @@ export default function Hero() {
             </span>
           </Link>
         </div>
-
       </div>
-
-      <style jsx>{`
-      `}</style>
     </section>
   );
 }

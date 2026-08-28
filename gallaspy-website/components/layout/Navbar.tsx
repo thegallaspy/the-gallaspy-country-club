@@ -3,29 +3,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-const clubLinks = [
-  { title: "The Club Overview", href: "/club" },
-  { title: "Golf", href: "/club/golf" },
-  { title: "Clubhouse", href: "/club/clubhouse" },
-  { title: "Restaurant", href: "/club/restaurant" },
-  { title: "Wellness", href: "/club/wellness" },
-  { title: "Racquet", href: "/club/racquet" },
-  { title: "Member Lodging", href: "/club/lodging" },
-  { title: "Private Events", href: "/club/events" },
-];
-
-const primaryLinks = [
+const navigation = [
+  { title: "The Club", href: "/the-club" },
+  { title: "Play", href: "/play" },
   { title: "Invitational", href: "/invitational" },
+  { title: "Traditions", href: "/traditions" },
   { title: "Apparel", href: "/apparel" },
   { title: "Our Story", href: "/why-the-gallaspy" },
-];
-
-const membershipLinks = [
-  { title: "Membership Interest", href: "/membership" },
-  { title: "Falcon Society", href: "/falcon-society" },
-  { title: "Development & Partnerships", href: "/invest" },
+  { title: "Contact", href: "/contact" },
 ];
 
 function isRouteActive(pathname: string, href: string) {
@@ -38,23 +25,9 @@ function isRouteActive(pathname: string, href: string) {
 
 export function Navbar() {
   const pathname = usePathname();
-  const headerRef = useRef<HTMLElement>(null);
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [isClubOpen, setIsClubOpen] = useState(false);
-  const [isMembershipOpen, setIsMembershipOpen] = useState(false);
-
-  const isClubRoute =
-    pathname === "/club" || pathname.startsWith("/club/");
-
-  const isMembershipRoute =
-    pathname === "/membership" ||
-    pathname.startsWith("/membership/") ||
-    pathname === "/falcon-society" ||
-    pathname.startsWith("/falcon-society/") ||
-    pathname === "/invest" ||
-    pathname.startsWith("/invest/");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,14 +46,12 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    const resetMenus = window.setTimeout(() => {
+    const closeMenu = window.setTimeout(() => {
       setIsMobileOpen(false);
-      setIsClubOpen(false);
-      setIsMembershipOpen(false);
     }, 0);
 
     return () => {
-      window.clearTimeout(resetMenus);
+      window.clearTimeout(closeMenu);
     };
   }, [pathname]);
 
@@ -96,8 +67,6 @@ export function Navbar() {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setIsMobileOpen(false);
-        setIsClubOpen(false);
-        setIsMembershipOpen(false);
       }
     };
 
@@ -108,494 +77,223 @@ export function Navbar() {
     };
   }, []);
 
-  const closeMenus = () => {
+  const closeMenu = () => {
     setIsMobileOpen(false);
-    setIsClubOpen(false);
-    setIsMembershipOpen(false);
   };
 
-  const navLinkClass = (active: boolean) =>
-    [
-      "group relative flex h-[82px] items-center whitespace-nowrap",
-      "text-[10px] font-semibold uppercase tracking-[0.14em]",
-      "transition-colors duration-300",
-      active
-        ? "text-white"
-        : "text-[#FFD76A] hover:text-white",
-    ].join(" ");
-
   return (
-    <header
-      ref={headerRef}
-      className={[
-        "fixed inset-x-0 top-0 z-50 w-full",
-        "transition-all duration-500 ease-out",
-        isScrolled
-          ? "border-b border-white/10 bg-[#10263F]/95 shadow-[0_12px_40px_rgba(4,17,31,0.22)] backdrop-blur-xl"
-          : "border-b border-white/[0.06] bg-[#10263F]/88 backdrop-blur-md",
-      ].join(" ")}
-    >
-      <div className="mx-auto flex h-[82px] w-full max-w-[1600px] items-center justify-between px-5 sm:px-8 lg:px-10">
-        {/* LOGO */}
-        <Link
-          href="/"
-          onClick={closeMenus}
-          aria-label="The Gallaspy Golf and Country Club home"
-          className="group flex shrink-0 items-center rounded-full outline-none transition focus-visible:ring-2 focus-visible:ring-[#FFD76A] focus-visible:ring-offset-4 focus-visible:ring-offset-[#10263F]"
-        >
-          <Image
-            src="/logos/logo.png"
-            alt="The Gallaspy Golf and Country Club"
-            width={66}
-            height={66}
-            priority
-            className={[
-              "object-contain transition-all duration-500",
-              isScrolled
-                ? "h-[56px] w-[56px] sm:h-[60px] sm:w-[60px]"
-                : "h-[60px] w-[60px] sm:h-[64px] sm:w-[64px]",
-              "group-hover:scale-[1.03]",
-            ].join(" ")}
-          />
-        </Link>
-
-        {/* DESKTOP NAVIGATION */}
-        <nav
-          aria-label="Primary navigation"
-          className="hidden items-center gap-6 xl:flex 2xl:gap-8"
-        >
-          {/* THE CLUB */}
-          <div
-            className="relative"
-            onMouseEnter={() => setIsClubOpen(true)}
-            onMouseLeave={() => setIsClubOpen(false)}
-          >
-            <button
-              type="button"
-              onClick={() => {
-                setIsClubOpen((current) => !current);
-                setIsMembershipOpen(false);
-              }}
-              className={[
-                navLinkClass(isClubRoute),
-                "gap-2 outline-none focus-visible:ring-2 focus-visible:ring-[#FFD76A]",
-              ].join(" ")}
-              aria-expanded={isClubOpen}
-              aria-haspopup="true"
-              aria-controls="desktop-club-menu"
-            >
-              The Club
-
-              <span
-                aria-hidden="true"
-                className={`text-[11px] transition-transform duration-300 ${
-                  isClubOpen ? "rotate-180" : ""
-                }`}
-              >
-                ▾
-              </span>
-
-              <span
-                className={[
-                  "absolute inset-x-0 bottom-[17px] h-px origin-left bg-[#FFD76A]",
-                  "transition-transform duration-300",
-                  isClubRoute || isClubOpen
-                    ? "scale-x-100"
-                    : "scale-x-0 group-hover:scale-x-100",
-                ].join(" ")}
-              />
-            </button>
-
-            <div
-              id="desktop-club-menu"
-              className={[
-                "absolute left-1/2 top-full w-[320px] -translate-x-1/2 pt-3",
-                "transition-all duration-300 ease-out",
-                isClubOpen
-                  ? "visible translate-y-0 opacity-100"
-                  : "invisible -translate-y-2 opacity-0",
-              ].join(" ")}
-            >
-              <div className="overflow-hidden rounded-[18px] border border-white/10 bg-[#10263F]/98 p-2.5 shadow-[0_24px_70px_rgba(0,0,0,0.32)] backdrop-blur-xl">
-                <div className="grid grid-cols-2 gap-1">
-                  {clubLinks.map((item) => {
-                    const active = isRouteActive(pathname, item.href);
-
-                    return (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={closeMenus}
-                        aria-current={active ? "page" : undefined}
-                        className={[
-                          "rounded-xl px-4 py-3.5",
-                          "text-[9px] font-semibold uppercase tracking-[0.15em]",
-                          "outline-none transition-all duration-250",
-                          active
-                            ? "bg-[#B89146] text-white"
-                            : "text-white/82 hover:bg-white/[0.08] hover:text-[#FFD76A]",
-                          "focus-visible:ring-2 focus-visible:ring-[#FFD76A]",
-                        ].join(" ")}
-                      >
-                        {item.title}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* INVITATIONAL + APPAREL + OUR STORY */}
-          {primaryLinks.map((item) => {
-            const active = isRouteActive(pathname, item.href);
-
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={closeMenus}
-                aria-current={active ? "page" : undefined}
-                className={navLinkClass(active)}
-              >
-                {item.title}
-
-                <span
-                  className={[
-                    "absolute inset-x-0 bottom-[17px] h-px origin-left bg-[#FFD76A]",
-                    "transition-transform duration-300",
-                    active
-                      ? "scale-x-100"
-                      : "scale-x-0 group-hover:scale-x-100",
-                  ].join(" ")}
-                />
-              </Link>
-            );
-          })}
-
-          {/* MEMBERSHIP INTEREST */}
-          <div
-            className="relative"
-            onMouseEnter={() => setIsMembershipOpen(true)}
-            onMouseLeave={() => setIsMembershipOpen(false)}
-          >
-            <button
-              type="button"
-              onClick={() => {
-                setIsMembershipOpen((current) => !current);
-                setIsClubOpen(false);
-              }}
-              className={[
-                navLinkClass(isMembershipRoute),
-                "gap-2 outline-none focus-visible:ring-2 focus-visible:ring-[#FFD76A]",
-              ].join(" ")}
-              aria-expanded={isMembershipOpen}
-              aria-haspopup="true"
-              aria-controls="desktop-membership-menu"
-            >
-              Membership Interest
-
-              <span
-                aria-hidden="true"
-                className={`text-[11px] transition-transform duration-300 ${
-                  isMembershipOpen ? "rotate-180" : ""
-                }`}
-              >
-                ▾
-              </span>
-
-              <span
-                className={[
-                  "absolute inset-x-0 bottom-[17px] h-px origin-left bg-[#FFD76A]",
-                  "transition-transform duration-300",
-                  isMembershipRoute || isMembershipOpen
-                    ? "scale-x-100"
-                    : "scale-x-0 group-hover:scale-x-100",
-                ].join(" ")}
-              />
-            </button>
-
-            <div
-              id="desktop-membership-menu"
-              className={[
-                "absolute left-1/2 top-full w-[320px] -translate-x-1/2 pt-3",
-                "transition-all duration-300 ease-out",
-                isMembershipOpen
-                  ? "visible translate-y-0 opacity-100"
-                  : "invisible -translate-y-2 opacity-0",
-              ].join(" ")}
-            >
-              <div className="overflow-hidden rounded-[18px] border border-white/10 bg-[#10263F]/98 p-2.5 shadow-[0_24px_70px_rgba(0,0,0,0.32)] backdrop-blur-xl">
-                <div className="grid gap-1">
-                  {membershipLinks.map((item) => {
-                    const active = isRouteActive(pathname, item.href);
-
-                    return (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={closeMenus}
-                        aria-current={active ? "page" : undefined}
-                        className={[
-                          "rounded-xl px-4 py-3.5",
-                          "text-[9px] font-semibold uppercase tracking-[0.15em]",
-                          "outline-none transition-all duration-250",
-                          active
-                            ? "bg-[#B89146] text-white"
-                            : "text-white/82 hover:bg-white/[0.08] hover:text-[#FFD76A]",
-                          "focus-visible:ring-2 focus-visible:ring-[#FFD76A]",
-                        ].join(" ")}
-                      >
-                        {item.title}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* CONTACT */}
-          <Link
-            href="/contact"
-            onClick={closeMenus}
-            aria-current={
-              isRouteActive(pathname, "/contact") ? "page" : undefined
-            }
-            className={[
-              "ml-1 inline-flex min-h-[42px] items-center justify-center rounded-full",
-              "border px-5 py-2.5",
-              "text-[10px] font-semibold uppercase tracking-[0.16em]",
-              "outline-none transition-all duration-300",
-              isRouteActive(pathname, "/contact")
-                ? "border-white bg-white text-[#10263F]"
-                : "border-[#FFD76A] bg-[#B89146] text-white hover:-translate-y-0.5 hover:bg-white hover:text-[#10263F]",
-              "focus-visible:ring-2 focus-visible:ring-[#FFD76A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#10263F]",
-            ].join(" ")}
-          >
-            Contact
-          </Link>
-        </nav>
-
-        {/* MOBILE BUTTON */}
-        <button
-          type="button"
-          onClick={() => setIsMobileOpen((current) => !current)}
-          className={[
-            "flex h-11 w-11 items-center justify-center rounded-full",
-            "border border-[#FFD76A]/60 text-[#FFD76A]",
-            "outline-none transition-all duration-300 xl:hidden",
-            "hover:border-[#FFD76A] hover:bg-[#FFD76A] hover:text-[#10263F]",
-            "focus-visible:ring-2 focus-visible:ring-[#FFD76A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#10263F]",
-          ].join(" ")}
-          aria-label={
-            isMobileOpen ? "Close navigation menu" : "Open navigation menu"
-          }
-          aria-expanded={isMobileOpen}
-          aria-controls="mobile-navigation"
-        >
-          <span className="relative h-4 w-5" aria-hidden="true">
-            <span
-              className={`absolute left-0 top-0 h-[1.5px] w-5 bg-current transition-all duration-300 ${
-                isMobileOpen ? "translate-y-[7px] rotate-45" : ""
-              }`}
-            />
-
-            <span
-              className={`absolute left-0 top-[7px] h-[1.5px] w-5 bg-current transition-all duration-300 ${
-                isMobileOpen
-                  ? "scale-x-0 opacity-0"
-                  : "scale-x-100 opacity-100"
-              }`}
-            />
-
-            <span
-              className={`absolute left-0 top-[14px] h-[1.5px] w-5 bg-current transition-all duration-300 ${
-                isMobileOpen ? "-translate-y-[7px] -rotate-45" : ""
-              }`}
-            />
-          </span>
-        </button>
-      </div>
-
-      {/* MOBILE NAVIGATION */}
-      <div
-        id="mobile-navigation"
+    <>
+      <header
         className={[
-          "overflow-hidden border-t bg-[#10263F]/98 backdrop-blur-xl",
-          "transition-all duration-500 ease-out xl:hidden",
-          isMobileOpen
-            ? "max-h-[calc(100vh-82px)] border-white/10 opacity-100"
-            : "max-h-0 border-transparent opacity-0",
+          "fixed inset-x-0 top-0 z-50 w-full",
+          "transition-all duration-500 ease-out",
+          isScrolled
+            ? "border-b border-white/10 bg-[#10263F]/96 shadow-[0_12px_40px_rgba(4,17,31,0.22)] backdrop-blur-xl"
+            : "border-b border-white/[0.06] bg-[#10263F]/88 backdrop-blur-md",
         ].join(" ")}
       >
-        <nav
-          aria-label="Mobile navigation"
-          className="mx-auto max-h-[calc(100vh-82px)] w-full max-w-3xl overflow-y-auto px-5 py-5 sm:px-8"
-        >
-          {/* MOBILE CLUB */}
-          <button
-            type="button"
-            onClick={() => {
-              setIsClubOpen((current) => !current);
-              setIsMembershipOpen(false);
-            }}
-            className={[
-              "flex w-full items-center justify-between border-b border-white/10 py-4",
-              "text-left text-[11px] font-semibold uppercase tracking-[0.18em]",
-              isClubRoute ? "text-white" : "text-[#FFD76A]",
-            ].join(" ")}
-            aria-expanded={isClubOpen}
-            aria-controls="mobile-club-menu"
-          >
-            The Club
-
-            <span
-              aria-hidden="true"
-              className={`transition-transform duration-300 ${
-                isClubOpen ? "rotate-180" : ""
-              }`}
-            >
-              ▾
-            </span>
-          </button>
-
-          <div
-            id="mobile-club-menu"
-            className={[
-              "grid overflow-hidden transition-all duration-400 ease-out",
-              isClubOpen
-                ? "max-h-[700px] py-2 opacity-100"
-                : "max-h-0 py-0 opacity-0",
-            ].join(" ")}
-          >
-            {clubLinks.map((item) => {
-              const active = isRouteActive(pathname, item.href);
-
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={closeMenus}
-                  aria-current={active ? "page" : undefined}
-                  className={[
-                    "rounded-xl px-4 py-3.5",
-                    "text-[10px] font-semibold uppercase tracking-[0.16em]",
-                    "transition-all duration-250",
-                    active
-                      ? "bg-[#B89146] text-white"
-                      : "text-white/80 hover:bg-white/[0.08] hover:text-[#FFD76A]",
-                  ].join(" ")}
-                >
-                  {item.title}
-                </Link>
-              );
-            })}
-          </div>
-
-          {/* MOBILE INVITATIONAL + APPAREL + OUR STORY */}
-          {primaryLinks.map((item) => {
-            const active = isRouteActive(pathname, item.href);
-
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={closeMenus}
-                aria-current={active ? "page" : undefined}
-                className={[
-                  "flex items-center justify-between border-b border-white/10 py-4",
-                  "text-[11px] font-semibold uppercase tracking-[0.18em]",
-                  "transition-colors duration-250",
-                  active
-                    ? "text-white"
-                    : "text-[#FFD76A] hover:text-white",
-                ].join(" ")}
-              >
-                {item.title}
-
-                {active && (
-                  <span
-                    aria-hidden="true"
-                    className="h-1.5 w-1.5 rounded-full bg-[#FFD76A]"
-                  />
-                )}
-              </Link>
-            );
-          })}
-
-          {/* MOBILE MEMBERSHIP */}
-          <button
-            type="button"
-            onClick={() => {
-              setIsMembershipOpen((current) => !current);
-              setIsClubOpen(false);
-            }}
-            className={[
-              "flex w-full items-center justify-between border-b border-white/10 py-4",
-              "text-left text-[11px] font-semibold uppercase tracking-[0.18em]",
-              isMembershipRoute ? "text-white" : "text-[#FFD76A]",
-            ].join(" ")}
-            aria-expanded={isMembershipOpen}
-            aria-controls="mobile-membership-menu"
-          >
-            Membership Interest
-
-            <span
-              aria-hidden="true"
-              className={`transition-transform duration-300 ${
-                isMembershipOpen ? "rotate-180" : ""
-              }`}
-            >
-              ▾
-            </span>
-          </button>
-
-          <div
-            id="mobile-membership-menu"
-            className={[
-              "grid overflow-hidden transition-all duration-400 ease-out",
-              isMembershipOpen
-                ? "max-h-[360px] py-2 opacity-100"
-                : "max-h-0 py-0 opacity-0",
-            ].join(" ")}
-          >
-            {membershipLinks.map((item) => {
-              const active = isRouteActive(pathname, item.href);
-
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={closeMenus}
-                  aria-current={active ? "page" : undefined}
-                  className={[
-                    "rounded-xl px-4 py-3.5",
-                    "text-[10px] font-semibold uppercase tracking-[0.16em]",
-                    "transition-all duration-250",
-                    active
-                      ? "bg-[#B89146] text-white"
-                      : "text-white/80 hover:bg-white/[0.08] hover:text-[#FFD76A]",
-                  ].join(" ")}
-                >
-                  {item.title}
-                </Link>
-              );
-            })}
-          </div>
-
-          {/* MOBILE CONTACT */}
+        <div className="mx-auto flex h-[82px] w-full max-w-[1600px] items-center justify-between px-5 sm:px-8 lg:px-10">
+          {/* BRAND */}
           <Link
-            href="/contact"
-            onClick={closeMenus}
-            className="mt-6 inline-flex min-h-[48px] w-full items-center justify-center rounded-full border border-[#FFD76A] bg-[#B89146] px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-all duration-300 hover:bg-white hover:text-[#10263F]"
+            href="/"
+            onClick={closeMenu}
+            aria-label="The Gallaspy Golf Club home"
+            className="group flex shrink-0 items-center gap-3 outline-none"
           >
-            Contact
+            <div className="relative h-[54px] w-[54px] sm:h-[58px] sm:w-[58px]">
+              <Image
+                src="/logos/crest.png"
+                alt="The Gallaspy crest"
+                fill
+                priority
+                sizes="58px"
+                className="object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+              />
+            </div>
+
+            <div className="hidden flex-col sm:flex">
+              <span className="font-serif text-[18px] font-light leading-none tracking-[0.02em] text-white">
+                The Gallaspy
+              </span>
+
+              <span className="mt-1 text-[7px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">
+                Golf Club
+              </span>
+            </div>
           </Link>
-        </nav>
+
+          {/* DESKTOP NAV */}
+          <nav
+            aria-label="Primary navigation"
+            className="hidden items-center gap-5 xl:flex 2xl:gap-7"
+          >
+            {navigation.map((item) => {
+              const active = isRouteActive(pathname, item.href);
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  className={[
+                    "group relative flex h-[82px] items-center whitespace-nowrap",
+                    "text-[9px] font-semibold uppercase tracking-[0.16em]",
+                    "transition-colors duration-300",
+                    active
+                      ? "text-white"
+                      : "text-[#FFD76A] hover:text-white",
+                  ].join(" ")}
+                >
+                  {item.title}
+
+                  <span
+                    className={[
+                      "absolute inset-x-0 bottom-[17px] h-px origin-left bg-[#FFD76A]",
+                      "transition-transform duration-300",
+                      active
+                        ? "scale-x-100"
+                        : "scale-x-0 group-hover:scale-x-100",
+                    ].join(" ")}
+                  />
+                </Link>
+              );
+            })}
+
+            <Link
+              href="/play"
+              className="ml-2 inline-flex min-h-[42px] items-center justify-center border border-[#FFD76A] bg-[#FFD76A] px-5 text-[8px] font-semibold uppercase tracking-[0.19em] text-[#10263F] transition-all duration-300 hover:-translate-y-0.5 hover:bg-transparent hover:text-white 2xl:px-6 2xl:text-[9px]"
+            >
+              Play With Us
+            </Link>
+          </nav>
+
+          {/* MOBILE BUTTON */}
+          <button
+            type="button"
+            aria-label={isMobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMobileOpen}
+            onClick={() => setIsMobileOpen((current) => !current)}
+            className="relative flex h-11 w-11 items-center justify-center xl:hidden"
+          >
+            <span className="sr-only">
+              {isMobileOpen ? "Close navigation" : "Open navigation"}
+            </span>
+
+            <div className="relative h-5 w-7">
+              <span
+                className={`absolute left-0 top-[2px] h-px w-7 bg-[#FFD76A] transition-all duration-300 ${
+                  isMobileOpen
+                    ? "top-[10px] rotate-45"
+                    : ""
+                }`}
+              />
+
+              <span
+                className={`absolute left-0 top-[10px] h-px bg-[#FFD76A] transition-all duration-300 ${
+                  isMobileOpen
+                    ? "w-0 opacity-0"
+                    : "w-5 opacity-100"
+                }`}
+              />
+
+              <span
+                className={`absolute bottom-[2px] left-0 h-px w-7 bg-[#FFD76A] transition-all duration-300 ${
+                  isMobileOpen
+                    ? "bottom-[9px] -rotate-45"
+                    : ""
+                }`}
+              />
+            </div>
+          </button>
+        </div>
+      </header>
+
+      {/* MOBILE MENU */}
+      <div
+        className={[
+          "fixed inset-0 z-40 bg-[#10263F] xl:hidden",
+          "transition-all duration-500 ease-out",
+          isMobileOpen
+            ? "visible opacity-100"
+            : "invisible pointer-events-none opacity-0",
+        ].join(" ")}
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(184,145,70,0.14),transparent_35%)]" />
+
+        <div className="relative flex min-h-[100svh] flex-col px-6 pb-10 pt-[112px] sm:px-10">
+          <div className="mb-8 flex items-center gap-3">
+            <div className="h-px w-10 bg-[#FFD76A]" />
+
+            <p className="text-[8px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">
+              The Gallaspy Golf Club
+            </p>
+          </div>
+
+          <nav
+            aria-label="Mobile navigation"
+            className="flex flex-col"
+          >
+            {navigation.map((item, index) => {
+              const active = isRouteActive(pathname, item.href);
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={closeMenu}
+                  aria-current={active ? "page" : undefined}
+                  className="group flex items-center justify-between border-b border-white/10 py-4"
+                >
+                  <span
+                    className={[
+                      "font-serif text-[2rem] font-light tracking-[-0.02em] transition-colors duration-300 sm:text-[2.5rem]",
+                      active
+                        ? "text-[#FFD76A]"
+                        : "text-white group-hover:text-[#FFD76A]",
+                    ].join(" ")}
+                  >
+                    {item.title}
+                  </span>
+
+                  <div className="flex items-center gap-4">
+                    <span className="text-[8px] font-semibold tracking-[0.2em] text-white/25">
+                      0{index + 1}
+                    </span>
+
+                    <span className="text-lg text-[#FFD76A] transition-transform duration-300 group-hover:translate-x-1">
+                      →
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </nav>
+
+          <div className="mt-auto pt-10">
+            <Link
+              href="/play"
+              onClick={closeMenu}
+              className="flex min-h-[54px] w-full items-center justify-center border border-[#FFD76A] bg-[#FFD76A] px-6 text-[9px] font-semibold uppercase tracking-[0.22em] text-[#10263F]"
+            >
+              Play With The Gallaspy
+            </Link>
+
+            <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-6">
+              <p className="text-[7px] font-semibold uppercase tracking-[0.28em] text-white/35">
+                Georgia · Est. 2026
+              </p>
+
+              <Image
+                src="/logos/falcon.png"
+                alt=""
+                width={42}
+                height={42}
+                className="h-9 w-9 object-contain opacity-70"
+              />
+            </div>
+          </div>
+        </div>
       </div>
-    </header>
+    </>
   );
 }
-
-export default Navbar;
