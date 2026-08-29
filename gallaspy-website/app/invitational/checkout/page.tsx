@@ -61,7 +61,7 @@ declare global {
       payments: (
         applicationId: string,
         locationId: string
-      ) => SquarePayments;
+      ) => any;
     };
   }
 }

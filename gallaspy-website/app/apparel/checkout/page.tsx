@@ -38,7 +38,12 @@ type SquareSdk = {
 
 declare global {
   interface Window {
-    Square?: SquareSdk;
+    Square?: {
+      payments: (
+        applicationId: string,
+        locationId: string
+      ) => any;
+    };
   }
 }
 
