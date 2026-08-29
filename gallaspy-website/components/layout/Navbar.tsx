@@ -6,11 +6,46 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const navigation = [
-  { title: "The Club", href: "/the-club" },
-  { title: "Play", href: "/play" },
-  { title: "Apparel", href: "/apparel" },
-  { title: "Our Story", href: "/why-the-gallaspy" },
-  { title: "Contact", href: "/contact" },
+  {
+    title: "The Club",
+    href: "/the-club",
+    children: [
+      { title: "Club Identity", href: "/the-club" },
+      { title: "Traditions", href: "/traditions" },
+      { title: "Founding Community", href: "/falcon-society" },
+      { title: "Club Calendar", href: "/calendar" },
+      { title: "Contact", href: "/contact" },
+    ],
+  },
+  {
+    title: "Play",
+    href: "/play",
+    children: [
+      { title: "Play With The Gallaspy", href: "/play" },
+      { title: "Gallaspy Rounds", href: "/rounds" },
+      { title: "Upcoming Play", href: "/calendar" },
+    ],
+  },
+  {
+    title: "Compete",
+    href: "/invitational",
+    children: [
+      { title: "The Gallaspy Invitational", href: "/invitational" },
+      { title: "The Mercury Match", href: "/mercury-match" },
+    ],
+  },
+  {
+    title: "Apparel",
+    href: "/apparel",
+  },
+  {
+    title: "Our Story",
+    href: "/why-the-gallaspy",
+  },
+  {
+    title: "Start Here",
+    href: "/start-here",
+  },
 ];
 
 function isRouteActive(pathname: string, href: string) {
@@ -164,10 +199,98 @@ export function Navbar() {
           {/* DESKTOP NAV */}
           <nav
             aria-label="Primary navigation"
-            className="hidden items-center gap-5 xl:flex 2xl:gap-7"
+            className="hidden items-center gap-4 xl:flex 2xl:gap-6"
           >
             {navigation.map((item) => {
-              const active = isRouteActive(pathname, item.href);
+              const childActive = item.children?.some((child) =>
+                isRouteActive(pathname, child.href),
+              );
+
+              const active =
+                isRouteActive(pathname, item.href) || Boolean(childActive);
+
+              if (item.children) {
+                return (
+                  <div
+                    key={item.href}
+                    className="group/nav relative flex h-[82px] items-center"
+                  >
+                    <Link
+                      href={item.href}
+                      aria-current={active ? "page" : undefined}
+                      className={[
+                        "relative flex h-[82px] items-center gap-1.5 whitespace-nowrap",
+                        "text-[9px] font-semibold uppercase tracking-[0.16em]",
+                        "transition-colors duration-300",
+                        active
+                          ? "text-white"
+                          : "text-[#FFD76A] hover:text-white",
+                      ].join(" ")}
+                    >
+                      {item.title}
+
+                      <span
+                        aria-hidden="true"
+                        className="relative -top-px text-[8px] transition-transform duration-300 group-hover/nav:rotate-180"
+                      >
+                        ▾
+                      </span>
+
+                      <span
+                        className={[
+                          "absolute inset-x-0 bottom-[17px] h-px origin-left bg-[#FFD76A]",
+                          "transition-transform duration-300",
+                          active
+                            ? "scale-x-100"
+                            : "scale-x-0 group-hover/nav:scale-x-100",
+                        ].join(" ")}
+                      />
+                    </Link>
+
+                    <div className="invisible absolute left-1/2 top-[72px] z-50 w-[270px] -translate-x-1/2 translate-y-2 opacity-0 transition-all duration-200 group-hover/nav:visible group-hover/nav:translate-y-0 group-hover/nav:opacity-100">
+                      <div className="border border-white/10 bg-[#10263F] p-2 shadow-[0_24px_70px_rgba(0,0,0,0.32)]">
+                        <div className="border border-white/[0.06]">
+                          {item.children.map((child) => {
+                            const childIsActive = isRouteActive(
+                              pathname,
+                              child.href,
+                            );
+
+                            return (
+                              <Link
+                                key={`${item.title}-${child.title}`}
+                                href={child.href}
+                                className={[
+                                  "group/item flex items-center justify-between border-b border-white/[0.07] px-5 py-4 last:border-b-0",
+                                  "transition-colors duration-200 hover:bg-white/[0.05]",
+                                  childIsActive
+                                    ? "bg-white/[0.05]"
+                                    : "",
+                                ].join(" ")}
+                              >
+                                <span
+                                  className={[
+                                    "text-[9px] font-semibold uppercase tracking-[0.16em]",
+                                    childIsActive
+                                      ? "text-[#FFD76A]"
+                                      : "text-white/75 group-hover/item:text-white",
+                                  ].join(" ")}
+                                >
+                                  {child.title}
+                                </span>
+
+                                <span className="text-[11px] text-[#FFD76A] opacity-60 transition-transform duration-200 group-hover/item:translate-x-1 group-hover/item:opacity-100">
+                                  →
+                                </span>
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
 
               return (
                 <Link
@@ -212,7 +335,7 @@ export function Navbar() {
 
             <Link
               href="/play"
-              className="ml-2 inline-flex min-h-[42px] items-center justify-center border border-[#FFD76A] bg-[#FFD76A] px-5 text-[8px] font-semibold uppercase tracking-[0.19em] text-[#10263F] transition-all duration-300 hover:-translate-y-0.5 hover:bg-transparent hover:text-white 2xl:px-6 2xl:text-[9px]"
+              className="ml-1 inline-flex min-h-[42px] items-center justify-center border border-[#FFD76A] bg-[#FFD76A] px-4 text-[8px] font-semibold uppercase tracking-[0.17em] text-[#10263F] transition-all duration-300 hover:-translate-y-0.5 hover:bg-transparent hover:text-white 2xl:px-5"
             >
               Play With Us
             </Link>
@@ -285,7 +408,68 @@ export function Navbar() {
             className="flex flex-col"
           >
             {navigation.map((item, index) => {
-              const active = isRouteActive(pathname, item.href);
+              const childActive = item.children?.some((child) =>
+                isRouteActive(pathname, child.href),
+              );
+
+              const active =
+                isRouteActive(pathname, item.href) || Boolean(childActive);
+
+              if (item.children) {
+                return (
+                  <div
+                    key={item.href}
+                    className="border-b border-white/10 py-5"
+                  >
+                    <div className="flex items-center justify-between">
+                      <Link
+                        href={item.href}
+                        onClick={closeMenu}
+                        className={[
+                          "font-serif text-[1.9rem] font-light tracking-[-0.02em] transition-colors sm:text-[2.2rem]",
+                          active
+                            ? "text-[#FFD76A]"
+                            : "text-white hover:text-[#FFD76A]",
+                        ].join(" ")}
+                      >
+                        {item.title}
+                      </Link>
+
+                      <span className="text-[8px] font-semibold tracking-[0.2em] text-white/25">
+                        0{index + 1}
+                      </span>
+                    </div>
+
+                    <div className="mt-4 grid grid-cols-1 gap-1 sm:grid-cols-2 sm:gap-x-6">
+                      {item.children.map((child) => {
+                        const childIsActive = isRouteActive(
+                          pathname,
+                          child.href,
+                        );
+
+                        return (
+                          <Link
+                            key={`${item.title}-${child.title}`}
+                            href={child.href}
+                            onClick={closeMenu}
+                            className={[
+                              "flex min-h-[38px] items-center justify-between py-1",
+                              "text-[8px] font-semibold uppercase tracking-[0.18em]",
+                              "transition-colors duration-200",
+                              childIsActive
+                                ? "text-[#FFD76A]"
+                                : "text-white/50 hover:text-white",
+                            ].join(" ")}
+                          >
+                            <span>{child.title}</span>
+                            <span className="ml-3 text-[#FFD76A]/60">→</span>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              }
 
               return (
                 <Link
@@ -297,7 +481,7 @@ export function Navbar() {
                 >
                   <span
                     className={[
-                      "font-serif text-[2rem] font-light tracking-[-0.02em] transition-colors duration-300 sm:text-[2.5rem]",
+                      "font-serif text-[1.9rem] font-light tracking-[-0.02em] transition-colors sm:text-[2.2rem]",
                       active
                         ? "text-[#FFD76A]"
                         : "text-white group-hover:text-[#FFD76A]",

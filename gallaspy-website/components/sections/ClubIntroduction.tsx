@@ -35,9 +35,9 @@ export default function ClubIntroduction() {
             </div>
 
             <h2 className="mt-5 max-w-[850px] text-[2.35rem] font-black uppercase leading-[0.92] tracking-[-0.045em] sm:text-[3.4rem] lg:text-[4.4rem]">
-              A Golf Club
-              <span className="block text-white/45">
-                You Actually Play In.
+              A Club Built By
+              <span className="block text-white/70">
+                Playing The Game.
               </span>
             </h2>
 

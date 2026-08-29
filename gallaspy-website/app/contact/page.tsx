@@ -4,41 +4,47 @@ import { Navbar } from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "Contact | The Gallaspy Golf & Country Club",
+  title: "Contact | The Gallaspy Golf Club",
   description:
-    "Contact The Gallaspy Development Group, LLC regarding membership interest, The Gallaspy Invitational, sponsorship, land opportunities, development partnerships, media, or general inquiries.",
+    "Contact The Gallaspy regarding golf, upcoming events, the Founding 100, The Gallaspy Invitational, partnerships, property opportunities, media, or general inquiries.",
 };
 
 const inquiryTypes = [
   {
-    title: "Membership Interest",
+    number: "01",
+    title: "Golf & Club Events",
     description:
-      "Join the conversation around the future club, Membership Interest List, and Falcon Society.",
+      "Questions about Gallaspy Rounds, upcoming golf, the Club Calendar, guest opportunities, or other Gallaspy gatherings.",
   },
   {
-    title: "The Gallaspy Invitational",
+    number: "02",
+    title: "Founding Community",
     description:
-      "Contact us regarding player questions, tournament participation, event details, sponsorship, hospitality, or brand activations.",
+      "Connect with us regarding the Falcon Society, the Founding 100, the application process, or the opening chapter of The Gallaspy.",
   },
   {
-    title: "Land & Property Opportunities",
+    number: "03",
+    title: "Invitational & Sponsorship",
     description:
-      "Connect with us regarding Georgia land, golf-course properties, development sites, brokerage opportunities, or potential property relationships.",
+      "Contact us regarding The Gallaspy Invitational, player participation, sponsorship, hospitality, partnerships, or brand activation.",
   },
   {
-    title: "Development & Partnerships",
+    number: "04",
+    title: "Partnerships & Property",
     description:
-      "Discuss development, golf, hospitality, construction, operations, professional services, strategic partnerships, or aligned business opportunities.",
+      "Connect regarding strategic collaboration, professional services, Georgia golf properties, land opportunities, or relationships that may support the long-term vision.",
   },
   {
+    number: "05",
     title: "Media & Press",
     description:
-      "Reach out regarding interviews, editorial coverage, media requests, photography, partnerships, or public information.",
+      "Reach out regarding interviews, editorial coverage, photography, media requests, or public information about The Gallaspy.",
   },
   {
+    number: "06",
     title: "General Inquiry",
     description:
-      "For anything else related to The Gallaspy, The Gallaspy Development Group, LLC, or the long-term vision, send us a message.",
+      "For anything else related to The Gallaspy or The Gallaspy Development Group, LLC, send us a message.",
   },
 ];
 
@@ -48,69 +54,67 @@ export default function ContactPage() {
       <Navbar />
 
       {/* HERO */}
-      <section
-        className="relative flex min-h-[68vh] items-center justify-center overflow-hidden bg-cover bg-center px-5 pt-28 sm:px-8 lg:px-10"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(7,24,43,0.64), rgba(7,24,43,0.88)), url('/images/clubhouse.png')",
-        }}
-      >
-        <div className="mx-auto w-full max-w-5xl py-24 text-center text-white">
-          <p className="text-xs font-semibold uppercase tracking-[0.5em] text-[#FFD76A] sm:text-sm">
+      <section className="relative overflow-hidden bg-[#10263F] px-5 pb-20 pt-36 text-white sm:px-8 sm:pb-24 sm:pt-40 lg:px-10 lg:pb-28 lg:pt-48">
+        <div className="absolute left-[12%] top-0 h-full w-px bg-white/[0.05]" />
+        <div className="absolute right-[18%] top-0 h-full w-px bg-white/[0.05]" />
+
+        <div className="relative mx-auto w-full max-w-[1060px]">
+          <p className="text-[9px] font-bold uppercase tracking-[0.38em] text-[#D2AF66]">
             Contact The Gallaspy
           </p>
 
-          <h1 className="mt-6 font-serif text-5xl font-light leading-[1.02] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
-            Begin the
-            <span className="block">Conversation</span>
+          <h1 className="mt-7 max-w-4xl font-serif text-[3.6rem] font-light leading-[0.94] sm:text-6xl lg:text-[5.4rem]">
+            Start a
+            <span className="block text-[#D2AF66]">conversation.</span>
           </h1>
 
-          <div className="mx-auto mt-8 h-px w-24 bg-[#D4AF37]" />
+          <div className="mt-9 h-px w-16 bg-[#B89146]" />
 
-          <p className="mx-auto mt-8 max-w-3xl text-base leading-8 text-white/80 sm:text-lg">
-            Connect with The Gallaspy Development Group, LLC regarding the
-            future club, The Gallaspy Invitational, membership interest,
-            sponsorship, property opportunities, strategic partnerships, or
-            general inquiries.
+          <p className="mt-8 max-w-2xl text-base leading-8 text-white/72 sm:text-lg sm:leading-9">
+            Whether your interest begins with golf, an upcoming event, the
+            founding community, a partnership, or simply learning more, we
+            welcome the opportunity to connect.
           </p>
         </div>
       </section>
 
       {/* INQUIRY TYPES */}
-      <section className="px-5 py-20 sm:px-8 sm:py-24 lg:px-10 lg:py-28">
-        <div className="mx-auto w-full max-w-7xl">
-          <div className="mx-auto max-w-4xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.45em] text-[#B89146]">
-              How We Can Help
-            </p>
+      <section className="px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
+        <div className="mx-auto w-full max-w-[1060px]">
+          <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+            <div>
+              <p className="text-[9px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
+                Get in Touch
+              </p>
 
-            <h2 className="mt-5 font-serif text-4xl font-light leading-tight sm:text-5xl md:text-6xl">
-              The Right Conversation Starts Here
-            </h2>
+              <h2 className="mt-5 font-serif text-[2.7rem] font-light leading-[1.04] sm:text-5xl">
+                Find the right
+                <span className="block text-[#8B6A34]">conversation.</span>
+              </h2>
+            </div>
 
-            <div className="mx-auto mt-7 h-px w-20 bg-[#B89146]" />
-
-            <p className="mx-auto mt-7 max-w-3xl text-base leading-8 text-[#56616B] sm:text-lg">
-              The Gallaspy is being built through relationships. Whether your
-              interest is golf, sponsorship, land, future membership,
-              development, media, or partnership, we welcome the opportunity to
-              connect.
+            <p className="max-w-2xl text-base leading-8 text-[#33475B]/72 lg:pt-10">
+              The Gallaspy is being established through real golf experiences,
+              relationships, competitions, gatherings, partnerships, and the
+              people choosing to participate at the beginning.
             </p>
           </div>
 
-          <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-14 grid border-t border-[#10263F]/15 md:grid-cols-2 lg:grid-cols-3">
             {inquiryTypes.map((item) => (
               <article
                 key={item.title}
-                className="group rounded-[24px] border border-[#10263F]/10 bg-white p-8 shadow-[0_14px_45px_rgba(16,38,63,0.08)] transition duration-300 hover:-translate-y-1 hover:border-[#B89146]/35 hover:shadow-[0_20px_55px_rgba(16,38,63,0.11)]"
+                className="border-b border-[#10263F]/15 py-8 md:px-7 md:first:pl-0 lg:min-h-[245px]"
               >
-                <div className="h-px w-14 bg-[#B89146] transition-all duration-300 group-hover:w-20" />
+                <p className="text-[9px] font-bold tracking-[0.22em] text-[#B89146]">
+                  {item.number}
+                </p>
 
-                <h3 className="mt-6 font-serif text-3xl font-light">
+                <h3 className="mt-5 font-serif text-2xl font-light sm:text-3xl">
                   {item.title}
                 </h3>
 
-                <p className="mt-5 text-sm leading-7 text-[#56616B] sm:text-base">
+                <p className="mt-4 text-sm leading-7 text-[#33475B]/70">
                   {item.description}
                 </p>
               </article>
@@ -119,51 +123,52 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* CONTACT FORM SECTION */}
-      <section className="bg-white px-5 py-20 sm:px-8 sm:py-24 lg:px-10 lg:py-28">
-        <div className="mx-auto grid w-full max-w-7xl gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
-          <div className="lg:sticky lg:top-32">
-            <p className="text-xs font-semibold uppercase tracking-[0.45em] text-[#B89146]">
+      {/* CONTACT FORM */}
+      <section className="bg-white px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
+        <div className="mx-auto grid w-full max-w-[1060px] gap-14 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20 lg:items-start">
+          <div className="lg:sticky lg:top-28">
+            <p className="text-[9px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
               Send an Inquiry
             </p>
 
-            <h2 className="mt-5 font-serif text-4xl font-light leading-tight sm:text-5xl">
-              Connect With The Gallaspy
+            <h2 className="mt-5 font-serif text-[2.7rem] font-light leading-[1.04] sm:text-5xl">
+              Connect with
+              <span className="block text-[#8B6A34]">The Gallaspy.</span>
             </h2>
 
-            <div className="mt-7 h-px w-20 bg-[#B89146]" />
+            <div className="mt-7 h-px w-14 bg-[#B89146]" />
 
-            <p className="mt-7 text-base leading-8 text-[#56616B]">
-              Complete the inquiry form and select the area that best represents
-              your interest. Your message will be routed to the appropriate
-              conversation.
+            <p className="mt-7 max-w-md text-base leading-8 text-[#33475B]/72">
+              Complete the form and select the area that most closely matches
+              your inquiry. If none fits perfectly, choose General Inquiry.
             </p>
 
-            <div className="mt-10 rounded-[24px] bg-[#10263F] p-7 text-white sm:p-9">
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#FFD76A]">
+            <div className="mt-10 border-t border-[#10263F]/15 pt-8">
+              <p className="text-[9px] font-bold uppercase tracking-[0.26em] text-[#B89146]">
                 The Gallaspy Development Group, LLC
               </p>
 
-              <p className="mt-5 font-serif text-3xl font-light">
+              <p className="mt-4 font-serif text-2xl font-light">
                 Georgia
               </p>
 
-              <div className="mt-7 space-y-4 text-sm leading-7 text-white/75">
+              <div className="mt-5 space-y-4 text-sm leading-7 text-[#33475B]/68">
                 <p>
-                  The Gallaspy Golf &amp; Country Club remains in the planning
-                  and development stage.
+                  The Gallaspy is currently establishing its golf programming,
+                  founding community, annual competitions, gatherings, and club
+                  traditions.
                 </p>
 
                 <p>
-                  The current focus includes the Gallaspy Invitational, future
-                  membership community, strategic partnerships, property
-                  opportunities, and long-term club development.
+                  The long-term vision remains a permanent private golf and
+                  country club in Georgia. No permanent club property is
+                  represented as currently secured.
                 </p>
 
                 <p>
-                  General inquiries may also be directed to
-                  <span className="font-semibold text-white">
-                    {" "}info@thegallaspy.com
+                  General inquiries may also be directed to{" "}
+                  <span className="font-semibold text-[#10263F]">
+                    info@thegallaspy.com
                   </span>
                   .
                 </p>
@@ -176,20 +181,23 @@ export default function ContactPage() {
       </section>
 
       {/* CLOSING */}
-      <section className="bg-[#10263F] px-5 py-20 text-center text-white sm:px-8 sm:py-24 lg:px-10">
-        <div className="mx-auto max-w-4xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.45em] text-[#FFD76A]">
-            A Legacy in the Making
+      <section className="bg-[#163A2F] px-5 py-20 text-white sm:px-8 lg:px-10 lg:py-24">
+        <div className="mx-auto max-w-[900px] text-center">
+          <p className="text-[9px] font-bold uppercase tracking-[0.34em] text-[#D2AF66]">
+            The Opening Chapter
           </p>
 
-          <h2 className="mt-5 font-serif text-4xl font-light leading-tight sm:text-5xl md:text-6xl">
-            Built Through Relationships
+          <h2 className="mt-6 font-serif text-[2.7rem] font-light leading-[1.04] sm:text-5xl">
+            Some of the most important
+            <span className="block text-[#D2AF66]">
+              relationships start with an introduction.
+            </span>
           </h2>
 
-          <p className="mx-auto mt-7 max-w-3xl text-base leading-8 text-white/75 sm:text-lg">
-            The Gallaspy is moving forward one conversation, one partnership,
-            one event, and one milestone at a time. If you see a way to be part
-            of that journey, we would like to hear from you.
+          <p className="mx-auto mt-7 max-w-2xl text-base leading-8 text-white/70">
+            If there is a meaningful way for you to participate, collaborate,
+            or contribute to what The Gallaspy is becoming, we would like to
+            hear from you.
           </p>
         </div>
       </section>

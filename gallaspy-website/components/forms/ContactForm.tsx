@@ -68,8 +68,8 @@ export default function ContactForm() {
         </h3>
 
         <p className="mt-4 max-w-2xl text-sm leading-7 text-[#56616B]">
-          Select the area that best matches your inquiry so we can route your
-          message appropriately.
+          Select the area that best matches your inquiry so your message reaches
+          the right conversation.
         </p>
       </div>
 
@@ -149,8 +149,12 @@ export default function ContactForm() {
               Select an option
             </option>
 
-            <option value="Membership Interest">
-              Membership Interest
+            <option value="Golf & Club Events">
+              Golf & Club Events
+            </option>
+
+            <option value="Founding Community">
+              Founding Community
             </option>
 
             <option value="The Gallaspy Invitational">
@@ -161,20 +165,16 @@ export default function ContactForm() {
               Invitational Sponsorship
             </option>
 
-            <option value="Land / Property Opportunity">
-              Land / Property Opportunity
-            </option>
-
-            <option value="Development & Strategic Partnership">
-              Development & Strategic Partnership
-            </option>
-
-            <option value="Falcon Society">
-              Falcon Society
+            <option value="Partnerships & Property">
+              Partnerships & Property
             </option>
 
             <option value="Media & Press">
               Media & Press
+            </option>
+
+            <option value="Apparel">
+              Apparel
             </option>
 
             <option value="General Inquiry">

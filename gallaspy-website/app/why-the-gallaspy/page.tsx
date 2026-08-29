@@ -1,470 +1,320 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Why The Gallaspy | The Gallaspy Golf & Country Club",
+  title: "Our Story | The Gallaspy Golf Club",
   description:
-    "Discover the vision, lifestyle, legacy, and long-term development plan behind The Gallaspy Golf & Country Club in Georgia.",
+    "The story behind The Gallaspy — a golf community establishing its traditions, relationships, and identity from the very beginning.",
 };
 
-const reasons = [
-  {
-    number: "01",
-    title: "A Strategic Search",
-    description:
-      "The search for The Gallaspy’s future home is focused on Georgia, with an emphasis on accessibility, natural character, long-term growth, and the scale required for a true destination club.",
-  },
-  {
-    number: "02",
-    title: "A Rare Land Opportunity",
-    description:
-      "The vision requires a substantial property capable of supporting championship golf, hospitality, wellness, residential living, recreation, and future growth.",
-  },
-  {
-    number: "03",
-    title: "A Complete Club Lifestyle",
-    description:
-      "The Gallaspy brings golf, dining, lodging, wellness, family recreation, events, and vineyard experiences together within one private destination.",
-  },
-  {
-    number: "04",
-    title: "Built for Generations",
-    description:
-      "The club is being envisioned around tradition, family, and excellence so that membership can become part of a lasting family legacy.",
-  },
-];
-
-const guidingPrinciples = [
+const principles = [
   {
     number: "01",
     title: "Tradition",
     description:
-      "Honoring the timeless values, rituals, standards, and sense of belonging that define the world’s most distinguished private clubs.",
+      "Traditions become meaningful because people return to them year after year.",
   },
   {
     number: "02",
     title: "Family",
     description:
-      "Creating a place where every generation feels welcome and where shared experiences become lasting family traditions.",
+      "The Gallaspy is intended to become something families can experience, remember, and pass forward.",
   },
   {
     number: "03",
     title: "Excellence",
     description:
-      "Pursuing exceptional quality in the land plan, architecture, golf, hospitality, service, and every member interaction.",
+      "The standard matters from the first gathering onward, not only after a permanent home exists.",
   },
   {
     number: "04",
     title: "Hospitality",
     description:
-      "Delivering thoughtful, gracious, and personal service that makes members and guests feel genuinely welcomed.",
+      "How people are welcomed, treated, and remembered will always be part of the character of the club.",
   },
   {
     number: "05",
     title: "Stewardship",
     description:
-      "Respecting the land, protecting the natural setting, and developing the property with long-term responsibility.",
+      "What is eventually built should respect its setting and be worthy of the generations that follow.",
   },
   {
     number: "06",
     title: "Legacy",
     description:
-      "Building an institution that creates meaningful relationships, family memories, and enduring value for generations.",
+      "The ambition is larger than a single season, event, property, or generation.",
   },
 ];
 
-const experiences = [
-  {
-    eyebrow: "The Game",
-    title: "Championship Golf",
-    description:
-      "An 18-hole championship course supported by a practice range, short-game complex, putting areas, and a complete golf experience.",
-    image: "/images/masterplan-render.png",
-    href: "/the-club/golf",
-  },
-  {
-    eyebrow: "The Heart of the Club",
-    title: "Grand Clubhouse",
-    description:
-      "A refined gathering place for dining, private events, member traditions, celebrations, and everyday club life.",
-    image: "/images/clubhouse.png",
-    href: "/master-plan",
-  },
-  {
-    eyebrow: "The Table",
-    title: "Mercury Street Restaurant",
-    description:
-      "A signature dining destination envisioned around exceptional cuisine, gracious hospitality, and memorable experiences.",
-    image: "/images/arrival.png",
-    href: "/the-club/restaurant",
-  },
-  {
-    eyebrow: "The Retreat",
-    title: "Wellness & Spa",
-    description:
-      "A complete wellness environment featuring fitness, spa treatments, restorative experiences, pools, and personal care.",
-    image: "/images/clubhouse.png",
-    href: "/the-club/wellness",
-  },
-  {
-    eyebrow: "The Estate",
-    title: "Vineyard & Events",
-    description:
-      "A vineyard, wine program, event pavilion, and gathering spaces designed for celebrations, tastings, and private occasions.",
-    image: "/images/masterplan-render.png",
-    href: "/the-club/vineyard",
-  },
-  {
-    eyebrow: "The Stay",
-    title: "Member Lodging",
-    description:
-      "Private lodging designed to extend the club experience for members, families, invited guests, and special events.",
-    image: "/images/arrival.png",
-    href: "/master-plan",
-  },
-];
-
-const phases = [
-  {
-    phase: "Phase I",
-    title: "Land, Planning & Infrastructure",
-    description:
-      "Site control, professional planning, engineering, approvals, utilities, roads, and the foundation for future development.",
-  },
-  {
-    phase: "Phase II",
-    title: "Championship Golf",
-    description:
-      "Construction of the 18-hole course, practice facilities, short-game complex, putting areas, and golf operations infrastructure.",
-  },
-  {
-    phase: "Phase III",
-    title: "Clubhouse & Dining",
-    description:
-      "Development of the grand clubhouse, Mercury Street Restaurant, member gathering spaces, terraces, and private event facilities.",
-  },
-  {
-    phase: "Phase IV",
-    title: "Wellness, Lodging & Recreation",
-    description:
-      "Wellness and spa facilities, pools, racquet sports, member lodging, family recreation, and supporting hospitality services.",
-  },
-  {
-    phase: "Phase V",
-    title: "Vineyard, Events & Expansion",
-    description:
-      "Vineyard and winery experiences, the Event Pavilion, residential growth, and future additions to the club community.",
-  },
-];
-
-const legacyTimeline = [
-  {
-    number: "01",
-    title: "The Vision",
-    description:
-      "Establish the purpose, identity, guiding principles, and long-term direction of The Gallaspy.",
-  },
-  {
-    number: "02",
-    title: "Land Acquisition",
-    description:
-      "Secure the property capable of supporting the complete golf, lifestyle, hospitality, and residential vision.",
-  },
-  {
-    number: "03",
-    title: "Planning & Approvals",
-    description:
-      "Complete professional planning, engineering, design, zoning, infrastructure strategy, and development approvals.",
-  },
-  {
-    number: "04",
-    title: "Construction",
-    description:
-      "Bring the master plan to life through a carefully managed and financially disciplined phased development.",
-  },
-  {
-    number: "05",
-    title: "Opening Day",
-    description:
-      "Welcome the first membership generation and begin the traditions that will define the club.",
-  },
-  {
-    number: "06",
-    title: "Future Generations",
-    description:
-      "Preserve the club’s standards, relationships, traditions, and legacy for members and families who follow.",
-  },
+const traditions = [
+  "First Flight",
+  "Opening Drive",
+  "The Gallaspy Invitational",
+  "The Mercury Match",
+  "Night at the Nest",
 ];
 
 export default function WhyTheGallaspyPage() {
   return (
-    <main className="bg-[#F7F4EE] text-[#1E3557]">
-      {/* Hero */}
-      <section className="relative flex min-h-[78vh] items-center overflow-hidden px-5 pt-[72px] sm:px-8">
-        <Image
-          src="/images/masterplan-render.png"
-          alt="Conceptual development vision for The Gallaspy Golf and Country Club"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
+    <main className="bg-[#F7F4EE] text-[#10263F]">
+      {/* HERO */}
+      <section className="relative overflow-hidden bg-[#10263F] px-5 pb-20 pt-32 text-white sm:px-8 sm:pb-24 sm:pt-36 lg:pb-32 lg:pt-44">
+        <div className="absolute left-0 top-0 h-full w-px bg-white/10" />
+        <div className="absolute right-[12%] top-0 h-full w-px bg-white/[0.05]" />
 
-        <div className="absolute inset-0 bg-[#10263F]/68" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#10263F]/95 via-[#10263F]/68 to-[#10263F]/25" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#10263F]/45 to-transparent" />
+        <div className="relative mx-auto max-w-[1120px]">
+          <p className="text-[9px] font-bold uppercase tracking-[0.38em] text-[#D2AF66]">
+            Our Story
+          </p>
 
-        <div className="relative z-10 mx-auto w-full max-w-[1060px] py-20 text-white sm:py-24">
+          <h1 className="mt-7 max-w-5xl font-serif text-[3.6rem] font-light leading-[0.92] sm:text-6xl lg:text-[5.8rem]">
+            Every club has
+            <span className="block text-[#D2AF66]">a first chapter.</span>
+          </h1>
+
+          <div className="mt-9 h-px w-16 bg-[#B89146]" />
+
+          <p className="mt-8 max-w-2xl text-base leading-8 text-white/75 sm:text-lg sm:leading-9">
+            The Gallaspy is being established with the belief that the most
+            enduring clubs are defined not only by where they play, but by the
+            people, traditions, relationships, and memories that give the club
+            its meaning.
+          </p>
+
+          <p className="mt-10 text-[9px] font-bold uppercase tracking-[0.3em] text-white/45">
+            Georgia · Established 2026
+          </p>
+        </div>
+      </section>
+
+      {/* THE BEGINNING */}
+      <section className="px-5 py-20 sm:px-8 lg:py-28">
+        <div className="mx-auto grid max-w-[1120px] gap-12 lg:grid-cols-[0.65fr_1.35fr] lg:gap-24">
+          <div>
+            <p className="text-[9px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
+              Chapter One
+            </p>
+            <div className="mt-5 h-px w-12 bg-[#B89146]" />
+          </div>
+
+          <div>
+            <h2 className="max-w-4xl font-serif text-[2.8rem] font-light leading-[1.02] sm:text-5xl lg:text-[3.7rem]">
+              The beginning came
+              <span className="block text-[#8B6A34]">
+                before the first tee.
+              </span>
+            </h2>
+
+            <p className="mt-8 max-w-2xl text-base leading-8 text-[#33475B]/80">
+              The Gallaspy began with an ambition to create a golf club capable
+              of becoming part of people&apos;s lives — a place associated with
+              friendships, competition, family, celebration, and traditions
+              worth returning to.
+            </p>
+
+            <p className="mt-5 max-w-2xl text-base leading-8 text-[#33475B]/80">
+              But a meaningful club should not have to wait for a building to
+              begin becoming itself. Its standards can be established. Its
+              people can meet. Its first rounds can be played. Its traditions
+              can begin.
+            </p>
+
+            <p className="mt-8 max-w-xl font-serif text-2xl font-light leading-relaxed text-[#10263F]">
+              So The Gallaspy began at the beginning.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* THE NAME */}
+      <section className="bg-white px-5 py-20 sm:px-8 lg:py-28">
+        <div className="mx-auto max-w-[1120px]">
           <div className="max-w-3xl">
-            <p className="text-[10px] font-bold uppercase tracking-[0.38em] text-[#FFD76A]">
-              Why The Gallaspy?
+            <p className="text-[9px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
+              The Name
             </p>
 
-            <h1 className="mt-5 font-serif text-[3rem] font-light leading-[0.98] text-white sm:text-6xl lg:text-[5rem]">
-              A Vision Rooted
-              <span className="block text-[#FFD76A]">in Legacy</span>
-            </h1>
+            <h2 className="mt-6 font-serif text-[2.8rem] font-light leading-[1.02] sm:text-5xl lg:text-[3.7rem]">
+              A name intended
+              <span className="block text-[#8B6A34]">to outlast its founders.</span>
+            </h2>
+          </div>
 
-            <div className="mt-7 h-px w-16 bg-[#B89146]" />
-
-            <p className="mt-7 max-w-2xl text-sm leading-7 text-white/85 sm:text-base sm:leading-8">
-              The Gallaspy Golf &amp; Country Club is being created as more than
-               a destination. It is a long-term vision for championship golf,
-               private hospitality, family traditions, wellness, and enduring
-               legacy in Georgia.
+          <div className="mt-12 grid gap-10 border-t border-[#10263F]/15 pt-10 lg:grid-cols-2 lg:gap-20">
+            <p className="text-base leading-8 text-[#33475B]/80">
+              Putting the Gallaspy name on the club means accepting a
+              responsibility for what that name comes to represent. The goal is
+              not simply recognition. It is to establish something worthy of
+              carrying the name for generations.
             </p>
 
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="#vision"
-                className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[#FFD76A] bg-[#FFD76A] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:-translate-y-0.5 hover:bg-white"
-              >
-                Discover the Vision
-              </Link>
-
-              <Link
-                href="/master-plan"
-                className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-white/55 bg-white/[0.05] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-white backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-[#FFD76A] hover:text-[#FFD76A]"
-              >
-                Explore the Development Vision
-              </Link>
-            </div>
+            <p className="text-base leading-8 text-[#33475B]/80">
+              Years from now, the meaning of The Gallaspy should come from the
+              people who participated, the competitions that were contested,
+              the gatherings that became traditions, and the stories that were
+              carried forward.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Vision */}
-      <section
-        id="vision"
-        className="scroll-mt-24 bg-[#F7F4EE] px-5 py-16 sm:px-8 lg:py-24"
-      >
-        <div className="mx-auto grid w-full max-w-[1060px] gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
+      {/* BEFORE THE PROPERTY */}
+      <section className="bg-[#163A2F] px-5 py-20 text-white sm:px-8 lg:py-28">
+        <div className="mx-auto grid max-w-[1120px] gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-24">
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
-              The Vision
+            <p className="text-[9px] font-bold uppercase tracking-[0.34em] text-[#D2AF66]">
+              Starting Now
             </p>
 
-            <h2 className="mt-4 font-serif text-[2.35rem] font-light leading-[1.08] text-[#10263F] sm:text-5xl">
-              Created to Become
-              <span className="block">a Southern Tradition</span>
+            <h2 className="mt-6 max-w-3xl font-serif text-[2.8rem] font-light leading-[1.02] sm:text-5xl lg:text-[3.7rem]">
+              The property will give
+              <span className="block text-[#D2AF66]">the club a home.</span>
+              It does not have to give
+              <span className="block text-[#D2AF66]">the club its identity.</span>
             </h2>
-
-            <div className="mt-6 h-px w-14 bg-[#B89146]" />
-
-            <p className="mt-6 text-base leading-8 text-[#1E3557]">
-              Great clubs are not built overnight. They are shaped through
-              vision, thoughtful planning, exceptional service, and an
-              unwavering commitment to quality.
-            </p>
-
-            <p className="mt-5 text-sm leading-7 text-[#1E3557]/80">
-              The Gallaspy is being envisioned as a place where families build
-              traditions, friendships deepen, and generations feel connected
-              to a shared private-club experience.
-            </p>
-
-            <p className="mt-5 text-sm leading-7 text-[#1E3557]/80">
-              Every destination within the master plan is intended to contribute
-              to one complete experience—from the first arrival along Gallaspy
-              Boulevard to championship golf, dining, wellness, recreation,
-              lodging, events, and private residential living.
-            </p>
           </div>
 
-          <div className="relative min-h-[440px] overflow-hidden rounded-[22px]">
-            <Image
-              src="/images/arrival.png"
-              alt="Conceptual arrival experience for The Gallaspy"
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
-            />
+          <div className="lg:pt-20">
+            <p className="text-base leading-8 text-white/75">
+              No permanent Gallaspy property has been established. That is an
+              important distinction, and one we intend to communicate clearly.
+            </p>
 
-            <div className="absolute inset-0 bg-gradient-to-t from-[#10263F]/50 via-transparent to-transparent" />
-
-            <div className="absolute bottom-0 left-0 right-0 p-7 text-white">
-              <p className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#FFD76A]">
-                The Arrival Experience
-              </p>
-
-              <p className="mt-3 max-w-md font-serif text-2xl font-light leading-tight">
-                Every great destination begins with a memorable arrival.
-              </p>
-            </div>
+            <p className="mt-5 text-base leading-8 text-white/75">
+              The long-term ambition remains a permanent private golf and
+              country club. The chapter before that home exists is not something
+              to erase from the story. It is where the culture, relationships,
+              standards, and traditions of The Gallaspy first take shape.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Core Reasons */}
-      <section className="bg-white px-5 py-16 sm:px-8 lg:py-24">
-        <div className="mx-auto w-full max-w-[1060px]">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
-              The Opportunity
-            </p>
+      {/* TRAVELING YEARS */}
+      <section className="bg-[#F7F4EE] px-5 py-20 sm:px-8 lg:py-28">
+        <div className="mx-auto max-w-[1120px]">
+          <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-24">
+            <div>
+              <p className="text-[9px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
+                2026 — 20XX
+              </p>
 
-            <h2 className="mt-4 font-serif text-[2.35rem] font-light leading-[1.08] text-[#10263F] sm:text-5xl">
-              Why This Project Matters
-            </h2>
+              <p className="mt-5 font-serif text-2xl font-light text-[#8B6A34]">
+                The Traveling Years
+              </p>
+            </div>
 
-            <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-[#1E3557]/80">
-              The Gallaspy combines scale, location, lifestyle, and long-term
-              vision in a way that creates the foundation for a truly
-              distinctive private club.
-            </p>
-          </div>
+            <div>
+              <h2 className="font-serif text-[2.8rem] font-light leading-[1.02] sm:text-5xl lg:text-[3.7rem]">
+                Different courses.
+                <span className="block text-[#8B6A34]">
+                  One developing history.
+                </span>
+              </h2>
 
-          <div className="mt-12 grid gap-4 md:grid-cols-2">
-            {reasons.map((reason) => (
-              <article
-                key={reason.number}
-                className="group rounded-[18px] border border-[#1E3557]/10 bg-[#F7F4EE] p-6 transition hover:-translate-y-1 hover:border-[#B89146]/40 hover:shadow-lg sm:p-7"
+              <p className="mt-8 max-w-2xl text-base leading-8 text-[#33475B]/80">
+                Until The Gallaspy reaches its permanent home, part of its story
+                will be written across golf courses throughout Georgia. These
+                are The Traveling Years — the period when the community plays
+                together, visits different courses, establishes annual
+                traditions, and creates the earliest memories of the club.
+              </p>
+
+              <p className="mt-5 max-w-2xl text-base leading-8 text-[#33475B]/80">
+                One day, when there is a permanent first tee, these years should
+                remain part of the history rather than disappear from it.
+              </p>
+
+              <Link
+                href="/rounds"
+                className="mt-8 inline-flex border-b border-[#B89146] pb-2 text-[9px] font-bold uppercase tracking-[0.22em] text-[#10263F] transition hover:text-[#8B6A34]"
               >
-                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#B89146]">
-                  {reason.number}
-                </p>
-
-                <h3 className="mt-5 font-serif text-2xl font-light text-[#10263F] sm:text-[1.8rem]">
-                  {reason.title}
-                </h3>
-
-                <div className="mt-4 h-px w-10 bg-[#B89146] transition-all group-hover:w-16" />
-
-                <p className="mt-4 text-sm leading-7 text-[#1E3557]/80">
-                  {reason.description}
-                </p>
-              </article>
-            ))}
+                The Gallaspy Rounds →
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Why Georgia */}
-      <section className="bg-[#1E3557] px-5 py-16 text-white sm:px-8 lg:py-24">
-        <div className="mx-auto grid w-full max-w-[1060px] gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
-          <div className="relative min-h-[430px] overflow-hidden rounded-[22px]">
-            <Image
-              src="/images/masterplan-render.png"
-              alt="Conceptual development vision for the future home of The Gallaspy"
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
-            />
-
-            <div className="absolute inset-0 bg-gradient-to-t from-[#10263F]/55 to-transparent" />
-
-            <div className="absolute bottom-0 left-0 right-0 p-7">
-              <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#FFD76A]">
-                Conceptual Development Vision
+      {/* TRADITIONS */}
+      <section className="bg-[#10263F] px-5 py-20 text-white sm:px-8 lg:py-28">
+        <div className="mx-auto max-w-[1120px]">
+          <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
+            <div>
+              <p className="text-[9px] font-bold uppercase tracking-[0.34em] text-[#D2AF66]">
+                From the Beginning
               </p>
 
-              <p className="mt-2 font-serif text-2xl font-light text-white">
-                Georgia
+              <h2 className="mt-6 max-w-2xl font-serif text-[2.8rem] font-light leading-[1.02] sm:text-5xl">
+                History does not have
+                <span className="block text-[#D2AF66]">
+                  to be inherited.
+                </span>
+              </h2>
+
+              <p className="mt-7 max-w-xl text-base leading-8 text-white/72">
+                Every longstanding club tradition had a first year. The
+                responsibility of this generation is to establish the ones
+                future generations may inherit.
               </p>
             </div>
-          </div>
 
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#FFD76A]">
-              Why Georgia
-            </p>
-
-            <h2 className="mt-4 font-serif text-[2.35rem] font-light leading-[1.08] text-white sm:text-5xl">
-              Room to Build
-              <span className="block">Something Extraordinary</span>
-            </h2>
-
-            <div className="mt-6 h-px w-14 bg-[#B89146]" />
-
-            <p className="mt-6 text-base leading-8 text-white/85">
-              Georgia is the focus of our search for the future home of The
-               Gallaspy Golf &amp; Country Club.
-            </p>
-
-            <p className="mt-5 text-sm leading-7 text-white/72">
-              We are seeking a property with the scale, natural character,
-               accessibility, and long-term potential required to support
-               championship golf and a complete private-club destination. No
-               permanent site has been selected or secured.
-            </p>
-
-            <div className="mt-8 grid grid-cols-2 gap-3">
-              {[
-                "Georgia",
-                "Future Site Search",
-                "Rolling Landscape",
-                "Long-Term Growth",
-              ].map((item) => (
+            <div className="border-t border-white/15">
+              {traditions.map((tradition, index) => (
                 <div
-                  key={item}
-                  className="rounded-[14px] border border-white/15 bg-white/[0.06] px-4 py-4"
+                  key={tradition}
+                  className="grid grid-cols-[42px_1fr] items-center border-b border-white/15 py-5"
                 >
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-white">
-                    {item}
-                  </p>
+                  <span className="text-[9px] font-bold tracking-[0.2em] text-[#D2AF66]">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  <span className="font-serif text-xl font-light sm:text-2xl">
+                    {tradition}
+                  </span>
                 </div>
               ))}
+
+              <Link
+                href="/traditions"
+                className="mt-8 inline-flex border-b border-[#D2AF66] pb-2 text-[9px] font-bold uppercase tracking-[0.22em] text-white transition hover:text-[#D2AF66]"
+              >
+                Explore Club Traditions →
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Guiding Principles */}
-      <section className="bg-[#F7F4EE] px-5 py-16 sm:px-8 lg:py-24">
-        <div className="mx-auto w-full max-w-[1060px]">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
-              Our Guiding Principles
+      {/* PRINCIPLES */}
+      <section className="bg-white px-5 py-20 sm:px-8 lg:py-28">
+        <div className="mx-auto max-w-[1120px]">
+          <div className="max-w-3xl">
+            <p className="text-[9px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
+              What Should Endure
             </p>
 
-            <h2 className="mt-4 font-serif text-[2.35rem] font-light leading-[1.08] text-[#10263F] sm:text-5xl">
-              The Values Behind the Vision
+            <h2 className="mt-6 font-serif text-[2.8rem] font-light leading-[1.02] sm:text-5xl">
+              The standards come
+              <span className="block text-[#8B6A34]">before the address.</span>
             </h2>
-
-            <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-[#1E3557]/80">
-              The character of The Gallaspy will be defined not only by what is
-              built, but by the values that guide every decision.
-            </p>
           </div>
 
-          <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {guidingPrinciples.map((principle) => (
+          <div className="mt-12 grid border-t border-[#10263F]/15 md:grid-cols-2 lg:grid-cols-3">
+            {principles.map((principle) => (
               <article
                 key={principle.title}
-                className="rounded-[18px] border border-[#1E3557]/10 bg-white p-7"
+                className="border-b border-[#10263F]/15 py-8 md:px-7 md:first:pl-0 lg:min-h-[230px]"
               >
-                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#B89146]">
+                <p className="text-[9px] font-bold tracking-[0.22em] text-[#B89146]">
                   {principle.number}
                 </p>
 
-                <h3 className="mt-5 font-serif text-3xl font-light text-[#10263F]">
+                <h3 className="mt-5 font-serif text-3xl font-light">
                   {principle.title}
                 </h3>
 
-                <div className="mt-5 h-px w-10 bg-[#B89146]" />
-
-                <p className="mt-5 text-sm leading-7 text-[#1E3557]/80">
+                <p className="mt-4 max-w-sm text-sm leading-7 text-[#33475B]/70">
                   {principle.description}
                 </p>
               </article>
@@ -473,296 +323,77 @@ export default function WhyTheGallaspyPage() {
         </div>
       </section>
 
-      {/* Experience */}
-      <section className="bg-white px-5 py-16 sm:px-8 lg:py-24">
-        <div className="mx-auto w-full max-w-[1060px]">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div className="max-w-2xl">
-              <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
-                The Club Lifestyle
-              </p>
-
-              <h2 className="mt-4 font-serif text-[2.35rem] font-light leading-[1.08] text-[#10263F] sm:text-5xl">
-                One Destination.
-                <span className="block">Many Experiences.</span>
-              </h2>
-            </div>
-
-            <p className="max-w-sm text-sm leading-7 text-[#1E3557]/75">
-              Every part of The Gallaspy is being designed to contribute to a
-              complete private-club lifestyle.
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {experiences.map((experience) => (
-              <Link
-                key={experience.title}
-                href={experience.href}
-                className="group relative min-h-[390px] overflow-hidden rounded-[20px]"
-              >
-                <Image
-                  src={experience.image}
-                  alt={experience.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover transition duration-700 group-hover:scale-105"
-                />
-
-                <div className="absolute inset-0 bg-gradient-to-t from-[#10263F]/95 via-[#10263F]/30 to-transparent" />
-
-                <div className="absolute inset-x-0 bottom-0 p-6 text-white">
-                  <p className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#FFD76A]">
-                    {experience.eyebrow}
-                  </p>
-
-                  <h3 className="mt-3 font-serif text-3xl font-light">
-                    {experience.title}
-                  </h3>
-
-                  <div className="mt-4 h-px w-10 bg-[#B89146] transition-all group-hover:w-16" />
-
-                  <p className="mt-4 text-sm leading-6 text-white/75">
-                    {experience.description}
-                  </p>
-
-                  <p className="mt-5 text-[9px] font-bold uppercase tracking-[0.2em] text-[#FFD76A]">
-                    Explore Experience →
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Development Phases */}
-      <section className="bg-[#F7F4EE] px-5 py-16 sm:px-8 lg:py-24">
-        <div className="mx-auto w-full max-w-[1060px]">
-          <div className="max-w-2xl">
-            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
-              Development Vision
-            </p>
-
-            <h2 className="mt-4 font-serif text-[2.35rem] font-light leading-[1.08] text-[#10263F] sm:text-5xl">
-              Built Thoughtfully
-              <span className="block">Across Five Phases</span>
-            </h2>
-
-            <p className="mt-5 text-sm leading-7 text-[#1E3557]/80">
-              The project is planned as a phased development over approximately
-              eight to ten years, allowing each major component to be carefully
-              planned, financed, and delivered.
-            </p>
-          </div>
-
-          <div className="mt-10 space-y-4">
-            {phases.map((item, index) => (
-              <article
-                key={item.phase}
-                className="grid gap-5 rounded-[18px] border border-[#1E3557]/10 bg-white p-6 md:grid-cols-[120px_1fr] md:items-start sm:p-7"
-              >
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-[#B89146]">
-                    {item.phase}
-                  </p>
-
-                  <p className="mt-2 font-serif text-3xl font-light text-[#10263F]">
-                    {String(index + 1).padStart(2, "0")}
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="font-serif text-2xl font-light text-[#10263F]">
-                    {item.title}
-                  </h3>
-
-                  <p className="mt-3 text-sm leading-7 text-[#1E3557]/80">
-                    {item.description}
-                  </p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Founder Statement */}
-      <section className="bg-[#163A2F] px-5 py-16 text-white sm:px-8 lg:py-24">
-        <div className="mx-auto grid w-full max-w-[1060px] gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-16">
+      {/* PERMANENT HOME */}
+      <section className="bg-[#F7F4EE] px-5 py-20 sm:px-8 lg:py-28">
+        <div className="mx-auto grid max-w-[1120px] gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#FFD76A]">
-              A Message From the Founder
+            <p className="text-[9px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
+              The Long View
             </p>
-
-            <blockquote className="mt-6 font-serif text-[2rem] font-light leading-[1.2] text-white sm:text-[2.8rem]">
-              “This is more than the beginning of a country club. This is the
-              beginning of a legacy.”
-            </blockquote>
-
-            <div className="mt-7 h-px w-14 bg-[#B89146]" />
-
-            <p className="mt-6 max-w-2xl text-sm leading-7 text-white/78">
-              The Gallaspy is being created with the belief that a truly great
-              club can become part of the identity of its members, their
-              families, and the community it serves.
-            </p>
-
-            <p className="mt-5 max-w-2xl text-sm leading-7 text-white/70">
-              The goal is not simply to develop a collection of amenities. It
-              is to create a place of belonging—one where meaningful
-              relationships are formed, traditions are protected, and future
-              generations understand the value of what was established before
-              them.
-            </p>
-
-            <div className="mt-7">
-              <p className="font-serif text-2xl italic text-[#FFD76A]">
-                Cameron Gallaspy
-              </p>
-
-              <p className="mt-2 text-[9px] font-bold uppercase tracking-[0.22em] text-white/60">
-                Founder &amp; Managing Partner
-              </p>
-            </div>
           </div>
 
-          <div className="rounded-[20px] border border-white/15 bg-white/[0.06] p-7 sm:p-8">
-            <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-[#FFD76A]">
-              Continue the Story
-            </p>
-
-            <h3 className="mt-4 font-serif text-3xl font-light text-white">
-              Read the Founder&apos;s Letter
-            </h3>
-
-            <p className="mt-4 text-sm leading-7 text-white/72">
-              Learn more about the purpose, family legacy, and long-term vision
-              guiding the development of The Gallaspy.
-            </p>
-
-            <Link
-              href="/founders-letter"
-              className="mt-7 inline-flex min-h-[45px] items-center justify-center rounded-full border border-[#FFD76A] bg-[#FFD76A] px-6 text-[10px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:-translate-y-0.5 hover:bg-white"
-            >
-              Read the Founder&apos;s Letter
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Legacy Timeline */}
-      <section className="bg-white px-5 py-16 sm:px-8 lg:py-24">
-        <div className="mx-auto w-full max-w-[1060px]">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
-              The Journey Ahead
-            </p>
-
-            <h2 className="mt-4 font-serif text-[2.35rem] font-light leading-[1.08] text-[#10263F] sm:text-5xl">
-              From Vision to Legacy
+          <div>
+            <h2 className="max-w-4xl font-serif text-[2.8rem] font-light leading-[1.02] sm:text-5xl lg:text-[3.7rem]">
+              Someday,
+              <span className="block text-[#8B6A34]">
+                a permanent first tee.
+              </span>
             </h2>
 
-            <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-[#1E3557]/80">
-              The Gallaspy is a long-term journey designed to move carefully
-              from a founding idea to an enduring private-club institution.
+            <p className="mt-8 max-w-2xl text-base leading-8 text-[#33475B]/80">
+              The long-term vision is for The Gallaspy to establish a permanent
+              private golf and country club in Georgia — a home worthy of the
+              identity and traditions being created now.
             </p>
-          </div>
 
-          <div className="relative mt-12">
-            <div className="absolute bottom-0 left-[27px] top-0 hidden w-px bg-[#B89146]/35 md:block lg:left-1/2" />
+            <p className="mt-5 max-w-2xl text-base leading-8 text-[#33475B]/80">
+              No property has been represented here as secured, and the final
+              form of that future home will be shaped by the property,
+              opportunities, partnerships, planning, and decisions still ahead.
+            </p>
 
-            <div className="space-y-5">
-              {legacyTimeline.map((item, index) => (
-                <article
-                  key={item.number}
-                  className={`relative grid gap-5 md:grid-cols-[55px_1fr] lg:grid-cols-2 ${
-                    index % 2 === 0 ? "" : "lg:text-right"
-                  }`}
-                >
-                  <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full border border-[#B89146] bg-[#10263F] text-xs font-bold text-white lg:absolute lg:left-1/2 lg:-translate-x-1/2">
-                    {item.number}
-                  </div>
-
-                  <div
-                    className={`rounded-[18px] border border-[#1E3557]/10 bg-[#F7F4EE] p-6 md:col-start-2 lg:col-start-auto lg:w-[calc(100%-55px)] ${
-                      index % 2 === 0
-                        ? "lg:mr-auto"
-                        : "lg:col-start-2 lg:ml-auto"
-                    }`}
-                  >
-                    <h3 className="font-serif text-2xl font-light text-[#10263F]">
-                      {item.title}
-                    </h3>
-
-                    <div
-                      className={`mt-4 h-px w-10 bg-[#B89146] ${
-                        index % 2 === 0 ? "" : "lg:ml-auto"
-                      }`}
-                    />
-
-                    <p className="mt-4 text-sm leading-7 text-[#1E3557]/80">
-                      {item.description}
-                    </p>
-                  </div>
-                </article>
-              ))}
-            </div>
+            <p className="mt-7 max-w-2xl font-serif text-2xl font-light leading-relaxed">
+              When that day comes, the club should arrive with something a new
+              building cannot manufacture:
+              <span className="text-[#8B6A34]"> history.</span>
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="relative overflow-hidden bg-[#10263F] px-5 py-20 text-white sm:px-8 lg:py-28">
-        <Image
-          src="/images/arrival.png"
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover opacity-20"
-        />
-
-        <div className="absolute inset-0 bg-[#10263F]/82" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#10263F] via-[#10263F]/90 to-[#163A2F]/75" />
-
-        <div className="relative z-10 mx-auto max-w-[900px] text-center">
-          <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#FFD76A]">
+      {/* CLOSING */}
+      <section className="bg-[#10263F] px-5 py-24 text-white sm:px-8 lg:py-32">
+        <div className="mx-auto max-w-[900px] text-center">
+          <p className="text-[9px] font-bold uppercase tracking-[0.34em] text-[#D2AF66]">
             A Legacy in the Making
           </p>
 
-          <h2 className="mt-5 font-serif text-[2.6rem] font-light leading-[1.08] text-white sm:text-5xl lg:text-6xl">
-            Great Clubs Leave More
-            <span className="block text-[#FFD76A]">Than Memories</span>
+          <h2 className="mt-7 font-serif text-[3rem] font-light leading-[0.98] sm:text-6xl lg:text-[4.5rem]">
+            We are not looking back
+            <span className="block text-[#D2AF66]">
+              on the history yet.
+            </span>
           </h2>
 
-          <div className="mx-auto mt-7 h-px w-16 bg-[#B89146]" />
-
-          <p className="mx-auto mt-7 max-w-2xl text-sm leading-7 text-white/78 sm:text-base sm:leading-8">
-            They leave traditions, relationships, and a legacy that endures for
-            generations. Become part of the vision behind The Gallaspy Golf
-            &amp; Country Club.
+          <p className="mx-auto mt-8 max-w-2xl text-base leading-8 text-white/72">
+            We are living through the part that will become it.
           </p>
 
-          <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
+          <div className="mx-auto mt-10 h-px w-16 bg-[#B89146]" />
+
+          <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
             <Link
-              href="/falcon-society#registration"
-              className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-[#FFD76A] bg-[#FFD76A] px-8 text-[10px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:-translate-y-0.5 hover:bg-white"
+              href="/journal"
+              className="inline-flex min-h-[48px] items-center justify-center bg-[#D2AF66] px-8 text-[9px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:bg-white"
             >
-              Join the Falcon Society
+              Follow The Story →
             </Link>
 
             <Link
-              href="/master-plan"
-              className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-white/45 px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition hover:-translate-y-0.5 hover:border-[#FFD76A] hover:text-[#FFD76A]"
+              href="/start-here"
+              className="inline-flex min-h-[48px] items-center justify-center border border-white/30 px-8 text-[9px] font-bold uppercase tracking-[0.2em] text-white transition hover:border-[#D2AF66] hover:text-[#D2AF66]"
             >
-              Explore the Development Vision
-            </Link>
-
-            <Link
-              href="/invest"
-              className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-white/45 px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition hover:-translate-y-0.5 hover:border-[#FFD76A] hover:text-[#FFD76A]"
-            >
-              Explore Development & Partnership
+              Start Here
             </Link>
           </div>
         </div>

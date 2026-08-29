@@ -2,194 +2,159 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Frequently Asked Questions | The Gallaspy Golf & Country Club",
+  title: "Frequently Asked Questions | The Gallaspy Golf Club",
   description:
-    "Find answers about membership, development, investment, careers, residences, events, and the future of The Gallaspy Golf & Country Club.",
+    "Answers about The Gallaspy, Gallaspy Rounds, club events, the Founding 100, the Gallaspy Invitational, Mercury Match, and the club's long-term vision.",
 };
 
 const faqSections = [
   {
-    category: "The Project",
+    category: "The Gallaspy",
     questions: [
       {
-        question: "What is The Gallaspy Golf & Country Club?",
+        question: "What is The Gallaspy?",
         answer:
-          "The Gallaspy Golf & Country Club is a proposed private golf and lifestyle destination being envisioned for a future Georgia location. The vision brings together championship golf, luxury hospitality, wellness, dining, lodging, events, recreation, and residential living within one thoughtfully planned property.",
+          "The Gallaspy is a developing golf community in Georgia establishing its identity through golf, annual competitions, gatherings, and traditions. The community is active before the establishment of a permanent club property.",
       },
       {
-        question: "Where is the project planned?",
+        question: "Does The Gallaspy have its own golf course?",
         answer:
-          "The Gallaspy is focused on identifying the right property in Georgia. No permanent development site has been selected or secured. The search emphasizes accessibility, natural character, long-term growth potential, and the scale required for the complete club vision.",
+          "Not yet. The Gallaspy does not currently own or operate a permanent golf course. Golf programming takes place at selected host courses while the long-term vision of establishing a permanent private golf and country club continues.",
       },
       {
-        question: "How large is the proposed development?",
+        question: "Where is The Gallaspy located?",
         answer:
-          "The current master plan is conceptual and illustrates the type of golf, hospitality, wellness, residential, recreation, and supporting uses envisioned for a future Gallaspy property. Final acreage and layout will depend on the site ultimately selected.",
+          "The Gallaspy is based in Georgia, but no permanent club property has been selected or represented as secured. Current golf experiences may take place at different host courses.",
       },
       {
-        question: "Is the current master plan final?",
+        question: "When was The Gallaspy established?",
         answer:
-          "No. The images and site plans shown on the website are conceptual and are intended to communicate the development vision. Final plans will be subject to site selection and land acquisition, architecture, engineering, financing, government approvals, environmental review, and development planning.",
+          "The Gallaspy was established in 2026. This period represents the opening chapter of the club's history.",
       },
     ],
   },
   {
-    category: "Membership",
+    category: "Playing With The Gallaspy",
     questions: [
       {
-        question: "Is membership currently available?",
+        question: "How can I play with The Gallaspy?",
         answer:
-          "Memberships are not currently being offered for sale. The project remains in the development stage. Prospective members may submit an interest form to receive future announcements and membership-related updates.",
+          "Golf opportunities are announced through the Club Calendar and Gallaspy Rounds. Individual events may have their own registration process, field size, pricing, format, and guest policy.",
       },
       {
-        question: "Will The Gallaspy be a private club?",
+        question: "What are Gallaspy Rounds?",
         answer:
-          "The Gallaspy is being envisioned primarily as a private membership club. Final access policies, membership categories, guest privileges, and public-facing experiences will be established as the club structure develops.",
+          "Gallaspy Rounds are recurring golf gatherings held at selected courses. They create opportunities for the community to play together, experience different venues, build relationships, and establish a continuing golf calendar.",
       },
       {
-        question: "What types of memberships may be offered?",
+        question: "Are Gallaspy Rounds tournaments?",
         answer:
-          "Potential membership categories may include golf, social, family, corporate, non-resident, and founding memberships. These categories remain under development and have not yet been finalized.",
+          "Not necessarily. Some Gallaspy events are competitive, while a Gallaspy Round may simply be an organized day of golf. The format for each event will be identified when its details are announced.",
       },
       {
-        question: "How can I express interest in becoming a member?",
+        question: "Can guests participate?",
         answer:
-          "You may visit the Membership page and submit the membership interest form. This allows the project team to keep you informed as future membership opportunities are introduced.",
+          "Guest access may be available for selected events. Guest policies can vary by event and host course, so the applicable event page should be used for current details.",
       },
     ],
   },
   {
-    category: "Golf & Amenities",
+    category: "The Club Year",
     questions: [
       {
-        question: "What golf facilities are planned?",
+        question: "What is First Flight?",
         answer:
-          "The current vision includes an 18-hole championship golf course, multiple tee options, a practice range, short-game facilities, putting areas, professional instruction, tournaments, and a full golf operations program.",
+          "First Flight marks the beginning of active Gallaspy golf programming and the opening chapter of the club's playing history. The first First Flight is scheduled for September 26, 2026.",
       },
       {
-        question: "What other amenities are planned?",
+        question: "What is Opening Drive?",
         answer:
-          "Planned amenities include a grand clubhouse, Mercury Street Restaurant, wellness spa, fitness center, pools, tennis and pickleball, member lodging, vineyard experiences, event facilities, family recreation, and residential living.",
+          "Opening Drive is intended to mark the ceremonial beginning of each Gallaspy golf season in March.",
       },
       {
-        question: "Will Mercury Street Restaurant be open to the public?",
+        question: "What is Night at the Nest?",
         answer:
-          "The final operating model has not yet been determined. Mercury Street Restaurant is being designed as a signature dining experience connected to the club, but limited public access, private events, or reservation-based experiences may be considered in the future.",
+          "Night at the Nest is the annual year-end Gallaspy gathering envisioned as a celebration of the people, moments, and season that came before it. The first Night at the Nest is planned for December 2027.",
       },
       {
-        question: "Will there be accommodations on the property?",
+        question: "Where can I see upcoming events?",
         answer:
-          "Yes. The current plan includes member lodging, luxury suites, cottages, and guest accommodations intended for club visits, family stays, corporate retreats, golf trips, and special events.",
+          "The Club Calendar is the central source for announced Gallaspy Rounds, competitions, signature events, gatherings, and other scheduled club activity.",
       },
     ],
   },
   {
-    category: "Residential Community",
+    category: "Competition",
     questions: [
       {
-        question: "Will there be homes within the development?",
+        question: "What is The Gallaspy Invitational?",
         answer:
-          "Yes. The proposed master plan includes a private residential community with luxury estate homes, villas, and family cottages integrated into the club environment.",
+          "The Gallaspy Invitational is the club's flagship annual golf tournament. The 1st Annual Gallaspy Invitational is scheduled for June 21, 2027. Tournament details are published on the Invitational page as they are confirmed.",
       },
       {
-        question: "How many residences are planned?",
+        question: "What is The Mercury Match?",
         answer:
-          "A future residential component is part of the long-term vision. The final number, type, and placement of residences will depend on the property ultimately selected, land planning, infrastructure, environmental review, architecture, and government approvals.",
+          "The Mercury Match is The Gallaspy's annual team championship: Crest vs. Falcon. Team Crest competes in forest green and Team Falcon in navy blue. The inaugural match is planned for September 2027, with the exact date, host course, and match format to be announced.",
       },
       {
-        question: "Will homeownership include club membership?",
+        question: "Have there been previous Mercury Match champions?",
         answer:
-          "The relationship between residential ownership and club membership has not yet been finalized. Future ownership documents and membership policies will define whether membership is required, included, optional, or separately purchased.",
+          "No. The inaugural Mercury Match has not yet been played. Results and the all-time series will begin with the first competition.",
+      },
+      {
+        question: "Where will competition results be recorded?",
+        answer:
+          "As official competitions are completed, results and recaps can become part of The Gallaspy's permanent event history and Journal rather than being replaced by the next event.",
       },
     ],
   },
   {
-    category: "Events & Hospitality",
+    category: "The Founding Community",
     questions: [
       {
-        question: "Will The Gallaspy host weddings and private events?",
+        question: "What is the Falcon Society?",
         answer:
-          "The proposed Event Pavilion, clubhouse ballroom, vineyard, outdoor lawns, terraces, and hospitality spaces are being planned to support weddings, galas, charity events, corporate retreats, tournaments, and private celebrations.",
+          "The Falcon Society is The Gallaspy's founding community. It represents the Founding 100 — the first 100 confirmed individuals or families selected to become part of the club's opening chapter.",
       },
       {
-        question: "Can I reserve an event now?",
+        question: "Are the Falcon Society and Founding 100 different programs?",
         answer:
-          "No. Event bookings are not currently available because the project is still in development. Future event announcements and booking information will be shared once facilities move closer to completion.",
+          "No. They are the same founding community. Falcon Society is the official name, while Founding 100 describes the first 100 confirmed participants.",
       },
       {
-        question: "Will corporate retreats be available?",
+        question: "Does submitting an application mean I have been accepted?",
         answer:
-          "Yes. The development vision includes lodging, meeting spaces, golf, dining, wellness, and event facilities that may support executive meetings, company retreats, leadership programs, and corporate hospitality.",
+          "No. Submitting an application expresses interest and begins the review process. An application is not confirmation or acceptance into the Falcon Society.",
+      },
+      {
+        question: "Does the Falcon Society application guarantee future club membership?",
+        answer:
+          "No. Participation in the founding community should not be interpreted as a guarantee of future membership rights, ownership, equity, investment returns, or permanent privileges at a future club property.",
       },
     ],
   },
   {
-    category: "Development & Timeline",
+    category: "The Permanent Home",
     questions: [
       {
-        question: "When will construction begin?",
+        question: "Is a permanent Gallaspy property currently secured?",
         answer:
-          "A final construction start date has not been announced. The project is expected to progress through land acquisition, planning, approvals, financing, infrastructure development, and phased construction.",
+          "No permanent club property is currently represented as selected or secured.",
       },
       {
-        question: "How long will the development take?",
+        question: "Is a permanent golf and country club still the long-term vision?",
         answer:
-          "The current strategy anticipates five major development phases over approximately eight to ten years. Timing may change based on financing, approvals, construction conditions, market demand, and other development factors.",
+          "Yes. The long-term ambition remains to establish a permanent private golf and country club in Georgia. The eventual property, design, amenities, timeline, and operating structure will depend on decisions and opportunities still ahead.",
       },
       {
-        question: "What are the proposed development phases?",
+        question: "Are previous conceptual plans final?",
         answer:
-          "The current sequence begins with land, planning, and infrastructure, followed by championship golf, clubhouse and dining, wellness and recreation, and finally vineyard, events, residential growth, and future expansion.",
+          "No. Earlier concepts should not be interpreted as final plans or as representations of an existing property. Any future club plan will depend on the property ultimately selected and the planning, financial, regulatory, and operational decisions associated with it.",
       },
       {
-        question: "Will every amenity open at the same time?",
+        question: "Why begin the club before securing a permanent property?",
         answer:
-          "No. The project is expected to open in phases. Each major component will be introduced according to the final development schedule, financing plan, construction progress, and operational readiness.",
-      },
-    ],
-  },
-  {
-    category: "Investment",
-    questions: [
-      {
-        question: "Can individuals invest in The Gallaspy?",
-        answer:
-          "The project may consider qualified investors, strategic partners, financial institutions, and lending organizations. Investment opportunities, if offered, will be subject to applicable laws, formal documentation, eligibility requirements, and due diligence.",
-      },
-      {
-        question: "Where can I learn more about the investment opportunity?",
-        answer:
-          "The Development & Partnership page provides an overview of the long-term vision, phased strategy, potential revenue channels, and partnership approach. Serious inquiries may also be submitted through the Contact page.",
-      },
-      {
-        question: "Are the financial estimates guaranteed?",
-        answer:
-          "No. Any estimates, projections, costs, values, timelines, and operating assumptions are preliminary and may change. They should not be interpreted as guarantees, investment advice, or a formal securities offering.",
-      },
-      {
-        question: "Is the website an investment offering?",
-        answer:
-          "No. The website is intended for general informational and vision-presentation purposes. It does not constitute an offer to sell securities, a solicitation to invest, or a guarantee of future performance.",
-      },
-    ],
-  },
-  {
-    category: "Careers",
-    questions: [
-      {
-        question: "Is The Gallaspy currently hiring?",
-        answer:
-          "The Gallaspy is not currently accepting applications for active club positions. Hiring is expected to begin gradually as the project advances into construction, pre-opening, and operations.",
-      },
-      {
-        question: "What types of jobs are expected?",
-        answer:
-          "Future opportunities may include golf operations, agronomy, hospitality, culinary, member services, events, wellness, recreation, lodging, housekeeping, maintenance, administration, finance, marketing, and leadership roles.",
-      },
-      {
-        question: "How can I express interest in future employment?",
-        answer:
-          "Visit the Careers page for an overview of projected departments, then use the Contact page to submit a general career inquiry. A career inquiry is not a formal job application and does not guarantee consideration.",
+          "Because the culture of a club can begin before its buildings do. The current chapter allows The Gallaspy to establish relationships, standards, traditions, competitions, and genuine history while the long-term vision develops.",
       },
     ],
   },
@@ -197,19 +162,19 @@ const faqSections = [
     category: "Updates & Contact",
     questions: [
       {
-        question: "How can I receive project updates?",
+        question: "How can I follow what happens next?",
         answer:
-          "You may submit an interest form through the Membership or Contact page. As the project progresses, updates may include planning milestones, membership announcements, investor information, design developments, and future events.",
+          "The Club Calendar provides upcoming activity, while The Gallaspy Journal is designed to preserve announcements, recaps, milestones, and stories as they actually happen.",
+      },
+      {
+        question: "What is The Club Dispatch?",
+        answer:
+          "The Club Dispatch is The Gallaspy's developing communications channel for rounds, competition, gatherings, club news, apparel, and announcements. Additional registration functionality will be introduced as the communications system expands.",
       },
       {
         question: "How can I contact The Gallaspy?",
         answer:
-          "Visit the Contact page to submit a general inquiry regarding membership, investment, partnerships, careers, media, events, or other project questions.",
-      },
-      {
-        question: "Where can I see more of the vision?",
-        answer:
-          "The Club, Master Plan, Gallery, Why The Gallaspy, Investment, and Founder’s Letter pages provide a broader look at the development vision and the experience being planned.",
+          "Use the Contact page for general inquiries, partnerships, event questions, media inquiries, and other communication with The Gallaspy.",
       },
     ],
   },
@@ -217,217 +182,106 @@ const faqSections = [
 
 export default function FAQPage() {
   return (
-    <main className="bg-[#F7F4EE] text-[#1E3557]">
-      {/* Hero */}
-      <section className="bg-[#10263F] px-5 pb-16 pt-32 text-white sm:px-8 lg:pb-20 lg:pt-40">
-        <div className="mx-auto w-full max-w-[1060px] text-center">
-          <p className="text-[10px] font-bold uppercase tracking-[0.38em] text-[#FFD76A]">
-            Frequently Asked Questions
+    <main className="bg-[#F7F4EE] text-[#10263F]">
+      {/* HERO */}
+      <section className="bg-[#10263F] px-5 pb-20 pt-32 text-white sm:px-8 sm:pb-24 sm:pt-36 lg:pt-44">
+        <div className="mx-auto max-w-[1060px]">
+          <p className="text-[9px] font-bold uppercase tracking-[0.38em] text-[#D2AF66]">
+            The Gallaspy
           </p>
 
-          <h1 className="mx-auto mt-5 max-w-4xl font-serif text-[2.8rem] font-light leading-[1.02] text-white sm:text-6xl lg:text-[4.7rem]">
-            Answers About
-            <span className="block">The Gallaspy Vision</span>
+          <h1 className="mt-6 max-w-4xl font-serif text-[3.5rem] font-light leading-[0.95] sm:text-6xl lg:text-[5rem]">
+            Questions,
+            <span className="block text-[#D2AF66]">answered clearly.</span>
           </h1>
 
-          <div className="mx-auto mt-6 h-px w-16 bg-[#B89146]" />
+          <div className="mt-8 h-px w-16 bg-[#B89146]" />
 
-          <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-white/78 sm:text-base sm:leading-8">
-            Learn more about the proposed club, future membership,
-            development timeline, residential community, investment,
-            hospitality, and career opportunities.
+          <p className="mt-7 max-w-2xl text-base leading-8 text-white/72">
+            The Gallaspy is in its opening chapter. Here is what exists today,
+            what is beginning next, and what remains part of the long-term
+            vision.
           </p>
         </div>
       </section>
 
-      {/* Intro navigation */}
-      <section className="bg-white px-5 py-12 sm:px-8">
-        <div className="mx-auto w-full max-w-[1060px]">
-          <div className="flex flex-wrap justify-center gap-2">
+      {/* FAQ */}
+      <section className="px-5 py-16 sm:px-8 lg:py-24">
+        <div className="mx-auto max-w-[1060px]">
+          <div className="space-y-20">
             {faqSections.map((section) => (
-              <a
-                key={section.category}
-                href={`#${section.category
-                  .toLowerCase()
-                  .replaceAll("&", "and")
-                  .replaceAll(" ", "-")}`}
-                className="rounded-full border border-[#1E3557]/12 bg-[#F7F4EE] px-4 py-2 text-[10px] font-bold uppercase tracking-[0.12em] text-[#10263F] transition hover:border-[#B89146] hover:bg-[#B89146] hover:text-white"
-              >
-                {section.category}
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ sections */}
-      <section className="bg-[#F7F4EE] px-5 py-16 sm:px-8 lg:py-20">
-        <div className="mx-auto w-full max-w-[920px] space-y-16">
-          {faqSections.map((section) => {
-            const sectionId = section.category
-              .toLowerCase()
-              .replaceAll("&", "and")
-              .replaceAll(" ", "-");
-
-            return (
               <section
                 key={section.category}
-                id={sectionId}
-                className="scroll-mt-28"
+                className="grid gap-8 lg:grid-cols-[260px_1fr] lg:gap-16"
               >
-                <div className="mb-7">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
-                    FAQ Category
+                <div>
+                  <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#B89146]">
+                    {section.category}
                   </p>
 
-                  <h2 className="mt-3 font-serif text-[2.2rem] font-light leading-tight text-[#10263F] sm:text-4xl">
-                    {section.category}
-                  </h2>
-
-                  <div className="mt-5 h-px w-14 bg-[#B89146]" />
+                  <div className="mt-5 h-px w-10 bg-[#B89146]" />
                 </div>
 
-                <div className="space-y-3">
+                <div className="border-t border-[#10263F]/15">
                   {section.questions.map((item) => (
                     <details
                       key={item.question}
-                      className="group rounded-[16px] border border-[#1E3557]/10 bg-white"
+                      className="group border-b border-[#10263F]/15"
                     >
-                      <summary className="flex cursor-pointer list-none items-center justify-between gap-5 px-5 py-5 sm:px-6">
-                        <span className="font-serif text-xl font-light leading-snug text-[#10263F] sm:text-2xl">
-                          {item.question}
-                        </span>
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-8 py-6 font-serif text-xl font-light leading-snug sm:text-2xl">
+                        <span>{item.question}</span>
 
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#B89146]/45 text-lg text-[#B89146] transition group-open:rotate-45">
+                        <span className="shrink-0 text-xl font-light text-[#B89146] transition-transform group-open:rotate-45">
                           +
                         </span>
                       </summary>
 
-                      <div className="border-t border-[#1E3557]/8 px-5 py-5 sm:px-6">
-                        <p className="text-sm leading-7 text-[#1E3557]/80">
-                          {item.answer}
-                        </p>
-                      </div>
+                      <p className="max-w-2xl pb-7 pr-8 text-sm leading-7 text-[#33475B]/75 sm:text-base sm:leading-8">
+                        {item.answer}
+                      </p>
                     </details>
                   ))}
                 </div>
               </section>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Information notice */}
-      <section className="bg-white px-5 py-14 sm:px-8 lg:py-16">
-        <div className="mx-auto w-full max-w-[920px] rounded-[20px] border border-[#1E3557]/10 bg-[#F7F4EE] p-7 sm:p-9">
-          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#B89146]">
-            Important Information
-          </p>
-
-          <h2 className="mt-4 font-serif text-3xl font-light text-[#10263F] sm:text-4xl">
-            A Vision Still in Development
-          </h2>
-
-          <p className="mt-5 text-sm leading-7 text-[#1E3557]/80">
-            The Gallaspy Golf &amp; Country Club is a proposed development and
-            does not currently represent that a permanent development site has
-            been selected or secured. Plans, amenities, acreage, timelines,
-            costs, projections, membership structures, residential offerings,
-            and operating models remain subject to change.
-          </p>
-
-          <p className="mt-4 text-sm leading-7 text-[#1E3557]/80">
-            Website content and conceptual renderings are provided for
-            informational purposes and should not be interpreted as a binding
-            commitment, formal offering, guarantee, or final development plan.
-          </p>
-        </div>
-      </section>
-
-      {/* Explore section */}
-      <section className="bg-[#163A2F] px-5 py-16 text-white sm:px-8 lg:py-20">
-        <div className="mx-auto w-full max-w-[1060px]">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#FFD76A]">
-              Continue Exploring
-            </p>
-
-            <h2 className="mt-4 font-serif text-[2.35rem] font-light leading-[1.08] text-white sm:text-5xl">
-              Discover More of
-              <span className="block">The Gallaspy</span>
-            </h2>
-          </div>
-
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
-            {[
-              {
-                title: "The Master Plan",
-                description:
-                  "Explore the proposed layout, amenities, arrival experience, and development phases.",
-                href: "/master-plan",
-              },
-              {
-                title: "Membership",
-                description:
-                  "Register your interest in future membership opportunities and club updates.",
-                href: "/membership",
-              },
-              {
-                title: "Development & Partnership",
-                description:
-                  "Review the development vision, phased strategy, partnership opportunities, and long-term approach.",
-                href: "/invest",
-              },
-            ].map((item) => (
-              <article
-                key={item.title}
-                className="rounded-[18px] border border-white/15 bg-white/[0.06] p-6"
-              >
-                <h3 className="font-serif text-2xl font-light text-white">
-                  {item.title}
-                </h3>
-
-                <p className="mt-4 text-sm leading-7 text-white/72">
-                  {item.description}
-                </p>
-
-                <Link
-                  href={item.href}
-                  className="mt-6 inline-flex text-[10px] font-bold uppercase tracking-[0.2em] text-[#FFD76A] transition hover:text-white"
-                >
-                  Explore Page →
-                </Link>
-              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="bg-[#1E3557] px-5 py-16 text-white sm:px-8 lg:py-20">
-        <div className="mx-auto flex w-full max-w-[1060px] flex-col items-center justify-between gap-8 text-center lg:flex-row lg:text-left">
-          <div className="max-w-2xl">
-            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#FFD76A]">
-              Still Have Questions?
-            </p>
+      {/* NEXT STEPS */}
+      <section className="bg-white px-5 py-20 sm:px-8 lg:py-24">
+        <div className="mx-auto max-w-[900px] text-center">
+          <p className="text-[9px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
+            Begin Here
+          </p>
 
-            <h2 className="mt-4 font-serif text-[2.35rem] font-light leading-[1.08] text-white sm:text-5xl">
-              Connect With
-              <span className="block">The Gallaspy</span>
-            </h2>
+          <h2 className="mt-5 font-serif text-[2.6rem] font-light leading-[1.05] sm:text-5xl">
+            See what is happening
+            <span className="block text-[#8B6A34]">at The Gallaspy now.</span>
+          </h2>
 
-            <p className="mt-5 text-sm leading-7 text-white/72">
-              Submit a general inquiry regarding membership, investment,
-              partnerships, careers, events, or the development vision.
-            </p>
+          <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
+            <Link
+              href="/start-here"
+              className="inline-flex min-h-[48px] items-center justify-center bg-[#10263F] px-7 text-[9px] font-bold uppercase tracking-[0.2em] text-white transition hover:bg-[#163A2F]"
+            >
+              Start Here
+            </Link>
+
+            <Link
+              href="/calendar"
+              className="inline-flex min-h-[48px] items-center justify-center border border-[#10263F]/25 px-7 text-[9px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:border-[#B89146]"
+            >
+              Club Calendar
+            </Link>
+
+            <Link
+              href="/contact"
+              className="inline-flex min-h-[48px] items-center justify-center border border-[#10263F]/25 px-7 text-[9px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:border-[#B89146]"
+            >
+              Contact The Gallaspy
+            </Link>
           </div>
-
-          <Link
-            href="/contact"
-            className="inline-flex min-h-[46px] shrink-0 items-center justify-center rounded-full border border-[#FFD76A] bg-[#FFD76A] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:-translate-y-0.5 hover:bg-white"
-          >
-            Contact The Gallaspy
-          </Link>
         </div>
       </section>
     </main>

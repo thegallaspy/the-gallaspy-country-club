@@ -3,14 +3,14 @@ import FalconSocietyApplicationForm from "@/components/FalconSocietyApplicationF
 export const metadata = {
   title: "Apply to the Falcon Society | The Gallaspy",
   description:
-    "Express interest in becoming one of only 100 founding members of The Gallaspy Golf & Country Club.",
+    "Apply to be considered for the Falcon Society, the Founding 100 of The Gallaspy.",
 };
 
-const benefits = [
-  "Priority consideration as one of only 100 Founding Members",
-  "Early access to project updates, previews, and private announcements",
-  "Recognition as part of the club's founding membership community",
-  "Priority invitations to select pre-opening experiences and events",
+const participationPoints = [
+  "Consideration for the Founding 100 of The Gallaspy",
+  "Early communication about Gallaspy golf, events, and club activity",
+  "Opportunities to participate in select early Gallaspy experiences",
+  "Recognition as part of the club's founding community if confirmed",
 ];
 
 export default function FalconSocietyApplyPage() {
@@ -24,7 +24,7 @@ export default function FalconSocietyApplyPage() {
 
         <div className="relative mx-auto max-w-5xl text-center">
           <p className="text-xs font-bold uppercase tracking-[0.35em] text-[#FFD76A]">
-            One of Only 100
+            The Founding 100
           </p>
 
           <h1 className="mt-6 font-serif text-5xl font-medium leading-tight sm:text-6xl lg:text-7xl">
@@ -32,9 +32,9 @@ export default function FalconSocietyApplyPage() {
           </h1>
 
           <p className="mx-auto mt-7 max-w-3xl text-base leading-8 text-white/80 sm:text-lg">
-            Join the early community helping shape the future of The Gallaspy
-            Golf &amp; Country Club, a premier private golf and lifestyle
-            destination planned for Metro Atlanta.
+            The Falcon Society is the founding community of The Gallaspy —
+            established for those who want to participate in the club&apos;s
+            earliest rounds, gatherings, competitions, and traditions.
           </p>
         </div>
       </section>
@@ -47,29 +47,36 @@ export default function FalconSocietyApplyPage() {
             </p>
 
             <h2 className="mt-4 font-serif text-4xl font-medium leading-tight sm:text-5xl">
-              Help establish the club&apos;s first chapter.
+              Be considered for the club&apos;s first chapter.
             </h2>
 
             <p className="mt-6 leading-8 text-[#33475B]">
-              The Falcon Society is designed for the first 100 individuals and
-              families selected to participate in the early membership journey
-              of The Gallaspy.
+              The Falcon Society represents the first 100 confirmed individuals
+              and families selected to become part of The Gallaspy&apos;s
+              founding community.
+            </p>
+
+            <p className="mt-5 leading-8 text-[#33475B]">
+              The Gallaspy does not yet have a permanent course or clubhouse.
+              The community is being established now through golf, competition,
+              gatherings, and the traditions that will become part of the
+              club&apos;s history.
             </p>
 
             <div className="mt-9 rounded-3xl border border-[#D8CEBC] bg-white p-7 shadow-sm">
               <h3 className="font-serif text-2xl">
-                Falcon Society benefits
+                Founding community participation
               </h3>
 
               <div className="mt-6 space-y-5">
-                {benefits.map((benefit) => (
-                  <div key={benefit} className="flex gap-4">
+                {participationPoints.map((point) => (
+                  <div key={point} className="flex gap-4">
                     <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#10263F] text-xs font-bold text-[#FFD76A]">
                       ✓
                     </span>
 
                     <p className="text-sm leading-6 text-[#33475B]">
-                      {benefit}
+                      {point}
                     </p>
                   </div>
                 ))}
@@ -82,10 +89,11 @@ export default function FalconSocietyApplyPage() {
               </p>
 
               <p className="mt-3 text-sm leading-6 text-[#33475B]">
-                This form is an expression of interest only. Submission does not
-                guarantee selection for the Falcon Society, reserve a membership
-                position, create a financial obligation, or represent a formal
-                offer of membership.
+                This application is for consideration only. Submission does not
+                guarantee acceptance into the Falcon Society, reserve a future
+                membership position, create a financial obligation, or
+                represent an offer of membership, ownership, equity, or other
+                future club rights.
               </p>
             </div>
           </aside>

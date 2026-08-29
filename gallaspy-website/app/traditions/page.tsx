@@ -1,234 +1,217 @@
-import Image from "next/image";
 import Link from "next/link";
+import { traditions } from "@/data/club";
 
-const marks = [
-  {
-    number: "01",
-    title: "The Falcon",
-    image: "/logos/falcon.png",
-    text: "A defining symbol of The Gallaspy — carried across the club, its apparel, competition, and identity.",
-  },
-  {
-    number: "02",
-    title: "The Crest",
-    image: "/logos/crest.png",
-    text: "The club crest — formal, recognizable, and built to carry The Gallaspy across generations.",
-  },
-  {
-    number: "03",
-    title: "The Script",
-    image: "/logos/script.png",
-    text: "The signature mark of The Gallaspy — expressive, familiar, and unmistakably part of the club.",
-  },
+const traditionOrder = [
+  "first-flight",
+  "opening-drive",
+  "gallaspy-invitational",
+  "mercury-match",
+  "night-at-the-nest",
 ];
 
-const traditions = [
-  {
-    number: "01",
-    eyebrow: "Club Match",
-    title: "The Mercury Match",
-    text: "A recurring competitive tradition built around matches, rivalry, and the golfers who return to compete year after year.",
-  },
-  {
-    number: "02",
-    eyebrow: "Flagship Tournament",
-    title: "The Gallaspy Invitational",
-    text: "The signature tournament of The Gallaspy — where competition, atmosphere, and club identity come together.",
-  },
-  {
-    number: "03",
-    eyebrow: "Annual Gathering",
-    title: "Night at the Nest",
-    text: "An annual gathering centered on the people of the club — recognition, celebration, and the moments worth carrying forward.",
-  },
-];
+const traditionLabels: Record<string, string> = {
+  "first-flight": "Opening Tradition",
+  "opening-drive": "Season Tradition",
+  "gallaspy-invitational": "Flagship Tournament",
+  "mercury-match": "Team Championship",
+  "night-at-the-nest": "Annual Gathering",
+};
 
 export default function TraditionsPage() {
+  const orderedTraditions = traditionOrder
+    .map((id) => traditions.find((tradition) => tradition.id === id))
+    .filter((tradition) => tradition !== undefined);
+
   return (
-    <main className="bg-[#F3EFE6] text-[#10263F]">
+    <main className="bg-[#F7F4EE] text-[#10263F]">
       {/* HERO */}
-      <section className="relative overflow-hidden bg-[#10263F] px-5 pb-16 pt-32 text-white sm:px-8 sm:pb-20 sm:pt-36 lg:px-10 lg:pb-24 lg:pt-40">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_10%,rgba(12,53,45,0.85),transparent_38%)]" />
+      <section className="bg-[#10263F] px-5 pb-16 pt-32 text-white sm:px-8 sm:pb-20 sm:pt-36 lg:pb-24 lg:pt-40">
+        <div className="mx-auto max-w-[1120px]">
+          <p className="text-[10px] font-bold uppercase tracking-[0.36em] text-[#D7B56D]">
+            The Gallaspy Traditions
+          </p>
 
-        <div className="absolute right-[-4%] top-[8%] text-[12rem] font-black uppercase leading-none tracking-[-0.09em] text-white/[0.025] sm:text-[18rem] lg:text-[23rem]">
-          03
-        </div>
-
-        <div className="relative mx-auto max-w-7xl">
-          <div className="flex items-center gap-3">
-            <span className="h-2 w-2 bg-[#B3262D]" />
-            <p className="text-[8px] font-black uppercase tracking-[0.36em] text-[#FFD76A]">
-              Traditions &amp; Symbols
-            </p>
-          </div>
-
-          <h1 className="mt-7 max-w-[1050px] text-[3.6rem] font-black uppercase leading-[0.82] tracking-[-0.07em] sm:text-[5rem] md:text-[6.4rem] lg:text-[7.2rem]">
-            Identity Is
-            <span className="block text-[#FFD76A]">
-              Built Over Time.
-            </span>
+          <h1 className="mt-6 max-w-4xl font-serif text-[3.6rem] font-light leading-[0.94] sm:text-6xl lg:text-[5.5rem]">
+            History Has to
+            <span className="block text-[#D7B56D]">Start Somewhere.</span>
           </h1>
 
-          <div className="mt-8 grid gap-8 border-t border-white/15 pt-7 lg:grid-cols-[1fr_auto] lg:items-end">
-            <p className="max-w-[720px] text-[15px] leading-7 text-white/58 sm:text-[17px] sm:leading-8">
-              Some things begin as marks. Others begin as moments. Over time,
-              both become part of how a club recognizes itself.
+          <div className="mt-10 grid gap-8 border-t border-white/15 pt-8 lg:grid-cols-[1fr_auto] lg:items-end">
+            <p className="max-w-2xl text-sm leading-7 text-white/60 sm:text-base sm:leading-8">
+              The Gallaspy is establishing the moments that will return each
+              year — golf, competition, gathering, and the traditions that
+              become more meaningful every time they are shared.
             </p>
 
-            <p className="text-[8px] font-black uppercase tracking-[0.24em] text-white/30">
-              The Gallaspy · Est. 2026
+            <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-white/35">
+              Established 2026
             </p>
           </div>
         </div>
       </section>
 
-      {/* THE MARKS */}
-      <section className="bg-[#F3EFE6] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid gap-10 lg:grid-cols-[0.5fr_1.5fr] lg:gap-16">
-            <div>
-              <p className="text-[8px] font-black uppercase tracking-[0.34em] text-[#8B6A34]">
-                The Marks
-              </p>
-
-              <div className="mt-5 h-[3px] w-12 bg-[#B3262D]" />
-            </div>
-
-            <div>
-              <h2 className="max-w-[850px] text-[2.9rem] font-black uppercase leading-[0.9] tracking-[-0.055em] sm:text-[4.1rem] lg:text-[4.8rem]">
-                Three Marks.
-                <span className="block font-serif font-light normal-case italic tracking-[-0.035em] text-[#8B6A34]">
-                  One club.
-                </span>
-              </h2>
-
-              <p className="mt-6 max-w-[720px] text-[15px] leading-7 text-[#10263F]/58">
-                The Falcon, Crest, and Script each carry a different expression
-                of The Gallaspy, while belonging to the same identity.
-              </p>
-            </div>
+      {/* INTRO */}
+      <section className="px-5 py-16 sm:px-8 lg:py-24">
+        <div className="mx-auto grid max-w-[1120px] gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
+              Built Through Repetition
+            </p>
           </div>
 
-          <div className="mt-14 border-t border-[#10263F]/12">
-            {marks.map((mark, index) => (
-              <article
-                key={mark.title}
-                className="grid gap-8 border-b border-[#10263F]/12 py-10 md:grid-cols-[110px_1fr] lg:grid-cols-[120px_380px_1fr] lg:items-center lg:gap-12 lg:py-12"
-              >
-                <p className="text-[2.5rem] font-black leading-none tracking-[-0.06em] text-[#10263F]/12">
-                  {mark.number}
-                </p>
+          <div>
+            <h2 className="max-w-3xl font-serif text-[2.8rem] font-light leading-[1.05] sm:text-5xl">
+              Not inherited.
+              <span className="block text-[#8B6A34]">Established together.</span>
+            </h2>
 
-                <div className="relative h-[180px] w-full max-w-[330px] sm:h-[220px] lg:h-[250px]">
-                  <Image
-                    src={mark.image}
-                    alt={mark.title}
-                    fill
-                    sizes="330px"
-                    className="object-contain object-left"
-                  />
-                </div>
-
-                <div>
-                  <p className="text-[8px] font-black uppercase tracking-[0.28em] text-[#B3262D]">
-                    Club Mark
-                  </p>
-
-                  <h3 className="mt-3 text-[2.2rem] font-black uppercase leading-none tracking-[-0.045em] sm:text-[2.7rem]">
-                    {mark.title}
-                  </h3>
-
-                  <p className="mt-5 max-w-[520px] text-sm leading-7 text-[#10263F]/58">
-                    {mark.text}
-                  </p>
-                </div>
-              </article>
-            ))}
+            <p className="mt-6 max-w-2xl text-sm leading-7 text-[#33475B]/75 sm:text-base sm:leading-8">
+              Every club with history once had a first year. These traditions
+              mark the rhythm of The Gallaspy calendar and give the community
+              something meaningful to return to.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* TRADITIONS */}
-      <section className="bg-[#10263F] text-white">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
-          <div className="grid gap-10 lg:grid-cols-[0.5fr_1.5fr] lg:gap-16">
-            <div>
-              <p className="text-[8px] font-black uppercase tracking-[0.34em] text-[#FFD76A]">
-                The Traditions
+      {/* FIVE TRADITIONS */}
+      <section className="border-t border-[#10263F]/15 px-5 sm:px-8">
+        <div className="mx-auto max-w-[1120px]">
+          {orderedTraditions.map((tradition, index) => (
+            <article
+              key={tradition.id}
+              className="grid gap-8 border-b border-[#10263F]/15 py-12 md:grid-cols-[80px_1fr] lg:grid-cols-[90px_330px_1fr] lg:items-start lg:gap-12 lg:py-16"
+            >
+              <p className="font-serif text-4xl font-light text-[#B89146]">
+                {String(index + 1).padStart(2, "0")}
               </p>
 
-              <div className="mt-5 h-[3px] w-12 bg-[#B3262D]" />
-            </div>
+              <div>
+                <p className="text-[9px] font-bold uppercase tracking-[0.26em] text-[#8B6A34]">
+                  {traditionLabels[tradition.id]}
+                </p>
 
-            <div>
-              <h2 className="max-w-[900px] text-[2.9rem] font-black uppercase leading-[0.9] tracking-[-0.055em] sm:text-[4.1rem] lg:text-[4.9rem]">
-                Some Things
-                <span className="block font-serif font-light normal-case italic tracking-[-0.035em] text-[#FFD76A]">
-                  are worth repeating.
-                </span>
-              </h2>
+                <h2 className="mt-3 font-serif text-3xl font-light leading-tight sm:text-4xl">
+                  {tradition.name}
+                </h2>
 
-              <p className="mt-6 max-w-[720px] text-[15px] leading-7 text-white/48">
-                Traditions are not decorations. They become part of the club
-                because people return to them.
-              </p>
-            </div>
+                <p className="mt-4 text-[10px] font-bold uppercase tracking-[0.2em] text-[#10263F]/40">
+                  {tradition.monthLabel} ·{" "}
+                  {tradition.firstOccurrenceYear === 2026
+                    ? "Established"
+                    : "Starting"}{" "}
+                  {tradition.firstOccurrenceYear}
+                </p>
+              </div>
+
+              <div>
+                <p className="max-w-xl text-sm leading-7 text-[#33475B]/75 sm:text-base sm:leading-8">
+                  {tradition.description}
+                </p>
+
+                {tradition.id === "mercury-match" && (
+                  <div className="mt-7 border-l-2 border-[#B89146] pl-5">
+                    <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#8B6A34]">
+                      Crest vs. Falcon
+                    </p>
+
+                    <p className="mt-2 font-serif text-xl text-[#10263F]">
+                      Two Houses. One Club. One Match.
+                    </p>
+
+                    <div className="mt-5 flex flex-wrap gap-5">
+                      <div className="flex items-center gap-3">
+                        <span className="h-3 w-3 bg-[#0C352D]" />
+                        <span className="text-[9px] font-bold uppercase tracking-[0.18em]">
+                          Team Crest · Forest Green
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <span className="h-3 w-3 bg-[#10263F]" />
+                        <span className="text-[9px] font-bold uppercase tracking-[0.18em]">
+                          Team Falcon · Navy
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {tradition.href && tradition.href !== "/traditions" && (
+                  <Link
+                    href={tradition.href}
+                    className="mt-7 inline-flex items-center text-[9px] font-bold uppercase tracking-[0.22em] text-[#10263F] transition hover:text-[#B89146]"
+                  >
+                    Explore
+                    <span className="ml-3 text-[#B89146]">→</span>
+                  </Link>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* MERCURY MATCH FEATURE */}
+      <section className="bg-[#0C352D] px-5 py-16 text-white sm:px-8 lg:py-24">
+        <div className="mx-auto grid max-w-[1120px] gap-12 lg:grid-cols-[1fr_0.8fr] lg:items-end lg:gap-20">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#D7B56D]">
+              September · Team Championship
+            </p>
+
+            <h2 className="mt-5 font-serif text-[3rem] font-light leading-[1] sm:text-5xl lg:text-[4rem]">
+              The Mercury
+              <span className="block text-[#D7B56D]">Match.</span>
+            </h2>
+
+            <p className="mt-6 max-w-2xl text-sm leading-7 text-white/65 sm:text-base sm:leading-8">
+              Crest against Falcon. Forest green against navy. The Mercury
+              Match is The Gallaspy&apos;s annual team competition and one of
+              the traditions intended to build its own history year after year.
+            </p>
           </div>
 
-          <div className="mt-14 border-t border-white/15">
-            {traditions.map((tradition) => (
-              <article
-                key={tradition.title}
-                className="group grid gap-6 border-b border-white/15 py-9 transition-colors duration-300 hover:bg-white/[0.025] md:grid-cols-[90px_1fr] lg:grid-cols-[110px_310px_1fr] lg:items-center lg:gap-10 lg:px-4 lg:py-10"
-              >
-                <p className="text-[2.2rem] font-black leading-none tracking-[-0.06em] text-white/10 transition group-hover:text-[#B3262D]">
-                  {tradition.number}
-                </p>
+          <div className="border-l border-white/20 pl-6 sm:pl-8">
+            <p className="font-serif text-2xl font-light text-white">
+              Two Houses.
+            </p>
+            <p className="font-serif text-2xl font-light text-white">
+              One Club.
+            </p>
+            <p className="font-serif text-2xl font-light text-[#D7B56D]">
+              One Match.
+            </p>
 
-                <div>
-                  <p className="text-[7px] font-black uppercase tracking-[0.27em] text-[#FFD76A]">
-                    {tradition.eyebrow}
-                  </p>
-
-                  <h3 className="mt-3 text-[1.7rem] font-black uppercase leading-[0.95] tracking-[-0.04em] sm:text-[2rem]">
-                    {tradition.title}
-                  </h3>
-                </div>
-
-                <p className="max-w-[560px] text-sm leading-7 text-white/48">
-                  {tradition.text}
-                </p>
-              </article>
-            ))}
+            <Link
+              href="/mercury-match"
+              className="mt-8 inline-flex min-h-[48px] items-center justify-center border border-[#D7B56D] px-7 text-[9px] font-bold uppercase tracking-[0.22em] text-[#D7B56D] transition hover:bg-[#D7B56D] hover:text-[#10263F]"
+            >
+              The Mercury Match →
+            </Link>
           </div>
         </div>
       </section>
 
       {/* CLOSING */}
-      <section className="bg-[#0C352D] text-white">
-        <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-16 lg:px-10">
-          <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
-            <div>
-              <div className="flex items-center gap-3">
-                <span className="h-2 w-2 bg-[#B3262D]" />
-                <p className="text-[8px] font-black uppercase tracking-[0.3em] text-[#FFD76A]">
-                  The Next Chapter
-                </p>
-              </div>
+      <section className="bg-[#10263F] px-5 py-14 text-white sm:px-8 lg:py-16">
+        <div className="mx-auto flex max-w-[1120px] flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#D7B56D]">
+              Be There From The Beginning
+            </p>
 
-              <h2 className="mt-5 max-w-[720px] text-[2.7rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[3.7rem]">
-                History Needs
-                <span className="block">People In It.</span>
-              </h2>
-            </div>
-
-            <Link
-              href="/play"
-              className="inline-flex min-h-[50px] items-center justify-center bg-[#FFD76A] px-7 text-[8px] font-black uppercase tracking-[0.23em] text-[#10263F] transition duration-300 hover:-translate-y-1 hover:bg-white"
-            >
-              Play With Us →
-            </Link>
+            <h2 className="mt-4 max-w-2xl font-serif text-3xl font-light sm:text-4xl">
+              Traditions become history when people return to them.
+            </h2>
           </div>
+
+          <Link
+            href="/calendar"
+            className="inline-flex min-h-[48px] items-center justify-center bg-[#D7B56D] px-7 text-[9px] font-bold uppercase tracking-[0.22em] text-[#10263F] transition hover:bg-white"
+          >
+            View Club Calendar →
+          </Link>
         </div>
       </section>
     </main>
