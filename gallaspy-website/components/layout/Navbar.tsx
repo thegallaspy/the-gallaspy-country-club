@@ -8,8 +8,6 @@ import { useEffect, useState } from "react";
 const navigation = [
   { title: "The Club", href: "/the-club" },
   { title: "Play", href: "/play" },
-  { title: "Invitational", href: "/invitational" },
-  { title: "Traditions", href: "/traditions" },
   { title: "Apparel", href: "/apparel" },
   { title: "Our Story", href: "/why-the-gallaspy" },
   { title: "Contact", href: "/contact" },
@@ -28,6 +26,47 @@ export function Navbar() {
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [bagCount, setBagCount] = useState(0);
+
+  useEffect(() => {
+    const updateBagCount = () => {
+      try {
+        const cart = JSON.parse(
+          localStorage.getItem("gallaspy-cart") || "[]",
+        );
+
+        const count = cart.reduce(
+          (
+            total: number,
+            item: { quantity?: number },
+          ) => total + (item.quantity || 0),
+          0,
+        );
+
+        setBagCount(count);
+      } catch {
+        setBagCount(0);
+      }
+    };
+
+    updateBagCount();
+
+    window.addEventListener(
+      "gallaspy-cart-updated",
+      updateBagCount,
+    );
+
+    window.addEventListener("storage", updateBagCount);
+
+    return () => {
+      window.removeEventListener(
+        "gallaspy-cart-updated",
+        updateBagCount,
+      );
+
+      window.removeEventListener("storage", updateBagCount);
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -160,6 +199,18 @@ export function Navbar() {
             })}
 
             <Link
+              href="/apparel/bag"
+              aria-label={`Shopping bag with ${bagCount} items`}
+              className="group relative ml-1 inline-flex min-h-[42px] items-center gap-2 px-2 text-[8px] font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-300 hover:text-[#FFD76A]"
+            >
+              <span>Bag</span>
+
+              <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#B3262D] px-1.5 text-[7px] font-black text-white">
+                {bagCount}
+              </span>
+            </Link>
+
+            <Link
               href="/play"
               className="ml-2 inline-flex min-h-[42px] items-center justify-center border border-[#FFD76A] bg-[#FFD76A] px-5 text-[8px] font-semibold uppercase tracking-[0.19em] text-[#10263F] transition-all duration-300 hover:-translate-y-0.5 hover:bg-transparent hover:text-white 2xl:px-6 2xl:text-[9px]"
             >
@@ -268,6 +319,32 @@ export function Navbar() {
               );
             })}
           </nav>
+
+          <Link
+            href="/apparel/bag"
+            onClick={closeMenu}
+            className="mt-6 flex items-center justify-between border border-[#FFD76A]/35 bg-white/[0.03] px-5 py-4"
+          >
+            <div>
+              <p className="text-[7px] font-semibold uppercase tracking-[0.3em] text-[#FFD76A]">
+                The Gallaspy Apparel
+              </p>
+
+              <p className="mt-1 font-serif text-[1.7rem] font-light text-white">
+                Your Bag
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <span className="flex h-7 min-w-7 items-center justify-center rounded-full bg-[#B3262D] px-2 text-[8px] font-black text-white">
+                {bagCount}
+              </span>
+
+              <span className="text-lg text-[#FFD76A]">
+                →
+              </span>
+            </div>
+          </Link>
 
           <div className="mt-auto pt-10">
             <Link

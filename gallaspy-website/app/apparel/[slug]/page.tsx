@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ProductPurchase from "@/components/apparel/ProductPurchase";
 
 const products = [
   {
@@ -317,30 +318,14 @@ export default async function ProductPage({
               </p>
             </div>
 
-            <div className="mt-8">
-              <p className="text-[8px] font-black uppercase tracking-[0.25em] text-[#10263F]/45">
-                Select Size
-              </p>
-
-              <div className="mt-4 flex flex-wrap gap-2">
-                {product.sizes.map((size) => (
-                  <button
-                    key={size}
-                    type="button"
-                    className="min-w-[58px] border border-[#10263F]/20 bg-white px-4 py-3 text-[9px] font-black uppercase tracking-[0.15em] transition hover:border-[#10263F] hover:bg-[#10263F] hover:text-white"
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <button
-              type="button"
-              className="mt-8 flex min-h-[58px] w-full items-center justify-center bg-[#10263F] px-7 text-[9px] font-black uppercase tracking-[0.25em] text-white transition hover:bg-[#0D352C]"
-            >
-              Add to Bag
-            </button>
+            <ProductPurchase
+              slug={product.slug}
+              name={product.name}
+              color={product.color}
+              price={product.price}
+              image={product.image}
+              sizes={product.sizes}
+            />
 
             <div className="mt-8 border-t border-[#10263F]/15 pt-6">
               <p className="text-sm leading-7 text-[#10263F]/55">

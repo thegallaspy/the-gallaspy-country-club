@@ -225,6 +225,192 @@ export default function InvitationalPage() {
         </div>
       </section>
 
+      {/* GOLDEN FALCON TROPHY */}
+      <section className="relative overflow-hidden bg-[#071827] text-white">
+        <div className="absolute right-[-3rem] top-[-4rem] text-[12rem] font-black leading-none tracking-[-0.08em] text-white/[0.025] sm:text-[18rem]">
+          01
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-14 lg:px-10 lg:py-16">
+          <div className="grid gap-8 lg:grid-cols-[0.65fr_1.35fr] lg:items-center lg:gap-16">
+            <div>
+              <div className="flex items-center gap-3">
+                <span className="h-2 w-2 bg-[#B3262D]" />
+
+                <p className="text-[8px] font-black uppercase tracking-[0.32em] text-[#FFD76A]">
+                  Championship Tradition
+                </p>
+              </div>
+
+              <p className="mt-5 text-[9px] font-black uppercase tracking-[0.24em] text-white/35">
+                Established 2027
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-[2.5rem] font-black uppercase leading-[0.9] tracking-[-0.05em] sm:text-[3.4rem] lg:text-[4rem]">
+                The Golden
+                <span className="block text-[#FFD76A]">
+                  Falcon Trophy.
+                </span>
+              </h2>
+
+              <div className="mt-7 border-t border-white/15 pt-7">
+                <p className="max-w-[680px] text-base leading-7 text-white/70 sm:text-lg">
+                  The Golden Falcon Trophy is the championship symbol of The
+                  Gallaspy Invitational.
+                </p>
+
+                <p className="mt-4 max-w-[680px] text-sm leading-7 text-white/50">
+                  Each year, it marks the team that wins the club&apos;s
+                  flagship competition. In 2027, the inaugural champions become
+                  the first names attached to that tradition.
+                </p>
+              </div>
+
+              <div className="mt-7 flex items-center gap-4">
+                <span className="h-[3px] w-12 bg-[#B3262D]" />
+
+                <p className="text-[8px] font-black uppercase tracking-[0.26em] text-[#FFD76A]">
+                  First Champions · June 21, 2027
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-4">
+          <div className="h-[5px] bg-[#10263F]" />
+          <div className="h-[5px] bg-[#B3262D]" />
+          <div className="h-[5px] bg-[#FFD76A]" />
+          <div className="h-[5px] bg-[#0C352D]" />
+        </div>
+      </section>
+
+      {/* GOLDEN FALCON TROPHY */}
+      <section className="relative overflow-hidden bg-[#071827] text-white">
+        <div className="absolute right-[-3rem] top-[-4rem] text-[12rem] font-black leading-none tracking-[-0.08em] text-white/[0.025] sm:text-[18rem]">
+          01
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-14 lg:px-10 lg:py-16">
+          <div className="grid gap-8 lg:grid-cols-[0.65fr_1.35fr] lg:items-center lg:gap-16">
+            <div>
+              <div className="flex items-center gap-3">
+                <span className="h-2 w-2 bg-[#B3262D]" />
+
+                <p className="text-[8px] font-black uppercase tracking-[0.32em] text-[#FFD76A]">
+                  Championship Tradition
+                </p>
+              </div>
+
+              <p className="mt-5 text-[9px] font-black uppercase tracking-[0.24em] text-white/35">
+                Established 2027
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-[2.5rem] font-black uppercase leading-[0.9] tracking-[-0.05em] sm:text-[3.4rem] lg:text-[4rem]">
+                The Golden
+                <span className="block text-[#FFD76A]">
+                  Falcon Trophy.
+                </span>
+              </h2>
+
+              <div className="mt-7 border-t border-white/15 pt-7">
+                <p className="max-w-[680px] text-base leading-7 text-white/70 sm:text-lg">
+                  The Golden Falcon Trophy is the championship symbol of The
+                  Gallaspy Invitational.
+                </p>
+
+                <p className="mt-4 max-w-[680px] text-sm leading-7 text-white/50">
+                  Each year, it marks the team that wins the club&apos;s
+                  flagship competition. In 2027, the inaugural champions become
+                  the first names attached to that tradition.
+                </p>
+              </div>
+
+              <div className="mt-7 flex items-center gap-4">
+                <span className="h-[3px] w-12 bg-[#B3262D]" />
+
+                <p className="text-[8px] font-black uppercase tracking-[0.26em] text-[#FFD76A]">
+                  First Champions · June 21, 2027
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-4">
+          <div className="h-[5px] bg-[#10263F]" />
+          <div className="h-[5px] bg-[#B3262D]" />
+          <div className="h-[5px] bg-[#FFD76A]" />
+          <div className="h-[5px] bg-[#0C352D]" />
+        </div>
+      </section>
+
+      {/* GOLDEN FALCON TROPHY */}
+      <section className="relative overflow-hidden bg-[#071827] text-white">
+        <div className="absolute right-[-3rem] top-[-4rem] text-[12rem] font-black leading-none tracking-[-0.08em] text-white/[0.025] sm:text-[18rem]">
+          01
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-14 lg:px-10 lg:py-16">
+          <div className="grid gap-8 lg:grid-cols-[0.65fr_1.35fr] lg:items-center lg:gap-16">
+            <div>
+              <div className="flex items-center gap-3">
+                <span className="h-2 w-2 bg-[#B3262D]" />
+
+                <p className="text-[8px] font-black uppercase tracking-[0.32em] text-[#FFD76A]">
+                  Championship Tradition
+                </p>
+              </div>
+
+              <p className="mt-5 text-[9px] font-black uppercase tracking-[0.24em] text-white/35">
+                Established 2027
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-[2.5rem] font-black uppercase leading-[0.9] tracking-[-0.05em] sm:text-[3.4rem] lg:text-[4rem]">
+                The Golden
+                <span className="block text-[#FFD76A]">
+                  Falcon Trophy.
+                </span>
+              </h2>
+
+              <div className="mt-7 border-t border-white/15 pt-7">
+                <p className="max-w-[680px] text-base leading-7 text-white/70 sm:text-lg">
+                  The Golden Falcon Trophy is the championship symbol of The
+                  Gallaspy Invitational.
+                </p>
+
+                <p className="mt-4 max-w-[680px] text-sm leading-7 text-white/50">
+                  Each year, it marks the team that wins the club&apos;s
+                  flagship competition. In 2027, the inaugural champions become
+                  the first names attached to that tradition.
+                </p>
+              </div>
+
+              <div className="mt-7 flex items-center gap-4">
+                <span className="h-[3px] w-12 bg-[#B3262D]" />
+
+                <p className="text-[8px] font-black uppercase tracking-[0.26em] text-[#FFD76A]">
+                  First Champions · June 21, 2027
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-4">
+          <div className="h-[5px] bg-[#10263F]" />
+          <div className="h-[5px] bg-[#B3262D]" />
+          <div className="h-[5px] bg-[#FFD76A]" />
+          <div className="h-[5px] bg-[#0C352D]" />
+        </div>
+      </section>
+
       {/* RESOURCES */}
       <section className="bg-[#F3EFE6] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto max-w-7xl">

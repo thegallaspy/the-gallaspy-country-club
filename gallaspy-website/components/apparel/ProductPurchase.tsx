@@ -90,10 +90,13 @@ export default function ProductPurchase({
                 key={size}
                 type="button"
                 onClick={() => setSelectedSize(size)}
+                style={{
+                  color: active ? "#FFFFFF" : "#10263F",
+                }}
                 className={`min-w-[58px] border px-4 py-3 text-[9px] font-black uppercase tracking-[0.15em] transition ${
                   active
-                    ? "border-[#10263F] bg-[#10263F] text-white"
-                    : "border-[#10263F]/20 bg-white text-[#10263F] hover:border-[#10263F]"
+                    ? "border-[#10263F] bg-[#10263F]"
+                    : "border-[#10263F]/25 bg-[#F8F5EE] hover:border-[#10263F] hover:bg-white"
                 }`}
               >
                 {size}

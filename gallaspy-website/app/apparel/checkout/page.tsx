@@ -1,1456 +1,726 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import {
-  FormEvent,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 
-const PRODUCTS = {
-  polo: {
-    name: "Men's Performance Polo",
-    price: 70,
-    requiresSize: true,
-  },
-
-  hat: {
-    name: "Club Hat",
-    price: 45,
-    requiresSize: false,
-  },
-
-  "womens-polo": {
-    name: "Women's Crest Polo",
-    price: 70,
-    requiresSize: true,
-  },
-
-  "womens-sleeveless-polo": {
-    name: "Women's Sleeveless Crest Polo",
-    price: 70,
-    requiresSize: true,
-  },
-
-  "womens-skirt": {
-    name: "Women's Crest Skirt",
-    price: 70,
-    requiresSize: true,
-  },
-} as const;
-
-type ProductType = keyof typeof PRODUCTS;
-type DesignType = "Script" | "Crest";
-type ColorType = "Navy" | "White" | "Forest Green";
-
-type SquareTokenResult = {
-  status: string;
-  token?: string;
-  errors?: Array<{
-    code?: string;
-    detail?: string;
-    message?: string;
-  }>;
+type CartItem = {
+  id: string;
+  slug: string;
+  name: string;
+  color: string;
+  price: string;
+  image: string;
+  size: string;
+  quantity: number;
 };
 
 type SquareCard = {
   attach: (selector: string) => Promise<void>;
-
-  tokenize: (details: {
-    amount: string;
-    currencyCode: string;
-    intent: "CHARGE";
-    customerInitiated: boolean;
-    sellerKeyedIn: boolean;
-
-    billingContact: {
-      givenName: string;
-      familyName: string;
-      email: string;
-      phone?: string;
-      city?: string;
-      state?: string;
-      countryCode: string;
-    };
-  }) => Promise<SquareTokenResult>;
-
-  destroy?: () => Promise<boolean>;
+  tokenize: () => Promise<{
+    status: string;
+    token?: string;
+    errors?: Array<{ message?: string }>;
+  }>;
+  destroy?: () => Promise<void>;
 };
 
 type SquarePayments = {
   card: () => Promise<SquareCard>;
 };
 
+type SquareSdk = {
+  payments: (
+    applicationId: string,
+    locationId: string
+  ) => SquarePayments;
+};
+
 declare global {
   interface Window {
-    Square?: {
-      payments: (
-        applicationId: string,
-        locationId: string
-      ) => SquarePayments;
-    };
+    Square?: SquareSdk;
   }
 }
 
-function isProductType(
-  value: string
-): value is ProductType {
-  return value in PRODUCTS;
+function priceToNumber(price: string) {
+  return Number(price.replace(/[^0-9.]/g, "")) || 0;
 }
 
-function isWomensProduct(
-  value: ProductType
-) {
-  return (
-    value === "womens-polo" ||
-    value === "womens-sleeveless-polo" ||
-    value === "womens-skirt"
-  );
+function money(value: number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(value);
 }
 
 export default function ApparelCheckoutPage() {
-  const [productType, setProductType] =
-    useState<ProductType>("polo");
+  const [items, setItems] = useState<CartItem[]>([]);
+  const [loaded, setLoaded] = useState(false);
 
-  const [color, setColor] =
-    useState<ColorType>("Navy");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
 
-  const [design, setDesign] =
-    useState<DesignType>("Script");
+  const [shippingAddress1, setShippingAddress1] = useState("");
+  const [shippingAddress2, setShippingAddress2] = useState("");
+  const [shippingCity, setShippingCity] = useState("");
+  const [shippingState, setShippingState] = useState("");
+  const [shippingPostalCode, setShippingPostalCode] = useState("");
 
-  const [size, setSize] =
-    useState("M");
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
 
-  const [quantity, setQuantity] =
-    useState(1);
+  const [cardReady, setCardReady] = useState(false);
+  const [cardError, setCardError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [orderMessage, setOrderMessage] = useState("");
 
-  const [acceptedTerms, setAcceptedTerms] =
-    useState(false);
-
-  const [squareReady, setSquareReady] =
-    useState(false);
-
-  const [
-    paymentProcessing,
-    setPaymentProcessing,
-  ] = useState(false);
-
-  const [paymentError, setPaymentError] =
-    useState("");
-
-  const [
-    paymentSuccess,
-    setPaymentSuccess,
-  ] = useState(false);
-
-  const [paymentId, setPaymentId] =
-    useState("");
-
-  const [
-    orderReference,
-    setOrderReference,
-  ] = useState("");
-
-  const [receiptUrl, setReceiptUrl] =
-    useState("");
-
-  const squareCardRef =
-    useRef<SquareCard | null>(null);
-
-  const squareInitializingRef =
-    useRef(false);
-
-  /*
-   * ---------------------------------------------------------
-   * LOAD PRODUCT FROM URL
-   *
-   * Examples:
-   *
-   * /apparel/checkout?product=polo&color=Navy&design=Script&size=M
-   *
-   * /apparel/checkout?product=womens-polo&color=Navy&design=Crest&size=M
-   * ---------------------------------------------------------
-   */
+  const cardRef = useRef<SquareCard | null>(null);
 
   useEffect(() => {
-    const params =
-      new URLSearchParams(
-        window.location.search
-      );
+    try {
+      const raw = localStorage.getItem("gallaspy-cart");
+      const parsed = raw ? JSON.parse(raw) : [];
 
-    const product =
-      params
-        .get("product")
-        ?.toLowerCase();
+      const validItems = Array.isArray(parsed)
+        ? parsed.filter(
+            (item): item is CartItem =>
+              item &&
+              typeof item.id === "string" &&
+              typeof item.slug === "string" &&
+              typeof item.name === "string" &&
+              typeof item.color === "string" &&
+              typeof item.price === "string" &&
+              typeof item.image === "string" &&
+              typeof item.size === "string" &&
+              typeof item.quantity === "number" &&
+              item.quantity > 0
+          )
+        : [];
 
-    const selectedColor =
-      params.get("color");
-
-    const selectedDesign =
-      params.get("design");
-
-    const selectedSize =
-      params.get("size");
-
-    if (
-      product &&
-      isProductType(product)
-    ) {
-      setProductType(product);
-
-      if (isWomensProduct(product)) {
-        setDesign("Crest");
-      }
-    }
-
-    if (
-      selectedColor === "Navy" ||
-      selectedColor === "White" ||
-      selectedColor === "Forest Green"
-    ) {
-      setColor(selectedColor);
-    }
-
-    if (
-      selectedDesign === "Script" ||
-      selectedDesign === "Crest"
-    ) {
-      if (
-        product &&
-        isProductType(product) &&
-        isWomensProduct(product)
-      ) {
-        setDesign("Crest");
-      } else {
-        setDesign(selectedDesign);
-      }
-    }
-
-    if (
-      selectedSize === "S" ||
-      selectedSize === "M" ||
-      selectedSize === "L" ||
-      selectedSize === "XL"
-    ) {
-      setSize(selectedSize);
+      setItems(validItems);
+    } catch {
+      setItems([]);
+    } finally {
+      setLoaded(true);
     }
   }, []);
 
-  /*
-   * ---------------------------------------------------------
-   * CURRENT PRODUCT
-   * ---------------------------------------------------------
-   */
-
-  const selectedProduct =
-    PRODUCTS[productType];
-
-  const unitPrice =
-    selectedProduct.price;
-
-  const requiresSize =
-    selectedProduct.requiresSize;
-
-  const womensProduct =
-    isWomensProduct(productType);
-
-  /*
-   * ---------------------------------------------------------
-   * ORDER TOTAL
-   * ---------------------------------------------------------
-   */
-
-  const subtotal = useMemo(
-    () => unitPrice * quantity,
-    [unitPrice, quantity]
-  );
-
-  const shipping = 8.95;
-  const tax = 0;
-
-  const total =
-    subtotal + shipping + tax;
-
-  /*
-   * ---------------------------------------------------------
-   * INITIALIZE SQUARE
-   * ---------------------------------------------------------
-   */
-
   useEffect(() => {
+    if (!loaded || items.length === 0 || success) return;
+
     let cancelled = false;
+    let attempts = 0;
 
-    async function initializeSquare() {
-      if (
-        squareInitializingRef.current ||
-        squareCardRef.current
-      ) {
-        return;
-      }
-
+    const initializeSquare = async () => {
       const applicationId =
-        process.env
-          .NEXT_PUBLIC_SQUARE_APPLICATION_ID;
-
+        process.env.NEXT_PUBLIC_SQUARE_APPLICATION_ID;
       const locationId =
-        process.env
-          .NEXT_PUBLIC_SQUARE_LOCATION_ID;
+        process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID;
 
-      if (
-        !applicationId ||
-        !locationId
-      ) {
-        setPaymentError(
-          "Square payment configuration is incomplete."
-        );
-
+      if (!applicationId || !locationId) {
+        setCardError("Square payment configuration is missing.");
         return;
       }
 
-      squareInitializingRef.current =
-        true;
+      if (!window.Square) {
+        attempts += 1;
 
-      try {
-        let attempts = 0;
-
-        while (
-          !window.Square &&
-          attempts < 40
-        ) {
-          await new Promise(
-            (resolve) =>
-              setTimeout(
-                resolve,
-                250
-              )
-          );
-
-          attempts += 1;
-        }
-
-        if (!window.Square) {
-          throw new Error(
-            "Square payment services could not be loaded."
-          );
-        }
-
-        const payments =
-          window.Square.payments(
-            applicationId,
-            locationId
-          );
-
-        const card =
-          await payments.card();
-
-        if (cancelled) {
-          if (card.destroy) {
-            await card.destroy();
-          }
-
+        if (attempts < 30) {
+          setTimeout(initializeSquare, 250);
           return;
         }
 
-        await card.attach(
-          "#apparel-square-card-container"
+        setCardError(
+          "The secure payment form could not be loaded. Please refresh the page."
         );
-
-        squareCardRef.current =
-          card;
-
-        setSquareReady(true);
-        setPaymentError("");
-      } catch (error) {
-        console.error(
-          "Square apparel initialization error:",
-          error
-        );
-
-        if (!cancelled) {
-          setPaymentError(
-            error instanceof Error
-              ? error.message
-              : "Unable to initialize Square payments."
-          );
-        }
-      } finally {
-        squareInitializingRef.current =
-          false;
+        return;
       }
-    }
+
+      try {
+        if (cardRef.current) return;
+
+        const payments = window.Square.payments(
+          applicationId,
+          locationId
+        );
+
+        const card = await payments.card();
+
+        if (cancelled) {
+          await card.destroy?.();
+          return;
+        }
+
+        await card.attach("#card-container");
+
+        cardRef.current = card;
+        setCardReady(true);
+        setCardError("");
+      } catch (error) {
+        console.error("Square initialization error:", error);
+        setCardError(
+          "The secure payment form could not be initialized."
+        );
+      }
+    };
 
     initializeSquare();
 
     return () => {
       cancelled = true;
-
-      const card =
-        squareCardRef.current;
-
-      if (card?.destroy) {
-        card
-          .destroy()
-          .catch(
-            () => undefined
-          );
-      }
-
-      squareCardRef.current =
-        null;
     };
-  }, []);
+  }, [loaded, items.length, success]);
 
-  /*
-   * ---------------------------------------------------------
-   * CHECKOUT
-   * ---------------------------------------------------------
-   */
+  const subtotal = useMemo(
+    () =>
+      items.reduce(
+        (sum, item) =>
+          sum + priceToNumber(item.price) * item.quantity,
+        0
+      ),
+    [items]
+  );
 
-  async function handleSubmit(
-    event: FormEvent<HTMLFormElement>
-  ) {
+  const shipping = items.length > 0 ? 8.95 : 0;
+  const tax = 0;
+  const total = subtotal + shipping + tax;
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (
-      paymentProcessing ||
-      paymentSuccess
-    ) {
+    setOrderMessage("");
+    setCardError("");
+
+    if (!items.length) {
+      setOrderMessage("Your bag is empty.");
       return;
     }
 
-    setPaymentError("");
+    if (
+      !firstName.trim() ||
+      !lastName.trim() ||
+      !email.trim() ||
+      !phone.trim() ||
+      !shippingAddress1.trim() ||
+      !shippingCity.trim() ||
+      !shippingState.trim() ||
+      !shippingPostalCode.trim()
+    ) {
+      setOrderMessage("Please complete all required information.");
+      return;
+    }
 
     if (!acceptedTerms) {
-      setPaymentError(
-        "Please accept the apparel purchase terms before continuing."
+      setOrderMessage(
+        "Please confirm the order information before continuing."
       );
-
       return;
     }
 
-    if (
-      !squareReady ||
-      !squareCardRef.current
-    ) {
-      setPaymentError(
-        "The secure payment form is not ready yet."
-      );
-
+    if (!cardRef.current || !cardReady) {
+      setOrderMessage("The secure payment form is not ready yet.");
       return;
     }
 
-    const form =
-      event.currentTarget;
-
-    const formData =
-      new FormData(form);
-
-    const firstName =
-      String(
-        formData.get(
-          "firstName"
-        ) || ""
-      ).trim();
-
-    const lastName =
-      String(
-        formData.get(
-          "lastName"
-        ) || ""
-      ).trim();
-
-    const email =
-      String(
-        formData.get(
-          "email"
-        ) || ""
-      ).trim();
-
-    const phone =
-      String(
-        formData.get(
-          "phone"
-        ) || ""
-      ).trim();
-
-    const shippingAddress1 =
-      String(
-        formData.get(
-          "shippingAddress1"
-        ) || ""
-      ).trim();
-
-    const shippingAddress2 =
-      String(
-        formData.get(
-          "shippingAddress2"
-        ) || ""
-      ).trim();
-
-    const shippingCity =
-      String(
-        formData.get(
-          "shippingCity"
-        ) || ""
-      ).trim();
-
-    const shippingState =
-      String(
-        formData.get(
-          "shippingState"
-        ) || ""
-      ).trim();
-
-    const shippingPostalCode =
-      String(
-        formData.get(
-          "shippingPostalCode"
-        ) || ""
-      ).trim();
-
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !phone
-    ) {
-      setPaymentError(
-        "Please complete your contact information."
-      );
-
-      return;
-    }
-
-    if (
-      !shippingAddress1 ||
-      !shippingCity ||
-      !shippingState ||
-      !shippingPostalCode
-    ) {
-      setPaymentError(
-        "Please complete your shipping address."
-      );
-
-      return;
-    }
-
-    setPaymentProcessing(true);
+    setSubmitting(true);
 
     try {
-      /*
-       * -------------------------------------------------------
-       * SQUARE TOKENIZATION
-       * -------------------------------------------------------
-       *
-       * The API route independently verifies the
-       * real product price before charging.
-       */
+      const tokenResult = await cardRef.current.tokenize();
 
-      const verificationDetails = {
-        amount:
-          total.toFixed(2),
+      if (tokenResult.status !== "OK" || !tokenResult.token) {
+        const message =
+          tokenResult.errors?.[0]?.message ||
+          "Please check your card information and try again.";
 
-        currencyCode:
-          "USD",
-
-        intent:
-          "CHARGE" as const,
-
-        customerInitiated:
-          true,
-
-        sellerKeyedIn:
-          false,
-
-        billingContact: {
-          givenName:
-            firstName,
-
-          familyName:
-            lastName,
-
-          email,
-
-          phone,
-
-          city:
-            shippingCity,
-
-          state:
-            shippingState,
-
-          countryCode:
-            "US",
-        },
-      };
-
-      const tokenResult =
-        await squareCardRef.current.tokenize(
-          verificationDetails
-        );
-
-      if (
-        tokenResult.status !== "OK" ||
-        !tokenResult.token
-      ) {
-        const tokenError =
-          tokenResult.errors
-            ?.map(
-              (error) =>
-                error.detail ||
-                error.message ||
-                error.code
-            )
-            .filter(Boolean)
-            .join(", ") ||
-          "Card tokenization was unsuccessful.";
-
-        throw new Error(
-          tokenError
-        );
+        setOrderMessage(message);
+        setSubmitting(false);
+        return;
       }
 
-      /*
-       * -------------------------------------------------------
-       * SERVER PAYMENT
-       * -------------------------------------------------------
-       */
+      const response = await fetch("/api/apparel/payment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          sourceId: tokenResult.token,
 
-      const response =
-        await fetch(
-          "/api/apparel/payment",
-          {
-            method: "POST",
+          items: items.map((item) => ({
+            slug: item.slug,
+            size:
+              item.size === "OneSize"
+                ? "One Size"
+                : item.size,
+            quantity: item.quantity,
+          })),
 
-            headers: {
-              "Content-Type":
-                "application/json",
-            },
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
 
-            body: JSON.stringify({
-              sourceId:
-                tokenResult.token,
+          shippingAddress1: shippingAddress1.trim(),
+          shippingAddress2: shippingAddress2.trim(),
+          shippingCity: shippingCity.trim(),
+          shippingState: shippingState.trim(),
+          shippingPostalCode: shippingPostalCode.trim(),
 
-              productType,
+          acceptedTerms,
+        }),
+      });
 
-              color,
+      const data = await response.json();
 
-              design:
-                womensProduct
-                  ? "Crest"
-                  : design,
-
-              size:
-                requiresSize
-                  ? size
-                  : "",
-
-              quantity,
-
-              firstName,
-              lastName,
-              email,
-              phone,
-
-              shippingAddress1,
-              shippingAddress2,
-              shippingCity,
-              shippingState,
-              shippingPostalCode,
-
-              acceptedTerms,
-            }),
-          }
-        );
-
-      const result =
-        await response.json();
-
-      if (
-        !response.ok ||
-        !result.success
-      ) {
-        /*
-         * Square succeeded, but the
-         * database failed.
-         *
-         * Never tell a charged customer
-         * to submit another payment.
-         */
-
-        if (
-          result.paymentSucceeded
-        ) {
-          setPaymentId(
-            result.paymentId ||
-              ""
+      if (!response.ok) {
+        if (data?.paymentSucceeded === true) {
+          setOrderMessage(
+            data?.error ||
+              "Your payment was completed, but there was a problem recording the order. Do not submit another payment."
           );
-
-          setReceiptUrl(
-            result.receiptUrl ||
-              ""
-          );
-
-          throw new Error(
-            `${result.error} Your Square payment reference is ${
-              result.paymentId ||
-              "unavailable"
-            }. Do not submit another payment.`
-          );
+          setSubmitting(false);
+          return;
         }
 
-        throw new Error(
-          result.error ||
-            "Square was unable to process the payment."
+        setOrderMessage(
+          data?.error ||
+            "We could not complete the payment. Please try again."
         );
+        setSubmitting(false);
+        return;
       }
 
-      setOrderReference(
-        result.orderReference ||
-          ""
+      localStorage.removeItem("gallaspy-cart");
+      window.dispatchEvent(
+        new Event("gallaspy-cart-updated")
       );
 
-      setPaymentId(
-        result.paymentId || ""
+      setItems([]);
+      setSuccess(true);
+      setOrderMessage(
+        "Your Gallaspy Apparel order has been received."
       );
-
-      setReceiptUrl(
-        result.receiptUrl || ""
-      );
-
-      setPaymentSuccess(true);
     } catch (error) {
-      console.error(
-        "Apparel checkout error:",
-        error
-      );
+      console.error("Checkout error:", error);
 
-      setPaymentError(
-        error instanceof Error
-          ? error.message
-          : "Unable to process your order."
+      setOrderMessage(
+        "Something went wrong while processing the order. Please try again."
       );
     } finally {
-      setPaymentProcessing(false);
+      setSubmitting(false);
     }
   }
 
-  /*
-   * ---------------------------------------------------------
-   * SUCCESS SCREEN
-   * ---------------------------------------------------------
-   */
-
-  if (paymentSuccess) {
+  if (!loaded) {
     return (
-      <main className="min-h-screen bg-[#F7F4EE] px-5 pb-20 pt-32 text-[#10263F] sm:px-8">
-        <div className="mx-auto max-w-3xl">
-          <div className="rounded-[26px] border border-[#10263F]/10 bg-white p-8 text-center shadow-[0_20px_60px_rgba(16,38,63,0.08)] sm:p-12">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-[#B89146]">
-              The Gallaspy Collection
-            </p>
-
-            <h1 className="mt-5 font-serif text-4xl font-light sm:text-5xl">
-              Order
-              <span className="block text-[#B89146]">
-                Confirmed
-              </span>
-            </h1>
-
-            <div className="mx-auto mt-7 h-px w-16 bg-[#B89146]" />
-
-            <p className="mx-auto mt-7 max-w-xl text-sm leading-7 text-[#52605A] sm:text-base">
-              Your payment was successfully
-              processed and your Gallaspy
-              apparel order has been recorded.
-            </p>
-
-            {orderReference && (
-              <div className="mt-8 rounded-[16px] bg-[#F7F4EE] px-5 py-5">
-                <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
-                  Gallaspy Order Number
-                </p>
-
-                <p className="mt-2 break-all font-serif text-2xl">
-                  {orderReference}
-                </p>
-              </div>
-            )}
-
-            {paymentId && (
-              <div className="mt-4 rounded-[16px] border border-[#10263F]/10 px-5 py-4">
-                <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
-                  Square Payment Reference
-                </p>
-
-                <p className="mt-2 break-all text-xs text-[#52605A]">
-                  {paymentId}
-                </p>
-              </div>
-            )}
-
-            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-              {receiptUrl && (
-                <a
-                  href={receiptUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex min-h-[50px] items-center justify-center rounded-full border border-[#10263F]/20 px-7 text-[10px] font-semibold uppercase tracking-[0.2em] transition hover:border-[#B89146] hover:text-[#B89146]"
-                >
-                  View Square Receipt
-                </a>
-              )}
-
-              <Link
-                href="/apparel/gallaspy"
-                className="inline-flex min-h-[50px] items-center justify-center rounded-full bg-[#10263F] px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-[#B89146]"
-              >
-                Return to Collection
-              </Link>
-            </div>
-          </div>
+      <main className="min-h-screen bg-[#F3EFE6] px-5 pb-20 pt-32 text-[#10263F]">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-sm font-black uppercase tracking-[0.2em]">
+            Loading checkout...
+          </p>
         </div>
       </main>
     );
   }
 
-  /*
-   * ---------------------------------------------------------
-   * CHECKOUT PAGE
-   * ---------------------------------------------------------
-   */
-
-  return (
-    <main className="min-h-screen bg-[#F7F4EE] text-[#10263F]">
-      {/* HEADER */}
-      <section className="bg-[#10263F] px-5 pb-16 pt-32 text-white sm:px-8 lg:px-10">
-        <div className="mx-auto max-w-6xl">
-          <Link
-            href="/apparel/gallaspy"
-            className="text-[9px] font-semibold uppercase tracking-[0.22em] text-white/60 transition hover:text-[#FFD76A]"
-          >
-            ← Back to The Gallaspy Collection
-          </Link>
-
-          <p className="mt-10 text-[10px] font-semibold uppercase tracking-[0.34em] text-[#FFD76A]">
-            Secure Checkout
+  if (success) {
+    return (
+      <main className="min-h-screen bg-[#10263F] px-5 pb-20 pt-36 text-white sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-3xl">
+          <p className="text-[8px] font-black uppercase tracking-[0.34em] text-[#FFD76A]">
+            Order Confirmed
           </p>
 
-          <h1 className="mt-5 font-serif text-5xl font-light sm:text-6xl">
-            Complete Your
+          <h1 className="mt-5 text-[3rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4.5rem]">
+            Thank You
             <span className="block text-[#FFD76A]">
-              Gallaspy Order
+              For Your Order.
             </span>
           </h1>
 
-          <p className="mt-7 max-w-2xl text-sm leading-7 text-white/70 sm:text-base">
-            Review your apparel selection,
-            provide shipping information, and
-            securely complete your payment
-            through Square.
+          <p className="mt-7 max-w-xl text-base leading-7 text-white/65">
+            {orderMessage}
           </p>
+
+          <Link
+            href="/apparel"
+            className="mt-9 inline-flex min-h-[50px] items-center justify-center bg-[#FFD76A] px-7 text-[8px] font-black uppercase tracking-[0.22em] text-[#10263F]"
+          >
+            Return To Apparel →
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
+  if (items.length === 0) {
+    return (
+      <main className="min-h-screen bg-[#F3EFE6] px-5 pb-20 pt-36 text-[#10263F] sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-4xl">
+          <p className="text-[8px] font-black uppercase tracking-[0.34em] text-[#8B6A34]">
+            Your Bag
+          </p>
+
+          <h1 className="mt-5 text-[3rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4.5rem]">
+            Nothing To
+            <span className="block text-[#B3262D]">
+              Check Out Yet.
+            </span>
+          </h1>
+
+          <Link
+            href="/apparel"
+            className="mt-9 inline-flex min-h-[50px] items-center justify-center bg-[#10263F] px-7 text-[8px] font-black uppercase tracking-[0.22em] text-white"
+          >
+            Shop Apparel →
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
+  return (
+    <main className="bg-[#F3EFE6] text-[#10263F]">
+      <section className="bg-[#10263F] px-5 pb-10 pt-32 text-white sm:px-8 sm:pt-36 lg:px-10">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex items-center gap-3">
+            <span className="h-2 w-2 bg-[#B3262D]" />
+
+            <p className="text-[8px] font-black uppercase tracking-[0.34em] text-[#FFD76A]">
+              The Gallaspy Apparel
+            </p>
+          </div>
+
+          <h1 className="mt-5 text-[3.2rem] font-black uppercase leading-[0.86] tracking-[-0.06em] sm:text-[4.8rem]">
+            Secure
+            <span className="block text-[#FFD76A]">
+              Checkout.
+            </span>
+          </h1>
         </div>
       </section>
 
       <form
         onSubmit={handleSubmit}
-        className="mx-auto grid max-w-6xl gap-8 px-5 py-16 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:px-10 lg:py-24"
+        className="mx-auto grid max-w-7xl gap-8 px-5 py-10 sm:px-8 sm:py-14 lg:grid-cols-[1fr_390px] lg:px-10"
       >
-        {/* LEFT */}
-        <div className="space-y-7">
-          {/* PRODUCT */}
-          <Panel>
-            <SectionHeading
-              eyebrow="Step 01"
-              title="Your Selection"
-              description="Confirm the product, color, design, size, and quantity."
-            />
+        <div className="space-y-5">
+          {/* ORDER ITEMS */}
+          <section className="bg-white/55 p-6 sm:p-8">
+            <div className="flex items-end justify-between border-b border-[#10263F]/12 pb-5">
+              <div>
+                <p className="text-[8px] font-black uppercase tracking-[0.3em] text-[#8B6A34]">
+                  Step 01
+                </p>
 
-            <div className="mt-8 grid gap-5 sm:grid-cols-2">
-              <SelectField
-                label="Product"
-                value={productType}
-                onChange={(value) => {
-                  if (
-                    isProductType(value)
-                  ) {
-                    setProductType(
-                      value
-                    );
-
-                    if (
-                      isWomensProduct(
-                        value
-                      )
-                    ) {
-                      setDesign(
-                        "Crest"
-                      );
-                    }
-                  }
-                }}
-                options={[
-                  {
-                    value:
-                      "polo",
-                    label:
-                      "Men's Performance Polo — $70",
-                  },
-                  {
-                    value:
-                      "hat",
-                    label:
-                      "Club Hat — $45",
-                  },
-                  {
-                    value:
-                      "womens-polo",
-                    label:
-                      "Women's Crest Polo — $70",
-                  },
-                  {
-                    value:
-                      "womens-sleeveless-polo",
-                    label:
-                      "Women's Sleeveless Crest Polo — $70",
-                  },
-                  {
-                    value:
-                      "womens-skirt",
-                    label:
-                      "Women's Crest Skirt — $70",
-                  },
-                ]}
-              />
-
-              <SelectField
-                label="Color"
-                value={color}
-                onChange={(value) =>
-                  setColor(
-                    value as ColorType
-                  )
-                }
-                options={[
-                  {
-                    value:
-                      "Navy",
-                    label:
-                      "Navy",
-                  },
-                  {
-                    value:
-                      "White",
-                    label:
-                      "White",
-                  },
-                  {
-                    value:
-                      "Forest Green",
-                    label:
-                      "Forest Green",
-                  },
-                ]}
-              />
-
-              <SelectField
-                label="Design"
-                value={
-                  womensProduct
-                    ? "Crest"
-                    : design
-                }
-                onChange={(value) => {
-                  if (
-                    !womensProduct
-                  ) {
-                    setDesign(
-                      value as DesignType
-                    );
-                  }
-                }}
-                options={
-                  womensProduct
-                    ? [
-                        {
-                          value:
-                            "Crest",
-                          label:
-                            "Crest",
-                        },
-                      ]
-                    : [
-                        {
-                          value:
-                            "Script",
-                          label:
-                            "Script",
-                        },
-                        {
-                          value:
-                            "Crest",
-                          label:
-                            "Crest",
-                        },
-                      ]
-                }
-              />
-
-              {requiresSize && (
-                <SelectField
-                  label="Size"
-                  value={size}
-                  onChange={
-                    setSize
-                  }
-                  options={[
-                    {
-                      value:
-                        "S",
-                      label:
-                        "Small",
-                    },
-                    {
-                      value:
-                        "M",
-                      label:
-                        "Medium",
-                    },
-                    {
-                      value:
-                        "L",
-                      label:
-                        "Large",
-                    },
-                    {
-                      value:
-                        "XL",
-                      label:
-                        "XL",
-                    },
-                  ]}
-                />
-              )}
-
-              <SelectField
-                label="Quantity"
-                value={String(
-                  quantity
-                )}
-                onChange={(value) =>
-                  setQuantity(
-                    Number(value)
-                  )
-                }
-                options={Array.from(
-                  {
-                    length:
-                      10,
-                  },
-                  (
-                    _,
-                    index
-                  ) => ({
-                    value:
-                      String(
-                        index +
-                          1
-                      ),
-
-                    label:
-                      String(
-                        index +
-                          1
-                      ),
-                  })
-                )}
-              />
-            </div>
-          </Panel>
-
-          {/* CUSTOMER */}
-          <Panel>
-            <SectionHeading
-              eyebrow="Step 02"
-              title="Contact Information"
-              description="Enter the contact information associated with your order."
-            />
-
-            <div className="mt-8 grid gap-5 sm:grid-cols-2">
-              <InputField
-                name="firstName"
-                label="First Name"
-                required
-              />
-
-              <InputField
-                name="lastName"
-                label="Last Name"
-                required
-              />
-
-              <InputField
-                name="email"
-                label="Email"
-                type="email"
-                required
-              />
-
-              <InputField
-                name="phone"
-                label="Phone"
-                type="tel"
-                required
-              />
-            </div>
-          </Panel>
-
-          {/* SHIPPING */}
-          <Panel>
-            <SectionHeading
-              eyebrow="Step 03"
-              title="Shipping Information"
-              description="Tell us where your Gallaspy apparel should be delivered."
-            />
-
-            <div className="mt-8 grid gap-5 sm:grid-cols-2">
-              <div className="sm:col-span-2">
-                <InputField
-                  name="shippingAddress1"
-                  label="Street Address"
-                  required
-                />
+                <h2 className="mt-2 text-3xl font-black uppercase tracking-[-0.04em]">
+                  Your Bag
+                </h2>
               </div>
 
-              <div className="sm:col-span-2">
-                <InputField
-                  name="shippingAddress2"
-                  label="Apartment, Suite, etc."
-                />
-              </div>
-
-              <InputField
-                name="shippingCity"
-                label="City"
-                required
-              />
-
-              <InputField
-                name="shippingState"
-                label="State"
-                required
-              />
-
-              <InputField
-                name="shippingPostalCode"
-                label="ZIP Code"
-                required
-              />
+              <Link
+                href="/apparel/bag"
+                className="text-[8px] font-black uppercase tracking-[0.2em] text-[#B3262D]"
+              >
+                Edit Bag →
+              </Link>
             </div>
-          </Panel>
 
-          {/* PAYMENT */}
-          <Panel>
-            <SectionHeading
-              eyebrow="Step 04"
-              title="Secure Payment"
-              description="Card information is securely processed by Square."
-            />
+            <div className="divide-y divide-[#10263F]/12">
+              {items.map((item) => (
+                <div
+                  key={item.id}
+                  className="grid grid-cols-[82px_1fr_auto] gap-4 py-6 sm:grid-cols-[100px_1fr_auto]"
+                >
+                  <div className="relative aspect-square bg-[#F3EFE6]">
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      sizes="100px"
+                      className="object-contain p-2"
+                    />
+                  </div>
 
-            <div className="mt-8">
-              <div
-                id="apparel-square-card-container"
-                className="min-h-[90px] rounded-[14px] border border-[#10263F]/15 bg-white p-4"
-              />
+                  <div>
+                    <p className="text-sm font-black uppercase tracking-[-0.02em]">
+                      {item.name}
+                    </p>
 
-              {!squareReady &&
-                !paymentError && (
-                  <p className="mt-3 text-xs text-[#52605A]">
-                    Loading secure payment form...
+                    <p className="mt-2 text-xs text-[#10263F]/55">
+                      {item.color} · {item.size}
+                    </p>
+
+                    <p className="mt-1 text-xs text-[#10263F]/55">
+                      Qty {item.quantity}
+                    </p>
+                  </div>
+
+                  <p className="text-sm font-black">
+                    {money(
+                      priceToNumber(item.price) *
+                        item.quantity
+                    )}
                   </p>
-                )}
+                </div>
+              ))}
             </div>
-          </Panel>
-        </div>
+          </section>
 
-        {/* RIGHT */}
-        <div>
-          <div className="sticky top-28 rounded-[24px] bg-[#10263F] p-7 text-white shadow-[0_20px_60px_rgba(16,38,63,0.16)] sm:p-9">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#FFD76A]">
-              Order Summary
+          {/* CONTACT */}
+          <section className="bg-white/55 p-6 sm:p-8">
+            <p className="text-[8px] font-black uppercase tracking-[0.3em] text-[#8B6A34]">
+              Step 02
             </p>
 
-            <h2 className="mt-4 font-serif text-3xl font-light">
-              The Gallaspy Collection
+            <h2 className="mt-2 text-3xl font-black uppercase tracking-[-0.04em]">
+              Contact Information
             </h2>
 
-            <div className="mt-7 space-y-4 border-y border-white/12 py-6 text-sm">
-              <SummaryRow
-                label="Product"
-                value={
-                  selectedProduct.name
-                }
+            <div className="mt-7 grid gap-5 sm:grid-cols-2">
+              <Field
+                label="First Name"
+                value={firstName}
+                onChange={setFirstName}
+                autoComplete="given-name"
               />
 
-              <SummaryRow
-                label="Color"
-                value={color}
+              <Field
+                label="Last Name"
+                value={lastName}
+                onChange={setLastName}
+                autoComplete="family-name"
               />
 
-              <SummaryRow
-                label="Design"
-                value={
-                  womensProduct
-                    ? "Crest"
-                    : design
-                }
+              <Field
+                label="Email"
+                type="email"
+                value={email}
+                onChange={setEmail}
+                autoComplete="email"
               />
 
-              {requiresSize && (
-                <SummaryRow
-                  label="Size"
-                  value={size}
+              <Field
+                label="Phone"
+                type="tel"
+                value={phone}
+                onChange={setPhone}
+                autoComplete="tel"
+              />
+            </div>
+          </section>
+
+          {/* SHIPPING */}
+          <section className="bg-white/55 p-6 sm:p-8">
+            <p className="text-[8px] font-black uppercase tracking-[0.3em] text-[#8B6A34]">
+              Step 03
+            </p>
+
+            <h2 className="mt-2 text-3xl font-black uppercase tracking-[-0.04em]">
+              Shipping
+            </h2>
+
+            <div className="mt-7 grid gap-5 sm:grid-cols-2">
+              <div className="sm:col-span-2">
+                <Field
+                  label="Address"
+                  value={shippingAddress1}
+                  onChange={setShippingAddress1}
+                  autoComplete="address-line1"
                 />
-              )}
-
-              <SummaryRow
-                label="Quantity"
-                value={String(
-                  quantity
-                )}
-              />
-            </div>
-
-            <div className="mt-6 space-y-3 text-sm">
-              <SummaryRow
-                label="Unit Price"
-                value={formatCurrency(
-                  unitPrice
-                )}
-              />
-
-              <SummaryRow
-                label="Subtotal"
-                value={formatCurrency(
-                  subtotal
-                )}
-              />
-
-              <SummaryRow
-                label="Shipping"
-                value={formatCurrency(
-                  shipping
-                )}
-              />
-
-              <SummaryRow
-                label="Tax"
-                value={formatCurrency(
-                  tax
-                )}
-              />
-            </div>
-
-            <div className="mt-6 flex items-center justify-between border-t border-white/15 pt-6">
-              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">
-                Total
-              </span>
-
-              <span className="font-serif text-3xl text-[#FFD76A]">
-                {formatCurrency(
-                  total
-                )}
-              </span>
-            </div>
-
-            <label className="mt-7 flex cursor-pointer items-start gap-3">
-              <input
-                type="checkbox"
-                checked={
-                  acceptedTerms
-                }
-                onChange={(
-                  event
-                ) =>
-                  setAcceptedTerms(
-                    event
-                      .target
-                      .checked
-                  )
-                }
-                className="mt-1 h-4 w-4 accent-[#B89146]"
-              />
-
-              <span className="text-xs leading-6 text-white/65">
-                I confirm that my
-                product, color, design,
-                size, quantity, contact
-                information, and shipping
-                information are correct
-                and agree to the apparel
-                purchase terms.
-              </span>
-            </label>
-
-            {paymentError && (
-              <div className="mt-6 rounded-[14px] border border-red-300/25 bg-red-950/30 px-4 py-4 text-sm leading-6 text-red-100">
-                {paymentError}
               </div>
+
+              <div className="sm:col-span-2">
+                <Field
+                  label="Apartment, Suite, Etc."
+                  value={shippingAddress2}
+                  onChange={setShippingAddress2}
+                  required={false}
+                  autoComplete="address-line2"
+                />
+              </div>
+
+              <Field
+                label="City"
+                value={shippingCity}
+                onChange={setShippingCity}
+                autoComplete="address-level2"
+              />
+
+              <Field
+                label="State"
+                value={shippingState}
+                onChange={setShippingState}
+                autoComplete="address-level1"
+              />
+
+              <Field
+                label="ZIP Code"
+                value={shippingPostalCode}
+                onChange={setShippingPostalCode}
+                autoComplete="postal-code"
+              />
+            </div>
+          </section>
+
+          {/* PAYMENT */}
+          <section className="bg-white/55 p-6 sm:p-8">
+            <p className="text-[8px] font-black uppercase tracking-[0.3em] text-[#8B6A34]">
+              Step 04
+            </p>
+
+            <h2 className="mt-2 text-3xl font-black uppercase tracking-[-0.04em]">
+              Secure Payment
+            </h2>
+
+            <p className="mt-2 text-sm text-[#10263F]/55">
+              Card information is securely processed by Square.
+            </p>
+
+            <div
+              id="card-container"
+              className="mt-7 min-h-[90px] border border-[#10263F]/15 bg-white p-4"
+            />
+
+            {!cardReady && !cardError && (
+              <p className="mt-3 text-xs text-[#10263F]/45">
+                Loading secure payment form...
+              </p>
             )}
 
-            <button
-              type="submit"
-              disabled={
-                paymentProcessing ||
-                paymentSuccess ||
-                !squareReady
-              }
-              className="mt-7 inline-flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#FFD76A] px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {paymentProcessing
-                ? "Processing Payment..."
-                : `Pay ${formatCurrency(
-                    total
-                  )}`}
-            </button>
+            {cardError && (
+              <p className="mt-3 text-sm font-semibold text-[#B3262D]">
+                {cardError}
+              </p>
+            )}
+          </section>
+        </div>
 
-            <p className="mt-4 text-center text-[10px] leading-5 text-white/45">
-              Secure payment processing
-              provided by Square.
+        {/* SUMMARY */}
+        <aside className="h-fit bg-[#10263F] p-7 text-white lg:sticky lg:top-28">
+          <p className="text-[8px] font-black uppercase tracking-[0.3em] text-[#FFD76A]">
+            Order Summary
+          </p>
+
+          <h2 className="mt-3 text-3xl font-black uppercase leading-[0.95] tracking-[-0.04em]">
+            The Gallaspy
+            <span className="block">Apparel</span>
+          </h2>
+
+          <div className="mt-7 space-y-4 border-t border-white/15 pt-6 text-sm">
+            <SummaryRow
+              label="Items"
+              value={String(
+                items.reduce(
+                  (sum, item) => sum + item.quantity,
+                  0
+                )
+              )}
+            />
+
+            <SummaryRow
+              label="Subtotal"
+              value={money(subtotal)}
+            />
+
+            <SummaryRow
+              label="Shipping"
+              value={money(shipping)}
+            />
+
+            <SummaryRow label="Tax" value={money(tax)} />
+          </div>
+
+          <div className="mt-6 flex items-end justify-between border-t border-white/15 pt-6">
+            <p className="text-[8px] font-black uppercase tracking-[0.26em] text-white/50">
+              Total
+            </p>
+
+            <p className="text-3xl font-black text-[#FFD76A]">
+              {money(total)}
             </p>
           </div>
-        </div>
+
+          <label className="mt-7 flex cursor-pointer items-start gap-3 text-xs leading-5 text-white/55">
+            <input
+              type="checkbox"
+              checked={acceptedTerms}
+              onChange={(event) =>
+                setAcceptedTerms(event.target.checked)
+              }
+              className="mt-1 h-4 w-4"
+            />
+
+            <span>
+              I confirm that the contact, shipping, and order
+              information above is correct and authorize this
+              apparel purchase.
+            </span>
+          </label>
+
+          {orderMessage && (
+            <p className="mt-5 text-sm leading-6 text-[#FFD76A]">
+              {orderMessage}
+            </p>
+          )}
+
+          <button
+            type="submit"
+            disabled={submitting || !cardReady}
+            className="mt-7 flex min-h-[54px] w-full items-center justify-center bg-[#FFD76A] px-6 text-[8px] font-black uppercase tracking-[0.22em] text-[#10263F] transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-45"
+          >
+            {submitting
+              ? "Processing..."
+              : `Pay ${money(total)} →`}
+          </button>
+
+          <p className="mt-4 text-center text-[9px] leading-5 text-white/35">
+            Secure card processing powered by Square.
+          </p>
+        </aside>
       </form>
+
+      <div className="grid grid-cols-4">
+        <div className="h-[5px] bg-[#10263F]" />
+        <div className="h-[5px] bg-[#B3262D]" />
+        <div className="h-[5px] bg-[#FFD76A]" />
+        <div className="h-[5px] bg-[#0C352D]" />
+      </div>
     </main>
   );
 }
 
-/*
- * -----------------------------------------------------------
- * COMPONENTS
- * -----------------------------------------------------------
- */
-
-function Panel({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <section className="rounded-[22px] border border-[#10263F]/10 bg-white p-6 shadow-[0_14px_45px_rgba(16,38,63,0.05)] sm:p-8">
-      {children}
-    </section>
-  );
-}
-
-function SectionHeading({
-  eyebrow,
-  title,
-  description,
-}: {
-  eyebrow: string;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div>
-      <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-[#B89146]">
-        {eyebrow}
-      </p>
-
-      <h2 className="mt-3 font-serif text-3xl font-light">
-        {title}
-      </h2>
-
-      <p className="mt-3 max-w-xl text-sm leading-7 text-[#52605A]">
-        {description}
-      </p>
-    </div>
-  );
-}
-
-function InputField({
-  name,
-  label,
-  type = "text",
-  required = false,
-}: {
-  name: string;
-  label: string;
-  type?: string;
-  required?: boolean;
-}) {
-  return (
-    <div>
-      <label
-        htmlFor={name}
-        className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.18em] text-[#10263F]"
-      >
-        {label}
-      </label>
-
-      <input
-        id={name}
-        name={name}
-        type={type}
-        required={required}
-        className="w-full rounded-[12px] border border-[#10263F]/15 bg-[#F7F4EE] px-4 py-3.5 text-sm text-[#10263F] outline-none transition focus:border-[#B89146] focus:bg-white"
-      />
-    </div>
-  );
-}
-
-function SelectField({
+function Field({
   label,
   value,
   onChange,
-  options,
+  type = "text",
+  required = true,
+  autoComplete,
 }: {
   label: string;
   value: string;
-  onChange: (
-    value: string
-  ) => void;
-  options: Array<{
-    value: string;
-    label: string;
-  }>;
+  onChange: (value: string) => void;
+  type?: string;
+  required?: boolean;
+  autoComplete?: string;
 }) {
   return (
-    <div>
-      <label className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.18em] text-[#10263F]">
+    <label className="block">
+      <span className="text-[8px] font-black uppercase tracking-[0.24em] text-[#10263F]/65">
         {label}
-      </label>
+      </span>
 
-      <select
+      <input
+        type={type}
         value={value}
-        onChange={(
-          event
-        ) =>
-          onChange(
-            event.target.value
-          )
-        }
-        className="w-full rounded-[12px] border border-[#10263F]/15 bg-[#F7F4EE] px-4 py-3.5 text-sm text-[#10263F] outline-none transition focus:border-[#B89146] focus:bg-white"
-      >
-        {options.map(
-          (option) => (
-            <option
-              key={
-                option.value
-              }
-              value={
-                option.value
-              }
-            >
-              {option.label}
-            </option>
-          )
-        )}
-      </select>
-    </div>
+        required={required}
+        autoComplete={autoComplete}
+        onChange={(event) => onChange(event.target.value)}
+        className="mt-2 h-13 w-full border border-[#10263F]/15 bg-transparent px-4 text-sm outline-none transition focus:border-[#B89146]"
+      />
+    </label>
   );
 }
 
@@ -1462,26 +732,9 @@ function SummaryRow({
   value: string;
 }) {
   return (
-    <div className="flex items-start justify-between gap-6">
-      <span className="text-white/55">
-        {label}
-      </span>
-
-      <span className="text-right font-medium text-white">
-        {value}
-      </span>
+    <div className="flex items-center justify-between gap-6">
+      <span className="text-white/48">{label}</span>
+      <span className="font-black">{value}</span>
     </div>
   );
-}
-
-function formatCurrency(
-  value: number
-) {
-  return new Intl.NumberFormat(
-    "en-US",
-    {
-      style: "currency",
-      currency: "USD",
-    }
-  ).format(value);
 }

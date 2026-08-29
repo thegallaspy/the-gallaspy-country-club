@@ -329,51 +329,42 @@ export default function ApparelPage() {
             </div>
 
             {/* NAVY POLO */}
-            <div className="absolute left-[-2%] top-[11%] z-10 h-[67%] w-[48%] -rotate-[4deg] overflow-hidden bg-[#F0ECE3] shadow-[0_35px_80px_rgba(0,0,0,0.36)] transition-transform duration-500 hover:z-40 hover:rotate-0 hover:scale-[1.025]">
+            <div className="absolute left-[-2%] top-[11%] z-10 h-[67%] w-[48%] -rotate-[4deg] transition-transform duration-500 hover:z-40 hover:rotate-0 hover:scale-[1.025]">
               <Image
                 src="/images/apparel/men/polos/navy-crest-polo.png"
                 alt="Navy Gallaspy Crest Performance Polo"
                 fill
                 priority
                 sizes="(max-width: 1024px) 55vw, 32vw"
-                className="object-contain p-1 sm:p-3"
+                className="object-contain p-1 drop-shadow-[0_28px_24px_rgba(0,0,0,0.38)] sm:p-3"
               />
 
-              <span className="absolute bottom-3 left-3 text-[7px] font-black uppercase tracking-[0.22em] text-[#10263F]/45">
-                Crest / Navy
-              </span>
             </div>
 
             {/* GREEN WOMENS */}
-            <div className="absolute right-[0%] top-[1%] z-20 h-[69%] w-[48%] rotate-[4deg] overflow-hidden bg-[#E9E5DC] shadow-[0_35px_90px_rgba(0,0,0,0.4)] transition-transform duration-500 hover:z-40 hover:rotate-0 hover:scale-[1.025]">
+            <div className="absolute right-[0%] top-[1%] z-20 h-[69%] w-[48%] rotate-[4deg] transition-transform duration-500 hover:z-40 hover:rotate-0 hover:scale-[1.025]">
               <Image
                 src="/images/apparel/women/quarter-zips/forest-green-womens-falcon-sleeveless-quarter-zip.png"
                 alt="Forest Green Gallaspy Falcon Sleeveless Quarter-Zip"
                 fill
                 priority
                 sizes="(max-width: 1024px) 55vw, 32vw"
-                className="object-contain p-1 sm:p-3"
+                className="object-contain p-1 drop-shadow-[0_28px_24px_rgba(0,0,0,0.38)] sm:p-3"
               />
 
-              <span className="absolute bottom-3 left-3 text-[7px] font-black uppercase tracking-[0.22em] text-[#10263F]/45">
-                Falcon / Forest
-              </span>
             </div>
 
             {/* WHITE HAT */}
-            <div className="absolute bottom-[1%] left-[29%] z-30 h-[42%] w-[45%] -rotate-[1deg] overflow-hidden bg-white shadow-[0_35px_90px_rgba(0,0,0,0.42)] transition-transform duration-500 hover:rotate-0 hover:scale-[1.025]">
+            <div className="absolute bottom-[1%] left-[29%] z-30 h-[42%] w-[45%] -rotate-[1deg] transition-transform duration-500 hover:rotate-0 hover:scale-[1.025]">
               <Image
                 src="/images/apparel/headwear/script/white-script-performance-hat.png"
                 alt="White Gallaspy Script Performance Hat"
                 fill
                 priority
                 sizes="(max-width: 1024px) 55vw, 28vw"
-                className="object-contain p-2"
+                className="object-contain p-2 drop-shadow-[0_24px_20px_rgba(0,0,0,0.4)]"
               />
 
-              <span className="absolute bottom-3 left-3 text-[7px] font-black uppercase tracking-[0.22em] text-[#10263F]/45">
-                Script / White
-              </span>
             </div>
           </div>
         </div>
@@ -610,57 +601,77 @@ function ProductCard({
   product: Product;
   dark: boolean;
 }) {
+  const slug = `${product.color}-${product.name}`
+    .toLowerCase()
+    .replace(/'/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
   return (
-    <article className="group">
-      <div
-        className={`relative aspect-[4/5] overflow-hidden ${
-          dark ? "bg-[#F0ECE4]" : "bg-[#ECE8DF]"
-        }`}
-      >
-        <div className="absolute left-3 top-3 z-10 bg-[#B3262D] px-2.5 py-1.5 text-[7px] font-black uppercase tracking-[0.2em] text-white">
-          {product.mark}
-        </div>
-
-        <Image
-          src={product.image}
-          alt={`${product.color} ${product.name}`}
-          fill
-          sizes="(max-width: 768px) 50vw, 33vw"
-          className="object-contain p-4 transition-transform duration-500 group-hover:scale-[1.035]"
-        />
-      </div>
-
-      <div className="pt-4">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <p
-              className={`text-[7px] font-bold uppercase tracking-[0.22em] ${
-                dark ? "text-[#FFD76A]" : "text-[#8B6A34]"
-              }`}
-            >
-              {product.category}
-            </p>
-
-            <h3 className="mt-1.5 font-serif text-lg font-light leading-tight sm:text-xl">
-              {product.name}
-            </h3>
-
-            <p
-              className={`mt-1 text-xs ${
-                dark ? "text-white/45" : "text-[#10263F]/45"
-              }`}
-            >
-              {product.color}
-            </p>
+    <Link
+      href={`/apparel/${product.category === "Women" ? slug.replace(`${product.color}-`, `${product.color}-womens-`) : slug}`}
+      className="group block"
+      aria-label={`View ${product.color} ${product.name}`}
+    >
+      <article>
+        <div
+          className={`relative aspect-[4/5] overflow-hidden ${
+            dark ? "bg-[#F0ECE4]" : "bg-[#ECE8DF]"
+          }`}
+        >
+          <div className="absolute left-3 top-3 z-10 bg-[#B3262D] px-2.5 py-1.5 text-[7px] font-black uppercase tracking-[0.2em] text-white">
+            {product.mark}
           </div>
 
-          <span
-            className={`mt-1 h-2.5 w-2.5 shrink-0 rounded-full border ${
-              dark ? "border-white/30" : "border-[#10263F]/20"
-            }`}
+          <Image
+            src={product.image}
+            alt={`${product.color} ${product.name}`}
+            fill
+            sizes="(max-width: 768px) 50vw, 33vw"
+            className="object-contain p-4 transition-transform duration-500 group-hover:scale-[1.045]"
           />
+
+          <div className="absolute inset-x-0 bottom-0 flex translate-y-full items-center justify-between bg-[#10263F] px-4 py-3 text-white transition-transform duration-300 group-hover:translate-y-0">
+            <span className="text-[8px] font-black uppercase tracking-[0.22em]">
+              View Product
+            </span>
+            <span>→</span>
+          </div>
         </div>
-      </div>
-    </article>
+
+        <div className="pt-4">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p
+                className={`text-[7px] font-bold uppercase tracking-[0.22em] ${
+                  dark ? "text-[#FFD76A]" : "text-[#8B6A34]"
+                }`}
+              >
+                {product.category}
+              </p>
+
+              <h3 className="mt-1.5 font-serif text-lg font-light leading-tight transition-colors group-hover:text-[#B3262D] sm:text-xl">
+                {product.name}
+              </h3>
+
+              <p
+                className={`mt-1 text-xs ${
+                  dark ? "text-white/45" : "text-[#10263F]/45"
+                }`}
+              >
+                {product.color}
+              </p>
+            </div>
+
+            <span
+              className={`mt-1 h-2.5 w-2.5 shrink-0 rounded-full border ${
+                dark ? "border-white/30" : "border-[#10263F]/20"
+              }`}
+            />
+          </div>
+        </div>
+      </article>
+    </Link>
   );
 }
+

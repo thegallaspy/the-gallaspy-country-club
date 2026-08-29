@@ -40,89 +40,85 @@ const traditions = [
 export default function TraditionsSymbols() {
   return (
     <section className="overflow-hidden bg-[#F4F0E7] text-[#10263F]">
-      {/* MARKS */}
-      <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
-        <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+      {/* CLUB MARKS */}
+      <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-14 lg:px-10 lg:py-16">
+        <div className="flex flex-col gap-5 border-b border-[#10263F]/15 pb-7 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div className="flex items-center gap-3">
-              <span className="h-2 w-2 bg-[#B3262D]" />
+            <p className="text-[8px] font-black uppercase tracking-[0.32em] text-[#B3262D]">
+              Club Identity
+            </p>
 
-              <p className="text-[8px] font-black uppercase tracking-[0.34em] text-[#8B6A34]">
-                Club Identity
-              </p>
-            </div>
-
-            <h2 className="mt-5 text-[2.9rem] font-black uppercase leading-[0.86] tracking-[-0.06em] sm:text-[4rem]">
-              Three Marks.
-              <span className="block font-serif font-light normal-case italic tracking-[-0.035em] text-[#8B6A34]">
-                One club.
-              </span>
+            <h2 className="mt-3 text-[2.25rem] font-black uppercase leading-[0.9] tracking-[-0.045em] sm:text-[3rem]">
+              The Marks
             </h2>
           </div>
 
-          <p className="max-w-[520px] text-sm leading-7 text-[#10263F]/55 lg:justify-self-end">
-            The Falcon, The Crest, and The Script carry the identity of The
-            Gallaspy across competition, apparel, events, and the traditions
-            being built around the game.
-          </p>
+          <Link
+            href="/the-club"
+            className="text-[8px] font-black uppercase tracking-[0.22em] text-[#10263F] transition hover:text-[#B3262D]"
+          >
+            Inside The Club →
+          </Link>
         </div>
 
-        <div className="mt-10 grid border-y border-[#10263F]/12 sm:grid-cols-3">
+        <div className="grid sm:grid-cols-3">
           {marks.map((mark, index) => (
             <article
               key={mark.name}
-              className={`flex min-h-[250px] flex-col items-center justify-center px-6 py-8 text-center sm:min-h-[290px] ${
+              className={`flex min-h-[190px] items-center gap-5 py-7 sm:flex-col sm:justify-center sm:px-6 sm:text-center ${
                 index !== marks.length - 1
                   ? "border-b border-[#10263F]/12 sm:border-b-0 sm:border-r"
                   : ""
               }`}
             >
-              <p className="text-[7px] font-black uppercase tracking-[0.3em] text-[#B3262D]">
-                {mark.label}
-              </p>
-
-              <div className="relative my-5 h-[140px] w-[170px] sm:h-[160px] sm:w-[190px] lg:h-[175px] lg:w-[210px]">
+              <div className="relative h-[90px] w-[110px] shrink-0 sm:h-[105px] sm:w-[130px]">
                 <Image
                   src={mark.image}
                   alt={mark.name}
                   fill
-                  sizes="210px"
+                  sizes="130px"
                   className="object-contain"
                 />
               </div>
 
-              <h3 className="text-[10px] font-black uppercase tracking-[0.22em]">
-                {mark.name}
-              </h3>
+              <div>
+                <p className="text-[7px] font-black uppercase tracking-[0.28em] text-[#B3262D]">
+                  {mark.label}
+                </p>
+
+                <h3 className="mt-2 text-[1rem] font-black uppercase tracking-[-0.02em]">
+                  {mark.name}
+                </h3>
+              </div>
             </article>
           ))}
         </div>
       </div>
 
-      {/* TRADITIONS PREVIEW */}
+      {/* TRADITIONS */}
       <div className="bg-[#10263F] text-white">
-        <div className="h-[6px] bg-[#B3262D]" />
-
-        <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
-          <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
+        <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-14 lg:px-10 lg:py-16">
+          <div className="grid gap-8 lg:grid-cols-[0.65fr_1.35fr] lg:gap-14">
             <div>
-              <p className="text-[8px] font-black uppercase tracking-[0.34em] text-[#FFD76A]">
+              <p className="text-[8px] font-black uppercase tracking-[0.32em] text-[#FFD76A]">
                 Traditions
               </p>
 
-              <h2 className="mt-5 text-[2.8rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[3.8rem]">
-                Built To
-                <span className="block text-[#E56A70]">Come Back.</span>
+              <h2 className="mt-3 text-[2.3rem] font-black uppercase leading-[0.9] tracking-[-0.045em] sm:text-[3rem]">
+                The Ones
+                <span className="block text-[#E56A70]">
+                  We Keep.
+                </span>
               </h2>
 
-              <p className="mt-6 max-w-[420px] text-sm leading-7 text-white/50">
-                Some moments happen once. Traditions are the ones the club
-                chooses to repeat.
+              <p className="mt-5 max-w-[360px] text-sm leading-6 text-white/55">
+                Competition. Gathering. Repetition. The moments that return
+                become part of the club.
               </p>
 
               <Link
                 href="/traditions"
-                className="mt-7 inline-flex text-[8px] font-black uppercase tracking-[0.24em] text-[#FFD76A] transition hover:text-white"
+                className="mt-6 inline-flex text-[8px] font-black uppercase tracking-[0.22em] text-[#FFD76A] transition hover:text-white"
               >
                 Explore Traditions →
               </Link>
@@ -132,28 +128,37 @@ export default function TraditionsSymbols() {
               {traditions.map((tradition) => (
                 <article
                   key={tradition.title}
-                  className="grid gap-4 border-b border-white/15 py-6 sm:grid-cols-[64px_1fr_auto] sm:items-center sm:gap-8"
+                  className="grid gap-4 border-b border-white/15 py-5 sm:grid-cols-[54px_1fr_auto] sm:items-center sm:gap-6"
                 >
-                  <p className="text-[2rem] font-black leading-none tracking-[-0.05em] text-[#E56A70]">
+                  <p className="text-[1rem] font-black text-[#E56A70]">
                     {tradition.number}
                   </p>
 
                   <div>
-                    <p className="text-[7px] font-black uppercase tracking-[0.27em] text-[#FFD76A]">
+                    <p className="text-[7px] font-black uppercase tracking-[0.25em] text-[#FFD76A]">
                       {tradition.type}
                     </p>
 
-                    <h3 className="mt-2 text-[1.5rem] font-black uppercase leading-none tracking-[-0.04em] sm:text-[1.8rem]">
+                    <h3 className="mt-1.5 text-[1.3rem] font-black uppercase tracking-[-0.035em] sm:text-[1.55rem]">
                       {tradition.title}
                     </h3>
                   </div>
 
-                  <span className="hidden text-[#FFD76A] sm:block">→</span>
+                  <span className="hidden text-[#FFD76A] sm:block">
+                    →
+                  </span>
                 </article>
               ))}
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="grid grid-cols-4">
+        <div className="h-[5px] bg-[#10263F]" />
+        <div className="h-[5px] bg-[#B3262D]" />
+        <div className="h-[5px] bg-[#FFD76A]" />
+        <div className="h-[5px] bg-[#0C352D]" />
       </div>
     </section>
   );

@@ -2,48 +2,43 @@ import Link from "next/link";
 
 export default function JoinBeginning() {
   return (
-    <section className="relative overflow-hidden bg-[#10263F] px-5 py-16 text-white sm:px-8 sm:py-20 lg:px-10 lg:py-24">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(184,145,70,0.13),transparent_34%)]" />
-
-      <div className="relative mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[0.65fr_1.35fr] lg:items-end lg:gap-20">
+    <section className="relative overflow-hidden bg-[#10263F] text-white">
+      <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-14 lg:px-10 lg:py-16">
+        <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-center lg:gap-14">
           <div>
             <div className="flex items-center gap-3">
               <span className="h-2 w-2 bg-[#B3262D]" />
 
-              <p className="text-[8px] font-black uppercase tracking-[0.34em] text-[#FFD76A]">
-                Join The Beginning
+              <p className="text-[8px] font-black uppercase tracking-[0.32em] text-[#FFD76A]">
+                Join The Club
               </p>
             </div>
 
-            <p className="mt-6 max-w-[340px] text-sm leading-7 text-white/48">
-              The early years only happen once.
+            <p className="mt-5 max-w-[330px] text-sm leading-6 text-white/50">
+              Play the rounds. Show up for the events. Be part of what The
+              Gallaspy becomes.
             </p>
           </div>
 
           <div>
-            <h2 className="max-w-[900px] text-[3rem] font-black uppercase leading-[0.86] tracking-[-0.06em] text-white sm:text-[4.4rem] lg:text-[5.4rem]">
-              Be There
-              <span className="block text-[#E56A70]">From The Start.</span>
+            <h2 className="max-w-[760px] text-[2.4rem] font-black uppercase leading-[0.9] tracking-[-0.045em] sm:text-[3.2rem] lg:text-[3.8rem]">
+              Come Play
+              <span className="block text-[#E56A70]">
+                With The Gallaspy.
+              </span>
             </h2>
 
-            <p className="mt-7 max-w-[680px] text-sm leading-7 text-white/60 sm:text-base">
-              The Gallaspy is still writing its first chapters. The people,
-              rounds, events, and moments happening now will become part of
-              what the club is remembered for later.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link
                 href="/play"
-                className="inline-flex min-h-[50px] items-center justify-center bg-[#FFD76A] px-8 text-[9px] font-black uppercase tracking-[0.22em] text-[#10263F] transition hover:bg-white"
+                className="inline-flex min-h-[48px] items-center justify-center bg-[#FFD76A] px-7 text-[8px] font-black uppercase tracking-[0.22em] text-[#10263F] transition hover:bg-white"
               >
                 Play With The Club →
               </Link>
 
               <Link
                 href="/contact"
-                className="inline-flex min-h-[50px] items-center justify-center border border-white/25 px-8 text-[9px] font-black uppercase tracking-[0.22em] text-white transition hover:border-[#FFD76A] hover:text-[#FFD76A]"
+                className="inline-flex min-h-[48px] items-center justify-center border border-white/25 px-7 text-[8px] font-black uppercase tracking-[0.22em] text-white transition hover:border-[#FFD76A] hover:text-[#FFD76A]"
               >
                 Contact The Club →
               </Link>
@@ -51,23 +46,22 @@ export default function JoinBeginning() {
           </div>
         </div>
 
-        <div className="mt-16 border-t border-white/10 pt-7 sm:mt-20">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-[8px] font-black uppercase tracking-[0.3em] text-[#FFD76A]">
-              The Gallaspy Golf Club
-            </p>
+        <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-[8px] font-black uppercase tracking-[0.28em] text-[#FFD76A]">
+            The Gallaspy Golf Club
+          </p>
 
-            <p className="text-[8px] font-black uppercase tracking-[0.25em] text-white/35">
-              Georgia · Est. 2026
-            </p>
-          </div>
+          <p className="text-[8px] font-black uppercase tracking-[0.24em] text-white/35">
+            Georgia · Est. 2026
+          </p>
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 flex h-[6px] w-full">
-        <div className="w-[50%] bg-[#B3262D]" />
-        <div className="w-[28%] bg-[#FFD76A]" />
-        <div className="flex-1 bg-[#0C352D]" />
+      <div className="grid grid-cols-4">
+        <div className="h-[6px] bg-[#10263F]" />
+        <div className="h-[6px] bg-[#B3262D]" />
+        <div className="h-[6px] bg-[#FFD76A]" />
+        <div className="h-[6px] bg-[#0C352D]" />
       </div>
     </section>
   );
