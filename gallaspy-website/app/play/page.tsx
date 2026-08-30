@@ -94,9 +94,9 @@ export default function PlayPage() {
             <div className="grid gap-px overflow-hidden border border-[#10263F]/12 bg-[#10263F]/12 sm:grid-cols-3">
               <Link
                 href="/rounds"
-                className="group bg-[#F8F5EE] p-7 transition hover:bg-white sm:p-8"
+                className="group bg-[#10263F] p-7 text-white transition hover:bg-[#15324F] sm:p-8"
               >
-                <p className="text-[8px] font-black uppercase tracking-[0.28em] text-[#8B6A34]">
+                <p className="text-[8px] font-black uppercase tracking-[0.28em] text-[#FFD76A]">
                   Play
                 </p>
 
@@ -116,9 +116,9 @@ export default function PlayPage() {
 
               <Link
                 href="/invitational"
-                className="group bg-[#F8F5EE] p-7 transition hover:bg-white sm:p-8"
+                className="group bg-[#0C352D] p-7 text-white transition hover:bg-[#12483D] sm:p-8"
               >
-                <p className="text-[8px] font-black uppercase tracking-[0.28em] text-[#8B6A34]">
+                <p className="text-[8px] font-black uppercase tracking-[0.28em] text-[#FFD76A]">
                   Compete
                 </p>
 
@@ -137,9 +137,9 @@ export default function PlayPage() {
 
               <Link
                 href="/mercury-match"
-                className="group bg-[#F8F5EE] p-7 transition hover:bg-white sm:p-8"
+                className="group bg-[#10263F] p-7 text-white transition hover:bg-[#15324F] sm:p-8"
               >
-                <p className="text-[8px] font-black uppercase tracking-[0.28em] text-[#8B6A34]">
+                <p className="text-[8px] font-black uppercase tracking-[0.28em] text-[#FFD76A]">
                   Compete
                 </p>
 
@@ -152,7 +152,7 @@ export default function PlayPage() {
                 </p>
 
                 <p className="mt-8 text-[8px] font-black uppercase tracking-[0.2em] text-[#0C352D]">
-                  Discover The Cup →
+                  Discover The Match →
                 </p>
               </Link>
             </div>

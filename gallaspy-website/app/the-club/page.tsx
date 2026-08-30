@@ -35,7 +35,7 @@ export default function TheClubPage() {
 
         <div className="relative mx-auto max-w-7xl">
           <div className="flex items-center gap-3">
-            <span className="h-2 w-2 bg-[#B3262D]" />
+            
 
             <p className="text-[8px] font-black uppercase tracking-[0.34em] text-[#FFD76A]">
               The Gallaspy Golf Club
@@ -87,34 +87,28 @@ export default function TheClubPage() {
                 return (
                   <article
                     key={mark.name}
-                    className={`relative flex min-h-[285px] flex-col justify-between p-6 sm:min-h-[310px] sm:p-7 ${
+                    className={`relative flex min-h-[215px] flex-col justify-between p-5 sm:min-h-[240px] sm:p-6 ${
                       index < marks.length - 1
                         ? "border-b border-[#10263F]/15 md:border-b-0 md:border-r"
                         : ""
-                    } ${
-                      isScript
-                        ? "bg-[#10263F] text-white"
-                        : "bg-[#F8F5EE] text-[#10263F]"
-                    }`}
+                    } bg-[#F8F5EE] text-[#10263F]`}
                   >
                     <div className="flex items-center justify-between gap-4">
                       <p
-                        className={`text-[7px] font-black uppercase tracking-[0.27em] ${
-                          isScript ? "text-[#FFD76A]" : "text-[#8B6A34]"
-                        }`}
+                        className="text-[7px] font-black uppercase tracking-[0.27em] text-[#8B6A34]"
                       >
                         {mark.label}
                       </p>
 
-                      <span className="h-2 w-2 bg-[#B3262D]" />
+                      
                     </div>
 
-                    <div className="flex flex-1 items-center justify-center py-6">
+                    <div className="flex flex-1 items-center justify-center py-3 sm:py-4">
                       <div
                         className={
                           isScript
                             ? "relative h-[105px] w-full max-w-[220px]"
-                            : "relative h-[135px] w-[135px] sm:h-[150px] sm:w-[150px]"
+                            : "relative h-[150px] w-[150px] sm:h-[165px] sm:w-[165px]"
                         }
                       >
                         <Image

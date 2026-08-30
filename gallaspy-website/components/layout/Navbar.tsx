@@ -385,7 +385,7 @@ export function Navbar() {
       {/* MOBILE MENU */}
       <div
         className={[
-          "fixed inset-0 z-40 bg-[#10263F] xl:hidden",
+          "fixed inset-0 z-40 overflow-y-auto overscroll-y-contain touch-pan-y bg-[#10263F] xl:hidden",
           "transition-all duration-500 ease-out",
           isMobileOpen
             ? "visible opacity-100"
@@ -394,7 +394,7 @@ export function Navbar() {
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(184,145,70,0.14),transparent_35%)]" />
 
-        <div className="relative flex min-h-[100svh] flex-col px-6 pb-10 pt-[112px] sm:px-10">
+        <div className="relative flex min-h-[100svh] flex-col px-6 pb-[calc(2.5rem+env(safe-area-inset-bottom))] pt-[112px] sm:px-10">
           <div className="mb-8 flex items-center gap-3">
             <div className="h-px w-10 bg-[#FFD76A]" />
 
