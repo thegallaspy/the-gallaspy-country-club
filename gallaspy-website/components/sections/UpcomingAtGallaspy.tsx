@@ -122,7 +122,7 @@ export default function UpcomingAtGallaspy() {
                 <div>
                   <Link
                     href={event.href}
-                    className="inline-flex min-h-[44px] items-center justify-center border border-[#10263F]/25 px-6 text-[9px] font-bold uppercase tracking-[0.2em] text-[#10263F] transition hover:border-[#10263F] hover:bg-[#10263F] hover:text-white"
+                    className="inline-flex min-h-[44px] items-center justify-center border-2 border-[#10263F] bg-[#10263F] px-6 text-[9px] font-bold uppercase tracking-[0.2em] text-white transition hover:bg-transparent hover:text-[#10263F]"
                   >
                     View Event
                   </Link>
