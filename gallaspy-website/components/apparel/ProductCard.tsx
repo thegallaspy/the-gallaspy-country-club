@@ -59,7 +59,7 @@ export default function ProductCard({
   ]);
 
   return (
-    <article className="group overflow-hidden rounded-[22px] border border-[#10263F]/10 bg-[#F7F4EE] transition duration-300 hover:-translate-y-1 hover:border-[#B89146]/35 hover:shadow-[0_20px_50px_rgba(16,38,63,0.1)]">
+    <article className="group overflow-hidden rounded-[22px] border border-[#10263F]/10 bg-transparent transition duration-300 hover:-translate-y-1 hover:border-[#B89146]/35 hover:shadow-[0_20px_50px_rgba(16,38,63,0.1)]">
       {/* PRODUCT IMAGE */}
       <div className="relative aspect-[4/5] overflow-hidden bg-transparent">
         <Image
@@ -82,7 +82,7 @@ export default function ProductCard({
       </div>
 
       {/* PRODUCT DETAILS */}
-      <div className="p-6">
+      <div className="bg-[#F7F4EE] p-6">
         <p className="text-[9px] font-semibold uppercase tracking-[0.24em] text-[#B89146]">
           {category}
         </p>

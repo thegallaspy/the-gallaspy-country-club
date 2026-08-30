@@ -73,11 +73,8 @@ export default function ClubIntroduction() {
           </p>
         </div>
 
-        <div className="bg-[#F3EFE6] px-5 py-4 text-center">
-          <p
-            className="text-[8px] font-black uppercase tracking-[0.24em]"
-            style={{ color: "#10263F", opacity: 1 }}
-          >
+        <div className="bg-[#FFD76A] px-5 py-4 text-center">
+          <p className="text-[8px] font-black uppercase tracking-[0.24em] text-[#10263F]">
             Gather
           </p>
         </div>
