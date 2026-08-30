@@ -82,7 +82,7 @@ export type Tradition = {
 
 export const foundingCommunity = {
   goal: 100,
-  confirmedCount: null as number | null,
+  confirmedCount: 3 as number | null,
 };
 
 export const traditions: Tradition[] = [
