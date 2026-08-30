@@ -216,7 +216,7 @@ export default function CalendarPage() {
                         <div className="sm:text-right">
                           <Link
                             href={event.href}
-                            className="inline-flex min-h-[42px] items-center justify-center border border-[#10263F]/20 px-4 text-[7px] font-black uppercase tracking-[0.2em] text-[#10263F] transition duration-300 hover:border-[#10263F] hover:bg-[#10263F] hover:text-white"
+                            className="inline-flex min-h-[42px] items-center justify-center bg-[#10263F] px-5 text-[7px] font-black uppercase tracking-[0.2em] text-white transition duration-300 hover:bg-[#0C352D]"
                           >
                             View Event
                             <span className="ml-3">→</span>

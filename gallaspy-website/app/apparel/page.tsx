@@ -614,15 +614,7 @@ function ProductCard({
       aria-label={`View ${product.color} ${product.name}`}
     >
       <article>
-        <div
-          className={`relative aspect-[4/5] overflow-hidden ${
-            dark ? "bg-[#F0ECE4]" : "bg-[#ECE8DF]"
-          }`}
-        >
-          <div className="absolute left-3 top-3 z-10 bg-[#B3262D] px-2.5 py-1.5 text-[7px] font-black uppercase tracking-[0.2em] text-white">
-            {product.mark}
-          </div>
-
+        <div className="relative aspect-[4/5] overflow-hidden bg-transparent">
           <Image
             src={product.image}
             alt={`${product.color} ${product.name}`}
