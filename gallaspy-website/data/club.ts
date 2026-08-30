@@ -126,7 +126,7 @@ export const traditions: Tradition[] = [
     monthLabel: "September",
     firstOccurrenceYear: 2027,
     description:
-      "The annual Gallaspy team championship: Crest vs. Falcon.",
+      "The annual Gallaspy team championship: Crest vs. Falcon. Eight singles matches. Eighteen holes. One team champion.",
     permanent: true,
     href: "/mercury-match",
   },
@@ -228,13 +228,13 @@ export const events: GallaspyEvent[] = [
     month: 6,
     dateLabel: "June 21, 2027",
     category: "COMPETITION",
-    status: "REGISTRATION_OPENING_SOON",
+    status: "REGISTRATION_OPEN",
     description:
       "The 1st Annual Gallaspy Invitational and the club's flagship tournament.",
     venue: {
       confirmed: false,
     },
-    format: "4-Person Scramble",
+    format: "18-Hole Individual Stroke Play",
     capacity: 100,
     href: "/invitational",
     registrationHref: "/invitational/register",
@@ -254,7 +254,7 @@ export const events: GallaspyEvent[] = [
     category: "COMPETITION",
     status: "DETAILS_COMING_SOON",
     description:
-      "The inaugural Crest vs. Falcon team championship. Two Houses. One Club. One Match.",
+      "The inaugural Crest vs. Falcon team championship featuring eight players per team in 18-hole singles match play.",
     venue: {
       confirmed: false,
     },

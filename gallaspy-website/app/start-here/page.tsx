@@ -173,15 +173,15 @@ export default function StartHerePage() {
           <div className="border-t border-white/15">
             {[
               ["March", "Opening Drive", "The ceremonial beginning of the golf season."],
-              ["June", "The Gallaspy Invitational", "The flagship annual tournament."],
-              ["September", "The Mercury Match", "Crest vs. Falcon team competition."],
+              ["June", "The Gallaspy Invitational", "The flagship annual 18-hole individual stroke-play championship."],
+              ["September", "The Mercury Match", "Eight singles matches. Crest vs. Falcon. One team champion."],
               ["December", "Night at the Nest", "The annual year-end gathering, beginning in 2027."],
             ].map(([month, event, text]) => (
               <div
                 key={event}
-                className="grid gap-3 border-b border-white/15 py-6 sm:grid-cols-[110px_1fr]"
+                className="grid gap-4 border-b border-white/15 py-6 sm:grid-cols-[145px_1fr] sm:items-start"
               >
-                <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#D7B56D]">
+                <p className="whitespace-nowrap text-[9px] font-bold uppercase tracking-[0.22em] text-[#D7B56D]">
                   {month}
                 </p>
 

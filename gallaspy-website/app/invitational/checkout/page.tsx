@@ -48,13 +48,6 @@ type SquarePayments = {
   card: () => Promise<SquareCard>;
 };
 
-type AdditionalPlayerPayload = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  shirtSize: string;
-};
-
 declare global {
   interface Window {
     Square?: {
@@ -88,18 +81,7 @@ export default function InvitationalCheckoutPage() {
   const squareCardRef = useRef<SquareCard | null>(null);
   const squareInitializingRef = useRef(false);
 
-  const quantity = useMemo(() => {
-    switch (registrationType) {
-      case "2 Players":
-        return 2;
-      case "3 Players":
-        return 3;
-      case "Full 4-Person Team":
-        return 4;
-      default:
-        return 1;
-    }
-  }, [registrationType]);
+  const quantity = 1;
 
   const total = quantity * PLAYER_PRICE;
 
@@ -256,10 +238,6 @@ export default function InvitationalCheckoutPage() {
       formData.get("shirtSize") || ""
     ).trim();
 
-    const teamName = String(
-      formData.get("teamName") || ""
-    ).trim();
-
     if (
       !firstName ||
       !lastName ||
@@ -270,51 +248,10 @@ export default function InvitationalCheckoutPage() {
       !shirtSize
     ) {
       setPaymentError(
-        "Please complete all required primary player information."
+        "Please complete all required player information."
       );
       return;
     }
-
-    const additionalPlayers: AdditionalPlayerPayload[] = [];
-
-    for (let index = 2; index <= quantity; index += 1) {
-      const playerFirstName = String(
-        formData.get(`player${index}FirstName`) || ""
-      ).trim();
-
-      const playerLastName = String(
-        formData.get(`player${index}LastName`) || ""
-      ).trim();
-
-      const playerEmail = String(
-        formData.get(`player${index}Email`) || ""
-      ).trim();
-
-      const playerShirtSize = String(
-        formData.get(`player${index}ShirtSize`) || ""
-      ).trim();
-
-      if (
-        !playerFirstName ||
-        !playerLastName ||
-        !playerEmail ||
-        !playerShirtSize
-      ) {
-        setPaymentError(
-          `Please complete all required information for Player ${index}.`
-        );
-        return;
-      }
-
-      additionalPlayers.push({
-        firstName: playerFirstName,
-        lastName: playerLastName,
-        email: playerEmail,
-        shirtSize: playerShirtSize,
-      });
-    }
-
-    setPaymentProcessing(true);
 
     try {
       const verificationDetails = {
@@ -378,9 +315,6 @@ export default function InvitationalCheckoutPage() {
             city,
             state,
             shirtSize,
-            teamName,
-
-            additionalPlayers,
 
             acceptedTerms,
             acceptedRefund,
@@ -598,58 +532,28 @@ export default function InvitationalCheckoutPage() {
                   }
                 />
 
-                <RegistrationOption
-                  title="Two Players"
-                  players="2 Players"
-                  price={formatCurrency(
-                    PLAYER_PRICE * 2
-                  )}
-                  selected={
-                    registrationType === "2 Players"
-                  }
-                  onClick={() =>
-                    setRegistrationType("2 Players")
-                  }
-                />
-
-                <RegistrationOption
-                  title="Three Players"
-                  players="3 Players"
-                  price={formatCurrency(
-                    PLAYER_PRICE * 3
-                  )}
-                  selected={
-                    registrationType === "3 Players"
-                  }
-                  onClick={() =>
-                    setRegistrationType("3 Players")
-                  }
-                />
-
-                <RegistrationOption
-                  title="Full Foursome"
-                  players="4 Players"
-                  price={formatCurrency(
-                    PLAYER_PRICE * 4
-                  )}
-                  selected={
-                    registrationType ===
-                    "Full 4-Person Team"
-                  }
-                  onClick={() =>
-                    setRegistrationType(
-                      "Full 4-Person Team"
-                    )
-                  }
-                />
-              </div>
-            </Panel>
+                <div className="border border-[#10263F]/15 bg-white p-6">
+                  <p className="text-[8px] font-black uppercase tracking-[0.24em] text-[#8B6A34]">
+                    Individual Entry
+                  </p>
+                  <p className="mt-3 text-xl font-black uppercase tracking-[-0.03em] text-[#10263F]">
+                    One Player
+                  </p>
+                  <p className="mt-2 text-sm text-[#33475B]/70">
+                    18-hole individual stroke play · Gross & Net competition
+                  </p>
+                  <p className="mt-5 text-lg font-black text-[#10263F]">
+                    {formatCurrency(PLAYER_PRICE)}
+                  </p>
+                </div>
+                </div>
+              </Panel>
 
             <Panel>
               <SectionHeading
                 eyebrow="Step 02"
-                title="Primary Player"
-                description="Enter the contact information for the person completing the registration."
+                title="Player Information"
+                description="Enter the information for the golfer competing in the 2027 Gallaspy Invitational."
               />
 
               <div className="mt-8 grid gap-5 sm:grid-cols-2">
@@ -703,44 +607,15 @@ export default function InvitationalCheckoutPage() {
                   required
                 />
 
-                <Field
-                  label="Team Name"
-                  name="teamName"
-                  placeholder="Optional"
-                />
+
               </div>
             </Panel>
 
-            {quantity > 1 && (
-              <Panel>
-                <SectionHeading
-                  eyebrow="Step 03"
-                  title="Additional Players"
-                  description="Add the remaining players included with this registration."
-                />
 
-                <div className="mt-8 space-y-8">
-                  {Array.from(
-                    { length: quantity - 1 },
-                    (_, index) => (
-                      <AdditionalPlayer
-                        key={index}
-                        number={index + 2}
-                        index={index + 2}
-                      />
-                    )
-                  )}
-                </div>
-              </Panel>
-            )}
 
             <Panel>
               <SectionHeading
-                eyebrow={
-                  quantity > 1
-                    ? "Step 04"
-                    : "Step 03"
-                }
+                eyebrow="Step 03"
                 title="Tournament Agreements"
                 description="Review and accept the required policies before payment."
               />
@@ -808,11 +683,7 @@ export default function InvitationalCheckoutPage() {
 
             <Panel>
               <SectionHeading
-                eyebrow={
-                  quantity > 1
-                    ? "Step 05"
-                    : "Step 04"
-                }
+                eyebrow="Step 04"
                 title="Secure Payment"
                 description="Enter your card information below to complete registration."
               />
@@ -918,7 +789,7 @@ export default function InvitationalCheckoutPage() {
               <div className="mt-8 border-t border-white/10 pt-6">
                 <PolicySummaryLink
                   href="/invitational/prizes"
-                  label="$10,000 Prize Purse"
+                  label="The Golden Falcon"
                 />
 
                 <PolicySummaryLink
@@ -1022,51 +893,6 @@ function RegistrationOption({
         </p>
       )}
     </button>
-  );
-}
-
-function AdditionalPlayer({
-  number,
-  index,
-}: {
-  number: number;
-  index: number;
-}) {
-  return (
-    <div className="border-t border-[#10263F]/10 pt-7 first:border-t-0 first:pt-0">
-      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#8B6A34]">
-        Player {number}
-      </p>
-
-      <div className="mt-5 grid gap-5 sm:grid-cols-2">
-        <Field
-          label="First Name"
-          name={`player${index}FirstName`}
-          required
-        />
-
-        <Field
-          label="Last Name"
-          name={`player${index}LastName`}
-          required
-        />
-      </div>
-
-      <div className="mt-5 grid gap-5 sm:grid-cols-2">
-        <Field
-          label="Email Address"
-          name={`player${index}Email`}
-          type="email"
-          required
-        />
-
-        <SelectField
-          label="Polo Size"
-          name={`player${index}ShirtSize`}
-          required
-        />
-      </div>
-    </div>
   );
 }
 

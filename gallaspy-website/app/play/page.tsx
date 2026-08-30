@@ -148,7 +148,7 @@ export default function PlayPage() {
                 </h3>
 
                 <p className="mt-4 text-[13px] leading-6 text-[#10263F]/55">
-                  Crest vs. Falcon. Two Houses. One Club. One Cup.
+                  Crest vs. Falcon. Eight Matches. Eighteen Holes. One Team Champion.
                 </p>
 
                 <p className="mt-8 text-[8px] font-black uppercase tracking-[0.2em] text-[#0C352D]">

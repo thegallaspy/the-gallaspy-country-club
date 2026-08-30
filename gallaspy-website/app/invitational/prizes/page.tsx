@@ -3,33 +3,10 @@ import Link from "next/link";
 import InvitationalNav from "@/components/invitational/InvitationalNav";
 
 export const metadata: Metadata = {
-  title: "Prizes & Awards | The Gallaspy Invitational",
+  title: "The Golden Falcon | The Gallaspy Invitational",
   description:
-    "Prize purse, awards, and contest information for the 2027 Gallaspy Invitational.",
+    "The Golden Falcon is the championship trophy of The Gallaspy Invitational, awarded to the golfer who records the lowest gross score.",
 };
-
-const purse = [
-  {
-    place: "1st Place",
-    teamPrize: "$4,000",
-    playerPrize: "$1,000 per player",
-  },
-  {
-    place: "2nd Place",
-    teamPrize: "$3,000",
-    playerPrize: "$750 per player",
-  },
-  {
-    place: "3rd Place",
-    teamPrize: "$2,000",
-    playerPrize: "$500 per player",
-  },
-  {
-    place: "4th Place",
-    teamPrize: "$1,000",
-    playerPrize: "$250 per player",
-  },
-];
 
 export default function InvitationalPrizesPage() {
   return (
@@ -37,7 +14,7 @@ export default function InvitationalPrizesPage() {
       <InvitationalNav />
 
       {/* HERO */}
-      <section className="bg-[#10263F] px-6 pb-20 pt-32 text-white sm:px-8 lg:px-12">
+      <section className="bg-[#10263F] px-6 pb-24 pt-32 text-white sm:px-8 lg:px-12 lg:pb-28">
         <div className="mx-auto max-w-[1100px]">
           <Link
             href="/invitational"
@@ -46,221 +23,245 @@ export default function InvitationalPrizesPage() {
             ← Back to Invitational
           </Link>
 
-          <p className="mt-12 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">
-            The 2027 Gallaspy Invitational
+          <p className="mt-14 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">
+            The Gallaspy Invitational
           </p>
 
-          <h1 className="mt-5 max-w-4xl font-serif text-5xl leading-[0.98] sm:text-6xl lg:text-7xl">
-            $10,000
-            <span className="block text-[#FFD76A]">Prize Purse</span>
+          <h1 className="mt-5 max-w-4xl font-serif text-6xl leading-[0.94] sm:text-7xl lg:text-8xl">
+            The Golden
+            <span className="block text-[#FFD76A]">Falcon.</span>
           </h1>
 
-          <div className="mt-8 h-px w-20 bg-[#B89146]" />
+          <div className="mt-9 h-px w-20 bg-[#B89146]" />
 
-          <p className="mt-8 max-w-2xl text-base leading-8 text-white/70">
-            Four teams. Sixteen prize positions. One inaugural championship.
+          <p className="mt-8 max-w-2xl text-base leading-8 text-white/70 sm:text-lg">
+            The championship trophy of The Gallaspy Invitational.
+            Earned by the golfer who finishes with the lowest
+            gross score over 18 holes.
           </p>
         </div>
       </section>
 
-      {/* PURSE */}
-      <section className="px-6 py-16 sm:px-8 lg:px-12 lg:py-24">
-        <div className="mx-auto max-w-[1000px]">
-          <div className="text-center">
+      {/* CHAMPIONSHIP STANDARD */}
+      <section className="border-b border-[#10263F]/10 bg-white px-6 sm:px-8 lg:px-12">
+        <div className="mx-auto grid max-w-[1100px] md:grid-cols-3">
+          <Stat
+            label="Championship"
+            value="Individual Stroke Play"
+          />
+
+          <Stat
+            label="Deciding Score"
+            value="Lowest Gross"
+          />
+
+          <Stat
+            label="Championship Trophy"
+            value="The Golden Falcon"
+            last
+          />
+        </div>
+      </section>
+
+      {/* THE HONOR */}
+      <section className="px-6 py-20 sm:px-8 lg:px-12 lg:py-28">
+        <div className="mx-auto grid max-w-[1100px] gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#8B6A34]">
+              The Championship Honor
+            </p>
+
+            <h2 className="mt-5 font-serif text-4xl leading-tight sm:text-5xl">
+              One champion.
+              <span className="block text-[#8B6A34]">
+                One Golden Falcon.
+              </span>
+            </h2>
+          </div>
+
+          <div>
+            <p className="font-serif text-2xl leading-relaxed text-[#10263F] sm:text-3xl">
+              The Gallaspy Invitational Champion is the golfer who
+              records the lowest actual gross score over 18 holes.
+            </p>
+
+            <div className="mt-8 h-px w-16 bg-[#B89146]" />
+
+            <p className="mt-8 text-sm leading-8 text-[#10263F]/65">
+              The champion earns The Golden Falcon and takes their
+              place in the permanent competitive history of The Gallaspy
+              Invitational. Beginning with the inaugural championship in
+              2027, each winner becomes part of a record intended to grow
+              with the tournament for generations.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* HOW IT IS WON */}
+      <section className="bg-[#10263F] px-6 py-20 text-white sm:px-8 lg:px-12 lg:py-28">
+        <div className="mx-auto max-w-[1100px]">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#FFD76A]">
+            How It Is Won
+          </p>
+
+          <h2 className="mt-5 max-w-3xl font-serif text-4xl leading-tight sm:text-5xl">
+            The score decides everything.
+          </h2>
+
+          <div className="mt-12 grid gap-px bg-white/10 md:grid-cols-3">
+            <HonorStep
+              number="01"
+              title="18 Holes"
+              text="Every player completes the championship in individual stroke play."
+            />
+
+            <HonorStep
+              number="02"
+              title="Lowest Gross"
+              text="Actual strokes determine the Invitational Champion. No handicap adjustment is applied to the championship-winning gross score."
+            />
+
+            <HonorStep
+              number="03"
+              title="The Golden Falcon"
+              text="The golfer with the lowest verified gross score is recognized as The Gallaspy Invitational Champion."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* TIE */}
+      <section className="px-6 py-20 sm:px-8 lg:px-12 lg:py-28">
+        <div className="mx-auto max-w-[1100px]">
+          <div className="grid gap-12 border-y border-[#10263F]/15 py-12 lg:grid-cols-[0.7fr_1.3fr] lg:items-center lg:gap-20">
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#8B6A34]">
+                If 18 Holes Are Not Enough
+              </p>
+
+              <h2 className="mt-4 font-serif text-4xl">
+                Sudden death.
+              </h2>
+            </div>
+
+            <p className="text-sm leading-8 text-[#10263F]/65">
+              If two or more golfers are tied for the lowest gross
+              score after 18 holes, the Gross Championship will be
+              decided by a sudden-death playoff under the procedures
+              established by the Tournament Committee. The championship
+              is not complete until one golfer has earned The Golden Falcon.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* NET COMPETITION */}
+      <section className="border-y border-[#10263F]/10 bg-white px-6 py-20 sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto grid max-w-[1100px] gap-12 lg:grid-cols-2 lg:gap-20">
+          <div>
             <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#8B6A34]">
-              Championship Purse
+              Net Competition
             </p>
 
-            <h2 className="mt-4 font-serif text-4xl sm:text-5xl">
-              $10,000 in tournament prizes.
+            <h2 className="mt-4 font-serif text-4xl leading-tight sm:text-5xl">
+              A second competitive leaderboard.
             </h2>
+          </div>
 
-            <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-[#10263F]/65">
-              The planned purse is distributed among the top four eligible
-              teams in the 4-person scramble.
+          <div>
+            <p className="text-sm leading-8 text-[#10263F]/65">
+              Players with a verified GHIN or other handicap recognized
+              by the Tournament Committee will also be scored in the
+              Net Championship. Net standings are maintained separately
+              from the Gross Championship.
+            </p>
+
+            <p className="mt-5 text-sm leading-8 text-[#10263F]/65">
+              Final handicap procedures, eligibility requirements and
+              applicable tournament adjustments will be governed by the
+              Official Tournament Rules.
             </p>
           </div>
+        </div>
+      </section>
 
-          <div className="mt-12 grid gap-5 sm:grid-cols-2">
-            {purse.map((award) => (
-              <div
-                key={award.place}
-                className="rounded-[22px] border border-[#10263F]/10 bg-white p-7 sm:p-8"
-              >
-                <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#8B6A34]">
-                  {award.place}
-                </p>
-
-                <p className="mt-4 font-serif text-4xl">
-                  {award.teamPrize}
-                </p>
-
-                <div className="mt-5 h-px w-12 bg-[#B89146]" />
-
-                <p className="mt-5 text-sm text-[#10263F]/60">
-                  {award.playerPrize}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-8 rounded-[22px] bg-[#10263F] p-7 text-white sm:p-9">
-            <div className="grid gap-8 sm:grid-cols-3">
-              <Stat label="Total Purse" value="$10,000" />
-              <Stat label="Teams Awarded" value="4" />
-              <Stat label="Prize Positions" value="16" />
-            </div>
-          </div>
-
-          {/* CONDITIONS */}
-          <div className="mt-20">
+      {/* OTHER COMPETITION */}
+      <section className="px-6 py-20 sm:px-8 lg:px-12 lg:py-28">
+        <div className="mx-auto max-w-[1100px]">
+          <div className="max-w-3xl">
             <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#8B6A34]">
-              Prize Conditions
+              Beyond the Championship
             </p>
 
-            <h2 className="mt-4 font-serif text-4xl">
-              Eligibility & Award Terms
+            <h2 className="mt-4 font-serif text-4xl leading-tight sm:text-5xl">
+              Competition across the course.
             </h2>
 
-            <div className="mt-10 space-y-10">
-              <PrizeSection number="01" title="Competition Structure">
-                The championship purse is intended for the official gross
-                scramble competition. Final results are subject to score
-                verification, eligibility requirements, and the Official
-                Tournament Rules.
-              </PrizeSection>
-
-              <PrizeSection number="02" title="Amateur Golfers">
-                The prize structure is designed with the intention of permitting
-                eligible amateur golfers to compete for prizes within applicable
-                amateur-status limits.
-
-                Each participant remains responsible for determining whether
-                accepting a prize is permitted under any amateur-status,
-                collegiate, association, employment, or other eligibility rules
-                applicable to that participant.
-              </PrizeSection>
-
-              <PrizeSection number="03" title="Prize Acceptance">
-                No participant is required to accept a cash prize.
-
-                If accepting a particular prize would affect a participant&apos;s
-                eligibility or amateur status, the participant should notify
-                tournament officials before accepting the award.
-              </PrizeSection>
-
-              <PrizeSection number="04" title="Verification">
-                Tournament results must be verified before championship prizes
-                are considered final.
-
-                The organizer may require reasonable identity, eligibility,
-                score, or payment information before issuing an award.
-              </PrizeSection>
-
-              <PrizeSection number="05" title="Taxes">
-                Prize recipients are responsible for any individual tax
-                obligations resulting from an award.
-
-                The Gallaspy Development Group, LLC may request information or
-                issue tax documentation when required by applicable law.
-              </PrizeSection>
-
-              <PrizeSection number="06" title="Ties">
-                Ties affecting a prize position will be resolved using the
-                official tie-breaking procedure established in the tournament
-                rules.
-
-                Final prize placement will not be determined until applicable
-                tie-breaking procedures have been completed.
-              </PrizeSection>
-
-              <PrizeSection number="07" title="Disqualification">
-                A participant or team that is disqualified under the Official
-                Tournament Rules may lose eligibility for tournament prizes.
-
-                Prize positions may be adjusted after a disqualification or
-                verified scoring or eligibility correction.
-              </PrizeSection>
-
-              <PrizeSection number="08" title="On-Course Contests">
-                Closest-to-the-pin, longest-drive, putting, hole-in-one, and
-                other skills contests may be offered separately from the
-                championship purse.
-
-                Each contest will be governed by its own eligibility, prize,
-                measurement, sponsor, and verification requirements. Contest
-                prizes are not included in the $10,000 championship purse unless
-                expressly stated otherwise.
-              </PrizeSection>
-
-              <PrizeSection number="09" title="Changes to Prize Structure">
-                The organizer reserves the right to make changes required for
-                legal, regulatory, amateur-status, sponsor, eligibility, or
-                tournament-administration reasons before prizes are awarded.
-
-                Any material change to the advertised championship purse will be
-                communicated to registered participants when reasonably
-                practicable.
-              </PrizeSection>
-
-              <PrizeSection number="10" title="Final Authority">
-                Prize eligibility and tournament results are subject to the
-                Official Tournament Rules and final verification by authorized
-                tournament personnel.
-              </PrizeSection>
-            </div>
-          </div>
-
-          {/* CONTESTS */}
-          <div className="mt-20 rounded-[22px] border border-[#10263F]/10 bg-white p-7 sm:p-10">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[#8B6A34]">
-              Additional Awards
-            </p>
-
-            <h2 className="mt-4 font-serif text-3xl sm:text-4xl">
-              On-course challenges are coming.
-            </h2>
-
-            <p className="mt-5 max-w-2xl text-sm leading-7 text-[#10263F]/65">
-              Additional contests and sponsored prizes may be announced as the
-              Invitational approaches. Official contest prizes and eligibility
-              requirements will be published before competition.
+            <p className="mt-6 text-sm leading-8 text-[#10263F]/65">
+              Supplemental on-course competitions, including
+              Closest-to-the-Pin and the Hole-in-One Challenge, may
+              accompany the championship. Final contest details,
+              eligibility requirements and sponsor activations will be
+              announced as the Invitational approaches.
             </p>
           </div>
+        </div>
+      </section>
 
-          {/* RELATED */}
-          <div className="mt-16 border-t border-[#10263F]/10 pt-10">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[#8B6A34]">
-              Tournament Policies
-            </p>
+      {/* CHAMPIONSHIP RECORD */}
+      <section className="bg-[#10263F] px-6 py-20 text-white sm:px-8 lg:px-12 lg:py-28">
+        <div className="mx-auto max-w-[1100px] text-center">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">
+            Beginning June 21, 2027
+          </p>
 
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              <PolicyLink
-                href="/invitational/terms"
-                title="Participant Terms"
-              />
-              <PolicyLink
-                href="/invitational/refund-policy"
-                title="Refund & Cancellation"
-              />
-              <PolicyLink
-                href="/invitational/waiver"
-                title="Liability Waiver"
-              />
-              <PolicyLink
-                href="/invitational/rules"
-                title="Official Tournament Rules"
-              />
-            </div>
-          </div>
+          <h2 className="mx-auto mt-5 max-w-4xl font-serif text-4xl leading-tight sm:text-5xl lg:text-6xl">
+            The first name has yet to be written.
+          </h2>
 
-          <div className="mt-14 border-l-2 border-[#B89146] bg-white px-6 py-5">
-            <p className="text-xs leading-6 text-[#10263F]/50">
-              Prize amounts and eligibility requirements remain subject to final
-              tournament rules and applicable amateur-status requirements.
-              Participants should review the rules applicable to their individual
-              status before accepting an award.
-            </p>
+          <p className="mx-auto mt-7 max-w-2xl text-sm leading-8 text-white/60">
+            The inaugural Gallaspy Invitational will establish the
+            first champion in tournament history and the first golfer
+            to earn The Golden Falcon.
+          </p>
+
+          <Link
+            href="/invitational/register"
+            className="mt-9 inline-flex min-h-[54px] items-center justify-center rounded-full bg-[#FFD76A] px-8 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#10263F] transition hover:bg-white"
+          >
+            Player Registration
+          </Link>
+        </div>
+      </section>
+
+      {/* RELATED */}
+      <section className="px-6 py-16 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-[1100px]">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[#8B6A34]">
+            Championship Information
+          </p>
+
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            <PolicyLink
+              href="/invitational/rules"
+              title="Official Tournament Rules"
+            />
+
+            <PolicyLink
+              href="/invitational/schedule"
+              title="Tournament Schedule"
+            />
+
+            <PolicyLink
+              href="/invitational/faq"
+              title="Invitational FAQ"
+            />
+
+            <PolicyLink
+              href="/invitational/terms"
+              title="Participant Terms"
+            />
           </div>
         </div>
       </section>
@@ -268,47 +269,54 @@ export default function InvitationalPrizesPage() {
   );
 }
 
-function PrizeSection({
-  number,
-  title,
-  children,
-}: {
-  number: string;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section className="border-b border-[#10263F]/10 pb-10">
-      <div className="flex gap-5 sm:gap-7">
-        <span className="pt-1 text-[10px] font-semibold tracking-[0.2em] text-[#B89146]">
-          {number}
-        </span>
-
-        <div>
-          <h3 className="font-serif text-2xl sm:text-3xl">{title}</h3>
-
-          <div className="mt-4 whitespace-pre-line text-sm leading-7 text-[#10263F]/65">
-            {children}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Stat({
   label,
   value,
+  last = false,
 }: {
   label: string;
   value: string;
+  last?: boolean;
 }) {
   return (
-    <div>
-      <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#FFD76A]">
+    <div
+      className={`px-5 py-8 ${
+        last ? "" : "border-b border-[#10263F]/10 md:border-b-0 md:border-r"
+      }`}
+    >
+      <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
         {label}
       </p>
-      <p className="mt-2 font-serif text-3xl">{value}</p>
+
+      <p className="mt-2 font-serif text-xl">
+        {value}
+      </p>
+    </div>
+  );
+}
+
+function HonorStep({
+  number,
+  title,
+  text,
+}: {
+  number: string;
+  title: string;
+  text: string;
+}) {
+  return (
+    <div className="bg-[#10263F] p-7 sm:p-9">
+      <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#FFD76A]">
+        {number}
+      </p>
+
+      <h3 className="mt-5 font-serif text-2xl">
+        {title}
+      </h3>
+
+      <p className="mt-4 text-sm leading-7 text-white/55">
+        {text}
+      </p>
     </div>
   );
 }
@@ -323,10 +331,15 @@ function PolicyLink({
   return (
     <Link
       href={href}
-      className="flex min-h-[68px] items-center justify-between rounded-xl border border-[#10263F]/10 bg-white px-5 transition hover:border-[#B89146]"
+      className="group flex items-center justify-between border border-[#10263F]/10 bg-white px-6 py-5 transition hover:border-[#B89146]"
     >
-      <span className="font-serif text-lg">{title}</span>
-      <span className="text-[#B89146]">→</span>
+      <span className="font-serif text-lg">
+        {title}
+      </span>
+
+      <span className="text-[#8B6A34] transition-transform group-hover:translate-x-1">
+        →
+      </span>
     </Link>
   );
 }

@@ -6,22 +6,37 @@ const faqs = [
   {
     question: "When is the 2027 Gallaspy Invitational?",
     answer:
-      "The inaugural Gallaspy Invitational is planned for June 21, 2027. Tournament-day activities are currently scheduled to begin with player arrival at 9:00 AM and an 11:00 AM shotgun start.",
+      "The inaugural Gallaspy Invitational is scheduled for Monday, June 21, 2027. Player arrival begins at 8:00 AM, the player meeting is scheduled for 9:30 AM, and the championship is planned to begin with a 10:00 AM shotgun start.",
   },
   {
     question: "What is the tournament format?",
     answer:
-      "The Invitational is planned as a 4-person scramble with a field of 100 players.",
+      "The Invitational is an 18-hole individual stroke-play championship with a 72-player field. Each golfer plays their own ball and records an individual score for all 18 holes.",
   },
   {
-    question: "Is a GHIN or handicap required?",
+    question: "How is the Gallaspy Invitational Champion determined?",
     answer:
-      "No. The tournament is being structured as a 4-person scramble and player registration does not require a GHIN or handicap.",
+      "The Gallaspy Invitational Champion is the golfer who records the lowest actual gross score over 18 holes. That player earns the primary championship title and is the golfer recognized on the permanent Invitational trophy.",
   },
   {
-    question: "What is the tournament prize purse?",
+    question: "Is there a Net Championship?",
     answer:
-      "The planned tournament prize purse is $10,000. Final competition rules, prize distribution, eligibility requirements, and award terms will be published before paid registration opens.",
+      "Yes. Eligible players with a current GHIN or other tournament-recognized handicap will also be scored in a separate Net Championship. The Net Champion is a separate award and does not replace the Gross Champion as The Gallaspy Invitational Champion.",
+  },
+  {
+    question: "Is a GHIN or handicap required to register?",
+    answer:
+      "No. A handicap is not required to enter the tournament or compete for the Gross Championship. A current GHIN or other recognized handicap is required for Net Championship eligibility and is subject to verification by the Tournament Committee.",
+  },
+  {
+    question: "What happens if the Gross Championship is tied?",
+    answer:
+      "A tie for the lowest gross score will be decided by a sudden-death playoff. The Tournament Committee will publish the designated playoff hole or holes before competition.",
+  },
+  {
+    question: "How are Net Championship ties decided?",
+    answer:
+      "A tie for the Net Championship will be decided by a scorecard playoff using the procedure established by the Tournament Committee.",
   },
   {
     question: "Where will the Invitational be played?",
@@ -31,27 +46,27 @@ const faqs = [
   {
     question: "Is player registration open?",
     answer:
-      "Paid registration is not open yet. Players can currently join the priority interest list to receive registration announcements, finalized pricing, host-course information, and tournament updates.",
+      "Yes. Player registration is open for the 2027 Gallaspy Invitational. Individual entry is $200 per golfer. The championship field is limited to 72 players. Final host-course details and player instructions will be communicated to registered players as tournament planning is finalized.",
   },
   {
-    question: "Can I register without a full team?",
+    question: "Can I register multiple golfers in one transaction?",
     answer:
-      "Yes. The current registration-interest form allows interest as an individual player, two players, three players, or a full 4-person team. Final pairing procedures will be announced with official registration.",
+      "No. The Invitational uses individual registration. Each golfer must complete a separate registration so player information, championship eligibility, handicap information, waivers, and payment records are maintained individually.",
   },
   {
     question: "Will players receive tournament apparel?",
     answer:
-      "Player polos are planned as part of the tournament experience. Players joining the interest list are asked to provide their preferred polo size so tournament planning can account for apparel needs.",
+      "Player polos are planned as part of the tournament experience. Registered players are asked to provide their preferred polo size so tournament apparel can be prepared appropriately.",
   },
   {
     question: "What on-course contests are planned?",
     answer:
-      "The current tournament plan includes closest-to-the-pin, longest drive, and hole-in-one opportunities in addition to the team scramble competition. Final contest rules and prizes will be announced before the event.",
+      "Closest-to-the-Pin and a Hole-in-One Challenge are planned as supplemental on-course competitions. Sponsor activations may also be introduced separately from the official Gross and Net Championships.",
   },
   {
     question: "Are sponsorship opportunities available?",
     answer:
-      "Yes. The Gallaspy is currently accepting sponsor inquiries for founding partnerships, on-course activations, player gifting, hospitality, apparel, automotive, awards, media, and other customized opportunities.",
+      "Yes. The Gallaspy is accepting sponsor inquiries for founding partnerships, on-course activations, player gifting, hospitality, apparel, automotive, awards, media, and other customized tournament opportunities.",
   },
 ];
 
@@ -113,21 +128,21 @@ export default function InvitationalFAQPage() {
             <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
               Format
             </p>
-            <p className="mt-2 font-serif text-xl">4-Person Scramble</p>
+            <p className="mt-2 font-serif text-xl">Individual Stroke Play</p>
           </div>
 
           <div className="border-r border-[#10263F]/10 px-4 py-8">
             <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
               Field
             </p>
-            <p className="mt-2 font-serif text-xl">100 Players</p>
+            <p className="mt-2 font-serif text-xl">72 Players</p>
           </div>
 
           <div className="px-4 py-8">
             <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
-              Prize Purse
+              Start
             </p>
-            <p className="mt-2 font-serif text-xl">$10,000</p>
+            <p className="mt-2 font-serif text-xl">10:00 AM</p>
           </div>
         </div>
       </section>
@@ -146,8 +161,8 @@ export default function InvitationalFAQPage() {
 
             <p className="mt-6 text-sm leading-7 text-[#10263F]/65">
               Tournament information will continue to be updated as the host
-              venue, registration, sponsor activations, contest rules, and
-              operational details are finalized.
+              venue, final registration details, local rules, sponsor activations,
+              and operational details are finalized.
             </p>
           </div>
 
@@ -217,7 +232,7 @@ export default function InvitationalFAQPage() {
             </h2>
 
             <p className="mt-5 text-sm leading-7 text-white/62">
-              Join the priority list to receive official player registration
+              Registration is open for the 2027 Gallaspy Invitational.
               information and tournament updates.
             </p>
           </div>
@@ -227,7 +242,7 @@ export default function InvitationalFAQPage() {
               href="/invitational/register"
               className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#B89146] px-6 text-[10px] font-semibold uppercase tracking-[0.22em] text-white transition hover:bg-white hover:text-[#10263F] sm:w-auto sm:px-8"
             >
-              Join Priority List
+              Register Now
             </Link>
 
             <Link

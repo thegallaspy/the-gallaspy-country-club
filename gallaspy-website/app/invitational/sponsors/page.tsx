@@ -55,7 +55,7 @@ const activationOpportunities = [
   "Player Gift Partner",
   "Hole-in-One Partner",
   "Closest-to-the-Pin Partner",
-  "Longest Drive Partner",
+  
   "Hospitality Partner",
   "Beverage Partner",
   "Apparel Partner",
@@ -196,14 +196,14 @@ export default function InvitationalSponsorsPage() {
             <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
               Field
             </p>
-            <p className="mt-2 font-serif text-xl">100 Players</p>
+            <p className="mt-2 font-serif text-xl">72 Players</p>
           </div>
 
           <div className="border-r border-[#10263F]/10 px-4 py-8">
             <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
               Format
             </p>
-            <p className="mt-2 font-serif text-xl">4-Person Scramble</p>
+            <p className="mt-2 font-serif text-xl">Individual Stroke Play</p>
           </div>
 
           <div className="px-4 py-8">

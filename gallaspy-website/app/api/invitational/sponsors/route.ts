@@ -256,10 +256,10 @@ export async function POST(request: Request) {
 
             <p style="margin: 0;">
               Inaugural Tournament<br />
-              100-Player Field<br />
-              4-Person Scramble<br />
+              72-Player Field<br />
+              18-Hole Individual Stroke Play<br />
               $10,000 Tournament Purse<br />
-              The Golden Falcon Championship Trophy
+              The Golden Falcon
             </p>
           </div>
 

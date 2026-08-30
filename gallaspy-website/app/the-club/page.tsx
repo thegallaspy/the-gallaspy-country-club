@@ -61,92 +61,78 @@ export default function TheClubPage() {
       </section>
 
       {/* THREE MARKS */}
-      <section className="px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
+      <section className="px-5 py-12 sm:px-8 sm:py-14 lg:px-10 lg:py-16">
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:gap-16">
+          <div className="grid gap-8 lg:grid-cols-[0.4fr_1.6fr] lg:items-start lg:gap-12">
             <div>
               <p className="text-[8px] font-black uppercase tracking-[0.34em] text-[#B3262D]">
                 Three Marks
               </p>
 
-              <h2 className="mt-5 text-[3rem] font-black uppercase leading-[0.86] tracking-[-0.055em] sm:text-[4rem]">
+              <h2 className="mt-4 text-[2.6rem] font-black uppercase leading-[0.86] tracking-[-0.055em] sm:text-[3.4rem]">
                 One
                 <span className="block text-[#0C352D]">Club.</span>
               </h2>
 
-              <p className="mt-6 max-w-[390px] text-sm leading-7 text-[#10263F]/58">
+              <p className="mt-5 max-w-[300px] text-sm leading-6 text-[#10263F]/58">
                 The Falcon, the Crest, and the Script form the visual identity
                 of The Gallaspy.
               </p>
             </div>
 
-            <div className="border border-[#10263F]/15 bg-[#F8F5EE]">
-              {/* FALCON + CREST */}
-              <div className="grid md:grid-cols-2">
-                {marks.slice(0, 2).map((mark, index) => (
+            <div className="grid overflow-hidden border border-[#10263F]/15 bg-[#F8F5EE] md:grid-cols-3">
+              {marks.map((mark, index) => {
+                const isScript = mark.layout === "wide";
+
+                return (
                   <article
                     key={mark.name}
-                    className={`relative flex min-h-[360px] flex-col justify-between p-7 sm:p-9 ${
-                      index === 0
+                    className={`relative flex min-h-[285px] flex-col justify-between p-6 sm:min-h-[310px] sm:p-7 ${
+                      index < marks.length - 1
                         ? "border-b border-[#10263F]/15 md:border-b-0 md:border-r"
                         : ""
+                    } ${
+                      isScript
+                        ? "bg-[#10263F] text-white"
+                        : "bg-[#F8F5EE] text-[#10263F]"
                     }`}
                   >
                     <div className="flex items-center justify-between gap-4">
-                      <p className="text-[7px] font-black uppercase tracking-[0.27em] text-[#8B6A34]">
+                      <p
+                        className={`text-[7px] font-black uppercase tracking-[0.27em] ${
+                          isScript ? "text-[#FFD76A]" : "text-[#8B6A34]"
+                        }`}
+                      >
                         {mark.label}
                       </p>
 
                       <span className="h-2 w-2 bg-[#B3262D]" />
                     </div>
 
-                    <div className="flex flex-1 items-center justify-center py-8">
-                      <div className="relative h-[175px] w-[175px] sm:h-[205px] sm:w-[205px]">
+                    <div className="flex flex-1 items-center justify-center py-6">
+                      <div
+                        className={
+                          isScript
+                            ? "relative h-[105px] w-full max-w-[220px]"
+                            : "relative h-[135px] w-[135px] sm:h-[150px] sm:w-[150px]"
+                        }
+                      >
                         <Image
                           src={mark.image}
                           alt={mark.name}
                           fill
-                          sizes="205px"
+                          sizes="220px"
                           className="object-contain"
                         />
                       </div>
                     </div>
 
-                    <h3 className="text-[1.7rem] font-black uppercase tracking-[-0.04em]">
+                    <h3 className="text-[1.35rem] font-black uppercase tracking-[-0.04em] sm:text-[1.5rem]">
                       {mark.name}
                     </h3>
                   </article>
-                ))}
-              </div>
-
-              {/* SCRIPT */}
-              <article className="relative border-t border-[#10263F]/15 bg-[#10263F] p-7 text-white sm:p-9 lg:p-10">
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <p className="text-[7px] font-black uppercase tracking-[0.27em] text-[#FFD76A]">
-                      Club Wordmark
-                    </p>
-
-                    <h3 className="mt-3 text-[1.8rem] font-black uppercase tracking-[-0.04em] sm:text-[2rem]">
-                      The Script
-                    </h3>
-                  </div>
-
-                  <span className="h-2 w-2 bg-[#B3262D]" />
-                </div>
-
-                <div className="mt-8 flex min-h-[190px] items-center justify-center sm:min-h-[230px]">
-                  <div className="relative h-[150px] w-full max-w-[760px] sm:h-[190px] lg:h-[215px]">
-                    <Image
-                      src="/logos/script.png"
-                      alt="The Gallaspy Script"
-                      fill
-                      sizes="(max-width: 1024px) 90vw, 760px"
-                      className="object-contain"
-                    />
-                  </div>
-                </div>
-              </article>
+                );
+              })}
             </div>
           </div>
         </div>

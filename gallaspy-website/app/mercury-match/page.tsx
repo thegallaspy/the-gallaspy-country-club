@@ -4,287 +4,392 @@ import Link from "next/link";
 export const metadata = {
   title: "The Mercury Match | The Gallaspy",
   description:
-    "The annual Gallaspy team championship. Team Crest vs. Team Falcon.",
+    "The Mercury Match is The Gallaspy's annual team championship: Team Crest vs. Team Falcon in 18-hole singles match play.",
 };
+
+const matchFormat = [
+  { value: "16", label: "Players" },
+  { value: "8", label: "Matches" },
+  { value: "18", label: "Holes" },
+  { value: "4½", label: "Points To Win" },
+];
+
+const matches = Array.from({ length: 8 }, (_, index) => ({
+  number: String(index + 1).padStart(2, "0"),
+}));
 
 export default function MercuryMatchPage() {
   return (
     <main className="bg-[#F7F4EE] text-[#10263F]">
       {/* HERO */}
       <section className="relative overflow-hidden bg-[#10263F] px-5 pb-20 pt-32 text-white sm:px-8 sm:pt-36 lg:pb-28 lg:pt-40">
-        <div className="absolute -right-16 top-20 select-none font-serif text-[13rem] leading-none text-white/[0.025] sm:text-[20rem] lg:text-[28rem]">
-          M
-        </div>
+        <div className="absolute inset-y-0 right-0 hidden w-[32%] bg-[#0C352D] lg:block" />
 
-        <div className="relative mx-auto max-w-[1120px]">
-          <p className="text-[10px] font-bold uppercase tracking-[0.36em] text-[#D7B56D]">
-            The Gallaspy · September
+        <div className="relative mx-auto max-w-[1200px]">
+          <p className="text-[9px] font-black uppercase tracking-[0.34em] text-[#FFD76A]">
+            Annual Team Championship
           </p>
 
-          <h1 className="mt-6 max-w-5xl font-serif text-[4rem] font-light leading-[0.9] sm:text-7xl lg:text-[6.5rem]">
+          <h1 className="mt-7 max-w-5xl text-[3.8rem] font-black uppercase leading-[0.84] tracking-[-0.06em] sm:text-[5.5rem] lg:text-[7rem]">
             The Mercury
-            <span className="block text-[#D7B56D]">Match.</span>
+            <span className="block text-[#E56A70]">Match.</span>
           </h1>
 
           <div className="mt-10 grid gap-8 border-t border-white/15 pt-8 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-white">
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#FFD76A]">
                 Crest vs. Falcon
               </p>
 
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/60 sm:text-base sm:leading-8">
-                The annual team championship of The Gallaspy. Two permanent
-                houses meet in competition each September to play for the
-                match, their team, and a place in club history.
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/65 sm:text-base sm:leading-8">
+                Each golfer represents one team and plays one opponent
+                head-to-head over 18 holes of singles match play.
               </p>
             </div>
 
-            <p className="font-serif text-xl text-[#D7B56D] sm:text-2xl">
-              Two Houses. One Club. One Match.
+            <p className="text-right text-[9px] font-black uppercase tracking-[0.25em] text-white/40">
+              Inaugural Match
+              <span className="mt-2 block text-base tracking-[0.08em] text-white">
+                September 2027
+              </span>
             </p>
           </div>
         </div>
       </section>
 
       {/* TWO HOUSES */}
-      <section>
-        <div className="grid lg:grid-cols-2">
-          {/* CREST */}
-          <article className="flex min-h-[420px] flex-col justify-between bg-[#0C352D] px-6 py-12 text-white sm:px-10 lg:min-h-[520px] lg:px-16 lg:py-16">
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#D7B56D]">
-                House 01
-              </p>
+      <section className="px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="mb-10">
+            <p className="text-[9px] font-black uppercase tracking-[0.34em] text-[#B3262D]">
+              The Rivalry
+            </p>
 
-              <div className="relative mt-8 h-[150px] w-[170px] sm:h-[180px] sm:w-[200px]">
-                <Image
-                  src="/logos/crest.png"
-                  alt="The Gallaspy Crest"
-                  fill
-                  sizes="200px"
-                  className="object-contain object-left"
-                  priority
-                />
+            <h2 className="mt-5 text-[2.8rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4rem]">
+              Two Houses.
+              <span className="block text-[#0C352D]">One Club.</span>
+            </h2>
+          </div>
+
+          <div className="grid overflow-hidden border border-[#10263F]/15 lg:grid-cols-2">
+            {/* CREST */}
+            <article className="relative flex min-h-[430px] flex-col justify-between bg-[#0C352D] p-8 text-white sm:p-10 lg:p-12">
+              <div className="flex items-center justify-between">
+                <p className="text-[8px] font-black uppercase tracking-[0.3em] text-[#FFD76A]">
+                  Team Crest
+                </p>
+                <span className="text-[8px] font-black uppercase tracking-[0.25em] text-white/40">
+                  Forest Green
+                </span>
               </div>
 
-              <h2 className="mt-8 font-serif text-5xl font-light sm:text-6xl">
-                Team Crest
-              </h2>
-
-              <p className="mt-3 text-[10px] font-bold uppercase tracking-[0.25em] text-white/45">
-                Forest Green
-              </p>
-            </div>
-
-            <div>
-              <div className="mb-7 h-px w-full bg-white/15" />
-
-              <p className="max-w-lg text-sm leading-7 text-white/60">
-                One half of the permanent Mercury Match rivalry. Team Crest
-                carries forest green into the annual competition.
-              </p>
-            </div>
-          </article>
-
-          {/* FALCON */}
-          <article className="flex min-h-[420px] flex-col justify-between bg-[#10263F] px-6 py-12 text-white sm:px-10 lg:min-h-[520px] lg:px-16 lg:py-16">
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#D7B56D]">
-                House 02
-              </p>
-
-              <div className="relative mt-8 h-[150px] w-[170px] sm:h-[180px] sm:w-[200px]">
-                <Image
-                  src="/logos/falcon.png"
-                  alt="The Gallaspy Falcon"
-                  fill
-                  sizes="200px"
-                  className="object-contain object-left"
-                  priority
-                />
+              <div className="flex flex-1 items-center justify-center py-8">
+                <div className="relative h-[190px] w-[190px] sm:h-[220px] sm:w-[220px]">
+                  <Image
+                    src="/logos/crest.png"
+                    alt="Team Crest"
+                    fill
+                    sizes="220px"
+                    className="object-contain"
+                  />
+                </div>
               </div>
 
-              <h2 className="mt-8 font-serif text-5xl font-light sm:text-6xl">
-                Team Falcon
-              </h2>
+              <h3 className="text-[2rem] font-black uppercase tracking-[-0.04em]">
+                Crest
+              </h3>
+            </article>
 
-              <p className="mt-3 text-[10px] font-bold uppercase tracking-[0.25em] text-white/45">
-                Navy Blue
-              </p>
-            </div>
+            {/* FALCON */}
+            <article className="relative flex min-h-[430px] flex-col justify-between bg-[#10263F] p-8 text-white sm:p-10 lg:p-12">
+              <div className="flex items-center justify-between">
+                <p className="text-[8px] font-black uppercase tracking-[0.3em] text-[#FFD76A]">
+                  Team Falcon
+                </p>
+                <span className="text-[8px] font-black uppercase tracking-[0.25em] text-white/40">
+                  Navy Blue
+                </span>
+              </div>
 
-            <div>
-              <div className="mb-7 h-px w-full bg-white/15" />
+              <div className="flex flex-1 items-center justify-center py-8">
+                <div className="relative h-[190px] w-[190px] sm:h-[220px] sm:w-[220px]">
+                  <Image
+                    src="/logos/falcon.png"
+                    alt="Team Falcon"
+                    fill
+                    sizes="220px"
+                    className="object-contain"
+                  />
+                </div>
+              </div>
 
-              <p className="max-w-lg text-sm leading-7 text-white/60">
-                The opposing house of the Mercury Match. Team Falcon carries
-                navy into the annual competition.
-              </p>
-            </div>
-          </article>
+              <h3 className="text-[2rem] font-black uppercase tracking-[-0.04em]">
+                Falcon
+              </h3>
+            </article>
+          </div>
         </div>
       </section>
 
-      {/* THE MATCH */}
-      <section className="px-5 py-16 sm:px-8 lg:py-24">
-        <div className="mx-auto grid max-w-[1120px] gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#B89146]">
-              The Competition
-            </p>
+      {/* FORMAT */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-[1200px] px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
+          <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+            <div>
+              <p className="text-[9px] font-black uppercase tracking-[0.34em] text-[#B3262D]">
+                The Format
+              </p>
+
+              <h2 className="mt-5 text-[2.8rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4rem]">
+                Singles
+                <span className="block text-[#0C352D]">Match Play.</span>
+              </h2>
+            </div>
+
+            <div>
+              <p className="max-w-2xl text-base leading-8 text-[#33475B]/75">
+                The inaugural Mercury Match is structured around eight golfers
+                representing Team Crest and eight representing Team Falcon.
+                Each player competes against one opponent over 18 holes of
+                singles match play.
+              </p>
+
+              <div className="mt-10 grid grid-cols-2 border-l border-t border-[#10263F]/15 sm:grid-cols-4">
+                {matchFormat.map((item) => (
+                  <div
+                    key={item.label}
+                    className="border-b border-r border-[#10263F]/15 p-5 sm:p-6"
+                  >
+                    <p className="text-[2.3rem] font-black tracking-[-0.05em] text-[#10263F]">
+                      {item.value}
+                    </p>
+                    <p className="mt-2 text-[7px] font-black uppercase tracking-[0.22em] text-[#8B6A34]">
+                      {item.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
+        </div>
+      </section>
 
-          <div>
-            <h2 className="max-w-3xl font-serif text-[2.8rem] font-light leading-[1.05] sm:text-5xl">
-              A rivalry built
-              <span className="block text-[#8B6A34]">to outlast us.</span>
-            </h2>
+      {/* SCORING */}
+      <section className="bg-[#10263F] px-5 py-16 text-white sm:px-8 lg:px-10 lg:py-24">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-20">
+            <div>
+              <p className="text-[9px] font-black uppercase tracking-[0.34em] text-[#FFD76A]">
+                The Scoring
+              </p>
 
-            <p className="mt-7 max-w-2xl text-sm leading-7 text-[#33475B]/75 sm:text-base sm:leading-8">
-              The Mercury Match is designed as a permanent fixture of the
-              Gallaspy calendar. Crest and Falcon return each year, creating
-              an ongoing competitive history rather than a new identity every
-              season.
-            </p>
+              <h2 className="mt-5 text-[2.8rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4rem]">
+                Every Match
+                <span className="block text-[#E56A70]">Matters.</span>
+              </h2>
+            </div>
 
-            <p className="mt-5 max-w-2xl text-sm leading-7 text-[#33475B]/75 sm:text-base sm:leading-8">
-              Captains, rosters, match format, host venue, and the details of
-              the inaugural competition will be announced as they are
-              confirmed.
-            </p>
+            <div>
+              <div className="border-t border-white/15">
+                {[
+                  ["Win", "1 Point"],
+                  ["Tie After 18", "½ Point Each"],
+                  ["Loss", "0 Points"],
+                ].map(([result, points]) => (
+                  <div
+                    key={result}
+                    className="flex items-center justify-between gap-6 border-b border-white/15 py-6"
+                  >
+                    <p className="text-[9px] font-black uppercase tracking-[0.25em] text-white/50">
+                      {result}
+                    </p>
+                    <p className="text-xl font-black uppercase tracking-[-0.03em] text-white">
+                      {points}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <p className="mt-8 max-w-2xl text-sm leading-7 text-white/60 sm:text-base sm:leading-8">
+                Eight total points are available. The first team to reach
+                4½ points wins the Mercury Match and the Team Championship.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CAPTAIN'S REVEAL */}
+      <section className="px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+            <div>
+              <p className="text-[9px] font-black uppercase tracking-[0.34em] text-[#B3262D]">
+                Mercury Match Week
+              </p>
+
+              <h2 className="mt-5 text-[2.8rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4rem]">
+                The Captain&apos;s
+                <span className="block text-[#0C352D]">Reveal.</span>
+              </h2>
+
+              <p className="mt-7 max-w-md text-sm leading-7 text-[#33475B]/75">
+                Each captain privately submits a lineup from Match 1 through
+                Match 8. Neither captain sees the opposing lineup beforehand.
+                The matchups are then revealed one at a time.
+              </p>
+            </div>
+
+            <div className="border-t border-[#10263F]/20">
+              {matches.map((match) => (
+                <div
+                  key={match.number}
+                  className="grid grid-cols-[65px_1fr] items-center border-b border-[#10263F]/15 py-5 sm:grid-cols-[90px_1fr]"
+                >
+                  <p className="text-[8px] font-black uppercase tracking-[0.24em] text-[#8B6A34]">
+                    Match {match.number}
+                  </p>
+
+                  <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4">
+                    <p className="text-right text-sm font-black uppercase tracking-[0.12em] text-[#0C352D]">
+                      Crest
+                    </p>
+
+                    <span className="text-[8px] font-black uppercase tracking-[0.2em] text-[#B3262D]">
+                      vs.
+                    </span>
+
+                    <p className="text-sm font-black uppercase tracking-[0.12em] text-[#10263F]">
+                      Falcon
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* TIEBREAKER */}
+      <section className="bg-[#0C352D] px-5 py-16 text-white sm:px-8 lg:px-10 lg:py-24">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:items-end lg:gap-20">
+            <div>
+              <p className="text-[9px] font-black uppercase tracking-[0.34em] text-[#FFD76A]">
+                If It Ends 4–4
+              </p>
+
+              <p className="mt-5 text-[4rem] font-black leading-none tracking-[-0.07em] text-white sm:text-[6rem]">
+                SUDDEN
+                <span className="block text-[#E56A70]">DEATH.</span>
+              </p>
+            </div>
+
+            <div>
+              <p className="max-w-2xl text-base leading-8 text-white/65">
+                If the overall championship finishes tied at 4–4, each captain
+                selects one golfer from their team for a sudden-death playoff.
+                Those golfers do not have to be the Match 8 players.
+              </p>
+
+              <p className="mt-5 max-w-2xl text-base leading-8 text-white/65">
+                The selected players return to the designated playoff hole and
+                compete head-to-head, one hole at a time, until one player wins
+                a hole and decides the Mercury Match.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* INAUGURAL MATCH */}
-      <section className="bg-[#EEE8DC] px-5 py-16 sm:px-8 lg:py-20">
-        <div className="mx-auto max-w-[1120px]">
-          <div className="grid gap-10 lg:grid-cols-[1fr_0.8fr] lg:items-end lg:gap-20">
+      <section className="bg-white px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#8B6A34]">
+              <p className="text-[9px] font-black uppercase tracking-[0.34em] text-[#B3262D]">
                 Inaugural Match
               </p>
 
-              <h2 className="mt-4 font-serif text-[3rem] font-light leading-none sm:text-5xl">
-                September 2027
+              <h2 className="mt-5 text-[2.8rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4rem]">
+                September
+                <span className="block text-[#0C352D]">2027.</span>
               </h2>
-
-              <p className="mt-6 max-w-xl text-sm leading-7 text-[#33475B]/75">
-                The first Mercury Match is planned for September 2027.
-                Additional details will be released as the inaugural
-                competition takes shape.
-              </p>
             </div>
 
-            <div className="border-l border-[#10263F]/15 pl-6 sm:pl-8">
-              <div className="space-y-5">
-                <div>
-                  <p className="text-[9px] font-bold uppercase tracking-[0.24em] text-[#10263F]/40">
-                    Teams
+            <div className="border-t border-[#10263F]/15">
+              {[
+                ["Teams", "Crest vs. Falcon"],
+                ["Field", "16 Golfers · 8 Per Team"],
+                ["Format", "18-Hole Singles Match Play"],
+                ["Date", "September 2027 · Exact Date TBA"],
+                ["Host Course", "To Be Announced"],
+              ].map(([label, value]) => (
+                <div
+                  key={label}
+                  className="grid gap-2 border-b border-[#10263F]/15 py-5 sm:grid-cols-[150px_1fr]"
+                >
+                  <p className="text-[8px] font-black uppercase tracking-[0.24em] text-[#8B6A34]">
+                    {label}
                   </p>
-                  <p className="mt-1 font-serif text-xl">
-                    Crest vs. Falcon
-                  </p>
+                  <p className="text-sm font-bold text-[#10263F]">{value}</p>
                 </div>
-
-                <div>
-                  <p className="text-[9px] font-bold uppercase tracking-[0.24em] text-[#10263F]/40">
-                    Date
-                  </p>
-                  <p className="mt-1 font-serif text-xl">
-                    September 2027 · Exact Date TBA
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-[9px] font-bold uppercase tracking-[0.24em] text-[#10263F]/40">
-                    Host Course
-                  </p>
-                  <p className="mt-1 font-serif text-xl">
-                    To Be Announced
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-[9px] font-bold uppercase tracking-[0.24em] text-[#10263F]/40">
-                    Match Format
-                  </p>
-                  <p className="mt-1 font-serif text-xl">
-                    To Be Announced
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* FUTURE HISTORY */}
-      <section className="bg-[#0C352D] px-5 py-16 text-white sm:px-8 lg:py-24">
-        <div className="mx-auto max-w-[1120px]">
-          <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#D7B56D]">
-            The Record
-          </p>
-
-          <div className="mt-5 grid gap-10 lg:grid-cols-[1fr_0.8fr] lg:items-end">
+      <section className="px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
+        <div className="mx-auto max-w-[1200px] border-t border-[#10263F]/15 pt-12">
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
             <div>
-              <h2 className="font-serif text-[3rem] font-light leading-[1] sm:text-5xl">
-                The score starts
-                <span className="block text-[#D7B56D]">at zero.</span>
-              </h2>
-
-              <p className="mt-6 max-w-xl text-sm leading-7 text-white/60">
-                There is no previous champion and no all-time series yet.
-                The inaugural Mercury Match will establish the first result
-                in what is intended to become a year-by-year club record.
+              <p className="text-[9px] font-black uppercase tracking-[0.34em] text-[#B3262D]">
+                The Record Begins Here
               </p>
             </div>
 
-            <div className="grid grid-cols-2 border border-white/15">
-              <div className="border-r border-white/15 p-6 sm:p-8">
-                <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-white/40">
-                  Crest Wins
-                </p>
-                <p className="mt-3 font-serif text-5xl font-light">0</p>
-              </div>
+            <div>
+              <h2 className="max-w-3xl text-[2.5rem] font-black uppercase leading-[0.9] tracking-[-0.05em] sm:text-[3.5rem]">
+                The First Mercury Match
+                <span className="block text-[#0C352D]">Is Still Ahead.</span>
+              </h2>
 
-              <div className="p-6 sm:p-8">
-                <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-white/40">
-                  Falcon Wins
-                </p>
-                <p className="mt-3 font-serif text-5xl font-light">0</p>
-              </div>
+              <p className="mt-6 max-w-2xl text-sm leading-7 text-[#33475B]/70">
+                The inaugural competition will establish the first champion,
+                first match results, and opening entry in the Mercury Match
+                series. The record will grow from what actually happens on the
+                course.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-[#10263F] px-5 py-14 text-white sm:px-8 lg:py-16">
-        <div className="mx-auto flex max-w-[1120px] flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#D7B56D]">
-              Follow The Beginning
-            </p>
+      {/* SIGNATURE CLOSE */}
+      <section className="bg-[#10263F] px-5 py-20 text-center text-white sm:px-8 lg:py-28">
+        <div className="mx-auto max-w-[1000px]">
+          <p className="text-[9px] font-black uppercase tracking-[0.38em] text-[#FFD76A]">
+            The Mercury Match
+          </p>
 
-            <h2 className="mt-4 max-w-2xl font-serif text-3xl font-light sm:text-4xl">
-              The first Mercury Match is still ahead.
-            </h2>
-          </div>
+          <h2 className="mt-7 text-[3rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4.5rem] lg:text-[5.5rem]">
+            Eight Matches.
+            <span className="block">Eighteen Holes.</span>
+            <span className="block text-[#E56A70]">One Team Champion.</span>
+          </h2>
 
-          <div className="flex flex-wrap gap-3">
+          <p className="mt-8 text-[9px] font-black uppercase tracking-[0.3em] text-white/45">
+            Crest vs. Falcon · Two Houses. One Club. One Match.
+          </p>
+
+          <div className="mt-10">
             <Link
               href="/calendar"
-              className="inline-flex min-h-[48px] items-center justify-center border border-white/25 px-7 text-[9px] font-bold uppercase tracking-[0.22em] text-white transition hover:border-white"
+              className="inline-flex border border-[#FFD76A] px-7 py-4 text-[8px] font-black uppercase tracking-[0.25em] text-[#FFD76A] transition hover:bg-[#FFD76A] hover:text-[#10263F]"
             >
-              Club Calendar
-            </Link>
-
-            <Link
-              href="/falcon-society"
-              className="inline-flex min-h-[48px] items-center justify-center bg-[#D7B56D] px-7 text-[9px] font-bold uppercase tracking-[0.22em] text-[#10263F] transition hover:bg-white"
-            >
-              Founding Community
+              View Club Calendar →
             </Link>
           </div>
         </div>

@@ -3,9 +3,9 @@ import Link from "next/link";
 
 const facts = [
   ["Date", "June 21, 2027"],
-  ["Format", "4-Person Scramble"],
-  ["Field", "100 Players"],
-  ["Start", "11:00 AM"],
+  ["Format", "Individual Stroke Play"],
+  ["Field", "72 Players"],
+  ["Start", "10:00 AM"],
 ];
 
 export default function InvitationalPreview() {
@@ -47,7 +47,7 @@ export default function InvitationalPreview() {
             </h2>
 
             <p className="mt-6 max-w-[650px] text-sm leading-7 text-white/65 sm:text-base">
-              The club&apos;s flagship competition brings 100 golfers together
+              The club&apos;s flagship competition brings 72 golfers together
               for tournament golf, pressure, camaraderie, and the beginning of
               a tradition built to return every year.
             </p>
@@ -57,7 +57,7 @@ export default function InvitationalPreview() {
                 href="/invitational/register"
                 className="inline-flex min-h-[48px] items-center justify-center bg-[#FFD76A] px-6 text-[8px] font-black uppercase tracking-[0.22em] text-[#10263F] transition hover:bg-white"
               >
-                Join Player Priority List →
+                Register Now →
               </Link>
 
               <Link

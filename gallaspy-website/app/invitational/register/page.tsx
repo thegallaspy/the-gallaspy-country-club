@@ -35,7 +35,7 @@ export default function InvitationalRegisterPage() {
           </div>
 
           <p className="mt-8 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">
-            Registration Now Open
+            Player Registration
           </p>
 
           <h1 className="mt-5 max-w-4xl font-serif text-5xl leading-[0.98] sm:text-6xl lg:text-7xl">
@@ -75,22 +75,22 @@ export default function InvitationalRegisterPage() {
         <div className="mx-auto grid max-w-[1200px] grid-cols-2 md:grid-cols-4">
           <Snapshot
             label="Format"
-            value="4-Person Scramble"
+            value="Individual Stroke Play"
           />
 
           <Snapshot
             label="Field"
-            value="100 Players"
+            value="72 Players"
           />
 
           <Snapshot
-            label="Prize Purse"
-            value="$10,000"
+            label="Championships"
+            value="Gross & Net"
           />
 
           <Snapshot
             label="Start"
-            value="11:00 AM"
+            value="10:00 AM"
             last
           />
         </div>
@@ -109,9 +109,10 @@ export default function InvitationalRegisterPage() {
             </h2>
 
             <p className="mt-6 text-sm leading-7 text-[#10263F]/65">
-              Registration begins at $200 per player. Players
-              may register individually or secure multiple
-              positions for their group.
+              The Invitational uses individual player registration.
+              Each golfer completes a separate entry so scoring,
+              handicap eligibility, waivers, apparel sizing, and payment
+              records remain tied to that individual player.
             </p>
 
             <div className="mt-8 border-l-2 border-[#B89146] pl-5">
@@ -126,44 +127,54 @@ export default function InvitationalRegisterPage() {
 
           <div className="rounded-[24px] bg-[#10263F] p-7 text-white sm:p-10">
             <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[#FFD76A]">
-              Registration Options
+              Individual Entry
             </p>
 
             <h3 className="mt-4 font-serif text-3xl sm:text-4xl">
-              Choose your entry.
+              One golfer. One championship entry.
             </h3>
 
-            <div className="mt-8 divide-y divide-white/10 border-y border-white/10">
-              <PriceRow
-                title="Individual Player"
-                players="1 Player"
-                price="$200"
-              />
+            <div className="mt-8 border-y border-white/10 py-7">
+              <div className="grid gap-6 sm:grid-cols-2">
+                <div>
+                  <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#FFD76A]">
+                    Registration
+                  </p>
+                  <p className="mt-2 font-serif text-2xl">
+                    Individual Player
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-white/55">
+                    One player per registration.
+                  </p>
+                </div>
 
-              <PriceRow
-                title="Two Players"
-                players="2 Players"
-                price="$400"
-              />
+                <div>
+                  <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#FFD76A]">
+                    Competition
+                  </p>
+                  <p className="mt-2 font-serif text-2xl">
+                    Gross &amp; Net
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-white/55">
+                    Handicap verification is required for Net eligibility.
+                  </p>
+                </div>
+              </div>
+            </div>
 
-              <PriceRow
-                title="Three Players"
-                players="3 Players"
-                price="$600"
-              />
-
-              <PriceRow
-                title="Full Foursome"
-                players="4 Players"
-                price="$800"
-              />
+            <div className="mt-7 border-l-2 border-[#FFD76A] pl-5">
+              <p className="text-sm leading-7 text-white/65">
+                Every player competes in the Gross Championship. Players
+                with a verified GHIN or other tournament-recognized handicap
+                are also eligible for the separate Net Championship.
+              </p>
             </div>
 
             <Link
               href="/invitational/checkout"
               className="mt-8 inline-flex min-h-[56px] w-full items-center justify-center rounded-full bg-[#FFD76A] px-8 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#10263F] transition hover:bg-white"
             >
-              Begin Registration
+              Continue to Registration
             </Link>
 
             <p className="mt-5 text-center text-[10px] leading-5 text-white/45">

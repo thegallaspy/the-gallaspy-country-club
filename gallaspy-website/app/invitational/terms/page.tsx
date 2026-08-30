@@ -47,7 +47,7 @@ export default function InvitationalTermsPage() {
           <div className="mb-10 border-l-2 border-[#B89146] bg-white px-6 py-5">
             <p className="text-sm leading-7 text-[#10263F]/65">
               <strong className="text-[#10263F]">Last Updated:</strong>{" "}
-              August 18, 2026
+              August 30, 2026
             </p>
           </div>
 
@@ -78,11 +78,16 @@ export default function InvitationalTermsPage() {
             </TermSection>
 
             <TermSection number="04" title="Field & Tournament Format">
-              The inaugural Gallaspy Invitational is planned as a 4-person
-              scramble with a field of up to 100 players. The organizer reserves
-              the right to adjust the field size, groupings, starting assignments,
-              tournament procedures, or other operational details when reasonably
-              necessary for the administration of the event.
+              The inaugural Gallaspy Invitational is planned as an 18-hole
+              individual stroke-play championship with a field of 72 players.
+              Each participant competes individually and is responsible for
+              completing and returning their own score in accordance with the
+              Official Tournament Rules.
+
+              The organizer reserves the right to adjust the field size,
+              groupings, starting assignments, tournament procedures, or other
+              operational details when reasonably necessary for the administration
+              of the event.
             </TermSection>
 
             <TermSection number="05" title="Registration Fees">
@@ -150,15 +155,25 @@ export default function InvitationalTermsPage() {
               materially inconsistent with tournament or host-facility rules.
             </TermSection>
 
-            <TermSection number="12" title="Eligibility & Prizes">
-              Eligibility requirements and the terms governing prizes, contests,
-              awards, and any announced prize purse will be established in the
-              Official Tournament Rules and Prize & Awards Policy.
+            <TermSection number="12" title="Championship Eligibility & Awards">
+              Every registered participant who satisfies the applicable tournament
+              requirements is eligible to compete in the Gross Championship. The
+              golfer recording the lowest actual gross score over 18 holes is
+              recognized as The Gallaspy Invitational Champion, subject to the
+              Official Tournament Rules and resolution of any applicable tie.
 
-              Participants are responsible for determining whether accepting a
-              particular prize could affect their eligibility or status under
-              rules applicable to them. Prize eligibility may be subject to
-              verification before an award is issued.
+              The Net Championship is a separate competition. Eligibility for the
+              Net Championship requires a current GHIN or other handicap recognized
+              by the Tournament Committee. Handicap information is subject to
+              verification, and submission of a handicap during registration does
+              not by itself establish Net Championship eligibility.
+
+              The terms governing prizes, contests, awards, and any announced
+              prize amounts will be established in the Official Tournament Rules
+              and Prize & Awards Policy. Participants are responsible for
+              determining whether accepting a particular prize could affect their
+              eligibility or status under rules applicable to them. Prize
+              eligibility may be subject to verification before an award is issued.
             </TermSection>
 
             <TermSection number="13" title="Liability Waiver">
@@ -196,9 +211,10 @@ export default function InvitationalTermsPage() {
 
             <TermSection number="17" title="Accuracy of Information">
               Participants are responsible for providing accurate names, contact
-              information, team information, apparel sizing, and other requested
-              information. The organizer is not responsible for errors resulting
-              from inaccurate information submitted by a participant.
+              information, apparel sizing, handicap information when submitted,
+              and other requested information. The organizer is not responsible
+              for errors resulting from inaccurate information submitted by a
+              participant.
             </TermSection>
 
             <TermSection number="18" title="Electronic Communications">
@@ -271,7 +287,7 @@ export default function InvitationalTermsPage() {
               href="/invitational/register"
               className="mt-7 inline-flex min-h-[50px] items-center justify-center rounded-full bg-[#FFD76A] px-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#10263F] transition hover:bg-white"
             >
-              Join the Priority List
+              Player Registration
             </Link>
           </div>
 

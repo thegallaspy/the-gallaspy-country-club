@@ -73,9 +73,7 @@ export async function POST(request: NextRequest) {
       city,
       state,
       shirtSize,
-      teamName,
-      registrationType,
-      additionalPlayers = [],
+
       acceptedTerms,
       acceptedRefund,
       acceptedWaiver,
@@ -95,15 +93,11 @@ export async function POST(request: NextRequest) {
 
     const playerQuantity = Number(quantity);
 
-    if (
-      !Number.isInteger(playerQuantity) ||
-      playerQuantity < 1 ||
-      playerQuantity > 4
-    ) {
+    if (playerQuantity !== 1) {
       return NextResponse.json(
         {
           error:
-            "Invalid registration quantity.",
+            "The Gallaspy Invitational accepts one golfer per registration.",
         },
         { status: 400 }
       );
@@ -142,20 +136,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (
-      !Array.isArray(additionalPlayers) ||
-      additionalPlayers.length !== playerQuantity - 1
-    ) {
-      return NextResponse.json(
-        {
-          error:
-            "Additional player information does not match the selected registration quantity.",
-        },
-        { status: 400 }
-      );
-    }
-
-    const amount = PLAYER_PRICE_CENTS * playerQuantity;
+const amount = PLAYER_PRICE_CENTS;
 
     const squareBaseUrl =
       squareEnvironment === "production"
@@ -188,10 +169,7 @@ export async function POST(request: NextRequest) {
           location_id: locationId,
           autocomplete: true,
           reference_id: registrationReference,
-          note: `2027 Gallaspy Invitational - ${
-            registrationType ||
-            `${playerQuantity} player registration`
-          } - ${firstName} ${lastName}`,
+          note: `2027 Gallaspy Invitational - Individual Player - ${firstName} ${lastName}`,
         }),
       }
     );
@@ -244,9 +222,7 @@ export async function POST(request: NextRequest) {
       registration_status: "paid",
       payment_status: "completed",
 
-      registration_type:
-        registrationType ||
-        `${playerQuantity} Player Registration`,
+      registration_type: "Individual Player",
 
       player_quantity: playerQuantity,
 
@@ -268,10 +244,6 @@ export async function POST(request: NextRequest) {
       primary_state: state || null,
       primary_shirt_size:
         shirtSize || null,
-      team_name: teamName || null,
-
-      additional_players:
-        additionalPlayers,
 
       accepted_terms: true,
       accepted_refund_policy: true,
@@ -333,41 +305,6 @@ export async function POST(request: NextRequest) {
     })}`;
 
     const fullName = `${firstName} ${lastName}`;
-
-    const additionalPlayersHtml =
-      additionalPlayers.length > 0
-        ? additionalPlayers
-            .map(
-              (
-                player: {
-                  firstName: string;
-                  lastName: string;
-                  email: string;
-                  shirtSize: string;
-                },
-                index: number
-              ) => `
-                <div
-                  style="
-                    margin-top: 14px;
-                    padding: 16px;
-                    background: #F7F4EE;
-                    border-left: 3px solid #B89146;
-                  "
-                >
-                  <strong>Player ${index + 2}</strong><br />
-                  ${player.firstName} ${player.lastName}<br />
-                  ${player.email}<br />
-                  Polo Size: ${player.shirtSize}
-                </div>
-              `
-            )
-            .join("")
-        : `
-          <p style="color: #667085;">
-            No additional players included.
-          </p>
-        `;
 
     const playerEmailResult =
       await resend.emails.send({
@@ -482,7 +419,7 @@ export async function POST(request: NextRequest) {
                       text-align: right;
                     "
                   >
-                    ${registrationType}
+                    Individual Player
                   </td>
                 </tr>
 
@@ -497,7 +434,7 @@ export async function POST(request: NextRequest) {
                       text-align: right;
                     "
                   >
-                    ${playerQuantity}
+                    1
                   </td>
                 </tr>
 
@@ -531,20 +468,7 @@ export async function POST(request: NextRequest) {
                   </td>
                 </tr>
 
-                <tr>
-                  <td style="padding: 10px 0;">
-                    <strong>Team Name</strong>
-                  </td>
 
-                  <td
-                    style="
-                      padding: 10px 0;
-                      text-align: right;
-                    "
-                  >
-                    ${teamName || "Not provided"}
-                  </td>
-                </tr>
               </tbody>
             </table>
 
@@ -570,9 +494,10 @@ export async function POST(request: NextRequest) {
 
               <p style="margin: 0;">
                 June 21, 2027<br />
-                4-Person Scramble<br />
-                100-Player Field<br />
-                $10,000 Championship Purse
+                72-Player Field<br />
+                18-Hole Individual Stroke Play<br />
+                Gross &amp; Net Competition<br />
+                10:00 AM Shotgun Start
               </p>
             </div>
 
@@ -752,7 +677,7 @@ export async function POST(request: NextRequest) {
                   </td>
 
                   <td style="padding: 9px 0;">
-                    ${registrationType}
+                    Individual Player
                   </td>
                 </tr>
 
@@ -762,7 +687,7 @@ export async function POST(request: NextRequest) {
                   </td>
 
                   <td style="padding: 9px 0;">
-                    ${playerQuantity}
+                    1
                   </td>
                 </tr>
 
@@ -778,7 +703,7 @@ export async function POST(request: NextRequest) {
 
                 <tr>
                   <td style="padding: 9px 0;">
-                    <strong>Primary Polo Size</strong>
+                    <strong>Polo Size</strong>
                   </td>
 
                   <td style="padding: 9px 0;">
@@ -786,15 +711,7 @@ export async function POST(request: NextRequest) {
                   </td>
                 </tr>
 
-                <tr>
-                  <td style="padding: 9px 0;">
-                    <strong>Team Name</strong>
-                  </td>
 
-                  <td style="padding: 9px 0;">
-                    ${teamName || "Not provided"}
-                  </td>
-                </tr>
 
                 <tr>
                   <td style="padding: 9px 0;">
@@ -813,15 +730,7 @@ export async function POST(request: NextRequest) {
               </tbody>
             </table>
 
-            <div style="margin-top: 30px;">
-              <h2 style="font-size: 20px;">
-                Additional Players
-              </h2>
-
-              ${additionalPlayersHtml}
-            </div>
-
-            <div
+<div
               style="
                 margin-top: 30px;
                 padding: 18px;

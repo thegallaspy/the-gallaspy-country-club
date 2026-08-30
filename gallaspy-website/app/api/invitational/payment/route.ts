@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
       city,
       state,
       shirtSize,
-      teamName,
+
       registrationType,
       additionalPlayers = [],
       acceptedTerms,
@@ -80,15 +80,10 @@ export async function POST(request: NextRequest) {
 
     const playerQuantity = Number(quantity);
 
-    if (
-      !Number.isInteger(playerQuantity) ||
-      playerQuantity < 1 ||
-      playerQuantity > 4
-    ) {
+    if (playerQuantity !== 1) {
       return NextResponse.json(
         {
-          error:
-            "Invalid registration quantity.",
+          error: "The 2027 Gallaspy Invitational accepts one player per registration.",
         },
         { status: 400 }
       );
@@ -119,20 +114,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (
-      !Array.isArray(additionalPlayers) ||
-      additionalPlayers.length !== playerQuantity - 1
-    ) {
+    if (!Array.isArray(additionalPlayers) || additionalPlayers.length !== 0) {
       return NextResponse.json(
         {
-          error:
-            "Additional player information does not match the selected registration quantity.",
+          error: "Additional players are not permitted on an individual registration.",
         },
         { status: 400 }
       );
     }
 
-    const amount = PLAYER_PRICE_CENTS * playerQuantity;
+    const amount = PLAYER_PRICE_CENTS;
 
     const squareBaseUrl =
       squareEnvironment === "production"
@@ -164,10 +155,7 @@ export async function POST(request: NextRequest) {
           location_id: locationId,
           autocomplete: true,
           reference_id: registrationReference,
-          note: `2027 Gallaspy Invitational - ${
-            registrationType ||
-            `${playerQuantity} player registration`
-          } - ${firstName} ${lastName}`,
+          note: `2027 Gallaspy Invitational - Individual Player - ${firstName} ${lastName}`,
         }),
       }
     );
@@ -220,11 +208,9 @@ export async function POST(request: NextRequest) {
       registration_status: "paid",
       payment_status: "completed",
 
-      registration_type:
-        registrationType ||
-        `${playerQuantity} Player Registration`,
+      registration_type: "Individual Player",
 
-      player_quantity: playerQuantity,
+      player_quantity: 1,
 
       price_per_player_cents:
         PLAYER_PRICE_CENTS,
@@ -244,10 +230,6 @@ export async function POST(request: NextRequest) {
       primary_state: state || null,
       primary_shirt_size:
         shirtSize || null,
-      team_name: teamName || null,
-
-      additional_players:
-        additionalPlayers,
 
       accepted_terms: true,
       accepted_refund_policy: true,

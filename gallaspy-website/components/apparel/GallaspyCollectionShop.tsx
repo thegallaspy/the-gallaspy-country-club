@@ -360,13 +360,13 @@ function WomenProductCard({
 
   return (
     <article className="group overflow-hidden rounded-[22px] border border-[#10263F]/10 bg-[#F7F4EE] transition duration-300 hover:-translate-y-1 hover:border-[#B89146]/35 hover:shadow-[0_20px_50px_rgba(16,38,63,0.1)]">
-      <div className="relative aspect-[4/5] overflow-hidden bg-[#ECE6DB]">
+      <div className="relative aspect-[4/5] overflow-hidden bg-transparent">
         <Image
           src={image}
           alt={name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition duration-500 group-hover:scale-[1.015]"
+          className="object-contain transition duration-500 group-hover:scale-[1.015]"
         />
 
         <div className="absolute left-4 top-4 rounded-full border border-white/30 bg-[#10263F]/75 px-3 py-1.5 backdrop-blur-md">
