@@ -150,7 +150,11 @@ export default function BagPage() {
                   className="grid grid-cols-[105px_1fr] gap-5 border-b border-[#10263F]/15 py-6 sm:grid-cols-[145px_1fr]"
                 >
                   <Link
-                    href={`/apparel/${item.slug}`}
+                    href={
+  item.slug.startsWith("falcon-society-")
+    ? "/falcon-society/members/shop"
+    : `/apparel/${item.slug}`
+}
                     className="relative aspect-[4/5] overflow-hidden bg-[#ECE8DF]"
                   >
                     <Image
@@ -171,7 +175,11 @@ export default function BagPage() {
                           </p>
 
                           <Link
-                            href={`/apparel/${item.slug}`}
+                            href={
+  item.slug.startsWith("falcon-society-")
+    ? "/falcon-society/members/shop"
+    : `/apparel/${item.slug}`
+}
                             className="mt-1 block font-serif text-lg leading-tight transition hover:text-[#B3262D] sm:text-xl"
                           >
                             {item.name}

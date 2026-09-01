@@ -2,6 +2,10 @@ import { randomUUID } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
+import {
+  getFalconSocietyCookieName,
+  verifyFalconSocietySession,
+} from "@/lib/falcon-society-auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -264,6 +268,98 @@ const PRODUCT_CATALOG: Record<string, CatalogProduct> = {
     priceCents: 4500,
     sizes: ["One Size"],
   },
+
+  // Falcon Society — members only
+  "falcon-society-founder-mens-polo": {
+    name: "Men's Founder Polo",
+    category: "Falcon Society Men's Apparel",
+    color: "Founder Red",
+    mark: "Falcon Society",
+    image:
+      "/images/apparel/falcon-society/men/red-founder-mens-polo.png",
+    priceCents: 7600,
+    sizes: ["S", "M", "L", "XL", "XXL"],
+  },
+  "falcon-society-founder-mens-vest": {
+    name: "Men's Founder Vest",
+    category: "Falcon Society Men's Apparel",
+    color: "Founder Red",
+    mark: "Falcon Society",
+    image:
+      "/images/apparel/falcon-society/men/red-founder-mens-vest.png",
+    priceCents: 8400,
+    sizes: ["S", "M", "L", "XL", "XXL"],
+  },
+  "falcon-society-founder-womens-polo": {
+    name: "Women's Founder Polo",
+    category: "Falcon Society Women's Apparel",
+    color: "Founder Red",
+    mark: "Falcon Society",
+    image:
+      "/images/apparel/falcon-society/women/red-founder-womens-polo.png",
+    priceCents: 7600,
+    sizes: ["XS", "S", "M", "L", "XL"],
+  },
+  "falcon-society-founder-womens-sleeveless-quarter-zip": {
+    name: "Women's Founder Sleeveless Quarter-Zip",
+    category: "Falcon Society Women's Apparel",
+    color: "Founder Red",
+    mark: "Falcon Society",
+    image:
+      "/images/apparel/falcon-society/women/red-founder-womens-sleeveless-quarter-zip.png",
+    priceCents: 8000,
+    sizes: ["XS", "S", "M", "L", "XL"],
+  },
+  "falcon-society-founder-womens-skirt": {
+    name: "Women's Founder Skirt",
+    category: "Falcon Society Women's Apparel",
+    color: "Founder Red",
+    mark: "Falcon Society",
+    image:
+      "/images/apparel/falcon-society/women/red-founder-womens-skirt.png",
+    priceCents: 6800,
+    sizes: ["XS", "S", "M", "L", "XL"],
+  },
+  "falcon-society-red-hat": {
+    name: "Red Falcon Society Hat",
+    category: "Falcon Society Headwear",
+    color: "Founder Red",
+    mark: "Falcon Society",
+    image:
+      "/images/apparel/falcon-society/hats/red-falcon-society-hat.png",
+    priceCents: 4500,
+    sizes: ["One Size"],
+  },
+  "falcon-society-navy-hat": {
+    name: "Navy Falcon Society Hat",
+    category: "Falcon Society Headwear",
+    color: "Navy",
+    mark: "Falcon Society",
+    image:
+      "/images/apparel/falcon-society/hats/navy-falcon-society-hat.png",
+    priceCents: 4500,
+    sizes: ["One Size"],
+  },
+  "falcon-society-forest-green-hat": {
+    name: "Forest Green Falcon Society Hat",
+    category: "Falcon Society Headwear",
+    color: "Forest Green",
+    mark: "Falcon Society",
+    image:
+      "/images/apparel/falcon-society/hats/forest-green-falcon-society-hat.png",
+    priceCents: 4500,
+    sizes: ["One Size"],
+  },
+  "falcon-society-white-hat": {
+    name: "White Falcon Society Hat",
+    category: "Falcon Society Headwear",
+    color: "White",
+    mark: "Falcon Society",
+    image:
+      "/images/apparel/falcon-society/hats/white-falcon-society-hat.png",
+    priceCents: 4500,
+    sizes: ["One Size"],
+  },
 };
 
 type RequestItem = {
@@ -442,6 +538,30 @@ export async function POST(request: NextRequest) {
         unitPriceCents: product.priceCents,
         lineTotalCents: product.priceCents * quantity,
       });
+    }
+
+    const containsFalconSocietyItem = validatedItems.some((item) =>
+      item.slug.startsWith("falcon-society-")
+    );
+
+    if (containsFalconSocietyItem) {
+      const sessionToken = request.cookies.get(
+        getFalconSocietyCookieName()
+      )?.value;
+
+      const hasFalconSocietyAccess =
+        await verifyFalconSocietySession(sessionToken);
+
+      if (!hasFalconSocietyAccess) {
+        return NextResponse.json(
+          {
+            success: false,
+            error:
+              "Falcon Society merchandise is available only to authenticated Society members.",
+          },
+          { status: 403 }
+        );
+      }
     }
 
     if (!firstName || !lastName || !email || !phone) {
