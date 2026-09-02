@@ -46,6 +46,10 @@ const navigation = [
     title: "Start Here",
     href: "/start-here",
   },
+  {
+    title: "Member Access",
+    href: "/falcon-society/members",
+  },
 ];
 
 function isRouteActive(pathname: string, href: string) {

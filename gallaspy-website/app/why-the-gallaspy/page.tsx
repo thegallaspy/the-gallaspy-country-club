@@ -47,8 +47,8 @@ const principles = [
 ];
 
 const traditions = [
-  "First Flight",
   "Opening Drive",
+  "Spring Opener",
   "The Gallaspy Invitational",
   "The Mercury Match",
   "Night at the Nest",

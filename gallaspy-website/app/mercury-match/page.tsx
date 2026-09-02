@@ -50,7 +50,7 @@ export default function MercuryMatchPage() {
             <p className="text-right text-[9px] font-black uppercase tracking-[0.25em] text-white/40">
               Inaugural Match
               <span className="mt-2 block text-base tracking-[0.08em] text-white">
-                September 2027
+                October 23, 2027
               </span>
             </p>
           </div>
@@ -312,7 +312,7 @@ export default function MercuryMatchPage() {
               </p>
 
               <h2 className="mt-5 text-[2.8rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4rem]">
-                September
+                October 23
                 <span className="block text-[#0C352D]">2027.</span>
               </h2>
             </div>
@@ -322,7 +322,7 @@ export default function MercuryMatchPage() {
                 ["Teams", "Crest vs. Falcon"],
                 ["Field", "16 Golfers · 8 Per Team"],
                 ["Format", "18-Hole Singles Match Play"],
-                ["Date", "September 2027 · Exact Date TBA"],
+                ["Date", "October 23, 2027"],
                 ["Host Course", "To Be Announced"],
               ].map(([label, value]) => (
                 <div

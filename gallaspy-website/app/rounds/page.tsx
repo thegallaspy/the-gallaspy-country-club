@@ -302,12 +302,22 @@ export default function RoundsPage() {
                     </div>
                   </div>
 
-                  <Link
-                    href={round.href}
-                    className="inline-flex min-h-[42px] items-center justify-center border border-[#10263F]/20 px-5 text-[7px] font-black uppercase tracking-[0.2em] transition hover:bg-[#10263F] hover:text-white"
-                  >
-                    View Round →
-                  </Link>
+                  {round.registrationHref &&
+                  round.status === "REGISTRATION_OPEN" ? (
+                    <Link
+                      href={round.registrationHref}
+                      className="inline-flex min-h-[42px] items-center justify-center bg-[#0C352D] px-5 text-[7px] font-black uppercase tracking-[0.2em] text-white transition hover:bg-[#10263F]"
+                    >
+                      Register →
+                    </Link>
+                  ) : (
+                    <Link
+                      href={round.href}
+                      className="inline-flex min-h-[42px] items-center justify-center border border-[#10263F]/20 px-5 text-[7px] font-black uppercase tracking-[0.2em] transition hover:bg-[#10263F] hover:text-white"
+                    >
+                      View Round →
+                    </Link>
+                  )}
                 </article>
               ))
             ) : (
