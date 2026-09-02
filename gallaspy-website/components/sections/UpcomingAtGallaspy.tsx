@@ -124,7 +124,7 @@ export default function UpcomingAtGallaspy() {
                   event.status === "REGISTRATION_OPEN" ? (
                     <Link
                       href={event.registrationHref}
-                      className="inline-flex min-h-[44px] items-center justify-center border-2 border-[#0C352D] bg-[#0C352D] px-6 text-[9px] font-bold uppercase tracking-[0.2em] text-white transition hover:bg-transparent hover:text-[#0C352D]"
+                      className="inline-flex min-h-[44px] min-w-[128px] items-center justify-center border-2 border-[#0C352D] bg-[#0C352D] px-6 text-[9px] font-black uppercase tracking-[0.2em] !text-white transition hover:bg-transparent hover:!text-[#0C352D]"
                     >
                       Register →
                     </Link>

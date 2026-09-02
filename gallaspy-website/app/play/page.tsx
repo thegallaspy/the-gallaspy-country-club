@@ -77,10 +77,10 @@ export default function PlayPage() {
       {/* HOW WE PLAY */}
       <section className="border-b border-[#10263F]/10 px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+          <div className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:items-end lg:gap-20">
             <div>
               <p className="text-[8px] font-black uppercase tracking-[0.32em] text-[#8B6A34]">
-                The Game Comes First
+                Gallaspy Rounds
               </p>
 
               <h2 className="mt-5 text-[2.8rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[3.8rem]">
@@ -91,70 +91,29 @@ export default function PlayPage() {
               </h2>
             </div>
 
-            <div className="grid gap-px overflow-hidden border border-[#10263F]/12 bg-[#10263F]/12 sm:grid-cols-3">
-              <Link
-                href="/rounds"
-                className="group bg-[#10263F] p-7 text-white transition hover:bg-[#15324F] sm:p-8"
-              >
-                <p className="text-[8px] font-black uppercase tracking-[0.28em] text-[#FFD76A]">
-                  Play
-                </p>
+            <div className="border-l-4 border-[#0C352D] bg-white/45 px-6 py-7 sm:px-8 sm:py-8">
+              <p className="max-w-[650px] text-base leading-8 text-[#10263F]/70">
+                Gallaspy Rounds bring the community together at selected
+                courses throughout the region. Each date is another chance
+                to play, meet other golfers, and be part of the club as its
+                traditions take shape.
+              </p>
 
-                <h3 className="mt-8 text-[1.55rem] font-black uppercase tracking-[-0.04em]">
-                  Gallaspy Rounds
-                </h3>
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <Link
+                  href="/rounds/register"
+                  className="inline-flex min-h-[48px] items-center justify-center bg-[#10263F] px-7 text-[8px] font-black uppercase tracking-[0.22em] text-white transition hover:bg-[#0C352D]"
+                >
+                  Register For A Round →
+                </Link>
 
-                <p className="mt-4 text-[13px] leading-6 text-[#10263F]/55">
-                  Community golf at selected courses throughout the
-                  region.
-                </p>
-
-                <p className="mt-8 text-[8px] font-black uppercase tracking-[0.2em] text-[#0C352D]">
-                  View Rounds →
-                </p>
-              </Link>
-
-              <Link
-                href="/invitational"
-                className="group bg-[#0C352D] p-7 text-white transition hover:bg-[#12483D] sm:p-8"
-              >
-                <p className="text-[8px] font-black uppercase tracking-[0.28em] text-[#FFD76A]">
-                  Compete
-                </p>
-
-                <h3 className="mt-8 text-[1.55rem] font-black uppercase tracking-[-0.04em]">
-                  Invitational
-                </h3>
-
-                <p className="mt-4 text-[13px] leading-6 text-[#10263F]/55">
-                  The flagship annual tournament of The Gallaspy.
-                </p>
-
-                <p className="mt-8 text-[8px] font-black uppercase tracking-[0.2em] text-[#0C352D]">
-                  Explore Tournament →
-                </p>
-              </Link>
-
-              <Link
-                href="/mercury-match"
-                className="group bg-[#10263F] p-7 text-white transition hover:bg-[#15324F] sm:p-8"
-              >
-                <p className="text-[8px] font-black uppercase tracking-[0.28em] text-[#FFD76A]">
-                  Compete
-                </p>
-
-                <h3 className="mt-8 text-[1.55rem] font-black uppercase tracking-[-0.04em]">
-                  Mercury Match
-                </h3>
-
-                <p className="mt-4 text-[13px] leading-6 text-[#10263F]/55">
-                  Crest vs. Falcon. Eight Matches. Eighteen Holes. One Team Champion.
-                </p>
-
-                <p className="mt-8 text-[8px] font-black uppercase tracking-[0.2em] text-[#0C352D]">
-                  Discover The Match →
-                </p>
-              </Link>
+                <Link
+                  href="/rounds"
+                  className="inline-flex min-h-[48px] items-center justify-center border border-[#10263F]/25 px-7 text-[8px] font-black uppercase tracking-[0.22em] text-[#10263F] transition hover:border-[#10263F]"
+                >
+                  Explore Gallaspy Rounds
+                </Link>
+              </div>
             </div>
           </div>
         </div>
