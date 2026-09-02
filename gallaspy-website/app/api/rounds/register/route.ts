@@ -181,6 +181,81 @@ export async function POST(request: Request) {
       );
     }
 
+    const now = new Date().toISOString();
+
+    const { data: player, error: playerError } =
+      await supabase
+        .from("gallaspy_players")
+        .upsert(
+          {
+            first_name: firstName,
+            last_name: lastName,
+            email,
+            phone,
+            city,
+            state,
+            ghin_number: ghinNumber,
+            handicap_index: handicapIndex,
+            last_active_at: now,
+            updated_at: now,
+          },
+          {
+            onConflict: "email",
+          },
+        )
+        .select("id")
+        .single();
+
+    if (playerError || !player) {
+      console.error(
+        "Gallaspy player upsert error:",
+        playerError,
+      );
+
+      return NextResponse.json(
+        {
+          error:
+            "Your Round registration was saved, but we could not update your Gallaspy player record. Please contact The Gallaspy.",
+        },
+        { status: 500 },
+      );
+    }
+
+    const { error: participationError } =
+      await supabase
+        .from("gallaspy_participation")
+        .upsert(
+          {
+            player_id: player.id,
+            event_id: round.id,
+            event_name: round.name,
+            event_date: round.date,
+            event_category: round.category,
+            participation_status: "confirmed",
+            source_registration_type: "gallaspy_round",
+            source_registration_id: registration?.id || null,
+            updated_at: now,
+          },
+          {
+            onConflict: "player_id,event_id",
+          },
+        );
+
+    if (participationError) {
+      console.error(
+        "Gallaspy participation upsert error:",
+        participationError,
+      );
+
+      return NextResponse.json(
+        {
+          error:
+            "Your Round registration was saved, but we could not update your participation record. Please contact The Gallaspy.",
+        },
+        { status: 500 },
+      );
+    }
+
     const resend = new Resend(resendApiKey);
 
     const safeFirstName = escapeHtml(firstName);
