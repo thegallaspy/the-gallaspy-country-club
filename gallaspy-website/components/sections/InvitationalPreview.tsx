@@ -3,9 +3,9 @@ import Link from "next/link";
 
 const facts = [
   ["Date", "June 21, 2027"],
-  ["Format", "Individual Stroke Play"],
   ["Field", "72 Players"],
-  ["Start", "10:00 AM"],
+  ["Format", "Individual Stroke Play"],
+  ["Championships", "Gross + Net"],
 ];
 
 export default function InvitationalPreview() {
@@ -47,9 +47,9 @@ export default function InvitationalPreview() {
             </h2>
 
             <p className="mt-6 max-w-[650px] text-sm leading-7 text-white/65 sm:text-base">
-              The club&apos;s flagship competition brings 72 golfers together
-              for tournament golf, pressure, camaraderie, and the beginning of
-              a tradition built to return every year.
+              Seventy-two golfers. Eighteen holes. Individual stroke play.
+              The Gallaspy Invitational is the club&apos;s annual championship
+              and the competition where The Golden Falcon is earned.
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -83,7 +83,7 @@ export default function InvitationalPreview() {
               </div>
 
               <span className="text-[2.4rem] font-black leading-none tracking-[-0.06em] text-white/10">
-                27
+                001
               </span>
             </div>
 

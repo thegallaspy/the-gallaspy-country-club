@@ -2,8 +2,8 @@ import Link from "next/link";
 import { traditions } from "@/data/club";
 
 const traditionOrder = [
-  "first-flight",
   "opening-drive",
+  "spring-opener",
   "gallaspy-invitational",
   "mercury-match",
   "night-at-the-nest",

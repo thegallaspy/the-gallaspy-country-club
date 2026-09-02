@@ -29,14 +29,14 @@ export default function Home() {
         <PlayWithUs />
       </Reveal>
 
-      {/* 05 — THE FOUNDING COMMUNITY */}
-      <Reveal>
-        <FoundingCommunity />
-      </Reveal>
-
-      {/* 06 — WHAT'S NEXT */}
+      {/* 05 — WHAT'S NEXT */}
       <Reveal>
         <UpcomingAtGallaspy />
+      </Reveal>
+
+      {/* 06 — THE FOUNDING COMMUNITY */}
+      <Reveal>
+        <FoundingCommunity />
       </Reveal>
 
       {/* 07 — FLAGSHIP COMPETITION */}

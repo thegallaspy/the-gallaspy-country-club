@@ -15,25 +15,25 @@ export default function JoinBeginning() {
             </div>
 
             <p className="mt-5 max-w-[330px] text-sm leading-6 text-white/50">
-              Play the rounds. Show up for the events. Be part of what The
-              Gallaspy becomes.
+              Join a round. Show up for the events. Help shape the culture
+              of The Gallaspy from the beginning.
             </p>
           </div>
 
           <div>
             <h2 className="max-w-[760px] text-[2.4rem] font-black uppercase leading-[0.9] tracking-[-0.045em] sm:text-[3.2rem] lg:text-[3.8rem]">
-              Come Play
+              Your Next Round
               <span className="block text-[#E56A70]">
-                With The Gallaspy.
+                Starts Here.
               </span>
             </h2>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link
-                href="/play"
+                href="/rounds/register"
                 className="inline-flex min-h-[48px] items-center justify-center bg-[#FFD76A] px-7 text-[8px] font-black uppercase tracking-[0.22em] text-[#10263F] transition hover:bg-white"
               >
-                Play With The Club →
+                Register For A Round →
               </Link>
 
               <Link
