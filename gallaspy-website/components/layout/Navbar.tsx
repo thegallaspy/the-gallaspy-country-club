@@ -43,12 +43,13 @@ const navigation = [
     href: "/why-the-gallaspy",
   },
   {
-    title: "Start Here",
-    href: "/start-here",
-  },
-  {
-    title: "Member Access",
-    href: "/falcon-society/members",
+    title: "My Gallaspy",
+    href: "/my-gallaspy",
+    portal: true,
+    children: [
+      { title: "My Gallaspy", href: "/my-gallaspy" },
+      { title: "Falcon Society", href: "/falcon-society/members" },
+    ],
   },
 ];
 
@@ -223,7 +224,9 @@ export function Navbar() {
                       href={item.href}
                       aria-current={active ? "page" : undefined}
                       className={[
-                        "relative flex h-[82px] items-center gap-1.5 whitespace-nowrap",
+                        item.portal
+                          ? "relative flex min-h-[38px] items-center gap-2 whitespace-nowrap border border-white/65 px-4"
+                          : "relative flex h-[82px] items-center gap-1.5 whitespace-nowrap",
                         "text-[9px] font-semibold uppercase tracking-[0.16em]",
                         "transition-colors duration-300",
                         active

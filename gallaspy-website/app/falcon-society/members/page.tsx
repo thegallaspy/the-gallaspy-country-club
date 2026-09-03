@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { FormEvent, useState } from "react";
 
 export default function FalconSocietyMembersLoginPage() {
@@ -38,60 +39,106 @@ export default function FalconSocietyMembersLoginPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#10263F] px-5 py-24 text-white sm:px-8">
-      <div className="mx-auto flex min-h-[70vh] w-full max-w-[720px] items-center justify-center">
-        <section className="w-full border border-white/15 bg-white/[0.03] px-6 py-12 sm:px-10 sm:py-14">
-          <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#D7B56D]">
-            The Founding 100
-          </p>
+    <main className="min-h-screen bg-[#8C1D2C] text-white">
+      <div className="grid min-h-screen lg:grid-cols-[1.08fr_0.92fr]">
 
-          <h1 className="mt-5 font-serif text-4xl font-light leading-tight sm:text-5xl">
-            Falcon Society
-            <span className="block text-[#D7B56D]">Members Room.</span>
-          </h1>
+        <section className="relative flex min-h-[58vh] overflow-hidden bg-[#8C1D2C] px-6 pb-14 pt-32 sm:px-10 lg:min-h-screen lg:items-center lg:px-16 xl:px-24">
+          <div className="absolute left-0 top-0 h-[5px] w-full bg-[#0A2F29]" />
 
-          <p className="mt-6 max-w-xl text-sm leading-7 text-white/65 sm:text-base">
-            Private access for confirmed Falcon Society members.
-          </p>
+          <div className="absolute -right-20 top-28 h-[340px] w-[340px] rounded-full border border-white/[0.05]" />
+          <div className="absolute right-8 top-56 h-[180px] w-[180px] rounded-full border border-white/[0.05]" />
 
-          <form onSubmit={handleSubmit} className="mt-10">
-            <label
-              htmlFor="password"
-              className="text-[9px] font-bold uppercase tracking-[0.25em] text-white/55"
-            >
-              Member Password
-            </label>
-
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              className="mt-3 min-h-[52px] w-full border border-white/20 bg-white/[0.04] px-4 text-base text-white outline-none transition focus:border-[#D7B56D]"
-              required
+          <div className="relative z-10 max-w-[700px]">
+            <Image
+              src="/logos/falcon-society-logo.png"
+              alt="Falcon Society"
+              width={130}
+              height={130}
+              priority
+              className="mb-10 h-auto w-[96px] object-contain sm:w-[112px]"
             />
 
-            {error && (
-              <p className="mt-4 text-sm text-[#F2A6A6]">
-                {error}
+            <div className="mb-6 flex items-center gap-4">
+              <div className="h-[2px] w-10 bg-[#0A2F29]" />
+              <p className="text-[9px] font-black uppercase tracking-[0.38em] text-white/70">
+                The Founding 100
               </p>
-            )}
+            </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="mt-6 inline-flex min-h-[50px] w-full items-center justify-center bg-[#8C1D2C] px-6 text-[10px] font-bold uppercase tracking-[0.24em] text-white transition hover:bg-[#A32436] disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {loading ? "Entering..." : "Enter Members Room"}
-            </button>
-          </form>
+            <h1 className="font-serif text-[58px] font-light leading-[0.88] tracking-[-0.045em] text-white sm:text-[76px] lg:text-[92px] xl:text-[104px]">
+              Falcon
+              <span className="block">
+                Society.
+              </span>
+            </h1>
 
-          <p className="mt-8 text-xs leading-6 text-white/35">
-            Access is reserved for confirmed Falcon Society members.
-          </p>
+            <div className="mt-10 border-t border-white/15 pt-6">
+              <p className="text-[9px] font-black uppercase tracking-[0.32em] text-white/55">
+                Founding Members · Private Access
+              </p>
+            </div>
+          </div>
         </section>
+
+        <section className="relative flex min-h-[42vh] items-center bg-[#10263F] px-5 py-14 sm:px-10 lg:min-h-screen lg:px-14 xl:px-20">
+          <div className="absolute left-0 top-0 hidden h-full w-px bg-white/10 lg:block" />
+
+          <div className="mx-auto w-full max-w-[520px]">
+            <p className="text-[9px] font-black uppercase tracking-[0.34em] text-white/55">
+              Members Room
+            </p>
+
+            <h2 className="mt-5 font-serif text-4xl font-light leading-[0.95] tracking-[-0.035em] text-white sm:text-5xl">
+              Private
+              <span className="block text-white">
+                Entrance.
+              </span>
+            </h2>
+
+            <div className="mt-6 h-[3px] w-12 bg-[#0A2F29]" />
+
+            <form onSubmit={handleSubmit} className="mt-10">
+              <label
+                htmlFor="password"
+                className="text-[9px] font-black uppercase tracking-[0.25em] text-white/55"
+              >
+                Member Password
+              </label>
+
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                className="mt-3 min-h-[58px] w-full border border-white/20 bg-white/[0.04] px-4 text-base text-white outline-none transition focus:border-[#8C1D2C]"
+                required
+              />
+
+              {error && (
+                <p className="mt-5 text-sm text-white/80">
+                  {error}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="mt-6 inline-flex min-h-[56px] w-full items-center justify-center bg-white px-6 text-[9px] font-black uppercase tracking-[0.24em] text-[#10263F] transition hover:bg-[#0A2F29] hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {loading ? "Entering..." : "Enter Members Room"}
+              </button>
+            </form>
+
+            <div className="mt-10 flex items-center gap-3 border-t border-white/10 pt-6">
+              <span className="h-2 w-2 bg-[#8C1D2C]" />
+              <span className="h-2 w-2 bg-[#0A2F29]" />
+              <span className="h-2 w-2 bg-white" />
+            </div>
+          </div>
+        </section>
+
       </div>
     </main>
   );
