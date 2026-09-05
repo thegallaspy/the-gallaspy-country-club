@@ -99,14 +99,14 @@ export default function InvitationalPage() {
             </div>
 
             <div className="flex justify-start lg:justify-end">
-              <div className="relative h-[210px] w-[210px] sm:h-[240px] sm:w-[240px]">
+              <div className="relative h-[320px] w-full max-w-[720px] sm:h-[360px] lg:h-[420px]">
                 <Image
-                  src="/logos/gallaspy-invitational.png"
+                  src="/logos/events/gallaspy-invitational-logo.png"
                   alt="The Gallaspy Invitational"
                   fill
                   priority
-                  sizes="240px"
-                  className="object-contain"
+                  sizes="(min-width: 1024px) 720px, 90vw"
+                  className="object-contain scale-[2.8] sm:scale-[3.1] lg:scale-[3.4]"
                 />
               </div>
             </div>

@@ -25,34 +25,52 @@ export default function MercuryMatchPage() {
       <section className="relative overflow-hidden bg-[#10263F] px-5 pb-20 pt-32 text-white sm:px-8 sm:pt-36 lg:pb-28 lg:pt-40">
         <div className="absolute inset-y-0 right-0 hidden w-[32%] bg-[#0C352D] lg:block" />
 
-        <div className="relative mx-auto max-w-[1200px]">
-          <p className="text-[9px] font-black uppercase tracking-[0.34em] text-[#FFD76A]">
-            Annual Team Championship
-          </p>
+        <div className="relative mx-auto grid max-w-[1200px] gap-12 lg:grid-cols-[68%_32%] lg:gap-0">
+          {/* LEFT — EVENT INFORMATION */}
+          <div className="lg:pr-14">
+            <p className="text-[9px] font-black uppercase tracking-[0.34em] text-[#FFD76A]">
+              Annual Team Championship
+            </p>
 
-          <h1 className="mt-7 max-w-5xl text-[3.8rem] font-black uppercase leading-[0.84] tracking-[-0.06em] sm:text-[5.5rem] lg:text-[7rem]">
-            The Mercury
-            <span className="block text-[#E56A70]">Match.</span>
-          </h1>
+            <h1 className="mt-7 text-[3.8rem] font-black uppercase leading-[0.84] tracking-[-0.06em] sm:text-[5.5rem] lg:text-[6.5rem]">
+              The Mercury
+              <span className="block text-[#E56A70]">Match.</span>
+            </h1>
 
-          <div className="mt-10 grid gap-8 border-t border-white/15 pt-8 lg:grid-cols-[1fr_auto] lg:items-end">
-            <div>
+            <div className="mt-10 border-t border-white/15 pt-8">
               <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#FFD76A]">
                 Crest vs. Falcon
               </p>
 
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/65 sm:text-base sm:leading-8">
+              <p className="mt-4 max-w-xl text-sm leading-7 text-white/65 sm:text-base sm:leading-8">
                 Each golfer represents one team and plays one opponent
                 head-to-head over 18 holes of singles match play.
               </p>
             </div>
+          </div>
 
-            <p className="text-right text-[9px] font-black uppercase tracking-[0.25em] text-white/40">
-              Inaugural Match
-              <span className="mt-2 block text-base tracking-[0.08em] text-white">
+          {/* RIGHT — OFFICIAL MERCURY MATCH MARK */}
+          <div className="flex flex-col items-center justify-center text-center lg:min-h-[560px] lg:pl-10">
+            <div className="relative w-[92%] max-w-[760px]">
+              <Image
+                src="/logos/events/mercury-match-logo.png"
+                alt="The Mercury Match"
+                width={700}
+                height={700}
+                priority
+                className="h-auto w-full scale-[2.8] object-contain"
+              />
+            </div>
+
+            <div className="mt-10 border-t border-white/20 pt-7">
+              <p className="text-[9px] font-black uppercase tracking-[0.25em] text-white/55">
+                Inaugural Match
+              </p>
+
+              <p className="mt-3 text-lg font-black uppercase tracking-[0.08em] text-white">
                 October 23, 2027
-              </span>
-            </p>
+              </p>
+            </div>
           </div>
         </div>
       </section>
