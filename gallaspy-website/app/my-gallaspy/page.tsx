@@ -31,7 +31,7 @@ export default function MyGallaspyPage() {
 
       if (signInError) {
         console.error("My Gallaspy sign-in error:", signInError);
-        setError("Unable to send your sign-in link. Please try again.");
+        setError(signInError.message);
         setLoading(false);
         return;
       }
@@ -40,7 +40,13 @@ export default function MyGallaspyPage() {
       setLoading(false);
     } catch (submitError) {
       console.error("My Gallaspy sign-in error:", submitError);
-      setError("Unable to send your sign-in link. Please try again.");
+
+      const message =
+        submitError instanceof Error
+          ? submitError.message
+          : "Unable to send your sign-in link. Please try again.";
+
+      setError(message);
       setLoading(false);
     }
   }
