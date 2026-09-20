@@ -253,7 +253,7 @@ export default function ApparelPage() {
         {/* OVERSIZED SCRIPT MARK */}
         <div className="pointer-events-none absolute right-[-5%] top-[20%] h-[290px] w-[720px] opacity-[0.07] sm:h-[390px] sm:w-[900px] lg:h-[470px] lg:w-[1050px]">
           <Image
-            src="/logos/script.png"
+            src="/logos/official/Gallaspy-Script.png"
             alt=""
             fill
             sizes="100vw"
@@ -495,7 +495,7 @@ export default function ApparelPage() {
         <div className="mx-auto max-w-7xl px-5 py-20 text-center sm:px-8 lg:px-10 lg:py-24">
           <div className="mx-auto relative h-24 w-24">
             <Image
-              src="/logos/falcon.png"
+              src="/logos/official/falcon-G.png"
               alt="The Gallaspy Falcon"
               fill
               sizes="96px"

@@ -552,7 +552,7 @@ export function Navbar() {
               </p>
 
               <Image
-                src="/logos/falcon.png"
+                src="/logos/official/falcon-G.png"
                 alt=""
                 width={42}
                 height={42}

@@ -75,7 +75,7 @@ export default function MyGallaspyPage() {
           </div>
 
           <Image
-            src="/logos/falcon.png"
+            src="/logos/official/falcon-G.png"
             alt="The Gallaspy Falcon"
             width={82}
             height={82}

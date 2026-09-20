@@ -57,7 +57,7 @@ export default function Hero() {
           }`}
         >
           <Image
-            src="/logos/falcon.png"
+            src="/logos/official/falcon-G.png"
             alt="The Gallaspy Falcon"
             width={160}
             height={160}

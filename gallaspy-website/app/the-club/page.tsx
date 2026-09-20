@@ -5,7 +5,7 @@ const marks = [
   {
     name: "The Falcon",
     label: "Club Symbol",
-    image: "/logos/falcon.png",
+    image: "/logos/official/falcon-G.png",
     layout: "standard",
   },
   {
@@ -17,7 +17,7 @@ const marks = [
   {
     name: "The Script",
     label: "Club Wordmark",
-    image: "/logos/script.png",
+    image: "/logos/official/Gallaspy-Script.png",
     layout: "wide",
   },
 ];

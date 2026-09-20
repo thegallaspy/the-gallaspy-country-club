@@ -132,7 +132,7 @@ export default function MercuryMatchPage() {
               <div className="flex flex-1 items-center justify-center py-8">
                 <div className="relative h-[190px] w-[190px] sm:h-[220px] sm:w-[220px]">
                   <Image
-                    src="/logos/falcon.png"
+                    src="/logos/official/falcon-G.png"
                     alt="Team Falcon"
                     fill
                     sizes="220px"

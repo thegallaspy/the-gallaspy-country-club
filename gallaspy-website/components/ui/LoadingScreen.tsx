@@ -101,7 +101,7 @@ export default function LoadingScreen() {
 
           <div className="entrance-crest relative h-36 w-36 sm:h-44 sm:w-44">
             <Image
-              src="/logos/falcon.png"
+              src="/logos/official/falcon-G.png"
               alt="The Gallaspy Falcon"
               fill
               priority
