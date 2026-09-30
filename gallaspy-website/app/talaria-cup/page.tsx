@@ -51,14 +51,14 @@ export default function TalariaCupPage() {
 
           {/* RIGHT — OFFICIAL TALARIA CUP MARK */}
           <div className="flex flex-col items-center justify-center text-center lg:min-h-[560px] lg:pl-10">
-            <div className="relative w-[92%] max-w-[760px]">
+            <div className="relative flex w-full items-center justify-center">
               <Image
                 src="/talaria-cup-logo.png"
                 alt="The Talaria Cup"
                 width={700}
                 height={700}
                 priority
-                className="h-auto w-full scale-[2.8] object-contain"
+                className="h-auto w-full max-w-[320px] object-contain sm:max-w-[380px] lg:max-w-[420px]"
               />
             </div>
 
