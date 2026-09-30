@@ -87,7 +87,7 @@ export default function InvitationalFAQPage() {
 
           <div className="mt-10">
             <Image
-              src="/logos/events/gallaspy-invitational-logo.png"
+              src="/logos/official/gallaspy-invitational-logo.png"
               alt="The Gallaspy Invitational"
               width={300}
               height={300}

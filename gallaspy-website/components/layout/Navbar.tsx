@@ -181,7 +181,7 @@ export function Navbar() {
           >
             <div className="relative h-[54px] w-[54px] sm:h-[58px] sm:w-[58px]">
               <Image
-                src="/logos/crest.png"
+                src="/logos/official/crest.png"
                 alt="The Gallaspy crest"
                 fill
                 priority

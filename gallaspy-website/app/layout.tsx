@@ -41,9 +41,9 @@ export const metadata: Metadata = {
   publisher: "The Gallaspy Development Group",
 
   icons: {
-    icon: "/logos/crest.png",
-    shortcut: "/logos/crest.png",
-    apple: "/logos/crest.png",
+    icon: "/logos/official/crest.png",
+    shortcut: "/logos/official/crest.png",
+    apple: "/logos/official/crest.png",
   },
 
   openGraph: {

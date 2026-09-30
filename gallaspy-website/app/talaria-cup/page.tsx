@@ -105,7 +105,7 @@ export default function TalariaCupPage() {
               <div className="flex flex-1 items-center justify-center py-8">
                 <div className="relative h-[190px] w-[190px] sm:h-[220px] sm:w-[220px]">
                   <Image
-                    src="/logos/crest.png"
+                    src="/logos/official/crest.png"
                     alt="Team Crest"
                     fill
                     sizes="220px"

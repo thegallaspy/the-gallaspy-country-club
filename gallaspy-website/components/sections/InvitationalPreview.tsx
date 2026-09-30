@@ -27,7 +27,7 @@ export default function InvitationalPreview() {
 
             <div className="mt-5 flex items-center gap-5">
               <Image
-                src="/logos/events/gallaspy-invitational-logo.png"
+                src="/logos/official/gallaspy-invitational-logo.png"
                 alt="The Gallaspy Invitational"
                 width={320}
                 height={180}

@@ -11,7 +11,7 @@ const marks = [
   {
     name: "The Crest",
     label: "Club Crest",
-    image: "/logos/crest.png",
+    image: "/logos/official/crest.png",
     layout: "standard",
   },
   {

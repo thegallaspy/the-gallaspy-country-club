@@ -101,7 +101,7 @@ export default function InvitationalPage() {
             <div className="flex justify-start lg:justify-end">
               <div className="relative h-[320px] w-full max-w-[720px] sm:h-[360px] lg:h-[420px]">
                 <Image
-                  src="/logos/events/gallaspy-invitational-logo.png"
+                  src="/logos/official/gallaspy-invitational-logo.png"
                   alt="The Gallaspy Invitational"
                   fill
                   priority

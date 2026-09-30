@@ -73,7 +73,7 @@ export default function Footer() {
             >
               <div className="relative h-20 w-20">
                 <Image
-                  src="/logos/crest.png"
+                  src="/logos/official/crest.png"
                   alt="The Gallaspy crest"
                   fill
                   sizes="80px"
