@@ -50,7 +50,7 @@ const traditions = [
   "Opening Drive",
   "Spring Opener",
   "The Gallaspy Invitational",
-  "The Mercury Match",
+  "The Talaria Cup",
   "Night at the Nest",
 ];
 

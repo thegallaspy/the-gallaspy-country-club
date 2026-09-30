@@ -83,7 +83,7 @@ export default function ClubDispatch() {
               {[
                 "Upcoming Gallaspy Rounds",
                 "Invitational News",
-                "Mercury Match Updates",
+                "Talaria Cup Updates",
                 "Club Gatherings",
                 "Apparel & Announcements",
               ].map((item) => (

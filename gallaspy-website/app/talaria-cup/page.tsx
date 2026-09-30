@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata = {
-  title: "The Mercury Match | The Gallaspy",
+  title: "The Talaria Cup | The Gallaspy",
   description:
-    "The Mercury Match is The Gallaspy's annual team championship: Team Crest vs. Team Falcon in 18-hole singles match play.",
+    "The Talaria Cup is The Gallaspy's annual team championship: Team Crest vs. Team Falcon in 18-hole singles match play.",
 };
 
 const matchFormat = [
@@ -18,7 +18,7 @@ const matches = Array.from({ length: 8 }, (_, index) => ({
   number: String(index + 1).padStart(2, "0"),
 }));
 
-export default function MercuryMatchPage() {
+export default function TalariaCupPage() {
   return (
     <main className="bg-[#F7F4EE] text-[#10263F]">
       {/* HERO */}
@@ -33,8 +33,8 @@ export default function MercuryMatchPage() {
             </p>
 
             <h1 className="mt-7 text-[3.8rem] font-black uppercase leading-[0.84] tracking-[-0.06em] sm:text-[5.5rem] lg:text-[6.5rem]">
-              The Mercury
-              <span className="block text-[#E56A70]">Match.</span>
+              The Talaria
+              <span className="block text-[#E56A70]">Cup.</span>
             </h1>
 
             <div className="mt-10 border-t border-white/15 pt-8">
@@ -49,12 +49,12 @@ export default function MercuryMatchPage() {
             </div>
           </div>
 
-          {/* RIGHT — OFFICIAL MERCURY MATCH MARK */}
+          {/* RIGHT — OFFICIAL TALARIA CUP MARK */}
           <div className="flex flex-col items-center justify-center text-center lg:min-h-[560px] lg:pl-10">
             <div className="relative w-[92%] max-w-[760px]">
               <Image
-                src="/logos/events/mercury-match-logo.png"
-                alt="The Mercury Match"
+                src="/talaria-cup-logo.png"
+                alt="The Talaria Cup"
                 width={700}
                 height={700}
                 priority
@@ -96,6 +96,7 @@ export default function MercuryMatchPage() {
                 <p className="text-[8px] font-black uppercase tracking-[0.3em] text-[#FFD76A]">
                   Team Crest
                 </p>
+
                 <span className="text-[8px] font-black uppercase tracking-[0.25em] text-white/40">
                   Forest Green
                 </span>
@@ -124,6 +125,7 @@ export default function MercuryMatchPage() {
                 <p className="text-[8px] font-black uppercase tracking-[0.3em] text-[#FFD76A]">
                   Team Falcon
                 </p>
+
                 <span className="text-[8px] font-black uppercase tracking-[0.25em] text-white/40">
                   Navy Blue
                 </span>
@@ -166,7 +168,7 @@ export default function MercuryMatchPage() {
 
             <div>
               <p className="max-w-2xl text-base leading-8 text-[#33475B]/75">
-                The inaugural Mercury Match is structured around eight golfers
+                The inaugural Talaria Cup is structured around eight golfers
                 representing Team Crest and eight representing Team Falcon.
                 Each player competes against one opponent over 18 holes of
                 singles match play.
@@ -181,6 +183,7 @@ export default function MercuryMatchPage() {
                     <p className="text-[2.3rem] font-black tracking-[-0.05em] text-[#10263F]">
                       {item.value}
                     </p>
+
                     <p className="mt-2 text-[7px] font-black uppercase tracking-[0.22em] text-[#8B6A34]">
                       {item.label}
                     </p>
@@ -221,6 +224,7 @@ export default function MercuryMatchPage() {
                     <p className="text-[9px] font-black uppercase tracking-[0.25em] text-white/50">
                       {result}
                     </p>
+
                     <p className="text-xl font-black uppercase tracking-[-0.03em] text-white">
                       {points}
                     </p>
@@ -230,7 +234,7 @@ export default function MercuryMatchPage() {
 
               <p className="mt-8 max-w-2xl text-sm leading-7 text-white/60 sm:text-base sm:leading-8">
                 Eight total points are available. The first team to reach
-                4½ points wins the Mercury Match and the Team Championship.
+                4½ points wins the Talaria Cup and the Team Championship.
               </p>
             </div>
           </div>
@@ -243,7 +247,7 @@ export default function MercuryMatchPage() {
           <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
             <div>
               <p className="text-[9px] font-black uppercase tracking-[0.34em] text-[#B3262D]">
-                Mercury Match Week
+                Talaria Cup Week
               </p>
 
               <h2 className="mt-5 text-[2.8rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4rem]">
@@ -313,7 +317,7 @@ export default function MercuryMatchPage() {
               <p className="mt-5 max-w-2xl text-base leading-8 text-white/65">
                 The selected players return to the designated playoff hole and
                 compete head-to-head, one hole at a time, until one player wins
-                a hole and decides the Mercury Match.
+                a hole and decides the Talaria Cup.
               </p>
             </div>
           </div>
@@ -350,7 +354,10 @@ export default function MercuryMatchPage() {
                   <p className="text-[8px] font-black uppercase tracking-[0.24em] text-[#8B6A34]">
                     {label}
                   </p>
-                  <p className="text-sm font-bold text-[#10263F]">{value}</p>
+
+                  <p className="text-sm font-bold text-[#10263F]">
+                    {value}
+                  </p>
                 </div>
               ))}
             </div>
@@ -370,13 +377,15 @@ export default function MercuryMatchPage() {
 
             <div>
               <h2 className="max-w-3xl text-[2.5rem] font-black uppercase leading-[0.9] tracking-[-0.05em] sm:text-[3.5rem]">
-                The First Mercury Match
-                <span className="block text-[#0C352D]">Is Still Ahead.</span>
+                The First Talaria Cup
+                <span className="block text-[#0C352D]">
+                  Is Still Ahead.
+                </span>
               </h2>
 
               <p className="mt-6 max-w-2xl text-sm leading-7 text-[#33475B]/70">
                 The inaugural competition will establish the first champion,
-                first match results, and opening entry in the Mercury Match
+                first match results, and opening entry in the Talaria Cup
                 series. The record will grow from what actually happens on the
                 course.
               </p>
@@ -389,13 +398,15 @@ export default function MercuryMatchPage() {
       <section className="bg-[#10263F] px-5 py-20 text-center text-white sm:px-8 lg:py-28">
         <div className="mx-auto max-w-[1000px]">
           <p className="text-[9px] font-black uppercase tracking-[0.38em] text-[#FFD76A]">
-            The Mercury Match
+            The Talaria Cup
           </p>
 
           <h2 className="mt-7 text-[3rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4.5rem] lg:text-[5.5rem]">
             Eight Matches.
             <span className="block">Eighteen Holes.</span>
-            <span className="block text-[#E56A70]">One Team Champion.</span>
+            <span className="block text-[#E56A70]">
+              One Team Champion.
+            </span>
           </h2>
 
           <p className="mt-8 text-[9px] font-black uppercase tracking-[0.3em] text-white/45">

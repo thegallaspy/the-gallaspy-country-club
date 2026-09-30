@@ -5,7 +5,7 @@ const traditionOrder = [
   "opening-drive",
   "spring-opener",
   "gallaspy-invitational",
-  "mercury-match",
+  "talaria-cup",
   "night-at-the-nest",
 ];
 
@@ -68,7 +68,7 @@ export default function TraditionsSymbols() {
                     {tradition.description}
                   </p>
 
-                  {tradition.id === "mercury-match" && (
+                  {tradition.id === "talaria-cup" && (
                     <p className="mt-4 text-[10px] font-bold uppercase tracking-[0.2em] text-[#D7B56D]">
                       Crest vs. Falcon · Two Houses. One Club. One Match.
                     </p>

@@ -153,7 +153,7 @@ export default function FoundersLetterPage() {
               <p>
                 The first people who become part of The Gallaspy will help
                 establish what it becomes. The first rounds matter. The first
-                Invitational matters. The first Mercury Match matters. The
+                Invitational matters. The first Talaria Cup matters. The
                 first gathering matters. Not because any one event defines the
                 club, but because every longstanding tradition eventually traces
                 back to a first time.

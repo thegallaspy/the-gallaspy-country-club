@@ -5,7 +5,7 @@ const traditionOrder = [
   "first-flight",
   "opening-drive",
   "gallaspy-invitational",
-  "mercury-match",
+  "talaria-cup",
   "night-at-the-nest",
 ];
 
@@ -13,7 +13,7 @@ const traditionLabels: Record<string, string> = {
   "first-flight": "Opening Tradition",
   "opening-drive": "Season Tradition",
   "gallaspy-invitational": "Flagship Tournament",
-  "mercury-match": "Team Championship",
+  "talaria-cup": "Team Championship",
   "night-at-the-nest": "Annual Gathering",
 };
 
@@ -109,7 +109,7 @@ export default function TraditionsPage() {
                   {tradition.description}
                 </p>
 
-                {tradition.id === "mercury-match" && (
+                {tradition.id === "talaria-cup" && (
                   <div className="mt-7 border-l-2 border-[#B89146] pl-5">
                     <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#8B6A34]">
                       Crest vs. Falcon
@@ -152,7 +152,7 @@ export default function TraditionsPage() {
         </div>
       </section>
 
-      {/* MERCURY MATCH FEATURE */}
+      {/* TALARIA CUP FEATURE */}
       <section className="bg-[#0C352D] px-5 py-16 text-white sm:px-8 lg:py-24">
         <div className="mx-auto grid max-w-[1120px] gap-12 lg:grid-cols-[1fr_0.8fr] lg:items-end lg:gap-20">
           <div>
@@ -161,13 +161,13 @@ export default function TraditionsPage() {
             </p>
 
             <h2 className="mt-5 font-serif text-[3rem] font-light leading-[1] sm:text-5xl lg:text-[4rem]">
-              The Mercury
-              <span className="block text-[#D7B56D]">Match.</span>
+              The Talaria
+              <span className="block text-[#D7B56D]">Cup.</span>
             </h2>
 
             <p className="mt-6 max-w-2xl text-sm leading-7 text-white/65 sm:text-base sm:leading-8">
-              Crest against Falcon. Forest green against navy. The Mercury
-              Match is The Gallaspy&apos;s annual team competition and one of
+              Crest against Falcon. Forest green against navy. The Talaria
+              Cup is The Gallaspy&apos;s annual team competition and one of
               the traditions intended to build its own history year after year.
             </p>
           </div>
@@ -184,10 +184,10 @@ export default function TraditionsPage() {
             </p>
 
             <Link
-              href="/mercury-match"
+              href="/talaria-cup"
               className="mt-8 inline-flex min-h-[48px] items-center justify-center border border-[#D7B56D] px-7 text-[9px] font-bold uppercase tracking-[0.22em] text-[#D7B56D] transition hover:bg-[#D7B56D] hover:text-[#10263F]"
             >
-              The Mercury Match →
+              The Talaria Cup →
             </Link>
           </div>
         </div>

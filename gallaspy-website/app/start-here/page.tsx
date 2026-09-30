@@ -34,10 +34,10 @@ const paths = [
   {
     number: "04",
     eyebrow: "Tradition",
-    title: "The Mercury Match",
+    title: "The Talaria Cup",
     text: "The annual Crest vs. Falcon team championship. Team Crest in forest green. Team Falcon in navy. Two Houses. One Club. One Match.",
-    href: "/mercury-match",
-    cta: "The Mercury Match",
+    href: "/talaria-cup",
+    cta: "The Talaria Cup",
   },
 ];
 
@@ -174,7 +174,7 @@ export default function StartHerePage() {
             {[
               ["March", "Opening Drive", "The ceremonial beginning of the golf season."],
               ["June", "The Gallaspy Invitational", "The flagship annual 18-hole individual stroke-play championship."],
-              ["September", "The Mercury Match", "Eight singles matches. Crest vs. Falcon. One team champion."],
+              ["September", "The Talaria Cup", "Eight singles matches. Crest vs. Falcon. One team champion."],
               ["December", "Night at the Nest", "The annual year-end gathering, beginning in 2027."],
             ].map(([month, event, text]) => (
               <div

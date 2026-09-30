@@ -2,7 +2,7 @@ export type JournalCategory =
   | "Club"
   | "Rounds"
   | "Invitational"
-  | "Mercury Match"
+  | "Talaria Cup"
   | "Community"
   | "Apparel"
   | "Announcements";

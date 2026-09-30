@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Frequently Asked Questions | The Gallaspy Golf Club",
   description:
-    "Answers about The Gallaspy, Gallaspy Rounds, club events, the Founding 100, the Gallaspy Invitational, Mercury Match, and the club's long-term vision.",
+    "Answers about The Gallaspy, Gallaspy Rounds, club events, the Founding 100, the Gallaspy Invitational, Talaria Cup, and the club's long-term vision.",
 };
 
 const faqSections = [
@@ -92,14 +92,14 @@ const faqSections = [
           "The Gallaspy Invitational is the club's flagship annual golf tournament. The 1st Annual Gallaspy Invitational is scheduled for June 21, 2027. Tournament details are published on the Invitational page as they are confirmed.",
       },
       {
-        question: "What is The Mercury Match?",
+        question: "What is The Talaria Cup?",
         answer:
-          "The Mercury Match is The Gallaspy's annual team championship: Crest vs. Falcon. Team Crest competes in forest green and Team Falcon in navy blue. The inaugural match is planned for September 2027, with the exact date, host course, and match format to be announced.",
+          "The Talaria Cup is The Gallaspy's annual team championship: Crest vs. Falcon. Team Crest competes in forest green and Team Falcon in navy blue. The inaugural match is planned for September 2027, with the exact date, host course, and match format to be announced.",
       },
       {
-        question: "Have there been previous Mercury Match champions?",
+        question: "Have there been previous Talaria Cup champions?",
         answer:
-          "No. The inaugural Mercury Match has not yet been played. Results and the all-time series will begin with the first competition.",
+          "No. The inaugural Talaria Cup has not yet been played. Results and the all-time series will begin with the first competition.",
       },
       {
         question: "Where will competition results be recorded?",

@@ -35,7 +35,7 @@ function eventDetail(event: GallaspyEvent) {
     return "72-player individual stroke-play championship.";
   }
 
-  if (event.id === "mercury-match-2027") {
+  if (event.id === "talaria-cup-2027") {
     return "Crest vs Falcon. Eight singles matches. One team champion.";
   }
 

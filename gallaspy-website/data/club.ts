@@ -120,15 +120,15 @@ export const traditions: Tradition[] = [
     href: "/invitational",
   },
   {
-    id: "mercury-match",
-    name: "The Mercury Match",
+    id: "talaria-cup",
+    name: "The Talaria Cup",
     recurringMonth: 10,
     monthLabel: "October",
     firstOccurrenceYear: 2027,
     description:
       "The annual Gallaspy team championship: Crest vs. Falcon. Eight singles matches. Eighteen holes. One team champion.",
     permanent: true,
-    href: "/mercury-match",
+    href: "/talaria-cup",
   },
   {
     id: "night-at-the-nest",
@@ -406,9 +406,9 @@ export const events: GallaspyEvent[] = [
     featured: true,
   },
   {
-    id: "mercury-match-2027",
-    slug: "mercury-match-2027",
-    name: "The Mercury Match",
+    id: "talaria-cup-2027",
+    slug: "talaria-cup-2027",
+    name: "The Talaria Cup",
     year: 2027,
     date: "2027-10-23",
     month: 10,
@@ -421,9 +421,9 @@ export const events: GallaspyEvent[] = [
       confirmed: false,
     },
     format: "16 Players · 8 Singles Matches · Match Play",
-    href: "/mercury-match",
+    href: "/talaria-cup",
     featured: true,
-    traditionId: "mercury-match",
+    traditionId: "talaria-cup",
   },
   {
     id: "gallaspy-final-golf-event-2027",

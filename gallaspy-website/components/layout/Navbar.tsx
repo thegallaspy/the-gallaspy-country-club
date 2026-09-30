@@ -31,7 +31,7 @@ const navigation = [
     href: "/invitational",
     children: [
       { title: "The Gallaspy Invitational", href: "/invitational" },
-      { title: "The Mercury Match", href: "/mercury-match" },
+      { title: "The Talaria Cup", href: "/talaria-cup" },
     ],
   },
   {
