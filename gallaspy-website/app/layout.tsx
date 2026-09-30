@@ -48,10 +48,12 @@ export const metadata: Metadata = {
     apple: "/icons/apple-touch-icon.png",
   },
 
+  applicationName: "The Gallaspy",
+
   appleWebApp: {
     capable: true,
     title: "The Gallaspy",
-    statusBarStyle: "default",
+    statusBarStyle: "black-translucent",
   },
 
   openGraph: {
