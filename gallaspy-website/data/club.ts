@@ -157,8 +157,13 @@ export const events: GallaspyEvent[] = [
     description:
       "The official beginning of The Gallaspy's founding golf calendar.",
     venue: {
-      confirmed: false,
+      name: "Sugar Creek Golf & Tennis",
+      city: "Atlanta",
+      state: "GA",
+      confirmed: true,
     },
+    format: "Gallaspy Round",
+    capacity: 12,
     href: "/rounds",
     featured: true,
   },
@@ -175,8 +180,12 @@ export const events: GallaspyEvent[] = [
     description:
       "The second gathering in the founding Gallaspy Rounds calendar.",
     venue: {
-      confirmed: false,
+      name: "Brown's Mill Golf Course",
+      city: "Atlanta",
+      state: "GA",
+      confirmed: true,
     },
+    capacity: 12,
     format: "Gallaspy Round",
     href: "/rounds",
     registrationHref: "/rounds/register?round=gallaspy-round-002",
@@ -195,8 +204,12 @@ export const events: GallaspyEvent[] = [
     description:
       "The third gathering in the founding Gallaspy Rounds calendar.",
     venue: {
-      confirmed: false,
+      name: "Mystery Valley Golf Club",
+      city: "Lithonia",
+      state: "GA",
+      confirmed: true,
     },
+    capacity: 12,
     format: "Gallaspy Round",
     href: "/rounds",
     registrationHref: "/rounds/register?round=gallaspy-round-003",
@@ -215,8 +228,12 @@ export const events: GallaspyEvent[] = [
     description:
       "The final Gallaspy Round of the club's founding calendar year.",
     venue: {
-      confirmed: false,
+      name: "Alfred \"Tup\" Holmes Golf Course",
+      city: "Atlanta",
+      state: "GA",
+      confirmed: true,
     },
+    capacity: 12,
     format: "Gallaspy Round",
     href: "/rounds",
     registrationHref: "/rounds/register?round=gallaspy-final-round-2026",
@@ -235,8 +252,12 @@ export const events: GallaspyEvent[] = [
     description:
       "The first Gallaspy Round of the new year.",
     venue: {
-      confirmed: false,
+      name: "Charlie Yates Golf Course",
+      city: "Atlanta",
+      state: "GA",
+      confirmed: true,
     },
+    capacity: 12,
     format: "Gallaspy Round",
     href: "/rounds",
     registrationHref: "/rounds/register?round=gallaspy-new-year-round-2027",
@@ -255,8 +276,12 @@ export const events: GallaspyEvent[] = [
     description:
       "A winter Gallaspy Round for the growing club community.",
     venue: {
-      confirmed: false,
+      name: "Chastain Park Golf Course",
+      city: "Atlanta",
+      state: "GA",
+      confirmed: true,
     },
+    capacity: 12,
     format: "Gallaspy Round",
     href: "/rounds",
     registrationHref: "/rounds/register?round=gallaspy-winter-round-2027",
@@ -275,8 +300,12 @@ export const events: GallaspyEvent[] = [
     description:
       "The spring opening round on the 2027 Gallaspy calendar.",
     venue: {
-      confirmed: false,
+      name: "Stone Mountain Golf Club",
+      city: "Stone Mountain",
+      state: "GA",
+      confirmed: true,
     },
+    capacity: 12,
     format: "Gallaspy Round",
     href: "/rounds",
     registrationHref: "/rounds/register?round=gallaspy-spring-opener-2027",
@@ -295,8 +324,12 @@ export const events: GallaspyEvent[] = [
     description:
       "The April gathering in the Gallaspy Rounds calendar.",
     venue: {
-      confirmed: false,
+      name: "Bobby Jones Golf Course",
+      city: "Atlanta",
+      state: "GA",
+      confirmed: true,
     },
+    capacity: 12,
     format: "Gallaspy Round",
     href: "/rounds",
     registrationHref: "/rounds/register?round=gallaspy-spring-round-2027",
@@ -315,8 +348,12 @@ export const events: GallaspyEvent[] = [
     description:
       "The final regular Gallaspy Round before the 1st Annual Gallaspy Invitational.",
     venue: {
-      confirmed: false,
+      name: "The Frog Golf Club",
+      city: "Villa Rica",
+      state: "GA",
+      confirmed: true,
     },
+    capacity: 12,
     format: "Gallaspy Round",
     href: "/rounds",
     registrationHref: "/rounds/register?round=gallaspy-pre-invitational-round-2027",
@@ -360,8 +397,12 @@ export const events: GallaspyEvent[] = [
     description:
       "The July gathering in the Gallaspy Rounds calendar.",
     venue: {
-      confirmed: false,
+      name: "Wolf Creek Golf Club",
+      city: "Atlanta",
+      state: "GA",
+      confirmed: true,
     },
+    capacity: 12,
     format: "Gallaspy Round",
     href: "/rounds",
     registrationHref: "/rounds/register?round=gallaspy-summer-round-2027",
@@ -380,8 +421,12 @@ export const events: GallaspyEvent[] = [
     description:
       "The late-summer Gallaspy Round.",
     venue: {
-      confirmed: false,
+      name: "Echelon Golf Club",
+      city: "Alpharetta",
+      state: "GA",
+      confirmed: true,
     },
+    capacity: 12,
     format: "Gallaspy Round",
     href: "/rounds",
     registrationHref: "/rounds/register?round=gallaspy-late-summer-round-2027",
@@ -390,19 +435,25 @@ export const events: GallaspyEvent[] = [
   {
     id: "gallaspy-anniversary-weekend-2027",
     slug: "gallaspy-anniversary-weekend-2027",
-    name: "One-Year Anniversary Weekend",
+    name: "One-Year Anniversary Round",
     year: 2027,
     date: "2027-09-25",
     month: 9,
     dateLabel: "September 25, 2027",
-    category: "SIGNATURE_EVENT",
-    status: "DETAILS_COMING_SOON",
+    category: "GALLASPY_ROUND",
+    status: "REGISTRATION_OPEN",
     description:
-      "A one-year anniversary gathering marking the first year of Gallaspy club programming.",
+      "Round 012 and the one-year anniversary gathering marking the first year of Gallaspy club programming.",
     venue: {
-      confirmed: false,
+      name: "Bear's Best Atlanta",
+      city: "Suwanee",
+      state: "GA",
+      confirmed: true,
     },
-    href: "/calendar",
+    format: "Gallaspy Round",
+    capacity: 12,
+    href: "/rounds",
+    registrationHref: "/rounds/register?round=gallaspy-anniversary-weekend-2027",
     featured: true,
   },
   {
@@ -438,8 +489,12 @@ export const events: GallaspyEvent[] = [
     description:
       "The final golf gathering on the 2027 Gallaspy calendar.",
     venue: {
-      confirmed: false,
+      name: "John A. White Golf Course",
+      city: "Atlanta",
+      state: "GA",
+      confirmed: true,
     },
+    capacity: 12,
     format: "Gallaspy Round",
     href: "/rounds",
     registrationHref: "/rounds/register?round=gallaspy-final-golf-event-2027",
