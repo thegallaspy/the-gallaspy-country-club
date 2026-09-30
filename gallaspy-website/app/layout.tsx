@@ -40,10 +40,18 @@ export const metadata: Metadata = {
 
   publisher: "The Gallaspy Development Group",
 
+  manifest: "/manifest.webmanifest",
+
   icons: {
     icon: "/logos/official/crest.png",
     shortcut: "/logos/official/crest.png",
-    apple: "/logos/official/crest.png",
+    apple: "/icons/apple-touch-icon.png",
+  },
+
+  appleWebApp: {
+    capable: true,
+    title: "The Gallaspy",
+    statusBarStyle: "default",
   },
 
   openGraph: {
