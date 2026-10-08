@@ -138,3 +138,50 @@
 .my-disclaimer { padding: 8px 4px 20px; }
 
 #nativeMyGallaspyScreen[hidden] { display: none !important; }
+
+
+/* My Gallaspy account authentication */
+.my-auth-panel input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #607080;
+  border-radius: 4px;
+  background: #132a40;
+  color: #fff;
+  font-size: 16px;
+}
+
+.my-auth-panel input:focus {
+  outline: 2px solid #ffd76a;
+  outline-offset: 2px;
+}
+
+.my-auth-panel button:disabled {
+  opacity: 0.55;
+}
+
+#myAuthMessage,
+#myAuthAccountEmail {
+  color: #ffd76a;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+#myAuthSignedIn[hidden],
+#myAuthForm[hidden] {
+  display: none !important;
+}
+
+
+#myCloudProfile[hidden] {
+  display: none !important;
+}
+
+#myCloudPlayerLocation,
+#myCloudPlayerHandicap,
+#myCloudPlayerMessage {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #b6c1c9;
+}

@@ -604,6 +604,45 @@
           <p>Your personal space inside the club.</p>
         </section>
 
+        <section class="my-panel my-auth-panel">
+          <p class="intro-label">YOUR GALLASPY ACCOUNT</p>
+          <h3>PLAYER SIGN IN.</h3>
+          <p>Sign in with the email associated with your Gallaspy account.</p>
+
+          <form id="myAuthForm">
+            <label for="myAuthEmail">EMAIL ADDRESS</label>
+            <input
+              id="myAuthEmail"
+              type="email"
+              autocomplete="email"
+              autocapitalize="none"
+              spellcheck="false"
+              placeholder="you@example.com"
+              required
+            >
+            <button id="myAuthSubmit" type="submit" class="my-action">
+              SEND SIGN-IN LINK
+            </button>
+          </form>
+
+          <div id="myAuthSignedIn" hidden>
+            <p id="myAuthAccountEmail"></p>
+            <button id="myAuthSignOut" type="button" class="my-action">
+              SIGN OUT
+            </button>
+          </div>
+
+          <p id="myAuthMessage" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="my-panel" id="myCloudProfile" hidden>
+          <p class="intro-label">VERIFIED PLAYER PROFILE</p>
+          <h3 id="myCloudPlayerName">PLAYER PROFILE.</h3>
+          <p id="myCloudPlayerLocation"></p>
+          <p id="myCloudPlayerHandicap"></p>
+          <p id="myCloudPlayerMessage"></p>
+        </section>
+
         <section class="my-panel">
           <p class="intro-label">PLAYER PROFILE</p>
           <h3 id="myPlayerGreeting">WELCOME, GOLFER.</h3>
@@ -748,6 +787,9 @@
   </script>
   <script src="./screens/rounds.js"></script>
   <script src="./screens/play.js"></script>
+  <script src="./generated/auth.bundle.js"></script>
+  <script src="./screens/my-player.js"></script>
+  <script src="./screens/my-auth.js"></script>
   <script src="./screens/my-gallaspy.js"></script>
 </body>
 </html>
