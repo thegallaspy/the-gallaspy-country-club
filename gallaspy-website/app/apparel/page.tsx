@@ -22,98 +22,99 @@ const mensPolos: Product[] = [
     category: "Men's Polo",
     color: "Navy",
     mark: "Crest",
-    image: "/images/apparel/men/polos/navy-crest-polo.png",
+    image: "/images/apparel/men/polos/navy-crest-mens-polo.png",
   },
   {
     name: "Crest Performance Polo",
     category: "Men's Polo",
     color: "Forest Green",
     mark: "Crest",
-    image: "/images/apparel/men/polos/forest-green-crest-polo.png",
+    image: "/images/apparel/men/polos/forest-green-crest-mens-polo.png",
   },
   {
     name: "Crest Performance Polo",
     category: "Men's Polo",
     color: "White",
     mark: "Crest",
-    image: "/images/apparel/men/polos/white-crest-polo.png",
+    image: "/images/apparel/men/polos/white-crest-mens-polo.png",
   },
   {
     name: "Falcon Performance Polo",
     category: "Men's Polo",
     color: "Navy",
     mark: "Falcon",
-    image: "/images/apparel/men/polos/navy-falcon-polo.png",
+    image: "/images/apparel/men/polos/navy-falcon-mens-polo.png",
   },
   {
     name: "Falcon Performance Polo",
     category: "Men's Polo",
     color: "Forest Green",
     mark: "Falcon",
-    image: "/images/apparel/men/polos/forest-green-falcon-polo.png",
+    image: "/images/apparel/men/polos/forest-green-falcon-mens-polo.png",
   },
   {
     name: "Falcon Performance Polo",
     category: "Men's Polo",
     color: "White",
     mark: "Falcon",
-    image: "/images/apparel/men/polos/white-falcon-polo.png",
+    image: "/images/apparel/men/polos/white-falcon-mens-polo.png",
   },
+
+];
+
+const mensQuarterZips: Product[] = [
   {
-    name: "Script Performance Polo",
-    category: "Men's Polo",
+    name: "Falcon Performance Quarter-Zip",
+    category: "Men's Quarter-Zip",
     color: "Navy",
-    mark: "Script",
-    image: "/images/apparel/men/polos/navy-script-polo.png",
+    mark: "Falcon",
+    image: "/images/apparel/men/quarter-zips/navy-falcon-mens-quarter-zip.png",
   },
   {
-    name: "Script Performance Polo",
-    category: "Men's Polo",
+    name: "Crest Performance Quarter-Zip",
+    category: "Men's Quarter-Zip",
+    color: "Navy",
+    mark: "Crest",
+    image: "/images/apparel/men/quarter-zips/navy-crest-mens-quarter-zip.png",
+  },
+  {
+    name: "Falcon Performance Quarter-Zip",
+    category: "Men's Quarter-Zip",
     color: "Forest Green",
-    mark: "Script",
-    image: "/images/apparel/men/polos/forest-green-script-polo.png",
+    mark: "Falcon",
+    image: "/images/apparel/men/quarter-zips/forest-green-falcon-mens-quarter-zip.png",
   },
   {
-    name: "Script Performance Polo",
-    category: "Men's Polo",
+    name: "Crest Performance Quarter-Zip",
+    category: "Men's Quarter-Zip",
+    color: "Forest Green",
+    mark: "Crest",
+    image: "/images/apparel/men/quarter-zips/forest-green-crest-mens-quarter-zip.png",
+  },
+  {
+    name: "Falcon Performance Quarter-Zip",
+    category: "Men's Quarter-Zip",
     color: "White",
-    mark: "Script",
-    image: "/images/apparel/men/polos/white-script-polo.png",
+    mark: "Falcon",
+    image: "/images/apparel/men/quarter-zips/white-falcon-mens-quarter-zip.png",
+  },
+  {
+    name: "Crest Performance Quarter-Zip",
+    category: "Men's Quarter-Zip",
+    color: "White",
+    mark: "Crest",
+    image: "/images/apparel/men/quarter-zips/white-crest-mens-quarter-zip.png",
   },
 ];
 
 const womensApparel: Product[] = [
   {
-    name: "Falcon Sleeveless Polo",
-    category: "Women's",
-    color: "Navy",
-    mark: "Falcon",
-    image:
-      "/images/apparel/women/sleeveless-polos/navy-womens-falcon-sleeveless-polo.png",
-  },
-  {
-    name: "Falcon Sleeveless Polo",
-    category: "Women's",
-    color: "Forest Green",
-    mark: "Falcon",
-    image:
-      "/images/apparel/women/sleeveless-polos/forest-green-womens-falcon-sleeveless-polo.png",
-  },
-  {
-    name: "Falcon Sleeveless Polo",
-    category: "Women's",
-    color: "White",
-    mark: "Falcon",
-    image:
-      "/images/apparel/women/sleeveless-polos/white-womens-falcon-sleeveless-polo.png",
-  },
-  {
     name: "Falcon Sleeveless Quarter-Zip",
     category: "Women's",
     color: "Navy",
     mark: "Falcon",
     image:
-      "/images/apparel/women/quarter-zips/navy-womens-falcon-sleeveless-quarter-zip.png",
+      "/images/apparel/women/quarter-zips/navy-falcon-womens-sleeveless-quarter-zip.png",
   },
   {
     name: "Falcon Sleeveless Quarter-Zip",
@@ -121,7 +122,7 @@ const womensApparel: Product[] = [
     color: "Forest Green",
     mark: "Falcon",
     image:
-      "/images/apparel/women/quarter-zips/forest-green-womens-falcon-sleeveless-quarter-zip.png",
+      "/images/apparel/women/quarter-zips/forest-green-falcon-womens-sleeveless-quarter-zip.png",
   },
   {
     name: "Falcon Sleeveless Quarter-Zip",
@@ -129,7 +130,7 @@ const womensApparel: Product[] = [
     color: "White",
     mark: "Falcon",
     image:
-      "/images/apparel/women/quarter-zips/white-womens-falcon-sleeveless-quarter-zip.png",
+      "/images/apparel/women/quarter-zips/white-falcon-womens-sleeveless-quarter-zip.png",
   },
   {
     name: "Falcon Performance Skirt",
@@ -137,7 +138,7 @@ const womensApparel: Product[] = [
     color: "Navy",
     mark: "Falcon",
     image:
-      "/images/apparel/women/skirts/navy-womens-falcon-skirt.png",
+      "/images/apparel/women/skirts/navy-falcon-womens-skirt.png",
   },
   {
     name: "Falcon Performance Skirt",
@@ -145,7 +146,7 @@ const womensApparel: Product[] = [
     color: "Forest Green",
     mark: "Falcon",
     image:
-      "/images/apparel/women/skirts/forest-green-womens-falcon-skirt.png",
+      "/images/apparel/women/skirts/forest-green-falcon-womens-skirt.png",
   },
   {
     name: "Falcon Performance Skirt",
@@ -153,7 +154,52 @@ const womensApparel: Product[] = [
     color: "White",
     mark: "Falcon",
     image:
-      "/images/apparel/women/skirts/white-womens-falcon-skirt.png",
+      "/images/apparel/women/skirts/white-falcon-womens-skirt.png",
+  },
+];
+
+const womensPolos: Product[] = [
+  {
+    name: "Falcon Performance Polo",
+    category: "Women's Polo",
+    color: "Navy",
+    mark: "Falcon",
+    image: "/images/apparel/women/polos/navy-falcon-womens-polo.png",
+  },
+  {
+    name: "Crest Performance Polo",
+    category: "Women's Polo",
+    color: "Navy",
+    mark: "Crest",
+    image: "/images/apparel/women/polos/navy-crest-womens-polo.png",
+  },
+  {
+    name: "Falcon Performance Polo",
+    category: "Women's Polo",
+    color: "Forest Green",
+    mark: "Falcon",
+    image: "/images/apparel/women/polos/forest-green-falcon-womens-polo.png",
+  },
+  {
+    name: "Crest Performance Polo",
+    category: "Women's Polo",
+    color: "Forest Green",
+    mark: "Crest",
+    image: "/images/apparel/women/polos/forest-green-crest-womens-polo.png",
+  },
+  {
+    name: "Falcon Performance Polo",
+    category: "Women's Polo",
+    color: "White",
+    mark: "Falcon",
+    image: "/images/apparel/women/polos/white-falcon-womens-polo.png",
+  },
+  {
+    name: "Crest Performance Polo",
+    category: "Women's Polo",
+    color: "White",
+    mark: "Crest",
+    image: "/images/apparel/women/polos/white-crest-womens-polo.png",
   },
 ];
 
@@ -164,7 +210,7 @@ const headwear: Product[] = [
     color: "Navy",
     mark: "Crest",
     image:
-      "/images/apparel/headwear/crest/navy-crest-performance-hat.png",
+      "/images/apparel/headwear/crest/navy-crest-hat.png",
   },
   {
     name: "Crest Performance Hat",
@@ -172,7 +218,7 @@ const headwear: Product[] = [
     color: "Forest Green",
     mark: "Crest",
     image:
-      "/images/apparel/headwear/crest/forest-green-crest-performance-hat.png",
+      "/images/apparel/headwear/crest/forest-green-crest-hat.png",
   },
   {
     name: "Crest Performance Hat",
@@ -180,7 +226,7 @@ const headwear: Product[] = [
     color: "White",
     mark: "Crest",
     image:
-      "/images/apparel/headwear/crest/white-crest-performance-hat.png",
+      "/images/apparel/headwear/crest/white-crest-hat.png",
   },
   {
     name: "Falcon Performance Hat",
@@ -188,7 +234,7 @@ const headwear: Product[] = [
     color: "Navy",
     mark: "Falcon",
     image:
-      "/images/apparel/headwear/falcon/navy-falcon-performance-hat.png",
+      "/images/apparel/headwear/falcon/navy-falcon-hat.png",
   },
   {
     name: "Falcon Performance Hat",
@@ -196,7 +242,7 @@ const headwear: Product[] = [
     color: "Forest Green",
     mark: "Falcon",
     image:
-      "/images/apparel/headwear/falcon/forest-green-falcon-performance-hat.png",
+      "/images/apparel/headwear/falcon/forest-green-falcon-hat.png",
   },
   {
     name: "Falcon Performance Hat",
@@ -204,7 +250,7 @@ const headwear: Product[] = [
     color: "White",
     mark: "Falcon",
     image:
-      "/images/apparel/headwear/falcon/white-falcon-performance-hat.png",
+      "/images/apparel/headwear/falcon/white-falcon-hat.png",
   },
   {
     name: "Script Performance Hat",
@@ -212,7 +258,7 @@ const headwear: Product[] = [
     color: "Navy",
     mark: "Script",
     image:
-      "/images/apparel/headwear/script/navy-script-performance-hat.png",
+      "/images/apparel/headwear/script/navy-script-hat.png",
   },
   {
     name: "Script Performance Hat",
@@ -220,7 +266,7 @@ const headwear: Product[] = [
     color: "Forest Green",
     mark: "Script",
     image:
-      "/images/apparel/headwear/script/forest-green-script-performance-hat.png",
+      "/images/apparel/headwear/script/forest-green-script-hat.png",
   },
   {
     name: "Script Performance Hat",
@@ -228,7 +274,7 @@ const headwear: Product[] = [
     color: "White",
     mark: "Script",
     image:
-      "/images/apparel/headwear/script/white-script-performance-hat.png",
+      "/images/apparel/headwear/script/white-script-hat.png",
   },
 ];
 
@@ -331,7 +377,7 @@ export default function ApparelPage() {
             {/* NAVY POLO */}
             <div className="absolute left-[-2%] top-[11%] z-10 h-[67%] w-[48%] -rotate-[4deg] transition-transform duration-500 hover:z-40 hover:rotate-0 hover:scale-[1.025]">
               <Image
-                src="/images/apparel/men/polos/navy-crest-polo.png"
+                src="/images/apparel/men/polos/navy-crest-mens-polo.png"
                 alt="Navy Gallaspy Crest Performance Polo"
                 fill
                 priority
@@ -344,7 +390,7 @@ export default function ApparelPage() {
             {/* GREEN WOMENS */}
             <div className="absolute right-[0%] top-[1%] z-20 h-[69%] w-[48%] rotate-[4deg] transition-transform duration-500 hover:z-40 hover:rotate-0 hover:scale-[1.025]">
               <Image
-                src="/images/apparel/women/quarter-zips/forest-green-womens-falcon-sleeveless-quarter-zip.png"
+                src="/images/apparel/women/quarter-zips/forest-green-falcon-womens-sleeveless-quarter-zip.png"
                 alt="Forest Green Gallaspy Falcon Sleeveless Quarter-Zip"
                 fill
                 priority
@@ -357,7 +403,7 @@ export default function ApparelPage() {
             {/* WHITE HAT */}
             <div className="absolute bottom-[1%] left-[29%] z-30 h-[42%] w-[45%] -rotate-[1deg] transition-transform duration-500 hover:rotate-0 hover:scale-[1.025]">
               <Image
-                src="/images/apparel/headwear/script/white-script-performance-hat.png"
+                src="/images/apparel/headwear/script/white-script-hat.png"
                 alt="White Gallaspy Script Performance Hat"
                 fill
                 priority
@@ -436,6 +482,15 @@ export default function ApparelPage() {
         background="light"
       />
 
+      <ProductSection
+        id="mens-quarter-zips"
+        eyebrow="Men's / Layering"
+        title="Performance Quarter-Zips"
+        description="Falcon and Crest quarter-zips in the three signature club colors."
+        products={mensQuarterZips}
+        background="white"
+      />
+
       {/* WOMEN FEATURE BAND */}
       <section className="relative overflow-hidden bg-[#12382D] text-white">
         <div className="absolute left-0 top-0 h-full w-[7px] bg-[#B3262D]" />
@@ -454,7 +509,7 @@ export default function ApparelPage() {
             </h2>
 
             <p className="mt-5 max-w-2xl text-sm font-light leading-7 text-white/60">
-              Sleeveless polos, quarter-zips, and coordinating skirts designed
+              Sleeveless quarter-zips and coordinating skirts designed
               to work together while remaining individual pieces.
             </p>
           </div>
@@ -476,6 +531,15 @@ export default function ApparelPage() {
         description="Clean performance silhouettes built around the Falcon mark in navy, forest green, and white."
         products={womensApparel}
         background="white"
+      />
+
+      <ProductSection
+        id="womens-polos"
+        eyebrow="Women's / Polos"
+        title="Women's Performance Polos"
+        description="Falcon and Crest polos in navy, forest green, and white."
+        products={womensPolos}
+        background="light"
       />
 
       {/* HEADWEAR */}
@@ -601,15 +665,31 @@ function ProductCard({
   product: Product;
   dark: boolean;
 }) {
-  const slug = `${product.color}-${product.name}`
+  const colorSlug = product.color
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-");
+
+  const nameSlug = product.name
     .toLowerCase()
     .replace(/'/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
+    .replace(/[^a-z0-9]+/g, "-");
 
+  let slug = `${colorSlug}-${nameSlug}`;
+
+  if (nameSlug.includes("sleeveless-quarter-zip")) {
+    slug = `${colorSlug}-womens-falcon-sleeveless-quarter-zip`;
+  } else if (nameSlug.includes("skirt")) {
+    slug = `${colorSlug}-womens-falcon-skirt`;
+  } else if (product.category === "Women") {
+    slug = `${colorSlug}-womens-${nameSlug}`;
+  }
+
+  if (product.category === "Women's Polo") {
+    slug = `${colorSlug}-womens-${nameSlug}`;
+  }
   return (
     <Link
-      href={`/apparel/${product.category === "Women" ? slug.replace(`${product.color}-`, `${product.color}-womens-`) : slug}`}
+      href={`/apparel/${slug}`}
       className="group block"
       aria-label={`View ${product.color} ${product.name}`}
     >

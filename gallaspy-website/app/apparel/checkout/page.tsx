@@ -219,7 +219,7 @@ export default function ApparelCheckoutPage() {
 
     if (!acceptedTerms) {
       setOrderMessage(
-        "Please confirm the order information before continuing."
+        "Please confirm the order and pre-order terms before continuing."
       );
       return;
     }
@@ -304,7 +304,7 @@ export default function ApparelCheckoutPage() {
       setItems([]);
       setSuccess(true);
       setOrderMessage(
-        "Your Gallaspy Apparel order has been received."
+        "Your Gallaspy Apparel pre-order has been confirmed. A confirmation has been sent to your email."
       );
     } catch (error) {
       console.error("Checkout error:", error);
@@ -334,13 +334,13 @@ export default function ApparelCheckoutPage() {
       <main className="min-h-screen bg-[#10263F] px-5 pb-20 pt-36 text-white sm:px-8 lg:px-10">
         <div className="mx-auto max-w-3xl">
           <p className="text-[8px] font-black uppercase tracking-[0.34em] text-[#FFD76A]">
-            Order Confirmed
+            Pre-Order Confirmed
           </p>
 
           <h1 className="mt-5 text-[3rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4.5rem]">
-            Thank You
+            Your Pieces
             <span className="block text-[#FFD76A]">
-              For Your Order.
+              Are Reserved.
             </span>
           </h1>
 
@@ -393,7 +393,7 @@ export default function ApparelCheckoutPage() {
             <span className="h-2 w-2 bg-[#B3262D]" />
 
             <p className="text-[8px] font-black uppercase tracking-[0.34em] text-[#FFD76A]">
-              The Gallaspy Apparel
+              Founding Apparel · Pre-Order
             </p>
           </div>
 
@@ -420,7 +420,7 @@ export default function ApparelCheckoutPage() {
                 </p>
 
                 <h2 className="mt-2 text-3xl font-black uppercase tracking-[-0.04em]">
-                  Your Bag
+                  Your Selections
                 </h2>
               </div>
 
@@ -580,7 +580,7 @@ export default function ApparelCheckoutPage() {
             </h2>
 
             <p className="mt-2 text-sm text-[#10263F]/55">
-              Card information is securely processed by Square.
+              Card information is securely processed by Square. Payment is collected today when your order is submitted.
             </p>
 
             <div
@@ -605,7 +605,7 @@ export default function ApparelCheckoutPage() {
         {/* SUMMARY */}
         <aside className="h-fit bg-[#10263F] p-7 text-white lg:sticky lg:top-28">
           <p className="text-[8px] font-black uppercase tracking-[0.3em] text-[#FFD76A]">
-            Order Summary
+            Pre-Order Summary
           </p>
 
           <h2 className="mt-3 text-3xl font-black uppercase leading-[0.95] tracking-[-0.04em]">
@@ -647,7 +647,19 @@ export default function ApparelCheckoutPage() {
             </p>
           </div>
 
-          <label className="mt-7 flex cursor-pointer items-start gap-3 text-xs leading-5 text-white/55">
+          <div className="mt-7 border-l-2 border-[#FFD76A] pl-4">
+            <p className="text-[7px] font-black uppercase tracking-[0.24em] text-[#FFD76A]">
+              First Production
+            </p>
+
+            <p className="mt-2 text-[10px] leading-5 text-white/55">
+              Founding Apparel is offered by pre-order. Payment is collected
+              today to reserve your selections. Production and fulfillment
+              updates will be sent to the email provided with your order.
+            </p>
+          </div>
+
+          <label className="mt-6 flex cursor-pointer items-start gap-3 text-xs leading-5 text-white/55">
             <input
               type="checkbox"
               checked={acceptedTerms}
@@ -658,9 +670,12 @@ export default function ApparelCheckoutPage() {
             />
 
             <span>
-              I confirm that the contact, shipping, and order
-              information above is correct and authorize this
-              apparel purchase.
+              I confirm that my contact, shipping, and order
+              information is correct. I understand that Founding
+              Apparel items are pre-order items and are not currently
+              ready to ship. I authorize payment to be charged today
+              to reserve my selections and understand that production
+              and fulfillment updates will be sent by email.
             </span>
           </label>
 
@@ -677,7 +692,7 @@ export default function ApparelCheckoutPage() {
           >
             {submitting
               ? "Processing..."
-              : `Pay ${money(total)} →`}
+              : `Reserve & Pay ${money(total)} →`}
           </button>
 
           <p className="mt-4 text-center text-[9px] leading-5 text-white/35">

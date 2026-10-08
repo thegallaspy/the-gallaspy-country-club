@@ -596,7 +596,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          error: "Please accept the apparel purchase terms before continuing.",
+          error: "Please accept the pre-order terms before continuing.",
         },
         { status: 400 }
       );
@@ -650,7 +650,7 @@ export async function POST(request: NextRequest) {
         location_id: locationId,
         autocomplete: true,
         reference_id: orderReference,
-        note: `Gallaspy Apparel — ${orderSummary}`,
+        note: `Gallaspy Apparel Pre-Order — ${orderSummary}`,
       }),
     });
 
@@ -842,7 +842,7 @@ export async function POST(request: NextRequest) {
           from: "The Gallaspy <info@thegallaspy.com>",
           to: [email],
           replyTo: "info@thegallaspy.com",
-          subject: `Your Gallaspy Order Is Confirmed — ${orderReference}`,
+          subject: `Your Gallaspy Pre-Order Is Confirmed — ${orderReference}`,
           html: `
             <div style="background:#F7F4EE;padding:40px 20px;font-family:Arial,sans-serif;color:#10263F;">
               <div style="max-width:680px;margin:0 auto;background:#FFFFFF;border:1px solid #E5DED1;overflow:hidden;">
@@ -851,7 +851,7 @@ export async function POST(request: NextRequest) {
                     The Gallaspy Apparel
                   </p>
                   <h1 style="margin:14px 0 0;color:#FFFFFF;font-family:Georgia,serif;font-size:32px;font-weight:400;">
-                    Order Confirmed
+                    Pre-Order Confirmed
                   </h1>
                 </div>
 
@@ -861,8 +861,8 @@ export async function POST(request: NextRequest) {
                   </p>
 
                   <p style="font-size:16px;line-height:1.8;">
-                    Thank you for your purchase from The Gallaspy Apparel.
-                    Your payment was successfully processed and your order has been received.
+                    Thank you for reserving your pieces from The Gallaspy Apparel.
+                    Your payment was successfully processed and your pre-order has been confirmed.
                   </p>
 
                   <div style="margin:28px 0;padding:22px;background:#F7F4EE;border-left:3px solid #B3262D;">
@@ -920,8 +920,8 @@ export async function POST(request: NextRequest) {
                   </div>
 
                   <p style="margin-top:28px;font-size:15px;line-height:1.8;">
-                    We will send additional communication regarding fulfillment
-                    and shipping as your order progresses.
+                    Your selections are reserved for production. We will send
+                    production and fulfillment updates to this email as your order progresses.
                   </p>
 
                   ${
@@ -958,7 +958,7 @@ export async function POST(request: NextRequest) {
           from: "The Gallaspy <info@thegallaspy.com>",
           to: ["info@thegallaspy.com"],
           replyTo: email,
-          subject: `New Apparel Order — ${orderReference} — ${firstName} ${lastName}`,
+          subject: `New Apparel Pre-Order — ${orderReference} — ${firstName} ${lastName}`,
           html: `
             <div style="background:#F7F4EE;padding:40px 20px;font-family:Arial,sans-serif;color:#10263F;">
               <div style="max-width:720px;margin:0 auto;background:#FFFFFF;border:1px solid #E5DED1;">
@@ -967,7 +967,7 @@ export async function POST(request: NextRequest) {
                     The Gallaspy Apparel
                   </p>
                   <h1 style="margin:12px 0 0;color:#FFFFFF;font-family:Georgia,serif;font-weight:400;">
-                    New Apparel Order
+                    New Apparel Pre-Order
                   </h1>
                 </div>
 

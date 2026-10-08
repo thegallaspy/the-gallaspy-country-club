@@ -19,6 +19,10 @@ function priceToNumber(price: string) {
   return Number(price.replace(/[^0-9.]/g, "")) || 0;
 }
 
+function isSocietyItem(item: CartItem) {
+  return item.slug.startsWith("falcon-society-");
+}
+
 export default function BagPage() {
   const [items, setItems] = useState<CartItem[]>([]);
   const [loaded, setLoaded] = useState(false);
@@ -77,6 +81,11 @@ export default function BagPage() {
     [items],
   );
 
+  const hasPreorderItems = useMemo(
+    () => items.some((item) => !isSocietyItem(item)),
+    [items],
+  );
+
   if (!loaded) {
     return (
       <main className="min-h-screen bg-[#F5F2EA] pt-32 text-[#10263F]" />
@@ -85,7 +94,6 @@ export default function BagPage() {
 
   return (
     <main className="min-h-screen bg-[#F5F2EA] text-[#10263F]">
-      {/* HEADER */}
       <section className="bg-[#10263F] px-5 pb-12 pt-32 text-white sm:px-8 sm:pb-14 lg:px-10">
         <div className="mx-auto max-w-7xl">
           <div className="flex items-center gap-3">
@@ -97,10 +105,18 @@ export default function BagPage() {
           </div>
 
           <div className="mt-6 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-            <h1 className="text-[3.6rem] font-black uppercase leading-[0.84] tracking-[-0.065em] sm:text-[5rem]">
-              Your
-              <span className="block text-[#E56A70]">Bag.</span>
-            </h1>
+            <div>
+              <h1 className="text-[3.6rem] font-black uppercase leading-[0.84] tracking-[-0.065em] sm:text-[5rem]">
+                Your
+                <span className="block text-[#E56A70]">Bag.</span>
+              </h1>
+
+              {hasPreorderItems && (
+                <p className="mt-5 text-[8px] font-black uppercase tracking-[0.25em] text-[#FFD76A]">
+                  Founding Apparel · Pre-Order
+                </p>
+              )}
+            </div>
 
             <p className="text-[9px] font-black uppercase tracking-[0.22em] text-white/45">
               {itemCount} {itemCount === 1 ? "Item" : "Items"}
@@ -110,7 +126,6 @@ export default function BagPage() {
       </section>
 
       {items.length === 0 ? (
-        /* EMPTY BAG */
         <section className="px-5 py-24 sm:px-8 lg:px-10">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-[8px] font-black uppercase tracking-[0.3em] text-[#B3262D]">
@@ -118,11 +133,16 @@ export default function BagPage() {
             </p>
 
             <h2 className="mt-5 text-[2.6rem] font-black uppercase leading-[0.9] tracking-[-0.05em] sm:text-[3.5rem]">
-              Find Something
+              Reserve Your
               <span className="block text-[#0C352D]">
-                For The Course.
+                First Pieces.
               </span>
             </h2>
+
+            <p className="mx-auto mt-5 max-w-lg text-sm leading-7 text-[#10263F]/55">
+              Explore the first official apparel release from The Gallaspy
+              Golf Club.
+            </p>
 
             <Link
               href="/apparel"
@@ -133,112 +153,143 @@ export default function BagPage() {
           </div>
         </section>
       ) : (
-        /* BAG CONTENT */
         <section className="px-5 py-12 sm:px-8 sm:py-16 lg:px-10">
           <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.35fr_0.65fr] lg:gap-16">
-            {/* ITEMS */}
             <div>
+              {hasPreorderItems && (
+                <div className="mb-8 border-l-[3px] border-[#B3262D] bg-white/55 px-5 py-5 sm:px-6">
+                  <p className="text-[8px] font-black uppercase tracking-[0.28em] text-[#B3262D]">
+                    First Production
+                  </p>
+
+                  <p className="mt-2 max-w-2xl text-sm leading-6 text-[#10263F]/60">
+                    Founding Apparel items in your bag are offered by
+                    pre-order. Your selections are reserved when payment is
+                    completed at checkout. Production and fulfillment updates
+                    will be sent by email.
+                  </p>
+                </div>
+              )}
+
               <div className="border-b border-[#10263F]/15 pb-4">
                 <p className="text-[8px] font-black uppercase tracking-[0.28em] text-[#8B6A34]">
-                  Items
+                  Your Selections
                 </p>
               </div>
 
-              {items.map((item) => (
-                <article
-                  key={item.id}
-                  className="grid grid-cols-[105px_1fr] gap-5 border-b border-[#10263F]/15 py-6 sm:grid-cols-[145px_1fr]"
-                >
-                  <Link
-                    href={
-  item.slug.startsWith("falcon-society-")
-    ? "/falcon-society/members/shop"
-    : `/apparel/${item.slug}`
-}
-                    className="relative aspect-[4/5] overflow-hidden bg-[#ECE8DF]"
+              {items.map((item) => {
+                const societyItem = isSocietyItem(item);
+
+                return (
+                  <article
+                    key={item.id}
+                    className="grid grid-cols-[105px_1fr] gap-5 border-b border-[#10263F]/15 py-6 sm:grid-cols-[145px_1fr]"
                   >
-                    <Image
-                      src={item.image}
-                      alt={`${item.color} ${item.name}`}
-                      fill
-                      sizes="145px"
-                      className="object-contain p-2"
-                    />
-                  </Link>
+                    <Link
+                      href={
+                        societyItem
+                          ? "/falcon-society/members/shop"
+                          : `/apparel/${item.slug}`
+                      }
+                      className="relative aspect-[4/5] overflow-hidden bg-[#ECE8DF]"
+                    >
+                      <Image
+                        src={item.image}
+                        alt={`${item.color} ${item.name}`}
+                        fill
+                        sizes="145px"
+                        className="object-contain p-2"
+                      />
+                    </Link>
 
-                  <div className="flex min-w-0 flex-col justify-between">
-                    <div>
-                      <div className="flex items-start justify-between gap-4">
-                        <div>
-                          <p className="text-[7px] font-black uppercase tracking-[0.22em] text-[#8B6A34]">
-                            {item.color}
-                          </p>
+                    <div className="flex min-w-0 flex-col justify-between">
+                      <div>
+                        <div className="flex items-start justify-between gap-4">
+                          <div>
+                            <div className="flex flex-wrap items-center gap-2">
+                              <p className="text-[7px] font-black uppercase tracking-[0.22em] text-[#8B6A34]">
+                                {item.color}
+                              </p>
 
-                          <Link
-                            href={
-  item.slug.startsWith("falcon-society-")
-    ? "/falcon-society/members/shop"
-    : `/apparel/${item.slug}`
-}
-                            className="mt-1 block font-serif text-lg leading-tight transition hover:text-[#B3262D] sm:text-xl"
-                          >
-                            {item.name}
-                          </Link>
+                              {!societyItem && (
+                                <>
+                                  <span className="text-[#10263F]/20">
+                                    ·
+                                  </span>
 
-                          <p className="mt-2 text-[9px] font-bold uppercase tracking-[0.16em] text-[#10263F]/45">
-                            Size:{" "}
-                            {item.size === "OneSize"
-                              ? "One Size"
-                              : item.size}
+                                  <p className="text-[7px] font-black uppercase tracking-[0.2em] text-[#B3262D]">
+                                    Pre-Order
+                                  </p>
+                                </>
+                              )}
+                            </div>
+
+                            <Link
+                              href={
+                                societyItem
+                                  ? "/falcon-society/members/shop"
+                                  : `/apparel/${item.slug}`
+                              }
+                              className="mt-1 block font-serif text-lg leading-tight transition hover:text-[#B3262D] sm:text-xl"
+                            >
+                              {item.name}
+                            </Link>
+
+                            <p className="mt-2 text-[9px] font-bold uppercase tracking-[0.16em] text-[#10263F]/45">
+                              Size:{" "}
+                              {item.size === "OneSize"
+                                ? "One Size"
+                                : item.size}
+                            </p>
+                          </div>
+
+                          <p className="shrink-0 text-sm font-black">
+                            {item.price}
                           </p>
                         </div>
-
-                        <p className="shrink-0 text-sm font-black">
-                          {item.price}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-                      <div className="flex items-center border border-[#10263F]/20 bg-white">
-                        <button
-                          type="button"
-                          onClick={() =>
-                            changeQuantity(item.id, -1)
-                          }
-                          className="flex h-10 w-10 items-center justify-center text-lg transition hover:bg-[#10263F] hover:text-white"
-                          aria-label={`Decrease quantity of ${item.name}`}
-                        >
-                          −
-                        </button>
-
-                        <span className="min-w-[42px] text-center text-[10px] font-black">
-                          {item.quantity}
-                        </span>
-
-                        <button
-                          type="button"
-                          onClick={() =>
-                            changeQuantity(item.id, 1)
-                          }
-                          className="flex h-10 w-10 items-center justify-center text-lg transition hover:bg-[#10263F] hover:text-white"
-                          aria-label={`Increase quantity of ${item.name}`}
-                        >
-                          +
-                        </button>
                       </div>
 
-                      <button
-                        type="button"
-                        onClick={() => removeItem(item.id)}
-                        className="text-[8px] font-black uppercase tracking-[0.2em] text-[#B3262D] transition hover:text-[#10263F]"
-                      >
-                        Remove
-                      </button>
+                      <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+                        <div className="flex items-center border border-[#10263F]/20 bg-white">
+                          <button
+                            type="button"
+                            onClick={() =>
+                              changeQuantity(item.id, -1)
+                            }
+                            className="flex h-10 w-10 items-center justify-center text-lg transition hover:bg-[#10263F] hover:text-white"
+                            aria-label={`Decrease quantity of ${item.name}`}
+                          >
+                            −
+                          </button>
+
+                          <span className="min-w-[42px] text-center text-[10px] font-black">
+                            {item.quantity}
+                          </span>
+
+                          <button
+                            type="button"
+                            onClick={() =>
+                              changeQuantity(item.id, 1)
+                            }
+                            className="flex h-10 w-10 items-center justify-center text-lg transition hover:bg-[#10263F] hover:text-white"
+                            aria-label={`Increase quantity of ${item.name}`}
+                          >
+                            +
+                          </button>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => removeItem(item.id)}
+                          className="text-[8px] font-black uppercase tracking-[0.2em] text-[#B3262D] transition hover:text-[#10263F]"
+                        >
+                          Remove
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </article>
-              ))}
+                  </article>
+                );
+              })}
 
               <Link
                 href="/apparel"
@@ -248,12 +299,13 @@ export default function BagPage() {
               </Link>
             </div>
 
-            {/* SUMMARY */}
             <aside>
               <div className="border border-[#10263F]/15 bg-[#F9F6EF] p-6 sm:p-7 lg:sticky lg:top-28">
                 <div className="border-b border-[#10263F]/15 pb-5">
                   <p className="text-[8px] font-black uppercase tracking-[0.3em] text-[#B3262D]">
-                    Order Summary
+                    {hasPreorderItems
+                      ? "Pre-Order Summary"
+                      : "Order Summary"}
                   </p>
 
                   <h2 className="mt-3 text-[1.8rem] font-black uppercase tracking-[-0.04em]">
@@ -288,7 +340,7 @@ export default function BagPage() {
                     </p>
 
                     <p className="text-[8px] font-black uppercase tracking-[0.18em] text-[#8B6A34]">
-                      Calculated At Checkout
+                      Added At Checkout
                     </p>
                   </div>
                 </div>
@@ -296,7 +348,7 @@ export default function BagPage() {
                 <div className="border-t border-[#10263F]/15 pt-5">
                   <div className="flex items-end justify-between">
                     <p className="text-[9px] font-black uppercase tracking-[0.2em]">
-                      Total
+                      Subtotal
                     </p>
 
                     <p className="text-2xl font-black tracking-[-0.04em]">
@@ -304,16 +356,49 @@ export default function BagPage() {
                     </p>
                   </div>
 
+                  {hasPreorderItems && (
+                    <div className="mt-6 bg-[#10263F] px-5 py-5 text-white">
+                      <p className="text-[7px] font-black uppercase tracking-[0.24em] text-[#FFD76A]">
+                        Pre-Order Reservation
+                      </p>
+
+                      <p className="mt-2 text-[10px] leading-5 text-white/60">
+                        Payment is collected during checkout to reserve
+                        Founding Apparel selections from the first production
+                        run.
+                      </p>
+                    </div>
+                  )}
+
                   <Link
                     href="/apparel/checkout"
-                    className="mt-7 flex min-h-[56px] w-full items-center justify-center bg-[#10263F] px-6 text-[9px] font-black uppercase tracking-[0.23em] text-white transition hover:bg-[#0C352D]"
+                    className="mt-6 flex min-h-[56px] w-full items-center justify-center bg-[#10263F] px-6 text-[9px] font-black uppercase tracking-[0.23em] text-white transition hover:bg-[#0C352D]"
                   >
-                    Checkout →
+                    Secure Checkout →
                   </Link>
 
-                  <p className="mt-4 text-center text-[8px] leading-5 text-[#10263F]/40">
-                    Secure payment will be completed during checkout.
-                  </p>
+                  <div className="mt-5 grid grid-cols-3 divide-x divide-[#10263F]/10 border-t border-[#10263F]/10 pt-5">
+                    <div className="px-2 text-center">
+                      <p className="text-[7px] font-black uppercase leading-4 tracking-[0.14em] text-[#10263F]/45">
+                        Secure
+                        <span className="block">Payment</span>
+                      </p>
+                    </div>
+
+                    <div className="px-2 text-center">
+                      <p className="text-[7px] font-black uppercase leading-4 tracking-[0.14em] text-[#10263F]/45">
+                        Email
+                        <span className="block">Updates</span>
+                      </p>
+                    </div>
+
+                    <div className="px-2 text-center">
+                      <p className="text-[7px] font-black uppercase leading-4 tracking-[0.14em] text-[#10263F]/45">
+                        First
+                        <span className="block">Production</span>
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </aside>
