@@ -28,7 +28,7 @@ export default function ProductPurchase({
     if (!selectedSize) return;
 
     const cartItem = {
-      id: `${slug}-${selectedSize}`,
+      id: `${slug}-${color.toLowerCase().replace(/\s+/g, "-")}-${selectedSize}`,
       slug,
       name,
       color,

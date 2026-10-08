@@ -7,90 +7,71 @@ import ProductPurchase from "@/components/apparel/ProductPurchase";
 
 type CollectionView = "men" | "women";
 
-const mensProducts = [
+type SocietyColor = "Red" | "Black";
+
+type SocietyProductData = {
+  slug: string;
+  name: string;
+  category: string;
+  price: string;
+  imageBase: string;
+  sizes: string[];
+};
+
+const mensProducts: SocietyProductData[] = [
   {
     slug: "falcon-society-founder-mens-polo",
-    name: "Men's Founder Polo",
-    category: "Founder Polo",
-    color: "Founder Red",
+    name: "Men's Performance Polo",
+    category: "Performance Polo",
     price: "$76",
-    image:
-      "/images/apparel/falcon-society/men/red-founder-mens-polo.png",
+    imageBase: "falcon-society-mens-polo",
     sizes: ["S", "M", "L", "XL", "XXL"],
   },
   {
     slug: "falcon-society-founder-mens-vest",
-    name: "Men's Founder Vest",
-    category: "Founder Vest",
-    color: "Founder Red",
+    name: "Men's Performance Vest",
+    category: "Performance Vest",
     price: "$84",
-    image:
-      "/images/apparel/falcon-society/men/red-founder-mens-vest.png",
+    imageBase: "falcon-society-mens-vest",
     sizes: ["S", "M", "L", "XL", "XXL"],
   },
 ];
 
-const womensProducts = [
+const womensProducts: SocietyProductData[] = [
   {
     slug: "falcon-society-founder-womens-polo",
-    name: "Women's Founder Polo",
-    category: "Founder Polo",
-    color: "Founder Red",
+    name: "Women's Performance Polo",
+    category: "Performance Polo",
     price: "$76",
-    image:
-      "/images/apparel/falcon-society/women/red-founder-womens-polo.png",
+    imageBase: "falcon-society-womens-polo",
     sizes: ["XS", "S", "M", "L", "XL"],
   },
   {
     slug: "falcon-society-founder-womens-sleeveless-quarter-zip",
-    name: "Women's Founder Sleeveless Quarter-Zip",
+    name: "Women's Sleeveless Quarter-Zip",
     category: "Sleeveless Quarter-Zip",
-    color: "Founder Red",
     price: "$80",
-    image:
-      "/images/apparel/falcon-society/women/red-founder-womens-sleeveless-quarter-zip.png",
+    imageBase: "falcon-society-womens-quarter-zip",
     sizes: ["XS", "S", "M", "L", "XL"],
   },
   {
     slug: "falcon-society-founder-womens-skirt",
-    name: "Women's Founder Skirt",
+    name: "Women's Golf Skirt",
     category: "Golf Skirt",
-    color: "Founder Red",
     price: "$68",
-    image:
-      "/images/apparel/falcon-society/women/red-founder-womens-skirt.png",
+    imageBase: "falcon-society-womens-skirt",
     sizes: ["XS", "S", "M", "L", "XL"],
   },
 ];
 
-const hats = [
+const hats: SocietyProductData[] = [
   {
     slug: "falcon-society-red-hat",
-    name: "Red Falcon Society Hat",
-    color: "Founder Red",
-    image:
-      "/images/apparel/falcon-society/hats/red-falcon-society-hat.png",
-  },
-  {
-    slug: "falcon-society-navy-hat",
-    name: "Navy Falcon Society Hat",
-    color: "Navy",
-    image:
-      "/images/apparel/falcon-society/hats/navy-falcon-society-hat.png",
-  },
-  {
-    slug: "falcon-society-forest-green-hat",
-    name: "Forest Green Falcon Society Hat",
-    color: "Forest Green",
-    image:
-      "/images/apparel/falcon-society/hats/forest-green-falcon-society-hat.png",
-  },
-  {
-    slug: "falcon-society-white-hat",
-    name: "White Falcon Society Hat",
-    color: "White",
-    image:
-      "/images/apparel/falcon-society/hats/white-falcon-society-hat.png",
+    name: "Performance Hat",
+    category: "Falcon Society Headwear",
+    price: "$45",
+    imageBase: "falcon-society-hat",
+    sizes: ["One Size"],
   },
 ];
 
@@ -125,7 +106,7 @@ export default function FalconSocietyShopPage() {
 
             <p className="mt-7 max-w-2xl text-sm leading-7 text-white/65 sm:text-base sm:leading-8">
               Falcon Society pieces reserved for The Gallaspy&apos;s founding
-              generation. Founder Red remains exclusive to the Founding 100.
+              generation. Founder Red and Black are reserved for the Founding 100.
             </p>
           </div>
         </div>
@@ -139,7 +120,7 @@ export default function FalconSocietyShopPage() {
                 Founder Apparel
               </p>
               <h2 className="mt-3 font-serif text-4xl font-light">
-                The Founder Red Collection
+                The Falcon Society Collection
               </h2>
             </div>
 
@@ -225,22 +206,19 @@ export default function FalconSocietyShopPage() {
 function SocietyProduct({
   product,
 }: {
-  product: {
-    slug: string;
-    name: string;
-    category: string;
-    color: string;
-    price: string;
-    image: string;
-    sizes: string[];
-  };
+  product: SocietyProductData;
 }) {
+  const [color, setColor] = useState<SocietyColor>("Red");
+
+  const image =
+    `/images/apparel/falcon-society/collection/${product.imageBase}-${color.toLowerCase()}.png`;
+
   return (
     <article>
       <div className="relative aspect-[4/5] overflow-hidden bg-[#ECE6DB]">
         <Image
-          src={product.image}
-          alt={product.name}
+          src={image}
+          alt={`${product.name} — ${color}`}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-contain p-3"
@@ -254,28 +232,55 @@ function SocietyProduct({
       </div>
 
       <div className="pt-5">
-        <div className="flex items-start justify-between gap-5">
-          <div>
-            <p className="text-[8px] font-bold uppercase tracking-[0.22em] text-[#8C1D2C]">
-              {product.category}
-            </p>
-            <h3 className="mt-2 font-serif text-2xl font-light leading-tight">
-              {product.name}
-            </h3>
-            <p className="mt-2 text-[9px] font-bold uppercase tracking-[0.18em] text-[#10263F]/45">
-              {product.color}
-            </p>
-          </div>
+        <p className="text-[8px] font-bold uppercase tracking-[0.22em] text-[#8C1D2C]">
+          {product.category}
+        </p>
 
+        <div className="mt-2 flex items-start justify-between gap-4">
+          <h3 className="font-serif text-2xl font-light leading-tight">
+            {product.name}
+          </h3>
           <p className="shrink-0 text-sm font-bold">{product.price}</p>
+        </div>
+
+        <div className="mt-6">
+          <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#10263F]/65">
+            Select Color — {color}
+          </p>
+
+          <div className="mt-3 flex gap-3">
+            {(["Red", "Black"] as SocietyColor[]).map((option) => (
+              <button
+                key={option}
+                type="button"
+                onClick={() => setColor(option)}
+                aria-label={`Select ${option}`}
+                aria-pressed={color === option}
+                className={`flex min-h-[44px] items-center gap-2 border px-4 py-2 text-[10px] font-bold transition ${
+                  color === option
+                    ? "border-[#10263F] bg-white"
+                    : "border-[#10263F]/15 hover:border-[#10263F]/50"
+                }`}
+              >
+                <span
+                  className="h-4 w-4 rounded-full border border-black/15"
+                  style={{
+                    backgroundColor:
+                      option === "Red" ? "#8C1D2C" : "#111111",
+                  }}
+                />
+                {option}
+              </button>
+            ))}
+          </div>
         </div>
 
         <ProductPurchase
           slug={product.slug}
           name={product.name}
-          color={product.color}
+          color={color}
           price={product.price}
-          image={product.image}
+          image={image}
           sizes={product.sizes}
         />
       </div>
