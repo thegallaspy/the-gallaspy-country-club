@@ -49,7 +49,7 @@ export default async function MyGallaspyHomePage() {
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseServiceRoleKey =
-    process.env.SUPABASE_SERVICE_ROLE_KEY;
+    process.env.SUPABASE_SECRET_KEY;
 
   if (!supabaseUrl || !supabaseServiceRoleKey) {
     throw new Error("My Gallaspy database access is not configured.");
