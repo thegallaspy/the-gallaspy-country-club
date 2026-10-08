@@ -58,7 +58,14 @@
           ? "HANDICAP INDEX: " + player.handicap_index
           : "HANDICAP INDEX: NOT RECORDED";
 
-      message.textContent = "Verified Gallaspy player record.";
+      const golfId =
+        player.golf_id_number != null
+          ? "GGC-" + String(player.golf_id_number).padStart(6, "0")
+          : null;
+
+      message.textContent = golfId
+        ? "GALLASPY GOLF ID: " + golfId
+        : "Verified Gallaspy player record.";
     } catch {
       if (version !== requestVersion) return;
 

@@ -89,7 +89,7 @@ export async function GET(request: NextRequest) {
     const { data: player, error: playerError } = await admin
       .from("gallaspy_players")
       .select(
-        "id, first_name, last_name, city, state, ghin_number, handicap_index",
+        "id, golf_id_number, first_name, last_name, city, state, ghin_number, handicap_index",
       )
       .eq("email", user.email.toLowerCase())
       .maybeSingle();
