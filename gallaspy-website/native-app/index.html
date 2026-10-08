@@ -4,19 +4,607 @@
   <meta charset="UTF-8" />
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
+    content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no"
   />
-  <meta name="theme-color" content="#081F5C" />
+  <meta name="theme-color" content="#10263F" />
+  <meta name="color-scheme" content="dark" />
   <title>The Gallaspy</title>
+
+  <style>
+    :root {
+      --navy: #10263F;
+      --navy-deep: #081F5C;
+      --green: #0C352D;
+      --cream: #F4F0E7;
+      --gold: #FFD76A;
+      --muted-gold: #B89146;
+      --white: #FFFFFF;
+      --tab-height: 76px;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--navy);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        Helvetica,
+        Arial,
+        sans-serif;
+    }
+
+    body {
+      color: var(--white);
+      overscroll-behavior: none;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    .app {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      background:
+        linear-gradient(
+          180deg,
+          var(--navy) 0%,
+          #0d2c3d 48%,
+          var(--green) 100%
+        );
+    }
+
+    .status-safe {
+      height: env(safe-area-inset-top);
+      min-height: env(safe-area-inset-top);
+    }
+
+    .topbar {
+      min-height: 74px;
+      padding: 14px 22px 13px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    }
+
+    .identity {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      min-width: 0;
+    }
+
+    .falcon {
+      width: 43px;
+      height: 43px;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .identity-copy {
+      min-width: 0;
+    }
+
+    .eyebrow {
+      margin: 0 0 5px;
+      color: var(--gold);
+      font-size: 8px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+
+    .club-name {
+      margin: 0;
+      color: var(--white);
+      font-size: 13px;
+      line-height: 1.1;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .live-mark {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: rgba(255, 255, 255, 0.48);
+      font-size: 7px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .content {
+      flex: 1;
+      padding: 34px 22px calc(var(--tab-height) + 38px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .intro {
+      max-width: 520px;
+    }
+
+    .intro-label {
+      margin: 0 0 16px;
+      color: var(--gold);
+      font-size: 8px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 340px;
+      color: var(--cream);
+      font-size: clamp(47px, 13vw, 68px);
+      line-height: 0.84;
+      font-weight: 900;
+      letter-spacing: -0.065em;
+      text-transform: uppercase;
+    }
+
+    h1 span {
+      display: block;
+      color: rgba(244, 240, 231, 0.38);
+    }
+
+    .intro-text {
+      margin: 24px 0 0;
+      max-width: 360px;
+      color: rgba(255, 255, 255, 0.58);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .primary-card {
+      margin-top: 34px;
+      padding: 1px;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 215, 106, 0.55),
+        rgba(255, 255, 255, 0.08)
+      );
+    }
+
+    .primary-card-inner {
+      background: rgba(8, 31, 92, 0.46);
+      padding: 22px;
+    }
+
+    .card-kicker {
+      margin: 0;
+      color: var(--gold);
+      font-size: 8px;
+      font-weight: 900;
+      letter-spacing: 0.27em;
+      text-transform: uppercase;
+    }
+
+    .card-title {
+      margin: 9px 0 0;
+      color: var(--white);
+      font-size: 27px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      text-transform: uppercase;
+    }
+
+    .card-copy {
+      margin: 13px 0 0;
+      color: rgba(255, 255, 255, 0.52);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .card-action {
+      width: 100%;
+      min-height: 52px;
+      margin-top: 20px;
+      border: 0;
+      background: var(--gold);
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      text-decoration: none;
+      font-size: 8px;
+      font-weight: 900;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .section-label {
+      margin: 35px 0 14px;
+      color: rgba(255, 255, 255, 0.34);
+      font-size: 8px;
+      font-weight: 900;
+      letter-spacing: 0.27em;
+      text-transform: uppercase;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+    }
+
+    .quick-link {
+      min-height: 112px;
+      padding: 17px;
+      background: rgba(12, 53, 45, 0.88);
+      color: var(--white);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .quick-number {
+      color: var(--gold);
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+    }
+
+    .quick-title {
+      font-size: 14px;
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      text-transform: uppercase;
+    }
+
+    .quick-arrow {
+      color: rgba(255, 255, 255, 0.42);
+      font-size: 15px;
+    }
+
+    .connection {
+      margin-top: 28px;
+      padding: 15px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.09);
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .connection span {
+      color: rgba(255, 255, 255, 0.31);
+      font-size: 7px;
+      line-height: 1.5;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .connection .online {
+      color: var(--gold);
+      text-align: right;
+    }
+
+    .tabbar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 20;
+      padding-bottom: env(safe-area-inset-bottom);
+      background: rgba(16, 38, 63, 0.97);
+      border-top: 1px solid rgba(255, 255, 255, 0.10);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .tabs {
+      min-height: var(--tab-height);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .tab {
+      position: relative;
+      border: 0;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.48);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      color: var(--gold);
+    }
+
+    .tab.active::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 28%;
+      right: 28%;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .tab svg {
+      width: 21px;
+      height: 21px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .tab-label {
+      font-size: 7px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .offline-banner {
+      position: fixed;
+      top: calc(env(safe-area-inset-top) + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+      display: none;
+      padding: 9px 13px;
+      background: var(--cream);
+      color: var(--navy);
+      font-size: 7px;
+      font-weight: 900;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.20);
+    }
+
+    body.offline .offline-banner {
+      display: block;
+    }
+
+    @media (min-width: 700px) {
+      .content {
+        width: 100%;
+        max-width: 680px;
+        margin: 0 auto;
+        padding-left: 34px;
+        padding-right: 34px;
+      }
+
+      .topbar {
+        padding-left: 34px;
+        padding-right: 34px;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="./screens/rounds.css" />
 </head>
 
 <body>
-  <div id="app">
-    <main>
-      <p>THE GALLASPY</p>
-      <h1>Golf & Country Club</h1>
-      <p>Native application loading…</p>
+  <div class="offline-banner">Offline · Some features unavailable</div>
+
+  <div class="app">
+    <div class="status-safe"></div>
+
+    <header class="topbar">
+      <div class="identity">
+        <img
+          class="falcon"
+          src="./assets/falcon-G.png"
+          alt="The Gallaspy Falcon"
+        />
+
+        <div class="identity-copy">
+          <p class="eyebrow">The Digital Clubhouse</p>
+          <p class="club-name">The Gallaspy Golf Club</p>
+        </div>
+      </div>
+
+      <div class="live-mark">
+        <span class="live-dot"></span>
+        <span>Georgia</span>
+      </div>
+    </header>
+
+    <main class="content" id="nativeContent">
+      <div class="native-screen" id="nativeHomeScreen">
+      <section class="intro">
+        <p class="intro-label">The Gallaspy</p>
+
+        <h1>
+          Your Game.
+          <span>Your Club.</span>
+        </h1>
+
+        <p class="intro-text">
+          Rounds, registrations, club history and your place inside
+          The Gallaspy — built into one private club experience.
+        </p>
+      </section>
+
+      <section class="primary-card">
+        <div class="primary-card-inner">
+          <p class="card-kicker">Private Player Portal</p>
+          <h2 class="card-title">My Gallaspy</h2>
+
+          <p class="card-copy">
+            Access your player profile, registered rounds, participation
+            history and upcoming opportunities.
+          </p>
+
+          <button
+            class="card-action"
+            type="button"
+            data-route="/my-gallaspy"
+          >
+            <span>Enter My Gallaspy</span>
+            <span>→</span>
+          </button>
+        </div>
+      </section>
+
+      <p class="section-label">Club Access</p>
+
+      <section class="quick-grid">
+        <button class="quick-link" type="button" data-route="/rounds">
+          <span class="quick-number">01</span>
+          <span class="quick-title">Gallaspy<br />Rounds</span>
+          <span class="quick-arrow">→</span>
+        </button>
+
+        <button class="quick-link" type="button" data-route="/play">
+          <span class="quick-number">02</span>
+          <span class="quick-title">Play<br />Golf</span>
+          <span class="quick-arrow">→</span>
+        </button>
+
+        <button class="quick-link" type="button" data-route="/events">
+          <span class="quick-number">03</span>
+          <span class="quick-title">Club<br />Events</span>
+          <span class="quick-arrow">→</span>
+        </button>
+
+        <button class="quick-link" type="button" data-route="/membership">
+          <span class="quick-number">04</span>
+          <span class="quick-title">The<br />Club</span>
+          <span class="quick-arrow">→</span>
+        </button>
+      </section>
+
+      <div class="connection">
+        <span>Est. 2026<br />Georgia</span>
+        <span class="online" id="connectionState">Connected</span>
+      </div>
+      </div>
+      <div class="native-screen" id="nativeRoundsScreen" hidden>
+        <section class="rounds-heading">
+          <p class="intro-label">The Gallaspy Golf Club</p>
+          <h2>Gallaspy<br>Rounds.</h2>
+          <p class="rounds-summary">Different courses. One club. Explore upcoming rounds and register to join the community on the course.</p>
+        </section>
+        <div id="nativeRoundsList" aria-live="polite">
+          <p class="rounds-message">Loading club rounds...</p>
+        </div>
+      </div>
     </main>
+
+    <nav class="tabbar" aria-label="Main navigation">
+      <div class="tabs">
+        <button class="tab active" type="button" data-home>
+          <svg viewBox="0 0 24 24">
+            <path d="M3.5 10.5 12 3.5l8.5 7"></path>
+            <path d="M5.5 9.5V21h13V9.5"></path>
+          </svg>
+          <span class="tab-label">Home</span>
+        </button>
+
+        <button class="tab" type="button" data-route="/rounds">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="8.5"></circle>
+            <path d="M12 7.5v9M7.5 12h9"></path>
+          </svg>
+          <span class="tab-label">Rounds</span>
+        </button>
+
+        <button class="tab" type="button" data-route="/play">
+          <svg viewBox="0 0 24 24">
+            <path d="M6 20 17.5 4"></path>
+            <path d="M14.5 4h3v3"></path>
+            <circle cx="6" cy="20" r="1.5"></circle>
+          </svg>
+          <span class="tab-label">Play</span>
+        </button>
+
+        <button class="tab" type="button" data-route="/my-gallaspy">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="8" r="3.5"></circle>
+            <path d="M5.5 20c.8-4 3-6 6.5-6s5.7 2 6.5 6"></path>
+          </svg>
+          <span class="tab-label">My Gallaspy</span>
+        </button>
+      </div>
+    </nav>
   </div>
+
+  <script>
+    const WEB_ORIGIN = "https://thegallaspy.com";
+
+    function updateConnectionState() {
+      const online = navigator.onLine;
+
+      document.body.classList.toggle("offline", !online);
+
+      const state = document.getElementById("connectionState");
+
+      if (state) {
+        state.textContent = online ? "Connected" : "Offline";
+      }
+    }
+
+    function openClubRoute(route) {
+      if (!navigator.onLine) {
+        updateConnectionState();
+        return;
+      }
+
+      const url = WEB_ORIGIN + route;
+      const browser = window.Capacitor?.Plugins?.Browser;
+
+      if (browser && window.Capacitor?.isNativePlatform?.()) {
+        browser.open({ url }).catch((error) => {
+          console.error("Unable to open club feature:", error);
+          window.open(url, "_blank", "noopener,noreferrer");
+        });
+      } else {
+        window.open(url, "_blank", "noopener,noreferrer");
+      }
+    }
+
+    // Native Home/Rounds handlers are installed by screens/rounds.js.
+    window.openClubRoute = openClubRoute;
+
+    window.addEventListener("online", updateConnectionState);
+    window.addEventListener("offline", updateConnectionState);
+
+    updateConnectionState();
+  </script>
+  <script src="./screens/rounds.js"></script>
 </body>
 </html>
