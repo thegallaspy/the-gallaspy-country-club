@@ -2,6 +2,7 @@
   "use strict";
   const home = document.getElementById("nativeHomeScreen");
   const rounds = document.getElementById("nativeRoundsScreen");
+  const play = document.getElementById("nativePlayScreen");
   const list = document.getElementById("nativeRoundsList");
   const content = document.getElementById("nativeContent");
   const labels = {
@@ -18,10 +19,11 @@
   function show(screen) {
     home.hidden = screen !== "home";
     rounds.hidden = screen !== "rounds";
+    if (play) play.hidden = screen !== "play";
     document.querySelectorAll(".tab").forEach((tab) => {
       const active = screen === "home"
         ? tab.hasAttribute("data-home")
-        : tab.dataset.route === "/rounds";
+        : tab.dataset.route === "/" + screen;
       tab.classList.toggle("active", active);
       if (active) tab.setAttribute("aria-current", "page");
       else tab.removeAttribute("aria-current");
@@ -107,6 +109,7 @@
     element.addEventListener("click", () => {
       const route = element.dataset.route;
       if (route === "/rounds") show("rounds");
+      else if (route === "/play") show("play");
       else window.openClubRoute(route);
     });
   });

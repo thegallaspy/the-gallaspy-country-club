@@ -415,6 +415,7 @@
     }
   </style>
   <link rel="stylesheet" href="./screens/rounds.css" />
+  <link rel="stylesheet" href="./screens/play.css">
 </head>
 
 <body>
@@ -523,6 +524,78 @@
           <p class="rounds-message">Loading club rounds...</p>
         </div>
       </div>
+
+      <div class="native-screen" id="nativePlayScreen" hidden>
+        <section class="play-heading">
+          <p class="intro-label">THE GALLASPY GOLF CLUB</p>
+          <h2>YOUR GAME.<br>YOUR PROGRESS.</h2>
+          <p>Every round counts. Track your scores and build your playing history.</p>
+        </section>
+
+        <section class="play-stats">
+          <div><span>ROUNDS LOGGED</span><strong id="playRoundsCount">0</strong></div>
+          <div><span>BEST SCORE</span><strong id="playBestScore">—</strong></div>
+          <div><span>AVERAGE SCORE</span><strong id="playAverageScore">—</strong></div>
+        </section>
+
+        <section class="play-feature">
+          <p class="intro-label">YOUR SCORECARD</p>
+          <h3>TRACK YOUR ROUNDS.</h3>
+          <p>Record every hole, save your rounds, and measure your progress.</p>
+          <button type="button" id="playStartScorecard">START A SCORECARD →</button>
+        </section>
+
+        <section class="play-feature" id="playScorecard" hidden>
+          <p class="intro-label">ROUND IN PROGRESS</p>
+          <h3>YOUR SCORECARD.</h3>
+
+          <div class="play-fields">
+            <label>GOLF COURSE
+              <input id="playCourseName" type="text"
+                placeholder="Enter course name" maxlength="100">
+            </label>
+            <label>DATE
+              <input id="playRoundDate" type="date">
+            </label>
+          </div>
+
+          <p class="play-help">Enter the par and strokes for each hole. Your progress is saved as a draft.</p>
+
+          <div class="play-table-wrap">
+            <table class="play-table">
+              <thead>
+                <tr><th>HOLE</th><th>PAR</th><th>STROKES</th><th>+/-</th></tr>
+              </thead>
+              <tbody id="playHoleInputs"></tbody>
+              <tfoot>
+                <tr><th>FRONT 9</th><td id="playFrontPar">—</td><td id="playFrontTotal">—</td><td id="playFrontRelative">—</td></tr>
+                <tr><th>BACK 9</th><td id="playBackPar">—</td><td id="playBackTotal">—</td><td id="playBackRelative">—</td></tr>
+                <tr><th>TOTAL</th><td id="playTotalPar">—</td><td id="playStrokeTotal">—</td><td id="playTotalRelative">—</td></tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <div class="play-actions">
+            <button type="button" id="playSaveRound">SAVE COMPLETED ROUND</button>
+            <button type="button" id="playDiscardDraft" class="play-secondary">DISCARD DRAFT</button>
+          </div>
+          <p id="playScoreMessage" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="play-feature">
+          <p class="intro-label">YOUR HISTORY</p>
+          <h3>PAST ROUNDS.</h3>
+          <div id="playRoundHistory" class="play-history">
+            <p>No completed rounds yet.</p>
+          </div>
+        </section>
+
+        <section class="play-feature">
+          <p class="intro-label">PLAYER DEVELOPMENT</p>
+          <h3>HANDICAP PROGRESS.</h3>
+          <p>Review your scores over time. An official Handicap Index requires an authorized handicap service.</p>
+        </section>
+      </div>
     </main>
 
     <nav class="tabbar" aria-label="Main navigation">
@@ -606,5 +679,6 @@
     updateConnectionState();
   </script>
   <script src="./screens/rounds.js"></script>
+  <script src="./screens/play.js"></script>
 </body>
 </html>
