@@ -3,6 +3,7 @@
   const home = document.getElementById("nativeHomeScreen");
   const rounds = document.getElementById("nativeRoundsScreen");
   const play = document.getElementById("nativePlayScreen");
+  const my = document.getElementById("nativeMyGallaspyScreen");
   const list = document.getElementById("nativeRoundsList");
   const content = document.getElementById("nativeContent");
   const labels = {
@@ -20,6 +21,7 @@
     home.hidden = screen !== "home";
     rounds.hidden = screen !== "rounds";
     if (play) play.hidden = screen !== "play";
+    if (my) my.hidden = screen !== "my-gallaspy";
     document.querySelectorAll(".tab").forEach((tab) => {
       const active = screen === "home"
         ? tab.hasAttribute("data-home")
@@ -105,11 +107,14 @@
     }
   }
 
+  window.showNativeScreen = show;
+
   document.querySelectorAll("[data-route]").forEach((element) => {
     element.addEventListener("click", () => {
       const route = element.dataset.route;
       if (route === "/rounds") show("rounds");
       else if (route === "/play") show("play");
+      else if (route === "/my-gallaspy") show("my-gallaspy");
       else window.openClubRoute(route);
     });
   });

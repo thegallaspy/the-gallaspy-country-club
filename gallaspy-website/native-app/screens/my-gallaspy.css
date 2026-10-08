@@ -1,0 +1,140 @@
+#nativeMyGallaspyScreen { padding-bottom: 36px; }
+
+.my-heading { padding: 28px 0 30px; }
+
+.my-heading h2 {
+  margin: 20px 0;
+  color: #f4f0e7;
+  font-size: clamp(36px, 9vw, 58px);
+  line-height: 1;
+  letter-spacing: -0.045em;
+  font-weight: 900;
+}
+
+.my-heading > p:last-child,
+.my-panel > p:not(.intro-label),
+.my-disclaimer {
+  color: #b6c1c9;
+  line-height: 1.65;
+}
+
+.my-panel {
+  padding: 25px 18px;
+  margin-bottom: 16px;
+  background: #20374d;
+  border: 1px solid #40576a;
+}
+
+.my-panel h3 {
+  margin: 16px 0;
+  color: #fff;
+  font-size: 25px;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.my-panel label {
+  display: block;
+  margin: 20px 0 8px;
+  color: #ffd76a;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+#myPlayerName {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #607080;
+  border-radius: 4px;
+  background: #132a40;
+  color: #fff;
+  font-size: 16px;
+}
+
+#mySaveProfile,
+.my-action {
+  width: 100%;
+  margin-top: 16px;
+  padding: 17px 12px;
+  border: 0;
+  border-radius: 5px;
+  background: #ffd76a;
+  color: #10263f;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+}
+
+#myProfileMessage {
+  color: #ffd76a;
+  font-size: 12px;
+}
+
+.my-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.my-stats > div {
+  padding: 18px 7px;
+  background: #20374d;
+  border: 1px solid #40576a;
+  text-align: center;
+}
+
+.my-stats span {
+  display: block;
+  color: #ffd76a;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.my-stats strong {
+  display: block;
+  margin-top: 12px;
+  color: #fff;
+  font-size: 28px;
+}
+
+.my-round {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 0;
+  border-bottom: 1px solid #40576a;
+}
+
+.my-round > div { min-width: 0; }
+
+.my-round strong,
+.my-round span { display: block; }
+
+.my-round > div strong {
+  color: #fff;
+  overflow-wrap: anywhere;
+}
+
+.my-round span {
+  margin-top: 5px;
+  color: #b6c1c9;
+  font-size: 12px;
+}
+
+.my-round-score {
+  color: #ffd76a;
+  font-size: 25px;
+}
+
+.my-empty,
+.my-disclaimer {
+  font-size: 12px;
+}
+
+.my-disclaimer { padding: 8px 4px 20px; }
+
+#nativeMyGallaspyScreen[hidden] { display: none !important; }

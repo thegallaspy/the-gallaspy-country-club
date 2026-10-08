@@ -416,6 +416,7 @@
   </style>
   <link rel="stylesheet" href="./screens/rounds.css" />
   <link rel="stylesheet" href="./screens/play.css">
+  <link rel="stylesheet" href="./screens/my-gallaspy.css">
 </head>
 
 <body>
@@ -596,6 +597,73 @@
           <p>Review your scores over time. An official Handicap Index requires an authorized handicap service.</p>
         </section>
       </div>
+      <div class="native-screen" id="nativeMyGallaspyScreen" hidden>
+        <section class="my-heading">
+          <p class="intro-label">THE GALLASPY GOLF CLUB</p>
+          <h2>MY GALLASPY.</h2>
+          <p>Your personal space inside the club.</p>
+        </section>
+
+        <section class="my-panel">
+          <p class="intro-label">PLAYER PROFILE</p>
+          <h3 id="myPlayerGreeting">WELCOME, GOLFER.</h3>
+          <label for="myPlayerName">DISPLAY NAME</label>
+          <input id="myPlayerName" type="text"
+                 maxlength="60" placeholder="Enter your name">
+          <button id="mySaveProfile" type="button">
+            SAVE PROFILE
+          </button>
+          <p id="myProfileMessage" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="my-stats">
+          <div>
+            <span>ROUNDS PLAYED</span>
+            <strong id="myRoundsPlayed">0</strong>
+          </div>
+          <div>
+            <span>BEST SCORE</span>
+            <strong id="myBestScore">—</strong>
+          </div>
+          <div>
+            <span>AVERAGE SCORE</span>
+            <strong id="myAverageScore">—</strong>
+          </div>
+        </section>
+
+        <section class="my-panel">
+          <p class="intro-label">YOUR GOLF HISTORY</p>
+          <h3>RECENT ROUNDS.</h3>
+          <div id="myRecentRounds"></div>
+          <button id="myGoToPlay" type="button" class="my-action">
+            OPEN SCORECARD →
+          </button>
+        </section>
+
+        <section class="my-panel">
+          <p class="intro-label">THE FOUNDING 100</p>
+          <h3>FALCON SOCIETY.</h3>
+          <p>Private access for founding members of The Gallaspy.</p>
+          <button id="myFalconSociety" type="button" class="my-action">
+            ENTER MEMBERS ROOM →
+          </button>
+        </section>
+
+        <section class="my-panel">
+          <p class="intro-label">YOUR MEMBERSHIP</p>
+          <h3>EXPLORE THE CLUB.</h3>
+          <p>Discover Gallaspy membership opportunities and club benefits.</p>
+          <button id="myMembership" type="button" class="my-action">
+            VIEW MEMBERSHIP →
+          </button>
+        </section>
+
+        <p class="my-disclaimer">
+          Your profile and scores are stored on this device.
+          They are not yet synchronized with an online account.
+        </p>
+      </div>
+
     </main>
 
     <nav class="tabbar" aria-label="Main navigation">
@@ -680,5 +748,6 @@
   </script>
   <script src="./screens/rounds.js"></script>
   <script src="./screens/play.js"></script>
+  <script src="./screens/my-gallaspy.js"></script>
 </body>
 </html>
