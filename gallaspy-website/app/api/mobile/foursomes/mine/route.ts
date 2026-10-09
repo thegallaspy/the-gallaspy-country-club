@@ -20,19 +20,19 @@ export async function OPTIONS() {
 }
 
 export async function GET(request: NextRequest) {
+  const token = request.headers.get("authorization")
+    ?.match(/^Bearer\s+(.+)$/i)?.[1];
+
+  if (!token) {
+    return reply({ success: false, error: "Sign in required." }, 401);
+  }
+
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const secret = process.env.SUPABASE_SECRET_KEY;
 
   if (!url || !anon || !secret) {
     return reply({ success: false, error: "Service unavailable." }, 503);
-  }
-
-  const token = request.headers.get("authorization")
-    ?.match(/^Bearer\s+(.+)$/i)?.[1];
-
-  if (!token) {
-    return reply({ success: false, error: "Sign in required." }, 401);
   }
 
   try {

@@ -83,6 +83,16 @@ async function authenticatedPlayer(
 }
 
 export async function GET(request: NextRequest) {
+  const authorization = request.headers.get("authorization");
+
+  if (!authorization?.startsWith("Bearer ") ||
+      !authorization.slice(7).trim()) {
+    return respond(
+      { success: false, error: "Verified player sign-in required." },
+      401,
+    );
+  }
+
   try {
     const { auth, admin } = clients();
 
