@@ -36,6 +36,11 @@ function clients() {
   const secretKey = process.env.SUPABASE_SECRET_KEY;
 
   if (!url || !anonKey || !secretKey) {
+    console.error("Mobile Foursome configuration missing:", {
+      url: !url,
+      anonKey: !anonKey,
+      secretKey: !secretKey,
+    });
     throw new Error("Foursome service unavailable.");
   }
 

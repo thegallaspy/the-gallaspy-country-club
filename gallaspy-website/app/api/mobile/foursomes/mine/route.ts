@@ -32,6 +32,11 @@ export async function GET(request: NextRequest) {
   const secret = process.env.SUPABASE_SECRET_KEY;
 
   if (!url || !anon || !secret) {
+    console.error("Mobile Calendar configuration missing:", {
+      url: !url,
+      anonKey: !anon,
+      secretKey: !secret,
+    });
     return reply({ success: false, error: "Service unavailable." }, 503);
   }
 
