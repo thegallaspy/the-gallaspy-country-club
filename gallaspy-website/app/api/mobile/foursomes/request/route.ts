@@ -22,7 +22,7 @@ export async function OPTIONS() {
 export async function POST(request: NextRequest) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  const secret = process.env.SUPABASE_SECRET_KEY;
+  const secret = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!url || !anon || !secret) {
     return reply({ success: false, error: "Service unavailable." }, 503);
