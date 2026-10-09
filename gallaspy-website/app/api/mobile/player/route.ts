@@ -53,11 +53,6 @@ export async function GET(request: NextRequest) {
   const secretKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!url || !anonKey || !secretKey) {
-    console.error("Mobile Player configuration missing:", {
-      url: !url,
-      anonKey: !anonKey,
-      secretKey: !secretKey,
-    });
     return respond(
       { success: false, error: "Player service unavailable." },
       503,
