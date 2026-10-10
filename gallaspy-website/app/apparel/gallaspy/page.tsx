@@ -70,10 +70,10 @@ export default function GallaspyCollectionPage() {
             </p>
 
             <p className="mt-6 text-sm leading-7 text-[#52605A] sm:text-base sm:leading-8">
-              Men&apos;s polos and headwear are offered in Script and Crest
-              designs. The current women&apos;s collection is Crest-led, with
-              polos, sleeveless polos, and golf skirts in the core Gallaspy
-              palette.
+              Explore men&apos;s performance polos, quarter-zips, and
+              headwear featuring Falcon, Crest, and Script designs.
+              Discover women&apos;s performance polos, Falcon sleeveless
+              quarter-zips, and golf skirts in Navy, White, and Forest Green.
             </p>
           </div>
         </div>
