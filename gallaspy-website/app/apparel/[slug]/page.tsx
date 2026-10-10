@@ -89,7 +89,7 @@ const products: Product[] = [
     color: "Navy",
     price: "$35",
     image:
-      "/images/apparel/women/quarter-zips/navy-womens-falcon-sleeveless-quarter-zip.png",
+      "/images/apparel/women/quarter-zips/navy-falcon-womens-sleeveless-quarter-zip.png",
     sizes: ["XS", "S", "M", "L", "XL"],
     collection: "women",
     mark: "Falcon",
@@ -101,7 +101,7 @@ const products: Product[] = [
     color: "Forest Green",
     price: "$35",
     image:
-      "/images/apparel/women/quarter-zips/forest-green-womens-falcon-sleeveless-quarter-zip.png",
+      "/images/apparel/women/quarter-zips/forest-green-falcon-womens-sleeveless-quarter-zip.png",
     sizes: ["XS", "S", "M", "L", "XL"],
     collection: "women",
     mark: "Falcon",
@@ -113,7 +113,7 @@ const products: Product[] = [
     color: "White",
     price: "$35",
     image:
-      "/images/apparel/women/quarter-zips/white-womens-falcon-sleeveless-quarter-zip.png",
+      "/images/apparel/women/quarter-zips/white-falcon-womens-sleeveless-quarter-zip.png",
     sizes: ["XS", "S", "M", "L", "XL"],
     collection: "women",
     mark: "Falcon",
