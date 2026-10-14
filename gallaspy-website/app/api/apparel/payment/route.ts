@@ -1,4 +1,5 @@
-import { randomUUID } from "crypto";
+import { createHash, randomUUID } from "crypto";
+import { PRODUCT_CATALOG } from "@/lib/apparel-catalog";
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
@@ -10,358 +11,6 @@ import {
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-type CatalogProduct = {
-  name: string;
-  category: string;
-  color: string;
-  mark: string;
-  image: string;
-  priceCents: number;
-  sizes: readonly string[];
-};
-
-const PRODUCT_CATALOG: Record<string, CatalogProduct> = {
-  "navy-crest-performance-polo": {
-    name: "Crest Performance Polo",
-    category: "Men's Performance Polo",
-    color: "Navy",
-    mark: "Crest",
-    image: "/images/apparel/men/polos/navy-crest-polo.png",
-    priceCents: 6000,
-    sizes: ["S", "M", "L", "XL", "2XL"],
-  },
-  "forest-green-crest-performance-polo": {
-    name: "Crest Performance Polo",
-    category: "Men's Performance Polo",
-    color: "Forest Green",
-    mark: "Crest",
-    image: "/images/apparel/men/polos/forest-green-crest-polo.png",
-    priceCents: 6000,
-    sizes: ["S", "M", "L", "XL", "2XL"],
-  },
-  "white-crest-performance-polo": {
-    name: "Crest Performance Polo",
-    category: "Men's Performance Polo",
-    color: "White",
-    mark: "Crest",
-    image: "/images/apparel/men/polos/white-crest-polo.png",
-    priceCents: 6000,
-    sizes: ["S", "M", "L", "XL", "2XL"],
-  },
-  "navy-falcon-performance-polo": {
-    name: "Falcon Performance Polo",
-    category: "Men's Performance Polo",
-    color: "Navy",
-    mark: "Falcon",
-    image: "/images/apparel/men/polos/navy-falcon-polo.png",
-    priceCents: 6000,
-    sizes: ["S", "M", "L", "XL", "2XL"],
-  },
-  "forest-green-falcon-performance-polo": {
-    name: "Falcon Performance Polo",
-    category: "Men's Performance Polo",
-    color: "Forest Green",
-    mark: "Falcon",
-    image: "/images/apparel/men/polos/forest-green-falcon-polo.png",
-    priceCents: 6000,
-    sizes: ["S", "M", "L", "XL", "2XL"],
-  },
-  "white-falcon-performance-polo": {
-    name: "Falcon Performance Polo",
-    category: "Men's Performance Polo",
-    color: "White",
-    mark: "Falcon",
-    image: "/images/apparel/men/polos/white-falcon-polo.png",
-    priceCents: 6000,
-    sizes: ["S", "M", "L", "XL", "2XL"],
-  },
-  "navy-script-performance-polo": {
-    name: "Script Performance Polo",
-    category: "Men's Performance Polo",
-    color: "Navy",
-    mark: "Script",
-    image: "/images/apparel/men/polos/navy-script-polo.png",
-    priceCents: 6000,
-    sizes: ["S", "M", "L", "XL", "2XL"],
-  },
-  "forest-green-script-performance-polo": {
-    name: "Script Performance Polo",
-    category: "Men's Performance Polo",
-    color: "Forest Green",
-    mark: "Script",
-    image: "/images/apparel/men/polos/forest-green-script-polo.png",
-    priceCents: 6000,
-    sizes: ["S", "M", "L", "XL", "2XL"],
-  },
-  "white-script-performance-polo": {
-    name: "Script Performance Polo",
-    category: "Men's Performance Polo",
-    color: "White",
-    mark: "Script",
-    image: "/images/apparel/men/polos/white-script-polo.png",
-    priceCents: 6000,
-    sizes: ["S", "M", "L", "XL", "2XL"],
-  },
-
-  "navy-womens-falcon-sleeveless-polo": {
-    name: "Falcon Sleeveless Polo",
-    category: "Women's Performance",
-    color: "Navy",
-    mark: "Falcon",
-    image: "/images/apparel/women/sleeveless-polos/navy-womens-falcon-sleeveless-polo.png",
-    priceCents: 4000,
-    sizes: ["XS", "S", "M", "L", "XL"],
-  },
-  "forest-green-womens-falcon-sleeveless-polo": {
-    name: "Falcon Sleeveless Polo",
-    category: "Women's Performance",
-    color: "Forest Green",
-    mark: "Falcon",
-    image: "/images/apparel/women/sleeveless-polos/forest-green-womens-falcon-sleeveless-polo.png",
-    priceCents: 4000,
-    sizes: ["XS", "S", "M", "L", "XL"],
-  },
-  "white-womens-falcon-sleeveless-polo": {
-    name: "Falcon Sleeveless Polo",
-    category: "Women's Performance",
-    color: "White",
-    mark: "Falcon",
-    image: "/images/apparel/women/sleeveless-polos/white-womens-falcon-sleeveless-polo.png",
-    priceCents: 4000,
-    sizes: ["XS", "S", "M", "L", "XL"],
-  },
-
-  "navy-womens-falcon-sleeveless-quarter-zip": {
-    name: "Falcon Sleeveless Quarter-Zip",
-    category: "Women's Performance",
-    color: "Navy",
-    mark: "Falcon",
-    image: "/images/apparel/women/quarter-zips/navy-womens-falcon-sleeveless-quarter-zip.png",
-    priceCents: 3500,
-    sizes: ["XS", "S", "M", "L", "XL"],
-  },
-  "forest-green-womens-falcon-sleeveless-quarter-zip": {
-    name: "Falcon Sleeveless Quarter-Zip",
-    category: "Women's Performance",
-    color: "Forest Green",
-    mark: "Falcon",
-    image: "/images/apparel/women/quarter-zips/forest-green-womens-falcon-sleeveless-quarter-zip.png",
-    priceCents: 3500,
-    sizes: ["XS", "S", "M", "L", "XL"],
-  },
-  "white-womens-falcon-sleeveless-quarter-zip": {
-    name: "Falcon Sleeveless Quarter-Zip",
-    category: "Women's Performance",
-    color: "White",
-    mark: "Falcon",
-    image: "/images/apparel/women/quarter-zips/white-womens-falcon-sleeveless-quarter-zip.png",
-    priceCents: 3500,
-    sizes: ["XS", "S", "M", "L", "XL"],
-  },
-
-  "navy-womens-falcon-skirt": {
-    name: "Falcon Performance Skirt",
-    category: "Women's Performance",
-    color: "Navy",
-    mark: "Falcon",
-    image: "/images/apparel/women/skirts/navy-womens-falcon-skirt.png",
-    priceCents: 4500,
-    sizes: ["XS", "S", "M", "L", "XL"],
-  },
-  "forest-green-womens-falcon-skirt": {
-    name: "Falcon Performance Skirt",
-    category: "Women's Performance",
-    color: "Forest Green",
-    mark: "Falcon",
-    image: "/images/apparel/women/skirts/forest-green-womens-falcon-skirt.png",
-    priceCents: 4500,
-    sizes: ["XS", "S", "M", "L", "XL"],
-  },
-  "white-womens-falcon-skirt": {
-    name: "Falcon Performance Skirt",
-    category: "Women's Performance",
-    color: "White",
-    mark: "Falcon",
-    image: "/images/apparel/women/skirts/white-womens-falcon-skirt.png",
-    priceCents: 4500,
-    sizes: ["XS", "S", "M", "L", "XL"],
-  },
-
-  "navy-crest-performance-hat": {
-    name: "Crest Performance Hat",
-    category: "Performance Headwear",
-    color: "Navy",
-    mark: "Crest",
-    image: "/images/apparel/headwear/crest/navy-crest-performance-hat.png",
-    priceCents: 4500,
-    sizes: ["One Size"],
-  },
-  "forest-green-crest-performance-hat": {
-    name: "Crest Performance Hat",
-    category: "Performance Headwear",
-    color: "Forest Green",
-    mark: "Crest",
-    image: "/images/apparel/headwear/crest/forest-green-crest-performance-hat.png",
-    priceCents: 4500,
-    sizes: ["One Size"],
-  },
-  "white-crest-performance-hat": {
-    name: "Crest Performance Hat",
-    category: "Performance Headwear",
-    color: "White",
-    mark: "Crest",
-    image: "/images/apparel/headwear/crest/white-crest-performance-hat.png",
-    priceCents: 4500,
-    sizes: ["One Size"],
-  },
-  "navy-falcon-performance-hat": {
-    name: "Falcon Performance Hat",
-    category: "Performance Headwear",
-    color: "Navy",
-    mark: "Falcon",
-    image: "/images/apparel/headwear/falcon/navy-falcon-performance-hat.png",
-    priceCents: 4500,
-    sizes: ["One Size"],
-  },
-  "forest-green-falcon-performance-hat": {
-    name: "Falcon Performance Hat",
-    category: "Performance Headwear",
-    color: "Forest Green",
-    mark: "Falcon",
-    image: "/images/apparel/headwear/falcon/forest-green-falcon-performance-hat.png",
-    priceCents: 4500,
-    sizes: ["One Size"],
-  },
-  "white-falcon-performance-hat": {
-    name: "Falcon Performance Hat",
-    category: "Performance Headwear",
-    color: "White",
-    mark: "Falcon",
-    image: "/images/apparel/headwear/falcon/white-falcon-performance-hat.png",
-    priceCents: 4500,
-    sizes: ["One Size"],
-  },
-  "navy-script-performance-hat": {
-    name: "Script Performance Hat",
-    category: "Performance Headwear",
-    color: "Navy",
-    mark: "Script",
-    image: "/images/apparel/headwear/script/navy-script-performance-hat.png",
-    priceCents: 4500,
-    sizes: ["One Size"],
-  },
-  "forest-green-script-performance-hat": {
-    name: "Script Performance Hat",
-    category: "Performance Headwear",
-    color: "Forest Green",
-    mark: "Script",
-    image: "/images/apparel/headwear/script/forest-green-script-performance-hat.png",
-    priceCents: 4500,
-    sizes: ["One Size"],
-  },
-  "white-script-performance-hat": {
-    name: "Script Performance Hat",
-    category: "Performance Headwear",
-    color: "White",
-    mark: "Script",
-    image: "/images/apparel/headwear/script/white-script-performance-hat.png",
-    priceCents: 4500,
-    sizes: ["One Size"],
-  },
-
-  // Falcon Society — members only
-  "falcon-society-founder-mens-polo": {
-    name: "Men's Founder Polo",
-    category: "Falcon Society Men's Apparel",
-    color: "Founder Red",
-    mark: "Falcon Society",
-    image:
-      "/images/apparel/falcon-society/men/red-founder-mens-polo.png",
-    priceCents: 7600,
-    sizes: ["S", "M", "L", "XL", "XXL"],
-  },
-  "falcon-society-founder-mens-vest": {
-    name: "Men's Founder Vest",
-    category: "Falcon Society Men's Apparel",
-    color: "Founder Red",
-    mark: "Falcon Society",
-    image:
-      "/images/apparel/falcon-society/men/red-founder-mens-vest.png",
-    priceCents: 8400,
-    sizes: ["S", "M", "L", "XL", "XXL"],
-  },
-  "falcon-society-founder-womens-polo": {
-    name: "Women's Founder Polo",
-    category: "Falcon Society Women's Apparel",
-    color: "Founder Red",
-    mark: "Falcon Society",
-    image:
-      "/images/apparel/falcon-society/women/red-founder-womens-polo.png",
-    priceCents: 7600,
-    sizes: ["XS", "S", "M", "L", "XL"],
-  },
-  "falcon-society-founder-womens-sleeveless-quarter-zip": {
-    name: "Women's Founder Sleeveless Quarter-Zip",
-    category: "Falcon Society Women's Apparel",
-    color: "Founder Red",
-    mark: "Falcon Society",
-    image:
-      "/images/apparel/falcon-society/women/red-founder-womens-sleeveless-quarter-zip.png",
-    priceCents: 8000,
-    sizes: ["XS", "S", "M", "L", "XL"],
-  },
-  "falcon-society-founder-womens-skirt": {
-    name: "Women's Founder Skirt",
-    category: "Falcon Society Women's Apparel",
-    color: "Founder Red",
-    mark: "Falcon Society",
-    image:
-      "/images/apparel/falcon-society/women/red-founder-womens-skirt.png",
-    priceCents: 6800,
-    sizes: ["XS", "S", "M", "L", "XL"],
-  },
-  "falcon-society-red-hat": {
-    name: "Red Falcon Society Hat",
-    category: "Falcon Society Headwear",
-    color: "Founder Red",
-    mark: "Falcon Society",
-    image:
-      "/images/apparel/falcon-society/hats/red-falcon-society-hat.png",
-    priceCents: 4500,
-    sizes: ["One Size"],
-  },
-  "falcon-society-navy-hat": {
-    name: "Navy Falcon Society Hat",
-    category: "Falcon Society Headwear",
-    color: "Navy",
-    mark: "Falcon Society",
-    image:
-      "/images/apparel/falcon-society/hats/navy-falcon-society-hat.png",
-    priceCents: 4500,
-    sizes: ["One Size"],
-  },
-  "falcon-society-forest-green-hat": {
-    name: "Forest Green Falcon Society Hat",
-    category: "Falcon Society Headwear",
-    color: "Forest Green",
-    mark: "Falcon Society",
-    image:
-      "/images/apparel/falcon-society/hats/forest-green-falcon-society-hat.png",
-    priceCents: 4500,
-    sizes: ["One Size"],
-  },
-  "falcon-society-white-hat": {
-    name: "White Falcon Society Hat",
-    category: "Falcon Society Headwear",
-    color: "White",
-    mark: "Falcon Society",
-    image:
-      "/images/apparel/falcon-society/hats/white-falcon-society-hat.png",
-    priceCents: 4500,
-    sizes: ["One Size"],
-  },
-};
-
 type RequestItem = {
   slug?: string;
   size?: string;
@@ -370,6 +19,8 @@ type RequestItem = {
 
 type ApparelPaymentBody = {
   sourceId?: string;
+  nativeCheckoutToken?: string;
+  websiteCheckoutId?: string;
   items?: RequestItem[];
   firstName?: string;
   lastName?: string;
@@ -417,6 +68,10 @@ function formatCurrency(cents: number) {
 }
 
 export async function POST(request: NextRequest) {
+  let squarePaymentAttempted = false;
+  let nativeAttemptId: string | null = null;
+  let idempotencyKey: string | null = null;
+
   try {
     const accessToken = process.env.SQUARE_ACCESS_TOKEN;
     const locationId = process.env.SQUARE_LOCATION_ID;
@@ -450,6 +105,21 @@ export async function POST(request: NextRequest) {
     const body = (await request.json()) as ApparelPaymentBody;
 
     const sourceId = clean(body.sourceId);
+    const nativeCheckoutToken = clean(body.nativeCheckoutToken);
+    const websiteCheckoutId = clean(body.websiteCheckoutId);
+
+    if (
+      !nativeCheckoutToken &&
+      !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(websiteCheckoutId)
+    ) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Invalid website checkout session. Please reload checkout.",
+        },
+        { status: 400 }
+      );
+    }
     const firstName = clean(body.firstName);
     const lastName = clean(body.lastName);
     const email = clean(body.email).toLowerCase();
@@ -618,7 +288,9 @@ export async function POST(request: NextRequest) {
     const orderReference =
       `apparel-${Date.now()}-${randomUUID().slice(0, 8)}`;
 
-    const idempotencyKey = randomUUID();
+    idempotencyKey = randomUUID();
+    let nativeTokenHash: string | null = null;
+
 
     const orderSummary = validatedItems
       .map(
@@ -632,6 +304,194 @@ export async function POST(request: NextRequest) {
       squareEnvironment === "production"
         ? "https://connect.squareup.com"
         : "https://connect.squareupsandbox.com";
+
+
+    const orderPayload = {
+      order_reference: orderReference,
+      square_payment_id: null,
+      square_receipt_url: null,
+      payment_status: "pending",
+      first_name: firstName,
+      last_name: lastName,
+      email,
+      phone,
+      shipping_address_1: shippingAddress1,
+      shipping_address_2: shippingAddress2 || null,
+      shipping_city: shippingCity,
+      shipping_state: shippingState,
+      shipping_postal_code: shippingPostalCode,
+      shipping_country: "US",
+      subtotal_cents: subtotalCents,
+      shipping_cents: shippingCents,
+      tax_cents: taxCents,
+      total_cents: totalCents,
+      fulfillment_status: "unfulfilled",
+    };
+
+    const orderItems = validatedItems.map((item) => ({
+      product_slug: item.slug,
+      product_name: item.name,
+      category: item.category,
+      color: item.color,
+      mark: item.mark,
+      size: item.size,
+      image: item.image,
+      quantity: item.quantity,
+      unit_price_cents: item.unitPriceCents,
+      line_total_cents: item.lineTotalCents,
+    }));
+
+
+    if (nativeCheckoutToken) {
+      if (!/^[a-f0-9]{64}$/.test(nativeCheckoutToken)) {
+        return NextResponse.json(
+          { success: false, error: "Invalid checkout session." },
+          { status: 400 }
+        );
+      }
+
+      nativeTokenHash = createHash("sha256")
+        .update(nativeCheckoutToken)
+        .digest("hex");
+
+      const client = createClient(supabaseUrl, supabaseSecretKey, {
+        auth: { persistSession: false, autoRefreshToken: false },
+      });
+
+      const cart = validatedItems.map(({ slug, size, quantity }) => ({
+        slug, size, quantity,
+      }));
+
+      const { data, error } = await client.rpc(
+        "prepare_native_apparel_payment",
+        {
+          p_token_hash: nativeTokenHash,
+          p_items: cart,
+          p_order_reference: orderReference,
+          p_order_payload: orderPayload,
+          p_order_items: orderItems,
+          p_amount_cents: totalCents,
+        }
+      );
+
+      if (error) {
+        console.error("Native payment preparation failed:", error);
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Checkout preparation failed. No payment was submitted.",
+          },
+          { status: 503 }
+        );
+      }
+
+      const claim = Array.isArray(data) ? data[0] : null;
+
+      if (!claim?.claimed || !claim.attempt_id) {
+        return NextResponse.json(
+          {
+            success: false,
+            error:
+              "Checkout already submitted or expired. If you may have been charged, contact Gallaspy before retrying.",
+          },
+          { status: 409 }
+        );
+      }
+
+      nativeAttemptId = claim.attempt_id;
+      idempotencyKey = claim.attempt_id;
+    } else {
+      const websiteClient = createClient(
+        supabaseUrl,
+        supabaseSecretKey,
+        {
+          auth: {
+            persistSession: false,
+            autoRefreshToken: false,
+          },
+        }
+      );
+
+      const { data, error } = await websiteClient.rpc(
+        "prepare_website_apparel_payment",
+        {
+          p_website_checkout_id: websiteCheckoutId,
+          p_order_reference: orderReference,
+          p_order_payload: orderPayload,
+          p_order_items: orderItems,
+          p_amount_cents: totalCents,
+        }
+      );
+
+      if (error) {
+        console.error("Website payment preparation failed:", error);
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Checkout preparation failed. No payment was submitted.",
+          },
+          { status: 503 }
+        );
+      }
+
+      const claim = Array.isArray(data) ? data[0] : null;
+
+      if (!claim?.claimed || !claim.attempt_id) {
+        return NextResponse.json(
+          {
+            success: false,
+            error:
+              "This checkout was already submitted. Do not pay again until the previous payment status has been verified.",
+          },
+          { status: 409 }
+        );
+      }
+
+      idempotencyKey = claim.attempt_id;
+    }
+
+    if (idempotencyKey && (nativeAttemptId || websiteCheckoutId)) {
+      const trackingClient = createClient(
+        supabaseUrl,
+        supabaseSecretKey,
+        {
+          auth: {
+            persistSession: false,
+            autoRefreshToken: false,
+          },
+        }
+      );
+
+      const { data: trackedAttempt, error: trackingError } =
+        await trackingClient
+          .from("apparel_payment_attempts")
+          .update({
+            payment_state: "processing",
+            payment_started_at: new Date().toISOString(),
+          })
+          .eq("idempotency_key", idempotencyKey)
+          .eq("payment_state", "prepared")
+          .select("id")
+          .single();
+
+      if (trackingError || !trackedAttempt) {
+        console.error(
+          "Apparel payment tracking failed:",
+          trackingError
+        );
+
+        return NextResponse.json(
+          {
+            success: false,
+            error:
+              "Payment preparation could not be completed. No charge was submitted. Contact Gallaspy support.",
+          },
+          { status: 503 }
+        );
+      }
+    }
+
+    squarePaymentAttempted = true;
 
     const squareResponse = await fetch(`${squareBaseUrl}/v2/payments`, {
       method: "POST",
@@ -656,13 +516,62 @@ export async function POST(request: NextRequest) {
 
     const squareResult = await squareResponse.json();
 
+    const flagUncertainPayment = async (reason: string) => {
+      if (!idempotencyKey) return;
+
+      const recoveryClient = createClient(
+        supabaseUrl,
+        supabaseSecretKey,
+        {
+          auth: {
+            persistSession: false,
+            autoRefreshToken: false,
+          },
+        }
+      );
+
+      const { data: flagged, error: flagError } =
+        await recoveryClient
+          .from("apparel_payment_attempts")
+          .update({
+            payment_state: "needs_review",
+            last_error: reason,
+          })
+          .eq("idempotency_key", idempotencyKey)
+          .eq("payment_state", "processing")
+          .select("id")
+          .maybeSingle();
+
+      if (flagError || !flagged) {
+        console.error("Square payment review tracking failed:", {
+          flagError,
+          nativeAttemptId,
+        });
+      }
+    };
+
     if (!squareResponse.ok) {
       console.error("Square apparel payment error:", squareResult);
+      await flagUncertainPayment(
+        "Square returned an unsuccessful payment response; verify status."
+      );
 
       const message =
         squareResult?.errors?.[0]?.detail ||
         squareResult?.errors?.[0]?.code ||
         "Square was unable to process the payment.";
+
+      if (idempotencyKey) {
+        return NextResponse.json(
+          {
+            success: false,
+            paymentStatusUncertain: true,
+            error:
+              "We could not confirm your payment status. Do not submit another payment. Contact Gallaspy support so we can verify the transaction.",
+          },
+          { status: 502 }
+        );
+      }
 
       return NextResponse.json(
         { success: false, error: message },
@@ -677,11 +586,16 @@ export async function POST(request: NextRequest) {
         "Unexpected Square apparel payment result:",
         squareResult
       );
+      await flagUncertainPayment(
+        "Square returned an unexpected payment status; verify status."
+      );
 
       return NextResponse.json(
         {
           success: false,
-          error: "The payment did not complete successfully.",
+          paymentStatusUncertain: true,
+          error:
+            "Payment status could not be confirmed. Do not submit another payment. Contact Gallaspy support to verify the transaction.",
         },
         { status: 502 }
       );
@@ -702,42 +616,64 @@ export async function POST(request: NextRequest) {
       }
     );
 
-    const { data: orderRecord, error: orderInsertError } =
-      await supabase
-        .from("apparel_orders_v2")
-        .insert({
-          order_reference: orderReference,
-          square_payment_id: payment.id,
-          square_receipt_url: payment.receipt_url || null,
-          payment_status: payment.status.toLowerCase(),
+    if (idempotencyKey && (nativeAttemptId || websiteCheckoutId)) {
+      const { data: trackedPayment, error: paymentTrackingError } =
+        await supabase
+          .from("apparel_payment_attempts")
+          .update({
+            square_payment_id: payment.id,
+            square_receipt_url: payment.receipt_url || null,
+            payment_state: "needs_review",
+            payment_completed_at: new Date().toISOString(),
+          })
+          .eq("idempotency_key", idempotencyKey)
+          .eq("payment_state", "processing")
+          .select("id")
+          .single();
 
-          first_name: firstName,
-          last_name: lastName,
-          email,
-          phone,
+      if (paymentTrackingError || !trackedPayment) {
+        console.error(
+          "Confirmed Square payment tracking failed:",
+          {
+            paymentTrackingError,
+            paymentId: payment.id,
+            orderReference,
+          }
+        );
 
-          shipping_address_1: shippingAddress1,
-          shipping_address_2: shippingAddress2 || null,
-          shipping_city: shippingCity,
-          shipping_state: shippingState,
-          shipping_postal_code: shippingPostalCode,
-          shipping_country: "US",
+        return NextResponse.json(
+          {
+            success: false,
+            paymentSucceeded: true,
+            paymentId: payment.id,
+            orderReference,
+            error:
+              "Payment succeeded, but order verification needs assistance. Do not pay again. Contact Gallaspy support.",
+          },
+          { status: 500 }
+        );
+      }
+    }
 
-          subtotal_cents: subtotalCents,
-          shipping_cents: shippingCents,
-          tax_cents: taxCents,
-          total_cents: totalCents,
+    const confirmedOrderPayload = {
+      ...orderPayload,
+      square_payment_id: payment.id,
+      square_receipt_url: payment.receipt_url || null,
+      payment_status: "completed",
+    };
 
-          fulfillment_status: "unfulfilled",
-        })
-        .select("id")
-        .single();
+    const { data: savedOrderId, error: saveError } =
+      await supabase.rpc("save_atomic_apparel_order", {
+        p_order: confirmedOrderPayload,
+        p_items: orderItems,
+      });
 
-    if (orderInsertError || !orderRecord?.id) {
-      console.error(
-        "Apparel order database insert error:",
-        orderInsertError
-      );
+    if (saveError || !savedOrderId) {
+      console.error("Atomic apparel order save failed:", {
+        saveError,
+        paymentId: payment.id,
+        orderReference,
+      });
 
       return NextResponse.json(
         {
@@ -747,48 +683,111 @@ export async function POST(request: NextRequest) {
           receiptUrl: payment.receipt_url || "",
           orderReference,
           error:
-            "Payment succeeded, but we could not finish recording the order. Do not submit another payment. Please contact The Gallaspy with your order reference.",
+            "Payment succeeded, but the order could not be recorded. Do not pay again. Contact The Gallaspy with your order reference.",
         },
         { status: 500 }
       );
     }
 
-    const orderItemRows = validatedItems.map((item) => ({
-      order_id: orderRecord.id,
-      product_slug: item.slug,
-      product_name: item.name,
-      category: item.category,
-      color: item.color,
-      mark: item.mark,
-      size: item.size,
-      image: item.image,
-      quantity: item.quantity,
-      unit_price_cents: item.unitPriceCents,
-      line_total_cents: item.lineTotalCents,
-    }));
+    if (idempotencyKey && (nativeAttemptId || websiteCheckoutId)) {
+      const { data: completedAttempt, error: recoveryCompletionError } =
+        await supabase
+          .from("apparel_payment_attempts")
+          .update({
+            payment_state: "completed",
+            reconciled_at: new Date().toISOString(),
+          })
+          .eq("idempotency_key", idempotencyKey)
+          .eq("square_payment_id", payment.id)
+          .eq("payment_state", "needs_review")
+          .select("id")
+          .single();
 
-    const { error: itemInsertError } = await supabase
-      .from("apparel_order_items")
-      .insert(orderItemRows);
-
-    if (itemInsertError) {
-      console.error(
-        "Apparel order items database insert error:",
-        itemInsertError
-      );
-
-      return NextResponse.json(
-        {
-          success: false,
-          paymentSucceeded: true,
+      if (recoveryCompletionError || !completedAttempt) {
+        console.error("Apparel recovery completion failed:", {
+          recoveryCompletionError,
           paymentId: payment.id,
-          receiptUrl: payment.receipt_url || "",
           orderReference,
-          error:
-            "Payment succeeded, but we could not finish recording all order items. Do not submit another payment. Please contact The Gallaspy with your order reference.",
-        },
-        { status: 500 }
+          savedOrderId,
+        });
+
+        return NextResponse.json(
+          {
+            success: false,
+            paymentSucceeded: true,
+            paymentId: payment.id,
+            orderReference,
+            error:
+              "Payment and order were recorded, but checkout verification is incomplete. Do not pay again. Contact Gallaspy support.",
+          },
+          { status: 500 }
+        );
+      }
+    }
+
+    if (nativeTokenHash && nativeAttemptId) {
+      const completionClient = createClient(
+        supabaseUrl,
+        supabaseSecretKey,
+        {
+          auth: {
+            persistSession: false,
+            autoRefreshToken: false,
+          },
+        }
       );
+
+      const { data: completed, error: completionError } =
+        await completionClient.rpc(
+          "complete_native_apparel_checkout",
+          {
+            p_token_hash: nativeTokenHash,
+            p_attempt_id: nativeAttemptId,
+            p_square_payment_id: payment.id,
+          }
+        );
+
+      if (completionError || completed !== true) {
+        console.error("Native checkout completion error:", {
+          completionError,
+          paymentId: payment.id,
+        });
+
+        // Square confirmed payment. Continue recording the order.
+        // The native session remains locked until reconciled.
+
+      }
+    }
+
+    /*
+     * Gallaspy Club Points.
+     * Only verified, completed native purchases qualify.
+     * Rewards failures must never invalidate a paid order.
+     */
+    if (nativeTokenHash && nativeAttemptId) {
+      try {
+        const { data: pointsAwarded, error: pointsError } =
+          await supabase.rpc("award_apparel_club_points", {
+            p_order_reference: orderReference,
+          });
+
+        if (pointsError) {
+          console.error("Club Points award failed:", {
+            orderReference,
+            error: pointsError,
+          });
+        } else {
+          console.info("Club Points award processed:", {
+            orderReference,
+            pointsAwarded,
+          });
+        }
+      } catch (pointsException) {
+        console.error("Club Points award exception:", {
+          orderReference,
+          error: pointsException,
+        });
+      }
     }
 
     /*
@@ -1054,10 +1053,55 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Apparel payment route error:", error);
 
+    if (squarePaymentAttempted && idempotencyKey) {
+      try {
+        const supabaseUrl = process.env.SUPABASE_URL;
+        const supabaseSecretKey = process.env.SUPABASE_SECRET_KEY;
+
+        if (supabaseUrl && supabaseSecretKey) {
+          const recoveryClient = createClient(
+            supabaseUrl,
+            supabaseSecretKey,
+            {
+              auth: {
+                persistSession: false,
+                autoRefreshToken: false,
+              },
+            }
+          );
+
+          const { error: recoveryError } = await recoveryClient
+            .from("apparel_payment_attempts")
+            .update({
+              payment_state: "needs_review",
+              last_error:
+                "Payment request interrupted; verify Square status before retrying.",
+            })
+            .eq("idempotency_key", idempotencyKey)
+            .eq("payment_state", "processing");
+
+          if (recoveryError) {
+            console.error(
+              "Payment exception recovery update failed:",
+              recoveryError
+            );
+          }
+        }
+      } catch (recoveryException) {
+        console.error(
+          "Payment exception recovery failed:",
+          recoveryException
+        );
+      }
+    }
+
     return NextResponse.json(
       {
         success: false,
-        error: "Something went wrong while processing your apparel order.",
+        paymentStatusUncertain: squarePaymentAttempted,
+        error: squarePaymentAttempted
+          ? "Your payment status could not be confirmed. Do not submit another payment. Contact The Gallaspy so we can verify your transaction."
+          : "Something went wrong while processing your apparel order.",
       },
       { status: 500 }
     );

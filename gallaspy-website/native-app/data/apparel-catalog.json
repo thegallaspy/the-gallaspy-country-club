@@ -1,0 +1,530 @@
+{
+  "collection": "The Gallaspy Collection",
+  "products": [
+    {
+      "slug": "navy-crest-performance-polo",
+      "name": "Crest Performance Polo",
+      "category": "Men's Performance Polo",
+      "color": "Navy",
+      "price": "$60",
+      "image": "/images/apparel/men/polos/navy-crest-mens-polo.png",
+      "collection": "men",
+      "mark": "Crest",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL"
+      ]
+    },
+    {
+      "slug": "forest-green-crest-performance-polo",
+      "name": "Crest Performance Polo",
+      "category": "Men's Performance Polo",
+      "color": "Forest Green",
+      "price": "$60",
+      "image": "/images/apparel/men/polos/forest-green-crest-mens-polo.png",
+      "collection": "men",
+      "mark": "Crest",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL"
+      ]
+    },
+    {
+      "slug": "white-crest-performance-polo",
+      "name": "Crest Performance Polo",
+      "category": "Men's Performance Polo",
+      "color": "White",
+      "price": "$60",
+      "image": "/images/apparel/men/polos/white-crest-mens-polo.png",
+      "collection": "men",
+      "mark": "Crest",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL"
+      ]
+    },
+    {
+      "slug": "navy-falcon-performance-polo",
+      "name": "Falcon Performance Polo",
+      "category": "Men's Performance Polo",
+      "color": "Navy",
+      "price": "$60",
+      "image": "/images/apparel/men/polos/navy-falcon-mens-polo.png",
+      "collection": "men",
+      "mark": "Falcon",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL"
+      ]
+    },
+    {
+      "slug": "forest-green-falcon-performance-polo",
+      "name": "Falcon Performance Polo",
+      "category": "Men's Performance Polo",
+      "color": "Forest Green",
+      "price": "$60",
+      "image": "/images/apparel/men/polos/forest-green-falcon-mens-polo.png",
+      "collection": "men",
+      "mark": "Falcon",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL"
+      ]
+    },
+    {
+      "slug": "white-falcon-performance-polo",
+      "name": "Falcon Performance Polo",
+      "category": "Men's Performance Polo",
+      "color": "White",
+      "price": "$60",
+      "image": "/images/apparel/men/polos/white-falcon-mens-polo.png",
+      "collection": "men",
+      "mark": "Falcon",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL"
+      ]
+    },
+    {
+      "slug": "navy-womens-falcon-sleeveless-quarter-zip",
+      "name": "Falcon Sleeveless Quarter-Zip",
+      "category": "Women's Performance",
+      "color": "Navy",
+      "price": "$35",
+      "image": "/images/apparel/women/quarter-zips/navy-falcon-womens-sleeveless-quarter-zip.png",
+      "collection": "women",
+      "mark": "Falcon",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "slug": "forest-green-womens-falcon-sleeveless-quarter-zip",
+      "name": "Falcon Sleeveless Quarter-Zip",
+      "category": "Women's Performance",
+      "color": "Forest Green",
+      "price": "$35",
+      "image": "/images/apparel/women/quarter-zips/forest-green-falcon-womens-sleeveless-quarter-zip.png",
+      "collection": "women",
+      "mark": "Falcon",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "slug": "white-womens-falcon-sleeveless-quarter-zip",
+      "name": "Falcon Sleeveless Quarter-Zip",
+      "category": "Women's Performance",
+      "color": "White",
+      "price": "$35",
+      "image": "/images/apparel/women/quarter-zips/white-falcon-womens-sleeveless-quarter-zip.png",
+      "collection": "women",
+      "mark": "Falcon",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "slug": "navy-womens-falcon-skirt",
+      "name": "Falcon Performance Skirt",
+      "category": "Women's Performance",
+      "color": "Navy",
+      "price": "$45",
+      "image": "/images/apparel/women/skirts/navy-falcon-womens-skirt.png",
+      "collection": "women",
+      "mark": "Falcon",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "slug": "forest-green-womens-falcon-skirt",
+      "name": "Falcon Performance Skirt",
+      "category": "Women's Performance",
+      "color": "Forest Green",
+      "price": "$45",
+      "image": "/images/apparel/women/skirts/forest-green-falcon-womens-skirt.png",
+      "collection": "women",
+      "mark": "Falcon",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "slug": "white-womens-falcon-skirt",
+      "name": "Falcon Performance Skirt",
+      "category": "Women's Performance",
+      "color": "White",
+      "price": "$45",
+      "image": "/images/apparel/women/skirts/white-falcon-womens-skirt.png",
+      "collection": "women",
+      "mark": "Falcon",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "slug": "navy-crest-performance-hat",
+      "name": "Crest Performance Hat",
+      "category": "Performance Headwear",
+      "color": "Navy",
+      "price": "$45",
+      "image": "/images/apparel/headwear/crest/navy-crest-hat.png",
+      "collection": "headwear",
+      "mark": "Crest",
+      "sizes": [
+        "One Size"
+      ]
+    },
+    {
+      "slug": "forest-green-crest-performance-hat",
+      "name": "Crest Performance Hat",
+      "category": "Performance Headwear",
+      "color": "Forest Green",
+      "price": "$45",
+      "image": "/images/apparel/headwear/crest/forest-green-crest-performance-hat.png",
+      "collection": "headwear",
+      "mark": "Crest",
+      "sizes": [
+        "One Size"
+      ]
+    },
+    {
+      "slug": "white-crest-performance-hat",
+      "name": "Crest Performance Hat",
+      "category": "Performance Headwear",
+      "color": "White",
+      "price": "$45",
+      "image": "/images/apparel/headwear/crest/white-crest-performance-hat.png",
+      "collection": "headwear",
+      "mark": "Crest",
+      "sizes": [
+        "One Size"
+      ]
+    },
+    {
+      "slug": "navy-falcon-performance-hat",
+      "name": "Falcon Performance Hat",
+      "category": "Performance Headwear",
+      "color": "Navy",
+      "price": "$45",
+      "image": "/images/apparel/headwear/falcon/navy-falcon-hat.png",
+      "collection": "headwear",
+      "mark": "Falcon",
+      "sizes": [
+        "One Size"
+      ]
+    },
+    {
+      "slug": "forest-green-falcon-performance-hat",
+      "name": "Falcon Performance Hat",
+      "category": "Performance Headwear",
+      "color": "Forest Green",
+      "price": "$45",
+      "image": "/images/apparel/headwear/falcon/forest-green-falcon-hat.png",
+      "collection": "headwear",
+      "mark": "Falcon",
+      "sizes": [
+        "One Size"
+      ]
+    },
+    {
+      "slug": "white-falcon-performance-hat",
+      "name": "Falcon Performance Hat",
+      "category": "Performance Headwear",
+      "color": "White",
+      "price": "$45",
+      "image": "/images/apparel/headwear/falcon/white-falcon-hat.png",
+      "collection": "headwear",
+      "mark": "Falcon",
+      "sizes": [
+        "One Size"
+      ]
+    },
+    {
+      "slug": "navy-script-performance-hat",
+      "name": "Script Performance Hat",
+      "category": "Performance Headwear",
+      "color": "Navy",
+      "price": "$45",
+      "image": "/images/apparel/headwear/script/navy-script-hat.png",
+      "collection": "headwear",
+      "mark": "Script",
+      "sizes": [
+        "One Size"
+      ]
+    },
+    {
+      "slug": "forest-green-script-performance-hat",
+      "name": "Script Performance Hat",
+      "category": "Performance Headwear",
+      "color": "Forest Green",
+      "price": "$45",
+      "image": "/images/apparel/headwear/script/forest-green-script-hat.png",
+      "collection": "headwear",
+      "mark": "Script",
+      "sizes": [
+        "One Size"
+      ]
+    },
+    {
+      "slug": "white-script-performance-hat",
+      "name": "Script Performance Hat",
+      "category": "Performance Headwear",
+      "color": "White",
+      "price": "$45",
+      "image": "/images/apparel/headwear/script/white-script-hat.png",
+      "collection": "headwear",
+      "mark": "Script",
+      "sizes": [
+        "One Size"
+      ]
+    },
+    {
+      "slug": "navy-falcon-performance-quarter-zip",
+      "name": "Falcon Performance Quarter-Zip",
+      "category": "Men's Performance Quarter-Zip",
+      "color": "Navy",
+      "price": "$75",
+      "image": "/images/apparel/men/quarter-zips/navy-falcon-mens-quarter-zip.png",
+      "collection": "men",
+      "mark": "Falcon",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL"
+      ]
+    },
+    {
+      "slug": "navy-womens-falcon-performance-polo",
+      "name": "Falcon Performance Polo",
+      "category": "Women's Performance Polo",
+      "color": "Navy",
+      "price": "$60",
+      "image": "/images/apparel/women/polos/navy-falcon-womens-polo.png",
+      "collection": "women",
+      "mark": "Falcon",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "slug": "navy-crest-performance-quarter-zip",
+      "name": "Crest Performance Quarter-Zip",
+      "category": "Men's Performance Quarter-Zip",
+      "color": "Navy",
+      "price": "$75",
+      "image": "/images/apparel/men/quarter-zips/navy-crest-mens-quarter-zip.png",
+      "collection": "men",
+      "mark": "Crest",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL"
+      ]
+    },
+    {
+      "slug": "navy-womens-crest-performance-polo",
+      "name": "Crest Performance Polo",
+      "category": "Women's Performance Polo",
+      "color": "Navy",
+      "price": "$60",
+      "image": "/images/apparel/women/polos/navy-crest-womens-polo.png",
+      "collection": "women",
+      "mark": "Crest",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "slug": "forest-green-falcon-performance-quarter-zip",
+      "name": "Falcon Performance Quarter-Zip",
+      "category": "Men's Performance Quarter-Zip",
+      "color": "Forest Green",
+      "price": "$75",
+      "image": "/images/apparel/men/quarter-zips/forest-green-falcon-mens-quarter-zip.png",
+      "collection": "men",
+      "mark": "Falcon",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL"
+      ]
+    },
+    {
+      "slug": "forest-green-womens-falcon-performance-polo",
+      "name": "Falcon Performance Polo",
+      "category": "Women's Performance Polo",
+      "color": "Forest Green",
+      "price": "$60",
+      "image": "/images/apparel/women/polos/forest-green-falcon-womens-polo.png",
+      "collection": "women",
+      "mark": "Falcon",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "slug": "forest-green-crest-performance-quarter-zip",
+      "name": "Crest Performance Quarter-Zip",
+      "category": "Men's Performance Quarter-Zip",
+      "color": "Forest Green",
+      "price": "$75",
+      "image": "/images/apparel/men/quarter-zips/forest-green-crest-mens-quarter-zip.png",
+      "collection": "men",
+      "mark": "Crest",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL"
+      ]
+    },
+    {
+      "slug": "forest-green-womens-crest-performance-polo",
+      "name": "Crest Performance Polo",
+      "category": "Women's Performance Polo",
+      "color": "Forest Green",
+      "price": "$60",
+      "image": "/images/apparel/women/polos/forest-green-crest-womens-polo.png",
+      "collection": "women",
+      "mark": "Crest",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "slug": "white-falcon-performance-quarter-zip",
+      "name": "Falcon Performance Quarter-Zip",
+      "category": "Men's Performance Quarter-Zip",
+      "color": "White",
+      "price": "$75",
+      "image": "/images/apparel/men/quarter-zips/white-falcon-mens-quarter-zip.png",
+      "collection": "men",
+      "mark": "Falcon",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL"
+      ]
+    },
+    {
+      "slug": "white-womens-falcon-performance-polo",
+      "name": "Falcon Performance Polo",
+      "category": "Women's Performance Polo",
+      "color": "White",
+      "price": "$60",
+      "image": "/images/apparel/women/polos/white-falcon-womens-polo.png",
+      "collection": "women",
+      "mark": "Falcon",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    },
+    {
+      "slug": "white-crest-performance-quarter-zip",
+      "name": "Crest Performance Quarter-Zip",
+      "category": "Men's Performance Quarter-Zip",
+      "color": "White",
+      "price": "$75",
+      "image": "/images/apparel/men/quarter-zips/white-crest-mens-quarter-zip.png",
+      "collection": "men",
+      "mark": "Crest",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL"
+      ]
+    },
+    {
+      "slug": "white-womens-crest-performance-polo",
+      "name": "Crest Performance Polo",
+      "category": "Women's Performance Polo",
+      "color": "White",
+      "price": "$60",
+      "image": "/images/apparel/women/polos/white-crest-womens-polo.png",
+      "collection": "women",
+      "mark": "Crest",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ]
+    }
+  ]
+}

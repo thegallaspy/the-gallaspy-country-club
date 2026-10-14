@@ -51,6 +51,10 @@
     const items = window.gallaspyShopBag?.getBag() || [];
     let subtotal = 0;
 
+    if (checkoutButton) {
+      checkoutButton.disabled = items.length === 0;
+    }
+
     if (!items.length) {
       const empty = document.createElement("p");
       empty.textContent = "Your shopping bag is empty.";
@@ -195,7 +199,7 @@
         }
 
         window.openClubRoute(route);
-        message.textContent = "Secure checkout opened.";
+        message.textContent = "Secure checkout requested.";
       } catch (error) {
         console.error("Native checkout error:", error);
         message.textContent =
@@ -203,7 +207,8 @@
             ? error.message
             : "Unable to start checkout.";
       } finally {
-        checkoutButton.disabled = true;
+        checkoutButton.disabled =
+          (window.gallaspyShopBag?.getBag() || []).length === 0;
       }
     });
   }

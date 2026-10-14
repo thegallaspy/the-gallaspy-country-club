@@ -238,6 +238,13 @@ export async function POST(request: NextRequest) {
         ? input.playing_style
         : "social";
 
+    const maxPlayers: number =
+      typeof input.max_players === "number"
+        ? input.max_players
+        : input.max_players === undefined
+          ? 4
+          : NaN;
+
     const validStyles = [
       "social",
       "beginner",
@@ -256,7 +263,10 @@ export async function POST(request: NextRequest) {
       course.length > 100 ||
       !validDate ||
       !validTime ||
-      !validStyles.includes(style)
+      !validStyles.includes(style) ||
+      !Number.isInteger(maxPlayers) ||
+      maxPlayers < 2 ||
+      maxPlayers > 4
     ) {
       return respond(
         { success: false, error: "Check the course, date, tee time, and playing style." },
@@ -286,7 +296,7 @@ export async function POST(request: NextRequest) {
         round_date: date,
         tee_time: time,
         playing_style: style,
-        max_players: 4,
+        max_players: maxPlayers,
         status: "open",
       })
       .select(

@@ -80,36 +80,101 @@ export default function ApparelCheckoutPage() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [orderMessage, setOrderMessage] = useState("");
+  const [confirmedOrder, setConfirmedOrder] = useState<{
+    reference: string;
+    receiptUrl: string;
+    items: CartItem[];
+    subtotal: number;
+    shipping: number;
+    tax: number;
+    total: number;
+  } | null>(null);
 
   const cardRef = useRef<SquareCard | null>(null);
+  const websiteCheckoutIdRef = useRef<string | null>(null);
+
+  const [nativeCheckoutError, setNativeCheckoutError] = useState("");
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem("gallaspy-cart");
-      const parsed = raw ? JSON.parse(raw) : [];
+    let cancelled = false;
 
-      const validItems = Array.isArray(parsed)
-        ? parsed.filter(
-            (item): item is CartItem =>
-              item &&
-              typeof item.id === "string" &&
-              typeof item.slug === "string" &&
-              typeof item.name === "string" &&
-              typeof item.color === "string" &&
-              typeof item.price === "string" &&
-              typeof item.image === "string" &&
-              typeof item.size === "string" &&
-              typeof item.quantity === "number" &&
-              item.quantity > 0
-          )
-        : [];
+    async function loadCheckout() {
+      const token = new URLSearchParams(
+        window.location.search
+      ).get("nativeCheckout");
 
-      setItems(validItems);
-    } catch {
-      setItems([]);
-    } finally {
-      setLoaded(true);
+      if (token !== null) {
+        try {
+          const response = await fetch(
+            "/api/apparel/native-checkout/redeem",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              cache: "no-store",
+              body: JSON.stringify({ token }),
+            }
+          );
+
+          const data = await response.json();
+
+          if (!response.ok || !Array.isArray(data.items)) {
+            throw new Error(
+              data.error || "Unable to retrieve your shopping bag."
+            );
+          }
+
+          if (!cancelled) {
+            setItems(data.items as CartItem[]);
+          }
+        } catch (error) {
+          if (!cancelled) {
+            setItems([]);
+            setNativeCheckoutError(
+              error instanceof Error
+                ? error.message
+                : "Unable to retrieve your shopping bag."
+            );
+          }
+        } finally {
+          if (!cancelled) setLoaded(true);
+        }
+
+        return;
+      }
+
+      try {
+        const raw = localStorage.getItem("gallaspy-cart");
+        const parsed = raw ? JSON.parse(raw) : [];
+
+        const validItems = Array.isArray(parsed)
+          ? parsed.filter(
+              (item): item is CartItem =>
+                item &&
+                typeof item.id === "string" &&
+                typeof item.slug === "string" &&
+                typeof item.name === "string" &&
+                typeof item.color === "string" &&
+                typeof item.price === "string" &&
+                typeof item.image === "string" &&
+                typeof item.size === "string" &&
+                typeof item.quantity === "number" &&
+                item.quantity > 0
+            )
+          : [];
+
+        if (!cancelled) setItems(validItems);
+      } catch {
+        if (!cancelled) setItems([]);
+      } finally {
+        if (!cancelled) setLoaded(true);
+      }
     }
+
+    loadCheckout();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
@@ -192,7 +257,15 @@ export default function ApparelCheckoutPage() {
   const tax = 0;
   const total = subtotal + shipping + tax;
 
+  const [paymentNeedsReview, setPaymentNeedsReview] = useState(false);
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    if (paymentNeedsReview) {
+      setOrderMessage(
+        "Your payment status needs verification. Please contact The Gallaspy before attempting another payment."
+      );
+      return;
+    }
     event.preventDefault();
 
     setOrderMessage("");
@@ -244,6 +317,23 @@ export default function ApparelCheckoutPage() {
         return;
       }
 
+      const isNativePayment = new URLSearchParams(
+        window.location.search
+      ).has("nativeCheckout");
+
+      if (!isNativePayment && !websiteCheckoutIdRef.current) {
+        const storageKey = "gallaspy-apparel-checkout-id";
+        const existingId = localStorage.getItem(storageKey);
+
+        websiteCheckoutIdRef.current =
+          existingId || crypto.randomUUID();
+
+        localStorage.setItem(
+          storageKey,
+          websiteCheckoutIdRef.current
+        );
+      }
+
       const response = await fetch("/api/apparel/payment", {
         method: "POST",
         headers: {
@@ -251,6 +341,12 @@ export default function ApparelCheckoutPage() {
         },
         body: JSON.stringify({
           sourceId: tokenResult.token,
+          websiteCheckoutId: isNativePayment
+            ? undefined
+            : websiteCheckoutIdRef.current,
+          nativeCheckoutToken:
+            new URLSearchParams(window.location.search)
+              .get("nativeCheckout") || undefined,
 
           items: items.map((item) => ({
             slug: item.slug,
@@ -279,7 +375,12 @@ export default function ApparelCheckoutPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        if (data?.paymentSucceeded === true) {
+        if (
+          data?.paymentSucceeded === true ||
+          data?.paymentStatusUncertain === true ||
+          response.status === 409
+        ) {
+          setPaymentNeedsReview(true);
           setOrderMessage(
             data?.error ||
               "Your payment was completed, but there was a problem recording the order. Do not submit another payment."
@@ -296,21 +397,39 @@ export default function ApparelCheckoutPage() {
         return;
       }
 
-      localStorage.removeItem("gallaspy-cart");
-      window.dispatchEvent(
-        new Event("gallaspy-cart-updated")
-      );
+      const isNativeCheckout = new URLSearchParams(
+        window.location.search
+      ).has("nativeCheckout");
 
+      if (!isNativeCheckout) {
+        localStorage.removeItem("gallaspy-apparel-checkout-id");
+        websiteCheckoutIdRef.current = null;
+        localStorage.removeItem("gallaspy-cart");
+        window.dispatchEvent(
+          new Event("gallaspy-cart-updated")
+        );
+      }
+
+      setConfirmedOrder({
+        reference: String(data.orderReference || ""),
+        receiptUrl: String(data.receiptUrl || ""),
+        items: items.map((item) => ({ ...item })),
+        subtotal: Number(data.pricing?.subtotalCents || 0) / 100,
+        shipping: Number(data.pricing?.shippingCents || 0) / 100,
+        tax: Number(data.pricing?.taxCents || 0) / 100,
+        total: Number(data.pricing?.totalCents || 0) / 100,
+      });
       setItems([]);
       setSuccess(true);
       setOrderMessage(
-        "Your Gallaspy Apparel pre-order has been confirmed. A confirmation has been sent to your email."
+        "Your payment is confirmed. Your founding apparel selections are reserved."
       );
     } catch (error) {
       console.error("Checkout error:", error);
+      setPaymentNeedsReview(true);
 
       setOrderMessage(
-        "Something went wrong while processing the order. Please try again."
+        "Your payment status could not be confirmed. Do not submit another payment. Contact The Gallaspy for assistance."
       );
     } finally {
       setSubmitting(false);
@@ -329,31 +448,151 @@ export default function ApparelCheckoutPage() {
     );
   }
 
-  if (success) {
+  if (success && confirmedOrder) {
     return (
-      <main className="min-h-screen bg-[#10263F] px-5 pb-20 pt-36 text-white sm:px-8 lg:px-10">
+      <main className="min-h-screen bg-[#F3EFE6] px-5 pb-20 pt-24 text-[#10263F] sm:px-8">
         <div className="mx-auto max-w-3xl">
-          <p className="text-[8px] font-black uppercase tracking-[0.34em] text-[#FFD76A]">
-            Pre-Order Confirmed
-          </p>
+          <div className="border-t-4 border-[#0C352D] bg-white p-7 shadow-sm sm:p-12">
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#0C352D]">
+              The Gallaspy Golf Club
+            </p>
 
-          <h1 className="mt-5 text-[3rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4.5rem]">
-            Your Pieces
-            <span className="block text-[#FFD76A]">
-              Are Reserved.
-            </span>
+            <div className="mt-8 flex h-14 w-14 items-center justify-center rounded-full bg-[#0C352D] text-3xl text-white">
+              ✓
+            </div>
+
+            <p className="mt-6 text-xs font-black uppercase tracking-[0.25em] text-[#0C352D]">
+              Pre-Order Confirmed
+            </p>
+
+            <h1 className="mt-3 text-4xl font-black uppercase leading-tight tracking-tight sm:text-5xl">
+              Your Pieces
+              <span className="block text-[#0C352D]">Are Reserved.</span>
+            </h1>
+
+            <p className="mt-5 text-sm leading-7 text-[#10263F]/70">
+              {orderMessage}
+            </p>
+
+            <div className="mt-8 border-y border-[#10263F]/15 py-5">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-[#10263F]/55">
+                Order Reference
+              </p>
+              <p className="mt-2 break-all text-sm font-bold">
+                {confirmedOrder.reference}
+              </p>
+            </div>
+
+            <h2 className="mt-8 text-lg font-black uppercase tracking-tight">
+              Your Order
+            </h2>
+
+            <div className="mt-5 space-y-5">
+              {confirmedOrder.items.map((item, index) => (
+                <div
+                  key={`${item.slug}-${item.size}-${index}`}
+                  className="flex gap-4 border-b border-[#10263F]/10 pb-5"
+                >
+                  <div className="relative h-24 w-24 shrink-0 bg-[#F3EFE6]">
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      sizes="96px"
+                      className="object-contain"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-black">{item.name}</p>
+                    <p className="mt-1 text-xs text-[#10263F]/60">
+                      {item.color} · {item.size} · Qty {item.quantity}
+                    </p>
+                    <p className="mt-3 text-sm font-bold">
+                      {money(priceToNumber(item.price) * item.quantity)}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-7 space-y-3 text-sm">
+              <div className="flex justify-between">
+                <span>Subtotal</span>
+                <span>{money(confirmedOrder.subtotal)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Shipping</span>
+                <span>{money(confirmedOrder.shipping)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Tax</span>
+                <span>{money(confirmedOrder.tax)}</span>
+              </div>
+              <div className="flex justify-between border-t border-[#10263F]/20 pt-4 text-lg font-black">
+                <span>Total Paid</span>
+                <span>{money(confirmedOrder.total)}</span>
+              </div>
+            </div>
+
+            <div className="mt-9 border-l-4 border-[#0C352D] bg-[#F3EFE6] p-5">
+              <h2 className="text-sm font-black uppercase">
+                What Happens Next?
+              </h2>
+              <p className="mt-3 text-sm leading-6 text-[#10263F]/75">
+                Your founding apparel is reserved for the first production
+                release. These are pre-order items and are not ready to ship.
+                Production and fulfillment updates will be sent to the email
+                address provided at checkout.
+              </p>
+            </div>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link
+                href="/apparel"
+                className="inline-flex min-h-12 items-center justify-center bg-[#10263F] px-6 text-xs font-black uppercase tracking-widest text-white"
+              >
+                Continue Shopping →
+              </Link>
+
+              {confirmedOrder.receiptUrl && (
+                <a
+                  href={confirmedOrder.receiptUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-12 items-center justify-center border border-[#10263F]/25 px-6 text-xs font-black uppercase tracking-widest"
+                >
+                  View Payment Receipt
+                </a>
+              )}
+            </div>
+
+            {new URLSearchParams(
+              typeof window !== "undefined" ? window.location.search : ""
+            ).has("nativeCheckout") && (
+              <p className="mt-6 text-sm leading-6 text-[#10263F]/65">
+                Shopping in The Gallaspy app? Close this secure checkout
+                window to return to the app.
+              </p>
+            )}
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  if (nativeCheckoutError) {
+    return (
+      <main className="min-h-screen bg-[#F3EFE6] px-5 pb-20 pt-36 text-[#10263F]">
+        <div className="mx-auto max-w-3xl">
+          <h1 className="text-3xl font-black uppercase">
+            Checkout Unavailable
           </h1>
-
-          <p className="mt-7 max-w-xl text-base leading-7 text-white/65">
-            {orderMessage}
+          <p className="mt-5 text-sm leading-7">
+            {nativeCheckoutError}
           </p>
-
-          <Link
-            href="/apparel"
-            className="mt-9 inline-flex min-h-[50px] items-center justify-center bg-[#FFD76A] px-7 text-[8px] font-black uppercase tracking-[0.22em] text-[#10263F]"
-          >
-            Return To Apparel →
-          </Link>
+          <p className="mt-3 text-sm">
+            Please return to The Gallaspy app and start checkout again.
+          </p>
         </div>
       </main>
     );

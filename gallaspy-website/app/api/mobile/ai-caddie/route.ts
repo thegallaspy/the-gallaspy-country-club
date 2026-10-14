@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import {
+  getGallaspyAIProvider,
+  getGallaspyProviderAdvice,
+} from "@/lib/gallaspy-ai-provider";
 
 export const dynamic = "force-dynamic";
 
@@ -74,7 +78,9 @@ export async function POST(request: NextRequest) {
     return reply({ success: false, error: "Invalid shot details." }, 400);
   }
 
-  if (!process.env.OPENAI_API_KEY) {
+  const provider = getGallaspyAIProvider();
+
+  if (provider === "openai" && !process.env.OPENAI_API_KEY) {
     return reply({
       success: false,
       error: "AI Caddie is not configured yet.",
@@ -119,6 +125,17 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    if (provider === "gallaspy") {
+      const advice = await getGallaspyProviderAdvice({
+        distance,
+        lie: String(shot.lie),
+        wind: String(shot.wind),
+        question: shot.question as string,
+      });
+
+      return reply({ success: true, advice });
+    }
+
     const response = await fetch("https://api.openai.com/v1/responses", {
       method: "POST",
       headers: {
