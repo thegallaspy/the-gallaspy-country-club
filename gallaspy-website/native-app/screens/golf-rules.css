@@ -1,0 +1,280 @@
+/* Gallaspy Golf Rules Assistant */
+
+#gallaspyRulesContent {
+  margin-top: 22px;
+}
+
+.gallaspy-rules > label {
+  display: block;
+  margin-bottom: 10px;
+  color: #ffd76a;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+#gallaspyRulesSearch {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 50px;
+  padding: 13px 15px;
+  border: 1px solid #607589;
+  border-radius: 4px;
+  background: #12283a;
+  color: #fff;
+  font: inherit;
+  font-size: 15px;
+}
+
+#gallaspyRulesSearch::placeholder {
+  color: #b6c1c9;
+}
+
+#gallaspyRulesSearch:focus-visible,
+.gallaspy-rules-categories button:focus-visible {
+  outline: 2px solid #ffd76a;
+  outline-offset: 3px;
+}
+
+.gallaspy-rules-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.gallaspy-rules-categories button {
+  min-height: 38px;
+  padding: 9px 11px;
+  border: 1px solid #607589;
+  border-radius: 3px;
+  background: #142f3f;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.035em;
+  cursor: pointer;
+}
+
+.gallaspy-rules-categories button[aria-pressed="true"] {
+  border-color: #ffd76a;
+  background: #ffd76a;
+  color: #14283b;
+}
+
+#gallaspyRulesStatus {
+  margin: 18px 0 12px;
+  color: #c5d1da;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+#gallaspyRulesResults {
+  display: grid;
+  gap: 12px;
+}
+
+.gallaspy-rule-card {
+  padding: 18px;
+  border: 1px solid #4d6577;
+  border-left: 3px solid #ffd76a;
+  background: #152d3f;
+}
+
+.gallaspy-rule-card h4 {
+  margin: 0 0 10px;
+  color: #fff;
+  font-size: 17px;
+  line-height: 1.35;
+}
+
+.gallaspy-rule-card p {
+  margin: 0 0 10px;
+  color: #d6dfe5;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.gallaspy-rule-card .gallaspy-rule-reference {
+  margin-bottom: 0;
+  color: #ffd76a;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.gallaspy-rules-disclaimer {
+  margin-top: 24px;
+  padding-top: 14px;
+  border-top: 1px solid #4d6577;
+  color: #b6c1c9;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* GALLASPY EXPANDABLE RULES V2 */
+#nativePlayScreen .gallaspy-rule-card {
+  padding: 0;
+  background: #fff;
+  border: 1px solid #dce4e0;
+  border-left: 4px solid #165640;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#nativePlayScreen .gallaspy-rule-card summary {
+  display: grid;
+  gap: 5px;
+  padding: 15px;
+  cursor: pointer;
+  list-style: none;
+}
+
+#nativePlayScreen .gallaspy-rule-card summary::-webkit-details-marker {
+  display: none;
+}
+
+#nativePlayScreen .gallaspy-rule-card summary strong {
+  color: #132b40;
+  font-size: 16px;
+}
+
+#nativePlayScreen .gallaspy-rule-card summary span {
+  color: #526171;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+#nativePlayScreen .gallaspy-rule-body {
+  padding: 14px 15px;
+  border-top: 1px solid #e5ece8;
+}
+
+#nativePlayScreen .gallaspy-rule-body p {
+  color: #25394a;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+#nativePlayScreen .gallaspy-rule-body .gallaspy-rule-reference {
+  color: #165640;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+#nativePlayScreen .gallaspy-rule-card summary:focus-visible {
+  outline: 3px solid #b33343;
+  outline-offset: -3px;
+}
+
+
+/* GALLASPY GOLF RULES POLISH V3 */
+
+/* Bring search closer to the page heading */
+#nativePlayScreen #playGolfRules {
+  padding-top: 12px;
+}
+
+#nativePlayScreen #gallaspyRulesContent {
+  margin-top: 0;
+}
+
+/* Clean, readable search */
+#nativePlayScreen .gallaspy-rules > label {
+  color: #165640;
+  font-size: 11px;
+  letter-spacing: .08em;
+}
+
+#nativePlayScreen #gallaspyRulesSearch {
+  min-height: 52px;
+  background: #fff;
+  color: #142e43;
+  border: 1.5px solid #cbd8d3;
+  border-radius: 12px;
+  padding: 13px 15px;
+  font-size: 15px;
+}
+
+#nativePlayScreen #gallaspyRulesSearch::placeholder {
+  color: #667582;
+}
+
+#nativePlayScreen #gallaspyRulesSearch:focus {
+  border-color: #165640;
+  outline: 2px solid rgba(22, 86, 64, .15);
+}
+
+/* Compact category filters */
+#nativePlayScreen .gallaspy-rules-categories {
+  gap: 8px;
+  margin: 14px 0;
+}
+
+#nativePlayScreen .gallaspy-rules-categories button {
+  min-height: 36px;
+  padding: 8px 11px;
+  border-radius: 999px;
+  background: #f3f5f5;
+  border: 1px solid #dce4e0;
+  color: #142e43;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+#nativePlayScreen .gallaspy-rules-categories button[aria-pressed="true"] {
+  background: #165640;
+  border-color: #165640;
+  color: #fff;
+}
+
+/* Improve rule count visibility */
+#nativePlayScreen #gallaspyRulesStatus {
+  color: #526171;
+  font-size: 12px;
+  margin: 12px 0;
+}
+
+/* Expandable cards */
+#nativePlayScreen .gallaspy-rule-card {
+  border-left: 4px solid #165640;
+}
+
+#nativePlayScreen .gallaspy-rule-card[open] {
+  border-left-color: #b33343;
+}
+
+#nativePlayScreen .gallaspy-rule-card summary {
+  position: relative;
+  padding: 15px 44px 15px 15px;
+}
+
+#nativePlayScreen .gallaspy-rule-card summary::after {
+  content: "+";
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  color: #165640;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+#nativePlayScreen .gallaspy-rule-card[open] summary::after {
+  content: "−";
+  color: #b33343;
+}
+
+#nativePlayScreen .gallaspy-rule-card summary strong {
+  color: #142e43;
+}
+
+#nativePlayScreen .gallaspy-rule-card summary span {
+  color: #526171;
+}
+
+/* Keep the important official-rules notice readable */
+#nativePlayScreen .gallaspy-rules-disclaimer {
+  color: #526171;
+  border-top-color: #e1e8e4;
+}

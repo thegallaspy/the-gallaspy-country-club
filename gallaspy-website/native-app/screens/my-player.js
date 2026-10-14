@@ -13,6 +13,9 @@
 
   function clearProfile() {
     requestVersion++;
+    window.gallaspyVerifiedPlayerName = null;
+    const greeting = document.getElementById("myPlayerGreeting");
+    if (greeting) greeting.textContent = "WELCOME, GOLFER.";
     panel.hidden = true;
     name.textContent = "PLAYER PROFILE.";
     location.textContent = "";
@@ -42,6 +45,19 @@
       }
 
       const player = result.player;
+
+      const fullName = [player.first_name, player.last_name]
+        .filter(Boolean)
+        .join(" ")
+        .trim();
+
+      const greeting = document.getElementById("myPlayerGreeting");
+
+      window.gallaspyVerifiedPlayerName = fullName || null;
+
+      if (greeting && fullName) {
+        greeting.textContent = `WELCOME, ${fullName.toUpperCase()}.`;
+      }
 
       name.textContent =
         [player.first_name, player.last_name]

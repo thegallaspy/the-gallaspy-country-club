@@ -26,9 +26,13 @@
       : "";
 
     nameInput.value = name;
-    greeting.textContent = name
-      ? `WELCOME, ${name.toUpperCase()}.`
-      : "WELCOME, GOLFER.";
+    const verifiedName = window.gallaspyVerifiedPlayerName;
+
+    greeting.textContent = verifiedName
+      ? `WELCOME, ${verifiedName.toUpperCase()}.`
+      : name
+        ? `WELCOME, ${name.toUpperCase()}.`
+        : "WELCOME, GOLFER.";
   }
 
   function getRounds() {
@@ -96,6 +100,47 @@
       recent.append(item);
     });
   }
+
+  const settingsPanel = $("mySettingsPanel");
+  const dashboardContent = document.querySelector(".my-dashboard-content");
+  const cloudProfile = $("myCloudProfile");
+  let cloudProfileWasVisible = false;
+
+  function setSettingsOpen(open) {
+    if (!settingsPanel || !dashboardContent) return;
+
+    if (open && cloudProfile) {
+      cloudProfileWasVisible = !cloudProfile.hidden;
+    }
+
+    settingsPanel.hidden = !open;
+    dashboardContent.hidden = open;
+
+    if (cloudProfile) {
+      cloudProfile.hidden = open ? true : !cloudProfileWasVisible;
+    }
+
+    if (open) {
+      loadProfile();
+      settingsPanel.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    } else {
+      $("nativeMyGallaspyScreen")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  }
+
+  $("myOpenSettings")?.addEventListener("click", () => {
+    setSettingsOpen(true);
+  });
+
+  $("myCloseSettings")?.addEventListener("click", () => {
+    setSettingsOpen(false);
+  });
 
   $("mySaveProfile")?.addEventListener("click", () => {
     const name = nameInput.value.trim();

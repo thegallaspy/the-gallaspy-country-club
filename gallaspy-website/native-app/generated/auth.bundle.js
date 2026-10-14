@@ -20342,11 +20342,123 @@ ${suffix}`;
         }
       });
     },
+    async verifyEmailCode(email, token) {
+      return supabase.auth.verifyOtp({
+        email: email.trim().toLowerCase(),
+        token: token.trim(),
+        type: "email"
+      });
+    },
     async exchangeCode(code) {
       return supabase.auth.exchangeCodeForSession(code);
     },
     async getUser() {
       return supabase.auth.getUser();
+    },
+    async getCheckoutAccessToken() {
+      const { data, error } = await supabase.auth.getSession();
+      if (error) {
+        throw new Error("Unable to verify your Gallaspy session.");
+      }
+      return data?.session?.access_token || null;
+    },
+    async foursomeRequest(path = "", method = "GET", body) {
+      const { data, error } = await supabase.auth.getSession();
+      if (error || !data?.session?.access_token) {
+        throw new Error("Please sign in to your Gallaspy account.");
+      }
+      const response = await fetch(
+        "https://thegallaspy.com/api/mobile/foursomes" + path,
+        {
+          method,
+          headers: {
+            Authorization: "Bearer " + data.session.access_token,
+            ...body === void 0 ? {} : { "Content-Type": "application/json" }
+          },
+          ...body === void 0 ? {} : { body: JSON.stringify(body) },
+          cache: "no-store"
+        }
+      );
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || "Unable to load foursomes.");
+      }
+      return result;
+    },
+    async getAdminAccess() {
+      const { data, error } = await supabase.auth.getSession();
+      if (error || !data?.session?.access_token) {
+        throw new Error("Please sign in to your Gallaspy account.");
+      }
+      const response = await fetch(
+        "https://thegallaspy.com/api/mobile/admin/access",
+        {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + data.session.access_token
+          },
+          cache: "no-store"
+        }
+      );
+      const result = await response.json();
+      if (!response.ok || result.success !== true) {
+        throw new Error(
+          result.error || "Unable to check administrator access."
+        );
+      }
+      return result;
+    },
+    async verifyOfficialRound(eventId, playerId, isHost) {
+      const { data, error } = await supabase.auth.getSession();
+      if (error || !data?.session?.access_token) {
+        throw new Error("Please sign in to verify a Gallaspy Round.");
+      }
+      const response = await fetch(
+        "https://thegallaspy.com/api/mobile/admin/rounds/verify",
+        {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + data.session.access_token,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            event_id: eventId,
+            player_id: playerId,
+            is_host: isHost
+          }),
+          cache: "no-store"
+        }
+      );
+      const result = await response.json();
+      if (!response.ok || result.success !== true) {
+        throw new Error(
+          result.error || "Unable to verify this Gallaspy Round."
+        );
+      }
+      return result;
+    },
+    async getClubPoints() {
+      const { data, error } = await supabase.auth.getSession();
+      if (error || !data?.session?.access_token) {
+        throw new Error("Please sign in to view your Club Points.");
+      }
+      const response = await fetch(
+        "https://thegallaspy.com/api/mobile/club-points",
+        {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + data.session.access_token
+          },
+          cache: "no-store"
+        }
+      );
+      const result = await response.json();
+      if (!response.ok || result.success !== true) {
+        throw new Error(
+          result.error || "Unable to load Club Points."
+        );
+      }
+      return result;
     },
     async getPlayer() {
       const { data, error } = await supabase.auth.getSession();
@@ -20366,6 +20478,31 @@ ${suffix}`;
       const result = await response.json();
       if (!response.ok || !result.success) {
         throw new Error(result.error || "Unable to load player.");
+      }
+      return result;
+    },
+    async aiCaddieRequest(shot) {
+      const { data, error } = await supabase.auth.getSession();
+      if (error || !data?.session?.access_token) {
+        throw new Error("Please sign in to your Gallaspy account.");
+      }
+      const response = await fetch(
+        "https://thegallaspy.com/api/mobile/ai-caddie",
+        {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + data.session.access_token,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(shot),
+          cache: "no-store"
+        }
+      );
+      const result = await response.json();
+      if (!response.ok || result.success !== true) {
+        throw new Error(
+          result.error || "Unable to reach AI Caddie."
+        );
       }
       return result;
     },

@@ -1,0 +1,403 @@
+/* GALLASPY PLAY — WHITE-FIRST DESIGN V1 */
+
+#nativePlayScreen {
+  color: #142e43;
+  background: #ffffff;
+  margin: -12px -22px 0;
+  padding: 18px 16px 42px;
+  min-height: 70vh;
+}
+
+#nativePlayScreen .play-heading {
+  padding: 12px 4px 22px;
+}
+
+#nativePlayScreen .play-heading h2 {
+  color: #142e43;
+  font-size: clamp(34px, 9vw, 46px);
+  line-height: .98;
+  margin: 12px 0 0;
+}
+
+#nativePlayScreen .play-heading > p:last-child {
+  display: none;
+}
+
+#nativePlayScreen .play-heading .intro-label {
+  color: #b72e38;
+  font-size: 10px;
+  letter-spacing: .13em;
+}
+
+#nativePlayScreen .play-dashboard-nav {
+  gap: 10px;
+  margin: 0 0 18px;
+}
+
+#nativePlayScreen .play-dashboard-nav button {
+  min-height: 94px;
+  padding: 15px;
+  background: #f5f7f8;
+  border: 1px solid #e2e8eb;
+  border-radius: 12px;
+  color: #142e43;
+  box-shadow: none;
+}
+
+#nativePlayScreen .play-dashboard-nav button span {
+  font-size: 15px;
+  letter-spacing: -.02em;
+}
+
+#nativePlayScreen .play-dashboard-nav button small {
+  margin-top: 8px;
+  color: #b72e38;
+  font-size: 9px;
+  letter-spacing: .07em;
+}
+
+#nativePlayScreen .play-dashboard-nav button:active {
+  background: #e9eef0;
+}
+
+#nativePlayScreen .play-dashboard-nav .play-dashboard-wide {
+  min-height: 76px;
+}
+
+#nativePlayScreen .gallaspy-play-page-header {
+  padding: 12px 4px 20px;
+  margin: 0 0 14px;
+  background: transparent;
+  border-bottom: 2px solid #bd343b;
+}
+
+#nativePlayScreen .gallaspy-play-back {
+  margin-bottom: 16px;
+  background: #f1f3f4;
+  color: #142e43;
+}
+
+#nativePlayScreen .gallaspy-play-page-title {
+  font-size: clamp(30px, 8vw, 38px);
+}
+
+#nativePlayScreen:has(.gallaspy-play-page-header:not([hidden])) {
+  background: #ffffff;
+}
+
+#nativePlayScreen:has(.gallaspy-play-page-header:not([hidden]))
+.play-feature:not([hidden]) {
+  margin: 0 0 14px;
+  padding: 16px 4px 20px;
+  border: 0;
+  border-bottom: 1px solid #e6ebed;
+  border-radius: 0;
+  background: #ffffff;
+  box-shadow: none;
+}
+
+#nativePlayScreen .play-feature > .intro-label,
+#nativePlayScreen .play-feature > h3,
+#nativePlayScreen .play-feature > h3 + p {
+  display: none;
+}
+
+#nativePlayScreen .play-feature {
+  color: #142e43;
+}
+
+#nativePlayScreen .play-feature .intro-label {
+  color: #a52e38;
+  font-size: 10px;
+}
+
+#nativePlayScreen .play-feature p,
+#nativePlayScreen .play-feature label {
+  line-height: 1.45;
+}
+
+#nativePlayScreen .play-feature button {
+  cursor: pointer;
+}
+
+#nativePlayScreen #playWeather {
+  background: #f5f7f8;
+  border: 1px solid #e2e8eb;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 18px;
+}
+
+#nativePlayScreen #playWeather > h3 {
+  display: block;
+  margin: 0 0 12px;
+  color: #142e43;
+  font-size: 20px;
+}
+
+#nativePlayScreen #playWeather > .intro-label,
+#nativePlayScreen #playWeather > h3 + p {
+  display: none;
+}
+
+
+/* GALLASPY PLAY DASHBOARD COMPACT NAV V2 */
+
+#nativePlayScreen .play-dashboard-nav {
+  gap: 10px;
+}
+
+#nativePlayScreen .play-dashboard-nav button,
+#nativePlayScreen .play-dashboard-nav .play-dashboard-wide {
+  min-height: 76px;
+  padding: 14px 15px;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 12px;
+}
+
+#nativePlayScreen .play-dashboard-nav button span {
+  font-size: 16px;
+  line-height: 1.15;
+}
+
+#nativePlayScreen .play-dashboard-nav button small {
+  margin: 0;
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+#nativePlayScreen .play-dashboard-nav button:nth-child(2),
+#nativePlayScreen .play-dashboard-nav button:nth-child(4) {
+  background: #edf5f0;
+  border-color: #d1e3d7;
+}
+
+#nativePlayScreen .play-dashboard-nav button:nth-child(2) small,
+#nativePlayScreen .play-dashboard-nav button:nth-child(4) small {
+  color: #0c5a43;
+}
+
+#nativePlayScreen .play-dashboard-nav button:active {
+  background: #e2e9e6;
+}
+
+
+/* GALLASPY COMPACT WEATHER V3 */
+
+#nativePlayScreen #playWeather {
+  padding: 14px;
+  margin-top: 12px;
+}
+
+#nativePlayScreen #playWeather > h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+#nativePlayScreen .gallaspy-weather {
+  padding: 16px;
+  border-radius: 12px;
+}
+
+#nativePlayScreen .weather-top {
+  gap: 10px;
+}
+
+#nativePlayScreen .weather-top h4 {
+  font-size: 17px;
+  margin: 4px 0;
+}
+
+#nativePlayScreen .weather-top > strong {
+  font-size: 36px;
+}
+
+#nativePlayScreen .weather-top p {
+  font-size: 13px;
+}
+
+#nativePlayScreen .weather-label {
+  font-size: 9px;
+  margin-bottom: 6px;
+}
+
+#nativePlayScreen .weather-metrics {
+  gap: 8px;
+  margin: 12px 0;
+}
+
+#nativePlayScreen .weather-metrics > div {
+  padding: 10px 12px;
+  border-radius: 8px;
+}
+
+#nativePlayScreen .weather-metrics span {
+  margin-bottom: 4px;
+}
+
+#nativePlayScreen .weather-metrics strong {
+  font-size: 15px;
+}
+
+#nativePlayScreen .weather-hourly {
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+#nativePlayScreen .weather-hourly > div {
+  padding: 8px 3px;
+}
+
+#nativePlayScreen .weather-hourly span {
+  margin-bottom: 4px;
+}
+
+#nativePlayScreen .weather-hourly strong {
+  font-size: 15px;
+}
+
+#nativePlayScreen .gallaspy-weather button {
+  padding: 11px;
+  font-size: 12px;
+}
+
+#nativePlayScreen #weatherStatus {
+  margin: 8px 0 0;
+  font-size: 11px;
+}
+
+#nativePlayScreen #weatherStatus:empty {
+  display: none;
+}
+
+#nativePlayScreen .weather-disclaimer {
+  margin-top: 8px;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+
+/* GALLASPY GOLF PARTNERS DESIGN V1 */
+
+#nativePlayScreen .gallaspy-play-page-header:has(+ #playFoursomes),
+#nativePlayScreen .gallaspy-play-page-header:has(~ #playFoursomes:not([hidden])) {
+  padding-bottom: 18px;
+  margin-bottom: 8px;
+}
+
+#nativePlayScreen #playFoursomes {
+  background: #ffffff;
+  border: 0;
+  box-shadow: none;
+  padding: 12px 16px 24px;
+}
+
+#nativePlayScreen #playFoursomes > .intro-label,
+#nativePlayScreen #playFoursomes > h3,
+#nativePlayScreen #playFoursomes > h3 + p {
+  display: none;
+}
+
+#nativePlayScreen .foursome-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 8px 0 22px;
+}
+
+#nativePlayScreen .foursome-tabs button {
+  min-width: 0;
+  min-height: 52px;
+  padding: 9px 5px;
+  border: 1px solid #d7e1dc;
+  border-radius: 12px;
+  background: #f1f5f2;
+  color: #142e43;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+#nativePlayScreen .foursome-tabs button.active {
+  background: #175b45;
+  border-color: #175b45;
+  color: #ffffff;
+}
+
+#nativePlayScreen #foursomeBrowse,
+#nativePlayScreen #foursomeHostForm,
+#nativePlayScreen #foursomeMyRounds {
+  margin-top: 0;
+}
+
+#nativePlayScreen #foursomeHostForm .play-fields {
+  gap: 14px;
+}
+
+#nativePlayScreen #foursomeHostForm label {
+  color: #175b45;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+#nativePlayScreen #foursomeHostForm input,
+#nativePlayScreen #foursomeHostForm select {
+  min-height: 50px;
+  padding: 12px 14px;
+  border: 1px solid #ccd9d2;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #142e43;
+  font-size: 16px;
+  -webkit-text-fill-color: #142e43;
+}
+
+#nativePlayScreen #foursomeHostForm input::placeholder {
+  color: #778690;
+  -webkit-text-fill-color: #778690;
+}
+
+#nativePlayScreen #foursomeHostForm button[type="submit"] {
+  min-height: 52px;
+  margin-top: 20px;
+  border-radius: 10px;
+  background: #175b45;
+  color: #ffffff;
+}
+
+#nativePlayScreen #foursomeBrowse > .intro-label,
+#nativePlayScreen #foursomeMyRounds > .intro-label {
+  color: #175b45;
+}
+
+#nativePlayScreen #foursomeListings > p,
+#nativePlayScreen #foursomeMyRounds > p:not(.intro-label) {
+  padding: 18px;
+  border: 1px solid #dce6e0;
+  border-left: 3px solid #175b45;
+  border-radius: 10px;
+  background: #f7faf8;
+  color: #344858;
+  font-size: 14px;
+}
+
+#nativePlayScreen .foursome-card {
+  border: 1px solid #dce6e0;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+#nativePlayScreen .foursome-card h4 {
+  color: #142e43;
+}
+
+#nativePlayScreen .foursome-card p {
+  color: #455767;
+}
+
+#nativePlayScreen #foursomeMessage {
+  color: #b33346;
+}

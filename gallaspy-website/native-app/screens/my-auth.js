@@ -7,6 +7,10 @@
   const form = document.getElementById("myAuthForm");
   const emailInput = document.getElementById("myAuthEmail");
   const submitButton = document.getElementById("myAuthSubmit");
+  const verifyForm = document.getElementById("myAuthVerifyForm");
+  const codeInput = document.getElementById("myAuthCode");
+  const verifyButton = document.getElementById("myAuthVerifySubmit");
+  const resendButton = document.getElementById("myAuthResend");
   const signedInPanel = document.getElementById("myAuthSignedIn");
   const accountEmail = document.getElementById("myAuthAccountEmail");
   const signOutButton = document.getElementById("myAuthSignOut");
@@ -14,25 +18,55 @@
 
   if (!form || !window.gallaspyAuth) return;
 
+  const emailMethod = document.getElementById("authMethodEmail");
+  const phoneMethod = document.getElementById("authMethodPhone");
+  const phoneNotice = document.getElementById("authPhoneNotice");
+
+  function selectAuthMethod(method) {
+    const isEmail = method === "email";
+
+    emailMethod.setAttribute("aria-pressed", String(isEmail));
+    phoneMethod.setAttribute("aria-pressed", String(!isEmail));
+
+    form.hidden = !isEmail;
+    phoneNotice.hidden = isEmail;
+  }
+
+  emailMethod?.addEventListener("click", () => {
+    selectAuthMethod("email");
+  });
+
+  phoneMethod?.addEventListener("click", () => {
+    selectAuthMethod("phone");
+  });
+
   const auth = window.gallaspyAuth;
   const capacitorApp = window.Capacitor?.Plugins?.App;
 
   let processingCode = null;
+  let pendingEmail = "";
+  let busy = false;
+  let lastSentAt = 0;
+  const resendWaitMs = 60000;
 
   function setMessage(value) {
     message.textContent = value;
   }
 
-  function setBusy(busy) {
-    submitButton.disabled = busy;
-    signOutButton.disabled = busy;
+  function setBusy(value) {
+    busy = value;
+    submitButton.disabled = value;
+    verifyButton.disabled = value;
+    resendButton.disabled = value;
+    signOutButton.disabled = value;
   }
 
   async function refreshAccount() {
     const { data, error } = await auth.getUser();
 
     if (error || !data?.user) {
-      form.hidden = false;
+      form.hidden = Boolean(pendingEmail);
+      verifyForm.hidden = !pendingEmail;
       signedInPanel.hidden = true;
       accountEmail.textContent = "";
       window.dispatchEvent(new CustomEvent(
@@ -43,7 +77,10 @@
     }
 
     form.hidden = true;
+    verifyForm.hidden = true;
     signedInPanel.hidden = false;
+    pendingEmail = "";
+    codeInput.value = "";
     accountEmail.textContent = data.user.email || "SIGNED IN";
     window.dispatchEvent(new CustomEvent(
       "gallaspy:auth-changed",
@@ -100,6 +137,44 @@
     }
   }
 
+  async function sendCode(email) {
+    if (busy) return;
+
+    const remaining = resendWaitMs - (Date.now() - lastSentAt);
+
+    if (remaining > 0) {
+      setMessage(
+        "Please wait " + Math.ceil(remaining / 1000) +
+        " seconds before requesting another code."
+      );
+      return;
+    }
+
+    setBusy(true);
+    setMessage("Sending your verification code...");
+
+    try {
+      const { error } = await auth.signIn(email);
+      if (error) throw error;
+
+      pendingEmail = email;
+      lastSentAt = Date.now();
+      form.hidden = true;
+      verifyForm.hidden = false;
+      codeInput.value = "";
+
+      setMessage("Enter the six-digit code sent to " + email);
+      codeInput.focus();
+    } catch (error) {
+      setMessage(
+        error?.message ||
+        "Unable to send verification code. Please try again."
+      );
+    } finally {
+      setBusy(false);
+    }
+  }
+
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -107,40 +182,82 @@
 
     if (!email || !emailInput.checkValidity()) return;
 
+    await sendCode(email);
+  });
+
+  verifyForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (busy || !pendingEmail) return;
+
+    const token = codeInput.value.trim();
+
+    if (!/^[0-9]{6}$/.test(token)) {
+      setMessage("Enter the complete six-digit code.");
+      return;
+    }
+
     setBusy(true);
-    setMessage("Sending your sign-in link...");
+    setMessage("Verifying your code...");
 
     try {
-      const { error } = await auth.signIn(email);
+      const { error } = await auth.verifyEmailCode(
+        pendingEmail,
+        token
+      );
 
       if (error) throw error;
 
-      setMessage(
-        "Check your email on this iPhone and open the sign-in link."
-      );
+      await refreshAccount();
     } catch {
-      setMessage("Unable to send the link. Please try again.");
+      setMessage(
+        "Code invalid or expired. Check your email or resend."
+      );
     } finally {
       setBusy(false);
     }
   });
 
-  signOutButton.addEventListener("click", async () => {
+  resendButton.addEventListener("click", async () => {
+    if (!pendingEmail) return;
+    await sendCode(pendingEmail);
+  });
+
+  const headerSignOutButton =
+    document.getElementById("gallaspyHeaderSignOut");
+
+  async function handleSignOut() {
+    if (busy) return;
+
     setBusy(true);
+    if (headerSignOutButton) {
+      headerSignOutButton.disabled = true;
+    }
 
     try {
       const { error } = await auth.signOut();
 
       if (error) throw error;
 
+      pendingEmail = "";
+      emailInput.value = "";
+      codeInput.value = "";
+
       await refreshAccount();
       setMessage("You have signed out.");
+      window.gallaspyWelcome?.show();
     } catch {
       setMessage("Unable to sign out. Please try again.");
     } finally {
       setBusy(false);
+      if (headerSignOutButton) {
+        headerSignOutButton.disabled = false;
+      }
     }
-  });
+  }
+
+  signOutButton.addEventListener("click", handleSignOut);
+  headerSignOutButton?.addEventListener("click", handleSignOut);
 
   async function initialize() {
     try {
@@ -162,6 +279,7 @@
       await refreshAccount();
     } catch {
       setMessage("Account service is temporarily unavailable.");
+      window.gallaspyWelcome?.show();
     }
   }
 

@@ -1,0 +1,115 @@
+/* GALLASPY AI CADDIE */
+
+.caddie-screen {
+  padding: 8px 0 36px;
+  color: #fff;
+}
+
+#caddieBackHome {
+  min-height: 44px;
+  margin-bottom: 26px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #ffd76a;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.caddie-screen h2 {
+  margin: 12px 0;
+  font-size: clamp(38px, 11vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.caddie-intro {
+  margin: 0 0 26px;
+  color: #c5d1d5;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.caddie-panel,
+.caddie-response {
+  margin-bottom: 16px;
+  padding: 20px 16px;
+  border: 1px solid #45675e;
+  border-radius: 12px;
+  background: #14372f;
+}
+
+.caddie-panel h3 {
+  margin: 12px 0 22px;
+  font-size: 22px;
+  line-height: 1.15;
+}
+
+.caddie-panel label {
+  display: block;
+  margin: 18px 0 8px;
+  color: #ffd76a;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.caddie-panel input,
+.caddie-panel select,
+.caddie-panel textarea {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 12px;
+  border: 1px solid #628078;
+  border-radius: 8px;
+  background: #0e2928;
+  color: #fff;
+  font: inherit;
+  font-size: 15px;
+}
+
+.caddie-panel textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.caddie-panel input::placeholder,
+.caddie-panel textarea::placeholder {
+  color: #9daead;
+}
+
+#caddieAskButton {
+  width: 100%;
+  min-height: 54px;
+  margin-top: 20px;
+  border: 0;
+  border-radius: 8px;
+  background: #ffd76a;
+  color: #102d2a;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+#caddieAskButton:disabled {
+  opacity: 0.5;
+}
+
+#caddieStatus {
+  color: #c5d1d5;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.caddie-response {
+  border-color: #bda35d;
+}
+
+#caddieAnswer {
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+}

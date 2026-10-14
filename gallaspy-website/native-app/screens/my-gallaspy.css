@@ -185,3 +185,599 @@
   line-height: 1.6;
   color: #b6c1c9;
 }
+
+/* Gallaspy Golf Passport */
+.my-passport {
+  border-color: #ffd76a;
+}
+
+.my-passport-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 24px 0 30px;
+}
+
+.my-passport-stats > div {
+  padding: 18px 6px;
+  background: #132a40;
+  border: 1px solid #40576a;
+  text-align: center;
+}
+
+.my-passport-stats strong {
+  display: block;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.my-passport-stats span {
+  display: block;
+  margin-top: 7px;
+  color: #ffd76a;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .07em;
+}
+
+#passportCourseList {
+  margin: 15px 0 30px;
+}
+
+.passport-course {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 0;
+  border-bottom: 1px solid #40576a;
+}
+
+.passport-course strong {
+  display: block;
+  color: #fff;
+  overflow-wrap: anywhere;
+}
+
+.passport-course span {
+  display: block;
+  margin-top: 5px;
+  color: #b6c1c9;
+  font-size: 12px;
+}
+
+.passport-stamp {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 2px solid #ffd76a;
+  border-radius: 50%;
+  color: #ffd76a;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .04em;
+}
+
+#passportBadgeList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.passport-badge {
+  padding: 16px 10px;
+  border: 1px solid #40576a;
+  background: #132a40;
+  text-align: center;
+}
+
+.passport-badge strong {
+  display: block;
+  color: #fff;
+  font-size: 13px;
+}
+
+.passport-badge span {
+  display: block;
+  margin-top: 7px;
+  color: #ffd76a;
+  font-size: 10px;
+}
+
+.passport-badge.locked {
+  opacity: .45;
+}
+
+.passport-empty {
+  padding: 18px 0;
+  color: #b6c1c9;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+#myAuthVerifyForm[hidden] {
+  display: none !important;
+}
+
+
+/* Gallaspy sign-in method selector */
+.auth-method-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 22px 0 16px;
+}
+
+.auth-method-selector button {
+  min-height: 48px;
+  padding: 12px 8px;
+  border: 1px solid #607080;
+  border-radius: 4px;
+  background: #132a40;
+  color: #b6c1c9;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+
+.auth-method-selector button[aria-pressed="true"] {
+  background: #ffd76a;
+  border-color: #ffd76a;
+  color: #10263f;
+}
+
+#authPhoneNotice {
+  padding: 16px;
+  border: 1px solid #40576a;
+  color: #f4f0e7;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+#authPhoneNotice[hidden] {
+  display: none !important;
+}
+
+
+/* Two-line Gallaspy sign-in heading */
+.gallaspy-auth-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  text-align: center;
+  line-height: 1.15;
+}
+
+.gallaspy-auth-title span {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+/* GALLASPY MEMBERS PORTAL — WHITE / NAVY / RED V1 */
+
+#nativeMyGallaspyScreen .my-heading {
+  padding: 26px 0 24px;
+}
+
+#nativeMyGallaspyScreen .my-heading h2 {
+  color: #ffffff;
+  font-size: clamp(36px, 9vw, 52px);
+  line-height: 1;
+}
+
+#nativeMyGallaspyScreen .my-heading > p:last-child {
+  color: #d6dfe7;
+  font-size: 13px;
+}
+
+/* Premium white panels */
+#nativeMyGallaspyScreen .my-panel {
+  margin-bottom: 14px;
+  padding: 22px 19px;
+  background: #ffffff;
+  border: 1px solid #e2e6eb;
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+#nativeMyGallaspyScreen .my-panel .intro-label {
+  color: #a52a35;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+#nativeMyGallaspyScreen .my-panel h3 {
+  margin: 12px 0;
+  color: #112a44;
+  font-size: 23px;
+  line-height: 1.15;
+}
+
+#nativeMyGallaspyScreen .my-panel > p:not(.intro-label) {
+  color: #617181;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* Player profile */
+#nativeMyGallaspyScreen .my-panel label {
+  color: #112a44;
+}
+
+#nativeMyGallaspyScreen #myPlayerName,
+#nativeMyGallaspyScreen .my-auth-panel input {
+  background: #ffffff;
+  color: #112a44;
+  border: 1px solid #cbd4dc;
+  border-radius: 7px;
+}
+
+#nativeMyGallaspyScreen #myPlayerName:focus,
+#nativeMyGallaspyScreen .my-auth-panel input:focus {
+  outline: 2px solid #a52a35;
+  outline-offset: 2px;
+}
+
+/* Navy action buttons */
+#nativeMyGallaspyScreen #mySaveProfile,
+#nativeMyGallaspyScreen .my-action {
+  background: #112a44;
+  color: #ffffff;
+  border-radius: 7px;
+  font-size: 11px;
+}
+
+#nativeMyGallaspyScreen #myProfileMessage,
+#nativeMyGallaspyScreen #myAuthMessage,
+#nativeMyGallaspyScreen #myAuthAccountEmail {
+  color: #a52a35;
+}
+
+/* Player statistics */
+#nativeMyGallaspyScreen .my-stats {
+  gap: 9px;
+  margin-bottom: 18px;
+}
+
+#nativeMyGallaspyScreen .my-stats > div {
+  padding: 19px 6px;
+  background: #ffffff;
+  border: 1px solid #e2e6eb;
+  border-radius: 10px;
+}
+
+#nativeMyGallaspyScreen .my-stats span {
+  color: #617181;
+  font-size: 9px;
+}
+
+#nativeMyGallaspyScreen .my-stats strong {
+  margin-top: 10px;
+  color: #112a44;
+  font-size: 28px;
+}
+
+/* Recent rounds */
+#nativeMyGallaspyScreen .my-round {
+  border-bottom: 1px solid #e2e6eb;
+}
+
+#nativeMyGallaspyScreen .my-round > div strong {
+  color: #112a44;
+}
+
+#nativeMyGallaspyScreen .my-round span,
+#nativeMyGallaspyScreen .my-empty {
+  color: #687684;
+}
+
+#nativeMyGallaspyScreen .my-round-score {
+  color: #a52a35;
+}
+
+/* Golf Passport */
+#nativeMyGallaspyScreen .my-passport {
+  border-top: 3px solid #a52a35;
+}
+
+#nativeMyGallaspyScreen .my-passport-stats > div {
+  background: #f6f8fa;
+  border: 1px solid #e2e6eb;
+  border-radius: 8px;
+}
+
+#nativeMyGallaspyScreen .my-passport-stats strong {
+  color: #112a44;
+}
+
+#nativeMyGallaspyScreen .my-passport-stats span {
+  color: #617181;
+}
+
+#nativeMyGallaspyScreen #myCloudPlayerLocation,
+#nativeMyGallaspyScreen #myCloudPlayerHandicap,
+#nativeMyGallaspyScreen #myCloudPlayerMessage {
+  color: #617181;
+}
+
+#nativeMyGallaspyScreen .my-disclaimer {
+  color: #b6c1c9;
+}
+
+
+/* GALLASPY PLAYER SETTINGS V1 */
+
+.my-dashboard-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.my-dashboard-title h2 {
+  min-width: 0;
+  margin-right: 0;
+  font-size: clamp(30px, 8vw, 48px);
+}
+
+#myOpenSettings {
+  flex: 0 0 46px;
+  width: 46px;
+  height: 46px;
+  border: 1px solid #52677a;
+  border-radius: 10px;
+  background: #20374d;
+  color: #ffd76a;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.my-dashboard-greeting {
+  margin: 0 0 20px;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.my-settings-panel {
+  margin-top: 12px;
+}
+
+.my-settings-back {
+  min-height: 44px;
+  padding: 12px 0;
+  border: 0;
+  background: transparent;
+  color: #ffd76a;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#mySettingsPanel[hidden],
+.my-dashboard-content[hidden] {
+  display: none !important;
+}
+
+
+/* GALLASPY CLUB POINTS DASHBOARD V1 */
+#nativeMyGallaspyScreen .my-club-points {
+  border-top: 3px solid #21563f;
+}
+#nativeMyGallaspyScreen .my-club-points h3 {
+  color: #112a44;
+  margin: 8px 0;
+}
+#nativeMyGallaspyScreen .my-points-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 18px 0;
+}
+#nativeMyGallaspyScreen .my-points-stats > div {
+  padding: 16px 12px;
+  border: 1px solid #dce6e0;
+  border-radius: 10px;
+  background: #f5f9f6;
+}
+#nativeMyGallaspyScreen .my-points-stats span {
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .07em;
+  color: #486557;
+}
+#nativeMyGallaspyScreen .my-points-stats strong {
+  display: block;
+  margin-top: 9px;
+  font-size: clamp(24px, 7vw, 34px);
+  line-height: 1.1;
+  color: #112a44;
+}
+#nativeMyGallaspyScreen #myPointsMessage {
+  color: #526579;
+  font-size: 13px;
+  line-height: 1.5;
+}
+#nativeMyGallaspyScreen .my-points-history,
+#nativeMyGallaspyScreen .my-points-wallet {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e2e6eb;
+}
+#nativeMyGallaspyScreen .my-points-wallet {
+  border-left: 3px solid #b59a58;
+  padding-left: 12px;
+}
+#nativeMyGallaspyScreen #myPointsActivity {
+  color: #526579;
+  font-size: 13px;
+  line-height: 1.5;
+}
+#nativeMyGallaspyScreen .my-points-transaction {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #e2e6eb;
+}
+#nativeMyGallaspyScreen .my-points-transaction strong {
+  color: #21563f;
+  white-space: nowrap;
+}
+#nativeMyGallaspyScreen .my-points-transaction strong.is-debit {
+  color: #a52a35;
+}
+
+/* GALLASPY PLAYER DASHBOARD V2 */
+#nativeMyGallaspyScreen .my-dashboard-title h2{font-size:clamp(29px,7.5vw,42px);line-height:1.08;letter-spacing:-.04em;min-width:0}
+#nativeMyGallaspyScreen #myOpenSettings{width:44px;height:44px;flex:0 0 44px;border-radius:10px;background:#112a44;color:#fff}
+#nativeMyGallaspyScreen .my-dashboard-greeting{margin:8px 0 18px;color:#fff;font-size:clamp(18px,5vw,23px);line-height:1.3;overflow-wrap:anywhere}
+#nativeMyGallaspyScreen .my-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-bottom:20px}
+#nativeMyGallaspyScreen .my-stats>div{min-width:0;padding:16px 9px;border:1px solid #e2e7eb;border-top:3px solid #175b45;border-radius:11px;background:#fff;text-align:center;box-shadow:0 3px 12px rgba(17,42,68,.045)}
+#nativeMyGallaspyScreen .my-stats span{display:block;color:#617181;font-size:9px;font-weight:850;line-height:1.4;letter-spacing:.045em}
+#nativeMyGallaspyScreen .my-stats strong{display:block;margin-top:10px;color:#112a44;font-size:clamp(22px,6vw,30px);font-weight:900;line-height:1.1;overflow-wrap:anywhere}
+#nativeMyGallaspyScreen .my-stats>div:first-child{border-top-color:#b32635}
+#nativeMyGallaspyScreen .my-stats>div:last-child{border-top-color:#112a44}
+
+/* GALLASPY REWARDS DASHBOARD V2 */
+#nativeMyGallaspyScreen .my-club-points{border-top:4px solid #175b45;overflow:hidden}
+#nativeMyGallaspyScreen .my-club-points h3{color:#112a44;letter-spacing:-.025em}
+#nativeMyGallaspyScreen .my-points-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0}
+#nativeMyGallaspyScreen .my-points-stats>div{min-width:0;padding:18px 12px;border:1px solid #dce6e0;border-radius:12px;background:#f3f8f5}
+#nativeMyGallaspyScreen .my-points-stats>div:first-child{background:#123d32;border-color:#123d32}
+#nativeMyGallaspyScreen .my-points-stats>div:first-child span,#nativeMyGallaspyScreen .my-points-stats>div:first-child strong{color:#fff}
+#nativeMyGallaspyScreen .my-points-stats span{font-size:10px;line-height:1.4;letter-spacing:.045em}
+#nativeMyGallaspyScreen .my-points-stats strong{font-size:clamp(25px,7vw,35px);line-height:1.1;overflow-wrap:anywhere}
+#nativeMyGallaspyScreen .my-points-history{margin-top:22px;padding-top:18px;border-top:1px solid #e2e6eb}
+#nativeMyGallaspyScreen .my-points-transaction{align-items:flex-start;gap:10px;padding:14px 0;overflow-wrap:anywhere}
+#nativeMyGallaspyScreen .my-points-transaction strong{flex-shrink:0;color:#175b45;font-weight:850}
+#nativeMyGallaspyScreen .my-points-wallet{margin-top:20px;padding:18px;border:1px solid #e5e8df;border-left:4px solid #b59a58;border-radius:10px;background:#faf9f5}
+#nativeMyGallaspyScreen .my-points-wallet p:last-child{color:#526579;font-size:13px;line-height:1.6}
+
+/* GALLASPY PASSPORT AND MEMBERSHIP V2 */
+#nativeMyGallaspyScreen .my-passport{border-top:4px solid #b32635}
+#nativeMyGallaspyScreen .my-passport-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:18px 0 22px}
+#nativeMyGallaspyScreen .my-passport-stats>div{min-width:0;padding:16px 8px;border:1px solid #e2e7eb;border-radius:11px;background:#f7f9fa;text-align:center}
+#nativeMyGallaspyScreen .my-passport-stats strong{display:block;color:#112a44;font-size:clamp(22px,6vw,30px);font-weight:900;line-height:1.15;overflow-wrap:anywhere}
+#nativeMyGallaspyScreen .my-passport-stats span{display:block;margin-top:8px;color:#617181;font-size:9px;font-weight:800;letter-spacing:.06em}
+#nativeMyGallaspyScreen .my-panel{max-width:100%;min-width:0;box-sizing:border-box}
+#nativeMyGallaspyScreen .my-panel h3{overflow-wrap:anywhere}
+#nativeMyGallaspyScreen .my-action{min-height:48px;max-width:100%;box-sizing:border-box;border-radius:9px;font-weight:850;letter-spacing:.025em}
+#nativeMyGallaspyScreen #myFalconSociety{background:#112a44;color:#fff}
+#nativeMyGallaspyScreen #myMembership{background:#175b45;color:#fff}
+#nativeMyGallaspyScreen .my-disclaimer{font-size:11px;line-height:1.6;color:#8b98a4}
+
+/* GALLASPY MEMBER WELCOME V3 */
+#nativeMyGallaspyScreen .my-dashboard-greeting{margin:0 0 14px;padding:22px 18px;border:1px solid #e2e7eb;border-left:4px solid #175b45;border-radius:12px;background:#fff;color:#112a44;font-size:clamp(18px,5vw,23px);font-weight:900;line-height:1.3;box-shadow:0 3px 12px rgba(17,42,68,.04)}
+
+/* GALLASPY DASHBOARD QUICK NAV V4 */
+#nativeMyGallaspyScreen .my-quick-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 18px}
+#nativeMyGallaspyScreen .my-quick-nav a{display:flex;align-items:center;justify-content:center;min-width:0;min-height:56px;padding:9px 5px;box-sizing:border-box;border:1px solid #dce5e0;border-top:3px solid #175b45;border-radius:10px;background:#fff;color:#112a44;text-align:center;text-decoration:none;font-size:clamp(9px,2.5vw,11px);font-weight:850;line-height:1.3;letter-spacing:.015em}
+#nativeMyGallaspyScreen .my-quick-nav a:nth-child(2){border-top-color:#b32635}
+#nativeMyGallaspyScreen .my-quick-nav a:nth-child(3){border-top-color:#112a44}
+#nativeMyGallaspyScreen .my-quick-nav a:focus-visible{outline:3px solid #175b45;outline-offset:3px}
+#nativeMyGallaspyScreen #myClubPoints,#nativeMyGallaspyScreen #myGolfPassport,#nativeMyGallaspyScreen #myMembershipSection{scroll-margin-top:90px}
+
+/* GALLASPY REWARDS WALLET V3 */
+#nativeMyGallaspyScreen .my-points-wallet {
+  padding: 20px 16px;
+  background: #ffffff;
+  border: 1px solid #e2e8e5;
+  border-top: 4px solid #175b45;
+  border-radius: 12px;
+}
+
+#nativeMyGallaspyScreen .my-points-wallet h4 {
+  margin: 12px 0 8px;
+  color: #112a44;
+  font-size: 21px;
+  font-weight: 850;
+  letter-spacing: -0.025em;
+}
+
+#nativeMyGallaspyScreen .my-wallet-description {
+  margin: 0 0 18px;
+  color: #617181;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+#nativeMyGallaspyScreen .my-wallet-earning {
+  border: 1px solid #e2e8e5;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#nativeMyGallaspyScreen .my-wallet-earning-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 12px;
+  background: #ffffff;
+}
+
+#nativeMyGallaspyScreen .my-wallet-earning-row + .my-wallet-earning-row {
+  border-top: 1px solid #e9edeb;
+}
+
+#nativeMyGallaspyScreen .my-wallet-earning-row > div {
+  flex: 1;
+  min-width: 0;
+}
+
+#nativeMyGallaspyScreen .my-wallet-earning-row strong {
+  display: block;
+  color: #112a44;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.025em;
+}
+
+#nativeMyGallaspyScreen .my-wallet-earning-row span {
+  display: block;
+  margin-top: 5px;
+  color: #687684;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+#nativeMyGallaspyScreen .my-wallet-earning-row b {
+  flex-shrink: 0;
+  color: #175b45;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+#nativeMyGallaspyScreen .my-wallet-coming-soon {
+  margin-top: 16px;
+  padding: 15px;
+  background: #f7f8f5;
+  border-left: 3px solid #b59a58;
+  border-radius: 8px;
+}
+
+#nativeMyGallaspyScreen .my-wallet-coming-soon strong {
+  color: #112a44;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+}
+
+#nativeMyGallaspyScreen .my-wallet-coming-soon p {
+  margin: 7px 0 0;
+  color: #617181;
+  font-size: 12px;
+  line-height: 1.6;
+}

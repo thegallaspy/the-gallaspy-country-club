@@ -1,0 +1,923 @@
+/* Gallaspy Native Apparel Shop */
+
+.native-shop-catalog {
+  margin: 20px 0 28px;
+}
+
+.native-shop-filters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.native-shop-filters button {
+  min-height: 44px;
+  padding: 10px 6px;
+  border: 1px solid #40576a;
+  border-radius: 5px;
+  background: #20374d;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.native-shop-filters button[aria-pressed="true"] {
+  background: #f2d17c;
+  border-color: #f2d17c;
+  color: #10263f;
+}
+
+.native-shop-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.native-shop-product {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #40576a;
+  border-radius: 7px;
+  background: #20374d;
+}
+
+.native-shop-product img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1.15;
+  object-fit: contain;
+  background: #f4f1eb;
+}
+
+.native-shop-product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 10px 14px;
+}
+
+.native-shop-product-info h4 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.native-shop-product-info p {
+  margin: 0;
+  color: #b9c7d0;
+  font-size: 11px;
+}
+
+.native-shop-product-info strong {
+  margin-top: 3px;
+  color: #f2d17c;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+#nativeShopStatus {
+  margin-top: 14px;
+  color: #d7e0e6;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Gallaspy Native Product Details */
+
+.native-shop-detail[hidden],
+.native-shop-grid[hidden],
+.native-shop-filters[hidden] {
+  display: none !important;
+}
+
+.native-shop-product {
+  cursor: pointer;
+}
+
+.native-shop-product:focus-visible,
+#nativeShopBack:focus-visible {
+  outline: 2px solid #f2d17c;
+  outline-offset: 3px;
+}
+
+.native-shop-detail {
+  padding: 0 0 28px;
+}
+
+#nativeShopBack {
+  display: block;
+  min-height: 44px;
+  margin-bottom: 14px;
+  padding: 10px 0;
+  border: 0;
+  background: transparent;
+  color: #f2d17c;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: left;
+  cursor: pointer;
+}
+
+#nativeShopDetailImage {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1.1;
+  object-fit: contain;
+  background: #f4f1eb;
+  border-radius: 7px;
+}
+
+.native-shop-detail-info {
+  padding: 22px 4px;
+}
+
+.native-shop-detail-info h3 {
+  margin: 10px 0;
+  color: #ffffff;
+  font-size: 23px;
+  line-height: 1.2;
+}
+
+#nativeShopDetailColor {
+  margin: 8px 0;
+  color: #b9c7d0;
+  font-size: 14px;
+}
+
+#nativeShopDetailPrice {
+  display: block;
+  margin-top: 14px;
+  color: #f2d17c;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+
+/* Native apparel purchase controls */
+
+.native-shop-purchase {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid #40576a;
+}
+
+.native-shop-purchase label {
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.native-shop-purchase select {
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 14px;
+  border: 1px solid #6b8090;
+  border-radius: 5px;
+  background: #20374d;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+#nativeShopAddToBag {
+  width: 100%;
+  min-height: 54px;
+  margin-top: 12px;
+  padding: 14px;
+  border: 0;
+  border-radius: 5px;
+  background: #f2d17c;
+  color: #10263f;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+#nativeShopAddToBag:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#nativeShopAddToBag:not(:disabled) {
+  cursor: pointer;
+}
+
+
+/* Native shopping bag layout */
+
+.native-shop-bag[hidden] {
+  display: none !important;
+}
+
+.native-shop-bag {
+  margin-top: 20px;
+}
+
+.native-shop-bag-item {
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr);
+  gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid #40576a;
+}
+
+.native-shop-bag-item img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: contain;
+  border-radius: 6px;
+  background: #ffffff;
+}
+
+.native-shop-bag-item > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
+  min-width: 0;
+}
+
+.native-shop-bag-item strong {
+  font-size: 14px;
+}
+
+.native-shop-bag-item p {
+  margin: 0;
+  font-size: 13px;
+}
+
+.native-shop-bag-item select {
+  min-width: 72px;
+  padding: 9px;
+  border: 1px solid #6b8090;
+  border-radius: 5px;
+  background: #20374d;
+  color: #ffffff;
+}
+
+.native-shop-bag-item button {
+  padding: 8px 0;
+  border: 0;
+  background: transparent;
+  color: #f2d17c;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.native-shop-bag-summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 0 12px;
+  font-weight: 800;
+}
+
+.native-shop-bag-note {
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+#nativeShopCheckout {
+  width: 100%;
+  min-height: 52px;
+  margin-top: 14px;
+}
+
+#nativeShopCheckout:disabled {
+  opacity: 0.5;
+}
+
+
+/* SHOP heading and shopping bag shortcut */
+.native-shop-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.native-shop-heading-row h2 {
+  margin: 0;
+}
+
+.native-shop-bag-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  border: 1px solid #40576a;
+  border-radius: 8px;
+  background: #20374d;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.native-shop-bag-count:not([hidden]) {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  display: grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #f2d17c;
+  color: #10263f;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.native-shop-bag-drawer {
+  margin: 0;
+}
+
+.native-shop-bag-drawer .native-shop-bag {
+  padding: 20px 0 26px;
+  border-bottom: 1px solid #40576a;
+}
+
+/* GALLASPY PREMIUM APPAREL SHOP V2 */
+
+#nativeShopScreen .native-shop-filters {
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+#nativeShopScreen .native-shop-filters button {
+  min-height: 44px;
+  border: 1px solid #dce5e0;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #132b40;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.07em;
+}
+
+#nativeShopScreen .native-shop-filters button[aria-pressed="true"] {
+  background: #175b45;
+  border-color: #175b45;
+  color: #ffffff;
+}
+
+#nativeShopScreen .native-shop-grid {
+  gap: 12px;
+}
+
+#nativeShopScreen .native-shop-product {
+  overflow: hidden;
+  border: 1px solid #e1e7e3;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 3px 12px rgba(15, 43, 34, 0.045);
+}
+
+#nativeShopScreen .native-shop-product img {
+  width: 100%;
+  aspect-ratio: 1 / 1.12;
+  object-fit: contain;
+  background: #f6f7f4;
+}
+
+#nativeShopScreen .native-shop-product-info {
+  gap: 6px;
+  padding: 13px 12px 16px;
+}
+
+#nativeShopScreen .native-shop-product-info h4 {
+  color: #132b40;
+  font-size: 13px;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+#nativeShopScreen .native-shop-product-info p {
+  color: #687872;
+  font-size: 11px;
+}
+
+#nativeShopScreen .native-shop-product-info strong {
+  margin-top: 4px;
+  color: #175b45;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+#nativeShopScreen .native-shop-product:focus-visible {
+  outline: 2px solid #175b45;
+  outline-offset: 3px;
+}
+
+
+/* GALLASPY COMPACT PRO SHOP V3 */
+
+#nativeShopScreen > .my-heading {
+  padding-top: 22px;
+  padding-bottom: 16px;
+}
+
+#nativeShopScreen .native-shop-heading-row h2 {
+  font-size: clamp(30px, 8vw, 42px);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+}
+
+#nativeShopScreen .my-heading > p:last-of-type {
+  margin: 16px 0 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+#nativeShopScreen .native-shop-collection-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #f2d17c;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  cursor: pointer;
+}
+
+#nativeShopScreen .native-shop-catalog {
+  margin-top: 10px;
+}
+
+
+/* GALLASPY PRODUCT DETAIL NAVIGATION V1 */
+#nativeShopScreen > .my-heading[hidden] {
+  display: none !important;
+}
+
+#nativeShopDetail {
+  scroll-margin-top: 12px;
+}
+
+/* GALLASPY SHOP COLLECTION VISIBILITY V1 */
+#nativeShopMemberCollections[hidden] {
+  display: none !important;
+}
+
+/* GALLASPY PRO SHOP — WHITE / NAVY / RED V4 */
+
+/* Product detail */
+#nativeShopScreen .native-shop-detail {
+  padding: 0 0 24px;
+  background: #ffffff;
+  border: 1px solid #e2e6eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+#nativeShopScreen #nativeShopBack {
+  width: 100%;
+  margin: 0;
+  padding: 14px 18px;
+  background: #ffffff;
+  color: #112a44;
+  border-bottom: 1px solid #e2e6eb;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+#nativeShopScreen #nativeShopDetailImage {
+  width: 100%;
+  aspect-ratio: 1 / 1.05;
+  border-radius: 0;
+  background: #f6f7f5;
+}
+
+#nativeShopScreen .native-shop-detail-info {
+  padding: 22px 20px 12px;
+  background: #ffffff;
+}
+
+#nativeShopScreen .native-shop-detail-info .intro-label {
+  color: #a52a35;
+}
+
+#nativeShopScreen .native-shop-detail-info h3 {
+  color: #112a44;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+#nativeShopScreen #nativeShopDetailColor {
+  color: #687684;
+}
+
+#nativeShopScreen #nativeShopDetailPrice {
+  color: #112a44;
+  font-size: 26px;
+}
+
+#nativeShopScreen .native-shop-purchase {
+  border-top: 1px solid #e2e6eb;
+}
+
+#nativeShopScreen .native-shop-purchase label {
+  color: #112a44;
+}
+
+#nativeShopScreen .native-shop-purchase select {
+  background: #ffffff;
+  color: #112a44;
+  border: 1px solid #cbd4dc;
+  border-radius: 7px;
+}
+
+#nativeShopScreen #nativeShopAddToBag {
+  background: #112a44;
+  color: #ffffff;
+  border-radius: 7px;
+}
+
+#nativeShopScreen #nativeShopAddToBag:not(:disabled):active {
+  background: #a52a35;
+}
+
+#nativeShopScreen #nativeShopAddToBag:disabled {
+  background: #aeb7c0;
+  color: #ffffff;
+  opacity: 1;
+}
+
+/* GALLASPY PRO SHOP — SHOPPING BAG V5 */
+
+#nativeShopScreen .native-shop-bag-drawer {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+#nativeShopScreen .native-shop-bag {
+  margin: 12px 0 20px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #e2e6eb;
+  border-radius: 12px;
+  color: #112a44;
+}
+
+#nativeShopScreen .native-shop-bag-item {
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid #e2e6eb;
+}
+
+#nativeShopScreen .native-shop-bag-item img {
+  background: #f6f7f5;
+  border-radius: 8px;
+}
+
+#nativeShopScreen .native-shop-bag-item strong {
+  color: #112a44;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+#nativeShopScreen .native-shop-bag-item p {
+  color: #586879;
+  font-size: 12px;
+}
+
+#nativeShopScreen .native-shop-bag-item select {
+  min-width: 76px;
+  background: #ffffff;
+  color: #112a44;
+  border: 1px solid #cbd4dc;
+  border-radius: 7px;
+}
+
+#nativeShopScreen .native-shop-bag-item button {
+  color: #a52a35;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+#nativeShopScreen .native-shop-bag-summary {
+  border-top: 2px solid #112a44;
+  color: #112a44;
+  font-size: 14px;
+}
+
+#nativeShopScreen .native-shop-bag-summary strong {
+  font-size: 20px;
+}
+
+#nativeShopScreen .native-shop-bag-note {
+  color: #687684;
+}
+
+#nativeShopScreen #nativeShopCheckout {
+  background: #112a44;
+  color: #ffffff;
+  border: 0;
+  border-radius: 7px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+#nativeShopScreen #nativeShopCheckout:disabled {
+  background: #aeb7c0;
+  color: #ffffff;
+  opacity: 1;
+}
+
+#nativeShopScreen #nativeShopBagMessage {
+  color: #a52a35;
+}
+
+
+/* GALLASPY PRO SHOP — MEMBER COLLECTIONS V6 */
+
+#nativeShopMemberCollections {
+  display: grid;
+  gap: 12px;
+  margin: 24px 0 32px;
+}
+
+#nativeShopMemberCollections .my-panel {
+  margin: 0;
+  padding: 20px;
+  background: #ffffff;
+  color: #112a44;
+  border: 1px solid #e2e6eb;
+  border-left: 3px solid #a52a35;
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+#nativeShopMemberCollections .intro-label {
+  color: #a52a35;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+
+#nativeShopMemberCollections h3 {
+  margin: 10px 0;
+  color: #112a44;
+  font-size: 19px;
+  line-height: 1.2;
+}
+
+#nativeShopMemberCollections .my-panel > p:not(.intro-label) {
+  color: #617181;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+#nativeShopMemberCollections button {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 14px;
+  padding: 12px;
+  background: #112a44;
+  color: #ffffff;
+  border: 0;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+#nativeShopMemberCollections #shopAccessMessage {
+  color: #a52a35;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
+/* GALLASPY PREMIUM PRODUCT CARDS V7 */
+
+#nativeShopScreen .native-shop-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+  align-items: stretch;
+}
+
+#nativeShopScreen .native-shop-product {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid #e1e6e9;
+  border-bottom: 3px solid #b32635;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(17, 42, 68, 0.055);
+}
+
+#nativeShopScreen .native-shop-product img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1.12;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  background: #f7f8f7;
+}
+
+#nativeShopScreen .native-shop-product-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 0;
+  padding: 14px 12px 16px;
+}
+
+#nativeShopScreen .native-shop-product-info h4 {
+  margin: 0;
+  color: #112a44;
+  font-size: 13px;
+  font-weight: 850;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+#nativeShopScreen .native-shop-product-info p {
+  margin: 0;
+  color: #647383;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+#nativeShopScreen .native-shop-product-info strong {
+  display: block;
+  margin-top: auto;
+  padding-top: 9px;
+  color: #175b45;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+#nativeShopScreen .native-shop-product:focus-visible {
+  outline: 3px solid #b32635;
+  outline-offset: 3px;
+}
+
+
+/* GALLASPY PREMIUM PRODUCT DETAIL V8 */
+
+#nativeShopScreen .native-shop-detail {
+  overflow: hidden;
+  border: 1px solid #e2e7eb;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 5px 18px rgba(17, 42, 68, 0.05);
+}
+
+#nativeShopScreen #nativeShopBack {
+  min-height: 48px;
+  padding: 14px 18px;
+  text-align: left;
+  color: #112a44;
+  background: #ffffff;
+  border: 0;
+  border-bottom: 1px solid #e2e7eb;
+  font-weight: 850;
+}
+
+#nativeShopScreen #nativeShopDetailImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1.08;
+  object-fit: contain;
+  object-position: center;
+  background: #f7f8f7;
+}
+
+#nativeShopScreen .native-shop-detail-info {
+  padding: 22px 20px 24px;
+  background: #ffffff;
+}
+
+#nativeShopScreen .native-shop-detail-info h3 {
+  margin: 8px 0;
+  color: #112a44;
+  font-size: clamp(22px, 6vw, 28px);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+#nativeShopScreen #nativeShopDetailColor {
+  margin: 8px 0 12px;
+  color: #617181;
+  font-size: 13px;
+}
+
+#nativeShopScreen #nativeShopDetailPrice {
+  display: block;
+  margin-bottom: 20px;
+  color: #112a44;
+  font-size: 27px;
+  font-weight: 900;
+}
+
+#nativeShopScreen .native-shop-purchase {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e7eb;
+}
+
+#nativeShopScreen .native-shop-purchase label {
+  color: #112a44;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.07em;
+}
+
+#nativeShopScreen .native-shop-purchase select {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 13px;
+  border: 1px solid #ccd7d3;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #112a44;
+  font-size: 14px;
+}
+
+#nativeShopScreen .native-shop-purchase select:focus-visible {
+  outline: 2px solid #175b45;
+  outline-offset: 2px;
+}
+
+#nativeShopScreen #nativeShopAddToBag {
+  width: 100%;
+  min-height: 52px;
+  margin-top: 12px;
+  border: 0;
+  border-radius: 9px;
+  background: #b32635;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+}
+
+#nativeShopScreen #nativeShopAddToBag:not(:disabled):active {
+  background: #94202c;
+}
+
+#nativeShopScreen #nativeShopAddToBag:disabled {
+  background: #aeb7c0;
+  color: #ffffff;
+  opacity: 1;
+}
+
+/* GALLASPY PRO SHOP HEADER V9 */
+#nativeShopScreen>.my-heading{padding:22px 18px 20px;border:1px solid #e5e9ed;border-radius:14px;background:#fff;box-shadow:0 4px 18px rgba(17,42,68,.045)}
+#nativeShopScreen>.my-heading .intro-label{color:#175b45;font-size:10px;font-weight:850;letter-spacing:.12em}
+#nativeShopScreen .native-shop-heading-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#nativeShopScreen .native-shop-heading-row h2{min-width:0;margin:8px 0 12px;color:#112a44;font-size:clamp(28px,8vw,42px);line-height:1.05;letter-spacing:-.04em;overflow-wrap:anywhere}
+#nativeShopScreen>.my-heading>p:not(.intro-label){margin:0 0 18px;color:#617181;font-size:14px;line-height:1.5}
+#nativeShopScreen #nativeShopOpenCollection{display:flex;align-items:center;justify-content:center;width:100%;min-height:48px;padding:12px;border:0;border-radius:9px;background:#175b45;color:#fff;font-size:11px;font-weight:900;letter-spacing:.065em;text-align:center}
+#nativeShopScreen .native-shop-filters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:20px 0 18px;padding:5px;border:1px solid #e1e6eb;border-radius:12px;background:#f5f7f8}
+#nativeShopScreen .native-shop-filters button{min-width:0;min-height:44px;padding:10px 5px;border:0;border-bottom:3px solid transparent;border-radius:8px;background:transparent;color:#617181;font-size:11px;font-weight:850;letter-spacing:.055em}
+#nativeShopScreen .native-shop-filters button[aria-pressed="true"]{border-bottom-color:#b32635;background:#fff;color:#112a44;box-shadow:0 2px 8px rgba(17,42,68,.06)}
+#nativeShopScreen .native-shop-filters button:focus-visible{outline:2px solid #175b45;outline-offset:2px}
+
+/* GALLASPY MEMBERS ACCESS V11 */
+#nativeShopScreen .native-shop-member-entry{margin:24px 0 32px;padding:22px 20px;border:1px solid #dfe7e4;border-top:3px solid #175b45;border-radius:12px;background:#fff;box-shadow:0 4px 14px rgba(17,42,68,.04)}
+#nativeShopScreen .native-shop-member-entry .intro-label{margin:0;color:#175b45;font-size:10px;font-weight:850;letter-spacing:.12em}
+#nativeShopScreen .native-shop-member-entry h3{margin:10px 0;color:#112a44;font-size:21px;font-weight:900;letter-spacing:-.025em}
+#nativeShopScreen .native-shop-member-entry>p:not(.intro-label){margin:0;color:#617181;font-size:13px;line-height:1.55}
+#nativeShopScreen .native-shop-member-entry button{width:100%;min-height:48px;margin-top:18px;padding:12px;border:0;border-radius:9px;background:#112a44;color:#fff;font-size:11px;font-weight:900;letter-spacing:.055em}
+#nativeShopScreen .native-shop-member-entry button:focus-visible{outline:3px solid #175b45;outline-offset:3px}
+
+/* GALLASPY PRIVATE COLLECTION VISIBILITY V12 */
+#nativeShopScreen #nativeShopMemberCollections{display:none!important}
+
+/* GALLASPY PRO SHOP LIGHT CANVAS V13 */
+#nativeShopScreen{background:#f7f9f8;color:#112a44;border-radius:14px;padding:14px 12px 24px}
+#nativeShopScreen>.my-heading{margin:0;padding:18px 14px 20px;box-shadow:none}
+#nativeShopScreen .native-shop-filters{margin:16px 0}
+#nativeShopScreen .native-shop-grid{gap:12px}
+#nativeShopScreen .native-shop-member-entry{margin:24px 0 8px}

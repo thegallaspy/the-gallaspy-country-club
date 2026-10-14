@@ -147,3 +147,1616 @@
   font-size: 10px;
 }
 [hidden] { display: none !important; }
+
+/* Find Your Foursome */
+#playFoursomes {
+  border-color: #ffd76a;
+}
+
+.foursome-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+  margin: 22px 0 25px;
+}
+
+.foursome-tabs button {
+  min-width: 0;
+  min-height: 52px;
+  padding: 10px 5px;
+  border: 1px solid #607080;
+  border-radius: 4px;
+  background: #132a40;
+  color: #f4f0e7;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .02em;
+  line-height: 1.3;
+}
+
+.foursome-tabs button.active {
+  background: #ffd76a;
+  border-color: #ffd76a;
+  color: #10263f;
+}
+
+#foursomeBrowse,
+#foursomeHostForm,
+#foursomeMyRounds {
+  margin-top: 18px;
+}
+
+#foursomeListings {
+  margin-top: 16px;
+}
+
+.foursome-card {
+  padding: 18px 15px;
+  margin-bottom: 12px;
+  background: #132a40;
+  border: 1px solid #40576a;
+}
+
+.foursome-card h4 {
+  margin: 0 0 12px;
+  color: #fff;
+  font-size: 18px;
+}
+
+.foursome-card p {
+  margin: 7px 0;
+  color: #b6c1c9;
+  font-size: 13px;
+}
+
+.foursome-spots {
+  display: inline-block;
+  padding: 6px 9px;
+  margin-bottom: 12px;
+  border: 1px solid #ffd76a;
+  color: #ffd76a;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.foursome-card button,
+#foursomeHostForm button {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 15px;
+  padding: 13px;
+  border: 0;
+  border-radius: 4px;
+  background: #ffd76a;
+  color: #10263f;
+  font-weight: 900;
+}
+
+#foursomeHostForm input,
+#foursomeHostForm select {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px;
+  border: 1px solid #607080;
+  border-radius: 4px;
+  background: #132a40;
+  color: #fff;
+  font-size: 16px;
+}
+
+#foursomeHostForm button:disabled {
+  opacity: .5;
+}
+
+#foursomeMessage {
+  color: #ffd76a;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+#foursomeBrowse[hidden],
+#foursomeHostForm[hidden],
+#foursomeMyRounds[hidden] {
+  display: none !important;
+}
+
+/* THE GALLASPY — PLAYING CONDITIONS */
+
+.gallaspy-weather {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 16px;
+  background: #10283a;
+  color: #fff;
+}
+
+.weather-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.weather-top h4 {
+  margin: 8px 0;
+  font-size: 20px;
+  color: #fff;
+}
+
+.weather-top p {
+  margin: 0;
+  color: #d2dce3;
+}
+
+.weather-top > strong {
+  font-size: 42px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.weather-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 10px;
+  letter-spacing: .12em;
+  color: #e5c57c;
+}
+
+.weather-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 22px 0;
+}
+
+.weather-metrics > div {
+  padding: 14px;
+  border-radius: 10px;
+  background: #1d3b4c;
+}
+
+.weather-metrics span {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 10px;
+  letter-spacing: .08em;
+  color: #c6d2d9;
+}
+
+.weather-metrics strong {
+  font-size: 17px;
+  color: #fff;
+}
+
+.weather-hourly {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.weather-hourly > div {
+  padding: 12px 4px;
+  border-radius: 8px;
+  background: #1d3b4c;
+  text-align: center;
+}
+
+.weather-hourly span,
+.weather-hourly strong {
+  display: block;
+  color: #fff;
+}
+
+.weather-hourly span {
+  font-size: 11px;
+  margin-bottom: 8px;
+}
+
+.weather-hourly strong {
+  font-size: 17px;
+}
+
+.gallaspy-weather button {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #e5c57c;
+  border-radius: 8px;
+  background: transparent;
+  color: #e5c57c;
+  font-weight: 700;
+  letter-spacing: .05em;
+}
+
+#weatherStatus {
+  font-size: 12px;
+  color: #d2dce3;
+}
+
+.weather-disclaimer {
+  margin-top: 14px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #b6c5ce;
+}
+
+
+/* GALLASPY FOURSOME MOBILE FORM FIX */
+#playFoursomes,
+#foursomeHostForm,
+#foursomeHostForm .play-fields,
+#foursomeHostForm .play-fields label {
+  min-width: 0;
+  max-width: 100%;
+}
+
+#foursomeHostForm .play-fields {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+#foursomeHostForm input,
+#foursomeHostForm select {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  font-size: 16px;
+}
+
+#foursomeHostForm input[type="date"],
+#foursomeHostForm input[type="time"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#foursomeHostForm button[type="submit"] {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* GALLASPY FOURSOME REQUEST MANAGEMENT */
+.foursome-request {
+  margin-top: 15px;
+  padding: 14px;
+  border: 1px solid #40576a;
+  background: #102638;
+}
+
+.foursome-request-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.foursome-request-actions button {
+  box-sizing: border-box;
+  min-width: 0;
+  font-size: 11px;
+}
+
+.foursome-request-actions button:last-child {
+  background: transparent;
+  border: 1px solid #607080;
+  color: #fff;
+}
+
+.foursome-request-actions button:disabled {
+  opacity: .5;
+}
+
+
+/* GALLASPY GOLF CALENDAR */
+#playGolfCalendar {
+  min-width: 0;
+}
+
+.gallaspy-calendar {
+  margin-top: 18px;
+  padding: 18px;
+  background: #10263f;
+  color: #ffffff;
+  border-radius: 12px;
+}
+
+.gallaspy-calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.gallaspy-calendar-eyebrow {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  opacity: 0.7;
+}
+
+.gallaspy-calendar-header h4 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+
+#golfCalendarRefresh {
+  flex-shrink: 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 5px;
+  background: transparent;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+}
+
+#golfCalendarList {
+  display: grid;
+  gap: 12px;
+}
+
+#golfCalendarList > p,
+#golfCalendarStatus {
+  margin: 0;
+  color: rgba(255,255,255,0.8);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+#golfCalendarStatus:empty {
+  display: none;
+}
+
+
+/* GALLASPY CALENDAR ROUND CARDS */
+.golf-calendar-card {
+  padding: 16px;
+  background: #ffffff;
+  color: #10263f;
+  border-left: 4px solid #214d39;
+  border-radius: 7px;
+  min-width: 0;
+}
+
+.golf-calendar-date {
+  margin: 0 0 8px;
+  color: #214d39;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.golf-calendar-card h5 {
+  margin: 0 0 8px;
+  color: #10263f;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.golf-calendar-card > p:not(.golf-calendar-date) {
+  margin: 0 0 12px;
+  color: #425466;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.golf-calendar-state {
+  display: inline-block;
+  padding: 6px 9px;
+  background: #edf3ef;
+  color: #214d39;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+}
+
+#golfCalendarRefresh:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+
+/* Gallaspy PLAY dashboard navigation */
+.play-dashboard-nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 0 22px;
+}
+
+.play-dashboard-nav button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-width: 0;
+  min-height: 112px;
+  padding: 18px 14px;
+  border: 1px solid #40576a;
+  border-radius: 8px;
+  background: #20374d;
+  color: #ffffff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.play-dashboard-nav button span {
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 0.035em;
+}
+
+.play-dashboard-nav button small {
+  margin-top: 12px;
+  color: #ffd76a;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.035em;
+}
+
+.play-dashboard-nav button:active {
+  background: #294b60;
+}
+
+.play-dashboard-nav button:focus-visible {
+  outline: 2px solid #ffd76a;
+  outline-offset: 3px;
+}
+
+.play-dashboard-nav .play-dashboard-wide {
+  grid-column: 1 / -1;
+  min-height: 88px;
+}
+
+/* GALLASPY HORIZONTAL SCORECARD */
+
+#playScorecard {
+  min-width: 0;
+  overflow: hidden;
+}
+
+#playScorecard .play-round-length {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+#playRoundLength {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #607080;
+  border-radius: 8px;
+  background: #132a40;
+  color: white;
+  font-size: 15px;
+}
+
+.gallaspy-scoreboard {
+  min-width: 0;
+  margin-top: 22px;
+  padding: 16px 12px;
+  border: 1px solid #56766d;
+  border-radius: 12px;
+  background: #102d2a;
+  color: white;
+}
+
+.gallaspy-scoreboard-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  color: #ffd76a;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.gallaspy-scoreboard-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+  margin-bottom: 16px;
+}
+
+.gallaspy-scoreboard-stats > div {
+  min-width: 0;
+  padding: 14px 4px;
+  border-radius: 8px;
+  background: #1c4640;
+  text-align: center;
+}
+
+.gallaspy-scoreboard-stats span {
+  display: block;
+  color: #c3d1cd;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.gallaspy-scoreboard-stats strong {
+  display: block;
+  margin-top: 8px;
+  color: #ffd76a;
+  font-size: 23px;
+  font-weight: 900;
+}
+
+
+/* SCORECARD HOLE GRID */
+
+.gallaspy-nine-navigation {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.gallaspy-nine-navigation button {
+  flex: 1;
+  min-height: 44px;
+  border: 1px solid #67867d;
+  border-radius: 7px;
+  background: transparent;
+  color: white;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.gallaspy-nine-navigation button.is-active {
+  background: #ffd76a;
+  border-color: #ffd76a;
+  color: #102d2a;
+}
+
+.gallaspy-nine-navigation button[hidden] {
+  display: none;
+}
+
+.gallaspy-horizontal-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 8px;
+  background: #173936;
+}
+
+.gallaspy-horizontal-table {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 3px;
+  color: white;
+  text-align: center;
+}
+
+.gallaspy-horizontal-table th {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  min-width: 55px;
+  padding: 10px 5px;
+  background: #173936;
+  color: #ffd76a;
+  font-size: 10px;
+}
+
+.gallaspy-horizontal-table td {
+  min-width: 43px;
+  padding: 4px 1px;
+}
+
+.gallaspy-hole-button,
+.gallaspy-horizontal-table input {
+  box-sizing: border-box;
+  width: 42px;
+  height: 43px;
+  border: 1px solid #52756e;
+  border-radius: 6px;
+  background: #245149;
+  color: white;
+  font-size: 15px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.gallaspy-hole-button.is-selected {
+  background: #ffd76a;
+  border-color: #ffd76a;
+  color: #102d2a;
+}
+
+.gallaspy-horizontal-table input {
+  background: #102d2a;
+  font-size: 14px;
+}
+
+
+/* SCORECARD SCORING CONTROLS */
+
+.gallaspy-hole-editor {
+  margin-top: 16px;
+  padding: 22px 12px;
+  border: 1px solid #52756e;
+  border-radius: 10px;
+  background: #173936;
+  text-align: center;
+}
+
+#scoreboardHoleLabel {
+  display: block;
+  color: #ffd76a;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.gallaspy-hole-par {
+  margin-top: 8px;
+  color: #d5e1dd;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.gallaspy-score-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin: 18px 0;
+}
+
+.gallaspy-score-controls button {
+  width: 66px;
+  height: 66px;
+  border: 1px solid #74988b;
+  border-radius: 12px;
+  background: #28594f;
+  color: white;
+  font-size: 35px;
+  font-weight: 700;
+}
+
+#scoreboardSelectedScore {
+  min-width: 64px;
+  color: #ffd76a;
+  font-size: 54px;
+  font-weight: 900;
+}
+
+#scoreboardHoleResult {
+  min-height: 20px;
+  color: #ffd76a;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.gallaspy-hole-navigation {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.gallaspy-hole-navigation button {
+  flex: 1;
+  min-height: 46px;
+  border: 1px solid #67867d;
+  border-radius: 7px;
+  background: #245149;
+  color: white;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.gallaspy-hole-navigation button:disabled {
+  opacity: 0.35;
+}
+
+
+/* SCORECARD TOTALS AND MOBILE FIT */
+
+.gallaspy-scoreboard-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 15px;
+  border-radius: 8px;
+  background: #1c4640;
+}
+
+.gallaspy-scoreboard-total > span:first-child {
+  color: white;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.gallaspy-scoreboard-total strong {
+  color: #ffd76a;
+  font-size: 28px;
+}
+
+.gallaspy-scoreboard-total > span:last-child {
+  color: #ffd76a;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+#playScorecard .play-fields,
+#playScorecard .play-fields label {
+  min-width: 0;
+}
+
+#playScorecard .play-fields input {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.gallaspy-legacy-totals {
+  display: none !important;
+}
+
+
+/* SCORECARD MOBILE LAYOUT REFINEMENT */
+
+#playScorecard {
+  scroll-margin-top: calc(env(safe-area-inset-top) + 20px);
+  padding: 16px 12px;
+}
+
+#playScorecard > .intro-label {
+  margin-bottom: 5px;
+}
+
+#playScorecard > h3 {
+  margin: 6px 0 16px;
+  font-size: 25px;
+}
+
+#playScorecard .play-round-length {
+  margin-bottom: 12px;
+  gap: 5px;
+}
+
+#playRoundLength {
+  padding: 11px 12px;
+  min-height: 46px;
+}
+
+#playScorecard .play-fields {
+  gap: 10px;
+}
+
+#playScorecard .play-fields label {
+  gap: 5px;
+}
+
+#playScorecard .play-fields input {
+  min-height: 46px;
+  padding: 10px 12px;
+}
+
+#playScorecard .play-help {
+  margin: 10px 0 12px;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+#playScorecard .gallaspy-scoreboard {
+  margin-top: 12px;
+}
+
+
+/* SCORECARD SCORING-FIRST REFINEMENT */
+
+#playScorecard .gallaspy-hole-editor {
+  margin: 0 0 14px;
+  padding: 16px 12px;
+}
+
+#playScorecard .gallaspy-score-controls {
+  margin: 12px 0;
+}
+
+#playScorecard .gallaspy-hole-navigation {
+  margin-top: 14px;
+}
+
+#playScorecard .gallaspy-scoreboard-header {
+  margin-bottom: 12px;
+}
+
+#playScorecard .gallaspy-scoreboard-stats {
+  margin-bottom: 12px;
+}
+
+#playScorecard .gallaspy-scoreboard {
+  padding: 12px;
+}
+
+
+
+/* GALLASPY PLAY FEATURE PAGE DESIGN V1 */
+
+#nativePlayScreen .gallaspy-play-page-header {
+  background: #ffffff;
+  padding: 20px 20px 24px;
+  border-bottom: 3px solid #c93636;
+  margin-bottom: 18px;
+}
+
+#nativePlayScreen .gallaspy-play-page-header[hidden] {
+  display: none !important;
+}
+
+#nativePlayScreen .gallaspy-play-back {
+  display: inline-flex;
+  align-items: center;
+  border: 0;
+  background: #f2f4f5;
+  color: #142e43;
+  border-radius: 999px;
+  padding: 12px 16px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  cursor: pointer;
+  margin-bottom: 22px;
+}
+
+#nativePlayScreen .gallaspy-play-back:active {
+  background: #e6ebee;
+  transform: scale(.98);
+}
+
+#nativePlayScreen .gallaspy-play-page-title {
+  color: #142e43;
+  font-size: clamp(28px, 8vw, 38px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -.045em;
+  margin: 0;
+}
+
+#nativePlayScreen:has(.gallaspy-play-page-header:not([hidden])) {
+  background: #f7f8f9;
+}
+
+#nativePlayScreen:has(.gallaspy-play-page-header:not([hidden]))
+.play-feature:not([hidden]) {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e8ebed;
+  margin: 0 12px 18px;
+  padding: 20px;
+  box-shadow: 0 4px 18px rgba(20,46,67,.04);
+}
+
+#nativePlayScreen .play-dashboard-nav[hidden],
+#nativePlayScreen .play-heading[hidden],
+#nativePlayScreen #playWeather[hidden] {
+  display: none !important;
+}
+
+
+/* GALLASPY GOLF PARTNERS LISTING POLISH V1 */
+
+#playFoursomes #foursomeListings > button,
+#playFoursomes #foursomeMyRounds > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-height: 38px;
+  margin: 0 0 18px;
+  padding: 9px 18px;
+  border: 1px solid #d7e5de;
+  border-radius: 999px;
+  background: #edf5f0;
+  color: #175b45;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+#playFoursomes .foursome-card {
+  margin-bottom: 14px;
+  padding: 20px 18px;
+  border: 1px solid #dce5e0;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+#playFoursomes .foursome-card h4 {
+  margin-bottom: 14px;
+  color: #132b40;
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+#playFoursomes .foursome-card p {
+  margin: 8px 0;
+  color: #485b69;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+#playFoursomes .foursome-spots {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 12px;
+  border: 1px solid #d4e6dc;
+  border-radius: 999px;
+  background: #edf5f0;
+  color: #175b45;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+#playFoursomes #foursomeMyRounds > h4 {
+  margin: 26px 0 14px;
+  color: #132b40;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+
+/* GALLASPY GOLF PARTNERS SPACING V1 */
+
+#playFoursomes #foursomeMyRounds > button {
+  margin-bottom: 4px;
+}
+
+#playFoursomes #foursomeMyRounds > h4 {
+  margin-top: 20px;
+  margin-bottom: 12px;
+}
+
+#playFoursomes #foursomeMyRounds .foursome-card {
+  margin-bottom: 18px;
+}
+
+#playFoursomes #foursomeMyRounds > p {
+  margin-top: 8px;
+}
+
+
+/* GALLASPY GOLF CALENDAR REFRESH V1 */
+
+#playGolfCalendar .gallaspy-calendar {
+  margin-top: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: #ffffff;
+  color: #132b40;
+}
+
+#playGolfCalendar .gallaspy-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+#playGolfCalendar .gallaspy-calendar-eyebrow {
+  margin-bottom: 8px;
+  color: #175b45;
+  opacity: 1;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .14em;
+}
+
+#playGolfCalendar .gallaspy-calendar-header h4 {
+  color: #132b40;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -.02em;
+}
+
+#playGolfCalendar #golfCalendarRefresh {
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: 10px 15px;
+  border: 1px solid #d7e5de;
+  border-radius: 999px;
+  background: #edf5f0;
+  color: #175b45;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .04em;
+}
+
+#playGolfCalendar #golfCalendarList {
+  display: grid;
+  gap: 14px;
+}
+
+#playGolfCalendar #golfCalendarList > p {
+  margin: 0;
+  padding: 22px 18px;
+  border: 1px solid #dce5e0;
+  border-left: 4px solid #175b45;
+  border-radius: 14px;
+  background: #f7faf8;
+  color: #485b69;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+#playGolfCalendar .golf-calendar-card {
+  min-width: 0;
+  padding: 20px 18px;
+  border: 1px solid #dce5e0;
+  border-left: 4px solid #175b45;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+#playGolfCalendar .golf-calendar-date {
+  margin-bottom: 10px;
+  color: #175b45;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+#playGolfCalendar .golf-calendar-card h5 {
+  margin-bottom: 10px;
+  color: #132b40;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+#playGolfCalendar .golf-calendar-card > p:not(.golf-calendar-date) {
+  margin-bottom: 14px;
+  color: #485b69;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#playGolfCalendar .golf-calendar-state {
+  padding: 8px 12px;
+  border: 1px solid #d4e6dc;
+  border-radius: 999px;
+  background: #edf5f0;
+  color: #175b45;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+#playGolfCalendar #golfCalendarStatus {
+  margin-top: 14px;
+  color: #667784;
+  font-size: 12px;
+}
+
+
+/* GALLASPY INTERACTIVE CALENDAR V1 */
+
+.golf-calendar-card[role="button"] {
+  cursor: pointer;
+}
+
+.golf-calendar-card[role="button"]:active {
+  background: #f2f7f4;
+}
+
+.golf-calendar-card[role="button"]:focus-visible {
+  outline: 2px solid #175b45;
+  outline-offset: 3px;
+}
+
+.golf-calendar-open-label {
+  display: block;
+  margin-top: 16px;
+  color: #175b45;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+}
+
+
+/* GALLASPY SCORECARD MODERN DESIGN V1 */
+
+#playScorecard .gallaspy-scoreboard {
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid #dce5e0;
+  border-radius: 18px;
+  background: #ffffff;
+  color: #132b40;
+}
+
+#playScorecard .gallaspy-hole-editor {
+  margin: 0 0 18px;
+  padding: 22px 14px 18px;
+  border: 1px solid #dce5e0;
+  border-radius: 16px;
+  background: #f7faf8;
+}
+
+#playScorecard #scoreboardHoleLabel {
+  color: #175b45;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+#playScorecard .gallaspy-hole-par {
+  margin-top: 8px;
+  color: #536575;
+  font-size: 13px;
+}
+
+#playScorecard .gallaspy-hole-par strong {
+  color: #132b40;
+  font-size: 16px;
+}
+
+#playScorecard .gallaspy-score-controls {
+  gap: 20px;
+  margin: 16px 0 12px;
+}
+
+#playScorecard .gallaspy-score-controls button {
+  width: 68px;
+  height: 68px;
+  border: 0;
+  border-radius: 16px;
+  background: #175b45;
+  color: #ffffff;
+  font-size: 36px;
+  font-weight: 700;
+}
+
+#playScorecard #scoreboardSelectedScore {
+  min-width: 72px;
+  color: #132b40;
+  font-size: 60px;
+  font-weight: 900;
+}
+
+#playScorecard #scoreboardHoleResult {
+  color: #175b45;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .06em;
+}
+
+#playScorecard .gallaspy-hole-navigation {
+  gap: 10px;
+  margin-top: 18px;
+}
+
+#playScorecard .gallaspy-hole-navigation button {
+  min-height: 48px;
+  border: 1px solid #dce5e0;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #132b40;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+#playScorecard .gallaspy-hole-navigation button:last-child {
+  border-color: #175b45;
+  background: #175b45;
+  color: #ffffff;
+}
+
+#playScorecard .gallaspy-scoreboard-header {
+  margin-bottom: 12px;
+  color: #175b45;
+  font-size: 11px;
+}
+
+#playScorecard .gallaspy-scoreboard-stats {
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+#playScorecard .gallaspy-scoreboard-stats > div {
+  padding: 13px 4px;
+  border: 1px solid #e0e8e3;
+  border-radius: 12px;
+  background: #f4f7f5;
+}
+
+#playScorecard .gallaspy-scoreboard-stats span {
+  color: #536575;
+  font-size: 9px;
+}
+
+#playScorecard .gallaspy-scoreboard-stats strong {
+  color: #132b40;
+  font-size: 23px;
+}
+
+#playScorecard .gallaspy-scoreboard-total {
+  border-radius: 12px;
+  background: #edf5f0;
+}
+
+#playScorecard .gallaspy-scoreboard-total > span:first-child {
+  color: #132b40;
+}
+
+#playScorecard .gallaspy-scoreboard-total strong,
+#playScorecard .gallaspy-scoreboard-total > span:last-child {
+  color: #175b45;
+}
+
+
+/* GALLASPY COMPACT SCORECARD V3 */
+
+#playScorecard .gallaspy-scoreboard {
+  padding: 10px;
+  border-radius: 12px;
+}
+
+#playScorecard .gallaspy-hole-editor {
+  padding: 14px 12px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+}
+
+#playScorecard #scoreboardHoleLabel {
+  font-size: 13px;
+}
+
+#playScorecard .gallaspy-hole-par {
+  margin-top: 4px;
+  font-size: 11px;
+}
+
+#playScorecard .gallaspy-score-controls {
+  gap: 14px;
+  margin: 10px 0 8px;
+}
+
+#playScorecard .gallaspy-score-controls button {
+  width: 48px;
+  height: 48px;
+  border-radius: 11px;
+  font-size: 28px;
+}
+
+#playScorecard #scoreboardSelectedScore {
+  min-width: 56px;
+  font-size: 42px;
+}
+
+#playScorecard #scoreboardHoleResult {
+  margin: 6px 0;
+  font-size: 10px;
+}
+
+#playScorecard .gallaspy-hole-navigation {
+  margin-top: 12px;
+  gap: 8px;
+}
+
+#playScorecard .gallaspy-hole-navigation button {
+  min-height: 40px;
+  font-size: 10px;
+  border-radius: 8px;
+}
+
+#playScorecard .gallaspy-scoreboard-header {
+  margin-bottom: 8px;
+  font-size: 10px;
+}
+
+#playScorecard .gallaspy-scoreboard-stats {
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+#playScorecard .gallaspy-scoreboard-stats > div {
+  padding: 9px 3px;
+  border-radius: 8px;
+}
+
+#playScorecard .gallaspy-scoreboard-stats span {
+  font-size: 8px;
+}
+
+#playScorecard .gallaspy-scoreboard-stats strong {
+  margin-top: 4px;
+  font-size: 19px;
+}
+
+#playScorecard .gallaspy-nine-navigation {
+  gap: 7px;
+  margin-bottom: 10px;
+}
+
+#playScorecard .gallaspy-nine-navigation button {
+  min-height: 38px;
+  font-size: 11px;
+  border-radius: 8px;
+}
+
+#playScorecard .gallaspy-scoreboard-total {
+  margin-top: 10px;
+  padding: 10px 12px;
+}
+
+#playScorecard .gallaspy-scoreboard-total strong {
+  font-size: 22px;
+}
+
+#playScorecard .play-fields input,
+#playScorecard #playRoundLength {
+  min-height: 44px;
+  padding: 9px 12px;
+  font-size: 14px;
+}
+
+#playScorecard .play-actions button {
+  min-height: 46px;
+  font-size: 11px;
+}
+
+/* GALLASPY COLLAPSIBLE ROUND DETAILS V1 */
+
+#playScorecard .gallaspy-round-details {
+  margin: 0 0 12px;
+  border: 1px solid #dce5e0;
+  border-radius: 10px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+#playScorecard .gallaspy-round-details summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  padding: 0 14px;
+  color: #132b40;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  list-style: none;
+}
+
+#playScorecard .gallaspy-round-details summary::-webkit-details-marker {
+  display: none;
+}
+
+#playScorecard .gallaspy-round-details-chevron {
+  color: #175b45;
+  font-size: 20px;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+#playScorecard .gallaspy-round-details[open]
+.gallaspy-round-details-chevron {
+  transform: rotate(180deg);
+}
+
+#playScorecard .gallaspy-round-details .play-round-length,
+#playScorecard .gallaspy-round-details .play-fields {
+  margin-left: 14px;
+  margin-right: 14px;
+}
+
+#playScorecard .gallaspy-round-details .play-fields {
+  margin-bottom: 14px;
+}
+
+
+/* GALLASPY SCORECARD LAUNCH BUTTONS V1 */
+
+#playScorecardLaunch .gallaspy-scorecard-launch-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+#playScorecardLaunch .gallaspy-scorecard-launch-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 54px;
+  margin: 0;
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.055em;
+  text-align: center;
+  box-shadow: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#playScorecardLaunch #playContinueScorecard {
+  order: -1;
+  background: #175b45;
+  border: 1px solid #175b45;
+  color: #ffffff;
+}
+
+#playScorecardLaunch #playStartScorecard {
+  background: #ffffff;
+  border: 1.5px solid #132b40;
+  color: #132b40;
+}
+
+#playScorecardLaunch .gallaspy-scorecard-launch-actions button[hidden],
+#playScorecardLaunch[hidden] {
+  display: none !important;
+}
+
+
+/* GALLASPY FRONT / BACK 9 NAVIGATION FIX */
+
+#playScorecard .gallaspy-nine-navigation {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+
+#playScorecard .gallaspy-nine-navigation button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 44px;
+  padding: 12px 10px;
+  border: 1px solid #cbd8d2;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #132b40;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  text-align: center;
+  opacity: 1;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#playScorecard .gallaspy-nine-navigation button.is-active {
+  background: #175b45;
+  border-color: #175b45;
+  color: #ffffff;
+}
+
+#playScorecard .gallaspy-nine-navigation button[hidden] {
+  display: none !important;
+}
+
+
+/* GALLASPY COMPLETED ROUND SCORECARD V1 */
+
+.gallaspy-history-scorecard {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.gallaspy-history-scorecard summary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 44px;
+  padding: 12px;
+  border: 1px solid #175b45;
+  border-radius: 9px;
+  background: #175b45;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  list-style: none;
+}
+
+.gallaspy-history-scorecard summary::-webkit-details-marker {
+  display: none;
+}
+
+.gallaspy-history-scorecard[open] summary {
+  border-radius: 9px 9px 0 0;
+}
+
+.gallaspy-history-scorecard[open] summary::after {
+  content: "  −";
+}
+
+.gallaspy-history-scorecard-content {
+  padding: 16px 12px;
+  border: 1px solid #dce5e0;
+  border-top: 0;
+  border-radius: 0 0 9px 9px;
+  background: #ffffff;
+  color: #132b40;
+}
+
+.gallaspy-history-nine + .gallaspy-history-nine {
+  margin-top: 22px;
+}
+
+.gallaspy-history-nine h4 {
+  margin: 0 0 12px;
+  color: #175b45;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+}
+
+.gallaspy-history-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.gallaspy-history-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 3px;
+  table-layout: fixed;
+}
+
+.gallaspy-history-table th {
+  width: 52px;
+  min-width: 52px;
+  padding: 8px 3px;
+  color: #132b40;
+  font-size: 10px;
+  text-align: left;
+}
+
+.gallaspy-history-table td {
+  min-width: 28px;
+  padding: 9px 2px;
+  border-radius: 5px;
+  background: #edf3ef;
+  color: #132b40;
+  font-size: 11px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.gallaspy-history-subtotal {
+  margin: 12px 0 0;
+  color: #175b45;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.gallaspy-history-final {
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 8px;
+  background: #132b40;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 900;
+  text-align: center;
+}

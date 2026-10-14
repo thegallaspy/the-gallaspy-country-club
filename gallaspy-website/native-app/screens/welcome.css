@@ -1,0 +1,196 @@
+/* Gallaspy standalone welcome screen */
+
+.gallaspy-welcome {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(env(safe-area-inset-top) + 32px) 28px
+           calc(env(safe-area-inset-bottom) + 32px);
+  box-sizing: border-box;
+  background: #10263f;
+  color: #ffffff;
+  text-align: center;
+  overflow-y: auto;
+}
+
+.gallaspy-welcome[hidden] {
+  display: none !important;
+}
+
+.gallaspy-welcome-logo {
+  width: 108px;
+  height: 108px;
+  object-fit: contain;
+  margin-bottom: 36px;
+}
+
+.gallaspy-welcome-title {
+  margin: 0;
+  font-size: clamp(29px, 8vw, 42px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+}
+
+.gallaspy-welcome-tagline {
+  margin: 17px 0 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  white-space: nowrap;
+}
+
+.gallaspy-welcome-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 360px;
+  margin-top: 55px;
+}
+
+.gallaspy-welcome-button {
+  min-height: 54px;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  background: #ffffff;
+  color: #10263f;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  cursor: pointer;
+}
+
+.gallaspy-welcome-button.secondary {
+  background: transparent;
+  color: #ffffff;
+}
+
+.gallaspy-welcome-footer {
+  margin-top: 45px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  opacity: 0.55;
+}
+
+/* Dedicated sign-in / registration screen */
+
+.gallaspy-auth-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: calc(env(safe-area-inset-top) + 24px) 22px
+           calc(env(safe-area-inset-bottom) + 32px);
+  box-sizing: border-box;
+  background: #10263f;
+  color: #ffffff;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.gallaspy-auth-screen[hidden] {
+  display: none !important;
+}
+
+.gallaspy-auth-content {
+  width: 100%;
+  max-width: 420px;
+}
+
+.gallaspy-auth-back {
+  padding: 12px 0;
+  margin-bottom: 36px;
+  border: 0;
+  background: transparent;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+}
+
+.gallaspy-auth-content > h1 {
+  margin: 0;
+  font-size: clamp(28px, 7vw, 38px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+
+.gallaspy-auth-tagline {
+  margin: 14px 0 36px;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.gallaspy-auth-screen .my-auth-panel {
+  margin: 0;
+}
+
+.gallaspy-auth-screen .my-auth-panel input {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.gallaspy-auth-screen .my-auth-panel button {
+  width: 100%;
+}
+
+.gallaspy-auth-screen .my-auth-panel button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Ensure authentication screens control app visibility */
+.app[hidden],
+#gallaspyWelcome[hidden],
+#gallaspyAuthScreen[hidden] {
+  display: none !important;
+}
+
+/* Persistent club header sign-out control */
+.gallaspy-header-signout {
+  flex: 0 0 auto;
+  margin-left: 10px;
+  padding: 9px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 4px;
+  background: transparent;
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.gallaspy-header-signout:disabled {
+  opacity: 0.5;
+}
+
+/* Two-line welcome heading alignment */
+.gallaspy-welcome-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
+
+.gallaspy-welcome-title span {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  text-align: center;
+}

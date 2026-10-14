@@ -1,8 +1,10 @@
 (() => {
   "use strict";
   const home = document.getElementById("nativeHomeScreen");
-  const rounds = document.getElementById("nativeRoundsScreen");
+  const caddie = document.getElementById("nativeAiCaddieScreen");
+
   const play = document.getElementById("nativePlayScreen");
+  const shop = document.getElementById("nativeShopScreen");
   const my = document.getElementById("nativeMyGallaspyScreen");
   const list = document.getElementById("nativeRoundsList");
   const content = document.getElementById("nativeContent");
@@ -19,11 +21,12 @@
 
   function show(screen) {
     home.hidden = screen !== "home";
-    rounds.hidden = screen !== "rounds";
+    if (caddie) caddie.hidden = screen !== "ai-caddie";
     if (play) play.hidden = screen !== "play";
+    if (shop) shop.hidden = screen !== "shop";
     if (my) my.hidden = screen !== "my-gallaspy";
     document.querySelectorAll(".tab").forEach((tab) => {
-      const active = screen === "home"
+      const active = (screen === "home" || screen === "ai-caddie")
         ? tab.hasAttribute("data-home")
         : tab.dataset.route === "/" + screen;
       tab.classList.toggle("active", active);
@@ -31,7 +34,12 @@
       else tab.removeAttribute("aria-current");
     });
     content.scrollTop = 0;
-    if (screen === "rounds") loadRounds();
+    if (screen === "play") {
+      loadRounds();
+      if (typeof window.loadGallaspyGolfCalendar === "function") {
+        window.loadGallaspyGolfCalendar();
+      }
+    }
   }
 
   function message(text) {
@@ -107,13 +115,26 @@
     }
   }
 
+  const toggleRounds = document.getElementById("playToggleRounds");
+
+  toggleRounds?.addEventListener("click", () => {
+    const expanded = toggleRounds.getAttribute("aria-expanded") === "true";
+    const nextExpanded = !expanded;
+
+    list.hidden = !nextExpanded;
+    toggleRounds.setAttribute("aria-expanded", String(nextExpanded));
+    toggleRounds.textContent = nextExpanded
+      ? "HIDE GALLASPY ROUNDS ↑"
+      : "VIEW GALLASPY ROUNDS →";
+  });
+
   window.showNativeScreen = show;
 
   document.querySelectorAll("[data-route]").forEach((element) => {
     element.addEventListener("click", () => {
       const route = element.dataset.route;
-      if (route === "/rounds") show("rounds");
-      else if (route === "/play") show("play");
+      if (route === "/rounds" || route === "/play") show("play");
+      else if (route === "/shop") show("shop");
       else if (route === "/my-gallaspy") show("my-gallaspy");
       else window.openClubRoute(route);
     });
