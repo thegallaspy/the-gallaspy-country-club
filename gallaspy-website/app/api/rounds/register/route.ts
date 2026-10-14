@@ -157,6 +157,21 @@ export async function POST(request: Request) {
         .single();
 
     if (databaseError) {
+      if (
+        databaseError.code === "P0001" &&
+        databaseError.message?.includes(
+          "This Gallaspy Round has reached its 12-player capacity."
+        )
+      ) {
+        return NextResponse.json(
+          {
+            error:
+              "This Gallaspy Round is full. All 12 registration spots have been taken.",
+          },
+          { status: 409 },
+        );
+      }
+
       if (databaseError.code === "23505") {
         return NextResponse.json(
           {
