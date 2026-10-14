@@ -36,22 +36,26 @@ export async function GET(request: NextRequest) {
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !anonKey) {
+  const secretKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !anonKey || !secretKey) {
     return respond({ success: false, error: "Club Points service unavailable." }, 503);
   }
 
   try {
-    const client = createClient(url, anonKey, {
-      global: { headers: { Authorization: `Bearer ${token}` } },
+    const authClient = createClient(url, anonKey, {
       auth: { persistSession: false, autoRefreshToken: false },
     });
 
-    const { data: authData, error: authError } = await client.auth.getUser(token);
+    const { data: authData, error: authError } = await authClient.auth.getUser(token);
     if (authError || !authData.user?.id) {
       return respond({ success: false, error: "Invalid authentication." }, 401);
     }
 
     const userId = authData.user.id;
+
+    const client = createClient(url, secretKey, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
     const { data: balance, error: balanceError } = await client
       .from("gallaspy_points_balances")
       .select("available_points, lifetime_earned")
