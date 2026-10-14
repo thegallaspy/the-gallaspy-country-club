@@ -11,3 +11,84 @@
 .round-card-status { display: block; margin: 0 0 15px; color: var(--gold); font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
 .round-register { display: block; width: 100%; padding: 15px; border: 0; border-radius: 6px; background: var(--gold); color: var(--navy); font-size: 11px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
 .rounds-message { padding: 20px 0; color: rgba(255,255,255,.75); font-size: 13px; line-height: 1.6; }
+
+/* GALLASPY ROUNDS — PREMIUM LIGHT CARDS V2 */
+
+#nativePlayScreen .rounds-section-title {
+  margin: 26px 0 16px;
+  color: #112a44;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+#nativePlayScreen .round-card {
+  display: block;
+  margin: 0 0 16px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #e0e6e3;
+  border-top: 4px solid #175b45;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(17, 42, 68, 0.05);
+  color: #112a44;
+}
+
+#nativePlayScreen .round-card-date {
+  margin: 0 0 12px;
+  color: #a52a35;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+
+#nativePlayScreen .round-card h3 {
+  margin: 0 0 10px;
+  color: #112a44;
+  font-size: clamp(21px, 5.5vw, 27px);
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+}
+
+#nativePlayScreen .round-card-venue {
+  margin: 0 0 14px;
+  color: #617181;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+#nativePlayScreen .round-card-status {
+  display: inline-block;
+  margin: 0 0 16px;
+  padding: 7px 10px;
+  color: #175b45;
+  background: #eef5f0;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.05em;
+}
+
+#nativePlayScreen .round-card .round-register {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  padding: 14px;
+  background: #112a44;
+  color: #ffffff;
+  border: 0;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+}
+
+#nativePlayScreen .round-card .round-register:active {
+  background: #175b45;
+}
+
+#nativePlayScreen .rounds-message {
+  color: #617181;
+}
