@@ -77,7 +77,7 @@ export async function POST(request: NextRequest) {
     const locationId = process.env.SQUARE_LOCATION_ID;
     const squareEnvironment = process.env.SQUARE_ENVIRONMENT ?? "sandbox";
     const supabaseUrl = process.env.SUPABASE_URL;
-    const supabaseSecretKey = process.env.SUPABASE_SECRET_KEY;
+    const supabaseSecretKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
     const resendApiKey = process.env.RESEND_API_KEY;
 
     if (!accessToken || !locationId) {
@@ -1056,7 +1056,7 @@ export async function POST(request: NextRequest) {
     if (squarePaymentAttempted && idempotencyKey) {
       try {
         const supabaseUrl = process.env.SUPABASE_URL;
-        const supabaseSecretKey = process.env.SUPABASE_SECRET_KEY;
+        const supabaseSecretKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
         if (supabaseUrl && supabaseSecretKey) {
           const recoveryClient = createClient(
