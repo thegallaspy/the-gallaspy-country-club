@@ -4,7 +4,13 @@ import { createClient } from "@/lib/supabase/server";
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
-  const next = requestUrl.searchParams.get("next") || "/my-gallaspy";
+  const requestedNext = requestUrl.searchParams.get("next");
+  const next =
+    requestedNext === "/membership/checkout"
+      ? "/membership/checkout"
+      : requestedNext === "/my-gallaspy/home"
+        ? "/my-gallaspy/home"
+        : "/my-gallaspy";
 
   if (!code) {
     return NextResponse.redirect(
@@ -25,6 +31,6 @@ export async function GET(request: Request) {
   }
 
   return NextResponse.redirect(
-    new URL(next.startsWith("/") ? next : "/my-gallaspy", requestUrl.origin),
+    new URL(next, requestUrl.origin),
   );
 }

@@ -2,10 +2,20 @@
 
 import Image from "next/image";
 import { FormEvent, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 export default function MyGallaspyPage() {
+  const searchParams = useSearchParams();
+  const requestedNext = searchParams.get("next");
+  const next =
+    requestedNext === "/membership/checkout"
+      ? requestedNext
+      : "/my-gallaspy/home";
+
   const [email, setEmail] = useState("");
+  const [pendingEmail, setPendingEmail] = useState("");
+  const [code, setCode] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,7 +34,7 @@ export default function MyGallaspyPage() {
       const { error: signInError } = await supabase.auth.signInWithOtp({
         email: email.trim().toLowerCase(),
         options: {
-          emailRedirectTo: `${origin}/auth/callback?next=/my-gallaspy/home`,
+          emailRedirectTo: `${origin}/auth/callback?next=${encodeURIComponent(next)}`,
           shouldCreateUser: true,
         },
       });
@@ -36,7 +46,9 @@ export default function MyGallaspyPage() {
         return;
       }
 
-      setMessage("Your secure sign-in link is on its way. Check your email.");
+      setPendingEmail(email.trim().toLowerCase());
+      setCode("");
+      setMessage("Enter the six-digit code sent to your email.");
       setLoading(false);
     } catch (submitError) {
       console.error("My Gallaspy sign-in error:", submitError);
@@ -44,9 +56,40 @@ export default function MyGallaspyPage() {
       const message =
         submitError instanceof Error
           ? submitError.message
-          : "Unable to send your sign-in link. Please try again.";
+          : "Unable to send your verification code. Please try again.";
 
       setError(message);
+      setLoading(false);
+    }
+  }
+
+  async function handleVerify(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!pendingEmail || loading) return;
+
+    if (!/^[0-9]{6}$/.test(code.trim())) {
+      setError("Enter the complete six-digit code.");
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+    setMessage("Verifying your code...");
+
+    try {
+      const supabase = createClient();
+      const { error: verifyError } = await supabase.auth.verifyOtp({
+        email: pendingEmail,
+        token: code.trim(),
+        type: "email",
+      });
+
+      if (verifyError) throw verifyError;
+
+      window.location.assign(next);
+    } catch {
+      setError("Code invalid or expired. Check your email and try again.");
+      setMessage("");
       setLoading(false);
     }
   }
@@ -141,6 +184,7 @@ export default function MyGallaspyPage() {
                 participation. No password required.
               </p>
 
+              {!pendingEmail ? (
               <form onSubmit={handleSubmit} className="mt-8">
                 <label
                   htmlFor="email"
@@ -181,7 +225,7 @@ export default function MyGallaspyPage() {
                   className="mt-6 inline-flex min-h-[58px] w-full items-center justify-between bg-[#10263F] px-6 text-[9px] font-black uppercase tracking-[0.24em] !text-white transition hover:bg-[#0A2F29] disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   <span>
-                    {loading ? "Sending..." : "Send Secure Sign-In Link"}
+                    {loading ? "Sending..." : "Send Verification Code"}
                   </span>
 
                   <span aria-hidden="true" className="text-base !text-[#C7A55B]">
@@ -189,6 +233,55 @@ export default function MyGallaspyPage() {
                   </span>
                 </button>
               </form>
+              ) : (
+              <form onSubmit={handleVerify} className="mt-8">
+                <label
+                  htmlFor="verification-code"
+                  className="text-[8px] font-black uppercase tracking-[0.26em] !text-[#10263F]/55"
+                >
+                  Six-Digit Verification Code
+                </label>
+                <input
+                  id="verification-code"
+                  type="text"
+                  inputMode="numeric"
+                  autoComplete="one-time-code"
+                  maxLength={6}
+                  pattern="[0-9]{6}"
+                  value={code}
+                  onChange={(event) =>
+                    setCode(event.target.value.replace(/\\D/g, ""))
+                  }
+                  required
+                  className="mt-3 min-h-[58px] w-full border border-[#10263F]/20 bg-white px-4 text-center text-2xl tracking-[0.35em] !text-[#10263F]"
+                />
+                <p className="mt-3 text-sm !text-[#10263F]/60">
+                  Code sent to {pendingEmail}
+                </p>
+                {message && <p className="mt-4 text-sm !text-[#10263F]">{message}</p>}
+                {error && <p role="alert" className="mt-4 text-sm !text-[#8E2633]">{error}</p>}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="mt-6 min-h-[58px] w-full bg-[#10263F] px-6 text-sm font-semibold text-white disabled:opacity-60"
+                >
+                  {loading ? "Verifying..." : "Verify & Sign In"}
+                </button>
+                <button
+                  type="button"
+                  disabled={loading}
+                  onClick={() => {
+                    setPendingEmail("");
+                    setCode("");
+                    setMessage("");
+                    setError("");
+                  }}
+                  className="mt-4 text-sm underline !text-[#10263F]"
+                >
+                  Change Email
+                </button>
+              </form>
+              )}
 
               <p className="mt-6 text-[10px] leading-5 !text-[#10263F]/40">
                 Secure access for registered players, active participants and members.
