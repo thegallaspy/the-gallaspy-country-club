@@ -10,6 +10,18 @@ export default function LoadingScreen() {
 
   useEffect(() => {
     const checkSession = window.setTimeout(() => {
+      const standalone =
+        window.matchMedia("(display-mode: standalone)").matches ||
+        ("standalone" in window.navigator &&
+          (window.navigator as Navigator & {
+            standalone?: boolean;
+          }).standalone === true);
+
+      if (standalone) {
+        setHasCheckedSession(true);
+        return;
+      }
+
       const hasEntered = sessionStorage.getItem("gallaspy-site-entered");
 
       if (!hasEntered) {

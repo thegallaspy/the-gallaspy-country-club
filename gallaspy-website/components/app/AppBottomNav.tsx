@@ -16,16 +16,6 @@ const items = [
     ),
   },
   {
-    label: "Rounds",
-    href: "/rounds",
-    icon: (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.7">
-        <circle cx="12" cy="12" r="8.5" />
-        <path d="M12 7.5v9M7.5 12h9" />
-      </svg>
-    ),
-  },
-  {
     label: "Play",
     href: "/play",
     icon: (
@@ -33,6 +23,16 @@ const items = [
         <path d="M6 20 17.5 4" />
         <path d="M14.5 4h3v3" />
         <circle cx="6" cy="20" r="1.5" />
+      </svg>
+    ),
+  },
+  {
+    label: "Shop",
+    href: "/apparel",
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.7">
+        <path d="M4 8h16l-1 13H5L4 8Z" />
+        <path d="M9 9V6a3 3 0 0 1 6 0v3" />
       </svg>
     ),
   },
@@ -50,6 +50,7 @@ const items = [
 
 function routeIsActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
+  if (href === "/play" && (pathname === "/rounds" || pathname.startsWith("/rounds/") || pathname === "/calendar" || pathname.startsWith("/calendar/"))) return true;
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
@@ -70,7 +71,7 @@ export default function AppBottomNav() {
 
   return (
     <>
-      <div className="h-[78px] xl:hidden" aria-hidden="true" />
+      <div className="h-[calc(78px+env(safe-area-inset-bottom))] xl:hidden" aria-hidden="true" />
 
       <nav
         aria-label="App navigation"
@@ -87,7 +88,7 @@ export default function AppBottomNav() {
                 aria-current={active ? "page" : undefined}
                 className={[
                   "relative flex min-h-[68px] flex-col items-center justify-center gap-1.5 px-1 transition-colors",
-                  active ? "text-[#FFD76A]" : "text-white/55",
+                  active ? "text-[#FFD76A]" : "text-white/80",
                 ].join(" ")}
               >
                 {active && (
@@ -96,7 +97,7 @@ export default function AppBottomNav() {
 
                 {item.icon}
 
-                <span className="text-[7px] font-black uppercase tracking-[0.14em]">
+                <span className="text-[10px] font-black uppercase tracking-[0.14em]">
                   {item.label}
                 </span>
               </Link>
