@@ -813,6 +813,12 @@
               <strong>CALENDAR</strong>
               <small>Your golf schedule</small>
             </button>
+            <button type="button" class="course-home-tile"
+                    data-home-community>
+              <span class="course-home-tile-icon" aria-hidden="true">◎</span>
+              <strong>COMMUNITY</strong>
+              <small>Connect with Gallaspy golfers</small>
+            </button>
           </div>
 
           <button type="button" class="course-home-profile"
@@ -823,6 +829,36 @@
             </span>
             <span aria-hidden="true">→</span>
           </button>
+        </section>
+      </div>
+      <div class="native-screen" id="nativeCommunityScreen" hidden>
+        <section class="community-screen">
+          <button type="button" id="communityBackHome"
+                  class="home-section-link">← BACK TO HOME</button>
+
+          <p class="intro-label">THE GALLASPY GOLF CLUB</p>
+          <h2>THE COMMUNITY.</h2>
+          <p>Share your rounds, connect with golfers, and celebrate the game.</p>
+
+          <section class="home-club-card" aria-label="Create community post">
+            <h3>SHARE WITH THE CLUB</h3>
+            <textarea id="communityPostBody"
+                      maxlength="3000"
+                      rows="4"
+                      placeholder="What's happening in your golf world?"></textarea>
+            <button type="button" id="communityPublishButton"
+                    class="course-home-start">
+              PUBLISH POST →
+            </button>
+            <p id="communityPostStatus" role="status" aria-live="polite"></p>
+          </section>
+
+          <section aria-label="Community posts">
+            <h3>RECENT POSTS</h3>
+            <div id="communityFeed" aria-live="polite">
+              <p>Community posts will appear here.</p>
+            </div>
+          </section>
         </section>
       </div>
       <div class="native-screen" id="nativeAiCaddieScreen" hidden>
@@ -1734,6 +1770,7 @@
   <script src="./screens/golf-rules.js"></script>
   <script src="./screens/play-dashboard.js"></script>
   <script src="./screens/home-shortcuts.js"></script>
+  <script src="./screens/community.js"></script>
   <script src="./screens/ai-caddie.js"></script>
   <script src="./screens/foursomes.js"></script>
   <script src="./screens/golf-calendar.js"></script>

@@ -8,6 +8,16 @@
     });
   });
 
+  document.querySelector("[data-home-community]")?.addEventListener(
+    "click",
+    () => window.showNativeScreen?.("community")
+  );
+
+  document.getElementById("communityBackHome")?.addEventListener(
+    "click",
+    () => window.showNativeScreen?.("home")
+  );
+
   document.querySelector("[data-home-caddie]")?.addEventListener(
     "click",
     () => window.showNativeScreen?.("ai-caddie")

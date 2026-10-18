@@ -2,6 +2,7 @@
   "use strict";
   const home = document.getElementById("nativeHomeScreen");
   const caddie = document.getElementById("nativeAiCaddieScreen");
+  const community = document.getElementById("nativeCommunityScreen");
 
   const play = document.getElementById("nativePlayScreen");
   const shop = document.getElementById("nativeShopScreen");
@@ -22,6 +23,8 @@
   function show(screen) {
     home.hidden = screen !== "home";
     if (caddie) caddie.hidden = screen !== "ai-caddie";
+    if (community) community.hidden = screen !== "community";
+    if (screen === "community") window.loadGallaspyCommunity?.();
     if (play) play.hidden = screen !== "play";
     if (shop) shop.hidden = screen !== "shop";
     if (my) my.hidden = screen !== "my-gallaspy";
