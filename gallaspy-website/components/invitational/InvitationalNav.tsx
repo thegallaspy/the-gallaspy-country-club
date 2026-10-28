@@ -4,10 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const links = [
-  { label: "Overview", href: "/invitational" },
+  { label: "THE GALLASPY", href: "/invitational" },
   { label: "Register", href: "/invitational/register" },
   { label: "Prizes", href: "/invitational/prizes" },
-  { label: "Sponsors", href: "/invitational/sponsors" },
+  { label: "Become a Sponsor", href: "/invitational/sponsors" },
   { label: "Schedule", href: "/invitational/schedule" },
   { label: "FAQ", href: "/invitational/faq" },
 ];
@@ -18,7 +18,7 @@ export default function InvitationalNav() {
   return (
     <div className="sticky top-[82px] z-40 border-b border-white/10 bg-[#10263F]/95 backdrop-blur-xl">
       <nav
-        aria-label="Invitational navigation"
+        aria-label="THE GALLASPY event navigation"
         className="mx-auto flex max-w-[1400px] items-center overflow-x-auto px-6 sm:px-8 lg:px-12"
       >
         {links.map((link) => {
