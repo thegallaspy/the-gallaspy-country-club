@@ -26,18 +26,18 @@ const paths = [
   {
     number: "03",
     eyebrow: "Compete",
-    title: "The Gallaspy Invitational",
-    text: "The flagship annual tournament of The Gallaspy. The first Invitational is scheduled for June 21, 2027.",
-    href: "/invitational",
-    cta: "The Invitational",
+    title: "THE GALLASPY",
+    text: "The signature event arrives June 21, 2027 in metro Atlanta, with THE GALLASPY CHAMPIONSHIP as its individual stroke-play competition.",
+    href: "/the-gallaspy",
+    cta: "Explore THE GALLASPY",
   },
   {
     number: "04",
     eyebrow: "Tradition",
-    title: "The Talaria Cup",
+    title: "The Gallaspy Cup",
     text: "The annual Crest vs. Falcon team championship. Team Crest in forest green. Team Falcon in navy. Two Houses. One Club. One Match.",
-    href: "/talaria-cup",
-    cta: "The Talaria Cup",
+    href: "/gallaspy-cup",
+    cta: "The Gallaspy Cup",
   },
 ];
 
@@ -172,10 +172,11 @@ export default function StartHerePage() {
 
           <div className="border-t border-white/15">
             {[
-              ["March", "Opening Drive", "The ceremonial beginning of the golf season."],
-              ["June", "The Gallaspy Invitational", "The flagship annual 18-hole individual stroke-play championship."],
-              ["September", "The Talaria Cup", "Eight singles matches. Crest vs. Falcon. One team champion."],
-              ["December", "Night at the Nest", "The annual year-end gathering, beginning in 2027."],
+              ["Monthly", "Gallaspy Rounds", "Organized rounds at host courses; golfers cover their own green fees."],
+              ["Weekly", "Range Nights", "More opportunities to practice and connect across the golf community."],
+              ["June 21", "THE GALLASPY", "Signature event with THE GALLASPY CHAMPIONSHIP at its center."],
+              ["2027", "THE GALLASPY CUP", "Crest vs. Falcon team match competition."],
+              ["Year End", "NIGHT AT THE NEST", "The club’s annual gala, awards and recognition."],
             ].map(([month, event, text]) => (
               <div
                 key={event}

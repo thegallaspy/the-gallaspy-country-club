@@ -4,9 +4,9 @@ import InvitationalNav from "@/components/invitational/InvitationalNav";
 
 const faqs = [
   {
-    question: "When is the 2027 Gallaspy Invitational?",
+    question: "When is the 2027 Gallaspy Championship?",
     answer:
-      "The inaugural Gallaspy Invitational is scheduled for Monday, June 21, 2027. Player arrival begins at 8:00 AM, the player meeting is scheduled for 9:30 AM, and the championship is planned to begin with a 10:00 AM shotgun start.",
+      "The inaugural Gallaspy Championship is scheduled for Monday, June 21, 2027. Player arrival begins at 8:00 AM, the player meeting is scheduled for 9:30 AM, and the championship is planned to begin with a 10:00 AM shotgun start.",
   },
   {
     question: "What is the tournament format?",
@@ -14,14 +14,14 @@ const faqs = [
       "The Invitational is an 18-hole individual stroke-play championship with a 72-player field. Each golfer plays their own ball and records an individual score for all 18 holes.",
   },
   {
-    question: "How is the Gallaspy Invitational Champion determined?",
+    question: "How is the Gallaspy Championship Champion determined?",
     answer:
-      "The Gallaspy Invitational Champion is the golfer who records the lowest actual gross score over 18 holes. That player earns the primary championship title and is the golfer recognized on the permanent Invitational trophy.",
+      "THE GALLASPY CHAMPIONSHIP Champion is the golfer who records the lowest actual gross score over 18 holes. That player earns the primary championship title and is the golfer recognized on the permanent Invitational trophy.",
   },
   {
     question: "Is there a Net Championship?",
     answer:
-      "Yes. Eligible players with a current GHIN or other tournament-recognized handicap will also be scored in a separate Net Championship. The Net Champion is a separate award and does not replace the Gross Champion as The Gallaspy Invitational Champion.",
+      "Yes. Eligible players with a current GHIN or other tournament-recognized handicap will also be scored in a separate Net Championship. The Net Champion is a separate award and does not replace the Gross Champion as THE GALLASPY CHAMPIONSHIP Champion.",
   },
   {
     question: "Is a GHIN or handicap required to register?",
@@ -46,7 +46,7 @@ const faqs = [
   {
     question: "Is player registration open?",
     answer:
-      "Yes. Player registration is open for the 2027 Gallaspy Invitational. Individual entry is $200 per golfer. The championship field is limited to 72 players. Final host-course details and player instructions will be communicated to registered players as tournament planning is finalized.",
+      "Yes. Player registration is open for the 2027 Gallaspy Championship. Individual entry is $200 per golfer. The championship field is limited to 72 players. Final host-course details and player instructions will be communicated to registered players as tournament planning is finalized.",
   },
   {
     question: "Can I register multiple golfers in one transaction?",
@@ -88,7 +88,7 @@ export default function InvitationalFAQPage() {
           <div className="mt-10">
             <Image
               src="/logos/official/gallaspy-invitational-logo.png"
-              alt="The Gallaspy Invitational"
+              alt="THE GALLASPY CHAMPIONSHIP"
               width={300}
               height={300}
               priority
@@ -108,7 +108,7 @@ export default function InvitationalFAQPage() {
 
           <p className="mt-8 max-w-2xl text-base leading-8 text-white/70">
             Answers to the most important questions about the inaugural 2027
-            Gallaspy Invitational, including registration, competition,
+            Gallaspy Championship, including registration, competition,
             sponsorship, prizes, and tournament-day planning.
           </p>
         </div>
@@ -224,7 +224,7 @@ export default function InvitationalFAQPage() {
         <div className="mx-auto flex max-w-[1100px] flex-col items-center justify-between gap-8 text-center lg:flex-row lg:text-left">
           <div className="max-w-2xl">
             <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#FFD76A]">
-              2027 Gallaspy Invitational
+              2027 Gallaspy Championship
             </p>
 
             <h2 className="mt-5 font-serif text-4xl sm:text-5xl">
@@ -232,7 +232,7 @@ export default function InvitationalFAQPage() {
             </h2>
 
             <p className="mt-5 text-sm leading-7 text-white/62">
-              Registration is open for the 2027 Gallaspy Invitational.
+              Registration is open for the 2027 Gallaspy Championship.
               information and tournament updates.
             </p>
           </div>

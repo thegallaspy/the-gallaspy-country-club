@@ -30,7 +30,8 @@ export const metadata: Metadata = {
     "Golf Community",
     "Golf Events",
     "Golf Tournament",
-    "The Gallaspy Invitational",
+    "The Gallaspy Championship",
+    "The Gallaspy Cup",
     "Georgia Golf Events",
   ],
 

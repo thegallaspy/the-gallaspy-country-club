@@ -2,19 +2,15 @@ import Link from "next/link";
 import { traditions } from "@/data/club";
 
 const traditionOrder = [
-  "first-flight",
-  "opening-drive",
   "gallaspy-invitational",
   "talaria-cup",
   "night-at-the-nest",
 ];
 
 const traditionLabels: Record<string, string> = {
-  "first-flight": "Opening Tradition",
-  "opening-drive": "Season Tradition",
-  "gallaspy-invitational": "Flagship Tournament",
+  "gallaspy-invitational": "Signature Event",
   "talaria-cup": "Team Championship",
-  "night-at-the-nest": "Annual Gathering",
+  "night-at-the-nest": "End-of-Year Gala",
 };
 
 export default function TraditionsPage() {
@@ -92,21 +88,21 @@ export default function TraditionsPage() {
                 </p>
 
                 <h2 className="mt-3 font-serif text-3xl font-light leading-tight sm:text-4xl">
-                  {tradition.name}
+                  {tradition.id === "gallaspy-invitational" ? "THE GALLASPY" : tradition.id === "talaria-cup" ? "THE GALLASPY CUP" : tradition.id === "night-at-the-nest" ? "NIGHT AT THE NEST" : tradition.name}
                 </h2>
 
                 <p className="mt-4 text-[10px] font-bold uppercase tracking-[0.2em] text-[#10263F]/40">
-                  {tradition.monthLabel} ·{" "}
-                  {tradition.firstOccurrenceYear === 2026
-                    ? "Established"
-                    : "Starting"}{" "}
-                  {tradition.firstOccurrenceYear}
+                  {tradition.id === "gallaspy-invitational" ? "June 21, 2027" : tradition.id === "talaria-cup" ? "2027 · See Cup Page" : "Year End · 2027"}
                 </p>
               </div>
 
               <div>
                 <p className="max-w-xl text-sm leading-7 text-[#33475B]/75 sm:text-base sm:leading-8">
-                  {tradition.description}
+                  {tradition.id === "gallaspy-invitational"
+                    ? "THE GALLASPY is the signature event, with THE GALLASPY CHAMPIONSHIP as its individual stroke-play competition and THE GOLDEN FALCON as its trophy."
+                    : tradition.id === "talaria-cup"
+                      ? "THE GALLASPY CUP brings Team Crest and Team Falcon together in the club’s team match competition."
+                      : "NIGHT AT THE NEST is the annual end-of-year gala, recognizing members, the season and the community."}
                 </p>
 
                 {tradition.id === "talaria-cup" && (
@@ -139,7 +135,7 @@ export default function TraditionsPage() {
 
                 {tradition.href && tradition.href !== "/traditions" && (
                   <Link
-                    href={tradition.href}
+                    href={tradition.id === "gallaspy-invitational" ? "/the-gallaspy" : tradition.id === "talaria-cup" ? "/gallaspy-cup" : tradition.href}
                     className="mt-7 inline-flex items-center text-[9px] font-bold uppercase tracking-[0.22em] text-[#10263F] transition hover:text-[#B89146]"
                   >
                     Explore
@@ -152,22 +148,22 @@ export default function TraditionsPage() {
         </div>
       </section>
 
-      {/* TALARIA CUP FEATURE */}
+      {/* GALLASPY CUP FEATURE */}
       <section className="bg-[#0C352D] px-5 py-16 text-white sm:px-8 lg:py-24">
         <div className="mx-auto grid max-w-[1120px] gap-12 lg:grid-cols-[1fr_0.8fr] lg:items-end lg:gap-20">
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#D7B56D]">
-              September · Team Championship
+              THE GALLASPY CUP · Team Championship
             </p>
 
             <h2 className="mt-5 font-serif text-[3rem] font-light leading-[1] sm:text-5xl lg:text-[4rem]">
-              The Talaria
+              The Gallaspy
               <span className="block text-[#D7B56D]">Cup.</span>
             </h2>
 
             <p className="mt-6 max-w-2xl text-sm leading-7 text-white/65 sm:text-base sm:leading-8">
-              Crest against Falcon. Forest green against navy. The Talaria
-              Cup is The Gallaspy&apos;s annual team competition and one of
+              Crest against Falcon. Forest green against navy. THE GALLASPY
+              CUP is the club&apos;s team match competition and one of
               the traditions intended to build its own history year after year.
             </p>
           </div>
@@ -184,10 +180,10 @@ export default function TraditionsPage() {
             </p>
 
             <Link
-              href="/talaria-cup"
+              href="/gallaspy-cup"
               className="mt-8 inline-flex min-h-[48px] items-center justify-center border border-[#D7B56D] px-7 text-[9px] font-bold uppercase tracking-[0.22em] text-[#D7B56D] transition hover:bg-[#D7B56D] hover:text-[#10263F]"
             >
-              The Talaria Cup →
+              The Gallaspy Cup →
             </Link>
           </div>
         </div>

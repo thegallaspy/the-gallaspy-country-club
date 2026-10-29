@@ -46,7 +46,7 @@ function formatStatus(status: GallaspyEvent["status"]) {
 }
 
 export default function UpcomingAtGallaspy() {
-  const upcoming = getUpcomingEvents().slice(0, 3);
+  const upcoming = getUpcomingEvents().filter((event) => event.year >= 2027).slice(0, 3);
 
   return (
     <section className="bg-[#F7F4EE] px-5 py-16 sm:px-8 lg:py-24">
@@ -105,11 +105,11 @@ export default function UpcomingAtGallaspy() {
                   </div>
 
                   <h3 className="mt-3 font-serif text-2xl font-light text-[#10263F] sm:text-3xl">
-                    {event.name}
+                    {event.name.replace(/Gallaspy Invitational/gi, "THE GALLASPY").replace(/Talaria Cup/gi, "THE GALLASPY CUP")}
                   </h3>
 
                   <p className="mt-3 max-w-2xl text-sm leading-7 text-[#33475B]/75">
-                    {event.description}
+                    {event.description.replace(/Gallaspy Invitational/gi, "THE GALLASPY").replace(/Talaria Cup/gi, "THE GALLASPY CUP")}
                   </p>
 
                   <p className="mt-3 text-xs uppercase tracking-[0.16em] text-[#10263F]/45">
@@ -130,7 +130,7 @@ export default function UpcomingAtGallaspy() {
                     </Link>
                   ) : (
                     <Link
-                      href={event.href}
+                      href={event.href === "/talaria-cup" ? "/gallaspy-cup" : event.href === "/invitational" ? "/the-gallaspy" : event.href}
                       className="inline-flex min-h-[44px] items-center justify-center border-2 border-[#10263F] bg-[#10263F] px-6 text-[9px] font-bold uppercase tracking-[0.2em] text-white transition hover:bg-transparent hover:text-[#10263F]"
                     >
                       View Event

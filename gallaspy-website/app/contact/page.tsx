@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import ContactForm from "@/components/forms/ContactForm";
-import { Navbar } from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "Contact | The Gallaspy Golf Club",
   description:
-    "Contact The Gallaspy regarding golf, upcoming events, the Founding 100, The Gallaspy Invitational, partnerships, property opportunities, media, or general inquiries.",
+    "Contact The Gallaspy regarding golf, upcoming events, the Founding 100, THE GALLASPY, partnerships, property opportunities, media, or general inquiries.",
 };
 
 const inquiryTypes = [
@@ -24,9 +22,9 @@ const inquiryTypes = [
   },
   {
     number: "03",
-    title: "Invitational & Sponsorship",
+    title: "THE GALLASPY & Sponsorship",
     description:
-      "Contact us regarding The Gallaspy Invitational, player participation, sponsorship, hospitality, partnerships, or brand activation.",
+      "Contact us regarding THE GALLASPY, player participation, sponsorship, hospitality, partnerships, or brand activation.",
   },
   {
     number: "04",
@@ -51,8 +49,6 @@ const inquiryTypes = [
 export default function ContactPage() {
   return (
     <main className="bg-[#F7F4EE] text-[#10263F]">
-      <Navbar />
-
       {/* HERO */}
       <section className="relative overflow-hidden bg-[#10263F] px-5 pb-20 pt-36 text-white sm:px-8 sm:pb-24 sm:pt-40 lg:px-10 lg:pb-28 lg:pt-48">
         <div className="absolute left-[12%] top-0 h-full w-px bg-white/[0.05]" />
@@ -202,7 +198,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <Footer />
     </main>
   );
 }

@@ -3,9 +3,9 @@ import Link from "next/link";
 import InvitationalNav from "@/components/invitational/InvitationalNav";
 
 export const metadata: Metadata = {
-  title: "Liability Waiver | The Gallaspy Invitational",
+  title: "Liability Waiver | THE GALLASPY CHAMPIONSHIP",
   description:
-    "Liability Waiver and Assumption of Risk for The Gallaspy Invitational.",
+    "Liability Waiver and Assumption of Risk for THE GALLASPY CHAMPIONSHIP.",
 };
 
 export default function InvitationalWaiverPage() {
@@ -20,11 +20,11 @@ export default function InvitationalWaiverPage() {
             href="/invitational"
             className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/60 transition hover:text-[#FFD76A]"
           >
-            ← Back to Invitational
+            ← Back to THE GALLASPY
           </Link>
 
           <p className="mt-12 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">
-            The Gallaspy Invitational
+            THE GALLASPY CHAMPIONSHIP
           </p>
 
           <h1 className="mt-5 max-w-4xl font-serif text-5xl leading-[0.98] sm:text-6xl lg:text-7xl">
@@ -66,13 +66,13 @@ export default function InvitationalWaiverPage() {
             <p className="mt-5 text-sm leading-7 text-white/70">
               Participants will be required to acknowledge and accept the
               applicable waiver as part of official registration before
-              participating in The Gallaspy Invitational.
+              participating in THE GALLASPY CHAMPIONSHIP.
             </p>
           </div>
 
           <div className="space-y-12">
             <WaiverSection number="01" title="Acknowledgment of Participation">
-              I understand that participation in The Gallaspy Invitational is
+              I understand that participation in THE GALLASPY CHAMPIONSHIP is
               voluntary and involves participation in golf, use of a golf course
               and related facilities, movement throughout the property, and
               potentially the use or operation of a golf cart.
@@ -108,7 +108,7 @@ export default function InvitationalWaiverPage() {
 
             <WaiverSection number="04" title="Physical Condition">
               I am responsible for determining whether I am physically able to
-              participate safely in the Invitational.
+              participate safely in the championship.
 
               I understand that golf may involve walking, standing, swinging,
               lifting, exposure to outdoor conditions, and other physical
@@ -164,7 +164,7 @@ export default function InvitationalWaiverPage() {
               release and hold harmless The Gallaspy Development Group, LLC and
               its members, managers, employees, volunteers, representatives, and
               event personnel from claims arising from the ordinary and inherent
-              risks of voluntary participation in the Invitational.
+              risks of voluntary participation in the championship.
 
               This provision is not intended to release any person or entity from
               liability that cannot lawfully be waived or released.
