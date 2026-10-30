@@ -112,10 +112,38 @@ export async function POST(request: Request) {
       );
     }
 
-    if (
-      round.status === "COMPLETED" ||
-      round.status === "SOLD_OUT"
-    ) {
+    // GALLASPY EXPIRED ROUND GUARD V1
+    // Compare calendar dates in the club's Atlanta timezone.
+    const atlantaToday = new Intl.DateTimeFormat("en-CA", {
+      timeZone: "America/New_York",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(new Date());
+
+    const roundDate = round.date.slice(0, 10);
+    const validRoundDate = /^\\d{4}-\\d{2}-\\d{2}$/.test(roundDate) &&
+      !Number.isNaN(Date.parse(`${roundDate}T12:00:00Z`)) &&
+      new Date(`${roundDate}T12:00:00Z`)
+        .toISOString().slice(0, 10) === roundDate;
+
+    if (!validRoundDate) {
+      return NextResponse.json(
+        { error: "This Round has an invalid scheduled date." },
+        { status: 400 },
+      );
+    }
+
+    if (roundDate < atlantaToday) {
+      return NextResponse.json(
+        { error: "Registration has closed because this Round has passed." },
+        { status: 400 },
+      );
+    }
+
+    // GALLASPY REGISTRATION STATUS GUARD V1
+    // Public registration requires an explicitly open Round.
+    if (round.status !== "REGISTRATION_OPEN") {
       return NextResponse.json(
         { error: "Registration is not available for this Round." },
         { status: 400 },
