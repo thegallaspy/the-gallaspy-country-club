@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Tournament Schedule | THE GALLASPY CHAMPIONSHIP",
+  title: "Championship Schedule | THE GALLASPY",
   description:
-    "Tournament-day schedule for the 2027 Gallaspy Championship on June 21, 2027.",
+    "Tournament-day schedule for the THE GALLASPY CHAMPIONSHIP on June 21, 2027.",
 };
 
 const schedule = [
@@ -53,13 +53,13 @@ const schedule = [
     time: "Approximately 4:00 PM",
     title: "Trophy Presentation",
     text:
-      "THE GALLASPY CHAMPIONSHIP Champion is presented with the permanent championship trophy following confirmation of the final gross result.",
+      "THE GALLASPY CHAMPION is presented with THE GOLDEN FALCON following confirmation of the final gross result.",
   },
 ];
 
 export default function InvitationalSchedulePage() {
   return (
-    <main className="bg-[#F7F4EE] text-[#10263F]">
+    <main className="bg-white text-[#10263F]">
       {/* HERO */}
       <section className="bg-[#10263F] px-5 pb-20 pt-32 text-white sm:px-8 sm:pt-36 lg:px-10 lg:pb-24 lg:pt-40">
         <div className="mx-auto max-w-[1200px]">
@@ -74,8 +74,8 @@ export default function InvitationalSchedulePage() {
 
           <p className="mt-8 max-w-2xl text-sm leading-7 text-white/65 sm:text-base sm:leading-8">
             A one-day individual stroke-play championship built around a
-            72-player field, a 10:00 AM shotgun start, and one Gallaspy
-            Invitational Champion.
+            72-player field, a 10:00 AM shotgun start, and one
+            Gallaspy Champion.
           </p>
         </div>
       </section>
@@ -244,7 +244,7 @@ export default function InvitationalSchedulePage() {
       <section className="bg-[#10263F] px-5 py-20 text-center text-white sm:px-8 lg:py-24">
         <div className="mx-auto max-w-4xl">
           <p className="text-[9px] font-black uppercase tracking-[0.35em] text-[#FFD76A]">
-            1st Annual Gallaspy Championship
+            THE GALLASPY CHAMPIONSHIP · 2027
           </p>
 
           <h2 className="mt-6 text-[3rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4.5rem]">

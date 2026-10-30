@@ -39,3 +39,51 @@
   touch-action: none;
   cursor: grab;
 }
+
+
+/* Gallaspy manual Shot Tracer editor v1 */
+
+#playShotTracer #shotTracerOverlay[hidden],
+#playShotTracer #shotTracerControls[hidden] {
+  display: none !important;
+}
+
+#playShotTracer #shotTracerControls {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+#playShotTracer #shotTracerManualStart {
+  min-height: 54px;
+  width: 100%;
+  padding: 14px 18px;
+  border: 0;
+  border-radius: 14px;
+  background: #145440;
+  color: white;
+  font: inherit;
+  font-weight: 800;
+  letter-spacing: 0.035em;
+  cursor: pointer;
+}
+
+#playShotTracer #shotTracerManualNote {
+  margin: 0;
+  color: #526477;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+#playShotTracer #shotTracerOverlay .shot-tracer-handle {
+  touch-action: none;
+}
+
+#playShotTracer #shotTracerStage {
+  justify-self: center;
+}
+
+#playShotTracer #shotTracerManualStart:focus-visible {
+  outline: 3px solid #b89b60;
+  outline-offset: 3px;
+}

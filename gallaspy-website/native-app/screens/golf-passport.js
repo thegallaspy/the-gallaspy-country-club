@@ -31,7 +31,8 @@
         typeof round.course === "string" &&
         round.course.trim() &&
         Array.isArray(round.scores) &&
-        round.scores.length === 18 &&
+        [9, 18].includes(round.holeCount ?? round.scores.length) &&
+        round.scores.length === (round.holeCount ?? round.scores.length) &&
         round.scores.every(score =>
           Number.isInteger(score) && score >= 1 && score <= 20
         )
@@ -50,18 +51,21 @@
       const key = name.toLocaleLowerCase().replace(/\s+/g, " ");
       const existing = courses.get(key);
 
+      const holes = round.scores.length;
+      const total = round.scores.reduce((a, b) => a + b, 0);
       if (!existing) {
         courses.set(key, {
           name,
           rounds: 1,
           lastDate: round.date || "",
-          best: round.scores.reduce((a, b) => a + b, 0)
+          best9: holes === 9 ? total : null,
+          best18: holes === 18 ? total : null
         });
       } else {
         existing.rounds += 1;
-        const total = round.scores.reduce((a, b) => a + b, 0);
-        existing.best = Math.min(existing.best, total);
-
+        const field = holes === 9 ? "best9" : "best18";
+        existing[field] = existing[field] == null
+          ? total : Math.min(existing[field], total);
         if (round.date && round.date > existing.lastDate) {
           existing.lastDate = round.date;
         }
@@ -87,7 +91,7 @@
       const empty = document.createElement("p");
       empty.className = "passport-empty";
       empty.textContent =
-        "Your passport is waiting. Complete your first 18-hole scorecard to earn a course stamp.";
+        "Your passport is waiting. Complete a 9-hole or 18-hole scorecard to earn a course stamp.";
       courseList.append(empty);
     }
 
@@ -100,9 +104,13 @@
       name.textContent = course.name;
 
       const meta = document.createElement("span");
+      const records = [
+        course.best18 != null ? "Best 18: " + course.best18 : null,
+        course.best9 != null ? "Best 9: " + course.best9 : null
+      ].filter(Boolean);
       meta.textContent =
         course.rounds + (course.rounds === 1 ? " round" : " rounds") +
-        " · Best " + course.best +
+        (records.length ? " · " + records.join(" · ") : "") +
         (course.lastDate ? " · " + course.lastDate : "");
 
       details.append(name, meta);
@@ -129,7 +137,7 @@
       const status = document.createElement("span");
       status.textContent = achieved
         ? "UNLOCKED"
-        : milestone.count + " COURSES TO UNLOCK";
+        : (milestone.count - collection.length) + " MORE COURSES TO UNLOCK";
 
       badge.append(name, status);
       badgeList.append(badge);

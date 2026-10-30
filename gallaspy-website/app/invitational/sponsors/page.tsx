@@ -1,490 +1,280 @@
-"use client";
-
-import Image from "next/image";
 import Link from "next/link";
-import { FormEvent, useState } from "react";
 import InvitationalNav from "@/components/invitational/InvitationalNav";
+import SponsorInquiryForm from "./SponsorInquiryForm";
 
-const sponsorLevels = [
+export const dynamic = "force-dynamic";
+
+export const metadata = {
+  title: "Partner With THE GALLASPY | Sponsorship",
+  description:
+    "Discover proposed sponsorship and vendor opportunities for THE GALLASPY 2027 in Greater Atlanta.",
+};
+
+const opportunities = [
   {
     title: "Presenting Partner",
-    investment: "Custom",
-    description:
-      "The highest-level partnership opportunity for a brand seeking premium visibility and integration throughout the inaugural Gallaspy Championship.",
+    price: "$10,000",
+    description: "Premier partnership opportunity across the championship and event experience.",
     benefits: [
-      "Premier event branding",
-      "Top-tier digital recognition",
-      "Player hospitality opportunities",
-      "On-course activation",
-      "Awards presentation recognition",
-      "Custom brand integration",
+      "Premier event recognition",
+      "Prominent approved branding opportunities",
+      "Premium hospitality opportunities",
+      "Custom activation discussions",
     ],
   },
   {
     title: "Championship Partner",
-    investment: "Custom",
-    description:
-      "A major tournament partnership designed for companies seeking strong visibility across the player experience and event environment.",
+    price: "$5,000",
+    description: "Connect your organization with THE GALLASPY CHAMPIONSHIP.",
     benefits: [
-      "Tournament signage",
-      "Digital and social recognition",
-      "Player gifting opportunities",
-      "On-course presence",
-      "Hospitality opportunities",
-      "Awards recognition",
+      "Championship recognition",
+      "Potential event signage",
+      "Sponsor hospitality opportunities",
+      "Approved on-site activations",
     ],
   },
   {
-    title: "Supporting Partner",
-    investment: "Custom",
-    description:
-      "A flexible partnership level for companies looking to support the event while gaining meaningful exposure to players and guests.",
+    title: "Official Event Partner",
+    price: "$1,500",
+    description: "Participate in the wider experience of golf, culture, and community.",
     benefits: [
-      "Event recognition",
-      "Select signage",
-      "Digital exposure",
-      "Player engagement",
-      "Brand inclusion",
-      "Custom activation options",
+      "Event promotional recognition",
+      "Approved on-site branding",
+      "Business exposure opportunities",
+      "Select event-access discussions",
+    ],
+  },
+  {
+    title: "Hole Sponsor",
+    price: "$500",
+    description: "Explore recognition associated with an approved championship hole.",
+    benefits: [
+      "Potential championship hole recognition",
+      "Event sponsor listing",
+      "Select digital recognition",
+    ],
+  },
+  {
+    title: "Junior Falcon Experience Partner",
+    price: "$250",
+    description: "Support proposed golf discovery and enrichment opportunities for young people.",
+    benefits: [
+      "Youth-programming partnership opportunities",
+      "Recognition within approved youth activities",
+      "Potential community engagement",
+    ],
+  },
+  {
+    title: "Marketplace Vendor",
+    price: "$200",
+    description: "Apply to participate in the proposed event marketplace.",
+    benefits: [
+      "Consideration for an approved vendor space",
+      "Potential attendee interaction",
+      "Product or service promotion",
     ],
   },
 ];
 
-const activationOpportunities = [
-  "Hole Sponsorship",
-  "Player Gift Partner",
-  "Hole-in-One Partner",
-  "Closest-to-the-Pin Partner",
-  
-  "Hospitality Partner",
-  "Beverage Partner",
-  "Apparel Partner",
-  "Automotive Partner",
-  "Awards Partner",
-  "Photography & Media Partner",
-  "Custom Brand Activation",
+const activities = [
+  "Apparel",
+  "Food and beverage",
+  "Media",
+  "Technology",
+  "Hospitality",
+  "Youth development",
+  "Transportation",
+  "Championship prizes",
+  "Event production",
 ];
 
-export default function InvitationalSponsorsPage() {
-  const [submitting, setSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
-
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    setSubmitting(true);
-    setSuccess(false);
-    setError("");
-
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-
-    const payload = {
-      companyName: formData.get("companyName"),
-      contactName: formData.get("contactName"),
-      email: formData.get("email"),
-      phone: formData.get("phone"),
-      website: formData.get("website"),
-      sponsorshipInterest: formData.get("sponsorshipInterest"),
-      message: formData.get("message"),
-    };
-
-    try {
-      const response = await fetch("/api/invitational/sponsors", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          result.error || "Unable to submit sponsorship inquiry."
-        );
-      }
-
-      form.reset();
-      setSuccess(true);
-    } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Something went wrong. Please try again."
-      );
-    } finally {
-      setSubmitting(false);
-    }
-  }
+export default function SponsorsPage() {
+  const submissionsEnabled =
+    process.env.GALLASPY_SPONSORSHIP_INQUIRIES_ENABLED === "true";
 
   return (
-    <main className="min-h-screen bg-[#F5F0E6] text-[#10263F]">
+    <main className="min-h-screen bg-white text-[#10263F]">
       <InvitationalNav />
 
-      {/* HERO */}
-      <section className="bg-[#10263F] px-6 pb-24 pt-32 text-white sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-[1300px]">
+      <header className="bg-[#10263F] px-5 pb-20 pt-32 text-white sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-6xl">
           <Link
             href="/invitational"
-            className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/60 transition hover:text-[#FFD76A]"
+            className="text-xs font-semibold uppercase tracking-widest text-white/75 underline-offset-4 hover:underline"
           >
-            ← Back to Invitational
+            Back to THE GALLASPY
           </Link>
 
-          <div className="mt-10">
-            <Image
-              src="/logos/official/gallaspy-invitational-logo.png"
-              alt="THE GALLASPY CHAMPIONSHIP"
-              width={300}
-              height={169}
-              priority
-              className="h-auto w-[180px] sm:w-[220px] lg:w-[250px]"
-            />
-          </div>
-
-          <p className="mt-12 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">
-            Founding Partnership Opportunities
+          <p className="mt-12 text-xs font-bold uppercase tracking-[0.24em] text-[#B4D2BD]">
+            June 21, 2027 · Greater Atlanta, Georgia
           </p>
 
-          <h1 className="mt-5 max-w-5xl font-serif text-5xl leading-[0.98] sm:text-6xl lg:text-7xl">
-            Partner with the
-            <span className="block text-[#FFD76A]">
-              2027 Gallaspy Championship
+          <h1 className="mt-6 max-w-4xl text-4xl font-bold uppercase leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
+            PARTNER WITH
+            <span className="mt-2 block text-[#D8BD72]">
+              THE GALLASPY.
             </span>
           </h1>
 
-          <div className="mt-8 h-px w-20 bg-[#B89146]" />
-
-          <p className="mt-8 max-w-3xl text-base leading-8 text-white/70 sm:text-lg">
-            The inaugural Gallaspy Championship creates an opportunity for
-            select brands to help establish a new annual golf tradition while
-            engaging players, guests, and the growing Gallaspy community.
+          <p className="mt-6 text-sm font-bold uppercase tracking-[0.26em] text-white/80">
+            Golf. Culture. Competition.
           </p>
 
-          <div className="mt-10 flex flex-wrap gap-4">
+          <p className="mt-8 max-w-2xl text-base leading-8 text-white/80">
+            Be part of a new tradition in golf. Partner with THE GALLASPY
+            to connect your brand with championship competition,
+            culture, hospitality, and community.
+          </p>
+
+          <div className="mt-10 flex flex-wrap gap-3">
+            <a
+              href="#sponsor-application"
+              className="inline-flex min-h-12 items-center justify-center rounded-xl bg-[#D8BD72] px-7 text-xs font-bold uppercase tracking-widest text-[#10263F] hover:bg-white"
+            >
+              Become a Sponsor
+            </a>
             <a
               href="#opportunities"
-              className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#B89146] px-6 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-white hover:text-[#10263F] sm:px-8"
+              className="inline-flex min-h-12 items-center justify-center rounded-xl border border-white/40 px-7 text-xs font-bold uppercase tracking-widest text-white hover:border-white"
             >
               Explore Opportunities
             </a>
-
-            <a
-              href="#inquiry"
-              className="inline-flex min-h-[52px] items-center justify-center rounded-full border border-white/25 px-6 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition hover:border-[#FFD76A] hover:text-[#FFD76A] sm:px-8"
-            >
-              Sponsor Inquiry
-            </a>
           </div>
+        </div>
+      </header>
+
+      <section className="border-b border-[#DFE6E9] px-5 py-12 sm:px-8">
+        <div className="mx-auto grid max-w-6xl gap-6 sm:grid-cols-3">
+          {[
+            ["THE EVENT", "THE GALLASPY"],
+            ["THE COMPETITION", "THE GALLASPY CHAMPIONSHIP"],
+            ["THE TROPHY", "THE GOLDEN FALCON"],
+          ].map(([label, value]) => (
+            <div key={label} className="border-l-2 border-[#245A45] pl-5">
+              <p className="text-xs font-bold tracking-widest text-[#245A45]">
+                {label}
+              </p>
+              <p className="mt-3 text-lg font-bold">{value}</p>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* EVENT SNAPSHOT */}
-      <section className="border-b border-[#10263F]/10 bg-white px-6 sm:px-8 lg:px-12">
-        <div className="mx-auto grid max-w-[1300px] grid-cols-2 md:grid-cols-4">
-          <div className="border-b border-r border-[#10263F]/10 px-4 py-8 md:border-b-0">
-            <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
-              Tournament
-            </p>
-            <p className="mt-2 font-serif text-xl">1st Annual</p>
-          </div>
+      <section id="opportunities" className="px-5 py-20 sm:px-8">
+        <div className="mx-auto max-w-6xl">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#245A45]">
+            Partnership Opportunities
+          </p>
+          <h2 className="mt-4 max-w-3xl text-3xl font-bold sm:text-5xl">
+            Find your place in the experience.
+          </h2>
+          <p className="mt-5 max-w-3xl text-sm leading-7 text-[#526174]">
+            All starting prices below are preliminary planning figures,
+            subject to approval. Benefits, availability, and final
+            deliverables are subject to a written sponsorship agreement.
+          </p>
 
-          <div className="border-b border-[#10263F]/10 px-4 py-8 md:border-b-0 md:border-r">
-            <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
-              Field
-            </p>
-            <p className="mt-2 font-serif text-xl">72 Players</p>
-          </div>
-
-          <div className="border-r border-[#10263F]/10 px-4 py-8">
-            <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
-              Format
-            </p>
-            <p className="mt-2 font-serif text-xl">Individual Stroke Play</p>
-          </div>
-
-          <div className="px-4 py-8">
-            <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
-              Location
-            </p>
-            <p className="mt-2 font-serif text-xl">Georgia</p>
-          </div>
-        </div>
-      </section>
-
-      {/* WHY PARTNER */}
-      <section className="px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
-        <div className="mx-auto grid max-w-[1300px] gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-24">
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#8B6A34]">
-              Why Partner
-            </p>
-
-            <h2 className="mt-5 font-serif text-4xl leading-tight sm:text-5xl lg:text-6xl">
-              Help shape the first chapter.
-            </h2>
-          </div>
-
-          <div className="max-w-2xl">
-            <p className="text-lg leading-9 text-[#10263F]/75">
-              Founding sponsors will have the opportunity to become part of the
-              inaugural year of THE GALLASPY CHAMPIONSHIP and establish an early
-              relationship with a golf and lifestyle brand being built for the
-              long term.
-            </p>
-
-            <p className="mt-6 text-sm leading-7 text-[#10263F]/62">
-              Partnerships can be structured around hospitality, player gifting,
-              on-course activations, digital exposure, event branding, prizes,
-              food and beverage, automotive experiences, apparel, media, and
-              other customized brand integrations.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* SPONSOR LEVELS */}
-      <section
-        id="opportunities"
-        className="bg-[#0E2238] px-6 py-24 text-white sm:px-8 lg:px-12 lg:py-32"
-      >
-        <div className="mx-auto max-w-[1300px]">
-          <div className="max-w-3xl">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#FFD76A]">
-              Partnership Levels
-            </p>
-
-            <h2 className="mt-5 font-serif text-4xl sm:text-5xl lg:text-6xl">
-              Flexible partnerships built around brand fit.
-            </h2>
-
-            <p className="mt-6 max-w-2xl text-sm leading-7 text-white/62">
-              Final sponsorship packages may be customized based on category,
-              activation goals, exclusivity, hospitality, and the final host
-              venue.
-            </p>
-          </div>
-
-          <div className="mt-14 grid gap-5 lg:grid-cols-3">
-            {sponsorLevels.map((level) => (
+          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {opportunities.map((item) => (
               <article
-                key={level.title}
-                className="flex flex-col border border-white/12 bg-white/[0.045] p-7 sm:p-8"
+                key={item.title}
+                className="flex flex-col rounded-2xl border border-[#DCE5E8] bg-white p-6 shadow-sm"
               >
-                <p className="text-[9px] font-semibold uppercase tracking-[0.26em] text-[#FFD76A]">
-                  {level.investment}
+                <p className="text-xs font-bold uppercase tracking-widest text-[#245A45]">
+                  Proposed Starting At
+                </p>
+                <p className="mt-3 text-3xl font-bold">{item.price}</p>
+                <h3 className="mt-5 text-xl font-bold">{item.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-[#526174]">
+                  {item.description}
                 </p>
 
-                <h3 className="mt-4 font-serif text-3xl">{level.title}</h3>
-
-                <p className="mt-5 text-sm leading-7 text-white/62">
-                  {level.description}
-                </p>
-
-                <div className="mt-8 h-px w-full bg-white/12" />
-
-                <div className="mt-7 space-y-4">
-                  {level.benefits.map((benefit) => (
-                    <div key={benefit} className="flex items-start gap-3">
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#FFD76A]" />
-                      <p className="text-sm leading-6 text-white/78">
-                        {benefit}
-                      </p>
-                    </div>
+                <ul className="mt-6 flex-1 space-y-3 border-t border-[#E2E9EC] pt-5">
+                  {item.benefits.map((benefit) => (
+                    <li key={benefit} className="flex gap-3 text-sm leading-6">
+                      <span aria-hidden="true" className="text-[#245A45]">✓</span>
+                      <span>{benefit}</span>
+                    </li>
                   ))}
-                </div>
+                </ul>
+
+                <a
+                  href="#sponsor-application"
+                  className="mt-7 inline-flex min-h-11 items-center justify-center rounded-xl bg-[#10263F] px-4 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#245A45]"
+                >
+                  Explore Partnership
+                </a>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ACTIVATIONS */}
-      <section className="bg-white px-6 py-24 sm:px-8 lg:px-12 lg:py-32">
-        <div className="mx-auto grid max-w-[1300px] gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#8B6A34]">
-              Activation Opportunities
-            </p>
-
-            <h2 className="mt-5 font-serif text-4xl leading-tight sm:text-5xl">
-              More than a logo on a sign.
-            </h2>
-
-            <p className="mt-6 text-sm leading-7 text-[#10263F]/65">
-              We want sponsor participation to feel relevant to the player
-              experience. Partnerships can be shaped around specific moments,
-              contests, hospitality, products, services, and brand categories.
-            </p>
-          </div>
-
-          <div className="grid border-t border-[#10263F]/15 sm:grid-cols-2">
-            {activationOpportunities.map((item, index) => (
-              <div
-                key={item}
-                className={`flex min-h-[78px] items-center justify-between border-b border-[#10263F]/15 py-5 ${
-                  index % 2 === 0 ? "sm:pr-7" : "sm:border-l sm:pl-7"
-                }`}
+      <section className="bg-[#F2F6F5] px-5 py-16 sm:px-8">
+        <div className="mx-auto max-w-6xl">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#245A45]">
+            Custom Partnerships
+          </p>
+          <h2 className="mt-4 text-3xl font-bold">
+            Built around the right fit.
+          </h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-[#526174]">
+            Your organization may have an idea beyond the proposed packages.
+            We welcome discussions about tailored participation across
+            championship, hospitality, culture, and community programming.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-2">
+            {activities.map((activity) => (
+              <span
+                key={activity}
+                className="rounded-full border border-[#C9D9D1] bg-white px-4 py-2 text-xs font-semibold text-[#10263F]"
               >
-                <span className="font-serif text-xl">{item}</span>
-
-                <span className="text-[9px] font-semibold tracking-[0.2em] text-[#8B6A34]">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-              </div>
+                {activity}
+              </span>
             ))}
           </div>
         </div>
       </section>
 
-      {/* VENUE STATUS */}
-      <section className="bg-[#EFE7D8] px-6 py-20 text-center sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-3xl">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#8B6A34]">
-            Host Course
+      <section className="px-5 py-16 sm:px-8">
+        <div className="mx-auto max-w-6xl rounded-2xl border-l-4 border-[#AF2535] bg-[#F7F9FA] p-7 sm:p-10">
+          <p className="text-xs font-bold uppercase tracking-widest text-[#AF2535]">
+            Youth & Community
           </p>
-
-          <h2 className="mt-5 font-serif text-4xl sm:text-5xl">
-            Official venue announcement forthcoming.
+          <h2 className="mt-3 text-2xl font-bold sm:text-3xl">
+            THE JUNIOR FALCON EXPERIENCE
           </h2>
-
-          <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-[#10263F]/65">
-            The Gallaspy is finalizing the host-course agreement for the 2027
-            Invitational. Sponsorship materials and benefits will be updated as
-            final venue details are confirmed.
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-[#526174]">
+            A unified experience for children and teenagers, with
+            age-appropriate golf discovery, interactive programming,
+            and potential youth-development opportunities.
+            Specific activities and partnerships will be announced
+            once approved.
           </p>
         </div>
       </section>
 
-      {/* INQUIRY */}
       <section
-        id="inquiry"
-        className="bg-[#10263F] px-6 py-24 text-white sm:px-8 lg:px-12 lg:py-32"
+        id="sponsor-application"
+        className="bg-[#10263F] px-5 py-20 text-white sm:px-8"
       >
-        <div className="mx-auto grid max-w-[1200px] gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#FFD76A]">
-              Sponsor Inquiry
-            </p>
+        <div className="mx-auto max-w-6xl">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#D8BD72]">
+            Sponsorship & Vendor Interest
+          </p>
+          <h2 className="mt-4 max-w-3xl text-3xl font-bold sm:text-5xl">
+            Start a partnership conversation.
+          </h2>
+          <p className="mt-5 max-w-3xl text-sm leading-7 text-white/75">
+            Applications are open to interested businesses and
+            organizations; paid club membership is not required.
+            Submitting an inquiry does not create a sponsorship
+            agreement or payment obligation.
+          </p>
 
-            <h2 className="mt-5 font-serif text-4xl leading-tight sm:text-5xl">
-              Start the conversation.
-            </h2>
-
-            <p className="mt-6 max-w-md text-sm leading-7 text-white/62">
-              Tell us about your organization and the type of partnership you
-              would like to explore. Our team can follow up with current
-              sponsorship information and custom opportunities.
-            </p>
-          </div>
-
-          <form className="grid gap-5 rounded-[22px] border border-white/12 bg-white/[0.05] p-7 sm:grid-cols-2 sm:p-9">
-            <SponsorField label="Contact Name" name="name" />
-            <SponsorField label="Company" name="company" />
-            <SponsorField label="Email Address" name="email" type="email" />
-            <SponsorField label="Phone Number" name="phone" type="tel" />
-
-            <div className="sm:col-span-2">
-              <label
-                htmlFor="sponsorshipInterest"
-                className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.2em] text-[#FFD76A]"
-              >
-                Partnership Interest
-              </label>
-
-              <select
-                id="sponsorshipInterest"
-                name="sponsorshipInterest"
-                defaultValue=""
-                className="h-[50px] w-full rounded-xl border border-white/15 bg-white/[0.07] px-4 text-sm text-white outline-none"
-              >
-                <option value="" disabled className="text-[#10263F]">
-                  Select an opportunity
-                </option>
-                <option value="presenting" className="text-[#10263F]">
-                  Presenting Partner
-                </option>
-                <option value="championship" className="text-[#10263F]">
-                  Championship Partner
-                </option>
-                <option value="supporting" className="text-[#10263F]">
-                  Supporting Partner
-                </option>
-                <option value="activation" className="text-[#10263F]">
-                  Specific Activation
-                </option>
-                <option value="custom" className="text-[#10263F]">
-                  Custom Partnership
-                </option>
-              </select>
-            </div>
-
-            <div className="sm:col-span-2">
-              <label
-                htmlFor="message"
-                className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.2em] text-[#FFD76A]"
-              >
-                Tell Us More
-              </label>
-
-              <textarea
-                id="message"
-                name="message"
-                rows={5}
-                className="w-full rounded-xl border border-white/15 bg-white/[0.07] px-4 py-3 text-sm text-white outline-none"
-                placeholder="Tell us about your company, goals, or partnership idea."
-              />
-            </div>
-
-            <div className="sm:col-span-2">
-              <button
-                type="submit"
-                className="inline-flex min-h-[52px] w-full items-center justify-center rounded-full bg-[#B89146] px-6 text-[10px] font-semibold uppercase tracking-[0.22em] text-white transition hover:bg-white hover:text-[#10263F] sm:px-8"
-              >
-                Submit Sponsor Interest
-              </button>
-
-              <p className="mt-4 text-center text-[10px] leading-5 text-white/40">
-                This inquiry form does not create a sponsorship agreement or
-                financial obligation.
-              </p>
-            </div>
-          </form>
+          <SponsorInquiryForm enabled={submissionsEnabled} />
         </div>
       </section>
     </main>
-  );
-}
-
-type SponsorFieldProps = {
-  label: string;
-  name: string;
-  type?: string;
-};
-
-function SponsorField({
-  label,
-  name,
-  type = "text",
-}: SponsorFieldProps) {
-  return (
-    <div>
-      <label
-        htmlFor={name}
-        className="mb-2 block text-[9px] font-semibold uppercase tracking-[0.2em] text-[#FFD76A]"
-      >
-        {label}
-      </label>
-
-      <input
-        id={name}
-        name={name}
-        type={type}
-        className="h-[50px] w-full rounded-xl border border-white/15 bg-white/[0.07] px-4 text-sm text-white outline-none"
-      />
-    </div>
   );
 }

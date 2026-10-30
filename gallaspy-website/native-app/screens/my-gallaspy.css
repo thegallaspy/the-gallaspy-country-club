@@ -4,7 +4,7 @@
 
 .my-heading h2 {
   margin: 20px 0;
-  color: #f4f0e7;
+  color: #ffffff;
   font-size: clamp(36px, 9vw, 58px);
   line-height: 1;
   letter-spacing: -0.045em;
@@ -333,7 +333,7 @@
 #authPhoneNotice {
   padding: 16px;
   border: 1px solid #40576a;
-  color: #f4f0e7;
+  color: #ffffff;
   font-size: 13px;
   line-height: 1.6;
 }
@@ -780,4 +780,428 @@
   color: #617181;
   font-size: 12px;
   line-height: 1.6;
+}
+
+/* MY GALLASPY — PERSONAL CLUBHOUSE REDESIGN */
+
+#nativeMyGallaspyScreen {
+  background: #ffffff;
+  color: #112a44;
+  padding-bottom: 48px;
+}
+
+/* Premium player dashboard header */
+#nativeMyGallaspyScreen .my-heading {
+  background: #112a44;
+  border-radius: 16px;
+  padding: 26px 22px;
+  margin: 10px 0 20px;
+  color: #ffffff;
+}
+
+#nativeMyGallaspyScreen .my-heading .intro-label {
+  color: #c3d9cd;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+#nativeMyGallaspyScreen .my-heading h2 {
+  color: #ffffff;
+  font-size: clamp(30px, 8vw, 42px);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+}
+
+#nativeMyGallaspyScreen .my-heading > p:last-child {
+  color: #dce5eb;
+  font-size: 13px;
+}
+
+/* Player greeting */
+#nativeMyGallaspyScreen .my-dashboard-greeting {
+  color: #112a44;
+  font-size: clamp(20px, 5.5vw, 27px);
+  font-weight: 850;
+  line-height: 1.2;
+  margin: 12px 0 18px;
+}
+
+/* Dashboard section spacing */
+#nativeMyGallaspyScreen .my-dashboard-content {
+  padding-top: 4px;
+}
+
+#nativeMyGallaspyScreen .my-panel {
+  background: #ffffff;
+  border: 1px solid #e2e6eb;
+  border-radius: 14px;
+  padding: 22px 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 3px 14px rgba(17, 42, 68, 0.035);
+}
+
+#nativeMyGallaspyScreen .my-panel h3 {
+  color: #112a44;
+  font-size: clamp(21px, 5.5vw, 27px);
+  font-weight: 850;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+#nativeMyGallaspyScreen .my-panel .intro-label {
+  color: #21533e;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+/* Golf statistics */
+#nativeMyGallaspyScreen .my-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+  margin-bottom: 22px;
+}
+
+#nativeMyGallaspyScreen .my-stats > div {
+  min-width: 0;
+  background: #f7f9f8;
+  border: 1px solid #e2e8e4;
+  border-top: 3px solid #21533e;
+  border-radius: 12px;
+  padding: 18px 8px;
+  text-align: center;
+  box-shadow: none;
+}
+
+#nativeMyGallaspyScreen .my-stats strong {
+  color: #112a44;
+  font-size: clamp(23px, 6vw, 32px);
+  font-weight: 900;
+}
+
+/* Club Points */
+#nativeMyGallaspyScreen .my-club-points {
+  border-top: 4px solid #21533e;
+}
+
+#nativeMyGallaspyScreen .my-points-stats > div:first-child {
+  background: #123d32;
+  border-color: #123d32;
+}
+
+/* Accessible actions */
+#nativeMyGallaspyScreen .my-action {
+  min-height: 48px;
+  border-radius: 9px;
+  font-weight: 800;
+}
+
+/* Small iPhones */
+@media (max-width: 390px) {
+  #nativeMyGallaspyScreen .my-heading {
+    padding: 22px 18px;
+  }
+
+  #nativeMyGallaspyScreen .my-panel {
+    padding: 18px 15px;
+  }
+}
+
+/* MY GALLASPY — DIGITAL PLAYER IDENTITY */
+
+#nativeMyGallaspyScreen .my-player-identity {
+  background: #112a44;
+  color: #ffffff;
+  border: 1px solid #25445c;
+  border-radius: 16px;
+  padding: 22px;
+  margin: 0 0 18px;
+}
+
+#nativeMyGallaspyScreen .my-identity-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+#nativeMyGallaspyScreen .my-identity-avatar {
+  display: grid;
+  place-items: center;
+  flex: 0 0 58px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #21533e;
+  border: 2px solid #b59a58;
+  color: #ffffff;
+  font-size: 23px;
+  font-weight: 900;
+}
+
+#nativeMyGallaspyScreen .my-identity-details {
+  min-width: 0;
+}
+
+#nativeMyGallaspyScreen .my-identity-eyebrow {
+  color: #bdd5c8;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+}
+
+#nativeMyGallaspyScreen .my-identity-details h3 {
+  margin: 5px 0;
+  color: #ffffff;
+  font-size: clamp(18px, 5vw, 24px);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+#nativeMyGallaspyScreen #myIdentityStatus {
+  color: #dce5eb;
+  font-size: 12px;
+}
+
+#nativeMyGallaspyScreen .my-identity-footer {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 17px;
+  border-top: 1px solid #385268;
+}
+
+#nativeMyGallaspyScreen .my-identity-footer span {
+  display: block;
+  color: #bdd5c8;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+}
+
+#nativeMyGallaspyScreen .my-identity-footer strong {
+  display: block;
+  margin-top: 7px;
+  color: #ffffff;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+
+#nativeMyGallaspyScreen .my-identity-note {
+  margin: 17px 0 0;
+  color: #c4d0da;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* MY GALLASPY V2 — PERSONAL CLUBHOUSE NAVIGATION */
+
+#nativeMyGallaspyScreen .my-v2-navigation {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 16px 0 20px;
+  padding: 0;
+  background: transparent;
+}
+
+#nativeMyGallaspyScreen .my-v2-navigation button {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76px;
+  padding: 16px;
+  border: 1px solid #dfe6e9;
+  border-radius: 16px;
+  background: #ffffff;
+  color: #142b43;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.055em;
+  text-align: left;
+  box-shadow: 0 3px 12px rgba(10, 28, 45, 0.04);
+}
+
+#nativeMyGallaspyScreen .my-v2-navigation button::after {
+  content: "→";
+  font-size: 19px;
+  font-weight: 400;
+  opacity: 0.65;
+}
+
+#nativeMyGallaspyScreen .my-v2-navigation button:first-child {
+  grid-column: 1 / -1;
+  min-height: 52px;
+}
+
+#nativeMyGallaspyScreen .my-v2-navigation button.my-v2-nav-active {
+  background: #142b43;
+  border-color: #142b43;
+  color: #ffffff;
+}
+
+#nativeMyGallaspyScreen .my-v2-navigation button:focus-visible {
+  outline: 3px solid #a92e37;
+  outline-offset: 3px;
+}
+
+#nativeMyGallaspyScreen .my-dashboard-content > [hidden] {
+  display: none !important;
+}
+
+#nativeMyGallaspyScreen .my-dashboard-content {
+  min-width: 0;
+}
+
+#nativeMyGallaspyScreen .my-stats {
+  margin-top: 0;
+}
+
+/* MY GALLASPY V2 — CONSOLIDATED PLAYER PROFILE */
+
+/* Keep the Supabase-connected elements available to JavaScript
+   without displaying a duplicate player profile card. */
+#nativeMyGallaspyScreen #myCloudProfile {
+  display: none !important;
+}
+
+/* Reduce the oversized page heading. */
+#nativeMyGallaspyScreen .my-heading {
+  padding: 12px 16px !important;
+  margin-bottom: 10px !important;
+  border-radius: 14px !important;
+}
+
+#nativeMyGallaspyScreen .my-heading h2 {
+  font-size: clamp(22px, 6vw, 28px) !important;
+  line-height: 1.1 !important;
+  margin: 0 !important;
+}
+
+#nativeMyGallaspyScreen .my-heading > p:last-child {
+  display: none;
+}
+
+/* Present player identity as one compact profile card. */
+#nativeMyGallaspyScreen .my-player-identity {
+  padding: 18px !important;
+  margin-bottom: 12px !important;
+  border-radius: 18px !important;
+}
+
+#nativeMyGallaspyScreen .my-identity-top {
+  gap: 12px !important;
+}
+
+#nativeMyGallaspyScreen .my-identity-avatar {
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px !important;
+}
+
+#nativeMyGallaspyScreen .my-identity-details h3 {
+  font-size: 20px !important;
+  line-height: 1.2 !important;
+}
+
+#nativeMyGallaspyScreen .my-identity-footer {
+  margin-top: 15px !important;
+  padding-top: 13px !important;
+}
+
+#nativeMyGallaspyScreen .my-identity-note {
+  margin-top: 12px !important;
+  font-size: 10px !important;
+}
+
+/* MY GALLASPY V2 — COMPACT CLUBHOUSE */
+
+#nativeMyGallaspyScreen {
+  background: #ffffff;
+  padding-top: 8px;
+}
+
+#nativeMyGallaspyScreen .my-heading {
+  padding: 10px 14px !important;
+  margin: 0 0 8px !important;
+  border-radius: 12px !important;
+}
+
+#nativeMyGallaspyScreen .my-heading .intro-label {
+  font-size: 9px !important;
+  letter-spacing: 0.12em !important;
+  margin-bottom: 5px !important;
+}
+
+#nativeMyGallaspyScreen .my-heading h2 {
+  font-size: 22px !important;
+}
+
+#nativeMyGallaspyScreen #myOpenSettings {
+  width: 36px !important;
+  height: 36px !important;
+  flex: 0 0 36px !important;
+  font-size: 18px !important;
+}
+
+#nativeMyGallaspyScreen .my-player-identity {
+  padding: 14px !important;
+  margin: 0 0 10px !important;
+  border-radius: 14px !important;
+}
+
+#nativeMyGallaspyScreen .my-identity-avatar {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+}
+
+#nativeMyGallaspyScreen .my-identity-details h3 {
+  font-size: 18px !important;
+}
+
+#nativeMyGallaspyScreen .my-identity-footer {
+  margin-top: 10px !important;
+  padding-top: 10px !important;
+}
+
+#nativeMyGallaspyScreen .my-identity-note {
+  margin-top: 8px !important;
+  line-height: 1.35 !important;
+}
+
+#nativeMyGallaspyScreen .my-v2-navigation {
+  gap: 8px !important;
+  margin: 8px 0 12px !important;
+}
+
+#nativeMyGallaspyScreen .my-v2-navigation button {
+  min-height: 58px !important;
+  padding: 12px !important;
+  border-radius: 12px !important;
+  font-size: 11px !important;
+}
+
+#nativeMyGallaspyScreen .my-v2-navigation button:first-child {
+  min-height: 42px !important;
+}
+
+#nativeMyGallaspyScreen .my-dashboard-greeting {
+  display: none !important;
+}
+
+#nativeMyGallaspyScreen .my-stats {
+  gap: 8px !important;
+  margin: 0 !important;
+}
+
+#nativeMyGallaspyScreen .my-stats > div {
+  padding: 12px 8px !important;
+  min-height: 90px !important;
+}
+
+#nativeMyGallaspyScreen .my-stats strong {
+  font-size: 23px !important;
 }

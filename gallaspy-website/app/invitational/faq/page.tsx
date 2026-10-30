@@ -11,17 +11,17 @@ const faqs = [
   {
     question: "What is the tournament format?",
     answer:
-      "The Invitational is an 18-hole individual stroke-play championship with a 72-player field. Each golfer plays their own ball and records an individual score for all 18 holes.",
+      "THE GALLASPY CHAMPIONSHIP is an 18-hole individual stroke-play championship with a 72-player field. Each golfer plays their own ball and records an individual score for all 18 holes.",
   },
   {
-    question: "How is the Gallaspy Championship Champion determined?",
+    question: "How is the Gallaspy Champion determined?",
     answer:
-      "THE GALLASPY CHAMPIONSHIP Champion is the golfer who records the lowest actual gross score over 18 holes. That player earns the primary championship title and is the golfer recognized on the permanent Invitational trophy.",
+      "THE GALLASPY CHAMPION is the golfer who records the lowest actual gross score over 18 holes. That player earns the primary championship title and is the golfer recognized on the permanent Golden Falcon trophy.",
   },
   {
     question: "Is there a Net Championship?",
     answer:
-      "Yes. Eligible players with a current GHIN or other tournament-recognized handicap will also be scored in a separate Net Championship. The Net Champion is a separate award and does not replace the Gross Champion as THE GALLASPY CHAMPIONSHIP Champion.",
+      "Yes. Eligible players with a current GHIN or other tournament-recognized handicap will also be scored in a separate Net Championship. The Net Champion is a separate award and does not replace the Gross Champion as THE GALLASPY CHAMPION.",
   },
   {
     question: "Is a GHIN or handicap required to register?",
@@ -39,7 +39,7 @@ const faqs = [
       "A tie for the Net Championship will be decided by a scorecard playoff using the procedure established by the Tournament Committee.",
   },
   {
-    question: "Where will the Invitational be played?",
+    question: "Where will THE GALLASPY CHAMPIONSHIP be played?",
     answer:
       "The official host course has not yet been publicly announced. The Gallaspy is finalizing the host-course agreement and will publish the venue once it is secured.",
   },
@@ -51,7 +51,7 @@ const faqs = [
   {
     question: "Can I register multiple golfers in one transaction?",
     answer:
-      "No. The Invitational uses individual registration. Each golfer must complete a separate registration so player information, championship eligibility, handicap information, waivers, and payment records are maintained individually.",
+      "No. THE GALLASPY CHAMPIONSHIP uses individual registration. Each golfer must complete a separate registration so player information, championship eligibility, handicap information, waivers, and payment records are maintained individually.",
   },
   {
     question: "Will players receive tournament apparel?",
@@ -72,7 +72,7 @@ const faqs = [
 
 export default function InvitationalFAQPage() {
   return (
-    <main className="min-h-screen bg-[#F5F0E6] text-[#10263F]">
+    <main className="min-h-screen bg-white text-[#10263F]">
       <InvitationalNav />
 
       {/* HERO */}
@@ -82,13 +82,13 @@ export default function InvitationalFAQPage() {
             href="/invitational"
             className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/60 transition hover:text-[#FFD76A]"
           >
-            ← Back to Invitational
+            ← Back to THE GALLASPY
           </Link>
 
           <div className="mt-10">
             <Image
-              src="/logos/official/gallaspy-invitational-logo.png"
-              alt="THE GALLASPY CHAMPIONSHIP"
+              src="/logos/official/the-gallaspy-championship.png"
+              alt="Official THE GALLASPY logo"
               width={300}
               height={300}
               priority
@@ -100,8 +100,8 @@ export default function InvitationalFAQPage() {
             Tournament Information
           </p>
 
-          <h1 className="mt-5 font-serif text-5xl sm:text-6xl lg:text-7xl">
-            Invitational FAQ
+          <h1 className="mt-5 font-sans font-bold text-5xl sm:text-6xl lg:text-7xl">
+            Championship FAQ
           </h1>
 
           <div className="mt-8 h-px w-20 bg-[#B89146]" />
@@ -121,28 +121,28 @@ export default function InvitationalFAQPage() {
             <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
               Date
             </p>
-            <p className="mt-2 font-serif text-xl">June 21, 2027</p>
+            <p className="mt-2 font-sans font-bold text-xl">June 21, 2027</p>
           </div>
 
           <div className="border-b border-[#10263F]/10 px-4 py-8 md:border-b-0 md:border-r">
             <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
               Format
             </p>
-            <p className="mt-2 font-serif text-xl">Individual Stroke Play</p>
+            <p className="mt-2 font-sans font-bold text-xl">Individual Stroke Play</p>
           </div>
 
           <div className="border-r border-[#10263F]/10 px-4 py-8">
             <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
               Field
             </p>
-            <p className="mt-2 font-serif text-xl">72 Players</p>
+            <p className="mt-2 font-sans font-bold text-xl">72 Players</p>
           </div>
 
           <div className="px-4 py-8">
             <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#8B6A34]">
               Start
             </p>
-            <p className="mt-2 font-serif text-xl">10:00 AM</p>
+            <p className="mt-2 font-sans font-bold text-xl">10:00 AM</p>
           </div>
         </div>
       </section>
@@ -155,7 +155,7 @@ export default function InvitationalFAQPage() {
               Questions & Answers
             </p>
 
-            <h2 className="mt-5 font-serif text-4xl leading-tight sm:text-5xl">
+            <h2 className="mt-5 font-sans font-bold text-4xl leading-tight sm:text-5xl">
               Know before you play.
             </h2>
 
@@ -178,7 +178,7 @@ export default function InvitationalFAQPage() {
                       {String(index + 1).padStart(2, "0")}
                     </span>
 
-                    <h3 className="font-serif text-xl leading-snug sm:text-2xl">
+                    <h3 className="font-sans font-bold text-xl leading-snug sm:text-2xl">
                       {faq.question}
                     </h3>
                   </div>
@@ -200,13 +200,13 @@ export default function InvitationalFAQPage() {
       </section>
 
       {/* IMPORTANT NOTICE */}
-      <section className="bg-[#EFE7D8] px-6 py-16 text-center sm:px-8 lg:px-12">
+      <section className="bg-[#F0F4F2] px-6 py-16 text-center sm:px-8 lg:px-12">
         <div className="mx-auto max-w-3xl">
           <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#8B6A34]">
             Tournament Updates
           </p>
 
-          <h2 className="mt-4 font-serif text-3xl sm:text-4xl">
+          <h2 className="mt-4 font-sans font-bold text-3xl sm:text-4xl">
             Details will become official as planning is finalized.
           </h2>
 
@@ -227,13 +227,13 @@ export default function InvitationalFAQPage() {
               2027 Gallaspy Championship
             </p>
 
-            <h2 className="mt-5 font-serif text-4xl sm:text-5xl">
+            <h2 className="mt-5 font-sans font-bold text-4xl sm:text-5xl">
               Be part of the inaugural field.
             </h2>
 
             <p className="mt-5 text-sm leading-7 text-white/62">
               Registration is open for the 2027 Gallaspy Championship.
-              information and tournament updates.
+              Explore player information and tournament updates.
             </p>
           </div>
 

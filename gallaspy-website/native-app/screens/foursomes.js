@@ -39,6 +39,46 @@
   });
 
 
+
+  // gallaspy-host-experience-v1
+  // Presentation improvements only. Existing API behavior is unchanged.
+  const hostingForm = $("foursomeHostForm");
+  const hostingDate = $("foursomeDate");
+
+  if (hostingForm) {
+    const intro = document.createElement("div");
+    intro.className = "gallaspy-host-intro";
+
+    const heading = document.createElement("h3");
+    heading.textContent = "HOST YOUR NEXT ROUND.";
+
+    const description = document.createElement("p");
+    description.textContent =
+      "Your course. Your time. Your crew. Create a round and find golfers to join you.";
+
+    intro.append(heading, description);
+    hostingForm.prepend(intro);
+  }
+
+  function updateHostingMinimumDate() {
+    if (!hostingDate) return;
+
+    const current = new Date();
+    const localDate = [
+      current.getFullYear(),
+      String(current.getMonth() + 1).padStart(2, "0"),
+      String(current.getDate()).padStart(2, "0")
+    ].join("-");
+
+    hostingDate.min = localDate;
+  }
+
+  updateHostingMinimumDate();
+
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) updateHostingMinimumDate();
+  });
+
   const hostForm = $("foursomeHostForm");
 
   hostForm.addEventListener("submit", async event => {
@@ -79,12 +119,14 @@
         message.textContent = "Your round has been created successfully.";
       }
 
-      showPanel("find");
-      await loadFoursomes();
+      // gallaspy-host-post-create-mine-v1
+      // A new host should immediately see their own round.
+      showPanel("mine");
+      await loadMyFoursomes();
 
       if (message) {
         message.textContent =
-          "Round created successfully. Your listing has been refreshed.";
+          "Round created successfully. Manage your round and join requests in MY ROUNDS.";
       }
     } catch (error) {
       if (message) {
@@ -105,6 +147,24 @@
     if (text !== undefined) node.textContent = text;
     if (className) node.className = className;
     return node;
+  }
+
+  // gallaspy-golf-partners-empty-v1
+  // Reuse existing tab handlers; never create separate hosting logic.
+  function makeEmptyAction(label, targetTab) {
+    const button = element(
+      "button",
+      label,
+      "foursome-empty-action"
+    );
+
+    button.type = "button";
+
+    button.addEventListener("click", () => {
+      targetTab.click();
+    });
+
+    return button;
   }
 
   function formatDate(date) {
@@ -161,7 +221,14 @@
 
       if (!rounds.length) {
         listings.append(
-          element("p", "No upcoming rounds are available yet. Be the first to host.")
+          element(
+            "p",
+            "No upcoming rounds are available yet. Bring your crew together and host the first one."
+          ),
+          makeEmptyAction(
+            "HOST THE FIRST ROUND →",
+            tabs.host
+          )
         );
         return;
       }
@@ -277,7 +344,14 @@
 
       if (!hosting.length) {
         myRounds.append(
-          element("p", "You haven't hosted an upcoming round yet.")
+          element(
+            "p",
+            "You haven't hosted an upcoming round yet."
+          ),
+          makeEmptyAction(
+            "CREATE A ROUND →",
+            tabs.host
+          )
         );
       }
 
@@ -301,9 +375,11 @@
           ? round.requests
           : [];
 
-        const pending = requests.filter(
-          request => request.status === "pending"
-        );
+        const pending = round.status === "open"
+          ? requests.filter(
+              request => request.status === "pending"
+            )
+          : [];
 
         card.append(
           element(
@@ -388,6 +464,96 @@
           card.append(requestBox);
         }
 
+        // gallaspy-cancel-management-v1
+        const roundStatus = String(
+          round.status || "unknown"
+        ).toLowerCase();
+
+        card.append(
+          element(
+            "p",
+            "ROUND STATUS: " + roundStatus.toUpperCase(),
+            "foursome-round-status"
+          )
+        );
+
+        // The server endpoint must be deployed and
+        // verified BEFORE this client flag is enabled.
+        const cancellationEnabled =
+          window.GALLASPY_ENABLE_ROUND_CANCEL === true;
+
+        const mayCancel =
+          roundStatus === "open" ||
+          roundStatus === "full";
+
+        if (cancellationEnabled && mayCancel) {
+          const cancelButton = element(
+            "button",
+            "CANCEL ROUND",
+            "foursome-cancel-round"
+          );
+
+          cancelButton.type = "button";
+
+          cancelButton.addEventListener(
+            "click",
+            async () => {
+              const confirmed = window.confirm(
+                "Cancel this round? This cannot be undone. " +
+                "Gallaspy does not yet send automatic cancellation " +
+                "notices. You must notify any confirmed or " +
+                "pending players yourself."
+              );
+
+              if (!confirmed) return;
+
+              cancelButton.disabled = true;
+              cancelButton.textContent = "CANCELLING...";
+
+              try {
+                if (!window.gallaspyAuth?.foursomeRequest) {
+                  throw new Error(
+                    "Sign-in service is unavailable."
+                  );
+                }
+
+                const result =
+                  await window.gallaspyAuth.foursomeRequest(
+                    "/cancel",
+                    "POST",
+                    { foursome_id: round.id }
+                  );
+
+                if (result?.success !== true) {
+                  throw new Error(
+                    "Unable to confirm cancellation."
+                  );
+                }
+
+                await loadMyFoursomes();
+
+                if (message) {
+                  message.textContent =
+                    "Round cancelled. Please notify the " +
+                    "other golfers directly.";
+                }
+              } catch (error) {
+                cancelButton.disabled = false;
+                cancelButton.textContent =
+                  "CANCEL ROUND";
+
+                if (message) {
+                  message.textContent =
+                    error?.message ||
+                    "Unable to cancel the round.";
+                }
+              }
+            }
+          );
+
+          card.append(cancelButton);
+        }
+
         myRounds.append(card);
       }
 
@@ -401,7 +567,14 @@
 
       if (!joined.length) {
         myRounds.append(
-          element("p", "You haven't requested any upcoming rounds yet.")
+          element(
+            "p",
+            "You haven't requested any upcoming rounds yet."
+          ),
+          makeEmptyAction(
+            "FIND AVAILABLE ROUNDS →",
+            tabs.find
+          )
         );
       }
 
@@ -444,4 +617,5 @@
 
 
   showPanel("find");
+  void loadFoursomes();
 })();

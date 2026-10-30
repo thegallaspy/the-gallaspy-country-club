@@ -442,7 +442,7 @@ export default function InvitationalCheckoutPage() {
                 href="/invitational"
                 className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#10263F] px-8 text-[10px] font-semibold uppercase tracking-[0.22em] text-white transition hover:bg-[#B89146]"
               >
-                Return to Invitational
+                Return to THE GALLASPY
               </Link>
             </div>
           </div>
@@ -461,7 +461,7 @@ export default function InvitationalCheckoutPage() {
             href="/invitational"
             className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/60 transition hover:text-[#FFD76A]"
           >
-            ← Back to Invitational
+            ← Back to THE GALLASPY
           </Link>
 
           <p className="mt-12 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">

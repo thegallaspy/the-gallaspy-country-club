@@ -1,6 +1,34 @@
 (() => {
   "use strict";
 
+  // Open the existing Golf Partners hosting form directly.
+  // Keep Scorecard as a separate PLAY feature.
+  document.querySelector("[data-home-host-round]")
+    ?.addEventListener("click", () => {
+      const openFeature = window.openGallaspyPlayFeature;
+
+      if (typeof openFeature !== "function" ||
+          openFeature("playFoursomes") !== true) {
+        window.alert("Unable to open Host a Round.");
+        return;
+      }
+
+      // Reuse the existing HOST tab handler in foursomes.js.
+      const hostTab = document.getElementById("foursomeHost");
+
+      if (!hostTab) {
+        window.alert("The hosting form is unavailable.");
+        return;
+      }
+
+      hostTab.click();
+
+      requestAnimationFrame(() => {
+        document.getElementById("foursomeCourse")
+          ?.focus({ preventScroll: true });
+      });
+    });
+
   document.querySelectorAll("[data-home-play]").forEach(button => {
     button.addEventListener("click", () => {
       const target = button.dataset.homePlay;
@@ -8,10 +36,9 @@
     });
   });
 
-  document.querySelector("[data-home-community]")?.addEventListener(
-    "click",
-    () => window.showNativeScreen?.("community")
-  );
+  document.querySelectorAll("[data-home-community]").forEach(button => {
+    button.addEventListener("click", () => window.showNativeScreen?.("community"));
+  });
 
   document.getElementById("communityBackHome")?.addEventListener(
     "click",

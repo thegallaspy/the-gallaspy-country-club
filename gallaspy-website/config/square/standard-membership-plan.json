@@ -1,0 +1,30 @@
+{
+  "type": "SUBSCRIPTION_PLAN",
+  "id": "#gallaspy-standard-plan",
+  "subscription_plan_data": {
+    "name": "The Gallaspy Golf Club - Standard Membership",
+    "all_items": false,
+    "eligible_item_ids": [],
+    "subscription_plan_variations": [
+      {
+        "type": "SUBSCRIPTION_PLAN_VARIATION",
+        "id": "#gallaspy-standard-monthly",
+        "subscription_plan_variation_data": {
+          "name": "Standard Membership - $100 Monthly",
+          "phases": [
+            {
+              "cadence": "MONTHLY",
+              "pricing": {
+                "type": "STATIC",
+                "price_money": {
+                  "amount": 10000,
+                  "currency": "USD"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

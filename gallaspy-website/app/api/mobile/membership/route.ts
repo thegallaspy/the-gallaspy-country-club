@@ -103,6 +103,54 @@ export async function GET(request: NextRequest) {
     }
 
     const approved = membership?.membership_status === "approved";
+    const falcon = approved &&
+      membership?.membership_type === "falcon_society" &&
+      membership.founder_number != null;
+
+    let standardActive = false;
+
+    if (approved && membership?.membership_type === "standard") {
+      const { data: subscription, error: subscriptionError } =
+        await supabase
+          .from("gallaspy_standard_subscriptions")
+          .select("id, subscription_status, monthly_amount_cents, current_period_start, current_period_end")
+          .eq("user_id", user.id)
+          .maybeSingle();
+
+      if (subscriptionError) {
+        console.error("Subscription verification failed:", subscriptionError.message);
+      } else if (
+        subscription != null &&
+        ["active", "canceled"].includes(
+          subscription.subscription_status
+        ) &&
+        subscription.monthly_amount_cents === 10000 &&
+        subscription.current_period_start &&
+        subscription.current_period_end &&
+        new Date(subscription.current_period_start).getTime() <= Date.now() &&
+        new Date(subscription.current_period_end).getTime() > Date.now()
+      ) {
+        const { data: payment, error: paymentError } = await supabase
+          .from("gallaspy_subscription_payments")
+          .select("id")
+          .eq("subscription_id", subscription.id)
+          .eq("payment_status", "completed")
+          .eq("amount_cents", 10000)
+          .eq("currency", "USD")
+          .eq("billing_period_start", subscription.current_period_start)
+          .eq("billing_period_end", subscription.current_period_end)
+          .limit(1)
+          .maybeSingle();
+
+        if (paymentError) {
+          console.error("Membership payment verification failed:", paymentError.message);
+        } else {
+          standardActive = Boolean(payment);
+        }
+      }
+    }
+
+    const officialMember = falcon || standardActive;
 
     return respond({
       success: true,
@@ -110,15 +158,17 @@ export async function GET(request: NextRequest) {
       membership: membership
         ? {
             status: membership.membership_status,
+            access_status: officialMember
+              ? "active"
+              : membership.membership_status === "suspended"
+                ? "suspended"
+                : "inactive",
             type: membership.membership_type,
             membership_number: membership.membership_number,
             founder_number: membership.founder_number,
             approved_at: membership.approved_at,
-            is_official_member: approved,
-            is_falcon_society_member:
-              approved &&
-              membership.membership_type === "falcon_society" &&
-              membership.founder_number != null,
+            is_official_member: officialMember,
+            is_falcon_society_member: falcon,
           }
         : null,
     });

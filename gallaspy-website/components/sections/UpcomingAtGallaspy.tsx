@@ -50,12 +50,9 @@ export default function UpcomingAtGallaspy() {
   const upcoming = [...events]
     .filter(
       (event) =>
-        (event.year >= 2027 ||
-          event.date === "2026-11-14" ||
-          event.date === "2026-12-12") &&
+        event.year >= 2027 &&
         event.status !== "COMPLETED" &&
-        (!event.date ||
-          event.date >= getAtlantaTodayISO()),
+        (!event.date || event.date >= getAtlantaTodayISO()),
     )
     .sort((a, b) => {
       const key = (event: GallaspyEvent) =>

@@ -154,6 +154,7 @@ export default function UpcomingEvents() {
                 >
                   {event.name}
                 </h3>
+
                 {event.href === "/gallaspy-cup" && (
                   <img
                     src="/logos/official/the-gallaspy-cup.png"

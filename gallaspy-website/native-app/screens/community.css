@@ -1,0 +1,387 @@
+
+/* THE GALLASPY GOLF CLUB — COMMUNITY FEED */
+
+#nativeCommunityScreen {
+  background: #ffffff !important;
+  color: #10263f;
+  min-height: 100%;
+}
+
+#nativeCommunityScreen .community-screen {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 16px 18px 100px;
+  color: #10263f;
+}
+
+/* Header */
+#nativeCommunityScreen .community-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0 18px;
+  border-bottom: 1px solid #e7ebee;
+}
+
+#nativeCommunityScreen .community-title {
+  margin: 0;
+  color: #10263f;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+#nativeCommunityScreen .community-back {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #f3f5f6;
+  color: #10263f;
+  font-size: 22px;
+}
+
+/* Create post */
+#nativeCommunityScreen .community-composer {
+  margin: 0;
+  padding: 20px 0;
+  background: #ffffff;
+  border: 0;
+  border-bottom: 8px solid #f4f6f7;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+#nativeCommunityScreen .community-composer h3 {
+  margin: 0 0 12px;
+  color: #526477;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+#nativeCommunityScreen #communityPostBody {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 105px;
+  padding: 15px;
+  background: #f4f6f7;
+  color: #10263f;
+  border: 1px solid #e1e6e9;
+  border-radius: 15px;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+#nativeCommunityScreen #communityPostBody::placeholder {
+  color: #798692;
+}
+
+#nativeCommunityScreen #communityPostBody:focus {
+  outline: 2px solid #123d32;
+  outline-offset: 2px;
+}
+
+/* Publish button */
+#nativeCommunityScreen #communityPublishButton {
+  display: block;
+  width: auto;
+  min-width: 110px;
+  min-height: 44px;
+  margin: 14px 0 0 auto;
+  padding: 10px 22px;
+  background: #123d32;
+  color: #ffffff;
+  border: 0;
+  border-radius: 24px;
+  box-shadow: none;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+#nativeCommunityScreen #communityPublishButton:disabled {
+  opacity: 0.5;
+}
+
+#nativeCommunityScreen #communityPostStatus {
+  margin: 10px 0 0;
+  color: #526477;
+  font-size: 13px;
+}
+
+/* Feed */
+#nativeCommunityScreen .community-feed-heading {
+  margin: 22px 0 12px;
+  color: #10263f;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+#nativeCommunityScreen #communityFeed {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+#nativeCommunityScreen #communityFeed > article {
+  margin: 0;
+  padding: 20px 0;
+  background: #ffffff;
+  border: 0;
+  border-bottom: 1px solid #e7ebee;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+#nativeCommunityScreen #communityFeed > article strong {
+  color: #10263f;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+#nativeCommunityScreen #communityFeed > article p {
+  color: #344458;
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+#nativeCommunityScreen #communityFeed > article .intro-label {
+  color: #83909d;
+  font-size: 12px;
+}
+
+#nativeCommunityScreen #communityFeed > p {
+  padding: 25px 12px;
+  color: #667588;
+  text-align: center;
+  font-size: 14px;
+}
+/* Full-width Community background */
+#nativeCommunityScreen {
+  background: #ffffff !important;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#nativeCommunityScreen .community-screen {
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* Compact social composer */
+#nativeCommunityScreen #communityPostBody {
+  min-height: 72px;
+  height: 72px;
+  resize: none;
+}
+
+#nativeCommunityScreen #communityPostBody:focus {
+  min-height: 120px;
+  height: 120px;
+}
+/* Community-only full-width white canvas */
+#nativeContent:has(#nativeCommunityScreen:not([hidden])) {
+  background: #ffffff;
+  padding: 0 0 calc(var(--tab-height) + 16px);
+}
+
+/* Keep Community within the available viewport */
+#nativeContent:has(#nativeCommunityScreen:not([hidden]))
+#nativeCommunityScreen {
+  width: 100%;
+  min-height: 100%;
+  background: #ffffff;
+}
+
+/* Comfortable spacing for the social feed */
+#nativeCommunityScreen .community-screen {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 16px 18px 24px;
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   GALLASPY COMMUNITY
+   USERNAMES & SOCIAL POST DESIGN
+========================================== */
+
+/* Username setup panel */
+
+#communityUsernameSetup:not([hidden]) {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 16px 0 22px;
+  padding: 22px 18px;
+  background: #f5f7f6;
+  border: 1px solid #dce5e0;
+  border-radius: 18px;
+}
+
+#communityUsernameSetup[hidden] {
+  display: none !important;
+}
+
+.community-username-setup h3 {
+  margin: 0;
+  color: #102b43;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.community-username-setup > p {
+  margin: 0;
+  color: #526474;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.community-username-setup label {
+  color: #102b43;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.community-username-field {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  min-height: 48px;
+  padding: 0 13px;
+  background: #fff;
+  border: 1px solid #cbd8d2;
+  border-radius: 11px;
+  box-sizing: border-box;
+}
+
+.community-username-field:focus-within {
+  border-color: #174d3b;
+  outline: 2px solid rgba(23, 77, 59, 0.12);
+}
+
+.community-username-field span {
+  color: #174d3b;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+#communityUsernameInput {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 0;
+  color: #102b43;
+  background: transparent;
+  border: 0;
+  outline: none;
+  font-size: 16px;
+  box-shadow: none;
+}
+
+#communityUsernameInput::placeholder {
+  color: #8a969f;
+}
+
+#communitySaveUsernameButton {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 16px;
+  color: #fff;
+  background: #174d3b;
+  border: 0;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+#communitySaveUsernameButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+#communityUsernameStatus {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.community-username-setup .community-username-policy {
+  padding-top: 10px;
+  border-top: 1px solid #dce5e0;
+  color: #64746e;
+  font-size: 12px;
+}
+
+/* Social post cards */
+
+#communityFeed .community-post {
+  padding: 18px;
+  margin-bottom: 12px;
+  background: #fff;
+  border: 1px solid #e5e9ed;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(16, 43, 67, 0.035);
+}
+
+.community-post-header {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 13px;
+}
+
+.community-post-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  color: #fff;
+  background: #174d3b;
+  border-radius: 50%;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.community-post-author-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.community-post-author {
+  color: #102b43;
+  font-size: 14px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.community-post-time {
+  margin: 0;
+  color: #7b8994;
+  font-size: 12px;
+}
+
+.community-post-body {
+  margin: 0;
+  color: #233b4e;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}

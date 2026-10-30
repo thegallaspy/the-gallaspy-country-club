@@ -1,0 +1,47 @@
+/* Community Photo Posts R8 - tightly scoped native composer and feed styling. */
+#nativeCommunityScreen .gallaspy-photo-choose {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; margin-top: 10px; padding: 9px 14px;
+  background: #f1f7f4; border: 1px solid #aecbc0;
+  border-radius: 12px; color: #104b3b; font-size: 13px;
+  font-weight: 750; cursor: pointer;
+}
+#nativeCommunityScreen .gallaspy-photo-choose:focus-within {
+  outline: 2px solid #164b3a; outline-offset: 2px;
+}
+#nativeCommunityScreen #communityPhotoFiles {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); opacity: 0;
+}
+#nativeCommunityScreen #communityPhotoInfo {
+  color: #365365; margin: 6px 0 0; font-size: 12px;
+  line-height: 1.45; overflow-wrap: anywhere;
+}
+#nativeCommunityScreen #communityPhotoPreview {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px; margin-top: 10px;
+}
+#nativeCommunityScreen #communityPhotoPreview:empty { display: none; }
+#nativeCommunityScreen .gallaspy-community-photo-preview {
+  display: block; width: 100%; aspect-ratio: 4/3;
+  border-radius: 12px; object-fit: cover; border: 1px solid #dae5df;
+}
+#nativeCommunityScreen .gallaspy-community-gallery {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px; margin: 12px 0 4px;
+}
+#nativeCommunityScreen .gallaspy-community-gallery:has(img:only-child) {
+  grid-template-columns: 1fr;
+}
+#nativeCommunityScreen .gallaspy-community-gallery img {
+  display: block; width: 100%; aspect-ratio: 4/3;
+  border-radius: 12px; object-fit: cover; background: #eef3f0;
+}
+#nativeCommunityScreen .gallaspy-community-gallery img:only-child { aspect-ratio: 4/3; }
+
+#nativeCommunityScreen #communityRemovePhotos {
+  min-height: 44px; padding: 8px 12px; color: #9f2334;
+  font-size: 12px; font-weight: 750; background: transparent;
+  border: 1px solid #ead7d7; border-radius: 10px;
+}
+#nativeCommunityScreen #communityRemovePhotos[hidden] { display: none; }

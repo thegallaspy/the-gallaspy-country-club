@@ -49,7 +49,7 @@
   width: 100%;
   aspect-ratio: 1 / 1.15;
   object-fit: contain;
-  background: #f4f1eb;
+  background: #f4f7f9;
 }
 
 .native-shop-product-info {
@@ -129,7 +129,7 @@
   width: 100%;
   aspect-ratio: 1 / 1.1;
   object-fit: contain;
-  background: #f4f1eb;
+  background: #f4f7f9;
   border-radius: 7px;
 }
 
@@ -921,3 +921,93 @@
 #nativeShopScreen .native-shop-filters{margin:16px 0}
 #nativeShopScreen .native-shop-grid{gap:12px}
 #nativeShopScreen .native-shop-member-entry{margin:24px 0 8px}
+
+/* GALLASPY SHOP — WHITE-FIRST DESIGN V14 */
+/* Match HOME and PLAY without changing shopping functionality. */
+
+#nativeContent:has(#nativeShopScreen:not([hidden])) {
+  background: #ffffff;
+}
+
+#nativeShopScreen {
+  background: #ffffff;
+  color: #10263f;
+  border-radius: 0;
+  padding: 18px 0 42px;
+  min-height: 70vh;
+}
+
+#nativeShopScreen > .my-heading {
+  margin: 0;
+  padding: 12px 4px 22px;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid #b32635;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+#nativeShopScreen .native-shop-heading-row h2 {
+  color: #10263f;
+  font-size: clamp(34px, 9vw, 46px);
+  font-weight: 900;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+#nativeShopScreen > .my-heading .intro-label {
+  color: #0c352d;
+}
+
+#nativeShopScreen > .my-heading > p:not(.intro-label) {
+  color: #657386;
+}
+
+#nativeShopScreen .native-shop-bag-trigger {
+  background: #f5f7f8;
+  border: 1px solid #e2e8eb;
+  color: #10263f;
+  border-radius: 12px;
+}
+
+#nativeShopScreen .native-shop-filters {
+  background: #f5f7f8;
+  border-color: #e2e8eb;
+}
+
+#nativeShopScreen .native-shop-filters button {
+  color: #10263f;
+}
+
+#nativeShopScreen .native-shop-filters button[aria-pressed="true"] {
+  background: #ffffff;
+  color: #10263f;
+  border-bottom-color: #b32635;
+}
+
+#nativeShopScreen .native-shop-product {
+  background: #ffffff;
+  border: 1px solid #e5e9ed;
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+#nativeShopScreen .native-shop-product-info h4 {
+  color: #10263f;
+}
+
+#nativeShopScreen .native-shop-product-info strong {
+  color: #0c352d;
+}
+
+#nativeShopScreen .native-shop-member-entry {
+  background: #ffffff;
+  border: 1px solid #e5e9ed;
+  border-top: 3px solid #0c352d;
+  box-shadow: none;
+}
+
+#nativeShopScreen #nativeShopOpenCollection {
+  background: #0c352d;
+  color: #ffffff;
+}

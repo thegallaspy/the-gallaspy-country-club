@@ -1,0 +1,486 @@
+/* Official Gallaspy native event experience */
+.gallaspy-event-entry {
+  margin: 22px 0 26px;
+  display: grid;
+  gap: 10px;
+}
+.gallaspy-event-kicker,
+.gallaspy-hub-eyebrow {
+  font-size: 10px;
+  letter-spacing: .2em;
+  font-weight: 800;
+  color: #9b262d;
+  margin: 0 0 6px;
+}
+.gallaspy-event-feature,
+.gallaspy-cup-feature {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  border: 0;
+  border-radius: 12px;
+}
+.gallaspy-event-feature {
+  background: #10263f;
+  color: #fff;
+  padding: 23px 20px;
+  gap: 12px;
+  min-height: 166px;
+}
+.gallaspy-event-feature-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+}
+.gallaspy-event-feature-label {
+  color: #e5bb73;
+  font-weight: 800;
+  letter-spacing: .15em;
+  font-size: 9px;
+}
+.gallaspy-event-feature strong {
+  font-weight: 900;
+  font-size: clamp(25px, 7vw, 40px);
+  line-height: 1;
+  letter-spacing: -.045em;
+}
+.gallaspy-event-feature-copy > span:nth-of-type(2) {
+  font-size: 10px;
+  letter-spacing: .08em;
+  font-weight: 700;
+  color: #dbe5ed;
+}
+.gallaspy-event-feature-action {
+  font-weight: 800;
+  font-size: 10px;
+  letter-spacing: .09em;
+  border-bottom: 1px solid #e5bb73;
+  padding-bottom: 5px;
+}
+.gallaspy-event-feature img {
+  height: 78px;
+  width: 78px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.gallaspy-cup-feature {
+  background: #f2f5f1;
+  color: #10263f;
+  border: 1px solid #d6e2dd;
+  padding: 19px 17px;
+  gap: 8px;
+}
+.gallaspy-cup-feature > span:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.gallaspy-cup-feature strong {
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: -.025em;
+}
+.gallaspy-cup-feature small {
+  font-size: 11px;
+  color: #405750;
+}
+.gallaspy-cup-feature > span:last-child {
+  font-size: 20px;
+  color: #0c352d;
+}
+.gallaspy-event-screen[hidden],
+.gallaspy-event-screen [hidden] {
+  display: none !important;
+}
+.gallaspy-event-screen {
+  color: #10263f;
+  background: #fff;
+  min-height: 100%;
+  padding: 10px 0 36px;
+}
+.gallaspy-hub-inner {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+.gallaspy-hub-back {
+  background: transparent;
+  border: 0;
+  font: inherit;
+  color: #284d48;
+  font-weight: 800;
+  font-size: 10px;
+  letter-spacing: .1em;
+  padding: 13px 0 19px;
+  cursor: pointer;
+}
+.gallaspy-hub-hero {
+  background: #10263f;
+  color: #fff;
+  border-radius: 12px;
+  padding: 25px 20px 27px;
+  overflow: hidden;
+}
+.gallaspy-hub-hero-top {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.gallaspy-hub-overline {
+  color: #e5bb73;
+  letter-spacing: .18em;
+  font-size: 10px;
+  font-weight: 800;
+}
+.gallaspy-hub-hero-top img {
+  height: 60px;
+  width: 60px;
+  object-fit: contain;
+}
+.gallaspy-hub-hero h1 {
+  font-size: clamp(32px, 8vw, 56px);
+  line-height: .95;
+  font-weight: 900;
+  letter-spacing: -.055em;
+  margin: 0 0 16px;
+  outline-offset: 4px;
+}
+.gallaspy-hub-hero p {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  margin: 0 0 9px;
+}
+.gallaspy-hub-hero p:last-child {
+  color: #e5bb73;
+  margin: 0;
+}
+.gallaspy-hub-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding: 17px 0 12px;
+  scrollbar-width: thin;
+}
+.gallaspy-hub-tabs button {
+  white-space: nowrap;
+  border: 1px solid #d6e2dd;
+  background: #fff;
+  border-radius: 999px;
+  color: #10263f;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .03em;
+  padding: 11px 14px;
+  cursor: pointer;
+}
+.gallaspy-hub-tabs button[aria-pressed="true"] {
+  background: #0c352d;
+  color: #fff;
+  border-color: #0c352d;
+}
+.gallaspy-hub-panel {
+  padding: 18px 0 12px;
+}
+.gallaspy-hub-panel h2 {
+  font-size: clamp(24px, 6vw, 36px);
+  font-weight: 900;
+  letter-spacing: -.045em;
+  line-height: 1.04;
+  margin: 5px 0 18px;
+}
+.gallaspy-hub-panel p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #334c58;
+  margin: 0 0 17px;
+}
+.gallaspy-hub-panel .gallaspy-hub-eyebrow {
+  font-size: 10px;
+  color: #9b262d;
+  font-weight: 900;
+}
+.gallaspy-hub-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+.gallaspy-hub-card {
+  min-height: 132px;
+  border: 1px solid #d6e2dd;
+  border-radius: 10px;
+  background: #f8faf9;
+  padding: 17px 14px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 9px;
+  text-align: left;
+  cursor: pointer;
+  color: #10263f;
+  font: inherit;
+}
+.gallaspy-hub-card strong {
+  font-size: 12px;
+  line-height: 1.25;
+  font-weight: 900;
+  letter-spacing: -.01em;
+}
+.gallaspy-hub-card span {
+  color: #426057;
+  font-size: 11px;
+  line-height: 1.4;
+}
+.gallaspy-hub-card b {
+  margin-top: auto;
+  font-size: 17px;
+  color: #a52530;
+}
+.gallaspy-hub-actions {
+  display: grid;
+  gap: 9px;
+  margin: 20px 0;
+}
+.gallaspy-hub-actions button {
+  width: 100%;
+  border-radius: 7px;
+  background: #0c352d;
+  color: #fff;
+  border: 0;
+  padding: 16px;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .05em;
+  text-align: left;
+  cursor: pointer;
+}
+.gallaspy-hub-panel .gallaspy-hub-note {
+  background: #f2f5f1;
+  padding: 14px 15px;
+  border-left: 3px solid #0c352d;
+  border-radius: 3px;
+  font-size: 12px;
+}
+.gallaspy-hub-championship-mark {
+  display: block;
+  max-width: 180px;
+  width: 55%;
+  height: auto;
+  object-fit: contain;
+  margin: 0 0 19px;
+}
+.gallaspy-cup-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 22px 0;
+}
+.gallaspy-cup-metrics span {
+  padding: 15px 5px;
+  background: #f2f5f1;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: #34564e;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.gallaspy-cup-metrics strong {
+  font-size: 23px;
+  color: #10263f;
+}
+.gallaspy-hub-feedback {
+  font-size: 12px;
+  color: #9b262d;
+  padding-bottom: 12px;
+}
+.gallaspy-event-entry button:focus-visible,
+.gallaspy-event-screen button:focus-visible {
+  outline: 3px solid #b3262d;
+  outline-offset: 3px;
+}
+@media (max-width: 360px) {
+  .gallaspy-hub-card-grid {
+    grid-template-columns: 1fr;
+  }
+  .gallaspy-cup-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .gallaspy-event-feature img {
+    height: 60px;
+    width: 60px;
+  }
+}
+
+
+/* Official Gallaspy event card logos */
+.gallaspy-cup-entry-logo {
+  display: block;
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  margin-top: 8px;
+}
+
+.gallaspy-hub-card-logo {
+  display: block;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin: 10px 0;
+}
+
+
+/* Gallaspy Signature Events — HOME redesign */
+.gallaspy-event-entry {
+  gap: 16px;
+}
+.gallaspy-event-entry > .gallaspy-event-feature,
+.gallaspy-event-entry > .gallaspy-cup-feature {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  min-height: 0;
+  padding: 24px 22px;
+  border-radius: 20px;
+  text-align: left;
+  overflow: hidden;
+  gap: 0;
+}
+.gallaspy-event-entry > .gallaspy-event-feature {
+  background: #102940;
+  color: #fff;
+  border: 1px solid #243e53;
+}
+.gallaspy-event-entry > .gallaspy-cup-feature {
+  background: #153d34;
+  color: #fff;
+  border: 1px solid #285649;
+}
+.gallaspy-signature-number {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  color: #e5bb73;
+}
+.gallaspy-event-entry .gallaspy-signature-event-logo,
+.gallaspy-event-entry .gallaspy-signature-cup-logo {
+  display: block;
+  width: 100%;
+  max-width: 160px;
+  height: 105px;
+  object-fit: contain;
+  object-position: left center;
+  margin: 13px 0;
+}
+.gallaspy-signature-event-title,
+.gallaspy-signature-cup-heading {
+  display: block;
+  font-size: clamp(25px, 6vw, 34px);
+  line-height: 1.12;
+  font-weight: 900;
+  letter-spacing: -.045em;
+  color: #fff;
+}
+.gallaspy-signature-event-subtitle,
+.gallaspy-signature-cup-tagline {
+  display: block;
+  margin-top: 9px;
+  font-size: 12px;
+  letter-spacing: .09em;
+  font-weight: 800;
+  color: #e5bb73;
+}
+.gallaspy-signature-event-detail {
+  display: block;
+  margin-top: 14px;
+  font-size: 11px;
+  letter-spacing: .08em;
+  font-weight: 750;
+  color: #e2e9ed;
+}
+.gallaspy-signature-event-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(229,187,115,.45);
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: .12em;
+  color: #fff;
+}
+.gallaspy-signature-event-action span {
+  font-size: 20px;
+  line-height: 1;
+  color: #e5bb73;
+}
+.gallaspy-signature-teams {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 24px minmax(0,1fr);
+  align-items: center;
+  gap: 7px;
+  margin-top: 20px;
+  width: 100%;
+}
+.gallaspy-signature-team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 5px;
+  min-width: 0;
+  min-height: 112px;
+  border-radius: 12px;
+  background: #fff;
+  color: #102940;
+}
+.gallaspy-signature-team img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+.gallaspy-signature-team strong {
+  font-size: 10px;
+  line-height: 1.3;
+  text-align: center;
+  letter-spacing: .04em;
+  color: #102940;
+}
+.gallaspy-signature-versus {
+  font-size: 11px;
+  font-weight: 900;
+  text-align: center;
+  color: #e5bb73;
+}
+@media (max-width: 360px) {
+  .gallaspy-event-entry > .gallaspy-event-feature,
+  .gallaspy-event-entry > .gallaspy-cup-feature {
+    padding: 20px 17px;
+  }
+  .gallaspy-signature-team img {
+    width: 48px;
+    height: 48px;
+  }
+}

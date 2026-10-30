@@ -11,7 +11,7 @@ const categories = [
   "Club",
   "Rounds",
   "Invitational",
-  "Talaria Cup",
+  "Gallaspy Cup",
   "Community",
   "Apparel",
   "Announcements",

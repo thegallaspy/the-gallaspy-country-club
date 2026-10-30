@@ -6,8 +6,10 @@
   const controls = document.getElementById("shotTracerControls");
   const reset = document.getElementById("shotTracerReset");
   const video = document.getElementById("shotTracerPreview");
+  const stage = document.getElementById("shotTracerStage");
+  const status = document.getElementById("shotTracerStatus");
 
-  if (!svg || !controls || !reset || !video) return;
+  if (!svg || !controls || !reset || !video || !stage || !status) return;
 
   const NS = "http://www.w3.org/2000/svg";
 
@@ -19,6 +21,25 @@
 
   let points = defaults.map(p => ({ ...p }));
   let activeHandle = null;
+
+  // gallaspy-manual-shot-tracer-v1
+  // User-adjusted guide only; NOT automatic ball tracking.
+  let manualVisible = false;
+
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.id = "shotTracerManualStart";
+  toggle.textContent = "DRAW MANUAL TRAJECTORY";
+
+  const note = document.createElement("p");
+  note.id = "shotTracerManualNote";
+  note.textContent =
+    "Manual guide only. Adjust the points to match your shot. " +
+    "Automatic tracking and video export are not yet available.";
+
+  controls.prepend(toggle, note);
+  svg.setAttribute("hidden", "");
+
 
   function element(tag, attributes) {
     const node = document.createElementNS(NS, tag);
@@ -97,6 +118,43 @@
     });
   }
 
+
+  function setManualVisible(visible) {
+    manualVisible = Boolean(visible);
+
+    if (manualVisible) {
+      video.pause();
+      svg.removeAttribute("hidden");
+      draw();
+    } else {
+      svg.setAttribute("hidden", "");
+    }
+
+    toggle.textContent = manualVisible
+      ? "HIDE MANUAL TRAJECTORY"
+      : "DRAW MANUAL TRAJECTORY";
+  }
+
+  toggle.addEventListener("click", () => {
+    const enabled = !manualVisible;
+    setManualVisible(enabled);
+
+    status.textContent = enabled
+      ? "Manual trajectory enabled. Drag the three points " +
+        "to match the visible shot. This is not automatic tracking."
+      : "Manual guide hidden. Your video is ready to review.";
+  });
+
+  video.addEventListener("loadstart", () => {
+    controls.hidden = true;
+    setManualVisible(false);
+  });
+
+  video.addEventListener("error", () => {
+    controls.hidden = true;
+    setManualVisible(false);
+  });
+
   reset.addEventListener("click", () => {
     points = defaults.map(p => ({ ...p }));
     draw();
@@ -104,6 +162,21 @@
 
   video.addEventListener("loadedmetadata", () => {
     controls.hidden = false;
+    setManualVisible(false);
+
+    const ratio = video.videoHeight > 0
+      ? video.videoWidth / video.videoHeight
+      : 0;
+
+    if (Number.isFinite(ratio) && ratio > 0) {
+      stage.style.maxWidth =
+        `min(100%, ${(65 * ratio).toFixed(3)}vh)`;
+      stage.style.marginInline = "auto";
+    } else {
+      stage.style.maxWidth = "";
+    }
+
+    points = defaults.map(point => ({ ...point }));
     draw();
   });
 

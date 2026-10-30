@@ -5,12 +5,12 @@ import InvitationalNav from "@/components/invitational/InvitationalNav";
 export const metadata = {
   title: "Register | THE GALLASPY CHAMPIONSHIP",
   description:
-    "Register for the 2027 Gallaspy Championship.",
+    "Register for THE GALLASPY CHAMPIONSHIP on June 21, 2027.",
 };
 
 export default function InvitationalRegisterPage() {
   return (
-    <main className="min-h-screen bg-[#F5F0E6] text-[#10263F]">
+    <main className="min-h-screen bg-white text-[#10263F]">
       <InvitationalNav />
 
       {/* HERO */}
@@ -20,13 +20,13 @@ export default function InvitationalRegisterPage() {
             href="/invitational"
             className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/60 transition hover:text-[#FFD76A]"
           >
-            ← Back to Invitational
+            ← Back to THE GALLASPY
           </Link>
 
           <div className="mt-10">
             <Image
-              src="/logos/official/gallaspy-invitational-logo.png"
-              alt="THE GALLASPY CHAMPIONSHIP"
+              src="/logos/official/falcon-G.png"
+              alt="Official Gallaspy Falcon G brandmark"
               width={300}
               height={300}
               priority
@@ -38,10 +38,10 @@ export default function InvitationalRegisterPage() {
             Player Registration
           </p>
 
-          <h1 className="mt-5 max-w-4xl font-serif text-5xl leading-[0.98] sm:text-6xl lg:text-7xl">
-            2027 Gallaspy
+          <h1 className="mt-5 max-w-4xl font-sans text-5xl leading-[0.98] sm:text-6xl lg:text-7xl">
+            THE GALLASPY
             <span className="block text-[#FFD76A]">
-              Invitational
+              CHAMPIONSHIP
             </span>
           </h1>
 
@@ -104,12 +104,12 @@ export default function InvitationalRegisterPage() {
               Player Registration
             </p>
 
-            <h2 className="mt-4 font-serif text-4xl leading-tight sm:text-5xl">
+            <h2 className="mt-4 font-sans text-4xl leading-tight sm:text-5xl">
               Be there when the tradition begins.
             </h2>
 
             <p className="mt-6 text-sm leading-7 text-[#10263F]/65">
-              The Invitational uses individual player registration.
+              THE GALLASPY CHAMPIONSHIP uses individual player registration.
               Each golfer completes a separate entry so scoring,
               handicap eligibility, waivers, apparel sizing, and payment
               records remain tied to that individual player.
@@ -130,7 +130,7 @@ export default function InvitationalRegisterPage() {
               Individual Entry
             </p>
 
-            <h3 className="mt-4 font-serif text-3xl sm:text-4xl">
+            <h3 className="mt-4 font-sans text-3xl sm:text-4xl">
               One golfer. One championship entry.
             </h3>
 
@@ -140,7 +140,7 @@ export default function InvitationalRegisterPage() {
                   <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#FFD76A]">
                     Registration
                   </p>
-                  <p className="mt-2 font-serif text-2xl">
+                  <p className="mt-2 font-sans text-2xl">
                     Individual Player
                   </p>
                   <p className="mt-2 text-sm leading-6 text-white/55">
@@ -152,7 +152,7 @@ export default function InvitationalRegisterPage() {
                   <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#FFD76A]">
                     Competition
                   </p>
-                  <p className="mt-2 font-serif text-2xl">
+                  <p className="mt-2 font-sans text-2xl">
                     Gross &amp; Net
                   </p>
                   <p className="mt-2 text-sm leading-6 text-white/55">
@@ -193,7 +193,7 @@ export default function InvitationalRegisterPage() {
                 Registration Protection
               </p>
 
-              <h2 className="mt-4 max-w-3xl font-serif text-3xl leading-tight sm:text-4xl">
+              <h2 className="mt-4 max-w-3xl font-sans text-3xl leading-tight sm:text-4xl">
                 Full refunds through April 22, 2027.
               </h2>
 
@@ -223,7 +223,7 @@ export default function InvitationalRegisterPage() {
               Tournament Policies
             </p>
 
-            <h2 className="mt-4 font-serif text-4xl leading-tight sm:text-5xl">
+            <h2 className="mt-4 font-sans text-4xl leading-tight sm:text-5xl">
               Review before you register.
             </h2>
 
@@ -275,7 +275,7 @@ export default function InvitationalRegisterPage() {
             The Inaugural Field
           </p>
 
-          <h2 className="mt-5 font-serif text-4xl sm:text-5xl lg:text-6xl">
+          <h2 className="mt-5 font-sans text-4xl sm:text-5xl lg:text-6xl">
             Your place in the first Gallaspy Championship
             starts here.
           </h2>
@@ -318,7 +318,7 @@ function Snapshot({
         {label}
       </p>
 
-      <p className="mt-2 font-serif text-xl">
+      <p className="mt-2 font-sans text-xl">
         {value}
       </p>
     </div>
@@ -337,7 +337,7 @@ function PriceRow({
   return (
     <div className="flex items-center justify-between gap-6 py-5">
       <div>
-        <p className="font-serif text-xl">
+        <p className="font-sans text-xl">
           {title}
         </p>
 
@@ -346,7 +346,7 @@ function PriceRow({
         </p>
       </div>
 
-      <p className="font-serif text-2xl text-[#FFD76A]">
+      <p className="font-sans text-2xl text-[#FFD76A]">
         {price}
       </p>
     </div>
@@ -377,7 +377,7 @@ function PolicyCard({
         </span>
       </div>
 
-      <h3 className="mt-6 font-serif text-2xl">
+      <h3 className="mt-6 font-sans text-2xl">
         {title}
       </h3>
     </Link>

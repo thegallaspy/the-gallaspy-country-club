@@ -1,0 +1,81 @@
+/* Member-directed billing management: navy + forest green, minimal red only for irreversible choices. */
+#nativeMyGallaspyScreen .gallaspy-cancel-card {
+  margin: 20px 0 14px;
+  padding: 18px 16px;
+  border: 1px solid #d9e4dd;
+  border-left: 4px solid #195c45;
+  border-radius: 16px;
+  background: #f8fbf9;
+  color: #10263f;
+}
+#nativeMyGallaspyScreen .gallaspy-cancel-title {
+  margin: 0 0 9px;
+  color: #0c352d;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .06em;
+}
+#nativeMyGallaspyScreen .gallaspy-cancel-summary {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.5;
+}
+#nativeMyGallaspyScreen .gallaspy-cancel-note,
+#nativeMyGallaspyScreen .gallaspy-cancel-feedback {
+  margin: 6px 0;
+  color: #576678;
+  font-size: 12px;
+  line-height: 1.55;
+}
+#nativeMyGallaspyScreen .gallaspy-cancel-link,
+#nativeMyGallaspyScreen .gallaspy-cancel-keep,
+#nativeMyGallaspyScreen .gallaspy-cancel-confirm-button {
+  min-height: 44px;
+  padding: 11px 14px;
+  border-radius: 11px;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+#nativeMyGallaspyScreen .gallaspy-cancel-link {
+  display: block;
+  margin-top: 13px;
+  width: 100%;
+  border: 1px solid #10263f;
+  background: white;
+  color: #10263f;
+}
+#nativeMyGallaspyScreen .gallaspy-cancel-confirm {
+  margin-top: 14px;
+  padding: 13px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #e5e9ed;
+}
+#nativeMyGallaspyScreen .gallaspy-cancel-question {
+  margin: 0 0 14px;
+  color: #10263f;
+  line-height: 1.55;
+  font-size: 13px;
+}
+#nativeMyGallaspyScreen .gallaspy-cancel-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+#nativeMyGallaspyScreen .gallaspy-cancel-actions button { flex: 1 1 125px; }
+#nativeMyGallaspyScreen .gallaspy-cancel-keep {
+  border: 1px solid #ced9d4;
+  background: #f8fbf9;
+  color: #10263f;
+}
+#nativeMyGallaspyScreen .gallaspy-cancel-confirm-button {
+  border: 1px solid #ae3946;
+  background: #ae3946;
+  color: #fff;
+}
+#nativeMyGallaspyScreen .gallaspy-cancel-card [hidden] { display: none !important; }
+#nativeMyGallaspyScreen .gallaspy-cancel-card button:disabled { opacity: .55; cursor: wait; }
+#nativeMyGallaspyScreen .gallaspy-cancel-card button:focus-visible { outline: 3px solid #c8a765; outline-offset: 3px; }
