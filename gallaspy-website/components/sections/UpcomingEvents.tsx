@@ -3,23 +3,33 @@ import Link from "next/link";
 const events = [
   {
     number: "01",
-    type: "Invitation Only",
-    name: "First Flight",
+    type: "Signature Event · June 21, 2027",
+    name: "THE GALLASPY",
     description:
-      "A private opening gathering for invited players and guests as The Gallaspy begins building its golf community through the game.",
-    href: "/contact",
-    cta: "Request Information",
-    feature: false,
+      "Metro Atlanta. THE GALLASPY CHAMPIONSHIP, The Golden Falcon, and a broader event experience for players, partners, and guests.",
+    href: "/the-gallaspy",
+    cta: "Explore THE GALLASPY",
+    feature: true,
   },
   {
     number: "02",
-    type: "Flagship Tournament",
-    name: "The Gallaspy Invitational",
+    type: "Team Match Competition",
+    name: "THE GALLASPY CUP",
     description:
-      "The signature competitive event of The Gallaspy. Players will gather for tournament golf, competition, and the traditions that will grow with the club.",
-    href: "/invitational",
-    cta: "Explore The Invitational",
-    feature: true,
+      "Team Crest vs. Team Falcon. The club's signature team match competition.",
+    href: "/gallaspy-cup",
+    cta: "Explore The Cup",
+    feature: false,
+  },
+  {
+    number: "03",
+    type: "End-of-Year Gala",
+    name: "NIGHT AT THE NEST",
+    description:
+      "An annual celebration of the club's people, performances, and progress.",
+    href: "/traditions",
+    cta: "Explore Traditions",
+    feature: false,
   },
 ];
 

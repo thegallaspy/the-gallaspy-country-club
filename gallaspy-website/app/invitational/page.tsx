@@ -2,341 +2,274 @@ import Image from "next/image";
 import Link from "next/link";
 import InvitationalNav from "@/components/invitational/InvitationalNav";
 
-const competition = [
-  "Team Championship",
-  "Closest to the Pin",
-  
-  "Hole-in-One Challenge",
-  "On-Course Activations",
-  "Awards Presentation",
-];
+export const metadata = {
+  title: "THE GALLASPY 2027 | Golf. Culture. Competition.",
+  description:
+    "THE GALLASPY arrives June 21, 2027 in Greater Atlanta, Georgia. Discover the championship, event experience, Junior Falcon Experience, and partnership opportunities.",
+};
 
-const resources = [
+const pathways = [
   {
     number: "01",
-    title: "Player Registration",
-    text: "Registration is open for the 72-player field. Individual entry is $200 per golfer.",
+    eyebrow: "For Golfers",
+    title: "COMPETE",
+    description:
+      "Explore THE GALLASPY CHAMPIONSHIP, player registration, competition details, and the road to The Golden Falcon.",
     href: "/invitational/register",
-    label: "Register Interest",
+    action: "Explore Registration",
   },
   {
     number: "02",
-    title: "Sponsorship",
-    text: "Explore tournament partnerships, hospitality, gifting, activations, and brand opportunities.",
-    href: "/invitational/sponsors",
-    label: "Explore Partnership",
+    eyebrow: "For Guests",
+    title: "ATTEND",
+    description:
+      "Discover the wider event experience and follow announcements about spectator access, hospitality, and programming.",
+    href: "#attend",
+    action: "Explore The Experience",
   },
   {
     number: "03",
-    title: "Schedule",
-    text: "Review the current tournament-day framework from player arrival through awards.",
-    href: "/invitational/schedule",
-    label: "View Schedule",
+    eyebrow: "For Businesses",
+    title: "SPONSOR",
+    description:
+      "Connect your organization with championship golf, culture, community, and the inaugural event.",
+    href: "/invitational/sponsors",
+    action: "Partner With Us",
   },
   {
     number: "04",
-    title: "Tournament FAQ",
-    text: "Answers covering format, field size, venue status, registration, contests, and sponsorship.",
-    href: "/invitational/faq",
-    label: "Read FAQ",
+    eyebrow: "For Entrepreneurs",
+    title: "BECOME A VENDOR",
+    description:
+      "Express interest in proposed marketplace opportunities for businesses, makers, and service providers.",
+    href: "/invitational/sponsors#sponsor-application",
+    action: "Vendor Opportunities",
   },
 ];
 
-export default function InvitationalPage() {
+const experiences = [
+  {
+    number: "01",
+    title: "CHAMPIONSHIP GOLF",
+    description:
+      "A competitive environment for golfers ready to test their game and take part in a new championship tradition.",
+  },
+  {
+    number: "02",
+    title: "CULTURE & CONNECTION",
+    description:
+      "An event designed to bring together golfers, friends, families, and the broader Greater Atlanta community.",
+  },
+  {
+    number: "03",
+    title: "THE EVENT MARKETPLACE",
+    description:
+      "Planned opportunities to discover approved vendors, products, businesses, and community partners.",
+  },
+  {
+    number: "04",
+    title: "YOUTH DISCOVERY",
+    description:
+      "The Junior Falcon Experience will introduce age-appropriate golf and enrichment opportunities for children and teenagers.",
+  },
+];
+
+const eventResources = [
+  {
+    title: "CHAMPIONSHIP REGISTRATION",
+    description:
+      "Review the existing competitor registration pathway and its published terms.",
+    href: "/invitational/register",
+    action: "Registration",
+  },
+  {
+    title: "CHAMPIONSHIP PRIZES",
+    description:
+      "Discover The Golden Falcon and available competition information.",
+    href: "/invitational/prizes",
+    action: "Explore Prizes",
+  },
+  {
+    title: "EVENT SCHEDULE",
+    description:
+      "View the currently published event-day framework. Details may be updated as arrangements are confirmed.",
+    href: "/invitational/schedule",
+    action: "View Schedule",
+  },
+  {
+    title: "QUESTIONS & DETAILS",
+    description:
+      "Find additional event, competition, attendance, and registration information.",
+    href: "/invitational/faq",
+    action: "Read FAQ",
+  },
+];
+
+export default function TheGallaspyEventPage() {
   return (
-    <main className="bg-[#F3EFE6] text-[#10263F]">
+    <main className="min-h-screen bg-white text-[#10263F]">
       <InvitationalNav />
 
-      {/* HERO */}
-      <section className="relative overflow-hidden bg-[#10263F] px-5 pb-14 pt-32 text-white sm:px-8 sm:pb-18 sm:pt-36 lg:px-10 lg:pb-20 lg:pt-40">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_18%,rgba(12,53,45,0.9),transparent_40%)]" />
+      {/* THE GALLASPY — EVENT HERO */}
+      <section className="relative overflow-hidden bg-[#10263F] px-5 pb-20 pt-28 text-white sm:px-8 sm:pb-24 sm:pt-36 lg:px-12">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-[#164B3A]/60 to-transparent"
+        />
 
-        <div className="absolute -right-10 bottom-[-4rem] text-[16rem] font-black leading-none tracking-[-0.1em] text-white/[0.025] sm:text-[22rem] lg:text-[30rem]">
-          27
-        </div>
-
-        <div className="relative mx-auto max-w-7xl">
-          <div className="grid gap-12 lg:grid-cols-[1fr_280px] lg:items-start">
-            <div>
-              <div className="flex items-center gap-3">
-                <span className="h-2 w-2 bg-[#B3262D]" />
-                <p className="text-[8px] font-black uppercase tracking-[0.36em] text-[#FFD76A]">
-                  The Gallaspy Presents
-                </p>
-              </div>
-
-              <p className="mt-7 text-[9px] font-black uppercase tracking-[0.28em] text-white/40">
-                First Annual · June 21, 2027
+        <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
+          <div>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="h-2 w-2 rounded-full bg-[#B32635]" />
+              <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#D9C080]">
+                EST. 2027
               </p>
-
-              <h1 className="mt-3 max-w-[960px] text-[3.7rem] font-black uppercase leading-[0.8] tracking-[-0.075em] sm:text-[5.2rem] md:text-[6.5rem] lg:text-[7.4rem]">
-                The Gallaspy
-                <span className="block text-[#FFD76A]">
-                  Invitational
-                </span>
-              </h1>
-
-              <p className="mt-7 max-w-[680px] text-[15px] leading-7 text-white/58 sm:text-[17px] sm:leading-8">
-                Competitive golf, tournament atmosphere, hospitality, and the
-                beginning of a new annual Gallaspy tradition.
-              </p>
-
-              <div className="mt-9 flex flex-wrap gap-3">
-                <Link
-                  href="/invitational/register"
-                  className="inline-flex min-h-[50px] items-center justify-center bg-[#FFD76A] px-7 text-[8px] font-black uppercase tracking-[0.23em] text-[#10263F] transition duration-300 hover:-translate-y-1 hover:bg-white"
-                >
-                  Player Registration →
-                </Link>
-
-                <Link
-                  href="/invitational/sponsors"
-                  className="inline-flex min-h-[50px] items-center justify-center border border-white/25 px-7 text-[8px] font-black uppercase tracking-[0.23em] text-white transition duration-300 hover:border-[#FFD76A] hover:text-[#FFD76A]"
-                >
-                  Sponsorship
-                </Link>
-              </div>
             </div>
 
-            <div className="flex justify-start lg:justify-end">
-              <div className="relative h-[320px] w-full max-w-[720px] sm:h-[360px] lg:h-[420px]">
-                <Image
-                  src="/logos/official/gallaspy-invitational-logo.png"
-                  alt="The Gallaspy Invitational"
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 720px, 90vw"
-                  className="object-contain scale-[2.8] sm:scale-[3.1] lg:scale-[3.4]"
-                />
-              </div>
+            <h1 className="mt-8 max-w-4xl text-[clamp(3.6rem,9vw,8rem)] font-black uppercase leading-[0.85] tracking-[-0.065em]">
+              THE
+              <span className="mt-2 block">GALLASPY.</span>
+            </h1>
+
+            <p className="mt-8 text-sm font-bold uppercase tracking-[0.23em] text-[#D9C080] sm:text-base">
+              GOLF. CULTURE. COMPETITION.
+            </p>
+
+            <div className="mt-8 h-1 w-16 bg-[#B32635]" />
+
+            <p className="mt-7 max-w-2xl text-base leading-8 text-white/80 sm:text-lg">
+              A new annual golf tradition bringing championship
+              competition, community, and culture together
+              in Greater Atlanta.
+            </p>
+
+            <p className="mt-7 text-sm font-bold uppercase tracking-[0.12em] text-white">
+              JUNE 21, 2027
+              <span className="mx-3 text-[#D9C080]">|</span>
+              GREATER ATLANTA, GEORGIA
+            </p>
+
+            <div className="mt-10 flex flex-wrap gap-3">
+              <Link
+                href="/invitational/register"
+                className="inline-flex min-h-12 items-center justify-center rounded-lg bg-[#D9C080] px-6 py-3 text-xs font-black uppercase tracking-wider text-[#10263F] transition hover:bg-white"
+              >
+                COMPETE
+              </Link>
+
+              <a
+                href="#attend"
+                className="inline-flex min-h-12 items-center justify-center rounded-lg border border-white/40 px-6 py-3 text-xs font-black uppercase tracking-wider text-white transition hover:border-white"
+              >
+                EXPLORE THE EVENT
+              </a>
+
+              <Link
+                href="/invitational/sponsors"
+                className="inline-flex min-h-12 items-center justify-center rounded-lg border border-white/40 px-6 py-3 text-xs font-black uppercase tracking-wider text-white transition hover:border-white"
+              >
+                BECOME A SPONSOR
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-center">
+            <div className="relative aspect-square w-full max-w-[360px] rounded-full border border-white/15 bg-white/[0.04] p-8">
+              <Image
+                src="/logos/official/falcon-G.png"
+                alt="Official Gallaspy Falcon G brandmark"
+                fill
+                priority
+                sizes="(min-width: 1024px) 360px, 75vw"
+                className="object-contain p-9"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* TOURNAMENT STRIP */}
-      <section className="bg-[#B3262D] text-white">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 px-5 sm:px-8 md:grid-cols-4 lg:px-10">
-          {[
-            ["Date", "June 21, 2027"],
-            ["Format", "Individual Stroke Play"],
-            ["Field", "72 Players"],
-            ["Start", "10:00 AM"],
-          ].map(([label, value], index) => (
-            <div
-              key={label}
-              className={`py-6 sm:py-7 ${
-                index % 2 === 0 ? "pr-4" : "border-l border-white/20 pl-4"
-              } md:border-l md:border-white/20 md:px-6 md:first:border-l-0 md:first:pl-0`}
-            >
-              <p className="text-[7px] font-black uppercase tracking-[0.25em] text-white/55">
-                {label}
-              </p>
-              <p className="mt-2 text-sm font-black uppercase tracking-[-0.02em] sm:text-base">
-                {value}
-              </p>
-            </div>
-          ))}
+      {/* EVENT IDENTITY */}
+      <section className="bg-[#B32635] px-5 py-6 text-white sm:px-8">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-8 gap-y-3">
+          <p className="text-xs font-bold uppercase tracking-[0.15em]">
+            THE GALLASPY CHAMPIONSHIP
+          </p>
+          <p className="text-xs font-bold uppercase tracking-[0.15em]">
+            THE GOLDEN FALCON
+          </p>
+          <p className="text-xs font-bold uppercase tracking-[0.15em]">
+            GREATER ATLANTA · 2027
+          </p>
         </div>
       </section>
 
-      {/* INTRO */}
-      <section className="px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
+      {/* EVENT INTRODUCTION */}
+      <section className="px-5 py-20 sm:px-8 sm:py-24 lg:px-12">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:gap-20">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#164B3A]">
+              A New Tradition
+            </p>
+            <div className="mt-5 h-1 w-12 bg-[#B32635]" />
+          </div>
+
+          <div>
+            <h2 className="max-w-4xl text-4xl font-black uppercase leading-[1.04] tracking-tight sm:text-5xl lg:text-6xl">
+              MORE THAN A ROUND.
+              <span className="mt-2 block text-[#164B3A]">
+                A REASON TO COME TOGETHER.
+              </span>
+            </h2>
+
+            <p className="mt-8 max-w-3xl text-base leading-8 text-[#526174]">
+              THE GALLASPY is being built as an annual event
+              where competitive golf meets community, emerging
+              traditions, and the people who make the game
+              meaningful. Whether you compete or simply want
+              to experience the atmosphere, there's a place
+              for you in what we're building.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* FOUR WAYS TO PARTICIPATE */}
+      <section className="bg-[#F3F7F6] px-5 py-20 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-10 lg:grid-cols-[0.55fr_1.45fr] lg:gap-20">
-            <div>
-              <p className="text-[8px] font-black uppercase tracking-[0.34em] text-[#8B6A34]">
-                The Tournament
-              </p>
-              <div className="mt-5 h-[3px] w-12 bg-[#B3262D]" />
-            </div>
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#164B3A]">
+            Get Involved
+          </p>
 
-            <div>
-              <h2 className="max-w-[900px] text-[2.9rem] font-black uppercase leading-[0.9] tracking-[-0.055em] sm:text-[4.1rem] lg:text-[4.8rem]">
-                The First One
-                <span className="block font-serif font-light normal-case italic tracking-[-0.035em] text-[#8B6A34]">
-                  sets the standard.
-                </span>
-              </h2>
+          <h2 className="mt-4 text-3xl font-black uppercase tracking-tight sm:text-5xl">
+            FIND YOUR PLACE.
+          </h2>
 
-              <div className="mt-8 grid gap-7 md:grid-cols-2">
-                <p className="text-[15px] leading-7 text-[#10263F]/60">
-                  The inaugural Gallaspy Invitational brings the club into
-                  competition through a carefully produced golf experience for
-                  players, guests, and partners.
-                </p>
-
-                <p className="text-[15px] leading-7 text-[#10263F]/60">
-                  The field is intentionally limited to 72 players, giving the
-                  tournament room to feel personal, competitive, and worth
-                  returning to.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* COMPETITION */}
-      <section className="bg-[#0C352D] text-white">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
-          <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
-            <div>
-              <div className="flex items-center gap-3">
-                <span className="h-2 w-2 bg-[#B3262D]" />
-                <p className="text-[8px] font-black uppercase tracking-[0.32em] text-[#FFD76A]">
-                  Competition
-                </p>
-              </div>
-
-              <h2 className="mt-5 max-w-[560px] text-[3rem] font-black uppercase leading-[0.86] tracking-[-0.06em] sm:text-[4.2rem]">
-                Every Hole
-                <span className="block">Should Matter.</span>
-              </h2>
-
-              <p className="mt-6 max-w-[560px] text-sm leading-7 text-white/48">
-                Team competition is joined by individual challenges, player
-                experiences, sponsor activations, and an awards finish.
-              </p>
-
-              <p className="mt-6 max-w-[540px] border-l-2 border-[#B3262D] pl-4 text-xs leading-6 text-white/35">
-                Final purse structure and individual prize details will be
-                announced as tournament planning is finalized.
-              </p>
-            </div>
-
-            <div className="border-t border-white/15">
-              {competition.map((item, index) => (
-                <div
-                  key={item}
-                  className="group flex items-center justify-between border-b border-white/15 py-5"
-                >
-                  <p className="text-lg font-black uppercase tracking-[-0.025em] sm:text-xl">
-                    {item}
+          <div className="mt-10 grid gap-5 md:grid-cols-2">
+            {pathways.map((item) => (
+              <Link
+                key={item.number}
+                href={item.href}
+                className="group flex flex-col rounded-2xl border border-[#D6E2DC] bg-white p-7 transition hover:border-[#164B3A] hover:shadow-lg"
+              >
+                <div className="flex items-center justify-between">
+                  <p className="text-xs font-bold uppercase tracking-widest text-[#164B3A]">
+                    {item.eyebrow}
                   </p>
-
-                  <p className="text-[9px] font-black tracking-[0.2em] text-[#FFD76A] transition group-hover:text-[#B3262D]">
-                    0{index + 1}
+                  <p className="text-sm font-black text-[#B32635]">
+                    {item.number}
                   </p>
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* GOLDEN FALCON */}
-      <section className="relative overflow-hidden bg-[#071827] text-white">
-        <div className="absolute right-[-3rem] top-[-4rem] text-[12rem] font-black leading-none tracking-[-0.08em] text-white/[0.025] sm:text-[18rem]">
-          01
-        </div>
-
-        <div className="relative mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-14 lg:px-10 lg:py-16">
-          <div className="grid gap-8 lg:grid-cols-[0.65fr_1.35fr] lg:items-center lg:gap-16">
-            <div>
-              <div className="flex items-center gap-3">
-                <span className="h-2 w-2 bg-[#B89146]" />
-
-                <p className="text-[8px] font-black uppercase tracking-[0.32em] text-[#FFD76A]">
-                  Championship Tradition
-                </p>
-              </div>
-
-              <p className="mt-5 text-[9px] font-black uppercase tracking-[0.24em] text-white/35">
-                Established 2027
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-[2.5rem] font-black uppercase leading-[0.9] tracking-[-0.05em] sm:text-[3.4rem] lg:text-[4rem]">
-                The Golden
-                <span className="block text-[#FFD76A]">
-                  Falcon.
-                </span>
-              </h2>
-
-              <div className="mt-7 border-t border-white/15 pt-7">
-                <p className="max-w-[680px] text-base leading-7 text-white/70 sm:text-lg">
-                  The Golden Falcon is the championship trophy of The
-                  Gallaspy Invitational.
-                </p>
-
-                <p className="mt-4 max-w-[680px] text-sm leading-7 text-white/50">
-                  It is earned by the golfer who records the lowest verified
-                  gross score over 18 holes. On June 21, 2027, one golfer will
-                  become the inaugural Gallaspy Invitational Champion and the
-                  first to earn The Golden Falcon.
-                </p>
-              </div>
-
-              <div className="mt-7 flex items-center gap-4">
-                <span className="h-[3px] w-12 bg-[#B89146]" />
-
-                <p className="text-[8px] font-black uppercase tracking-[0.26em] text-[#FFD76A]">
-                  Inaugural Championship · June 21, 2027
-                </p>
-              </div>
-
-              <div className="mt-8">
-                <a
-                  href="/invitational/prizes"
-                  className="inline-flex min-h-[48px] items-center border border-white/20 px-6 text-[9px] font-black uppercase tracking-[0.22em] text-white transition hover:border-[#FFD76A] hover:text-[#FFD76A]"
-                >
-                  Discover The Golden Falcon →
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-3">
-          <div className="h-[5px] bg-[#10263F]" />
-          <div className="h-[5px] bg-[#FFD76A]" />
-          <div className="h-[5px] bg-[#0C352D]" />
-        </div>
-      </section>
-
-      {/* RESOURCES */}
-      <section className="bg-[#F3EFE6] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid gap-10 lg:grid-cols-[0.5fr_1.5fr]">
-            <div>
-              <p className="text-[8px] font-black uppercase tracking-[0.32em] text-[#8B6A34]">
-                Tournament Desk
-              </p>
-            </div>
-
-            <div>
-              <h2 className="max-w-[760px] text-[2.8rem] font-black uppercase leading-[0.9] tracking-[-0.055em] sm:text-[3.8rem]">
-                Everything You
-                <span className="block font-serif font-light normal-case italic tracking-[-0.035em] text-[#8B6A34]">
-                  need for 2027.
-                </span>
-              </h2>
-            </div>
-          </div>
-
-          <div className="mt-12 border-t border-[#10263F]/15">
-            {resources.map((resource) => (
-              <Link
-                key={resource.title}
-                href={resource.href}
-                className="group grid gap-5 border-b border-[#10263F]/15 py-7 transition hover:bg-white/35 md:grid-cols-[75px_260px_1fr_auto] md:items-center md:px-3"
-              >
-                <p className="text-[9px] font-black tracking-[0.2em] text-[#B3262D]">
-                  {resource.number}
-                </p>
-
-                <h3 className="text-xl font-black uppercase tracking-[-0.03em]">
-                  {resource.title}
+                <h3 className="mt-7 text-3xl font-black uppercase tracking-tight sm:text-4xl">
+                  {item.title}
                 </h3>
 
-                <p className="max-w-[520px] text-sm leading-6 text-[#10263F]/52">
-                  {resource.text}
+                <p className="mt-4 max-w-xl flex-1 text-sm leading-7 text-[#526174]">
+                  {item.description}
                 </p>
 
-                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-[#8B6A34] transition group-hover:text-[#B3262D]">
-                  {resource.label} →
+                <span className="mt-8 text-xs font-bold uppercase tracking-widest text-[#164B3A] group-hover:underline">
+                  {item.action} →
                 </span>
               </Link>
             ))}
@@ -344,72 +277,281 @@ export default function InvitationalPage() {
         </div>
       </section>
 
-      {/* HOST COURSE NOTICE */}
-      <section className="bg-[#E8DEC9] px-5 py-12 sm:px-8 lg:px-10">
+      {/* CHAMPIONSHIP */}
+      <section
+        id="championship"
+        className="bg-[#123C30] px-5 py-20 text-white sm:px-8 sm:py-24 lg:px-12"
+      >
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#D9C080]">
+              The Competition
+            </p>
+
+            <h2 className="mt-6 text-4xl font-black uppercase leading-[1.03] tracking-tight sm:text-6xl">
+              THE GALLASPY
+              <span className="mt-2 block">CHAMPIONSHIP.</span>
+            </h2>
+
+            <p className="mt-7 max-w-xl text-base leading-8 text-white/80">
+              The championship is the competitive centerpiece
+              of THE GALLASPY. We're creating an environment
+              where golfers can challenge themselves, earn
+              recognition, and help establish a lasting tradition.
+            </p>
+
+            <p className="mt-5 max-w-xl text-sm leading-7 text-white/65">
+              Competition details, entry requirements,
+              participant limits, and prize eligibility are
+              governed by the published championship rules.
+            </p>
+
+            <Link
+              href="/invitational/register"
+              className="mt-9 inline-flex min-h-12 items-center justify-center rounded-lg bg-[#D9C080] px-7 text-xs font-black uppercase tracking-wider text-[#10263F] hover:bg-white"
+            >
+              EXPLORE PLAYER REGISTRATION
+            </Link>
+          </div>
+
+          <div className="rounded-2xl border border-white/20 bg-[#0E3027] p-8 sm:p-10">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#D9C080]">
+              The Championship Trophy
+            </p>
+
+            <h3 className="mt-6 text-4xl font-black uppercase leading-tight sm:text-5xl">
+              THE
+              <span className="block text-[#D9C080]">
+                GOLDEN FALCON.
+              </span>
+            </h3>
+
+            <div className="my-7 h-px bg-white/20" />
+
+            <p className="text-base leading-8 text-white/80">
+              A symbol of achievement, precision, and legacy.
+              The Golden Falcon represents the championship
+              tradition we're establishing at THE GALLASPY.
+            </p>
+
+            <Link
+              href="/invitational/prizes"
+              className="mt-8 inline-flex text-xs font-bold uppercase tracking-wider text-[#D9C080] underline underline-offset-4"
+            >
+              DISCOVER THE GOLDEN FALCON
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* THE BROADER EXPERIENCE */}
+      <section id="attend" className="px-5 py-20 sm:px-8 sm:py-24 lg:px-12">
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-7 lg:grid-cols-[180px_1fr_auto] lg:items-center">
-            <p className="text-[8px] font-black uppercase tracking-[0.3em] text-[#8B6A34]">
-              2027 Host Course
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#164B3A]">
+            Beyond The Championship
+          </p>
+
+          <h2 className="mt-4 max-w-4xl text-4xl font-black uppercase tracking-tight sm:text-5xl">
+            THE EXPERIENCE IS FOR
+            <span className="block text-[#164B3A]">
+              MORE THAN GOLFERS.
+            </span>
+          </h2>
+
+          <p className="mt-5 max-w-3xl text-sm leading-7 text-[#526174]">
+            Alongside championship golf, we're developing
+            an event experience with opportunities for
+            connection, discovery, and participation.
+            Specific attractions will be announced when approved.
+          </p>
+
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {experiences.map((item) => (
+              <article
+                key={item.number}
+                className="rounded-2xl border border-[#DBE5E8] p-6"
+              >
+                <p className="text-sm font-black text-[#B32635]">
+                  {item.number}
+                </p>
+
+                <h3 className="mt-6 text-xl font-black uppercase">
+                  {item.title}
+                </h3>
+
+                <p className="mt-4 text-sm leading-7 text-[#526174]">
+                  {item.description}
+                </p>
+              </article>
+            ))}
+          </div>
+
+          <p className="mt-8 text-xs leading-6 text-[#526174]">
+            Spectator access, event programming, pricing, and
+            capacity details will be published when confirmed.
+          </p>
+        </div>
+      </section>
+
+      {/* JUNIOR FALCON */}
+      <section
+        id="junior-falcon"
+        className="border-y border-[#D8E5E0] bg-[#F3F7F6] px-5 py-20 sm:px-8 lg:px-12"
+      >
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#B32635]">
+              For The Next Generation
             </p>
 
-            <div>
-              <h2 className="text-[1.7rem] font-black uppercase leading-tight tracking-[-0.035em] sm:text-[2rem]">
-                Championship setting being finalized.
-              </h2>
+            <h2 className="mt-5 text-4xl font-black uppercase leading-[1.05] tracking-tight sm:text-5xl">
+              THE JUNIOR
+              <span className="mt-2 block text-[#164B3A]">
+                FALCON EXPERIENCE.
+              </span>
+            </h2>
+          </div>
 
-              <p className="mt-2 max-w-[650px] text-sm leading-6 text-[#10263F]/55">
-                The inaugural Invitational is scheduled for June 21, 2027.
-                Official host-course information will be announced after the
-                venue agreement is completed.
-              </p>
-            </div>
-
-            <p className="text-[8px] font-black uppercase tracking-[0.23em] text-[#10263F]/35">
-              Georgia · 2027
+          <div>
+            <p className="text-base leading-8 text-[#44586A]">
+              The Junior Falcon Experience brings youth
+              programming together under one identity,
+              welcoming children and teenagers through
+              age-appropriate activities.
             </p>
+
+            <p className="mt-5 text-sm leading-7 text-[#526174]">
+              Proposed programming includes golf discovery,
+              interactive challenges, social activities,
+              and youth-development opportunities. Details,
+              guardian requirements, and registration
+              arrangements will be shared after approval.
+            </p>
+
+            <Link
+              href="/invitational/sponsors"
+              className="mt-7 inline-flex min-h-12 items-center justify-center rounded-lg bg-[#164B3A] px-6 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#10263F]"
+            >
+              SUPPORT YOUTH PROGRAMMING
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* SPONSOR / MARKETPLACE */}
+      <section className="bg-[#10263F] px-5 py-20 text-white sm:px-8 lg:px-12">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-2 lg:items-center">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#D9C080]">
+              Partnerships & Opportunities
+            </p>
+
+            <h2 className="mt-5 text-4xl font-black uppercase leading-tight sm:text-5xl">
+              BUILD A TRADITION.
+              <span className="block text-[#D9C080]">
+                BE PART OF IT.
+              </span>
+            </h2>
+
+            <p className="mt-6 max-w-xl text-sm leading-7 text-white/75">
+              THE GALLASPY welcomes conversations with
+              businesses, brands, and organizations interested
+              in championship sponsorships, event partnerships,
+              youth programming, and marketplace participation.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <Link
+              href="/invitational/sponsors"
+              className="flex min-h-16 items-center justify-between rounded-xl bg-white px-6 font-bold uppercase tracking-wider text-[#10263F] hover:bg-[#D9C080]"
+            >
+              BECOME A SPONSOR
+              <span aria-hidden="true">→</span>
+            </Link>
+
+            <Link
+              href="/invitational/sponsors#sponsor-application"
+              className="flex min-h-16 items-center justify-between rounded-xl border border-white/40 px-6 font-bold uppercase tracking-wider text-white hover:border-white"
+            >
+              VENDOR OPPORTUNITIES
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* EVENT INFORMATION */}
+      <section className="px-5 py-20 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#164B3A]">
+            Event Information
+          </p>
+
+          <h2 className="mt-4 text-3xl font-black uppercase sm:text-5xl">
+            PLAN YOUR GALLASPY.
+          </h2>
+
+          <div className="mt-10 divide-y divide-[#DCE5E8] border-y border-[#DCE5E8]">
+            {eventResources.map((item, index) => (
+              <Link
+                key={item.title}
+                href={item.href}
+                className="group grid gap-4 py-7 transition hover:bg-[#F3F7F6] sm:grid-cols-[50px_1fr_1.4fr_auto] sm:items-center sm:px-4"
+              >
+                <span className="text-sm font-bold text-[#B32635]">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+
+                <h3 className="text-lg font-black uppercase">
+                  {item.title}
+                </h3>
+
+                <p className="text-sm leading-6 text-[#526174]">
+                  {item.description}
+                </p>
+
+                <span className="text-xs font-bold uppercase tracking-wider text-[#164B3A] group-hover:underline">
+                  {item.action} →
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
       {/* FINAL */}
-      <section className="relative overflow-hidden bg-[#10263F] px-5 py-16 text-white sm:px-8 sm:py-20 lg:px-10 lg:py-24">
-        <div className="absolute right-[-2%] top-[-35%] text-[14rem] font-black leading-none text-white/[0.025] sm:text-[20rem]">
-          01
-        </div>
+      <section className="bg-[#123C30] px-5 py-20 text-white sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#D9C080]">
+            THE GALLASPY · EST. 2027
+          </p>
 
-        <div className="relative mx-auto max-w-7xl">
-          <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
-            <div>
-              <p className="text-[8px] font-black uppercase tracking-[0.32em] text-[#FFD76A]">
-                First Annual
-              </p>
+          <h2 className="mt-6 max-w-4xl text-5xl font-black uppercase leading-[0.98] tracking-tight sm:text-7xl">
+            A NEW TRADITION
+            <span className="block">BEGINS HERE.</span>
+          </h2>
 
-              <h2 className="mt-5 max-w-[760px] text-[3rem] font-black uppercase leading-[0.85] tracking-[-0.06em] sm:text-[4.3rem]">
-                Be There When
-                <span className="block">It Starts.</span>
-              </h2>
+          <p className="mt-6 max-w-2xl text-base leading-8 text-white/75">
+            June 21, 2027. Greater Atlanta, Georgia.
+            Golf, culture, and competition come together
+            for the inaugural THE GALLASPY.
+          </p>
 
-              <p className="mt-6 max-w-[600px] text-sm leading-7 text-white/48">
-                Join the player list or explore partnership opportunities for
-                the inaugural Gallaspy Invitational.
-              </p>
-            </div>
+          <div className="mt-10 flex flex-wrap gap-3">
+            <Link
+              href="/invitational/register"
+              className="inline-flex min-h-12 items-center justify-center rounded-lg bg-[#D9C080] px-7 text-xs font-black uppercase tracking-wider text-[#10263F] hover:bg-white"
+            >
+              COMPETE
+            </Link>
 
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href="/invitational/register"
-                className="inline-flex min-h-[50px] items-center justify-center bg-[#FFD76A] px-7 text-[8px] font-black uppercase tracking-[0.22em] text-[#10263F] transition hover:-translate-y-1 hover:bg-white"
-              >
-                Register Interest →
-              </Link>
-
-              <Link
-                href="/invitational/sponsors"
-                className="inline-flex min-h-[50px] items-center justify-center border border-white/25 px-7 text-[8px] font-black uppercase tracking-[0.22em] text-white transition hover:border-[#FFD76A] hover:text-[#FFD76A]"
-              >
-                Become A Sponsor
-              </Link>
-            </div>
+            <Link
+              href="/invitational/sponsors"
+              className="inline-flex min-h-12 items-center justify-center rounded-lg border border-white/40 px-7 text-xs font-black uppercase tracking-wider text-white hover:border-white"
+            >
+              PARTNER WITH THE GALLASPY
+            </Link>
           </div>
         </div>
       </section>

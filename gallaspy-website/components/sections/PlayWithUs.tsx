@@ -12,7 +12,7 @@ const pillars = [
     number: "02",
     title: "Compete",
     description: "Matches, tournaments, leaderboards, and the pressure that makes it matter.",
-    href: "/invitational",
+    href: "/the-gallaspy",
     cta: "See Competition",
   },
   {

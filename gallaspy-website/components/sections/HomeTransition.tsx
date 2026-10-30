@@ -1,7 +1,7 @@
+import { getAtlantaTodayISO } from "@/data/atlantaDate";
 import Link from "next/link";
 import {
   events,
-  getNextEvent,
   type GallaspyEvent,
 } from "@/data/club";
 
@@ -20,22 +20,36 @@ function formatStatus(status: GallaspyEvent["status"]) {
 }
 
 function getCurrentMonthEvent() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth() + 1;
+  const today = getAtlantaTodayISO();
+  const year = Number(today.slice(0, 4));
+  const month = Number(today.slice(5, 7));
 
   return (
     events.find(
       (event) =>
         event.year === year &&
+        (event.year >= 2027 ||
+          event.date === "2026-11-14" ||
+          event.date === "2026-12-12") &&
         event.month === month &&
-        event.status !== "COMPLETED",
+        event.status !== "COMPLETED" &&
+        (!event.date || event.date >= today),
     ) ?? null
   );
 }
 
 export default function HomeTransition() {
-  const nextEvent = getNextEvent();
+  const nextEvent = events
+    .filter(
+      (event) =>
+        (event.year >= 2027 ||
+          event.date === "2026-11-14" ||
+          event.date === "2026-12-12") &&
+        event.status !== "COMPLETED" &&
+        (!event.date ||
+          event.date >= getAtlantaTodayISO()),
+    )
+    .sort((a, b) => (a.date ?? `${a.year}-${String(a.month ?? 12).padStart(2, "0")}-31`).localeCompare(b.date ?? `${b.year}-${String(b.month ?? 12).padStart(2, "0")}-31`))[0] ?? null;
   const thisMonth = getCurrentMonthEvent();
 
   if (!nextEvent) {
@@ -65,7 +79,7 @@ export default function HomeTransition() {
                 </p>
 
                 <h2 className="mt-2 text-[2rem] font-black uppercase leading-none tracking-[-0.045em] sm:text-[2.6rem]">
-                  {nextEvent.name}
+                  {nextEvent.name.replace(/Gallaspy Invitational/gi, "THE GALLASPY").replace(/Talaria Cup/gi, "THE GALLASPY CUP")}
                 </h2>
 
                 <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2">
@@ -87,7 +101,7 @@ export default function HomeTransition() {
               </div>
 
               <Link
-                href={nextEvent.href}
+                href={nextEvent.href === "/talaria-cup" ? "/gallaspy-cup" : nextEvent.href === "/invitational" ? "/the-gallaspy" : nextEvent.href}
                 className="group inline-flex min-h-[44px] shrink-0 items-center justify-center border border-[#FFD76A] px-5 text-[8px] font-black uppercase tracking-[0.2em] text-[#FFD76A] transition hover:bg-[#FFD76A] hover:text-[#10263F]"
               >
                 View Event

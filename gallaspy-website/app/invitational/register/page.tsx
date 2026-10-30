@@ -3,9 +3,9 @@ import Link from "next/link";
 import InvitationalNav from "@/components/invitational/InvitationalNav";
 
 export const metadata = {
-  title: "Register | The Gallaspy Invitational",
+  title: "Register | THE GALLASPY CHAMPIONSHIP",
   description:
-    "Register for the 2027 Gallaspy Invitational.",
+    "Register for the 2027 Gallaspy Championship.",
 };
 
 export default function InvitationalRegisterPage() {
@@ -26,7 +26,7 @@ export default function InvitationalRegisterPage() {
           <div className="mt-10">
             <Image
               src="/logos/official/gallaspy-invitational-logo.png"
-              alt="The Gallaspy Invitational"
+              alt="THE GALLASPY CHAMPIONSHIP"
               width={300}
               height={300}
               priority
@@ -49,7 +49,7 @@ export default function InvitationalRegisterPage() {
 
           <p className="mt-8 max-w-2xl text-base leading-8 text-white/70">
             Secure your position in the inaugural field of
-            The Gallaspy Invitational.
+            THE GALLASPY CHAMPIONSHIP.
           </p>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -276,7 +276,7 @@ export default function InvitationalRegisterPage() {
           </p>
 
           <h2 className="mt-5 font-serif text-4xl sm:text-5xl lg:text-6xl">
-            Your place in the first Gallaspy Invitational
+            Your place in the first Gallaspy Championship
             starts here.
           </h2>
 

@@ -3,14 +3,14 @@ import Link from "next/link";
 import InvitationalNav from "@/components/invitational/InvitationalNav";
 
 export const metadata: Metadata = {
-  title: "The Golden Falcon | The Gallaspy Invitational",
+  title: "The Golden Falcon | THE GALLASPY CHAMPIONSHIP",
   description:
-    "The Golden Falcon is the championship trophy of The Gallaspy Invitational, awarded to the golfer who records the lowest gross score.",
+    "The Golden Falcon is the championship trophy of THE GALLASPY CHAMPIONSHIP, awarded to the golfer who records the lowest gross score.",
 };
 
 export default function InvitationalPrizesPage() {
   return (
-    <main className="min-h-screen bg-[#F5F0E6] text-[#10263F]">
+    <main className="min-h-screen bg-white text-[#10263F]">
       <InvitationalNav />
 
       {/* HERO */}
@@ -20,14 +20,14 @@ export default function InvitationalPrizesPage() {
             href="/invitational"
             className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/60 transition hover:text-[#FFD76A]"
           >
-            ← Back to Invitational
+            ← Back to THE GALLASPY
           </Link>
 
           <p className="mt-14 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">
-            The Gallaspy Invitational
+            THE GALLASPY
           </p>
 
-          <h1 className="mt-5 max-w-4xl font-serif text-6xl leading-[0.94] sm:text-7xl lg:text-8xl">
+          <h1 className="mt-5 max-w-4xl font-sans text-6xl leading-[0.94] sm:text-7xl lg:text-8xl">
             The Golden
             <span className="block text-[#FFD76A]">Falcon.</span>
           </h1>
@@ -35,7 +35,7 @@ export default function InvitationalPrizesPage() {
           <div className="mt-9 h-px w-20 bg-[#B89146]" />
 
           <p className="mt-8 max-w-2xl text-base leading-8 text-white/70 sm:text-lg">
-            The championship trophy of The Gallaspy Invitational.
+            The championship trophy of THE GALLASPY CHAMPIONSHIP.
             Earned by the golfer who finishes with the lowest
             gross score over 18 holes.
           </p>
@@ -71,7 +71,7 @@ export default function InvitationalPrizesPage() {
               The Championship Honor
             </p>
 
-            <h2 className="mt-5 font-serif text-4xl leading-tight sm:text-5xl">
+            <h2 className="mt-5 font-sans text-4xl leading-tight sm:text-5xl">
               One champion.
               <span className="block text-[#8B6A34]">
                 One Golden Falcon.
@@ -80,8 +80,8 @@ export default function InvitationalPrizesPage() {
           </div>
 
           <div>
-            <p className="font-serif text-2xl leading-relaxed text-[#10263F] sm:text-3xl">
-              The Gallaspy Invitational Champion is the golfer who
+            <p className="font-sans text-2xl leading-relaxed text-[#10263F] sm:text-3xl">
+              The Gallaspy Champion is the golfer who
               records the lowest actual gross score over 18 holes.
             </p>
 
@@ -90,7 +90,7 @@ export default function InvitationalPrizesPage() {
             <p className="mt-8 text-sm leading-8 text-[#10263F]/65">
               The champion earns The Golden Falcon and takes their
               place in the permanent competitive history of The Gallaspy
-              Invitational. Beginning with the inaugural championship in
+              THE GALLASPY. Beginning with the inaugural championship in
               2027, each winner becomes part of a record intended to grow
               with the tournament for generations.
             </p>
@@ -105,7 +105,7 @@ export default function InvitationalPrizesPage() {
             How It Is Won
           </p>
 
-          <h2 className="mt-5 max-w-3xl font-serif text-4xl leading-tight sm:text-5xl">
+          <h2 className="mt-5 max-w-3xl font-sans text-4xl leading-tight sm:text-5xl">
             The score decides everything.
           </h2>
 
@@ -119,13 +119,13 @@ export default function InvitationalPrizesPage() {
             <HonorStep
               number="02"
               title="Lowest Gross"
-              text="Actual strokes determine the Invitational Champion. No handicap adjustment is applied to the championship-winning gross score."
+              text="Actual strokes determine the Gallaspy Champion. No handicap adjustment is applied to the championship-winning gross score."
             />
 
             <HonorStep
               number="03"
               title="The Golden Falcon"
-              text="The golfer with the lowest verified gross score is recognized as The Gallaspy Invitational Champion."
+              text="The golfer with the lowest verified gross score is recognized as The Gallaspy Champion."
             />
           </div>
         </div>
@@ -140,7 +140,7 @@ export default function InvitationalPrizesPage() {
                 If 18 Holes Are Not Enough
               </p>
 
-              <h2 className="mt-4 font-serif text-4xl">
+              <h2 className="mt-4 font-sans text-4xl">
                 Sudden death.
               </h2>
             </div>
@@ -164,7 +164,7 @@ export default function InvitationalPrizesPage() {
               Net Competition
             </p>
 
-            <h2 className="mt-4 font-serif text-4xl leading-tight sm:text-5xl">
+            <h2 className="mt-4 font-sans text-4xl leading-tight sm:text-5xl">
               A second competitive leaderboard.
             </h2>
           </div>
@@ -194,7 +194,7 @@ export default function InvitationalPrizesPage() {
               Beyond the Championship
             </p>
 
-            <h2 className="mt-4 font-serif text-4xl leading-tight sm:text-5xl">
+            <h2 className="mt-4 font-sans text-4xl leading-tight sm:text-5xl">
               Competition across the course.
             </h2>
 
@@ -203,7 +203,7 @@ export default function InvitationalPrizesPage() {
               Closest-to-the-Pin and the Hole-in-One Challenge, may
               accompany the championship. Final contest details,
               eligibility requirements and sponsor activations will be
-              announced as the Invitational approaches.
+              announced as THE GALLASPY approaches.
             </p>
           </div>
         </div>
@@ -216,12 +216,12 @@ export default function InvitationalPrizesPage() {
             Beginning June 21, 2027
           </p>
 
-          <h2 className="mx-auto mt-5 max-w-4xl font-serif text-4xl leading-tight sm:text-5xl lg:text-6xl">
+          <h2 className="mx-auto mt-5 max-w-4xl font-sans text-4xl leading-tight sm:text-5xl lg:text-6xl">
             The first name has yet to be written.
           </h2>
 
           <p className="mx-auto mt-7 max-w-2xl text-sm leading-8 text-white/60">
-            The inaugural Gallaspy Invitational will establish the
+            The inaugural Gallaspy Championship will establish the
             first champion in tournament history and the first golfer
             to earn The Golden Falcon.
           </p>
@@ -255,7 +255,7 @@ export default function InvitationalPrizesPage() {
 
             <PolicyLink
               href="/invitational/faq"
-              title="Invitational FAQ"
+              title="Event FAQ"
             />
 
             <PolicyLink
@@ -288,7 +288,7 @@ function Stat({
         {label}
       </p>
 
-      <p className="mt-2 font-serif text-xl">
+      <p className="mt-2 font-sans text-xl">
         {value}
       </p>
     </div>
@@ -310,7 +310,7 @@ function HonorStep({
         {number}
       </p>
 
-      <h3 className="mt-5 font-serif text-2xl">
+      <h3 className="mt-5 font-sans text-2xl">
         {title}
       </h3>
 
@@ -333,7 +333,7 @@ function PolicyLink({
       href={href}
       className="group flex items-center justify-between border border-[#10263F]/10 bg-white px-6 py-5 transition hover:border-[#B89146]"
     >
-      <span className="font-serif text-lg">
+      <span className="font-sans text-lg">
         {title}
       </span>
 

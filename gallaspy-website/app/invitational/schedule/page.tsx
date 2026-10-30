@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Tournament Schedule | The Gallaspy Invitational",
+  title: "Tournament Schedule | THE GALLASPY CHAMPIONSHIP",
   description:
-    "Tournament-day schedule for the 2027 Gallaspy Invitational on June 21, 2027.",
+    "Tournament-day schedule for the 2027 Gallaspy Championship on June 21, 2027.",
 };
 
 const schedule = [
@@ -53,7 +53,7 @@ const schedule = [
     time: "Approximately 4:00 PM",
     title: "Trophy Presentation",
     text:
-      "The Gallaspy Invitational Champion is presented with the permanent championship trophy following confirmation of the final gross result.",
+      "THE GALLASPY CHAMPIONSHIP Champion is presented with the permanent championship trophy following confirmation of the final gross result.",
   },
 ];
 
@@ -244,7 +244,7 @@ export default function InvitationalSchedulePage() {
       <section className="bg-[#10263F] px-5 py-20 text-center text-white sm:px-8 lg:py-24">
         <div className="mx-auto max-w-4xl">
           <p className="text-[9px] font-black uppercase tracking-[0.35em] text-[#FFD76A]">
-            1st Annual Gallaspy Invitational
+            1st Annual Gallaspy Championship
           </p>
 
           <h2 className="mt-6 text-[3rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4.5rem]">

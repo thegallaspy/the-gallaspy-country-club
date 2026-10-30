@@ -8,50 +8,22 @@ export const metadata: Metadata = {
 };
 
 const principles = [
-  {
-    number: "01",
-    title: "Tradition",
-    description:
-      "Traditions become meaningful because people return to them year after year.",
-  },
-  {
-    number: "02",
-    title: "Family",
-    description:
-      "The Gallaspy is intended to become something families can experience, remember, and pass forward.",
-  },
-  {
-    number: "03",
-    title: "Excellence",
-    description:
-      "The standard matters from the first gathering onward, not only after a permanent home exists.",
-  },
-  {
-    number: "04",
-    title: "Hospitality",
-    description:
-      "How people are welcomed, treated, and remembered will always be part of the character of the club.",
-  },
-  {
-    number: "05",
-    title: "Stewardship",
-    description:
-      "What is eventually built should respect its setting and be worthy of the generations that follow.",
-  },
-  {
-    number: "06",
-    title: "Legacy",
-    description:
-      "The ambition is larger than a single season, event, property, or generation.",
-  },
+  { number: "01", title: "Ambition", description: "Pursue the long-term vision with intention, discipline, and belief in what the club can become." },
+  { number: "02", title: "Integrity", description: "Act with honesty, accountability, and respect for the game and one another." },
+  { number: "03", title: "Community", description: "Make room for golfers, families, and partners to connect and belong." },
+  { number: "04", title: "Competition", description: "Celebrate effort, sportsmanship, and the drive to improve." },
+  { number: "05", title: "Individuality", description: "Welcome different backgrounds, abilities, and expressions of the game." },
+  { number: "06", title: "Opportunity", description: "Create pathways for participation, connection, and growth." },
+  { number: "07", title: "Progression", description: "Build steadily, learn from every season, and keep raising the standard." },
+  { number: "08", title: "Legacy", description: "Establish traditions worth carrying forward for future generations." },
 ];
 
 const traditions = [
-  "Opening Drive",
-  "Spring Opener",
-  "The Gallaspy Invitational",
-  "The Talaria Cup",
-  "Night at the Nest",
+  "Monthly Gallaspy Rounds",
+  "Weekly Range Nights",
+  "THE GALLASPY",
+  "THE GALLASPY CUP",
+  "NIGHT AT THE NEST",
 ];
 
 export default function WhyTheGallaspyPage() {

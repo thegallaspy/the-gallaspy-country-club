@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Official Tournament Rules | The Gallaspy Invitational",
+  title: "Official Tournament Rules | THE GALLASPY CHAMPIONSHIP",
   description:
-    "Official competition format and tournament rules for the 2027 Gallaspy Invitational.",
+    "Official competition format and tournament rules for the 2027 Gallaspy Championship.",
 };
 
 const summary = [
@@ -16,9 +16,9 @@ const summary = [
 const scoring = [
   {
     number: "01",
-    title: "The Invitational Championship",
+    title: "THE GALLASPY CHAMPIONSHIP",
     text:
-      "Every player competes in the 18-hole Gross Championship. The golfer returning the lowest actual 18-hole score is the Gallaspy Invitational Champion.",
+      "Every player competes in the 18-hole Gross Championship. The golfer returning the lowest actual 18-hole score is the Gallaspy Champion.",
   },
   {
     number: "02",
@@ -56,8 +56,8 @@ export default function InvitationalRulesPage() {
           </h1>
 
           <p className="mt-8 max-w-2xl text-sm leading-7 text-white/65 sm:text-base sm:leading-8">
-            The competition framework for the inaugural Gallaspy Invitational:
-            72 golfers, 18 holes, individual stroke play, and one Invitational
+            The competition framework for the inaugural Gallaspy Championship:
+            72 golfers, 18 holes, individual stroke play, and one Gallaspy
             Champion.
           </p>
         </div>
@@ -94,7 +94,7 @@ export default function InvitationalRulesPage() {
               <h2 className="mt-5 text-[2.8rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4rem]">
                 One
                 <span className="block text-[#0C352D]">
-                  Invitational Champion.
+                  Gallaspy Champion.
                 </span>
               </h2>
             </div>
@@ -102,7 +102,7 @@ export default function InvitationalRulesPage() {
             <div>
               <div className="border-l-4 border-[#B3262D] bg-white p-7 sm:p-9">
                 <p className="text-[8px] font-black uppercase tracking-[0.28em] text-[#8B6A34]">
-                  The Gallaspy Invitational Champion
+                  THE GALLASPY CHAMPION
                 </p>
 
                 <p className="mt-4 text-[2rem] font-black uppercase leading-none tracking-[-0.04em] sm:text-[2.6rem]">
@@ -112,8 +112,8 @@ export default function InvitationalRulesPage() {
 
                 <p className="mt-6 max-w-xl text-sm leading-7 text-[#33475B]/75">
                   The golfer who records the lowest actual score over 18 holes
-                  is the Gallaspy Invitational Champion. This is the champion
-                  whose name is placed on the permanent Invitational trophy.
+                  is the Gallaspy Champion. This is the champion
+                  whose name is placed on the permanent championship trophy.
                 </p>
               </div>
 
@@ -128,7 +128,7 @@ export default function InvitationalRulesPage() {
 
                 <p className="mt-4 max-w-xl text-sm leading-7 text-[#33475B]/70">
                   The Net Championship is a separate award. Winning the Net
-                  Championship does not make a player the Gallaspy Invitational
+                  Championship does not make a player the Gallaspy Championship
                   Champion unless that player also records the lowest gross
                   score.
                 </p>
@@ -193,7 +193,7 @@ export default function InvitationalRulesPage() {
               </h2>
 
               <p className="mt-6 max-w-xl text-sm leading-7 text-white/65">
-                Players competing for the Gallaspy Invitational Championship
+                Players competing for the Gallaspy Championship
                 must complete every hole and return an actual gross score.
                 There is no maximum-score substitution for the Gross
                 Championship.
@@ -244,7 +244,7 @@ export default function InvitationalRulesPage() {
                 <p className="mt-2">
                   Competition will be conducted under the Rules of Golf,
                   applicable host-course local rules, and any tournament-specific
-                  conditions issued by the Gallaspy Invitational Tournament
+                  conditions issued by the Gallaspy Championship Tournament
                   Committee.
                 </p>
               </div>
@@ -319,7 +319,7 @@ export default function InvitationalRulesPage() {
               href="/invitational"
               className="border border-[#FFD76A] px-6 py-4 text-[8px] font-black uppercase tracking-[0.24em] text-[#FFD76A]"
             >
-              Invitational Overview →
+              THE GALLASPY Overview →
             </Link>
 
             <Link

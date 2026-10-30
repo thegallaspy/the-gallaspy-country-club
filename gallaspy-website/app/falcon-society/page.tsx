@@ -19,7 +19,7 @@ const pillars = [
     number: "02",
     title: "Compete",
     description:
-      "Follow and participate in the competitive traditions of The Gallaspy, from the Invitational to the Talaria Cup.",
+      "Follow and participate in the competitive traditions of The Gallaspy, from THE GALLASPY CHAMPIONSHIP to THE GALLASPY CUP.",
   },
   {
     number: "03",

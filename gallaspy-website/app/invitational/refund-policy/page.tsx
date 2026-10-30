@@ -3,9 +3,9 @@ import Link from "next/link";
 import InvitationalNav from "@/components/invitational/InvitationalNav";
 
 export const metadata: Metadata = {
-  title: "Refund & Cancellation Policy | The Gallaspy Invitational",
+  title: "Refund & Cancellation Policy | THE GALLASPY CHAMPIONSHIP",
   description:
-    "Refund and cancellation policy for The Gallaspy Invitational.",
+    "Refund and cancellation policy for THE GALLASPY CHAMPIONSHIP.",
 };
 
 export default function InvitationalRefundPolicyPage() {
@@ -20,11 +20,11 @@ export default function InvitationalRefundPolicyPage() {
             href="/invitational"
             className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/60 transition hover:text-[#FFD76A]"
           >
-            ← Back to Invitational
+            ← Back to THE GALLASPY
           </Link>
 
           <p className="mt-12 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">
-            The Gallaspy Invitational
+            THE GALLASPY CHAMPIONSHIP
           </p>
 
           <h1 className="mt-5 max-w-4xl font-serif text-5xl leading-[0.98] sm:text-6xl lg:text-7xl">
@@ -73,7 +73,7 @@ export default function InvitationalRefundPolicyPage() {
           <div className="space-y-12">
             <PolicySection number="01" title="Scope of Policy">
               This Refund & Cancellation Policy applies to paid player
-              registrations for the 2027 Gallaspy Invitational administered by
+              registrations for the 2027 Gallaspy Championship administered by
               The Gallaspy Development Group, LLC.
 
               Sponsorships, vendor payments, merchandise purchases, and other
@@ -86,7 +86,7 @@ export default function InvitationalRefundPolicyPage() {
               fee.
 
               Refund requests must be submitted through the official contact
-              method provided by The Gallaspy Invitational and must include
+              method provided by THE GALLASPY CHAMPIONSHIP and must include
               sufficient information to identify the registration.
             </PolicySection>
 
@@ -113,7 +113,7 @@ export default function InvitationalRefundPolicyPage() {
             </PolicySection>
 
             <PolicySection number="05" title="No-Shows">
-              Participants who fail to attend the Invitational without completing
+              Participants who fail to attend the championship without completing
               an approved cancellation or player substitution will be treated as
               no-shows.
 
@@ -147,7 +147,7 @@ export default function InvitationalRefundPolicyPage() {
             </PolicySection>
 
             <PolicySection number="08" title="Event Postponement or Rescheduling">
-              If the Invitational is postponed or rescheduled, paid registrations
+              If the championship is postponed or rescheduled, paid registrations
               will ordinarily transfer to the rescheduled event date.
 
               The organizer will communicate the applicable procedures to
@@ -159,7 +159,7 @@ export default function InvitationalRefundPolicyPage() {
             </PolicySection>
 
             <PolicySection number="09" title="Organizer Cancellation">
-              If The Gallaspy Development Group, LLC cancels the Invitational and
+              If The Gallaspy Development Group, LLC cancels the championship and
               the event is not rescheduled, registered participants will be
               notified regarding the applicable refund or other remedy.
 
@@ -180,7 +180,7 @@ export default function InvitationalRefundPolicyPage() {
             </PolicySection>
 
             <PolicySection number="11" title="Chargebacks & Payment Disputes">
-              Participants are encouraged to contact The Gallaspy Invitational
+              Participants are encouraged to contact THE GALLASPY CHAMPIONSHIP
               before initiating a payment dispute so that registration,
               cancellation, or refund concerns can be reviewed.
 
@@ -204,7 +204,7 @@ export default function InvitationalRefundPolicyPage() {
               <span className="mt-4 block font-semibold text-[#10263F]">
                 The Gallaspy Development Group, LLC
               </span>
-              <span className="block">The Gallaspy Invitational</span>
+              <span className="block">THE GALLASPY CHAMPIONSHIP</span>
               <span className="block">info@thegallaspy.com</span>
 
               Requests should include the registered participant&apos;s full name,
@@ -254,7 +254,7 @@ export default function InvitationalRefundPolicyPage() {
             </p>
 
             <h2 className="mt-4 font-serif text-3xl">
-              Contact The Gallaspy Invitational.
+              Contact THE GALLASPY CHAMPIONSHIP.
             </h2>
 
             <p className="mt-4 text-sm leading-7 text-[#10263F]/65">

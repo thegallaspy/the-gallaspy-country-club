@@ -10,7 +10,7 @@ const sponsorLevels = [
     title: "Presenting Partner",
     investment: "Custom",
     description:
-      "The highest-level partnership opportunity for a brand seeking premium visibility and integration throughout the inaugural Gallaspy Invitational.",
+      "The highest-level partnership opportunity for a brand seeking premium visibility and integration throughout the inaugural Gallaspy Championship.",
     benefits: [
       "Premier event branding",
       "Top-tier digital recognition",
@@ -137,7 +137,7 @@ export default function InvitationalSponsorsPage() {
           <div className="mt-10">
             <Image
               src="/logos/official/gallaspy-invitational-logo.png"
-              alt="The Gallaspy Invitational"
+              alt="THE GALLASPY CHAMPIONSHIP"
               width={300}
               height={169}
               priority
@@ -152,14 +152,14 @@ export default function InvitationalSponsorsPage() {
           <h1 className="mt-5 max-w-5xl font-serif text-5xl leading-[0.98] sm:text-6xl lg:text-7xl">
             Partner with the
             <span className="block text-[#FFD76A]">
-              2027 Gallaspy Invitational
+              2027 Gallaspy Championship
             </span>
           </h1>
 
           <div className="mt-8 h-px w-20 bg-[#B89146]" />
 
           <p className="mt-8 max-w-3xl text-base leading-8 text-white/70 sm:text-lg">
-            The inaugural Gallaspy Invitational creates an opportunity for
+            The inaugural Gallaspy Championship creates an opportunity for
             select brands to help establish a new annual golf tradition while
             engaging players, guests, and the growing Gallaspy community.
           </p>
@@ -231,7 +231,7 @@ export default function InvitationalSponsorsPage() {
           <div className="max-w-2xl">
             <p className="text-lg leading-9 text-[#10263F]/75">
               Founding sponsors will have the opportunity to become part of the
-              inaugural year of The Gallaspy Invitational and establish an early
+              inaugural year of THE GALLASPY CHAMPIONSHIP and establish an early
               relationship with a golf and lifestyle brand being built for the
               long term.
             </p>

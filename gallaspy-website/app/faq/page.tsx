@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Frequently Asked Questions | The Gallaspy Golf Club",
   description:
-    "Answers about The Gallaspy, Gallaspy Rounds, club events, the Founding 100, the Gallaspy Invitational, Talaria Cup, and the club's long-term vision.",
+    "Answers about The Gallaspy Golf Club, 2027 club programming, THE GALLASPY CHAMPIONSHIP, THE GALLASPY CUP, membership and our long-term vision.",
 };
 
 const faqSections = [
@@ -62,14 +62,14 @@ const faqSections = [
     category: "The Club Year",
     questions: [
       {
-        question: "What is First Flight?",
+        question: "What does the 2027 playing calendar include?",
         answer:
-          "First Flight marks the beginning of active Gallaspy golf programming and the opening chapter of the club's playing history. The first First Flight is scheduled for September 26, 2026.",
+          "The planned 2027 program includes monthly Gallaspy Rounds and weekly Range Nights. Golfers can also host their own rounds through the Gallaspy app. Event-specific dates and venues will be announced as confirmed.",
       },
       {
-        question: "What is Opening Drive?",
+        question: "Can I host a round with friends?",
         answer:
-          "Opening Drive is intended to mark the ceremonial beginning of each Gallaspy golf season in March.",
+          "The Gallaspy app includes a Host a Round workflow to organize golf with friends and other players. Host courses and tee times are arranged separately, and golfers pay applicable green fees.",
       },
       {
         question: "What is Night at the Nest?",
@@ -87,24 +87,49 @@ const faqSections = [
     category: "Competition",
     questions: [
       {
-        question: "What is The Gallaspy Invitational?",
+        question: "What is THE GALLASPY?",
         answer:
-          "The Gallaspy Invitational is the club's flagship annual golf tournament. The 1st Annual Gallaspy Invitational is scheduled for June 21, 2027. Tournament details are published on the Invitational page as they are confirmed.",
+          "THE GALLASPY is our signature event, planned for June 21, 2027 in metro Atlanta. THE GALLASPY CHAMPIONSHIP is the individual stroke-play competition within the event, with THE GOLDEN FALCON as the championship trophy. Details for players, sponsors, vendors and guests are provided in the event hub.",
       },
       {
-        question: "What is The Talaria Cup?",
+        question: "What is The Gallaspy Cup?",
         answer:
-          "The Talaria Cup is The Gallaspy's annual team championship: Crest vs. Falcon. Team Crest competes in forest green and Team Falcon in navy blue. The inaugural match is planned for September 2027, with the exact date, host course, and match format to be announced.",
+          "The Gallaspy Cup is The Gallaspy's annual team championship: Crest vs. Falcon. Team Crest competes in forest green and Team Falcon in navy blue. The inaugural match is planned for 2027. Refer to the Cup page for current scheduling and competition information; the host course has not been announced.",
       },
       {
-        question: "Have there been previous Talaria Cup champions?",
+        question: "Have there been previous Gallaspy Cup champions?",
         answer:
-          "No. The inaugural Talaria Cup has not yet been played. Results and the all-time series will begin with the first competition.",
+          "No. The inaugural Gallaspy Cup has not yet been played. Results and the all-time series will begin with the first competition.",
       },
       {
         question: "Where will competition results be recorded?",
         answer:
           "As official competitions are completed, results and recaps can become part of The Gallaspy's permanent event history and Journal rather than being replaced by the next event.",
+      },
+    ],
+  },
+  {
+    category: "Standard Membership",
+    questions: [
+      {
+        question: "How much is Standard Membership?",
+        answer:
+          "The planned Standard Membership is $100 per month, with a $1,000 prepaid annual option. Monthly enrollment is also expected to have a one-time initiation fee, with the amount and final terms to be disclosed before enrollment opens.",
+      },
+      {
+        question: "Are green fees included?",
+        answer:
+          "No. Members pay the applicable green fees at the courses where they play. Membership provides access to eligible club programming and benefits rather than unlimited course access.",
+      },
+      {
+        question: "Is an official GHIN handicap included?",
+        answer:
+          "An official USGA Handicap Index through GHIN is a planned benefit only. It will not be available or represented as official until the club receives appropriate authorization and service arrangements are confirmed.",
+      },
+      {
+        question: "Is a free app account the same as club membership?",
+        answer:
+          "No. Creating an app account or a player profile does not confer paid club membership. Official membership requires successful enrollment and payment when membership enrollment becomes available.",
       },
     ],
   },

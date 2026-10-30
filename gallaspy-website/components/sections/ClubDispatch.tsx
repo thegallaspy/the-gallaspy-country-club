@@ -82,8 +82,8 @@ export default function ClubDispatch() {
             <div className="mt-5 border-t border-white/15">
               {[
                 "Upcoming Gallaspy Rounds",
-                "Invitational News",
-                "Talaria Cup Updates",
+                "THE GALLASPY Championship News",
+                "Gallaspy Cup Updates",
                 "Club Gatherings",
                 "Apparel & Announcements",
               ].map((item) => (
