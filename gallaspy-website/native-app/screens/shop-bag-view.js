@@ -190,16 +190,12 @@
       message.textContent = "Preparing secure checkout...";
 
       try {
-        const token = await createCheckoutSession();
-        const route = "/apparel/checkout?nativeCheckout=" +
-          encodeURIComponent(token);
-
-        if (typeof window.openClubRoute !== "function") {
-          throw new Error("Checkout navigation is unavailable.");
+        if (typeof window.openNativeCheckout !== "function") {
+          throw new Error("Native checkout is unavailable.");
         }
 
-        window.openClubRoute(route);
-        message.textContent = "Secure checkout requested.";
+        await window.openNativeCheckout();
+        message.textContent = "";
       } catch (error) {
         console.error("Native checkout error:", error);
         message.textContent =

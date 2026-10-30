@@ -2,8 +2,6 @@ import Link from "next/link";
 import { traditions } from "@/data/club";
 
 const traditionOrder = [
-  "opening-drive",
-  "spring-opener",
   "gallaspy-invitational",
   "talaria-cup",
   "night-at-the-nest",
@@ -57,15 +55,15 @@ export default function TraditionsSymbols() {
 
                 <div>
                   <p className="text-[9px] font-bold uppercase tracking-[0.24em] text-white/40">
-                    {tradition.monthLabel} · Since {tradition.firstOccurrenceYear}
+                    {tradition.id === "gallaspy-invitational" ? "June 21, 2027" : tradition.id === "talaria-cup" ? "2027 · Team Match" : "2027 · End-of-Year Gala"}
                   </p>
 
                   <h3 className="mt-2 font-serif text-2xl font-light text-white sm:text-[1.75rem]">
-                    {tradition.name}
+                    {tradition.id === "gallaspy-invitational" ? "THE GALLASPY" : tradition.id === "talaria-cup" ? "THE GALLASPY CUP" : "NIGHT AT THE NEST"}
                   </h3>
 
                   <p className="mt-3 max-w-2xl text-sm leading-7 text-white/55">
-                    {tradition.description}
+                    {tradition.id === "gallaspy-invitational" ? "Our signature event, with THE GALLASPY CHAMPIONSHIP at its center." : tradition.id === "talaria-cup" ? "The team match: Crest vs. Falcon." : "The annual end-of-year gala and celebration."}
                   </p>
 
                   {tradition.id === "talaria-cup" && (

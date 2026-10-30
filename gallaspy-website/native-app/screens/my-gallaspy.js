@@ -44,7 +44,8 @@
       round &&
       typeof round.course === "string" &&
       Array.isArray(round.scores) &&
-      round.scores.length === 18 &&
+      [9, 18].includes(round.holeCount ?? round.scores.length) &&
+      round.scores.length === (round.holeCount ?? round.scores.length) &&
       round.scores.every(n =>
         Number.isInteger(n) && n >= 1 && n <= 20
       )
@@ -56,7 +57,9 @@
 
   function refresh() {
     const rounds = getRounds();
-    const totals = rounds.map(round => round.total);
+    const totals = rounds
+      .filter(round => round.scores.length === 18)
+      .map(round => round.total);
 
     $("myRoundsPlayed").textContent = rounds.length;
 
@@ -94,7 +97,7 @@
 
       const score = document.createElement("strong");
       score.className = "my-round-score";
-      score.textContent = round.total;
+      score.textContent = `${round.total} (${round.scores.length} holes)`;
 
       item.append(details, score);
       recent.append(item);
@@ -153,6 +156,12 @@
     try {
       localStorage.setItem(PROFILE_KEY, JSON.stringify({ name }));
       loadProfile();
+
+      window.dispatchEvent(
+        new CustomEvent("gallaspy:profile-updated", {
+          detail: { name }
+        })
+      );
       $("myProfileMessage").textContent = "Profile saved on this device.";
     } catch {
       $("myProfileMessage").textContent = "Unable to save profile.";
@@ -163,12 +172,13 @@
     window.showNativeScreen?.("play");
   });
 
-  $("myFalconSociety")?.addEventListener("click", () => {
-    window.openClubRoute?.("/falcon-society/members");
-  });
+  function openNativeMembership() {
+    window.showNativeScreen?.("my-gallaspy");
+    window.gallaspyMyDashboard?.showView("membership");
+  }
 
-  $("myMembership")?.addEventListener("click", () => {
-    window.openClubRoute?.("/membership");
+  $("myFalconSociety")?.addEventListener("click", () => {
+    openNativeMembership();
   });
 
   document.querySelector('[data-route="/my-gallaspy"]')
@@ -177,6 +187,7 @@
       refresh();
     });
 
+  window.addEventListener("gallaspy:rounds-changed", refresh);
   loadProfile();
   refresh();
 })();

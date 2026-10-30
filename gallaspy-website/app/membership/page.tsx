@@ -26,8 +26,8 @@ export default function MembershipPage() {
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {[
               ["Monthly Gallaspy Round", "Organized golf outings across Georgia. Green fees are separate."],
-              ["Golf Activities", "Additional organized practice, competition, or golf experiences."],
-              ["Club Community", "Networking opportunities and Golf Partners connections."],
+              ["Additional Golf Activity", "A second organized golf activity each month, including Range Nights or other sessions."],
+              ["Club Community", "One networking or social opportunity monthly, plus Golf Partners connections."],
               ["Gallaspy Rewards", "Earn points on eligible purchases and verified club activities. Redemption benefits are being prepared."],
               ["Member Apparel", "Up to 25% off select Gallaspy apparel, subject to eligibility."],
               ["Priority Registration", "Early access to eligible club events and competitions."],
@@ -48,12 +48,15 @@ export default function MembershipPage() {
         </section>
 
         <h2 className="mt-12 text-3xl font-semibold">
-          $100 per month
+          $100 per month · $1,000 per year
         </h2>
         <p className="mt-4 max-w-2xl leading-8">
-          Standard Membership will renew monthly once enrollment launches.
-          No application or manual approval is required.
-          Members pay their own green fees.
+          Choose recurring monthly billing or the $1,000 prepaid annual option
+          once enrollment opens. A one-time initiation fee is planned for
+          monthly enrollment, with the amount and full terms announced before
+          launch. No manual application review is required for Standard Membership.
+          Membership activates only after successful payment. Members pay
+          their own green fees.
         </p>
         <p className="mt-5 max-w-2xl leading-8">
           An official USGA Handicap Index through GHIN is planned,

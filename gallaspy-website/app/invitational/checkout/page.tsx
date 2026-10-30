@@ -372,7 +372,7 @@ export default function InvitationalCheckoutPage() {
         <section className="bg-[#10263F] px-6 pb-20 pt-32 text-white sm:px-8 lg:px-12">
           <div className="mx-auto max-w-[1000px]">
             <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">
-              2027 Gallaspy Invitational
+              2027 Gallaspy Championship
             </p>
 
             <h1 className="mt-5 font-serif text-5xl sm:text-6xl">
@@ -392,7 +392,7 @@ export default function InvitationalCheckoutPage() {
 
             <h2 className="mt-5 font-serif text-4xl">
               You&apos;re registered for the 2027
-              Gallaspy Invitational.
+              Gallaspy Championship.
             </h2>
 
             <p className="mx-auto mt-6 max-w-xl text-sm leading-7 text-[#10263F]/60">
@@ -442,7 +442,7 @@ export default function InvitationalCheckoutPage() {
                 href="/invitational"
                 className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-[#10263F] px-8 text-[10px] font-semibold uppercase tracking-[0.22em] text-white transition hover:bg-[#B89146]"
               >
-                Return to Invitational
+                Return to THE GALLASPY
               </Link>
             </div>
           </div>
@@ -461,11 +461,11 @@ export default function InvitationalCheckoutPage() {
             href="/invitational"
             className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/60 transition hover:text-[#FFD76A]"
           >
-            ← Back to Invitational
+            ← Back to THE GALLASPY
           </Link>
 
           <p className="mt-12 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">
-            2027 Gallaspy Invitational
+            2027 Gallaspy Championship
           </p>
 
           <h1 className="mt-5 max-w-4xl font-serif text-5xl leading-[0.98] sm:text-6xl lg:text-7xl">
@@ -480,7 +480,7 @@ export default function InvitationalCheckoutPage() {
           <p className="mt-8 max-w-2xl text-base leading-8 text-white/70">
             Complete your player information, review the
             tournament policies, and securely register for
-            the inaugural Gallaspy Invitational.
+            the inaugural Gallaspy Championship.
           </p>
         </div>
       </section>
@@ -553,7 +553,7 @@ export default function InvitationalCheckoutPage() {
               <SectionHeading
                 eyebrow="Step 02"
                 title="Player Information"
-                description="Enter the information for the golfer competing in the 2027 Gallaspy Invitational."
+                description="Enter the information for the golfer competing in the 2027 Gallaspy Championship."
               />
 
               <div className="mt-8 grid gap-5 sm:grid-cols-2">
@@ -723,7 +723,7 @@ export default function InvitationalCheckoutPage() {
               </p>
 
               <h2 className="mt-4 font-serif text-3xl">
-                2027 Gallaspy Invitational
+                2027 Gallaspy Championship
               </h2>
 
               <div className="mt-8 space-y-5 border-y border-white/10 py-7">

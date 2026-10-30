@@ -1,0 +1,62 @@
+/* Gallaspy manual tracer timeline preview */
+
+#playShotTracer .gallaspy-tracer-timing {
+  display: grid;
+  gap: 12px;
+  margin: 14px 0 0;
+  padding: 16px;
+  border: 1px solid #d9e2df;
+  border-radius: 14px;
+  background: #f5f8f6;
+  color: #143048;
+}
+
+#playShotTracer .gallaspy-tracer-timing[hidden],
+#playShotTracer .gallaspy-tracer-timing [hidden],
+#playShotTracer #shotTracerReset[hidden] {
+  display: none !important;
+}
+
+#playShotTracer .gallaspy-tracer-timing p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+#playShotTracer .gallaspy-tracer-timing label {
+  display: grid;
+  gap: 8px;
+  font-weight: 750;
+}
+
+#playShotTracer .gallaspy-tracer-timing input[type="range"] {
+  width: 100%;
+  accent-color: #155941;
+}
+
+#playShotTracer .gallaspy-tracer-timing-readout {
+  color: #40576a;
+  font-size: 0.88rem;
+}
+
+#playShotTracer .gallaspy-tracer-timing button {
+  min-height: 48px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #145440;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#playShotTracer .gallaspy-tracer-timing
+.gallaspy-tracer-preview-button {
+  background: #145440;
+  color: white;
+}
+
+#playShotTracer .gallaspy-tracer-timing
+button:not(.gallaspy-tracer-preview-button) {
+  background: white;
+  color: #145440;
+}

@@ -1,0 +1,269 @@
+/*
+ THE GALLASPY GOLF CLUB
+ COMMUNITY R8 — SOCIAL TIMELINE
+ Presentational only. No API or JavaScript changes.
+*/
+
+/* Main timeline */
+#nativeCommunityScreen .community-screen {
+  max-width: 680px;
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+#nativeCommunityScreen .community-title {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.7px;
+}
+
+#nativeCommunityScreen .community-header {
+  padding-bottom: 14px;
+}
+
+/* Faster, more approachable composer */
+#nativeCommunityScreen .community-composer {
+  margin: 12px 0 16px;
+  padding: 15px;
+  border: 1px solid #e2e8eb;
+  border-radius: 16px;
+  box-shadow: none;
+}
+
+#nativeCommunityScreen #communityPostBody {
+  min-height: 76px;
+  height: 76px;
+  padding: 13px 14px;
+  border-radius: 12px;
+  background: #f7f9f9;
+  border-color: #e4eaec;
+  font-size: 16px;
+}
+
+#nativeCommunityScreen #communityPublishButton {
+  border-radius: 999px;
+  background: #164b3a;
+  font-weight: 750;
+}
+
+/* X-inspired continuous feed */
+#nativeCommunityScreen #communityFeed > article.community-post {
+  padding: 17px 12px;
+  margin-bottom: 0;
+  border: 0;
+  border-bottom: 1px solid #e8edef;
+  border-radius: 0;
+  box-shadow: none;
+  background: #ffffff;
+}
+
+#nativeCommunityScreen .community-post-header {
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+#nativeCommunityScreen .community-post-avatar {
+  flex-basis: 44px;
+  width: 44px;
+  height: 44px;
+  background: #164b3a;
+}
+
+#nativeCommunityScreen .community-post-author {
+  color: #10263f;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+#nativeCommunityScreen .community-post-time {
+  color: #73818c;
+  font-size: 12px;
+}
+
+#nativeCommunityScreen .community-post-body {
+  color: #172b3c;
+  font-size: 15px;
+  line-height: 1.55;
+  margin-bottom: 8px;
+}
+
+/* Subtle, easy-to-tap engagement */
+#nativeCommunityScreen .gallaspy-social-actions {
+  margin-top: 12px;
+  padding-top: 9px;
+  border-top: 1px solid #f0f2f3;
+}
+
+#nativeCommunityScreen .gallaspy-social-action-row {
+  gap: 10px;
+}
+
+#nativeCommunityScreen .gallaspy-social-like,
+#nativeCommunityScreen .gallaspy-social-comments {
+  min-height: 44px;
+  padding: 10px;
+  border-radius: 999px;
+  background: transparent;
+  color: #526477;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+#nativeCommunityScreen .gallaspy-social-like[aria-pressed="true"] {
+  background: #fff1f3;
+  color: #b3293c;
+}
+
+#nativeCommunityScreen .gallaspy-post-menu > summary {
+  background: transparent;
+  border-color: transparent;
+  border-radius: 50%;
+}
+
+/* Accessibility */
+#nativeCommunityScreen .gallaspy-social-action:focus-visible,
+#nativeCommunityScreen .gallaspy-post-menu > summary:focus-visible {
+  outline: 2px solid #164b3a;
+  outline-offset: 2px;
+}
+
+@media (max-width: 360px) {
+  #nativeCommunityScreen .community-screen {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  #nativeCommunityScreen #communityFeed > article.community-post {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+
+/* GALLASPY R9.2 PUBLIC PROFILE — isolated foundation */
+#communityPublicProfileView[hidden] {
+  display: none !important;
+}
+
+#communityPublicProfileView {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 16px 18px 100px;
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #10263f;
+}
+
+.gallaspy-public-profile-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 0 18px;
+  border-bottom: 1px solid #e7ebee;
+}
+
+.gallaspy-public-profile-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.gallaspy-public-profile-back {
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  background: #f3f5f6;
+  color: #10263f;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.gallaspy-public-profile-content {
+  padding: 28px 0;
+}
+
+/* GALLASPY R9.2 VIEW VISIBILITY SAFETY */
+#nativeCommunityScreen #communityTimelineView[hidden],
+#nativeCommunityScreen #communityPublicProfileView[hidden] {
+  display: none !important;
+}
+
+
+/* GALLASPY R9.3 PUBLIC GOLFER PROFILE DESIGN */
+
+#communityPublicProfileView {
+  background: #ffffff;
+  color: #10263f;
+  min-height: 360px;
+}
+
+#communityPublicProfileView .gallaspy-public-profile-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  padding: 26px 16px 34px;
+}
+
+#communityPublicProfileView .gallaspy-public-profile-avatar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  background: #e8efec;
+  border: 3px solid #174d3c;
+  color: #174d3c;
+  font-family: inherit;
+  font-size: 44px;
+  font-weight: 800;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+#communityPublicProfileView .gallaspy-public-profile-avatar img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+#communityPublicProfileView .gallaspy-public-profile-details h3 {
+  margin: 8px 0 0;
+  color: #10263f;
+  font-family: inherit;
+  font-size: 25px;
+  font-weight: 800;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+#communityPublicProfileView .gallaspy-public-profile-details p {
+  margin: 0;
+  color: #174d3c;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+#communityPublicProfileView .gallaspy-public-profile-back {
+  flex-shrink: 0;
+  touch-action: manipulation;
+}
+
+#communityPublicProfileView .gallaspy-public-profile-content > p {
+  padding: 18px 8px;
+  color: #536374;
+  text-align: center;
+  line-height: 1.5;
+}

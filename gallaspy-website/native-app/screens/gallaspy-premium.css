@@ -1,0 +1,69 @@
+/* GALLASPY / NATIVE VISUAL SYSTEM — carefully scoped, loaded last.
+   Keeps approved white/navy/forest/red/gold and existing feature handlers. */
+:root {
+  --g-white: #ffffff;
+  --g-navy: #10263f;
+  --g-forest: #0c352d;
+  --g-red: #b32635;
+  --g-gold: #b89146;
+  --g-border: #dce5e7;
+  --g-muted: #5b6d7a;
+  --g-surface: #f5f8f9;
+}
+.content { padding-top: 18px; }
+.tabbar { background: rgba(16,38,63,.98); }
+.tab { min-height: 64px; }
+.tab-label { font-size: 10px; letter-spacing: .035em; font-weight: 750; }
+.tab.active::before { height: 3px; border-radius: 0 0 3px 3px; }
+.tab:focus-visible { outline: 2px solid #ffffff; outline-offset: -6px; }
+button { touch-action: manipulation; }
+#nativeHomeScreen .course-home-heading { padding: 3px 0 8px; }
+#nativeHomeScreen .home-personal-welcome { margin: 0 0 9px; color: var(--g-forest); font-size: 12px; font-weight: 800; letter-spacing: .04em; }
+#nativeHomeScreen .course-home-heading h1 { max-width: 100%; font-size: clamp(32px, 9vw, 44px); line-height: 1.05; letter-spacing: -.045em; }
+#nativeHomeScreen .home-mission { margin: 12px 0 0; color: var(--g-muted); font-size: 13px; line-height: 1.5; max-width: 42ch; }
+#nativeHomeScreen .course-home-feature { margin-top: 18px; padding: 24px 20px; border-radius: 18px; }
+#nativeHomeScreen .course-home-feature h2 { max-width: 18ch; }
+#nativeHomeScreen .course-home-start { min-height: 50px; }
+#nativeHomeScreen .course-home-grid { gap: 10px; }
+#nativeHomeScreen .course-home-grid > .course-home-tile:not([data-home-community]) {
+  min-height: 118px; padding: 15px; border: 1px solid var(--g-border); border-radius: 14px;
+  background: #ffffff; color: var(--g-navy); box-shadow: 0 3px 15px rgba(16,38,63,.045);
+}
+#nativeHomeScreen .course-home-grid > .course-home-tile:not([data-home-community]):active { background: var(--g-surface); }
+#nativeHomeScreen .course-home-grid > .course-home-tile:not([data-home-community]) :is(strong,.course-home-tile-icon) { color: var(--g-navy); }
+#nativeHomeScreen .course-home-grid > .course-home-tile:not([data-home-community]) .course-home-tile-icon { color: var(--g-forest); }
+#nativeHomeScreen .course-home-grid > .course-home-tile:not([data-home-community]) small { color: var(--g-muted); }
+#nativeHomeScreen .course-home-grid > [data-home-community] {
+  grid-column: 1 / -1; min-height: 104px; padding: 17px; background: var(--g-forest);
+  border: 1px solid var(--g-forest); border-radius: 15px; box-shadow: none;
+}
+#nativeHomeScreen .course-home-grid > [data-home-community] :is(strong,.course-home-tile-icon) { color: #ffffff; }
+#nativeHomeScreen .course-home-grid > [data-home-community] small { color: #e0e9e6; }
+#nativeHomeScreen .course-home-grid > [data-home-community]:active { background: #092d26; }
+#nativeHomeScreen .home-section { margin-top: 25px; }
+#nativeHomeScreen .home-section-eyebrow { margin: 0 0 5px; color: var(--g-forest); font-size: 9px; letter-spacing: .10em; font-weight: 800; }
+#nativeHomeScreen .home-section-title { font-size: 15px; letter-spacing: -.02em; }
+#nativeHomeScreen .home-club-card { background: #ffffff; border: 1px solid var(--g-border); border-radius: 16px; padding: 20px; }
+#nativeHomeScreen .home-club-card h3 { font-size: 20px; line-height: 1.25; }
+#nativeHomeScreen .home-round-status { font-size: 11px; font-weight: 800; color: var(--g-forest); }
+#nativeHomeScreen .home-snapshot-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; }
+#nativeHomeScreen .home-stat { min-width: 0; min-height: 89px; background: var(--g-surface); border: 1px solid var(--g-border); border-radius: 14px; padding: 14px 9px; }
+#nativeHomeScreen .home-stat span { display: block; font-size: 9px; font-weight: 800; color: var(--g-muted); line-height: 1.3; }
+#nativeHomeScreen .home-stat strong { display: block; margin-top: 11px; font-size: clamp(21px,5vw,28px); font-weight: 800; color: var(--g-navy); line-height: 1; font-variant-numeric: tabular-nums; }
+#nativeHomeScreen .home-data-note { margin: 9px 0 0; color: var(--g-muted); font-size: 11px; line-height: 1.5; }
+#nativeHomeScreen .home-community-card { border-left: 3px solid var(--g-forest); }
+#nativeHomeScreen .home-section-link { min-height: 44px; display: inline-flex; align-items: center; padding: 9px 0; font-size: 11px; }
+#nativeHomeScreen .course-home-profile { border-radius: 15px; background: var(--g-surface); }
+#nativePlayScreen .play-dashboard-nav button, #nativeShopScreen .native-shop-product, #nativeMyGallaspyScreen .my-panel { transition: border-color 150ms ease, box-shadow 150ms ease; }
+#nativePlayScreen .play-dashboard-nav button:focus-visible, #nativeShopScreen button:focus-visible, #nativeMyGallaspyScreen button:focus-visible { outline: 3px solid var(--g-gold); outline-offset: 2px; }
+#nativeShopScreen .native-shop-filters button { min-height: 46px; }
+#nativeShopScreen .native-shop-filters button[aria-pressed="true"] { border-color: var(--g-forest); }
+@media (max-width: 350px) {
+  #nativeHomeScreen .home-snapshot-grid { gap: 6px; }
+  #nativeHomeScreen .home-stat { padding: 12px 7px; }
+  .tab-label { font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #nativeHomeScreen .course-home-tile, #nativePlayScreen .play-dashboard-nav button,
+  #nativeShopScreen .native-shop-product, #nativeMyGallaspyScreen .my-panel { transition: none !important; }
+}

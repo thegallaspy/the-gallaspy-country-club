@@ -2,7 +2,7 @@
 .play-heading { padding: 28px 0 32px; }
 .play-heading h2 {
   margin: 20px 0;
-  color: #f4f0e7;
+  color: #ffffff;
   font-size: clamp(36px, 9vw, 62px);
   line-height: 1;
   letter-spacing: -0.045em;
@@ -116,7 +116,7 @@
   border: 1px solid #607080;
   border-radius: 4px;
   background: transparent;
-  color: #f4f0e7;
+  color: #ffffff;
   font-weight: 800;
 }
 #playScoreMessage { color: #ffd76a; font-size: 13px; }
@@ -167,7 +167,7 @@
   border: 1px solid #607080;
   border-radius: 4px;
   background: #132a40;
-  color: #f4f0e7;
+  color: #ffffff;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: .02em;

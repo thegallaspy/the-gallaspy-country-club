@@ -28,10 +28,10 @@ const navigation = [
   },
   {
     title: "Compete",
-    href: "/invitational",
+    href: "/the-gallaspy",
     children: [
-      { title: "The Gallaspy Invitational", href: "/invitational" },
-      { title: "The Talaria Cup", href: "/talaria-cup" },
+      { title: "The Gallaspy", href: "/the-gallaspy" },
+      { title: "The Gallaspy Cup", href: "/gallaspy-cup" },
     ],
   },
   {

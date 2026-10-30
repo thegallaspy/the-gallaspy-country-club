@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata = {
-  title: "The Talaria Cup | The Gallaspy",
+  title: "The Gallaspy Cup | The Gallaspy",
   description:
-    "The Talaria Cup is The Gallaspy's annual team championship: Team Crest vs. Team Falcon in 18-hole singles match play.",
+    "The Gallaspy Cup is The Gallaspy's annual team championship: Team Crest vs. Team Falcon in 18-hole singles match play.",
 };
 
 const matchFormat = [
@@ -33,7 +33,7 @@ export default function TalariaCupPage() {
             </p>
 
             <h1 className="mt-7 text-[3.8rem] font-black uppercase leading-[0.84] tracking-[-0.06em] sm:text-[5.5rem] lg:text-[6.5rem]">
-              The Talaria
+              The Gallaspy
               <span className="block text-[#E56A70]">Cup.</span>
             </h1>
 
@@ -49,12 +49,12 @@ export default function TalariaCupPage() {
             </div>
           </div>
 
-          {/* RIGHT — OFFICIAL TALARIA CUP MARK */}
+          {/* RIGHT — OFFICIAL FALCON G BRANDMARK */}
           <div className="flex flex-col items-center justify-center text-center lg:min-h-[560px] lg:pl-10">
             <div className="relative flex w-full items-center justify-center">
               <Image
-                src="/talaria-cup-logo.png"
-                alt="The Talaria Cup"
+                src="/logos/official/the-gallaspy-cup.png"
+                alt="Official The Gallaspy Cup logo"
                 width={700}
                 height={700}
                 priority
@@ -168,7 +168,7 @@ export default function TalariaCupPage() {
 
             <div>
               <p className="max-w-2xl text-base leading-8 text-[#33475B]/75">
-                The inaugural Talaria Cup is structured around eight golfers
+                The inaugural Gallaspy Cup is structured around eight golfers
                 representing Team Crest and eight representing Team Falcon.
                 Each player competes against one opponent over 18 holes of
                 singles match play.
@@ -234,7 +234,7 @@ export default function TalariaCupPage() {
 
               <p className="mt-8 max-w-2xl text-sm leading-7 text-white/60 sm:text-base sm:leading-8">
                 Eight total points are available. The first team to reach
-                4½ points wins the Talaria Cup and the Team Championship.
+                4½ points wins the Gallaspy Cup and the Team Championship.
               </p>
             </div>
           </div>
@@ -247,7 +247,7 @@ export default function TalariaCupPage() {
           <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
             <div>
               <p className="text-[9px] font-black uppercase tracking-[0.34em] text-[#B3262D]">
-                Talaria Cup Week
+                Gallaspy Cup Week
               </p>
 
               <h2 className="mt-5 text-[2.8rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4rem]">
@@ -317,7 +317,7 @@ export default function TalariaCupPage() {
               <p className="mt-5 max-w-2xl text-base leading-8 text-white/65">
                 The selected players return to the designated playoff hole and
                 compete head-to-head, one hole at a time, until one player wins
-                a hole and decides the Talaria Cup.
+                a hole and decides the Gallaspy Cup.
               </p>
             </div>
           </div>
@@ -377,7 +377,7 @@ export default function TalariaCupPage() {
 
             <div>
               <h2 className="max-w-3xl text-[2.5rem] font-black uppercase leading-[0.9] tracking-[-0.05em] sm:text-[3.5rem]">
-                The First Talaria Cup
+                The First Gallaspy Cup
                 <span className="block text-[#0C352D]">
                   Is Still Ahead.
                 </span>
@@ -385,7 +385,7 @@ export default function TalariaCupPage() {
 
               <p className="mt-6 max-w-2xl text-sm leading-7 text-[#33475B]/70">
                 The inaugural competition will establish the first champion,
-                first match results, and opening entry in the Talaria Cup
+                first match results, and opening entry in the Gallaspy Cup
                 series. The record will grow from what actually happens on the
                 course.
               </p>
@@ -398,7 +398,7 @@ export default function TalariaCupPage() {
       <section className="bg-[#10263F] px-5 py-20 text-center text-white sm:px-8 lg:py-28">
         <div className="mx-auto max-w-[1000px]">
           <p className="text-[9px] font-black uppercase tracking-[0.38em] text-[#FFD76A]">
-            The Talaria Cup
+            The Gallaspy Cup
           </p>
 
           <h2 className="mt-7 text-[3rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4.5rem] lg:text-[5.5rem]">

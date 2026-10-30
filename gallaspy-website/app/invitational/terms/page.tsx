@@ -3,9 +3,9 @@ import Link from "next/link";
 import InvitationalNav from "@/components/invitational/InvitationalNav";
 
 export const metadata: Metadata = {
-  title: "Participant Terms & Conditions | The Gallaspy Invitational",
+  title: "Participant Terms & Conditions | THE GALLASPY CHAMPIONSHIP",
   description:
-    "Participant Terms & Conditions for The Gallaspy Invitational.",
+    "Participant Terms & Conditions for THE GALLASPY CHAMPIONSHIP.",
 };
 
 export default function InvitationalTermsPage() {
@@ -20,11 +20,11 @@ export default function InvitationalTermsPage() {
             href="/invitational"
             className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/60 transition hover:text-[#FFD76A]"
           >
-            ← Back to Invitational
+            ← Back to THE GALLASPY
           </Link>
 
           <p className="mt-12 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A]">
-            The Gallaspy Invitational
+            THE GALLASPY CHAMPIONSHIP
           </p>
 
           <h1 className="mt-5 max-w-4xl font-serif text-5xl leading-[0.98] sm:text-6xl lg:text-7xl">
@@ -36,7 +36,7 @@ export default function InvitationalTermsPage() {
 
           <p className="mt-8 max-w-2xl text-base leading-8 text-white/70">
             These terms establish the conditions governing registration and
-            participation in the 2027 Gallaspy Invitational.
+            participation in the 2027 Gallaspy Championship.
           </p>
         </div>
       </section>
@@ -53,7 +53,7 @@ export default function InvitationalTermsPage() {
 
           <div className="space-y-12">
             <TermSection number="01" title="Agreement to Terms">
-              By completing a paid registration for The Gallaspy Invitational,
+              By completing a paid registration for THE GALLASPY CHAMPIONSHIP,
               the participant acknowledges that they have reviewed and agreed to
               these Participant Terms & Conditions, together with any applicable
               tournament rules, refund and cancellation policy, liability waiver,
@@ -61,8 +61,8 @@ export default function InvitationalTermsPage() {
             </TermSection>
 
             <TermSection number="02" title="Event Organizer">
-              The Gallaspy Invitational is organized by The Gallaspy Development
-              Group, LLC. References to “The Gallaspy,” “the Invitational,” “we,”
+              THE GALLASPY CHAMPIONSHIP is organized by The Gallaspy Development
+              Group, LLC. References to “The Gallaspy,” “the championship,” “we,”
               “us,” or “the organizer” in these terms refer to The Gallaspy
               Development Group, LLC as applicable to the administration of the
               event.
@@ -78,7 +78,7 @@ export default function InvitationalTermsPage() {
             </TermSection>
 
             <TermSection number="04" title="Field & Tournament Format">
-              The inaugural Gallaspy Invitational is planned as an 18-hole
+              The inaugural Gallaspy Championship is planned as an 18-hole
               individual stroke-play championship with a field of 72 players.
               Each participant competes individually and is responsible for
               completing and returning their own score in accordance with the
@@ -91,8 +91,7 @@ export default function InvitationalTermsPage() {
             </TermSection>
 
             <TermSection number="05" title="Registration Fees">
-              Registration fees and the benefits included with registration will
-              be displayed when official paid registration opens. Participants
+              Registration fees and any benefits included with registration are displayed during the official player checkout. Participants
               are responsible for providing accurate registration and payment
               information. A registration is not considered complete until the
               applicable payment has been successfully processed.
@@ -129,13 +128,13 @@ export default function InvitationalTermsPage() {
               modify, shorten, suspend, postpone, or reschedule tournament
               activities when reasonably necessary.
 
-              If the Invitational is rescheduled, registrations will ordinarily
+              If the championship is rescheduled, registrations will ordinarily
               transfer to the rescheduled date subject to the official Refund &
               Cancellation Policy and any applicable host-facility requirements.
             </TermSection>
 
             <TermSection number="10" title="Event Cancellation">
-              If The Gallaspy Invitational is cancelled by the organizer and is
+              If THE GALLASPY CHAMPIONSHIP is cancelled by the organizer and is
               not rescheduled, registered participants will be notified regarding
               the applicable refund or other remedy in accordance with the
               official Refund & Cancellation Policy. Any refund obligations may
@@ -159,7 +158,7 @@ export default function InvitationalTermsPage() {
               Every registered participant who satisfies the applicable tournament
               requirements is eligible to compete in the Gross Championship. The
               golfer recording the lowest actual gross score over 18 holes is
-              recognized as The Gallaspy Invitational Champion, subject to the
+              recognized as THE GALLASPY CHAMPION, subject to the
               Official Tournament Rules and resolution of any applicable tie.
 
               The Net Championship is a separate competition. Eligibility for the
@@ -177,7 +176,7 @@ export default function InvitationalTermsPage() {
             </TermSection>
 
             <TermSection number="13" title="Liability Waiver">
-              Participation in the Invitational is subject to the event&apos;s
+              Participation in the championship is subject to the event&apos;s
               Liability Waiver and Assumption of Risk. Participants will be
               required to acknowledge the applicable waiver as part of official
               paid registration before participating in the event.
@@ -222,7 +221,7 @@ export default function InvitationalTermsPage() {
               communications reasonably necessary to administer their
               registration and participation, including confirmations, event
               updates, schedule information, safety notices, and material changes
-              affecting the Invitational.
+              affecting the championship.
             </TermSection>
 
             <TermSection number="19" title="Policy Updates">
@@ -238,7 +237,7 @@ export default function InvitationalTermsPage() {
               <span className="mt-4 block font-semibold text-[#10263F]">
                 The Gallaspy Development Group, LLC
               </span>
-              <span className="block">The Gallaspy Invitational</span>
+              <span className="block">THE GALLASPY CHAMPIONSHIP</span>
               <span className="block">info@thegallaspy.com</span>
             </TermSection>
           </div>
@@ -279,8 +278,7 @@ export default function InvitationalTermsPage() {
             </h2>
 
             <p className="mt-4 max-w-xl text-sm leading-7 text-white/65">
-              Official paid registration has not opened yet. Join the priority
-              list to receive tournament registration announcements and updates.
+              Review the current player registration process and applicable policies. An entry is secured only after all requirements are met, payment succeeds, and the organizer accepts the registration.
             </p>
 
             <Link
@@ -292,9 +290,7 @@ export default function InvitationalTermsPage() {
           </div>
 
           <p className="mt-8 text-xs leading-6 text-[#10263F]/45">
-            These terms are provided for tournament administration and are not a
-            substitute for legal advice. Final event documents should be reviewed
-            for compliance with applicable law before paid registration opens.
+            Please review these terms and the official refund policy before registering. For questions, contact The Gallaspy Golf Club before submitting payment.
           </p>
         </div>
       </section>

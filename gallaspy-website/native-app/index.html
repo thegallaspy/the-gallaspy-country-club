@@ -7,7 +7,7 @@
     content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no"
   />
   <meta name="theme-color" content="#10263F" />
-  <meta name="color-scheme" content="dark" />
+  <meta name="color-scheme" content="light dark" />
   <title>The Gallaspy</title>
 
   <style>
@@ -15,7 +15,7 @@
       --navy: #10263F;
       --navy-deep: #081F5C;
       --green: #0C352D;
-      --cream: #F4F0E7;
+      --cream: #FFFFFF;
       --gold: #FFD76A;
       --muted-gold: #B89146;
       --white: #FFFFFF;
@@ -555,11 +555,26 @@
   <link rel="stylesheet" href="./screens/golf-rules.css">
   <link rel="stylesheet" href="./screens/ai-caddie.css">
   <link rel="stylesheet" href="./screens/my-gallaspy.css">
+  <link rel="stylesheet" href="./screens/my-gallaspy-v3.css">
+  <link rel="stylesheet" href="./screens/my-membership-cancel.css">
   <link rel="stylesheet" href="./screens/welcome.css">
   <link rel="stylesheet" href="./screens/home.css">
+  <link rel="stylesheet" href="./screens/community.css">
   <link rel="stylesheet" href="./screens/shop-catalog.css">
   <link rel="stylesheet" href="./screens/play-refresh.css">
   <link rel="stylesheet" href="./screens/shot-tracer.css">
+  <link rel="stylesheet" href="./screens/checkout.css">
+  <link rel="stylesheet" href="./screens/gallaspy-premium.css">
+  <link rel="stylesheet" href="./screens/gallaspy-design-v4.css">
+  <link rel="stylesheet" href="./screens/profile-avatar.css">
+  <link rel="stylesheet" href="./screens/community-v6.css">
+  <link rel="stylesheet" href="./screens/community-photos.css">
+<link rel="stylesheet" href="./screens/community-r8.css">
+  <link rel="stylesheet" href="./screens/shot-tracer-camera-v6.css">
+  <link rel="stylesheet" href="./styles/gallaspy-events.css">
+  <link rel="stylesheet" href="./styles/golf-partners-enhancements.css">
+  <link rel="stylesheet" href="./screens/shot-tracer-preview.css">
+  <link rel="stylesheet" href="./screens/shot-tracer-studio.css">
 </head>
 
 <body>
@@ -736,8 +751,10 @@
         <section class="course-home">
           <div class="course-home-heading">
             <div>
-              <p class="intro-label">THE GALLASPY GOLF CLUB</p>
+              <p class="intro-label">THE DIGITAL CLUBHOUSE</p>
+              <p id="homePersonalWelcome" class="home-personal-welcome" aria-live="polite">WELCOME TO YOUR CLUBHOUSE</p>
               <h1>PLAY.<span>COMPETE. GATHER.</span></h1>
+              <p class="home-mission">Play better. Play together. Belong to something greater.</p>
             </div>
           </div>
 
@@ -747,41 +764,11 @@
             <p>Ready when you are.</p>
             <button type="button"
                     class="course-home-start"
-                    data-home-play="playScorecardLaunch">
-              <span>START A ROUND</span>
+                    data-home-host-round>
+              <span>HOST A ROUND</span>
               <span aria-hidden="true">→</span>
             </button>
           </section>
-
-          <section class="home-section" aria-labelledby="homeRoundsTitle">
-        <div class="home-section-heading">
-          <h2 class="home-section-title" id="homeRoundsTitle">GALLASPY ROUNDS</h2>
-          <button type="button" class="home-section-link"
-                  data-home-play="playClubRounds">VIEW ALL →</button>
-        </div>
-        <div class="home-club-card">
-          <p class="home-club-card-label">PLAY WITH THE CLUB</p>
-          <h3>Your next round starts here.</h3>
-          <p>Explore upcoming Gallaspy Rounds, courses, and registration opportunities.</p>
-          <button type="button" class="home-section-link"
-                  data-home-play="playClubRounds">EXPLORE CLUB ROUNDS →</button>
-        </div>
-      </section>
-
-      <section class="home-section" aria-labelledby="homeRewardsTitle">
-        <div class="home-section-heading">
-          <h2 class="home-section-title" id="homeRewardsTitle">GALLASPY REWARDS</h2>
-          <button type="button" class="home-section-link"
-                  data-home-rewards>MY POINTS →</button>
-        </div>
-        <div class="home-club-card home-rewards-card">
-          <p class="home-club-card-label">GALLASPY CLUB POINTS</p>
-          <h3>Every round. More rewards.</h3>
-          <p>Explore your Club Points, points activity, and rewards program.</p>
-          <button type="button" class="home-section-link"
-                  data-home-rewards>VIEW CLUB POINTS &amp; REWARDS →</button>
-        </div>
-      </section>
 
       <p class="course-home-label">QUICK ACCESS</p>
 
@@ -815,11 +802,73 @@
             </button>
             <button type="button" class="course-home-tile"
                     data-home-community>
-              <span class="course-home-tile-icon" aria-hidden="true">◎</span>
+              <span class="course-home-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H8l-4 3v-6A7.5 7.5 0 1 1 20 11.5Z"/><path d="M8 11h8M8 14h5"/></svg></span>
               <strong>COMMUNITY</strong>
-              <small>Connect with Gallaspy golfers</small>
+              <small>Connect. Share. Play.</small>
             </button>
           </div>
+
+          <section class="home-section home-snapshot" aria-labelledby="homeSnapshotTitle">
+            <div class="home-section-heading">
+              <div>
+                <p class="home-section-eyebrow">YOUR GOLF JOURNEY</p>
+                <h2 class="home-section-title" id="homeSnapshotTitle">MY GOLF SNAPSHOT</h2>
+              </div>
+              <button type="button" class="home-section-link" data-route="/my-gallaspy">MY GOLF →</button>
+            </div>
+            <div class="home-snapshot-grid" aria-label="Golf statistics saved on this device">
+              <div class="home-stat"><span>ROUNDS</span><strong id="homeRoundsCount">—</strong></div>
+              <div class="home-stat"><span>COURSES</span><strong id="homeCoursesCount">—</strong></div>
+              <div class="home-stat"><span>AVG · 18 HOLES</span><strong id="homeAverage18">—</strong></div>
+            </div>
+            <p class="home-data-note" id="homeRoundSummary">Scores saved on this device · not official handicap records.</p>
+          </section>
+
+          <section class="home-section" aria-labelledby="homeRoundsTitle">
+        <div class="home-section-heading">
+          <h2 class="home-section-title" id="homeRoundsTitle">GALLASPY ROUNDS</h2>
+          <button type="button" class="home-section-link"
+                  data-home-play="playClubRounds">VIEW ALL →</button>
+        </div>
+        <div class="home-club-card">
+          <p class="home-club-card-label">PLAY WITH THE CLUB</p>
+          <h3 id="homeNextRoundName">Finding the next Gallaspy Round…</h3>
+          <p id="homeNextRoundDetails" aria-live="polite">Upcoming club golf opportunities will appear here.</p>
+          <p id="homeNextRoundStatus" class="home-round-status"></p>
+          <button type="button" class="home-section-link"
+                  data-home-play="playClubRounds">EXPLORE CLUB ROUNDS →</button>
+        </div>
+      </section>
+
+      <section class="home-section home-community-section" aria-labelledby="homeCommunityTitle">
+        <div class="home-section-heading">
+          <div>
+            <p class="home-section-eyebrow">GOLF IS BETTER TOGETHER</p>
+            <h2 class="home-section-title" id="homeCommunityTitle">AROUND THE CLUB</h2>
+          </div>
+        </div>
+        <div class="home-club-card home-community-card">
+          <p class="home-club-card-label">THE GALLASPY COMMUNITY</p>
+          <h3>Find your people. Share your game.</h3>
+          <p>Catch up with fellow golfers, celebrate your rounds, and join the conversation.</p>
+          <button type="button" class="home-section-link" data-home-community>OPEN COMMUNITY →</button>
+        </div>
+      </section>
+
+      <section class="home-section" aria-labelledby="homeRewardsTitle">
+        <div class="home-section-heading">
+          <h2 class="home-section-title" id="homeRewardsTitle">GALLASPY REWARDS</h2>
+          <button type="button" class="home-section-link"
+                  data-home-rewards>MY POINTS →</button>
+        </div>
+        <div class="home-club-card home-rewards-card">
+          <p class="home-club-card-label">GALLASPY CLUB POINTS</p>
+          <h3>Play together. Earn Club Points.</h3>
+          <p>Track verified Gallaspy activities, eligible purchases, and your available rewards in My Gallaspy.</p>
+          <button type="button" class="home-section-link"
+                  data-home-rewards>VIEW CLUB POINTS &amp; REWARDS →</button>
+        </div>
+      </section>
 
           <button type="button" class="course-home-profile"
                   data-route="/my-gallaspy">
@@ -832,35 +881,72 @@
         </section>
       </div>
       <div class="native-screen" id="nativeCommunityScreen" hidden>
-        <section class="community-screen">
-          <button type="button" id="communityBackHome"
-                  class="home-section-link">← BACK TO HOME</button>
+      <!-- GALLASPY R9.2 PUBLIC PROFILE: hidden until activated -->
+      <section id="communityPublicProfileView"
+               class="gallaspy-public-profile"
+               aria-label="Golfer public profile"
+               hidden>
+        <header class="gallaspy-public-profile-header">
+          <button type="button"
+                  id="communityPublicProfileBack"
+                  class="gallaspy-public-profile-back"
+                  aria-label="Back to Community">←</button>
+          <h2>Golfer Profile</h2>
+        </header>
+        <div id="communityPublicProfileContent"
+             class="gallaspy-public-profile-content"
+             aria-live="polite"></div>
+      </section>
 
-          <p class="intro-label">THE GALLASPY GOLF CLUB</p>
-          <h2>THE COMMUNITY.</h2>
-          <p>Share your rounds, connect with golfers, and celebrate the game.</p>
+        <section class="community-screen" id="communityTimelineView">
+          <header class="community-header">
+            <button type="button" id="communityBackHome"
+                    class="community-back" aria-label="Back to Home">←</button>
+            <h2 class="community-title">Community</h2>
+          </header>
 
-          <section class="home-club-card" aria-label="Create community post">
+          <section class="community-username-setup" id="communityUsernameSetup" aria-label="Choose your Community username" hidden>
+            <h3>CHOOSE YOUR COMMUNITY USERNAME</h3>
+            <p>Create a unique username so other golfers can recognize you.</p>
+            <label for="communityUsernameInput">Your username</label>
+            <div class="community-username-field">
+              <span aria-hidden="true">@</span>
+              <input id="communityUsernameInput" type="text" placeholder="yourusername" minlength="3" maxlength="20" autocomplete="off" autocapitalize="none" spellcheck="false">
+            </div>
+            <p class="community-username-hint">3–20 characters. Letters, numbers, underscores and periods.</p>
+            <button type="button" id="communitySaveUsernameButton">SAVE USERNAME</button>
+            <p id="communityUsernameStatus" role="status" aria-live="polite"></p>
+            <p class="community-username-policy">You can change your username once every 30 days. Your private golfer profile stays private.</p>
+          </section>
+
+          <section class="community-composer" aria-label="Create community post">
             <h3>SHARE WITH THE CLUB</h3>
             <textarea id="communityPostBody"
                       maxlength="3000"
                       rows="4"
                       placeholder="What's happening in your golf world?"></textarea>
-            <button type="button" id="communityPublishButton"
-                    class="course-home-start">
-              PUBLISH POST →
+            <label class="gallaspy-photo-choose" for="communityPhotoFiles">
+              + ADD PHOTOS (UP TO 4)
+              <input id="communityPhotoFiles" type="file" accept="image/*" multiple aria-describedby="communityPhotoInfo">
+            </label>
+            <p id="communityPhotoInfo" role="status" aria-live="polite">Add up to four course or golf photos.</p>
+            <div id="communityPhotoPreview" aria-label="Selected photo previews"></div>
+            <button type="button" id="communityRemovePhotos" hidden>REMOVE SELECTED PHOTOS</button>
+            <button type="button" id="communityPublishButton">
+              POST →
             </button>
             <p id="communityPostStatus" role="status" aria-live="polite"></p>
           </section>
 
           <section aria-label="Community posts">
-            <h3>RECENT POSTS</h3>
+            <h3 class="community-feed-heading">Latest posts</h3>
             <div id="communityFeed" aria-live="polite">
               <p>Community posts will appear here.</p>
             </div>
           </section>
         </section>
       </div>
+
       <div class="native-screen" id="nativeAiCaddieScreen" hidden>
         <section class="caddie-screen">
           <button type="button" id="caddieBackHome">
@@ -1011,8 +1097,13 @@
           <h3>SHOT TRACER.</h3>
           <p>Capture your swing. Trace your ball flight.</p>
           <div class="gallaspy-shot-tracer">
-            <label for="shotTracerVideo">IMPORT A GOLF SHOT</label>
-            <input id="shotTracerVideo" type="file" accept="video/*">
+            <div class="gallaspy-shot-capture-choices">
+              <label for="shotTracerCaptureVideo">● RECORD A SHOT</label>
+              <input id="shotTracerCaptureVideo" type="file" accept="video/*" capture="environment">
+              <label for="shotTracerVideo">↑ IMPORT VIDEO</label>
+              <input id="shotTracerVideo" type="file" accept="video/*">
+            </div>
+            <p class="gallaspy-shot-capture-note">Record from behind the golfer with the ball and sky in view. Automatic tracking requires further camera and ball-flight testing.</p>
             <div class="shot-tracer-stage" id="shotTracerStage" hidden>
               <video id="shotTracerPreview" controls playsinline></video>
               <svg id="shotTracerOverlay" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-label="Adjustable ball-flight trajectory"></svg>
@@ -1077,11 +1168,11 @@
           <p>Different courses. One club. Explore upcoming rounds and register to join us on the course.</p>
           <button type="button"
                   id="playToggleRounds"
-                  aria-expanded="false"
+                  aria-expanded="true"
                   aria-controls="nativeRoundsList">
-            VIEW GALLASPY ROUNDS →
+            HIDE GALLASPY ROUNDS ↑
           </button>
-          <div id="nativeRoundsList" aria-live="polite" hidden>
+          <div id="nativeRoundsList" aria-live="polite">
             <p class="rounds-message">Loading club rounds...</p>
           </div>
         </section>
@@ -1171,8 +1262,8 @@
 
         <section class="play-stats" data-play-panel="progress">
           <div><span>ROUNDS LOGGED</span><strong id="playRoundsCount">0</strong></div>
-          <div><span>BEST SCORE</span><strong id="playBestScore">—</strong></div>
-          <div><span>AVERAGE SCORE</span><strong id="playAverageScore">—</strong></div>
+          <div><span>BEST · 18 HOLES</span><strong id="playBestScore">—</strong></div>
+          <div><span>AVG · 18 HOLES</span><strong id="playAverageScore">—</strong></div>
         </section>
 
         <section class="play-feature" id="playScorecardLaunch">
@@ -1415,8 +1506,8 @@
         <section class="native-shop-member-entry" aria-label="Private member access">
           <p class="intro-label">PRIVATE COLLECTIONS</p>
           <h3>MEMBERS ACCESS.</h3>
-          <p>Explore exclusive Gallaspy apparel through the private members entrance.</p>
-          <button type="button" data-shop-exclusive="falcon-society">FALCON SOCIETY ACCESS →</button>
+          <p>Preview members-only apparel. Purchasing requires verified club eligibility.</p>
+          <button type="button" data-shop-exclusive="members">ENTER MEMBERS STORE →</button>
         </section>
 
         <div id="nativeShopMemberCollections">
@@ -1442,6 +1533,89 @@
         </div>
       </div>
 
+      <div class="native-screen" id="nativeCheckoutScreen" hidden>
+        <section class="my-heading">
+          <p class="intro-label">THE GALLASPY PRO SHOP</p>
+          <h2>CHECKOUT.</h2>
+          <p>Complete your order securely.</p>
+        </section>
+
+        <section class="my-panel">
+          <button type="button" id="nativeCheckoutBack"
+                  class="my-action">
+            ← BACK TO SHOP
+          </button>
+        </section>
+
+        <form id="nativeCheckoutForm" novalidate>
+          <section class="my-panel">
+            <p class="intro-label">STEP 01</p>
+            <h3>CONTACT INFORMATION.</h3>
+
+            <label for="checkoutFirstName">First name</label>
+            <input id="checkoutFirstName" name="firstName"
+                   autocomplete="given-name" required>
+
+            <label for="checkoutLastName">Last name</label>
+            <input id="checkoutLastName" name="lastName"
+                   autocomplete="family-name" required>
+
+            <label for="checkoutEmail">Email address</label>
+            <input id="checkoutEmail" name="email" type="email"
+                   autocomplete="email" required>
+
+            <label for="checkoutPhone">Phone number</label>
+            <input id="checkoutPhone" name="phone" type="tel"
+                   autocomplete="tel">
+          </section>
+
+          <section class="my-panel">
+            <p class="intro-label">STEP 02</p>
+            <h3>SHIPPING ADDRESS.</h3>
+
+            <label for="checkoutAddress1">Street address</label>
+            <input id="checkoutAddress1" name="address1"
+                   autocomplete="address-line1" required>
+
+            <label for="checkoutAddress2">Apartment, suite, etc.</label>
+            <input id="checkoutAddress2" name="address2"
+                   autocomplete="address-line2">
+
+            <label for="checkoutCity">City</label>
+            <input id="checkoutCity" name="city"
+                   autocomplete="address-level2" required>
+
+            <label for="checkoutState">State</label>
+            <input id="checkoutState" name="state"
+                   autocomplete="address-level1" required>
+
+            <label for="checkoutPostalCode">ZIP code</label>
+            <input id="checkoutPostalCode" name="postalCode"
+                   autocomplete="postal-code" required>
+          </section>
+
+          <section class="my-panel">
+            <p class="intro-label">STEP 03</p>
+            <h3>ORDER REVIEW.</h3>
+            <div id="nativeCheckoutOrderSummary"></div>
+            <p>Shipping and any applicable taxes will be
+               confirmed before payment.</p>
+          </section>
+
+          <section class="my-panel">
+            <p class="intro-label">STEP 04</p>
+            <h3>SECURE PAYMENT.</h3>
+            <p>Secure payment integration is being prepared.
+               No payment will be collected on this screen yet.</p>
+            <button type="button" id="nativeCheckoutPay" disabled>
+              PAYMENT COMING SOON
+            </button>
+            <p id="nativeCheckoutMessage"
+               role="status" aria-live="polite"></p>
+          </section>
+        </form>
+      </div>
+
       <div class="native-screen" id="nativeMyGallaspyScreen" hidden>
         <section class="my-heading">
           <p class="intro-label">THE GALLASPY GOLF CLUB</p>
@@ -1453,6 +1627,34 @@
             </button>
           </div>
           <p>Your personal space inside the club.</p>
+        </section>
+
+        <section class="my-player-identity"
+                 id="myPlayerIdentity"
+                 aria-label="Gallaspy player identity">
+          <div class="my-identity-top">
+            <div class="my-identity-avatar" aria-hidden="true">
+              <span id="myIdentityInitials">G</span>
+            </div>
+            <div class="my-identity-details">
+              <p class="my-identity-eyebrow">YOUR GALLASPY PROFILE</p>
+              <h3 id="myIdentityName">GALLASPY GOLFER</h3>
+              <p id="myIdentityStatus">Checking account status...</p>
+            </div>
+          </div>
+          <div class="my-identity-footer">
+            <div>
+              <span>GALLASPY GOLF ID</span>
+              <strong id="myIdentityGolfId">NOT ASSIGNED</strong>
+            </div>
+            <div>
+              <span>HANDICAP INDEX</span>
+              <strong id="myIdentityHandicap">—</strong>
+            </div>
+          </div>
+          <p class="my-identity-note">
+            A player profile does not establish official club membership.
+          </p>
         </section>
 
         <section class="my-panel" id="myCloudProfile" hidden>
@@ -1479,6 +1681,40 @@
           <p id="myProfileMessage" role="status" aria-live="polite"></p>
         </section>
 
+        <section class="my-v3-performance" id="myGolfPerformance">
+          <h3>YOUR GAME</h3>
+<section class="my-stats">
+          <div>
+            <span>ROUNDS PLAYED</span>
+            <strong id="myRoundsPlayed">0</strong>
+          </div>
+          <div>
+            <span>BEST · 18 HOLES</span>
+            <strong id="myBestScore">—</strong>
+          </div>
+          <div>
+            <span>AVG · 18 HOLES</span>
+            <strong id="myAverageScore">—</strong>
+          </div>
+        </section>
+        </section>
+
+        <div class="my-v3-clubhouse-intro" id="myClubhouseIntro">
+          <p>YOUR CLUBHOUSE</p>
+          <h3>Everything golf. All yours.</h3>
+        </div>
+
+        <nav class="my-v2-navigation"
+             id="myDashboardNavigation"
+             aria-label="My Gallaspy sections">
+          <button type="button" data-my-view="overview"
+                  class="my-v2-nav-active">OVERVIEW</button>
+          <button type="button" data-my-view="golf">MY GOLF</button>
+          <button type="button" data-my-view="points">CLUB POINTS</button>
+          <button type="button" data-my-view="passport">PASSPORT</button>
+          <button type="button" data-my-view="membership">MEMBERSHIP</button>
+        </nav>
+
         <section class="my-dashboard-content">
           <h3 id="myPlayerGreeting" class="my-dashboard-greeting">
             WELCOME, GOLFER.
@@ -1488,20 +1724,7 @@
             <a href="#myGolfPassport">GOLF PASSPORT</a>
             <a href="#myMembershipSection">MEMBERSHIP</a>
           </nav>
-        <section class="my-stats">
-          <div>
-            <span>ROUNDS PLAYED</span>
-            <strong id="myRoundsPlayed">0</strong>
-          </div>
-          <div>
-            <span>BEST SCORE</span>
-            <strong id="myBestScore">—</strong>
-          </div>
-          <div>
-            <span>AVERAGE SCORE</span>
-            <strong id="myAverageScore">—</strong>
-          </div>
-        </section>
+
 
         <section class="my-panel my-club-points" id="myClubPoints">
           <p class="intro-label">THE GALLASPY REWARDS PROGRAM</p>
@@ -1660,24 +1883,112 @@
         <section class="my-panel">
           <p class="intro-label">THE FOUNDING 100</p>
           <h3>FALCON SOCIETY.</h3>
-          <p>Private access for founding members of The Gallaspy.</p>
+          <p>
+            The Falcon Society recognizes up to 100 approved
+            founding members of The Gallaspy Golf Club.
+            Founder status requires official verification.
+          </p>
           <button id="myFalconSociety" type="button" class="my-action">
-            ENTER MEMBERS ROOM →
+            CHECK FOUNDER STATUS →
           </button>
         </section>
 
         <section class="my-panel" id="myMembershipSection">
-          <p class="intro-label">YOUR MEMBERSHIP</p>
-          <h3>EXPLORE THE CLUB.</h3>
-          <p>Discover Gallaspy membership opportunities and club benefits.</p>
+          <p class="intro-label">THE GALLASPY GOLF CLUB</p>
+          <h3>YOUR MEMBERSHIP.</h3>
+          <p id="myMembershipMessage" role="status" aria-live="polite">
+            Sign in to check your official membership status.
+          </p>
+
+          <div class="my-membership-details">
+            <div>
+              <span>MEMBERSHIP STATUS</span>
+              <strong id="myMembershipStatus">NOT VERIFIED</strong>
+            </div>
+            <div>
+              <span>MEMBERSHIP NUMBER</span>
+              <strong id="myMembershipNumber">—</strong>
+            </div>
+            <div>
+              <span>MEMBERSHIP TYPE</span>
+              <strong id="myMembershipType">—</strong>
+            </div>
+            <div>
+              <span>FALCON SOCIETY FOUNDER</span>
+              <strong id="myMembershipFounder">—</strong>
+            </div>
+          </div>
+
+
+          <div class="my-membership-benefits">
+            <p class="intro-label">THE GALLASPY GOLF CLUB</p>
+            <h4>BELONG TO SOMETHING GREATER.</h4>
+            <p class="membership-tagline">
+              Great golf. Genuine connections. A club to call your own.
+            </p>
+
+            <div class="membership-price">
+              <span>STANDARD MEMBERSHIP</span>
+              <strong>$100 <small>/ MONTH</small></strong>
+            </div>
+
+            <p id="myMembershipBenefitsMessage"
+               role="status"
+               aria-live="polite">
+              Discover the Gallaspy experience.
+            </p>
+
+            <div class="membership-benefit-group">
+              <p class="intro-label">THE GALLASPY EXPERIENCE</p>
+              <ul>
+                <li>
+                  <strong>THE MONTHLY ROUND</strong>
+                  <span>Organized golf with your club.</span>
+                </li>
+                <li>
+                  <strong>MORE WAYS TO PLAY</strong>
+                  <span>Monthly golf activities and competitions.</span>
+                </li>
+                <li>
+                  <strong>THE CLUBHOUSE</strong>
+                  <span>Connect through monthly social experiences.</span>
+                </li>
+                <li>
+                  <strong>GOLF PARTNERS</strong>
+                  <span>Find your next playing partner.</span>
+                </li>
+                <li>
+                  <strong>THE PRO SHOP</strong>
+                  <span>Up to 25% off select apparel.</span>
+                </li>
+                <li>
+                  <strong>GALLASPY REWARDS</strong>
+                  <span>Earn points through eligible club activities.</span>
+                </li>
+                <li>
+                  <strong>YOUR GOLF LEGACY</strong>
+                  <span>Build your Golf Passport.</span>
+                </li>
+              </ul>
+            </div>
+
+            <p class="membership-benefit-note">
+              Green fees are separate. Benefits are available
+              to eligible verified members.
+            </p>
+          </div>
+
           <button id="myMembership" type="button" class="my-action">
-            VIEW MEMBERSHIP →
+            BECOME A MEMBER →
           </button>
         </section>
 
         <p class="my-disclaimer">
-          Your profile and scores are stored on this device.
-          They are not yet synchronized with an online account.
+          Some golf activity and profile information may be stored
+          on this device. Verified player records, Club Points,
+          and official membership information are managed separately.
+          Creating an app account does not automatically grant
+          membership in The Gallaspy Golf Club or Falcon Society.
         </p>
         </section>
       </div>
@@ -1770,6 +2081,9 @@
   <script src="./screens/golf-rules.js"></script>
   <script src="./screens/play-dashboard.js"></script>
   <script src="./screens/home-shortcuts.js"></script>
+  <script src="./screens/home-clubhouse.js"></script>
+  <script src="./screens/gallaspy-events.js"></script>
+  <script src="./screens/community-photos.js"></script>
   <script src="./screens/community.js"></script>
   <script src="./screens/ai-caddie.js"></script>
   <script src="./screens/foursomes.js"></script>
@@ -1783,13 +2097,22 @@
   <script src="./screens/shop-bag.js"></script>
   <script src="./screens/shop-catalog.js"></script>
   <script src="./screens/shop-bag-view.js"></script>
+  <script src="./screens/checkout.js"></script>
   <script src="./screens/my-gallaspy.js"></script>
+  <script src="./screens/profile-avatar.js"></script>
+  <script src="./screens/my-dashboard-nav.js"></script>
   <script src="./screens/my-club-points.js"></script>
+  <script src="./screens/my-membership.js"></script>
+  <script src="./screens/my-membership-cancel.js"></script>
   <script src="./screens/my-round-admin.js"></script>
   <script src="./screens/golf-passport.js"></script>
 
 
 
   <script src="./screens/shot-tracer.js"></script>
+  <script src="./screens/shot-tracer-editor.js"></script>
+  <script src="./screens/shot-tracer-preview.js"></script>
+  <script src="./screens/shot-tracer-studio.js"></script>
+  <script src="./screens/shot-tracer-auto-research.js"></script>
 </body>
 </html>

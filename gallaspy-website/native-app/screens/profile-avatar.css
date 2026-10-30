@@ -1,0 +1,40 @@
+/* V5A: user-owned avatar and settings editor. No official brand assets touched. */
+#nativeMyGallaspyScreen .my-identity-avatar { position: relative; overflow: hidden; isolation: isolate; }
+#nativeMyGallaspyScreen .gallaspy-my-avatar-image {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  border-radius: inherit; z-index: 2;
+}
+#nativeMyGallaspyScreen .my-identity-avatar.gallaspy-has-avatar #myIdentityInitials { opacity: 0; }
+#nativeCommunityScreen .community-post-avatar { position: relative; overflow: hidden; }
+#nativeCommunityScreen .community-post-avatar .gallaspy-avatar-photo {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  border-radius: inherit; background: #f5f7f6;
+}
+#nativeMyGallaspyScreen .gallaspy-avatar-editor {
+  display: grid; gap: 12px; padding: 17px 0 23px; margin-bottom: 17px;
+  border-bottom: 1px solid #dce4e4;
+}
+#nativeMyGallaspyScreen .gallaspy-avatar-editor h4 {
+  font-size: 15px; font-weight: 800; letter-spacing: .08em; color: #102c42;
+}
+#nativeMyGallaspyScreen .gallaspy-avatar-editor p {
+  font-size: 13px; line-height: 1.5; color: #516471;
+}
+#nativeMyGallaspyScreen .gallaspy-avatar-file { max-width: 100%; font-size: 13px; }
+#nativeMyGallaspyScreen .gallaspy-avatar-preview {
+  width: 110px; height: 110px; object-fit: cover; border-radius: 50%;
+  border: 2px solid #164934;
+}
+#nativeMyGallaspyScreen .gallaspy-avatar-actions { display: flex; flex-wrap: wrap; gap: 9px; }
+#nativeMyGallaspyScreen .gallaspy-avatar-actions button {
+  flex: 1 1 130px; border-radius: 12px; min-height: 46px;
+  padding: 10px 12px; background: #114a38; color: #fff; border: 1px solid #114a38;
+  font-size: 12px; font-weight: 800; letter-spacing: .025em;
+}
+#nativeMyGallaspyScreen .gallaspy-avatar-actions .gallaspy-avatar-remove {
+  background: #fff; border-color: #cfdcdd; color: #19344a;
+}
+#nativeMyGallaspyScreen .gallaspy-avatar-actions button:disabled {
+  opacity: .45; cursor: not-allowed;
+}
+#nativeMyGallaspyScreen .gallaspy-avatar-status { min-height: 20px; }

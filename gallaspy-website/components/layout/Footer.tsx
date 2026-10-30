@@ -4,7 +4,8 @@ import Link from "next/link";
 const clubLinks = [
   { name: "The Club", href: "/the-club" },
   { name: "Play", href: "/play" },
-  { name: "Invitational", href: "/invitational" },
+  { name: "THE GALLASPY", href: "/the-gallaspy" },
+  { name: "The Gallaspy Cup", href: "/gallaspy-cup" },
   { name: "Traditions", href: "/traditions" },
 ];
 

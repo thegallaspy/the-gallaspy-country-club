@@ -6,6 +6,7 @@
 
   const play = document.getElementById("nativePlayScreen");
   const shop = document.getElementById("nativeShopScreen");
+  const checkout = document.getElementById("nativeCheckoutScreen");
   const my = document.getElementById("nativeMyGallaspyScreen");
   const list = document.getElementById("nativeRoundsList");
   const content = document.getElementById("nativeContent");
@@ -22,16 +23,23 @@
 
   function show(screen) {
     home.hidden = screen !== "home";
+    const eventScreen = document.getElementById("nativeEventScreen");
+    if (eventScreen) eventScreen.hidden = screen !== "events";
     if (caddie) caddie.hidden = screen !== "ai-caddie";
     if (community) community.hidden = screen !== "community";
-    if (screen === "community") window.loadGallaspyCommunity?.();
+    if (screen === "community") {
+      window.loadGallaspyCommunity?.();
+    }
     if (play) play.hidden = screen !== "play";
     if (shop) shop.hidden = screen !== "shop";
+    if (checkout) checkout.hidden = screen !== "checkout";
     if (my) my.hidden = screen !== "my-gallaspy";
     document.querySelectorAll(".tab").forEach((tab) => {
-      const active = (screen === "home" || screen === "ai-caddie")
+      const active = (screen === "home" || screen === "ai-caddie" || screen === "community" || screen === "events")
         ? tab.hasAttribute("data-home")
-        : tab.dataset.route === "/" + screen;
+        : screen === "checkout"
+          ? tab.dataset.route === "/shop"
+          : tab.dataset.route === "/" + screen;
       tab.classList.toggle("active", active);
       if (active) tab.setAttribute("aria-current", "page");
       else tab.removeAttribute("aria-current");

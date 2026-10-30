@@ -137,24 +137,31 @@ export async function GET(request: NextRequest) {
     const approvedCount = new Map<string, number>();
 
     if (roundIds.length) {
-      const counts = await Promise.all(
-        roundIds.map(async roundId => {
-          const { count, error } = await admin
-            .from("gallaspy_foursome_requests")
-            .select("id", { count: "exact", head: true })
-            .eq("foursome_id", roundId)
-            .eq("status", "approved");
+      // Batch the counts for the displayed rounds instead of issuing one
+      // database request per round. This keeps discovery responsive as the
+      // Gallaspy community grows. Do not expose requester identities.
+      const { data: approved, error: approvedError } = await admin
+        .from("gallaspy_foursome_requests")
+        .select("foursome_id")
+        .in("foursome_id", roundIds)
+        .eq("status", "approved")
+        .limit(1001);
 
-          if (error || count === null) {
-            throw new Error("Unable to count approved golfers.");
-          }
+      // Fail closed instead of presenting incorrect availability if the
+      // underlying records unexpectedly exceed the bounded query.
+      if (approvedError || !approved || approved.length > 1000) {
+        console.error("Unable to count approved golfers for discovery.");
+        return respond(
+          { success: false, error: "Unable to load foursomes." },
+          500,
+        );
+      }
 
-          return [roundId, count] as const;
-        })
-      );
-
-      for (const [roundId, count] of counts) {
-        approvedCount.set(roundId, count);
+      for (const request of approved) {
+        approvedCount.set(
+          request.foursome_id,
+          (approvedCount.get(request.foursome_id) ?? 0) + 1,
+        );
       }
     }
 

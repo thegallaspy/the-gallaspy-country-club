@@ -18,6 +18,12 @@
         return;
       }
 
+      if (button.dataset.shopExclusive === "members") {
+        // This website route is a public collection preview, not an entitlement grant.
+        window.openClubRoute?.("/apparel/members");
+        return;
+      }
+
       const message = document.getElementById("shopAccessMessage");
 
       if (message) {

@@ -1,0 +1,140 @@
+/* THE GALLASPY — NATIVE CHECKOUT */
+
+#nativeCheckoutScreen {
+  background: #ffffff;
+  color: #112a44;
+  padding-bottom: 36px;
+}
+
+#nativeCheckoutScreen .my-heading h2 {
+  color: #112a44;
+}
+
+#nativeCheckoutScreen .my-heading > p:last-child {
+  color: #586879;
+}
+
+#nativeCheckoutScreen .my-panel {
+  background: #ffffff;
+  border: 1px solid #e2e6eb;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+#nativeCheckoutScreen .my-panel h3 {
+  color: #112a44;
+  font-size: 20px;
+  font-weight: 850;
+  letter-spacing: -0.025em;
+  margin: 8px 0 20px;
+}
+
+#nativeCheckoutScreen .intro-label {
+  color: #21533e;
+  font-weight: 800;
+}
+
+#nativeCheckoutForm label {
+  display: block;
+  color: #112a44;
+  font-size: 12px;
+  font-weight: 750;
+  margin: 16px 0 7px;
+}
+
+#nativeCheckoutForm input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 13px 14px;
+  border: 1px solid #cbd4dc;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #112a44;
+  font: inherit;
+  font-size: 16px;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+#nativeCheckoutForm input:focus {
+  outline: 2px solid #21533e;
+  outline-offset: 2px;
+}
+
+#nativeCheckoutScreen #nativeCheckoutBack {
+  width: 100%;
+  background: #f3f6f5;
+  color: #112a44;
+  border: 1px solid #cbd4dc;
+  border-radius: 8px;
+  padding: 14px;
+  font-weight: 800;
+}
+
+#nativeCheckoutScreen #nativeCheckoutPay {
+  width: 100%;
+  min-height: 50px;
+  background: #112a44;
+  color: #ffffff;
+  border: 0;
+  border-radius: 8px;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+}
+
+#nativeCheckoutScreen #nativeCheckoutPay:disabled {
+  background: #aeb7c0;
+  cursor: not-allowed;
+}
+
+#nativeCheckoutOrderSummary {
+  color: #112a44;
+  font-size: 14px;
+}
+
+#nativeCheckoutScreen .my-panel > p:not(.intro-label) {
+  color: #586879;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+#nativeCheckoutMessage {
+  color: #a52a35;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+@media (max-width: 390px) {
+  #nativeCheckoutScreen .my-panel {
+    padding: 16px;
+  }
+}
+
+.native-checkout-order-item,
+.native-checkout-order-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid #e2e6eb;
+}
+
+.native-checkout-order-item span {
+  flex: 1;
+  line-height: 1.5;
+}
+
+.native-checkout-order-item strong {
+  white-space: nowrap;
+}
+
+.native-checkout-order-total {
+  margin-top: 8px;
+  border-bottom: 0;
+  color: #112a44;
+  font-size: 16px;
+}

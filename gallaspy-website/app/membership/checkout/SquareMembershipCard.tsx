@@ -1,9 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useImperativeHandle, useRef, useState } from "react";
+import type { Ref } from "react";
+
+type SquareTokenizeResult = {
+  status: string;
+  token?: string;
+  errors?: Array<{
+    code?: string;
+    message?: string;
+  }>;
+};
 
 type SquareCard = {
   attach: (selector: string) => Promise<void>;
+  tokenize: () => Promise<SquareTokenizeResult>;
   destroy?: () => Promise<void>;
 };
 
@@ -18,9 +29,20 @@ type SquareWindow = Window & {
   };
 };
 
-export default function SquareMembershipCard() {
+export type MembershipCardHandle = {
+  testTokenization: () => Promise<boolean>;
+  tokenizeForEnrollment: () => Promise<string>;
+};
+
+export default function SquareMembershipCard({
+  cardHandleRef,
+}: {
+  cardHandleRef: Ref<MembershipCardHandle>;
+}) {
   const cardRef = useRef<SquareCard | null>(null);
   const [status, setStatus] = useState("Loading secure card form...");
+
+  const [testing, setTesting] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -94,6 +116,66 @@ export default function SquareMembershipCard() {
     };
   }, []);
 
+  useImperativeHandle(cardHandleRef, () => ({
+    async tokenizeForEnrollment() {
+      if (testing || !cardRef.current) {
+        throw new Error("Secure card form is not ready.");
+      }
+
+      if (process.env.NEXT_PUBLIC_SQUARE_ENVIRONMENT !== "sandbox") {
+        throw new Error("Enrollment is restricted to Square Sandbox.");
+      }
+
+      setStatus("Preparing secure Sandbox payment method...");
+
+      try {
+        const result = await cardRef.current.tokenize();
+
+        if (result.status !== "OK" || !result.token) {
+          throw new Error("Card validation failed. Check the card details.");
+        }
+
+        setStatus("Secure payment method prepared.");
+        return result.token;
+      } catch (error) {
+        setStatus("Unable to prepare secure payment method.");
+        throw error;
+      }
+    },
+
+    async testTokenization() {
+      if (testing || !cardRef.current) {
+        setStatus("Secure card form is not ready.");
+        return false;
+      }
+
+      if (process.env.NEXT_PUBLIC_SQUARE_ENVIRONMENT !== "sandbox") {
+        setStatus("Sandbox testing only.");
+        return false;
+      }
+
+      setTesting(true);
+      setStatus("Validating Sandbox card...");
+
+      try {
+        const result = await cardRef.current.tokenize();
+
+        if (result.status === "OK" && result.token) {
+          setStatus("Sandbox card validated. No payment was made.");
+          return true;
+        }
+
+        setStatus("Card validation failed. Check the test card details.");
+        return false;
+      } catch {
+        setStatus("Unable to validate the Sandbox card.");
+        return false;
+      } finally {
+        setTesting(false);
+      }
+    },
+  }));
+
   return (
     <div className="space-y-3">
       <h2 className="text-lg font-semibold">Payment Method</h2>
@@ -105,7 +187,7 @@ export default function SquareMembershipCard() {
         {status}
       </p>
       <p className="text-xs text-[#526174]">
-        Sandbox testing only. No card will be saved or charged.
+        Square Sandbox only. Testing a card does not charge it. Submitting an enabled Sandbox enrollment saves a test card and may create a simulated recurring $100 charge; no real money is charged.
       </p>
     </div>
   );

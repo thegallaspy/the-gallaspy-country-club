@@ -1,0 +1,216 @@
+/* Community V6 interaction patterns — additive to the existing design. */
+#nativeCommunityScreen .gallaspy-social-actions {
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px solid #e5eaec;
+  color: #10263f;
+}
+#nativeCommunityScreen .gallaspy-social-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+}
+#nativeCommunityScreen .gallaspy-social-action {
+  min-height: 44px;
+  border-radius: 12px;
+  border: 0;
+  background: transparent;
+  color: #365365;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 9px;
+  cursor: pointer;
+}
+#nativeCommunityScreen .gallaspy-social-action[aria-pressed="true"] {
+  color: #bc2332;
+  background: #fff0f1;
+}
+#nativeCommunityScreen .gallaspy-social-action:focus-visible {
+  outline: 2px solid #12523e;
+  outline-offset: 2px;
+}
+#nativeCommunityScreen .gallaspy-social-feedback {
+  color: #365365;
+  margin: 4px 2px;
+  font-size: 13px;
+}
+#nativeCommunityScreen .gallaspy-social-replies,
+#nativeCommunityScreen .gallaspy-social-report-panel {
+  padding: 12px;
+  border-radius: 14px;
+  background: #f5f8f7;
+  margin-top: 10px;
+}
+#nativeCommunityScreen .gallaspy-social-replies[hidden],
+#nativeCommunityScreen .gallaspy-social-report-panel[hidden] { display: none; }
+#nativeCommunityScreen .gallaspy-social-reply {
+  color: #182f40;
+  padding: 10px 0;
+  margin: 0;
+  border-bottom: 1px solid #e0e7e4;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.4;
+}
+#nativeCommunityScreen .gallaspy-social-compose { display: grid; gap: 8px; margin-top: 12px; }
+#nativeCommunityScreen .gallaspy-social-replies textarea,
+#nativeCommunityScreen .gallaspy-social-report-panel textarea {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #cbd9d4;
+  background: white;
+  color: #10263f;
+  padding: 12px;
+  border-radius: 12px;
+  font: inherit;
+  font-size: 16px;
+}
+#nativeCommunityScreen .gallaspy-social-send {
+  background: #164b3a;
+  color: white;
+  justify-self: end;
+  border-radius: 12px;
+}
+@media (max-width: 360px) {
+  #nativeCommunityScreen .gallaspy-social-action { font-size: 12px; padding: 9px 7px; }
+}
+
+
+/* GALLASPY COMMUNITY R7 — COMPACT FEED AND MODERATION MENU */
+/* Purely presentational: preserves existing Community APIs and form IDs. */
+#nativeCommunityScreen .community-composer {
+  margin: 12px 0 20px;
+  padding: 17px 16px 15px;
+  background: #ffffff;
+  border: 1px solid #dae3e5;
+  border-radius: 18px;
+  box-shadow: 0 5px 18px rgba(12, 40, 46, .035);
+}
+#nativeCommunityScreen .community-composer h3 {
+  font-size: 12px;
+  letter-spacing: .075em;
+  color: #164b3a;
+  margin-bottom: 10px;
+}
+#nativeCommunityScreen #communityPostBody {
+  min-height: 78px;
+  height: 78px;
+  padding: 13px 14px;
+  background: #f5f8f7;
+  border-color: #d5e0dc;
+  border-radius: 12px;
+  resize: none;
+}
+#nativeCommunityScreen #communityPostBody:focus {
+  min-height: 104px;
+  height: 104px;
+}
+#nativeCommunityScreen #communityPublishButton {
+  margin-top: 10px;
+  min-height: 44px;
+  padding: 10px 20px;
+  background: #104b3b;
+  border-radius: 12px;
+}
+#nativeCommunityScreen .community-feed-heading { margin: 18px 0 13px; }
+#nativeCommunityScreen #communityFeed > article.community-post {
+  position: relative;
+  overflow: visible;
+  padding: 16px;
+  margin-bottom: 14px;
+  border: 1px solid #dde4e7;
+  border-radius: 18px;
+  background: white;
+  box-shadow: 0 5px 20px rgba(12, 39, 50, .035);
+}
+#nativeCommunityScreen .community-post-header {
+  position: relative;
+  min-height: 44px;
+  padding-right: 45px;
+  margin-bottom: 10px;
+}
+#nativeCommunityScreen .community-post-body { margin: 0 0 5px; }
+#nativeCommunityScreen .gallaspy-social-actions {
+  margin-top: 12px;
+  padding-top: 8px;
+}
+#nativeCommunityScreen .gallaspy-social-action-row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 6px;
+}
+#nativeCommunityScreen .gallaspy-social-like,
+#nativeCommunityScreen .gallaspy-social-comments {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 6px;
+  text-align: center;
+  font-size: 12px;
+  border-radius: 10px;
+  background: #f3f7f6;
+  color: #183e39;
+}
+#nativeCommunityScreen .gallaspy-social-like[aria-pressed="true"] {
+  background: #fff0f1;
+  color: #af2236;
+}
+/* Native details/summary supports keyboard and VoiceOver without custom JS. */
+#nativeCommunityScreen .gallaspy-post-menu {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 4;
+}
+#nativeCommunityScreen .gallaspy-post-menu > summary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  list-style: none;
+  border: 1px solid #e0e7e7;
+  border-radius: 12px;
+  background: #f5f8f7;
+  color: #133e36;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+}
+#nativeCommunityScreen .gallaspy-post-menu > summary::-webkit-details-marker { display: none; }
+#nativeCommunityScreen .gallaspy-post-menu > summary:focus-visible {
+  outline: 2px solid #104b3b;
+  outline-offset: 2px;
+}
+#nativeCommunityScreen .gallaspy-post-menu-options {
+  position: absolute;
+  right: 0;
+  top: 49px;
+  width: 180px;
+  display: grid;
+  gap: 3px;
+  padding: 7px;
+  border: 1px solid #dce5e1;
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(7, 31, 34, .16);
+}
+#nativeCommunityScreen .gallaspy-post-menu-options button {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  text-align: left;
+  border-radius: 9px;
+  background: white;
+  color: #233d4a;
+  font-size: 13px;
+}
+#nativeCommunityScreen .gallaspy-post-menu-options button:focus-visible {
+  outline: 2px solid #104b3b;
+}
+#nativeCommunityScreen .gallaspy-post-menu-options .gallaspy-social-block { color: #9f2334; }
+@media (max-width: 360px) {
+  #nativeCommunityScreen .community-composer { padding: 13px; }
+  #nativeCommunityScreen #communityFeed > article.community-post { padding: 13px; }
+}

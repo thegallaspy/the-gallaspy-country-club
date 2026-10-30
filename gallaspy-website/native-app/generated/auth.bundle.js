@@ -20460,6 +20460,29 @@ ${suffix}`;
       }
       return result;
     },
+    async getMembership() {
+      const { data, error } = await supabase.auth.getSession();
+      if (error || !data?.session?.access_token) {
+        throw new Error("Please sign in to view your membership.");
+      }
+      const response = await fetch(
+        "https://thegallaspy.com/api/mobile/membership",
+        {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + data.session.access_token
+          },
+          cache: "no-store"
+        }
+      );
+      const result = await response.json();
+      if (!response.ok || result.success !== true) {
+        throw new Error(
+          result.error || "Unable to load membership."
+        );
+      }
+      return result;
+    },
     async getPlayer() {
       const { data, error } = await supabase.auth.getSession();
       if (error || !data?.session?.access_token) {

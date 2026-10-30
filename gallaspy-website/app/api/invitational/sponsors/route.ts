@@ -1,332 +1,422 @@
 import { NextResponse } from "next/server";
+import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
 
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
+const TABLE = "gallaspy_sponsorship_inquiries";
+
+const PACKAGES = new Set([
+  "presenting",
+  "championship",
+  "official_event",
+  "hole",
+  "junior_falcon",
+  "marketplace_vendor",
+  "custom",
+]);
+
+const UUID =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+type Submission = Record<string, unknown>;
+
+function readText(
+  input: Submission,
+  field: string,
+  maxLength: number,
+  required = true
+): string {
+  const value = input[field];
+
+  if (value == null && !required) return "";
+
+  if (typeof value !== "string") {
+    throw new Error(`Invalid ${field}`);
+  }
+
+  const result = value.trim();
+
+  if (
+    result.length > maxLength ||
+    (required && result.length === 0) ||
+    /[\u0000-\u0008\u000B\u000C\u000E-\u001F]/.test(result)
+  ) {
+    throw new Error(`Invalid ${field}`);
+  }
+
+  return result;
+}
+
+function validate(body: Submission) {
+  const submissionKey = readText(body, "submissionKey", 36);
+  const companyName = readText(body, "companyName", 160);
+  const contactName = readText(body, "contactName", 160);
+  const email = readText(body, "email", 254).toLowerCase();
+  const phone = readText(body, "phone", 32);
+  const website = readText(body, "website", 300, false);
+  const industry = readText(body, "industry", 100);
+  const sponsorshipPackage = readText(
+    body,
+    "sponsorshipInterest",
+    60
+  );
+  const estimatedBudget = readText(
+    body,
+    "estimatedBudget",
+    100
+  );
+  const partnershipType = readText(
+    body,
+    "partnershipType",
+    100
+  );
+  const proposedActivation = readText(
+    body,
+    "proposedActivation",
+    1500,
+    false
+  );
+  const additionalInformation = readText(
+    body,
+    "message",
+    3000,
+    false
+  );
+  const preferredContactMethod = readText(
+    body,
+    "preferredContactMethod",
+    10
+  );
+
+  if (!UUID.test(submissionKey)) {
+    throw new Error("Invalid application reference key");
+  }
+
+  if (
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
+    !/^[+()0-9.\s-]{7,32}$/.test(phone)
+  ) {
+    throw new Error("Invalid contact information");
+  }
+
+  if (!PACKAGES.has(sponsorshipPackage)) {
+    throw new Error("Invalid sponsorship package");
+  }
+
+  if (!["email", "phone"].includes(preferredContactMethod)) {
+    throw new Error("Invalid contact preference");
+  }
+
+  if (website) {
+    let parsed: URL;
+    try {
+      parsed = new URL(website);
+    } catch {
+      throw new Error("Invalid website address");
+    }
+
+    if (
+      !["http:", "https:"].includes(parsed.protocol) ||
+      !parsed.hostname.includes(".") ||
+      parsed.username ||
+      parsed.password
+    ) {
+      throw new Error("Invalid website address");
+    }
+  }
+
+  if (body.contactConsent !== true) {
+    throw new Error("Contact consent is required");
+  }
+
+  return {
+    submission_key: submissionKey,
+    event_code: "the-gallaspy-2027",
+    company_name: companyName,
+    contact_name: contactName,
+    email,
+    phone,
+    website: website || null,
+    industry,
+    sponsorship_package: sponsorshipPackage,
+    estimated_budget: estimatedBudget,
+    partnership_type: partnershipType,
+    proposed_activation: proposedActivation || null,
+    additional_information: additionalInformation || null,
+    preferred_contact_method: preferredContactMethod,
+    contact_consent: true,
+  };
+}
+
 export async function POST(request: Request) {
+  // No new public submission flow until database,
+  // rate limits and operational checks are approved.
+  if (
+    process.env.GALLASPY_SPONSORSHIP_INQUIRIES_ENABLED !== "true"
+  ) {
+    return NextResponse.json(
+      { error: "Sponsorship applications are being prepared." },
+      { status: 503 }
+    );
+  }
+
   try {
-    const resendApiKey = process.env.RESEND_API_KEY;
+    const origin = request.headers.get("origin");
 
-    if (!resendApiKey) {
-      console.error("Missing RESEND_API_KEY");
-
+    if (!origin || new URL(origin).origin !== new URL(request.url).origin) {
       return NextResponse.json(
-        {
-          error: "Email service is not configured.",
-        },
-        { status: 500 }
+        { error: "Invalid request origin." },
+        { status: 403 }
       );
     }
 
-    const resend = new Resend(resendApiKey);
-
-    const body = await request.json();
-
-    const {
-      companyName,
-      contactName,
-      email,
-      phone,
-      website,
-      sponsorshipInterest,
-      message,
-    } = body;
-
-    // Required fields
     if (
-      !companyName ||
-      !contactName ||
-      !email ||
-      !phone ||
-      !sponsorshipInterest
+      !request.headers
+        .get("content-type")
+        ?.toLowerCase()
+        .startsWith("application/json")
     ) {
       return NextResponse.json(
-        { error: "Please complete all required fields." },
+        { error: "JSON request required." },
+        { status: 415 }
+      );
+    }
+
+    const raw = await request.text();
+
+    if (raw.length > 12000) {
+      return NextResponse.json(
+        { error: "Application is too large." },
+        { status: 413 }
+      );
+    }
+
+    let body: Submission;
+
+    try {
+      const parsed: unknown = JSON.parse(raw);
+
+      if (
+        !parsed ||
+        typeof parsed !== "object" ||
+        Array.isArray(parsed)
+      ) {
+        throw new Error("Invalid application");
+      }
+
+      body = parsed as Submission;
+    } catch {
+      return NextResponse.json(
+        { error: "Invalid application data." },
         { status: 400 }
       );
     }
 
-    // Email #1 — Internal notification
-    const internalEmail = resend.emails.send({
-      from: "The Gallaspy Invitational <invitational@thegallaspy.com>",
-      to: ["info@thegallaspy.com"],
-      replyTo: email,
-      subject: `New Invitational Sponsor Inquiry — ${companyName}`,
-      html: `
-        <div
-          style="
-            font-family: Arial, sans-serif;
-            color: #10263F;
-            line-height: 1.7;
-            max-width: 680px;
-            margin: 0 auto;
-          "
-        >
-          <div
-            style="
-              border-bottom: 3px solid #B89146;
-              padding-bottom: 20px;
-            "
-          >
-            <p
-              style="
-                font-size: 11px;
-                letter-spacing: 2px;
-                text-transform: uppercase;
-                color: #B89146;
-                margin: 0;
-              "
-            >
-              The Gallaspy Invitational
-            </p>
-
-            <h1 style="font-size: 28px; margin: 8px 0 0;">
-              New Sponsor Inquiry
-            </h1>
-          </div>
-
-          <p style="margin-top: 28px;">
-            A company has submitted a sponsorship inquiry for the
-            2027 Gallaspy Invitational.
-          </p>
-
-          <table
-            style="
-              width: 100%;
-              border-collapse: collapse;
-              margin-top: 24px;
-            "
-          >
-            <tbody>
-              <tr>
-                <td style="padding: 10px 0;">
-                  <strong>Company</strong>
-                </td>
-                <td style="padding: 10px 0;">
-                  ${companyName}
-                </td>
-              </tr>
-
-              <tr>
-                <td style="padding: 10px 0;">
-                  <strong>Contact</strong>
-                </td>
-                <td style="padding: 10px 0;">
-                  ${contactName}
-                </td>
-              </tr>
-
-              <tr>
-                <td style="padding: 10px 0;">
-                  <strong>Email</strong>
-                </td>
-                <td style="padding: 10px 0;">
-                  ${email}
-                </td>
-              </tr>
-
-              <tr>
-                <td style="padding: 10px 0;">
-                  <strong>Phone</strong>
-                </td>
-                <td style="padding: 10px 0;">
-                  ${phone}
-                </td>
-              </tr>
-
-              <tr>
-                <td style="padding: 10px 0;">
-                  <strong>Website</strong>
-                </td>
-                <td style="padding: 10px 0;">
-                  ${website || "Not provided"}
-                </td>
-              </tr>
-
-              <tr>
-                <td style="padding: 10px 0;">
-                  <strong>Sponsorship Interest</strong>
-                </td>
-                <td style="padding: 10px 0;">
-                  ${sponsorshipInterest}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div style="margin-top: 24px;">
-            <strong>Message / Partnership Notes</strong>
-
-            <p>
-              ${message || "No additional information provided."}
-            </p>
-          </div>
-
-          <div
-            style="
-              margin-top: 30px;
-              padding-top: 20px;
-              border-top: 1px solid #E3DDD1;
-              font-size: 12px;
-              color: #667085;
-            "
-          >
-            Submitted through The Gallaspy Invitational sponsorship page.
-          </div>
-        </div>
-      `,
-    });
-
-    // Email #2 — Confirmation to prospective sponsor
-    const sponsorConfirmation = resend.emails.send({
-      from: "The Gallaspy Invitational <invitational@thegallaspy.com>",
-      to: [email],
-      replyTo: "info@thegallaspy.com",
-      subject: "The Gallaspy Invitational — Sponsorship Inquiry Received",
-      html: `
-        <div
-          style="
-            font-family: Arial, sans-serif;
-            color: #10263F;
-            line-height: 1.8;
-            max-width: 640px;
-            margin: 0 auto;
-            padding: 30px 20px;
-          "
-        >
-          <div
-            style="
-              border-bottom: 3px solid #B89146;
-              padding-bottom: 22px;
-            "
-          >
-            <p
-              style="
-                font-size: 11px;
-                letter-spacing: 3px;
-                text-transform: uppercase;
-                color: #B89146;
-                margin: 0;
-              "
-            >
-              The Gallaspy Invitational
-            </p>
-
-            <h1
-              style="
-                font-size: 32px;
-                line-height: 1.2;
-                margin: 10px 0 0;
-              "
-            >
-              Partnership begins with a conversation.
-            </h1>
-          </div>
-
-          <p style="margin-top: 30px;">
-            Hello ${contactName},
-          </p>
-
-          <p>
-            Thank you for your interest in partnering with the
-            <strong>2027 Gallaspy Invitational.</strong>
-          </p>
-
-          <p>
-            We have received the sponsorship inquiry from
-            <strong>${companyName}</strong> and appreciate your interest
-            in becoming part of the inaugural tournament.
-          </p>
-
-          <p>
-            Our team will review the information you submitted and follow
-            up regarding relevant sponsorship opportunities, tournament
-            activations, and partnership possibilities.
-          </p>
-
-          <div
-            style="
-              margin: 30px 0;
-              padding: 24px;
-              background: #F7F4EE;
-              border-left: 3px solid #B89146;
-            "
-          >
-            <p style="margin: 0 0 8px;">
-              <strong>2027 Gallaspy Invitational</strong>
-            </p>
-
-            <p style="margin: 0;">
-              Inaugural Tournament<br />
-              72-Player Field<br />
-              18-Hole Individual Stroke Play<br />
-              $10,000 Tournament Purse<br />
-              The Golden Falcon
-            </p>
-          </div>
-
-          <p>
-            We look forward to exploring how your organization can become
-            part of the experience.
-          </p>
-
-          <div
-            style="
-              margin-top: 36px;
-              padding-top: 24px;
-              border-top: 1px solid #E3DDD1;
-            "
-          >
-            <p style="margin: 0;">
-              <strong>The Gallaspy Invitational</strong><br />
-              The Gallaspy Development Group
-            </p>
-
-            <p
-              style="
-                font-size: 13px;
-                color: #667085;
-                margin-top: 8px;
-              "
-            >
-              thegallaspy.com
-            </p>
-          </div>
-        </div>
-      `,
-    });
-
-    const [internalResult, sponsorResult] = await Promise.all([
-      internalEmail,
-      sponsorConfirmation,
-    ]);
-
-    if (internalResult.error || sponsorResult.error) {
-      console.error("Sponsor email error:", {
-        internal: internalResult.error,
-        sponsor: sponsorResult.error,
-      });
-
+    // Honeypot for automated form submissions.
+    if (body.companyFaxNumber) {
       return NextResponse.json(
-        {
-          error: "Unable to send sponsorship inquiry. Please try again.",
-        },
-        { status: 500 }
+        { success: true, message: "Inquiry received." }
       );
     }
 
-    return NextResponse.json({
-      success: true,
-      message: "Sponsorship inquiry received.",
-      internalEmailId: internalResult.data?.id,
-      sponsorEmailId: sponsorResult.data?.id,
+    let values: ReturnType<typeof validate>;
+
+    try {
+      values = validate(body);
+    } catch {
+      return NextResponse.json(
+        { error: "Please review your application fields." },
+        { status: 422 }
+      );
+    }
+
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key =
+      process.env.SUPABASE_SECRET_KEY ||
+      process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+    if (!url || !key) {
+      return NextResponse.json(
+        { error: "Application service unavailable." },
+        { status: 503 }
+      );
+    }
+
+    const admin = createClient(url, key, {
+      auth: {
+        persistSession: false,
+        autoRefreshToken: false,
+      },
     });
-  } catch (error) {
-    console.error("Invitational sponsor inquiry error:", error);
+
+    // Reuse the application reference for repeated
+    // submissions with the same key and identity.
+    const { data: previous, error: previousError } =
+      await admin
+        .from(TABLE)
+        .select("application_reference,email,company_name")
+        .eq("submission_key", values.submission_key)
+        .maybeSingle();
+
+    if (previousError) {
+      return NextResponse.json(
+        { error: "Application service unavailable." },
+        { status: 503 }
+      );
+    }
+
+    if (previous) {
+      if (
+        previous.email !== values.email ||
+        previous.company_name !== values.company_name
+      ) {
+        return NextResponse.json(
+          { error: "Application key conflict." },
+          { status: 409 }
+        );
+      }
+
+      return NextResponse.json({
+        success: true,
+        applicationReference: previous.application_reference,
+        message: "Your sponsorship inquiry has been received.",
+      });
+    }
+
+    // Initial email-based submission throttle.
+    // Stronger server-side abuse controls must be
+    // verified before the public feature is enabled.
+    const since = new Date(
+      Date.now() - 24 * 60 * 60 * 1000
+    ).toISOString();
+
+    const { count, error: limitError } = await admin
+      .from(TABLE)
+      .select("id", { count: "exact", head: true })
+      .eq("email", values.email)
+      .gte("created_at", since);
+
+    if (limitError) {
+      return NextResponse.json(
+        { error: "Application service unavailable." },
+        { status: 503 }
+      );
+    }
+
+    if ((count ?? 0) >= 3) {
+      return NextResponse.json(
+        { error: "Submission limit reached. Please contact our team." },
+        { status: 429 }
+      );
+    }
+
+    const { data: application, error: insertError } =
+      await admin
+        .from(TABLE)
+        .insert(values)
+        .select("id,application_reference")
+        .single();
+
+    if (insertError || !application) {
+      // Concurrent duplicate requests can race the
+      // unique constraint. Never create a second inquiry.
+      if (insertError?.code === "23505") {
+        return NextResponse.json(
+          {
+            error:
+              "This application may already have been received. Please contact our team before resubmitting.",
+          },
+          { status: 409 }
+        );
+      }
+
+      return NextResponse.json(
+        { error: "Unable to save your application." },
+        { status: 503 }
+      );
+    }
+
+    // Database storage is authoritative. Email is
+    // secondary and cannot erase a saved application.
+    let emailsSent = false;
+
+    if (process.env.RESEND_API_KEY) {
+      try {
+        const resend = new Resend(process.env.RESEND_API_KEY);
+
+        const details = [
+          "THE GALLASPY — Sponsorship Inquiry",
+          `Reference: ${application.application_reference}`,
+          `Company: ${values.company_name}`,
+          `Contact: ${values.contact_name}`,
+          `Email: ${values.email}`,
+          `Phone: ${values.phone}`,
+          `Website: ${values.website ?? "Not provided"}`,
+          `Industry: ${values.industry}`,
+          `Package: ${values.sponsorship_package}`,
+          `Budget: ${values.estimated_budget}`,
+          `Partnership Type: ${values.partnership_type}`,
+          `Activation: ${values.proposed_activation ?? "Not provided"}`,
+          `Additional Information: ${values.additional_information ?? "None"}`,
+          `Preferred Contact: ${values.preferred_contact_method}`,
+        ].join("\n");
+
+        const internal = await resend.emails.send({
+          from: "THE GALLASPY <invitational@thegallaspy.com>",
+          to: ["info@thegallaspy.com"],
+          replyTo: values.email,
+          subject: `THE GALLASPY Sponsor Inquiry — ${application.application_reference}`,
+          text: details,
+        });
+
+        const confirmation = await resend.emails.send({
+          from: "THE GALLASPY <invitational@thegallaspy.com>",
+          to: [values.email],
+          replyTo: "info@thegallaspy.com",
+          subject: `THE GALLASPY — Sponsorship Inquiry Received`,
+          text: [
+            `Hello ${values.contact_name},`,
+            "",
+            "Thank you for your interest in partnering with THE GALLASPY.",
+            "Our team will review your inquiry and contact you regarding available sponsorship opportunities.",
+            "",
+            `Application reference: ${application.application_reference}`,
+            "",
+            "June 21, 2027 | Greater Atlanta, Georgia",
+            "THE GALLASPY",
+            "GOLF. CULTURE. COMPETITION.",
+          ].join("\n"),
+        });
+
+        emailsSent = !internal.error && !confirmation.error;
+      } catch {
+        emailsSent = false;
+      }
+    }
+
+    await admin
+      .from(TABLE)
+      .update({
+        notification_status: emailsSent ? "sent" : "failed",
+      })
+      .eq("id", application.id);
 
     return NextResponse.json(
       {
-        error: "Something went wrong. Please try again.",
+        success: true,
+        applicationReference: application.application_reference,
+        message:
+          "Thank you for your interest in partnering with THE GALLASPY. Our team will review your inquiry and contact you regarding available sponsorship opportunities.",
       },
-      { status: 500 }
+      { status: 201 }
+    );
+  } catch {
+    // Do not expose credentials or internal exception text.
+    return NextResponse.json(
+      { error: "Unable to process the sponsorship inquiry." },
+      { status: 503 }
     );
   }
 }

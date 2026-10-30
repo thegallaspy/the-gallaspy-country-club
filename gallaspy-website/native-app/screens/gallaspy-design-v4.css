@@ -1,0 +1,464 @@
+/* THE GALLASPY GOLF CLUB — NATIVE DESIGN V4 / 2026-10-19
+   Focus: coherent editorial club aesthetic and clear on-course interfaces.
+   Display-only; existing native feature handlers, stored data, assets and API calls stay intact.
+   Loaded after premium.css, including optional Stage C refinements. */
+:root {
+  --g4-ink: #112b43;
+  --g4-ink-deep: #071f34;
+  --g4-forest: #104437;
+  --g4-forest-deep: #093429;
+  --g4-forest-wash: #edf5f1;
+  --g4-red: #b32635;
+  --g4-red-wash: #fff2f3;
+  --g4-gold: #a68142;
+  --g4-creamless-white: #ffffff;
+  --g4-paper: #f6f8fa;
+  --g4-line: #dde5e9;
+  --g4-muted: #5b6d7b;
+  --g4-shadow: 0 8px 24px rgba(13, 38, 59, .055);
+  --g4-radius: 18px;
+  --g4-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Helvetica, Arial, sans-serif;
+  --tab-height: 70px;
+  color-scheme: light;
+}
+html { -webkit-text-size-adjust: 100%; background: white; }
+body { background: white; font-family: var(--g4-font); }
+.app { background: white; color: var(--g4-ink); }
+.status-safe { background: #fff; }
+.topbar {
+  min-height: 67px; padding: 11px 20px;
+  background: rgba(255,255,255,.98);
+  border-bottom: 1px solid var(--g4-line);
+  box-shadow: 0 3px 18px rgba(17,43,67,.025);
+}
+.identity { gap: 11px; }
+.falcon { width: 39px; height: 39px; }
+.identity-copy .eyebrow { margin-bottom: 5px; color: var(--g4-forest); font-size: 9px; letter-spacing: .15em; }
+.identity-copy .club-name { color: var(--g4-ink); font-size: 13px; letter-spacing: -.025em; font-weight: 850; }
+.gallaspy-header-signout {
+  flex: 0 0 auto; min-height: 39px; padding: 8px 12px;
+  background: #fff; color: var(--g4-muted);
+  border: 1px solid var(--g4-line); border-radius: 999px;
+  font-size: 9px; font-weight: 800; letter-spacing: .03em;
+}
+.content {
+  padding: 22px 20px calc(var(--tab-height) + env(safe-area-inset-bottom) + 40px);
+  color: var(--g4-ink); background: #fff;
+  scrollbar-width: thin; scrollbar-color: #cddbd7 transparent;
+}
+.native-screen { min-width: 0; }
+.native-screen[hidden], #nativeContent [hidden] { display: none !important; }
+#nativeContent p { overflow-wrap: break-word; }
+#nativeContent .intro-label { color: var(--g4-forest); font-size: 10px; line-height: 1.3; letter-spacing: .12em; font-weight: 850; }
+#nativeContent button, #nativeContent select { cursor: pointer; }
+#nativeContent :is(button, input, select, textarea) { font-family: var(--g4-font); }
+#nativeContent :is(button,a,input,select,textarea,[role="button"]):focus-visible {
+  outline: 3px solid var(--g4-gold); outline-offset: 3px;
+}
+#nativeContent :is(input, select, textarea) { font-size: 16px; }
+#nativeContent :is(input, select, textarea):not([type="checkbox"]):not([type="radio"]) {
+  border-radius: 12px; max-width: 100%;
+}
+#nativeContent :is(button, a) { -webkit-tap-highlight-color: rgba(16,68,55,.12); touch-action: manipulation; }
+#nativeContent :is(button, a)[disabled] { cursor: not-allowed; }
+/* Compact, high-contrast native navigation. Four tabs are an intentional invariant. */
+.tabbar {
+  background: rgba(255,255,255,.97);
+  border-top: 1px solid var(--g4-line);
+  box-shadow: 0 -8px 28px rgba(17,43,67,.065);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+}
+.tabs { min-height: var(--tab-height); }
+.tab { color: #697b87; gap: 6px; padding: 8px 3px 6px; min-height: var(--tab-height); }
+.tab svg { width: 22px; height: 22px; stroke-width: 1.85; }
+.tab.active { color: var(--g4-forest); }
+.tab.active::before { top: 0; left: 26%; right: 26%; height: 3px; background: var(--g4-red); border-radius: 0 0 4px 4px; }
+.tab-label { font-size: 10px; line-height: 1.2; font-weight: 850; letter-spacing: .025em; }
+.tab:focus-visible { outline: 3px solid var(--g4-gold); outline-offset: -4px; }
+.offline-banner { background: var(--g4-ink); color: white; border-radius: 999px; font-size: 10px; }
+
+/* HOME / EDITORIAL DIGITAL CLUBHOUSE */
+#nativeHomeScreen .course-home-heading { padding: 0 0 8px; }
+#nativeHomeScreen .course-home-heading .intro-label { margin-bottom: 12px; }
+#nativeHomeScreen .home-personal-welcome {
+  margin: 0 0 12px; color: var(--g4-red);
+  font-size: 11px; line-height: 1.4; letter-spacing: .065em; font-weight: 850;
+}
+#nativeHomeScreen .course-home-heading h1 {
+  color: var(--g4-ink); max-width: 440px; font-size: clamp(34px, 9.3vw, 46px);
+  line-height: 1.015; letter-spacing: -.055em; font-weight: 900; text-wrap: balance;
+}
+#nativeHomeScreen .course-home-heading h1 span { color: var(--g4-forest); }
+#nativeHomeScreen .home-mission { color: var(--g4-muted); font-size: 14px; line-height: 1.55; margin: 13px 0 0; }
+#nativeHomeScreen .course-home-feature {
+  position: relative; isolation: isolate; overflow: hidden;
+  margin-top: 22px; padding: 25px 23px 22px;
+  border-radius: 22px; background: linear-gradient(125deg, #0b372f 0%, #155547 100%);
+  border: 1px solid rgba(6,44,37,.5); color: white;
+  box-shadow: 0 15px 30px rgba(16,68,55,.14);
+}
+#nativeHomeScreen .course-home-feature::after {
+  content: ""; position: absolute; z-index: -1; right: -86px; top: -80px;
+  width: 245px; height: 245px; border: 1px solid rgba(255,255,255,.18);
+  border-radius: 50%; box-shadow: 0 0 0 35px rgba(255,255,255,.035), 0 0 0 77px rgba(255,255,255,.025);
+  pointer-events: none;
+}
+#nativeHomeScreen .course-home-eyebrow { color: #d3e5df; font-size: 10px; letter-spacing: .13em; }
+#nativeHomeScreen .course-home-feature h2 { color: white; font-size: clamp(26px,7vw,33px); letter-spacing: -.05em; max-width: 15ch; }
+#nativeHomeScreen .course-home-feature p:not(.course-home-eyebrow) { color: #e6f3ed; font-size: 13px; }
+#nativeHomeScreen .course-home-start {
+  background: white; color: var(--g4-forest-deep); border: 0;
+  min-height: 52px; border-radius: 13px; padding: 13px 17px;
+  font-size: 12px; font-weight: 900; letter-spacing: .055em;
+  box-shadow: 0 3px 10px rgba(2,18,15,.09);
+}
+#nativeHomeScreen .course-home-start:active { background: #e8f1ec; }
+#nativeHomeScreen .course-home-label { margin: 26px 0 13px; color: var(--g4-ink); font-size: 11px; letter-spacing: .08em; }
+#nativeHomeScreen .course-home-grid { gap: 11px; }
+#nativeHomeScreen .course-home-grid > .course-home-tile:not([data-home-community]) {
+  min-height: 133px; padding: 16px; background: #fff;
+  border: 1px solid var(--g4-line); border-radius: 17px;
+  box-shadow: var(--g4-shadow); text-align: left;
+}
+#nativeHomeScreen .course-home-tile-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; border-radius: 12px; background: var(--g4-forest-wash);
+  color: var(--g4-forest) !important; margin-bottom: 12px;
+}
+#nativeHomeScreen .course-home-grid > .course-home-tile:nth-child(4) .course-home-tile-icon { background: var(--g4-red-wash); color: var(--g4-red) !important; }
+#nativeHomeScreen .course-home-grid > .course-home-tile:not([data-home-community]) strong { color: var(--g4-ink); font-size: 12px; letter-spacing: .025em; }
+#nativeHomeScreen .course-home-grid > .course-home-tile:not([data-home-community]) small { color: var(--g4-muted); font-size: 12px; line-height: 1.4; }
+#nativeHomeScreen .course-home-grid > [data-home-community] {
+  min-height: 102px; padding: 18px; border-radius: 17px;
+  background: var(--g4-ink); border: 1px solid var(--g4-ink);
+}
+#nativeHomeScreen .course-home-grid > [data-home-community] .course-home-tile-icon { color: white !important; background: rgba(255,255,255,.12); }
+#nativeHomeScreen .course-home-grid > [data-home-community] strong { color: #fff; }
+#nativeHomeScreen .course-home-grid > [data-home-community] small { color: #d6e2ec; font-size: 12px; }
+#nativeHomeScreen .home-section { margin-top: 29px; }
+#nativeHomeScreen .home-section-eyebrow { color: var(--g4-forest); font-size: 10px; letter-spacing: .085em; }
+#nativeHomeScreen .home-section-title { color: var(--g4-ink); font-size: 17px; letter-spacing: -.02em; }
+#nativeHomeScreen .home-section-link { color: var(--g4-forest); min-height: 44px; font-size: 11px; font-weight: 850; }
+#nativeHomeScreen .home-club-card {
+  padding: 21px; border: 1px solid var(--g4-line); background: white;
+  border-radius: var(--g4-radius); box-shadow: var(--g4-shadow);
+}
+#nativeHomeScreen .home-club-card-label { color: var(--g4-red); font-size: 10px; }
+#nativeHomeScreen .home-club-card h3 { color: var(--g4-ink); font-size: 20px; letter-spacing: -.035em; }
+#nativeHomeScreen .home-club-card p:not(.home-club-card-label) { color: var(--g4-muted); font-size: 13px; line-height: 1.55; }
+#nativeHomeScreen .home-community-card { border-left: 4px solid var(--g4-forest); }
+#nativeHomeScreen .home-rewards-card { border-left: 4px solid var(--g4-gold); }
+#nativeHomeScreen .home-snapshot-grid { gap: 8px; }
+#nativeHomeScreen .home-stat {
+  background: var(--g4-forest-wash); border: 1px solid #dbe9e3;
+  border-radius: 15px; min-height: 104px; padding: 15px 10px;
+}
+#nativeHomeScreen .home-stat span { color: var(--g4-muted); font-size: 10px; }
+#nativeHomeScreen .home-stat strong { color: var(--g4-ink); font-size: clamp(22px,6vw,29px); }
+#nativeHomeScreen .home-data-note { color: var(--g4-muted); font-size: 12px; line-height: 1.5; }
+#nativeHomeScreen .course-home-profile {
+  border-radius: 17px; background: var(--g4-paper); border: 1px solid var(--g4-line);
+  padding: 17px 19px; color: var(--g4-ink);
+}
+#nativeHomeScreen .course-home-profile :is(strong, small) { color: var(--g4-ink); }
+
+/* PLAY / FEATURE DISCOVERY AND ON-COURSE READABILITY */
+#nativePlayScreen { color: var(--g4-ink); }
+#nativePlayScreen .play-heading { padding: 4px 0 22px; }
+#nativePlayScreen .play-heading h2 { color: var(--g4-ink); font-size: clamp(30px,8.2vw,42px); line-height: 1.02; letter-spacing: -.05em; }
+#nativePlayScreen .play-heading > p:last-child { color: var(--g4-muted); font-size: 14px; line-height: 1.6; }
+#nativePlayScreen .play-dashboard-nav { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 11px; }
+#nativePlayScreen .play-dashboard-nav button {
+  position: relative; min-width: 0; min-height: 104px; align-items: flex-start;
+  justify-content: flex-end; gap: 8px; padding: 16px;
+  background: white; color: var(--g4-ink); text-align: left;
+  border: 1px solid var(--g4-line); border-radius: 17px; box-shadow: var(--g4-shadow);
+}
+#nativePlayScreen .play-dashboard-nav button::after {
+  content: "↗"; position: absolute; top: 14px; right: 16px;
+  font-size: 20px; font-weight: 400; color: var(--g4-forest);
+}
+#nativePlayScreen .play-dashboard-nav button span { color: var(--g4-ink); font-size: 15px; line-height: 1.1; letter-spacing: -.015em; padding-right: 12px; }
+#nativePlayScreen .play-dashboard-nav button small { color: var(--g4-muted); font-size: 10px; letter-spacing: .02em; line-height: 1.4; }
+#nativePlayScreen .play-dashboard-nav button:nth-child(2),
+#nativePlayScreen .play-dashboard-nav button:nth-child(4) { background: var(--g4-forest-wash); border-color: #cfe3d8; }
+#nativePlayScreen .play-dashboard-nav button:nth-child(2) small,
+#nativePlayScreen .play-dashboard-nav button:nth-child(4) small { color: #456958; }
+#nativePlayScreen .play-dashboard-nav button[data-play-target="playScorecardLaunch"] {
+  background: var(--g4-red); border-color: var(--g4-red); box-shadow: 0 10px 22px rgba(179,38,53,.15);
+}
+#nativePlayScreen .play-dashboard-nav button[data-play-target="playScorecardLaunch"] :is(span,small),
+#nativePlayScreen .play-dashboard-nav button[data-play-target="playScorecardLaunch"]::after { color: white; }
+#nativePlayScreen .play-dashboard-nav button.play-dashboard-wide {
+  grid-column: 1 / -1; min-height: 91px; background: var(--g4-forest); border-color: var(--g4-forest);
+}
+#nativePlayScreen .play-dashboard-nav button.play-dashboard-wide :is(span,small),
+#nativePlayScreen .play-dashboard-nav button.play-dashboard-wide::after { color: white; }
+#nativePlayScreen .play-feature { margin-top: 18px; border-radius: var(--g4-radius); }
+#nativePlayScreen .play-feature > h3 { color: var(--g4-ink); font-size: 24px; letter-spacing: -.025em; }
+#nativePlayScreen .play-feature p, #nativePlayScreen .play-feature label { line-height: 1.55; }
+#nativePlayScreen :is(.play-stats > div,.foursome-card,.round-card,.gallaspy-rule-card) {
+  border-radius: 16px; box-shadow: var(--g4-shadow);
+}
+#nativePlayScreen #playWeather { background: #fff; border: 1px solid var(--g4-line); padding: 19px; margin-top: 20px; }
+#nativePlayScreen #playWeather > h3 { font-size: 20px; color: var(--g4-ink); margin-bottom: 12px; }
+#nativePlayScreen #playWeather .gallaspy-weather { background: var(--g4-forest-wash); border: 1px solid #dcece4; border-radius: 15px; }
+#nativePlayScreen .weather-top h4, #nativePlayScreen .weather-top > strong,
+#nativePlayScreen .weather-metrics strong { color: var(--g4-ink); }
+#nativePlayScreen .weather-label, #nativePlayScreen .weather-metrics span { color: var(--g4-forest); }
+#nativePlayScreen .weather-disclaimer { color: var(--g4-muted); font-size: 11px; }
+#nativePlayScreen :is(.foursome-tabs button,.gallaspy-rules-categories button) { border-radius: 999px; min-height: 43px; }
+#nativePlayScreen :is(.play-fields input,.foursome-card input,#foursomeHostForm input,#foursomeHostForm select,#gallaspyRulesSearch) {
+  background: #fff; border-color: #c9d7da; color: var(--g4-ink); min-height: 48px;
+}
+#nativePlayScreen .play-table-wrap { -webkit-overflow-scrolling: touch; border-radius: 12px; }
+#nativePlayScreen .play-table input { min-height: 38px; }
+#nativePlayScreen :is(#playStartScorecard,#playSaveRound,.foursome-card button,.round-card .round-register) { min-height: 49px; border-radius: 12px; }
+#nativePlayScreen .gallaspy-play-back { min-height: 44px; }
+#nativePlayScreen .gallaspy-play-page-title { color: var(--g4-ink); letter-spacing: -.04em; }
+
+/* SHOP / COMMERCE: generous imagery and clear prices, no fabricated merchandise. */
+#nativeShopScreen { color: var(--g4-ink); }
+#nativeShopScreen .my-heading { padding: 6px 0 19px; }
+#nativeShopScreen .my-heading h2 { color: var(--g4-ink); font-size: clamp(31px,8.3vw,43px); line-height: 1.04; letter-spacing: -.045em; }
+#nativeShopScreen .my-heading > p:last-child { color: var(--g4-muted); font-size: 14px; line-height: 1.5; }
+#nativeShopScreen .native-shop-bag-trigger {
+  background: white; border: 1px solid var(--g4-line); color: var(--g4-ink);
+  border-radius: 13px; min-width: 49px; min-height: 49px;
+}
+#nativeShopScreen .native-shop-bag-count { background: var(--g4-red); color: #fff; }
+#nativeShopScreen .native-shop-catalog { margin-top: 12px; }
+#nativeShopScreen .native-shop-filters { gap: 8px; margin-bottom: 17px; }
+#nativeShopScreen .native-shop-filters button {
+  background: #fff; color: var(--g4-ink); border: 1px solid var(--g4-line);
+  border-radius: 12px; font-size: 11px; min-height: 46px; letter-spacing: .035em;
+}
+#nativeShopScreen .native-shop-filters button[aria-pressed="true"] {
+  background: var(--g4-forest); color: #fff; border-color: var(--g4-forest);
+}
+#nativeShopScreen .native-shop-grid { gap: 12px; row-gap: 17px; }
+#nativeShopScreen .native-shop-product {
+  overflow: hidden; background: #fff; border: 1px solid var(--g4-line);
+  border-radius: 17px; box-shadow: var(--g4-shadow);
+}
+#nativeShopScreen .native-shop-product img { aspect-ratio: .86; object-fit: contain; background: #f2f5f6; padding: 7px; }
+#nativeShopScreen .native-shop-product-info { background: white; padding: 13px 12px 16px; gap: 7px; }
+#nativeShopScreen .native-shop-product-info h4 { color: var(--g4-ink); font-size: 13px; line-height: 1.4; }
+#nativeShopScreen .native-shop-product-info p { color: var(--g4-muted); font-size: 12px; }
+#nativeShopScreen .native-shop-product-info strong { color: var(--g4-forest); font-size: 15px; }
+#nativeShopScreen #nativeShopStatus { color: var(--g4-muted); font-size: 12px; }
+#nativeShopScreen .native-shop-detail { background: white; }
+#nativeShopScreen #nativeShopBack { color: var(--g4-forest); font-size: 11px; min-height: 45px; }
+#nativeShopScreen #nativeShopDetailImage { border-radius: 17px; background: var(--g4-paper); border: 1px solid var(--g4-line); }
+#nativeShopScreen .native-shop-detail-info { padding: 18px 2px; }
+#nativeShopScreen .native-shop-detail-info h3 { color: var(--g4-ink); font-size: 24px; }
+#nativeShopScreen #nativeShopDetailColor { color: var(--g4-muted); }
+#nativeShopScreen #nativeShopDetailPrice { color: var(--g4-forest); }
+#nativeShopScreen .native-shop-purchase { border-color: var(--g4-line); }
+#nativeShopScreen .native-shop-purchase label { color: var(--g4-ink); font-size: 11px; }
+#nativeShopScreen .native-shop-purchase select { background: #fff; color: var(--g4-ink); border: 1px solid #cbd7dc; border-radius: 12px; }
+#nativeShopScreen #nativeShopAddToBag { background: var(--g4-forest); color: white; min-height: 52px; border-radius: 13px; }
+#nativeShopScreen .native-shop-bag { background: var(--g4-paper); border: 1px solid var(--g4-line); border-radius: 17px; padding: 15px; }
+#nativeShopScreen .native-shop-bag-item { border-color: var(--g4-line); }
+#nativeShopScreen .native-shop-bag-item :is(strong,p) { color: var(--g4-ink); }
+#nativeShopScreen .native-shop-bag-note { color: var(--g4-muted); }
+#nativeShopScreen #nativeShopCheckout { border-radius: 13px; min-height: 51px; }
+#nativeShopScreen #nativeShopCheckout:disabled { background: #dde4e8; color: #4e616d; }
+
+/* MY GALLASPY / IDENTITY, PROGRESS, MEMBERSHIP, REWARDS */
+#nativeMyGallaspyScreen { color: var(--g4-ink); }
+#nativeMyGallaspyScreen .my-heading { padding: 6px 0 20px; }
+#nativeMyGallaspyScreen .my-heading h2 { color: var(--g4-ink); font-size: clamp(31px,8vw,42px); line-height: 1.05; letter-spacing: -.045em; }
+#nativeMyGallaspyScreen .my-heading > p:last-child { color: var(--g4-muted); font-size: 14px; }
+#nativeMyGallaspyScreen #myOpenSettings {
+  border: 1px solid var(--g4-line); background: white; color: var(--g4-ink);
+  width: 45px; height: 45px; border-radius: 13px;
+}
+#nativeMyGallaspyScreen .my-player-identity {
+  background: linear-gradient(125deg, #102b43 0%, #184c51 100%);
+  color: white; border: 0; border-radius: 22px; padding: 21px;
+  box-shadow: 0 13px 30px rgba(13,38,59,.13);
+}
+#nativeMyGallaspyScreen .my-identity-avatar {
+  border: 1px solid rgba(255,255,255,.35); background: rgba(255,255,255,.13);
+  color: white; box-shadow: none;
+}
+#nativeMyGallaspyScreen .my-identity-eyebrow { color: #c0e6d9; font-size: 10px; }
+#nativeMyGallaspyScreen .my-identity-details h3,
+#nativeMyGallaspyScreen #myIdentityName,
+#nativeMyGallaspyScreen #myIdentityStatus,
+#nativeMyGallaspyScreen .my-identity-footer strong,
+#nativeMyGallaspyScreen .my-identity-footer span { color: white; }
+#nativeMyGallaspyScreen .my-identity-footer { border-color: rgba(255,255,255,.23); }
+#nativeMyGallaspyScreen .my-identity-note { color: #dbe7ed; font-size: 11px; line-height: 1.45; }
+#nativeMyGallaspyScreen .my-v3-performance { border-radius: 18px; }
+#nativeMyGallaspyScreen .my-v3-performance > h3 { color: var(--g4-ink); font-size: 17px; }
+#nativeMyGallaspyScreen .my-v3-performance .my-stats { gap: 8px; }
+#nativeMyGallaspyScreen .my-v3-performance .my-stats > div {
+  border: 1px solid var(--g4-line); border-radius: 15px; background: var(--g4-paper);
+  min-height: 99px; padding: 14px 7px;
+}
+#nativeMyGallaspyScreen .my-v3-performance .my-stats span { color: var(--g4-muted); font-size: 10px; }
+#nativeMyGallaspyScreen .my-v3-performance .my-stats strong { color: var(--g4-ink); font-size: clamp(22px,5.5vw,29px); }
+#nativeMyGallaspyScreen .my-v3-clubhouse-intro p { color: var(--g4-forest); font-size: 10px; }
+#nativeMyGallaspyScreen .my-v3-clubhouse-intro h3 { color: var(--g4-ink); font-size: 22px; line-height: 1.15; }
+#nativeMyGallaspyScreen .my-v2-navigation { gap: 9px; }
+#nativeMyGallaspyScreen .my-v2-navigation button {
+  background: #fff; color: var(--g4-ink); border: 1px solid var(--g4-line);
+  border-radius: 14px; min-height: 65px; padding: 13px 8px; font-size: 11px; font-weight: 800;
+}
+#nativeMyGallaspyScreen .my-v2-navigation button.my-v2-nav-active { background: var(--g4-forest); color: white; border-color: var(--g4-forest); }
+#nativeMyGallaspyScreen .my-v2-navigation button.my-v2-nav-active::before { color: white; }
+#nativeMyGallaspyScreen .my-panel {
+  border-radius: var(--g4-radius); background: #fff; border: 1px solid var(--g4-line);
+  padding: 22px 19px; box-shadow: var(--g4-shadow);
+}
+#nativeMyGallaspyScreen .my-panel h3 { color: var(--g4-ink); font-size: 23px; }
+#nativeMyGallaspyScreen .my-panel > p:not(.intro-label),
+#nativeMyGallaspyScreen .my-empty, #nativeMyGallaspyScreen .my-disclaimer { color: var(--g4-muted); }
+#nativeMyGallaspyScreen .my-panel label { color: var(--g4-forest); font-size: 11px; }
+#nativeMyGallaspyScreen :is(#myPlayerName, .my-auth-panel input) { color: var(--g4-ink); background: #fff; border: 1px solid #c7d5da; min-height: 48px; }
+#nativeMyGallaspyScreen :is(#mySaveProfile,.my-action) { color: white; background: var(--g4-forest); border-radius: 12px; min-height: 49px; }
+#nativeMyGallaspyScreen .my-points-stats > div,
+#nativeMyGallaspyScreen .my-passport-stats > div { border-radius: 14px; }
+#nativeMyGallaspyScreen .my-passport-stats strong,
+#nativeMyGallaspyScreen .my-points-stats strong { color: var(--g4-ink); }
+#nativeMyGallaspyScreen .my-passport-stats span,
+#nativeMyGallaspyScreen .my-points-stats span { color: var(--g4-muted); font-size: 10px; }
+#nativeMyGallaspyScreen .my-round,
+#nativeMyGallaspyScreen .passport-course { border-color: var(--g4-line); }
+#nativeMyGallaspyScreen .my-round strong,
+#nativeMyGallaspyScreen .passport-course strong { color: var(--g4-ink); }
+#nativeMyGallaspyScreen .my-round span,
+#nativeMyGallaspyScreen .passport-course span { color: var(--g4-muted); }
+#nativeMyGallaspyScreen .my-round-score { color: var(--g4-forest); }
+
+/* SECONDARY SCREENS / COHERENT COMPONENT SYSTEM */
+#nativeCommunityScreen, #nativeAiCaddieScreen, #nativeCheckoutScreen { color: var(--g4-ink); }
+#nativeCommunityScreen .community-title,
+#nativeAiCaddieScreen .caddie-screen h2,
+#nativeCheckoutScreen .my-heading h2 { color: var(--g4-ink); }
+#nativeCommunityScreen .community-screen { background: #fff; }
+#nativeCommunityScreen .community-header { border-color: var(--g4-line); }
+#nativeCommunityScreen .community-back { color: var(--g4-forest); background: var(--g4-forest-wash); border-radius: 12px; min-height: 44px; min-width: 44px; }
+#nativeCommunityScreen :is(.community-composer,.community-username-setup,#communityFeed .community-post) {
+  background: #fff; border: 1px solid var(--g4-line); border-radius: 17px; box-shadow: var(--g4-shadow);
+}
+#nativeCommunityScreen :is(.community-composer h3,.community-username-setup h3,.community-feed-heading,.community-post-author) { color: var(--g4-ink); }
+#nativeCommunityScreen :is(#communityPostBody,#communityUsernameInput) { color: var(--g4-ink); background: #fff; border-color: #c6d6d8; min-height: 48px; }
+#nativeCommunityScreen :is(#communityPublishButton,#communitySaveUsernameButton) { color: #fff; background: var(--g4-forest); border-radius: 12px; min-height: 48px; }
+#nativeCommunityScreen .community-post-body { color: var(--g4-ink); font-size: 14px; line-height: 1.6; }
+#nativeCommunityScreen .community-post-time { color: var(--g4-muted); }
+#nativeAiCaddieScreen .caddie-intro { color: var(--g4-muted); }
+#nativeAiCaddieScreen #caddieBackHome { color: var(--g4-forest); min-height: 44px; }
+#nativeAiCaddieScreen :is(.caddie-panel,.caddie-response) { background: #fff; border: 1px solid var(--g4-line); border-radius: 18px; box-shadow: var(--g4-shadow); }
+#nativeAiCaddieScreen .caddie-panel h3 { color: var(--g4-ink); }
+#nativeAiCaddieScreen .caddie-panel label { color: var(--g4-forest); font-size: 11px; }
+#nativeAiCaddieScreen :is(.caddie-panel input,.caddie-panel select,.caddie-panel textarea) { background: white; color: var(--g4-ink); border-color: #c9d5da; }
+#nativeAiCaddieScreen #caddieAskButton { min-height: 49px; border-radius: 12px; background: var(--g4-forest); color: white; }
+#nativeAiCaddieScreen #caddieAskButton:disabled { background: #d6e0e3; color: #425460; }
+#nativeCheckoutScreen .my-panel { background: white; border: 1px solid var(--g4-line); border-radius: 17px; }
+#nativeCheckoutScreen .my-panel h3 { color: var(--g4-ink); }
+#nativeCheckoutScreen #nativeCheckoutForm label { color: var(--g4-forest); }
+#nativeCheckoutScreen #nativeCheckoutForm input { background: white; color: var(--g4-ink); border-color: #cad7dc; }
+#nativeCheckoutScreen #nativeCheckoutPay:disabled { background: #d8e2e6; color: #425460; }
+#nativeCheckoutScreen #nativeCheckoutBack { color: var(--g4-forest); min-height: 44px; }
+
+/* MOTION AND DEVICE ADAPTATION */
+#nativeContent .course-home-tile,
+#nativeContent .native-shop-product,
+#nativeContent .play-dashboard-nav button { transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease; }
+#nativeContent .course-home-tile:active,
+#nativeContent .native-shop-product:active,
+#nativeContent .play-dashboard-nav button:active { transform: scale(.985); }
+@media (max-width: 365px) {
+  .content { padding-left: 16px; padding-right: 16px; }
+  .topbar { padding-left: 15px; padding-right: 15px; }
+  .identity-copy .club-name { font-size: 12px; }
+  .gallaspy-header-signout { font-size: 8px; padding: 7px 10px; }
+  #nativeHomeScreen .home-snapshot-grid { gap: 6px; }
+  #nativeHomeScreen .home-stat { padding: 13px 7px; }
+  #nativePlayScreen .play-dashboard-nav { gap: 8px; }
+  #nativePlayScreen .play-dashboard-nav button { padding: 13px; min-height: 100px; }
+  #nativePlayScreen .play-dashboard-nav button span { font-size: 14px; }
+  #nativeShopScreen .native-shop-grid { gap: 9px; }
+  #nativeShopScreen .native-shop-product-info { padding: 11px 9px 13px; }
+  .tab-label { font-size: 9px; }
+}
+@media (min-width: 700px) {
+  .topbar { padding-left: max(calc((100vw - 660px)/2),34px); padding-right: max(calc((100vw - 660px)/2),34px); }
+  .content { max-width: 660px; margin-inline: auto; width: 100%; padding-left: 34px; padding-right: 34px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #nativeContent .course-home-tile, #nativeContent .native-shop-product,
+  #nativeContent .play-dashboard-nav button { transition: none !important; }
+  #nativeContent .course-home-tile:active, #nativeContent .native-shop-product:active,
+  #nativeContent .play-dashboard-nav button:active { transform: none !important; }
+}
+
+/* Intentional V4 identity treatment overrides V3's legacy !important tokens. */
+#nativeMyGallaspyScreen .my-player-identity {
+  background: linear-gradient(125deg, #102b43 0%, #184c51 100%) !important;
+  border: 1px solid #143d4b !important;
+  color: #fff !important; border-radius: 22px !important;
+  padding: 21px !important; box-shadow: 0 13px 30px rgba(13,38,59,.13) !important;
+}
+#nativeMyGallaspyScreen .my-identity-avatar {
+  background: rgba(255,255,255,.13) !important;
+  border: 1px solid rgba(255,255,255,.32) !important;
+  color: white !important;
+}
+#nativeMyGallaspyScreen .my-player-identity :is(.my-identity-eyebrow,#myIdentityStatus,.my-identity-footer span) { color: #d7e8e8 !important; }
+#nativeMyGallaspyScreen .my-player-identity :is(#myIdentityName,.my-identity-details h3,.my-identity-footer strong) { color: white !important; }
+#nativeMyGallaspyScreen .my-identity-footer { border-top-color: rgba(255,255,255,.25) !important; }
+#nativeMyGallaspyScreen .my-identity-note { color: #d6e1e9 !important; }
+/* Preserve V3's detail navigation behavior; restyle only active overview state. */
+#nativeMyGallaspyScreen .my-v2-navigation button.my-v2-nav-active {
+  background: var(--g4-forest-wash) !important; border-color: var(--g4-forest) !important;
+  color: var(--g4-forest) !important;
+}
+#nativeMyGallaspyScreen .my-v3-detail-open button[data-my-view="overview"] {
+  background: white !important; color: var(--g4-ink) !important; border-color: var(--g4-line) !important;
+}
+
+
+/* GALLASPY WEATHER CONTRAST FIX V1 */
+
+/* Restore high-contrast lettering inside navy weather cards. */
+#nativePlayScreen #playWeather .weather-metrics span {
+  color: #e5f2ef;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+#nativePlayScreen #playWeather .weather-metrics strong {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* Readable forecast description on the light background. */
+#nativePlayScreen #playWeather .weather-top p {
+  color: #344c5b;
+}
+
+/* Accessible forest-green refresh button. */
+#nativePlayScreen #playWeather .gallaspy-weather button {
+  background: #104b3b;
+  border: 1px solid #104b3b;
+  color: #ffffff;
+  font-weight: 700;
+  min-height: 48px;
+}
+
+#nativePlayScreen #playWeather .gallaspy-weather button:focus-visible {
+  outline: 3px solid #c9a750;
+  outline-offset: 3px;
+}
+
+/* Readable loading, success, and error messages. */
+#nativePlayScreen #weatherStatus {
+  color: #344c5b;
+  font-size: 12px;
+  font-weight: 500;
+}

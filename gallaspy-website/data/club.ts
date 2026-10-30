@@ -110,25 +110,25 @@ export const traditions: Tradition[] = [
   },
   {
     id: "gallaspy-invitational",
-    name: "The Gallaspy Invitational",
+    name: "THE GALLASPY",
     recurringMonth: 6,
     monthLabel: "June",
     firstOccurrenceYear: 2027,
     description:
       "The flagship annual tournament of The Gallaspy.",
     permanent: true,
-    href: "/invitational",
+    href: "/the-gallaspy",
   },
   {
     id: "talaria-cup",
-    name: "The Talaria Cup",
+    name: "THE GALLASPY CUP",
     recurringMonth: 10,
     monthLabel: "October",
     firstOccurrenceYear: 2027,
     description:
       "The annual Gallaspy team championship: Crest vs. Falcon. Eight singles matches. Eighteen holes. One team champion.",
     permanent: true,
-    href: "/talaria-cup",
+    href: "/gallaspy-cup",
   },
   {
     id: "night-at-the-nest",
@@ -346,7 +346,7 @@ export const events: GallaspyEvent[] = [
     category: "GALLASPY_ROUND",
     status: "REGISTRATION_OPEN",
     description:
-      "The final regular Gallaspy Round before the 1st Annual Gallaspy Invitational.",
+      "The final regular Gallaspy Round before the 1st Annual THE GALLASPY.",
     venue: {
       name: "The Frog Golf Club",
       city: "Villa Rica",
@@ -362,7 +362,7 @@ export const events: GallaspyEvent[] = [
   {
     id: "gallaspy-invitational-2027",
     slug: "gallaspy-invitational-2027",
-    name: "The Gallaspy Invitational",
+    name: "THE GALLASPY",
     year: 2027,
     date: "2027-06-21",
     month: 6,
@@ -370,13 +370,13 @@ export const events: GallaspyEvent[] = [
     category: "COMPETITION",
     status: "REGISTRATION_OPEN",
     description:
-      "The 1st Annual Gallaspy Invitational and the club's flagship individual stroke-play championship.",
+      "The 1st Annual THE GALLASPY and the club's flagship individual stroke-play championship.",
     venue: {
       confirmed: false,
     },
     format: "18-Hole Individual Stroke Play",
     capacity: 72,
-    href: "/invitational",
+    href: "/the-gallaspy",
     registrationHref: "/invitational/register",
     featured: true,
     guestPolicy: {
@@ -459,7 +459,7 @@ export const events: GallaspyEvent[] = [
   {
     id: "talaria-cup-2027",
     slug: "talaria-cup-2027",
-    name: "The Talaria Cup",
+    name: "THE GALLASPY CUP",
     year: 2027,
     date: "2027-10-23",
     month: 10,
@@ -472,7 +472,7 @@ export const events: GallaspyEvent[] = [
       confirmed: false,
     },
     format: "16 Players · 8 Singles Matches · Match Play",
-    href: "/talaria-cup",
+    href: "/gallaspy-cup",
     featured: true,
     traditionId: "talaria-cup",
   },

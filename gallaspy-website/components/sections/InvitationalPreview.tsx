@@ -3,9 +3,9 @@ import Link from "next/link";
 
 const facts = [
   ["Date", "June 21, 2027"],
-  ["Field", "72 Players"],
-  ["Format", "Individual Stroke Play"],
-  ["Championships", "Gross + Net"],
+  ["Location", "Metro Atlanta, Georgia"],
+  ["Competition", "The Gallaspy Championship"],
+  ["Trophy", "The Golden Falcon"],
 ];
 
 export default function InvitationalPreview() {
@@ -28,7 +28,7 @@ export default function InvitationalPreview() {
             <div className="mt-5 flex items-center gap-5">
               <Image
                 src="/logos/official/the-gallaspy-championship.png"
-                alt="The Gallaspy Invitational"
+                alt="Official Gallaspy Championship mark"
                 width={320}
                 height={180}
                 className="h-auto w-[135px] object-contain sm:w-[165px]"
@@ -42,29 +42,30 @@ export default function InvitationalPreview() {
             </p>
 
             <h2 className="mt-3 max-w-[720px] text-[2.5rem] font-black uppercase leading-[0.9] tracking-[-0.05em] sm:text-[3.6rem] lg:text-[4.3rem]">
-              The Gallaspy
-              <span className="block text-[#FFD76A]">Invitational</span>
+              THE GALLASPY
+              <span className="block text-[#FFD76A]">CHAMPIONSHIP</span>
             </h2>
 
             <p className="mt-6 max-w-[650px] text-sm leading-7 text-white/65 sm:text-base">
-              Seventy-two golfers. Eighteen holes. Individual stroke play.
-              The Gallaspy Invitational is the club&apos;s annual championship
-              and the competition where The Golden Falcon is earned.
+              June 21, 2027. Metro Atlanta. THE GALLASPY brings
+              championship golf and community together. THE GALLASPY
+              CHAMPIONSHIP is the individual stroke-play competition
+              where The Golden Falcon is earned.
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link
-                href="/invitational/register"
+                href="/the-gallaspy"
                 className="inline-flex min-h-[48px] items-center justify-center bg-[#FFD76A] px-6 text-[8px] font-black uppercase tracking-[0.22em] text-[#10263F] transition hover:bg-white"
               >
-                Register Now →
+                Explore THE GALLASPY →
               </Link>
 
               <Link
-                href="/invitational"
+                href="/invitational/register"
                 className="inline-flex min-h-[48px] items-center justify-center border border-white/25 px-6 text-[8px] font-black uppercase tracking-[0.22em] text-white transition hover:border-[#FFD76A] hover:text-[#FFD76A]"
               >
-                Tournament Details →
+                Player Registration Details →
               </Link>
             </div>
           </div>
@@ -78,7 +79,7 @@ export default function InvitationalPreview() {
                 </p>
 
                 <p className="mt-2 text-[9px] font-bold uppercase tracking-[0.2em] text-white/40">
-                  Gallaspy Invitational 001
+                  THE GALLASPY · 001
                 </p>
               </div>
 
@@ -108,7 +109,7 @@ export default function InvitationalPreview() {
 
             <div className="border-t border-white/15 bg-[#B3262D] px-5 py-4 sm:px-6">
               <p className="text-[7px] font-black uppercase tracking-[0.26em] text-white">
-                Host Course Announcement Forthcoming
+                Host Course To Be Announced
               </p>
             </div>
           </div>
