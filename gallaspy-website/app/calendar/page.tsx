@@ -39,7 +39,14 @@ const monthNames = [
 ];
 
 function sortEvents() {
-  return [...events].filter((event) => event.year >= 2027).sort((a, b) => {
+  return [...events]
+    .filter(
+      (event) =>
+        event.year >= 2027 ||
+        event.date === "2026-11-14" ||
+        event.date === "2026-12-12",
+    )
+    .sort((a, b) => {
     const aMonth = a.month ?? 1;
     const bMonth = b.month ?? 1;
 
@@ -113,10 +120,10 @@ export default function CalendarPage() {
       <section className="px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 border border-[#10263F]/15 bg-white p-6 sm:p-8">
-            <p className="text-[9px] font-black uppercase tracking-[0.28em] text-[#8B6A34]">2027 Club Programming</p>
+            <p className="text-[9px] font-black uppercase tracking-[0.28em] text-[#8B6A34]">2026 Finale &amp; 2027 Club Programming</p>
             <h2 className="mt-3 text-2xl font-black uppercase text-[#10263F]">Play. Compete. Gather.</h2>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-[#10263F]/65">
-              Monthly Gallaspy Rounds, weekly Range Nights and the ability to host
+              Our final 2026 Gallaspy Rounds are November 14 and December 12. In 2027, monthly Gallaspy Rounds, weekly Range Nights and the ability to host
               your own round through the Gallaspy app form the ongoing playing program.
               Our signature events are THE GALLASPY (June 21), THE GALLASPY CUP
               and NIGHT AT THE NEST. Dates, venues and registrations are published

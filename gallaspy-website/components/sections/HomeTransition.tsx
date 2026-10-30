@@ -26,7 +26,10 @@ function getCurrentMonthEvent() {
   return (
     events.find(
       (event) =>
-        event.year >= 2027 && event.year === year &&
+        event.year === year &&
+        (event.year >= 2027 ||
+          event.date === "2026-11-14" ||
+          event.date === "2026-12-12") &&
         event.month === month &&
         event.status !== "COMPLETED",
     ) ?? null
@@ -35,7 +38,15 @@ function getCurrentMonthEvent() {
 
 export default function HomeTransition() {
   const nextEvent = events
-    .filter((event) => event.year >= 2027 && event.status !== "COMPLETED")
+    .filter(
+      (event) =>
+        (event.year >= 2027 ||
+          event.date === "2026-11-14" ||
+          event.date === "2026-12-12") &&
+        event.status !== "COMPLETED" &&
+        (!event.date ||
+          event.date >= new Date().toISOString().slice(0, 10)),
+    )
     .sort((a, b) => (a.date ?? `${a.year}-${String(a.month ?? 12).padStart(2, "0")}-31`).localeCompare(b.date ?? `${b.year}-${String(b.month ?? 12).padStart(2, "0")}-31`))[0] ?? null;
   const thisMonth = getCurrentMonthEvent();
 
