@@ -154,6 +154,15 @@ export default function UpcomingEvents() {
                 >
                   {event.name}
                 </h3>
+                {event.href === "/gallaspy-cup" && (
+                  <img
+                    src="/logos/official/the-gallaspy-cup.png"
+                    alt="Official The Gallaspy Cup logo"
+                    width={110}
+                    height={110}
+                    className="mt-5 h-[110px] w-[110px] object-contain"
+                  />
+                )}
 
                 <p className="mt-5 max-w-[650px] text-sm leading-7 text-white/50">
                   {event.description}

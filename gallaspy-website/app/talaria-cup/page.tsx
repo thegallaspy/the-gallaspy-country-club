@@ -53,8 +53,8 @@ export default function TalariaCupPage() {
           <div className="flex flex-col items-center justify-center text-center lg:min-h-[560px] lg:pl-10">
             <div className="relative flex w-full items-center justify-center">
               <Image
-                src="/logos/official/falcon-G.png"
-                alt="The Gallaspy Falcon G brandmark"
+                src="/logos/official/the-gallaspy-cup.png"
+                alt="Official The Gallaspy Cup logo"
                 width={700}
                 height={700}
                 priority
