@@ -16,7 +16,6 @@
     "@capacitor/preferences": "^7.0.4",
     "@supabase/ssr": "^0.12.5",
     "@supabase/supabase-js": "^2.112.3",
-    "@vercel/blob": "^1.1.1",
     "framer-motion": "^12.23.12",
     "jose": "^6.2.10",
     "lucide-react": "^0.542.0",

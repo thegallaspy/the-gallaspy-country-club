@@ -1,3 +1,4 @@
+import { getAtlantaTodayISO } from "@/data/atlantaDate";
 import Link from "next/link";
 import {
   events,
@@ -19,23 +20,29 @@ function formatStatus(status: GallaspyEvent["status"]) {
 }
 
 function getCurrentMonthEvent() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth() + 1;
+  const today = getAtlantaTodayISO();
+  const year = Number(today.slice(0, 4));
+  const month = Number(today.slice(5, 7));
 
   return (
     events.find(
       (event) =>
         event.year >= 2027 && event.year === year &&
         event.month === month &&
-        event.status !== "COMPLETED",
+        event.status !== "COMPLETED" &&
+        (!event.date || event.date >= today),
     ) ?? null
   );
 }
 
 export default function HomeTransition() {
   const nextEvent = events
-    .filter((event) => event.year >= 2027 && event.status !== "COMPLETED")
+    .filter(
+      (event) =>
+        event.year >= 2027 &&
+        event.status !== "COMPLETED" &&
+        (!event.date || event.date >= getAtlantaTodayISO()),
+    )
     .sort((a, b) => (a.date ?? `${a.year}-${String(a.month ?? 12).padStart(2, "0")}-31`).localeCompare(b.date ?? `${b.year}-${String(b.month ?? 12).padStart(2, "0")}-31`))[0] ?? null;
   const thisMonth = getCurrentMonthEvent();
 

@@ -1,5 +1,6 @@
+import { getAtlantaTodayISO } from "@/data/atlantaDate";
 import Link from "next/link";
-import { getUpcomingEvents, type GallaspyEvent } from "@/data/club";
+import { events, type GallaspyEvent } from "@/data/club";
 
 function formatEventDate(event: GallaspyEvent) {
   if (event.date) {
@@ -46,7 +47,21 @@ function formatStatus(status: GallaspyEvent["status"]) {
 }
 
 export default function UpcomingAtGallaspy() {
-  const upcoming = getUpcomingEvents().filter((event) => event.year >= 2027).slice(0, 3);
+  const upcoming = [...events]
+    .filter(
+      (event) =>
+        event.year >= 2027 &&
+        event.status !== "COMPLETED" &&
+        (!event.date || event.date >= getAtlantaTodayISO()),
+    )
+    .sort((a, b) => {
+      const key = (event: GallaspyEvent) =>
+        event.date ??
+        `${event.year}-${String(event.month ?? 12).padStart(2, "0")}-31`;
+
+      return key(a).localeCompare(key(b));
+    })
+    .slice(0, 3);
 
   return (
     <section className="bg-[#F7F4EE] px-5 py-16 sm:px-8 lg:py-24">
