@@ -91,13 +91,31 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    const { data, error } = await admin
+    // Enforce user blocks before selecting feed posts, not only in UI.
+    // Both directions are hidden to prevent unwanted contact.
+    const { data: blocked, error: blockError } = await admin
+      .from("gallaspy_community_blocks")
+      .select("blocker_id,blocked_id")
+      .or(`blocker_id.eq.${user.id},blocked_id.eq.${user.id}`);
+    if (blockError || !Array.isArray(blocked)) {
+      return respond({success:false,error:"Community unavailable."},503);
+    }
+    const hiddenIds = [...new Set(blocked.map(entry =>
+      entry.blocker_id === user.id ? entry.blocked_id : entry.blocker_id
+    ))];
+
+    const query = admin
       .from("gallaspy_community_posts")
       .select("id, user_id, body, created_at")
       .is("deleted_at", null)
-      .not("published_at", "is", null)
-      .order("created_at", { ascending: false })
-      .limit(20);
+      .not("published_at", "is", null);
+    if (hiddenIds.length) {
+      // UUIDs originate from authenticated records; no user input is interpolated.
+      // PostgREST filter builders modify their URL and return themselves.
+      // Avoid reassigning the generic builder: TS can recurse on that type.
+      query.not("user_id", "in", `(${hiddenIds.join(",")})`);
+    }
+    const {data,error} = await query.order("created_at", { ascending: false }).limit(20);
 
     if (error) {
       console.error("Community feed error:", error.message);
@@ -107,9 +125,109 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    const posts = data ?? [];
+    if (posts.length === 0) {
+      return respond({ success: true, posts: [] });
+    }
+
+    const authorIds = [...new Set(posts.map((post) => post.user_id))];
+
+    const { data: profiles, error: profileError } = await admin
+      .from("gallaspy_community_profiles")
+      .select("user_id, username")
+      .in("user_id", authorIds);
+
+    if (profileError) {
+      console.error("Community username lookup error:", profileError.message);
+      return respond(
+        { success: false, error: "Unable to load Community." },
+        500,
+      );
+    }
+
+    const usernames = new Map(
+      (profiles ?? []).map((profile) => [profile.user_id, profile.username]),
+    );
+
+    // Avatar records are separate from public Community usernames.
+    // Only authors of published posts are ever queried here.
+    const { data: avatars, error: avatarError } = await admin
+      .from("gallaspy_player_avatars")
+      .select("user_id, storage_path")
+      .in("user_id", authorIds);
+    if (avatarError) {
+      console.error("Community avatar lookup failed");
+      return respond({ success: false, error: "Unable to load Community." }, 500);
+    }
+
+    const authorPhotos = new Map<string, string>();
+    await Promise.all((avatars ?? []).map(async (avatar) => {
+      if (typeof avatar.storage_path !== "string" ||
+          !avatar.storage_path.startsWith(`${avatar.user_id}/`)) return;
+      try {
+        const { data } = await admin.storage.from("gallaspy-avatars")
+          .createSignedUrl(avatar.storage_path, 1800);
+        if (data?.signedUrl) authorPhotos.set(avatar.user_id, data.signedUrl);
+      } catch {
+        // A missing/unavailable photo cannot take the entire feed offline.
+      }
+    }));
+
+    // Only sign photos for published posts remaining after mutual-block filtering.
+    const visiblePostIds = posts.map((post) => post.id);
+    const { data: photoRecords, error: photoError } = await admin
+      .from("gallaspy_community_photos")
+      .select("post_id,storage_path,position")
+      .in("post_id", visiblePostIds)
+      .order("position", { ascending: true });
+    if (photoError) {
+      console.error("Community feed photo lookup failed");
+      return respond({ success: false, error: "Unable to load Community." }, 503);
+    }
+
+    const postOwners = new Map(posts.map(post => [post.id, post.user_id]));
+    const verifiedPaths: { post_id: string; storage_path: string; position: number }[] = [];
+    for (const photo of photoRecords ?? []) {
+      const owner = postOwners.get(photo.post_id);
+      if (!owner || !Number.isInteger(photo.position) ||
+          photo.position < 0 || photo.position > 3 ||
+          typeof photo.storage_path !== "string" ||
+          !photo.storage_path.startsWith(`${owner}/${photo.post_id}/`) ||
+          !/^[-0-9a-f]+\.jpe?g$/i.test(photo.storage_path.split("/").pop() || "")) continue;
+      verifiedPaths.push(photo);
+    }
+    const signedPaths = new Map<string, string>();
+    if (verifiedPaths.length) {
+      const { data: signed, error: signError } = await admin.storage
+        .from("gallaspy-community")
+        .createSignedUrls(verifiedPaths.map(photo => photo.storage_path), 600);
+      if (signError) {
+        console.error("Community feed photo signing failed");
+        return respond({ success: false, error: "Unable to load Community." }, 503);
+      }
+      (signed ?? []).forEach((item) => {
+        if (typeof item.path === "string" && typeof item.signedUrl === "string") {
+          signedPaths.set(item.path, item.signedUrl);
+        }
+      });
+    }
+    const photosByPost = new Map<string, { url: string; position: number }[]>();
+    verifiedPaths.forEach(photo => {
+      const url = signedPaths.get(photo.storage_path);
+      if (!url) return;
+      const existing = photosByPost.get(photo.post_id) ?? [];
+      existing.push({ url, position: photo.position });
+      photosByPost.set(photo.post_id, existing);
+    });
+
     return respond({
       success: true,
-      posts: data ?? [],
+      posts: posts.map((post) => ({
+        ...post,
+        username: usernames.get(post.user_id) ?? null,
+        avatar_url: authorPhotos.get(post.user_id) ?? null,
+        photos: photosByPost.get(post.id) ?? [],
+      })),
     });
   } catch {
     return respond(
