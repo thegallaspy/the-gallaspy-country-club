@@ -1,3 +1,4 @@
+import { getAtlantaTodayISO } from "@/data/atlantaDate";
 import Link from "next/link";
 import { events, type GallaspyEvent } from "@/data/club";
 
@@ -54,7 +55,7 @@ export default function UpcomingAtGallaspy() {
           event.date === "2026-12-12") &&
         event.status !== "COMPLETED" &&
         (!event.date ||
-          event.date >= new Date().toISOString().slice(0, 10)),
+          event.date >= getAtlantaTodayISO()),
     )
     .sort((a, b) => {
       const key = (event: GallaspyEvent) =>
