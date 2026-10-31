@@ -122,7 +122,7 @@ export async function POST(request: Request) {
     }).format(new Date());
 
     const roundDate = round.date.slice(0, 10);
-    const validRoundDate = /^\\d{4}-\\d{2}-\\d{2}$/.test(roundDate) &&
+    const validRoundDate = /^\d{4}-\d{2}-\d{2}$/.test(roundDate) &&
       !Number.isNaN(Date.parse(`${roundDate}T12:00:00Z`)) &&
       new Date(`${roundDate}T12:00:00Z`)
         .toISOString().slice(0, 10) === roundDate;
