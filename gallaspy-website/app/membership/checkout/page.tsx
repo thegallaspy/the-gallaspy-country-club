@@ -13,10 +13,10 @@ export const metadata = {
 const benefits = [
   "Monthly organized Gallaspy Rounds",
   "Monthly Gallaspy Range Nights",
-  "Weekly Practice Round opportunities",
+  "Ongoing Golf Partners access",
   "Golf Partners and member community",
   "Eligibility for official club competitions",
-  "Selected priority event registration",
+  "Member Priority Access — proposed early registration for eligible club events and activities",
   "Gallaspy Rewards and Club Points",
   "Member Benefits Wallet",
   "Up to 25% off select Gallaspy apparel",
@@ -272,12 +272,7 @@ export default async function MembershipCheckoutPage() {
           </p>
 
           <p>
-            A 12-month initial commitment is proposed but
-            is not presently enforced by this checkout.
-            Applicable cancellation and renewal terms will
-            be disclosed before payment authorization.
-            Rejoining initiation-fee treatment requires
-            an approved policy.
+            Monthly membership does not require a separate 12-month minimum commitment. Members may cancel future renewals, with cancellation taking effect at the end of the current paid billing period. Payments for that period are nonrefundable except where applicable law requires otherwise. The applicable agreement and complete renewal terms must be accepted before payment.
           </p>
 
           <p>

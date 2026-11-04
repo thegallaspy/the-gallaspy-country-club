@@ -30,7 +30,7 @@ export default function MembershipPage() {
               ["Club Community", "One networking or social opportunity monthly, plus Golf Partners connections."],
               ["Gallaspy Rewards", "Earn points on eligible purchases and verified club activities. Redemption benefits are being prepared."],
               ["Member Apparel", "Up to 25% off select Gallaspy apparel, subject to eligibility."],
-              ["Priority Registration", "Early access to eligible club events and competitions."],
+              ["Member Priority Access", "Planned early registration for eligible Gallaspy Rounds, the Gallaspy Championship, activities, and select events. A 72-hour member-first window is proposed where applicable. Eligibility and capacity apply; Gallaspy Cup consideration does not guarantee team selection."],
               ["Member Identity", "Official Gallaspy membership number and digital membership card."],
               ["Official Handicap — Planned", "USGA Handicap Index through GHIN, pending GSGA authorization."],
             ].map(([title, description]) => (
@@ -51,10 +51,7 @@ export default function MembershipPage() {
           $100 per month · $1,000 per year
         </h2>
         <p className="mt-4 max-w-2xl leading-8">
-          Choose recurring monthly billing or the $1,000 prepaid annual option
-          once enrollment opens. A one-time initiation fee is planned for
-          monthly enrollment, with the amount and full terms announced before
-          launch. No manual application review is required for Standard Membership.
+          Monthly Standard Membership is $100 per month with a one-time $250 initiation fee ($350 initial payment). Annual Standard Membership is $1,000 prepaid per year with the initiation fee waived. Enrollment is not yet enabled; complete terms will be disclosed before payment. No manual application review is required for Standard Membership.
           Membership activates only after successful payment. Members pay
           their own green fees.
         </p>
