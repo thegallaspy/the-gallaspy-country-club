@@ -1,162 +1,110 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 export default function Hero() {
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    const revealTimer = window.setTimeout(() => {
-      setIsReady(true);
-    }, 180);
-
-    return () => {
-      window.clearTimeout(revealTimer);
-    };
-  }, []);
-
   return (
-    <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-[#10263F] px-5 pb-16 pt-[76px] sm:px-8 sm:pb-20 sm:pt-[90px] lg:min-h-screen lg:px-10 lg:pb-20 lg:pt-[100px]">
-      <Image
-        src="/images/home-hero.jpg"
-        alt="The Gallaspy Golf Club"
-        fill
-        priority
-        sizes="100vw"
-        className={`object-cover object-[52%_center] transition-all duration-[9000ms] ease-out sm:object-center ${
-          isReady ? "scale-100 opacity-100" : "scale-[1.08] opacity-75"
-        }`}
-      />
+    <section
+      aria-labelledby="gallaspy-home-hero-title"
+      className="relative isolate overflow-hidden bg-white pt-[100px] text-[#081F5C] sm:pt-[120px] lg:pt-[140px]"
+    >
+      <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-5 pb-14 pt-8 sm:px-8 sm:pb-20 lg:min-h-[680px] lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:px-12 lg:pb-24 lg:pt-10">
 
-      <div className="absolute inset-0 bg-[#10263F]/18 sm:bg-[#10263F]/14" />
+        <div className="relative z-10">
+          <div className="mb-6 flex items-center gap-3">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#081F5C] p-2 sm:h-[68px] sm:w-[68px]">
+              <Image
+                src="/logos/official/falcon-G.png"
+                alt="Official Gallaspy Falcon G"
+                width={70}
+                height={70}
+                priority
+                className="h-full w-full object-contain"
+              />
+            </div>
 
-      <div className="absolute inset-0 bg-gradient-to-r from-[#071827]/38 via-transparent to-[#071827]/20" />
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[0.17em] text-[#081F5C]">
+                The Gallaspy Golf Club
+              </p>
+              <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.18em] text-[#174A38]">
+                Georgia · Est. 2026
+              </p>
+            </div>
+          </div>
 
-      <div className="absolute inset-0 bg-gradient-to-b from-[#071827]/24 via-transparent to-[#071827]/72" />
+          <p className="mb-5 text-[10px] font-black uppercase tracking-[0.2em] text-[#C6283E] sm:text-xs">
+            A new generation of golf
+          </p>
 
-      <div className="absolute inset-0 shadow-[inset_0_0_90px_rgba(0,0,0,0.18)] sm:shadow-[inset_0_0_120px_rgba(0,0,0,0.2)]" />
+          <h1
+            id="gallaspy-home-hero-title"
+            className="text-[clamp(3.65rem,12vw,8.5rem)] font-black uppercase leading-[0.86] tracking-[-0.075em]"
+          >
+            <span className="block text-[#081F5C]">PLAY.</span>
+            <span className="block text-[#174A38]">COMPETE.</span>
+            <span className="block text-[#C6283E]">GATHER.</span>
+          </h1>
 
-      <div
-        className={`absolute left-5 top-1/2 hidden h-24 w-px -translate-y-1/2 bg-gradient-to-b from-transparent via-[#FFD76A]/55 to-transparent transition-opacity delay-700 duration-1000 lg:block ${
-          isReady ? "opacity-100" : "opacity-0"
-        }`}
-      />
+          <p className="mt-7 max-w-xl text-[15px] font-medium leading-[1.75] text-[#405568] sm:text-lg">
+            Real golf. Real connections. A community bringing golfers
+            together through rounds, competition, and experiences
+            worth being part of.
+          </p>
 
-      <div
-        className={`absolute right-5 top-1/2 hidden h-24 w-px -translate-y-1/2 bg-gradient-to-b from-transparent via-[#FFD76A]/55 to-transparent transition-opacity delay-700 duration-1000 lg:block ${
-          isReady ? "opacity-100" : "opacity-0"
-        }`}
-      />
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link
+              href="/play"
+              className="inline-flex min-h-[52px] items-center justify-center rounded-xl bg-[#081F5C] px-7 py-4 text-[11px] font-black uppercase tracking-[0.13em] text-white transition-colors hover:bg-[#174A38] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#C6283E]"
+            >
+              Play With The Gallaspy
+              <span aria-hidden="true" className="ml-3">→</span>
+            </Link>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center text-center text-white">
-        <div
-          className={`flex flex-col items-center transition-all duration-1000 ${
-            isReady ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
-          }`}
-        >
-          <Image
-            src="/logos/official/falcon-G.png"
-            alt="The Gallaspy Falcon"
-            width={160}
-            height={160}
-            priority
-            className="mb-5 h-auto w-[96px] object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.35)] sm:mb-7 sm:w-[118px] lg:w-[128px]"
-          />
+            <Link
+              href="/the-club"
+              className="inline-flex min-h-[52px] items-center justify-center rounded-xl border-2 border-[#081F5C] px-7 py-4 text-[11px] font-black uppercase tracking-[0.13em] text-[#081F5C] transition-colors hover:bg-[#F0F5F2] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#C6283E]"
+            >
+              Explore The Club
+            </Link>
+          </div>
 
-          <div className="flex items-center gap-3 sm:gap-4">
-            <span className="hidden h-px w-8 bg-[#FFD76A]/75 sm:block" />
-
-            <p className="text-[8px] font-semibold uppercase tracking-[0.32em] text-[#FFD76A] sm:text-[10px] sm:tracking-[0.42em]">
-              Georgia · Est. 2026
-            </p>
-
-            <span className="hidden h-px w-8 bg-[#FFD76A]/75 sm:block" />
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#DDE5EC] pt-5">
+            <span className="text-[10px] font-bold uppercase tracking-[0.09em] text-[#174A38]">
+              Golf for every level
+            </span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.09em] text-[#405568]">
+              Community first
+            </span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.09em] text-[#405568]">
+              Built for what&apos;s next
+            </span>
           </div>
         </div>
 
-        <h1
-          className={`mx-auto mt-5 max-w-[980px] font-serif text-[2.45rem] font-light leading-[0.96] tracking-[-0.025em] text-white transition-all delay-150 duration-[1200ms] min-[390px]:text-[2.75rem] sm:mt-6 sm:text-[4.2rem] md:text-[5rem] lg:text-[6.1rem] xl:text-[6.8rem] ${
-            isReady ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
-        >
-          The Gallaspy
-
-          <span className="mt-2 block text-[0.68em] font-light leading-[1.02] tracking-[-0.01em] sm:mt-3">
-            Golf Club
-          </span>
-        </h1>
-
-        <div
-          className={`mt-7 h-px bg-[#FFD76A] transition-all delay-300 duration-[1200ms] sm:mt-8 ${
-            isReady ? "w-20 opacity-100 sm:w-24" : "w-0 opacity-0"
-          }`}
-        />
-
-        <div
-          className={`mt-6 transition-all delay-[400ms] duration-1000 sm:mt-7 ${
-            isReady ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
-          }`}
-        >
-          <p className="whitespace-nowrap font-serif text-[0.92rem] font-light tracking-[-0.015em] text-white sm:text-[1.3rem] md:text-[1.55rem] lg:text-[1.8rem]">
-            No course. No clubhouse. No history.
-          </p>
-
-          <p className="mt-2 font-serif text-[1.2rem] font-light italic text-[#FFD76A] sm:text-[1.55rem] md:text-[1.8rem]">
-            Yet.
-          </p>
-        </div>
-
-        <p
-          className={`mx-auto mt-5 max-w-[720px] text-[13px] font-light leading-6 text-white/85 transition-all delay-500 duration-1000 sm:mt-6 sm:text-base sm:leading-8 md:text-[17px] ${
-            isReady ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
-          }`}
-        >
-          We&apos;re starting with the game and the people who play it —
-          bringing golfers together through rounds, competition, gatherings,
-          and the traditions we&apos;ll build along the way.
-        </p>
-
-        <div
-          className={`mt-8 flex w-full max-w-[440px] flex-col items-center justify-center gap-3 transition-all delay-[650ms] duration-1000 sm:mt-10 sm:max-w-none sm:flex-row sm:gap-4 ${
-            isReady ? "translate-y-0 opacity-100" : "translate-y-7 opacity-0"
-          }`}
-        >
-          <Link
-            href="/play"
-            className="group relative inline-flex min-h-[50px] w-full items-center justify-center overflow-hidden border border-[#FFD76A] bg-[#FFD76A] px-6 text-[9px] font-semibold uppercase tracking-[0.19em] text-[#10263F] shadow-[0_16px_45px_rgba(0,0,0,0.2)] transition-all duration-500 hover:-translate-y-1 hover:bg-transparent hover:text-white sm:min-h-[52px] sm:w-auto sm:min-w-[235px] sm:px-8 sm:text-[10px] sm:tracking-[0.22em]"
-          >
-            <span className="relative z-10">
-              Play With The Gallaspy
-            </span>
-
-            <span
-              aria-hidden="true"
-              className="relative z-10 ml-3 transition-transform duration-500 group-hover:translate-x-1.5"
-            >
-              →
-            </span>
-
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 -translate-x-full bg-white/10 transition-transform duration-700 group-hover:translate-x-0"
+        <div className="relative">
+          <div className="relative min-h-[310px] overflow-hidden rounded-[22px] bg-[#081F5C] sm:min-h-[440px] lg:min-h-[580px]">
+            <Image
+              src="/images/home-hero.jpg"
+              alt="Golf imagery featured by The Gallaspy Golf Club"
+              fill
+              priority
+              sizes="(max-width: 1023px) 100vw, 48vw"
+              className="object-cover object-center"
             />
-          </Link>
-
-          <Link
-            href="/why-the-gallaspy"
-            className="group inline-flex min-h-[50px] w-full items-center justify-center border border-white/55 bg-[#10263F]/30 px-6 text-[9px] font-semibold uppercase tracking-[0.19em] text-white shadow-[0_16px_45px_rgba(0,0,0,0.14)] backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-[#FFD76A] hover:bg-[#10263F]/65 hover:text-[#FFD76A] sm:min-h-[52px] sm:w-auto sm:min-w-[235px] sm:px-8 sm:text-[10px] sm:tracking-[0.22em]"
-          >
-            Our Story
-
-            <span
-              aria-hidden="true"
-              className="ml-3 transition-transform duration-500 group-hover:translate-x-1.5"
-            >
-              →
-            </span>
-          </Link>
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#081F5C]/75 via-transparent to-transparent" />
+            <div className="absolute bottom-5 left-5 right-5 rounded-xl border border-white/30 bg-[#081F5C]/80 px-5 py-4 text-white backdrop-blur-sm sm:bottom-7 sm:left-7 sm:right-7">
+              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-[#D6BC78]">
+                The Digital Clubhouse
+              </p>
+              <p className="mt-2 text-xl font-black uppercase tracking-[-0.04em] sm:text-2xl">
+                Your game. Your community.
+              </p>
+              <p className="mt-2 text-xs leading-5 text-white/85 sm:text-sm">
+                Find your next round, connect with golfers, and follow the club.
+              </p>
+            </div>
+          </div>
+          <div className="absolute -bottom-3 right-6 h-[6px] w-28 rounded-full bg-[#C6283E]" />
         </div>
       </div>
     </section>

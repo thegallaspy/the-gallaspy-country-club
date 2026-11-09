@@ -171,7 +171,7 @@ export function Navbar() {
             : "border-b border-white/[0.06] bg-[#10263F]/88 backdrop-blur-md",
         ].join(" ")}
       >
-        <div className="mx-auto flex h-[82px] w-full max-w-[1600px] items-center justify-between px-5 sm:px-8 lg:px-10">
+        <div className="mx-auto flex h-[64px] w-full max-w-[1600px] items-center justify-between px-5 sm:h-[68px] sm:px-8 lg:px-10 xl:h-[82px]">
           {/* BRAND */}
           <Link
             href="/"
@@ -179,7 +179,7 @@ export function Navbar() {
             aria-label="The Gallaspy Golf Club home"
             className="group flex shrink-0 items-center gap-3 outline-none"
           >
-            <div className="relative h-[54px] w-[54px] sm:h-[58px] sm:w-[58px]">
+            <div className="relative h-[42px] w-[42px] sm:h-[46px] sm:w-[46px] xl:h-[58px] xl:w-[58px]">
               <Image
                 src="/logos/official/crest.png"
                 alt="The Gallaspy crest"
@@ -401,7 +401,7 @@ export function Navbar() {
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(184,145,70,0.14),transparent_35%)]" />
 
-        <div className="relative flex min-h-[100svh] flex-col px-6 pb-[calc(2.5rem+env(safe-area-inset-bottom))] pt-[112px] sm:px-10">
+        <div className="relative flex min-h-[100svh] flex-col px-6 pb-[calc(2.5rem+env(safe-area-inset-bottom))] pt-[80px] sm:px-10 sm:pt-[90px]">
           <div className="mb-8 flex items-center gap-3">
             <div className="h-px w-10 bg-[#FFD76A]" />
 
