@@ -50,7 +50,6 @@ export default function UpcomingAtGallaspy() {
   const upcoming = [...events]
     .filter(
       (event) =>
-        event.year >= 2027 &&
         event.status !== "COMPLETED" &&
         (!event.date || event.date >= getAtlantaTodayISO()),
     )
@@ -64,7 +63,7 @@ export default function UpcomingAtGallaspy() {
     .slice(0, 3);
 
   return (
-    <section className="bg-[#F7F4EE] px-5 py-16 sm:px-8 lg:py-24">
+    <section className="bg-[#F3F7F4] px-5 py-16 sm:px-8 lg:py-24">
       <div className="mx-auto w-full max-w-[1120px]">
         <div className="flex flex-col gap-7 border-b border-[#10263F]/15 pb-8 md:flex-row md:items-end md:justify-between">
           <div>
@@ -72,7 +71,7 @@ export default function UpcomingAtGallaspy() {
               Club Calendar
             </p>
 
-            <h2 className="mt-4 font-serif text-[2.7rem] font-light leading-[1.05] text-[#10263F] sm:text-5xl">
+            <h2 className="mt-4 text-[2.6rem] font-black uppercase leading-[0.96] tracking-[-0.055em] text-[#081F5C] sm:text-5xl">
               Upcoming at
               <span className="block">The Gallaspy.</span>
             </h2>
@@ -94,14 +93,14 @@ export default function UpcomingAtGallaspy() {
             return (
               <article
                 key={event.slug}
-                className="grid gap-6 border-t border-[#10263F]/15 py-8 first:border-t-0 md:grid-cols-[110px_1fr_auto] md:items-center"
+                className="grid gap-5 border-t border-[#081F5C]/15 py-8 first:border-t-0 md:grid-cols-[110px_1fr_auto] md:items-center"
               >
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-[#B89146]">
                     {date.month}
                   </p>
 
-                  <p className="mt-1 font-serif text-4xl font-light text-[#10263F]">
+                  <p className="mt-1 text-4xl font-black tracking-[-0.05em] text-[#081F5C]">
                     {date.day}
                   </p>
                 </div>
@@ -119,7 +118,7 @@ export default function UpcomingAtGallaspy() {
                     </p>
                   </div>
 
-                  <h3 className="mt-3 font-serif text-2xl font-light text-[#10263F] sm:text-3xl">
+                  <h3 className="mt-3 text-2xl font-black uppercase leading-tight tracking-[-0.035em] text-[#081F5C] sm:text-3xl">
                     {event.name.replace(/Gallaspy Invitational/gi, "THE GALLASPY").replace(/Talaria Cup/gi, "THE GALLASPY CUP")}
                   </h3>
 

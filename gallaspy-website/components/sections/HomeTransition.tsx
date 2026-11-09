@@ -27,7 +27,7 @@ function getCurrentMonthEvent() {
   return (
     events.find(
       (event) =>
-        event.year >= 2027 && event.year === year &&
+        event.year === year &&
         event.month === month &&
         event.status !== "COMPLETED" &&
         (!event.date || event.date >= today),
@@ -39,7 +39,6 @@ export default function HomeTransition() {
   const nextEvent = events
     .filter(
       (event) =>
-        event.year >= 2027 &&
         event.status !== "COMPLETED" &&
         (!event.date || event.date >= getAtlantaTodayISO()),
     )
