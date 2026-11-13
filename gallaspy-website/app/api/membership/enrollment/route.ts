@@ -3,6 +3,13 @@ import { createClient as createAdminClient } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
 import { getSquareMembershipConfig } from "@/lib/square/membership-client";
 import { enrollStandardMemberSandbox } from "@/lib/square/enroll-standard-member";
+import {
+  getStandardMembershipQuote,
+  isStandardMembershipPlan,
+  STANDARD_MEMBERSHIP_LIVE_ENROLLMENT_READY,
+} from "@/lib/membership/standard-plan-policy";
+import { validateMembershipLegalAcceptance } from "@/lib/membership/validate-legal-acceptance";
+import { matchesStandardBilling } from "@/lib/membership/standard-billing-v2";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -35,6 +42,54 @@ export async function POST(request: Request) {
     if (!body || body.consent !== true ||
         typeof body.cardToken !== "string" || typeof body.fullName !== "string") {
       return NextResponse.json({error: "Card, name and recurring consent are required"}, {status: 422});
+    }
+
+    // Validate the approved plan and exact prices before any Square action.
+    if (!isStandardMembershipPlan(body.plan)) {
+      return NextResponse.json(
+        {error: "A valid membership plan is required"},
+        {status: 422}
+      );
+    }
+
+    const quote = getStandardMembershipQuote(body.plan);
+
+    if (
+      !matchesStandardBilling(body.plan, {
+        initiationFeeCents: body.initiationFeeCents,
+        initialPaymentCents: body.initialPaymentCents,
+        renewalAmountCents: body.renewalAmountCents,
+        renewalInterval: body.renewalInterval,
+      }) ||
+      quote.currency !== "USD"
+    ) {
+      return NextResponse.json(
+        {error: "Membership pricing does not match the approved plan"},
+        {status: 422}
+      );
+    }
+
+    // The existing Square service is monthly-only and does not yet
+    // implement the initiation fee, annual billing, or signed terms.
+    // Fail closed even in sandbox until the new workflow is verified.
+    const legalError = validateMembershipLegalAcceptance(
+      body,
+      body.fullName,
+      body.plan
+    );
+
+    if (legalError) {
+      return NextResponse.json(
+        {error: legalError},
+        {status: 422}
+      );
+    }
+
+    if (!STANDARD_MEMBERSHIP_LIVE_ENROLLMENT_READY) {
+      return NextResponse.json(
+        {error: "Membership enrollment is being finalized"},
+        {status: 503}
+      );
     }
 
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL;

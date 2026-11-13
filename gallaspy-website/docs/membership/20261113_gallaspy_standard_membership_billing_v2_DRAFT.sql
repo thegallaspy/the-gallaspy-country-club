@@ -1,0 +1,63 @@
+-- THE GALLASPY GOLF CLUB
+-- STANDARD MEMBERSHIP BILLING V2
+--
+-- DRAFT ONLY — DO NOT APPLY TO ANY DATABASE.
+--
+-- Monthly:
+--   $250 initiation + $100 first month = $350 initially
+--   $100 per subsequent month
+--
+-- Annual:
+--   $0 initiation + $1000 annual dues = $1000 initially
+--   $1000 per subsequent year
+--
+-- BEFORE IMPLEMENTATION:
+-- 1. Verify the actual Supabase schema and existing records.
+-- 2. Update subscription verification and webhook reconciliation.
+-- 3. Update the mobile membership API to understand annual plans.
+-- 4. Coordinate with enrollment plan-binding migrations.
+-- 5. Verify Square monthly/annual plan variations.
+-- 6. Approve membership agreement, rules, and waiver versions.
+-- 7. Test migration and rollback against a staging database.
+-- 8. Verify renewals, refunds, and cancellations.
+--
+-- TARGET SUBSCRIPTION MODEL:
+--
+-- gallaspy_standard_subscriptions
+--   membership_plan:
+--     monthly | annual
+--   renewal_amount_cents:
+--     10000 | 100000
+--   renewal_interval:
+--     monthly | annual
+--
+-- Legacy monthly_amount_cents:
+--   Retain existing monthly values during migration.
+--   Before annual records are permitted, replace the existing
+--   monthly-only constraint and update all dependent code.
+--   Annual records must never misrepresent $1000/year as
+--   $100/month.
+--
+-- TARGET BILLING CONSENT MODEL:
+--
+-- gallaspy_membership_billing_consents
+--   membership_plan:
+--     monthly | annual
+--   amount_cents:
+--     10000 | 100000
+--   billing_interval:
+--     monthly | annual
+--
+-- REQUIRED INVARIANTS:
+--   Monthly initiation = 25000 cents
+--   Annual initiation = 0 cents
+--   Enrollment prices match server policy exactly.
+--   Selected plan cannot change after reservation.
+--   Payment attempts are idempotent.
+--   No activation without verified payment.
+--   No billing without approved legal acceptance.
+--
+-- MIGRATION SQL WILL BE ADDED AFTER LIVE-SCHEMA
+-- COMPATIBILITY AND DEPENDENCY VALIDATION.
+--
+-- No executable database statements in this draft.

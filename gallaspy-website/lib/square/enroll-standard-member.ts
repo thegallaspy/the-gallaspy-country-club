@@ -107,109 +107,24 @@ async function establishLocalSubscription(admin: Admin, userId: string, values: 
   }
 }
 
-/** Returns PENDING only. Never activates a membership or stores raw card data. */
-export async function enrollStandardMemberSandbox(admin: Admin, args: EnrollmentRequest): Promise<{
-  status: "awaiting_verified_payment"; subscriptionId: string;
+/**
+ * RETIRED LEGACY ENROLLMENT SERVICE.
+ *
+ * The previous implementation charged $100/month without accounting
+ * for the required $250 initiation fee and did not support Annual
+ * Membership.
+ *
+ * This function is deliberately disabled. It must not be used for
+ * payment processing or membership activation.
+ */
+export async function enrollStandardMemberSandbox(
+  _admin: Admin,
+  _args: EnrollmentRequest
+): Promise<{
+  status: "awaiting_verified_payment";
+  subscriptionId: string;
 }> {
-  const square = getSquareMembershipConfig();
-  assert(square.environment === "sandbox" && process.env.SQUARE_MEMBERSHIP_ENROLLMENT_ENABLED === "true",
-    "Standard enrollment not enabled for sandbox testing");
-  assert(UUID.test(args.userId), "Invalid user identity");
-  assert(args.consent === true, "Recurring billing consent required");
-  assert(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(args.email) && args.email.length <= 254, "Verified email required");
-  assert(typeof args.sourceId === "string" && /^[A-Za-z0-9:._-]{8,512}$/.test(args.sourceId),
-    "Secure Square card token required");
-  const person = splitName(args.fullName);
-  const planId = process.env.SQUARE_STANDARD_MEMBERSHIP_PLAN_VARIATION_ID;
-  assert(!!planId && SQUARE_ID.test(planId), "Approved Standard Membership plan not configured");
-  // Fail closed before creating a customer, saving a card or charging anything.
-  await verifyStandardMembershipPlan(planId);
-
-  const {data: reservation, error: reservationError} = await admin.rpc(
-    "gallaspy_reserve_standard_enrollment", {p_user_id: args.userId}
+  throw new Error(
+    "Legacy Standard Membership enrollment is retired; verified plan-aware enrollment is required"
   );
-  assert(!reservationError && Array.isArray(reservation) && reservation.length === 1,
-    "Enrollment reservation unavailable");
-  const attempt = reservation[0] as Attempt;
-  assert(attempt.enrollment_status === "reserved", "Enrollment is already in progress or requires review");
-  assert(UUID.test(attempt.attempt_id) && UUID.test(attempt.idempotency_key),
-    "Enrollment attempt cannot be identified safely");
-
-  // Consent is saved BEFORE a claim and BEFORE any external Square creation.
-  const {data: consent, error: consentReadError} = await admin.from("gallaspy_membership_billing_consents")
-    .select("id,user_id,enrollment_attempt_id,terms_version,amount_cents,currency,billing_interval")
-    .eq("enrollment_attempt_id", attempt.attempt_id).maybeSingle();
-  assert(!consentReadError, "Could not verify saved billing consent");
-  if (consent) {
-    assert(consent.user_id === args.userId &&
-      consent.terms_version === STANDARD_BILLING_TERMS_VERSION &&
-      consent.amount_cents === 10000 && consent.currency === "USD" && consent.billing_interval === "monthly",
-      "Billing consent conflict requires manual review");
-  } else {
-    const {error: consentError} = await admin.from("gallaspy_membership_billing_consents").insert({
-      user_id: args.userId,
-      enrollment_attempt_id: attempt.attempt_id,
-      terms_version: STANDARD_BILLING_TERMS_VERSION,
-      amount_cents: 10000,
-      currency: "USD",
-      billing_interval: "monthly",
-    });
-    assert(!consentError, "Could not record recurring billing consent");
-  }
-
-  const {data: claimed, error: claimError} = await admin.rpc("gallaspy_claim_standard_enrollment", {
-    p_user_id: args.userId, p_attempt_id: attempt.attempt_id,
-  });
-  assert(!claimError && claimed === true, "Enrollment was already claimed or requires review");
-  const baseKey = attempt.idempotency_key;
-  // Each create call has a stable per-attempt key; no speculative re-creation
-  // after timeouts. Recovery must reconcile Square using those same keys.
-  const customerResult = await sendSquareMembershipRequest("customers", {
-    idempotency_key: `cust-${baseKey}`,
-    email_address: args.email, ...person, reference_id: args.userId,
-  }) as {customer?: SquareCustomer};
-  const customer = customerResult?.customer;
-  assert(customer && typeof customer.id === "string" && SQUARE_ID.test(customer.id) &&
-    customer.email_address?.toLowerCase() === args.email.toLowerCase(),
-    "Square returned an unexpected customer; manual reconciliation required");
-  await mustRecordProgress(admin,args.userId,attempt.attempt_id,{customerId: customer.id});
-
-  const cardResult = await sendSquareMembershipRequest("cards", {
-    idempotency_key: `card-${baseKey}`,
-    source_id: args.sourceId,
-    card: {customer_id: customer.id, cardholder_name: args.fullName.trim()},
-  }) as {card?: SquareCard};
-  const card = cardResult?.card;
-  assert(card && typeof card.id === "string" && SQUARE_CARD_ID.test(card.id) &&
-    card.customer_id === customer.id && card.enabled !== false,
-    "Square returned an unexpected saved card; manual reconciliation required");
-  await mustRecordProgress(admin,args.userId,attempt.attempt_id,{cardId: card.id});
-
-  // Square may charge immediately here. Never activate based on this response.
-  const subscriptionResult = await sendSquareMembershipRequest("subscriptions", {
-    idempotency_key: baseKey,
-    location_id: square.locationId,
-    customer_id: customer.id,
-    card_id: card.id,
-    plan_variation_id: planId,
-    timezone: "UTC",
-  }) as {subscription?: SquareSubscription};
-  const sub = subscriptionResult?.subscription;
-  assert(sub && typeof sub.id === "string" && SQUARE_ID.test(sub.id) &&
-    sub.customer_id === customer.id && sub.card_id === card.id &&
-    sub.location_id === square.locationId && sub.plan_variation_id === planId &&
-    sub.price_override_money == null &&
-    ["ACTIVE","PENDING"].includes(sub.status ?? "") && sub.timezone === "UTC",
-    "Square returned an unexpected subscription; manual reconciliation required");
-  // Record provider ID first, so a timeout linking the local record can be
-  // recovered without accidentally generating another charge.
-  await mustRecordProgress(admin,args.userId,attempt.attempt_id,{subscriptionId:sub.id});
-  const dates = initialMonthlyUtcPeriod(sub.start_date ?? "");
-  await establishLocalSubscription(admin,args.userId,{
-    square_customer_id: customer.id,
-    square_subscription_id: sub.id,
-    current_period_start: dates.start,
-    current_period_end: dates.end,
-  });
-  return {status: "awaiting_verified_payment", subscriptionId: sub.id};
 }
