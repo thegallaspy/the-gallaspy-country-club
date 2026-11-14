@@ -31,7 +31,33 @@ export default function Home() {
       </Reveal>
 
       {/* DIGITAL CLUBHOUSE — APP PREVIEW (NO APP STORE CLAIM) */}
-      <section className="bg-white px-5 py-14 text-[#10263F] sm:px-8 lg:px-10 lg:py-20">
+
+      <section
+        data-gallaspy-release-account="true"
+        aria-label="Join The Gallaspy community"
+        className="bg-white px-6 py-10 text-center text-[#10263F]"
+      >
+        <div className="mx-auto max-w-3xl">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#285C45]">
+            Join The Gallaspy
+          </p>
+          <h2 className="mt-3 text-2xl font-bold">
+            Your Gallaspy Experience Starts Here
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-6">
+            Connect with golfers and explore the digital clubhouse.
+            Creating an account does not activate a paid club membership.
+          </p>
+          <a
+            href="/my-gallaspy"
+            className="mt-6 inline-flex min-h-12 items-center justify-center bg-[#10263F] px-8 py-3 text-sm font-bold tracking-wide text-white"
+          >
+            CREATE AN ACCOUNT
+          </a>
+        </div>
+      </section>
+
+<section className="bg-white px-5 py-14 text-[#10263F] sm:px-8 lg:px-10 lg:py-20">
         <div className="mx-auto grid max-w-7xl gap-8 border-t border-[#10263F]/15 pt-10 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <p className="text-[9px] font-black uppercase tracking-[0.28em] text-[#B3262D]">THE GALLASPY APP</p>
