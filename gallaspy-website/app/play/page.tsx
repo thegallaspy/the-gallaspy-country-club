@@ -28,10 +28,10 @@ export default function PlayPage() {
     ) ?? null;
 
   return (
-    <main className="bg-[#F4F0E7] text-[#10263F]">
+    <main className="g616-interior gsite-editorial-page g626-play bg-[#F4F0E7] text-[#10263F]">
       {/* HERO */}
-      <section className="relative overflow-hidden bg-[#10263F] px-5 pb-16 pt-36 text-white sm:px-8 sm:pb-20 sm:pt-40 lg:px-10 lg:pb-24 lg:pt-44">
-        <div className="absolute right-[-4rem] top-20 text-[15rem] font-black leading-none tracking-[-0.1em] text-white/[0.025] sm:text-[22rem]">
+      <section className="g626-play-hero relative overflow-hidden bg-[#10263F] px-5 pb-16 pt-36 text-white sm:px-8 sm:pb-20 sm:pt-40 lg:px-10 lg:pb-24 lg:pt-44">
+        <div className="g626-play-ghost absolute right-[-4rem] top-20 text-[15rem] font-black leading-none tracking-[-0.1em] text-white/[0.025] sm:text-[22rem]">
           PLAY
         </div>
 
@@ -47,13 +47,12 @@ export default function PlayPage() {
           </div>
 
           <h1 className="mt-8 max-w-[1000px] text-[4rem] font-black uppercase leading-[0.82] tracking-[-0.07em] sm:text-[5.5rem] md:text-[6.8rem] lg:text-[8rem]">
-            Show Up.
-            <span className="block text-[#FFD76A]">Tee It Up.</span>
+            PLAY MORE.
+            <span className="block text-[#FFD76A]">TOGETHER.</span>
           </h1>
 
           <p className="mt-8 max-w-[650px] text-sm leading-7 text-white/65 sm:text-base">
-            The Gallaspy is being built through rounds, competition,
-            gatherings and the golfers who continue showing up to play.
+            Find your next round, meet golfers, and take part in the competitions and traditions we build through the game.
           </p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -64,15 +63,13 @@ export default function PlayPage() {
               Explore Gallaspy Rounds →
             </Link>
 
-            <Link
-              href="/calendar"
-              className="inline-flex min-h-[50px] items-center justify-center border border-white/35 px-7 text-[8px] font-black uppercase tracking-[0.22em] text-white transition hover:border-[#FFD76A] hover:text-[#FFD76A]"
-            >
-              Club Calendar
-            </Link>
+            <Link href="/host-a-round" className="g626-host-link inline-flex min-h-[50px] items-center justify-center border border-white/35 px-7 text-[8px] font-black uppercase tracking-[0.22em] text-white transition hover:border-[#FFD76A] hover:text-[#FFD76A]">Host Your Own Round →</Link>
+            <Link href="/calendar" className="inline-flex min-h-[50px] items-center justify-center border border-white/35 px-7 text-[8px] font-black uppercase tracking-[0.22em] text-white transition hover:border-[#FFD76A] hover:text-[#FFD76A]">Club Calendar</Link>
           </div>
         </div>
       </section>
+
+      <section className="g626-play-access" aria-label="Play through My Gallaspy"><div className="g626-play-access-inner"><span>YOUR GAME. YOUR GROUP.</span><p>Host a round with friends or find new golf partners through My Gallaspy. A paid club membership is not required to host a round.</p><Link href="/host-a-round">HOST A ROUND →</Link></div></section>
 
       {/* HOW WE PLAY */}
       <section className="border-b border-[#10263F]/10 px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">

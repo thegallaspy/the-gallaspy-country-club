@@ -709,3 +709,36 @@ p {
     letter-spacing: 0.23em;
   }
 }
+
+/* GALLASPY CUP OFFICIAL IDENTITY — STEP 655 */
+.g2-cup-identity {
+  background: #10263F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px 26px;
+  margin-top: 24px;
+  min-height: 155px;
+}
+
+.g2-cup-identity-logo {
+  display: block;
+  width: min(100%, 420px);
+  height: auto;
+  object-fit: contain;
+}
+
+.g2-portal-cup .g2-cup-teams {
+  margin-top: 0;
+}
+
+@media (max-width: 767px) {
+  .g2-cup-identity {
+    min-height: 112px;
+    padding: 18px 22px;
+  }
+
+  .g2-cup-identity-logo {
+    width: min(100%, 330px);
+  }
+}

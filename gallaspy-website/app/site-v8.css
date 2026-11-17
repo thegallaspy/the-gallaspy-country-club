@@ -1,0 +1,37 @@
+/* Gallaspy 618 — homepage feature order and red membership chapter.
+   Scoped to homepage only. Existing membership account pages remain unchanged. */
+.g2-home .g5-member { background:#9f2039; color:#fff; }
+.g2-home .g5-member::before { background:radial-gradient(ellipse at 80% 22%, #bf304a 0%, #a5243e 46%, #78162c 100%); }
+.g2-home .g5-member::after {color:rgba(255,255,255,.045)}
+.g2-home .g5-member .g5-eyebrow,
+.g2-home .g5-benefit > span:first-child {color:#ffdfaa}
+.g2-home .g5-member h2 em {color:#ffe3b9}
+.g2-home .g5-member-intro,
+.g2-home .g5-benefit p,
+.g2-home .g5-member-caption {color:#fff0ee}
+.g2-home .g5-member-button {color:#741d32;background:#fff}
+.g2-home .g5-member-button:hover {background:#ffe8c8}
+.g2-home .g5-member .g5-benefit-stack {border-color:rgba(255,255,255,.38)}
+.g2-home .g5-member .g5-benefit {border-color:rgba(255,255,255,.28)}
+.g2-home .g5-member .g5-benefit-arrow {color:#ffe0b2}
+/* Make the next action immediately distinct and present, not an empty white break. */
+.g2-home .g5-host {background:#f4f6f2;position:relative;}
+.g2-home .g5-host-shell {align-items:start;}
+.g2-home .g5-host-card {box-shadow:0 14px 34px rgba(12,36,45,.09);}
+.g2-home .g5-host h2 {max-width:11ch;}
+@media (max-width:767px) {
+  .g2-home .g5-member {padding:48px 0 52px;}
+  .g2-home .g5-member h2 {font-size:clamp(2.35rem,10vw,3.4rem);line-height:1.02;}
+  .g2-home .g5-member-intro {font-size:14px;line-height:1.6;}
+  .g2-home .g5-member-grid {gap:22px;}
+  .g2-home .g5-member-button {min-height:46px;}
+  .g2-home .g5-host {padding:47px 0 56px;}
+  .g2-home .g5-host h2 {font-size:clamp(2.5rem,10vw,3.5rem);line-height:1.02;}
+  .g2-home .g5-host-intro>p:not(.g5-eyebrow) {font-size:14px;line-height:1.6;}
+  .g2-home .g5-host-shell {gap:20px;grid-template-columns:minmax(0,1fr)}
+  .g2-home .g5-host-card {width:100%;min-width:0;padding:18px 15px;}
+  .g2-home .g5-host-field input,.g2-home .g5-host-field select {width:100%;max-width:100%;min-width:0;box-sizing:border-box;font-size:16px;}
+  .g2-home .g5-host-form {grid-template-columns:minmax(0,1fr)}
+  .g2-home .g5-host-field,.g2-home .g5-host-wide,.g2-home .g5-host-bottom {grid-column:1/-1;min-width:0}
+}
+@media (prefers-reduced-motion:reduce) { .g2-home .g5-member *, .g2-home .g5-host * {animation:none!important;transition:none!important;} }

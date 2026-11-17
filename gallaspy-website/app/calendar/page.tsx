@@ -59,6 +59,18 @@ function sortEvents() {
   });
 }
 
+// Canonical event labels also handle previously named entries in the shared calendar data.
+function displayEventName(event: { name: string; href: string; date?: string | null }) {
+  if (event.href === "/talaria-cup" || event.href === "/gallaspy-cup" || event.date === "2027-10-23") return "THE GALLASPY CUP";
+  if (event.href === "/invitational" || event.href === "/the-gallaspy" || event.date === "2027-06-21") return "THE GALLASPY CHAMPIONSHIP I";
+  return event.name;
+}
+function canonicalEventHref(href: string) {
+  if (href === "/invitational") return "/the-gallaspy";
+  if (href === "/talaria-cup") return "/gallaspy-cup";
+  return href;
+}
+
 export default function CalendarPage() {
   const sortedEvents = sortEvents();
 
@@ -67,7 +79,7 @@ export default function CalendarPage() {
   );
 
   return (
-    <main className="bg-[#F4F0E7] text-[#10263F]">
+    <main className="g616-interior gsite-editorial-page bg-[#F4F0E7] text-[#10263F]">
       {/* HERO */}
       <section className="border-b border-[#10263F]/10 px-5 pb-14 pt-32 sm:px-8 sm:pb-16 sm:pt-36 lg:px-10 lg:pb-20 lg:pt-40">
         <div className="mx-auto max-w-7xl">
@@ -198,7 +210,7 @@ export default function CalendarPage() {
                           </div>
 
                           <h3 className="mt-2 text-[1.55rem] font-black uppercase leading-none tracking-[-0.035em] sm:text-[1.75rem]">
-                            {event.name.replace(/Gallaspy Invitational/gi, "THE GALLASPY").replace(/Talaria Cup/gi, "THE GALLASPY CUP")}
+                            {displayEventName(event)}
                           </h3>
 
                           <p className="mt-3 max-w-2xl text-[13px] leading-6 text-[#10263F]/58">
@@ -227,7 +239,7 @@ export default function CalendarPage() {
                         {/* CTA */}
                         <div className="sm:text-right">
                           <Link
-                            href={event.href === "/talaria-cup" ? "/gallaspy-cup" : event.href === "/invitational" ? "/the-gallaspy" : event.href}
+                            href={canonicalEventHref(event.href)}
                             className="inline-flex min-h-[42px] items-center justify-center bg-[#10263F] px-5 text-[7px] font-black uppercase tracking-[0.2em] text-white transition duration-300 hover:bg-[#0C352D]"
                           >
                             View Event
