@@ -62,6 +62,13 @@ export default function MembershipPage() {
         <p className="mt-5 font-semibold">
           Enrollment is being prepared. No payment is collected here.
         </p>
+        <Link
+          href="/membership/checkout"
+          className="mt-8 block w-fit rounded-xl bg-[#10263F] px-6 py-4 text-sm font-semibold tracking-wide text-white"
+        >
+          VIEW STANDARD MEMBERSHIP OPTIONS
+        </Link>
+
         <Link href="/falcon-society" className="mt-10 inline-block underline">
           Explore the Falcon Society
         </Link>

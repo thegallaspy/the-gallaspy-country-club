@@ -16,6 +16,10 @@ type Local = {
   square_subscription_id: string | null;
   square_customer_id: string | null;
   subscription_status: string;
+  membership_plan: "monthly" | "annual";
+  renewal_amount_cents: number;
+  renewal_interval: string;
+  currency: string;
   cancel_at_period_end: boolean;
   current_period_end: string | null;
   canceled_at: string | null;
@@ -40,7 +44,35 @@ function assertProvider(record: unknown, local: Local): Provider {
   }
   const sq = (record as { subscription?: Provider }).subscription;
   const config = getSquareMembershipConfig();
-  const approved = process.env.SQUARE_STANDARD_MEMBERSHIP_PLAN_VARIATION_ID;
+  const monthlyPlan =
+    process.env.SQUARE_STANDARD_MONTHLY_PLAN_VARIATION_ID ||
+    process.env.SQUARE_STANDARD_MEMBERSHIP_PLAN_VARIATION_ID;
+
+  const annualPlan =
+    process.env.SQUARE_STANDARD_ANNUAL_PLAN_VARIATION_ID;
+
+  const approved =
+    local.membership_plan === "monthly" ? monthlyPlan :
+    local.membership_plan === "annual" ? annualPlan :
+    undefined;
+
+  if (monthlyPlan && annualPlan && monthlyPlan === annualPlan) {
+    throw new Error("Membership plan configuration conflict");
+  }
+
+  const expectedAmount =
+    local.membership_plan === "monthly" ? 10000 :
+    local.membership_plan === "annual" ? 100000 :
+    0;
+
+  if (
+    expectedAmount === 0 ||
+    local.renewal_amount_cents !== expectedAmount ||
+    local.renewal_interval !== local.membership_plan ||
+    local.currency !== "USD"
+  ) {
+    throw new Error("Local membership pricing mismatch");
+  }
   if (!sq || typeof approved !== "string" || !SQ_ID.test(approved) ||
       sq.id !== local.square_subscription_id ||
       sq.customer_id !== local.square_customer_id ||
@@ -101,7 +133,7 @@ export async function cancelStandardMembership(
   if (!UUID.test(userId)) throw new Error("Invalid account");
   const { data, error } = await admin
     .from("gallaspy_standard_subscriptions")
-    .select("id,user_id,square_subscription_id,square_customer_id,subscription_status,cancel_at_period_end,current_period_end,canceled_at")
+    .select("id,user_id,square_subscription_id,square_customer_id,subscription_status,cancel_at_period_end,current_period_end,canceled_at,membership_plan,renewal_amount_cents,renewal_interval,currency")
     .eq("user_id", userId)
     .maybeSingle();
   if (error || !data) throw new Error("No linked Standard Membership subscription");

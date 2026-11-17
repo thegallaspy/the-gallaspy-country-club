@@ -43,18 +43,31 @@ export async function GET(request: NextRequest) {
     if (!session) return respond({ success: false, error: "Sign in required." }, 401);
     const { data, error } = await session.admin
       .from("gallaspy_standard_subscriptions")
-      .select("subscription_status,cancel_at_period_end,current_period_end,square_subscription_id")
+      .select("subscription_status,cancel_at_period_end,current_period_end,square_subscription_id,membership_plan,renewal_amount_cents,renewal_interval,currency")
       .eq("user_id", session.userId)
       .maybeSingle();
     if (error) throw new Error("Subscription lookup failed");
     if (!data) return respond({ success: true, has_subscription: false });
+
+    const expectedAmount =
+      data.membership_plan === "monthly" ? 10000 :
+      data.membership_plan === "annual" ? 100000 : 0;
+
+    const pricingValid =
+      expectedAmount > 0 &&
+      data.renewal_amount_cents === expectedAmount &&
+      data.renewal_interval === data.membership_plan &&
+      data.currency === "USD";
     return respond({
       success: true,
       has_subscription: true,
       status: data.subscription_status,
+      membership_plan: pricingValid ? data.membership_plan : null,
+      renewal_amount_cents: pricingValid ? expectedAmount : null,
+      renewal_interval: pricingValid ? data.renewal_interval : null,
       cancellation_scheduled: data.cancel_at_period_end === true,
       current_period_end: data.current_period_end,
-      can_request_cancellation: Boolean(data.square_subscription_id) &&
+      can_request_cancellation: pricingValid && Boolean(data.square_subscription_id) &&
         !data.cancel_at_period_end &&
         data.subscription_status === "active",
     });
