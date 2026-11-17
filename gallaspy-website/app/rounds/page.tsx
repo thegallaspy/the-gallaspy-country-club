@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {
   getEventsByCategory,
+  getUpcomingEvents,
   type GallaspyEvent,
 } from "@/data/club";
 
@@ -21,8 +22,8 @@ function statusLabel(status: GallaspyEvent["status"]) {
 export default function RoundsPage() {
   const rounds = getEventsByCategory("GALLASPY_ROUND");
 
-  const upcomingRounds = rounds.filter(
-    (event) => event.status !== "COMPLETED",
+  const upcomingRounds = getUpcomingEvents().filter(
+    (event) => event.category === "GALLASPY_ROUND",
   );
 
   const completedRounds = rounds.filter(

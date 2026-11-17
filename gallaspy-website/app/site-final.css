@@ -1,0 +1,67 @@
+
+/* THE GALLASPY — Final website refinements */
+
+:root {
+  --gg-navy: #10263F;
+  --gg-forest: #174A38;
+  --gg-gold: #B89146;
+  --gg-white: #FFFFFF;
+}
+
+/* Consistent readability and responsive spacing */
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+main h1, main h2, main h3 {
+  overflow-wrap: break-word;
+}
+
+main p {
+  text-wrap: pretty;
+}
+
+main img {
+  max-width: 100%;
+}
+
+/* Keyboard accessibility */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--gg-gold);
+  outline-offset: 4px;
+}
+
+/* Keep anchored content clear of navigation */
+
+main [id] {
+  scroll-margin-top: 110px;
+}
+
+/* Mobile form usability */
+
+@media (max-width: 767px) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+/* Accessible motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
