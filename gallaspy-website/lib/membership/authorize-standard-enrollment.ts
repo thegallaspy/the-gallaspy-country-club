@@ -125,6 +125,57 @@ export async function authorizeStandardEnrollment(
     throw new Error("Billing consent recording failed");
   }
 
+  // Verify ownership and consent before storing signed agreements.
+  const [legalRecord, billingRecord] = await Promise.all([
+    admin
+      .from("gallaspy_membership_legal_acceptances")
+      .select("id, signed_full_name, accepted_at")
+      .eq("id", legalId)
+      .eq("user_id", userId)
+      .eq("enrollment_attempt_id", attemptId)
+      .eq("membership_plan", plan)
+      .eq("legal_terms_accepted", true)
+      .eq("electronic_signature_consent", true)
+      .single(),
+
+    admin
+      .from("gallaspy_membership_billing_consents")
+      .select("id, accepted_at")
+      .eq("id", billingId)
+      .eq("user_id", userId)
+      .eq("enrollment_attempt_id", attemptId)
+      .eq("membership_plan", plan)
+      .eq("billing_consent_accepted", true)
+      .single(),
+  ]);
+
+  if (
+    legalRecord.error ||
+    billingRecord.error ||
+    !legalRecord.data?.accepted_at ||
+    !billingRecord.data?.accepted_at ||
+    legalRecord.data.signed_full_name !== body.signedFullName
+  ) {
+    throw new Error("Signed membership record verification failed");
+  }
+
+  const { error: snapshotError } = await admin
+    .from("gallaspy_membership_signed_records")
+    .insert({
+      user_id: userId,
+      enrollment_attempt_id: attemptId,
+      legal_acceptance_id: legalId,
+      billing_consent_id: billingId,
+      membership_plan: plan,
+      signed_full_name: legalRecord.data.signed_full_name,
+      documents: MEMBERSHIP_DOCUMENTS,
+      accepted_at: legalRecord.data.accepted_at,
+    });
+
+  if (snapshotError) {
+    throw new Error("Signed membership record could not be preserved");
+  }
+
   const { data: claimed, error: claimError } =
     await admin.rpc(
       "gallaspy_begin_standard_enrollment_processing_v2",

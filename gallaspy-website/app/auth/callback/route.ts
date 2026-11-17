@@ -6,8 +6,10 @@ export async function GET(request: Request) {
   const code = requestUrl.searchParams.get("code");
   const requestedNext = requestUrl.searchParams.get("next");
   const next =
-    requestedNext === "/membership/checkout"
-      ? "/membership/checkout"
+    (requestedNext === "/membership/checkout" ||
+      requestedNext === "/membership/checkout?plan=monthly" ||
+      requestedNext === "/membership/checkout?plan=annual")
+      ? requestedNext
       : requestedNext === "/my-gallaspy/home"
         ? "/my-gallaspy/home"
         : "/my-gallaspy";

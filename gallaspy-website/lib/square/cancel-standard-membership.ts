@@ -5,6 +5,7 @@
  * verified paid-through dates.
  */
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { queueMembershipNotification } from "../membership/queue-membership-notification";
 import {
   getSquareMembershipConfig,
   retrieveSquareMembershipRecord,
@@ -204,6 +205,17 @@ export async function cancelStandardMembership(
     // Square may already have scheduled cancellation. A retry will recover.
     throw new Error("Cancellation scheduled at Square; local confirmation requires retry");
   }
+
+  await queueMembershipNotification(admin, {
+    userId,
+    type: "cancellation_confirmation",
+    reference: local.square_subscription_id + ":" + verified.canceled_date,
+    details: [
+      "Membership plan: " + local.membership_plan,
+      "Square cancellation date: " + verified.canceled_date,
+      "Cancellation does not issue an automatic refund.",
+    ].join("\\n"),
+  });
 
   return {
     cancellation_scheduled: true,

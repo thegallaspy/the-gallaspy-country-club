@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import {
   getSquareMembershipConfig,
+  isMembershipV2WebhookEnabled,
   retrieveSquareMembershipRecord,
 } from "@/lib/square/membership-client";
 import { reconcileStandardMembershipInvoice } from "@/lib/square/reconcile-membership-invoice";
@@ -174,8 +175,7 @@ export async function POST(request: NextRequest) {
       // This branch uses the exact same signed-event idempotency functions.
       // Other merchant invoices are ignored after a fresh Square lookup.
       if (
-        getSquareMembershipConfig().environment === "sandbox" &&
-        process.env.GALLASPY_MEMBERSHIP_V2_WEBHOOK_ENABLED === "true"
+        isMembershipV2WebhookEnabled()
       ) {
         await dispatchMembershipInvoiceV2(admin, objectId);
       } else {
@@ -198,8 +198,7 @@ export async function POST(request: NextRequest) {
 
       // Events for other subscription plans must never affect club membership.
       const billingV2 =
-        config.environment === "sandbox" &&
-        process.env.GALLASPY_MEMBERSHIP_V2_WEBHOOK_ENABLED === "true";
+        isMembershipV2WebhookEnabled();
 
       const approvedPlan = billingV2
         ? getStandardMembershipSquarePlan("monthly").planVariationId

@@ -1,3 +1,4 @@
+import { isProductionMembershipEnrollmentEnabled } from "./membership-client";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 import {
@@ -54,7 +55,7 @@ export async function enrollStandardMemberV2(
   const cfg = getSquareMembershipConfig();
 
   if (
-    cfg.environment !== "sandbox" ||
+    (cfg.environment !== "sandbox" && !isProductionMembershipEnrollmentEnabled()) ||
     process.env.SQUARE_MEMBERSHIP_ENROLLMENT_ENABLED !== "true"
   ) {
     throw new Error("Sandbox enrollment only");

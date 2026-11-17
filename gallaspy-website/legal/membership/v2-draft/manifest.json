@@ -1,0 +1,26 @@
+{
+  "status": "draft",
+  "approved": false,
+  "documents": {
+    "membership-agreement.md": {
+      "version": "2026-11-draft-v2",
+      "sha256": "f4bc8e40df2760c92ab4a39bfe1be9bf3ff8cab0959b152c7038b9e809bfbcd2"
+    },
+    "club-rules.md": {
+      "version": "2026-11-draft-v2",
+      "sha256": "888114be084fac1451a9c079dc70abe43d4be126bc2d7d6e651f87cefe0fa806"
+    },
+    "activity-waiver.md": {
+      "version": "2026-11-draft-v2",
+      "sha256": "26a21c1022e1cce935485184c7bc83fde2f6d1fbad3c0c45caa409d8268ecab6"
+    },
+    "billing-disclosure.md": {
+      "version": "2026-11-draft-v2",
+      "sha256": "4dec10aed9d329a33c0c391c0954267c62a071b17d8c9dedb52b01453744c9f5"
+    },
+    "electronic-consent.md": {
+      "version": "2026-11-draft-v2",
+      "sha256": "db004020dc7148a533c9ff8317a3bd9d46090a2cb0cf3d5f1d02d109fe8d2a69"
+    }
+  }
+}

@@ -1,3 +1,44 @@
+import {
+  STANDARD_MEMBERSHIP_LIVE_ENROLLMENT_READY
+} from "../membership/standard-plan-policy";
+
+import {
+  MEMBERSHIP_DOCUMENTS_APPROVED
+} from "../membership/membership-document-registry";
+
+
+export function isProductionMembershipEnrollmentEnabled() {
+  return (
+    process.env.VERCEL_ENV === "production" &&
+    process.env.SQUARE_ENVIRONMENT === "production" &&
+    process.env.NEXT_PUBLIC_SQUARE_ENVIRONMENT === "production" &&
+    Boolean(process.env.SQUARE_LOCATION_ID) &&
+    process.env.SQUARE_LOCATION_ID ===
+      process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID &&
+    process.env.SQUARE_MEMBERSHIP_ENROLLMENT_ENABLED === "true" &&
+    process.env.GALLASPY_MEMBERSHIP_V2_WEBHOOK_ENABLED === "true" &&
+    STANDARD_MEMBERSHIP_LIVE_ENROLLMENT_READY &&
+    MEMBERSHIP_DOCUMENTS_APPROVED
+  );
+}
+
+export function isMembershipV2WebhookEnabled() {
+  if (
+    process.env.GALLASPY_MEMBERSHIP_V2_WEBHOOK_ENABLED !== "true"
+  ) {
+    return false;
+  }
+
+  if (process.env.SQUARE_ENVIRONMENT === "sandbox") {
+    return process.env.VERCEL_ENV !== "production";
+  }
+
+  return (
+    process.env.SQUARE_ENVIRONMENT === "production" &&
+    process.env.VERCEL_ENV === "production"
+  );
+}
+
 const SQUARE_API_VERSION = "2026-07-15";
 
 export function getSquareMembershipConfig() {
@@ -33,8 +74,11 @@ export async function sendSquareMembershipRequest(
 ): Promise<unknown> {
   const config = getSquareMembershipConfig();
 
-  if (config.environment !== "sandbox") {
-    throw new Error("Membership enrollment is sandbox-only");
+  if (
+    config.environment !== "sandbox" &&
+    !isProductionMembershipEnrollmentEnabled()
+  ) {
+    throw new Error("Membership enrollment is disabled");
   }
 
   if (!/^[a-z0-9/-]+$/.test(resource) || resource.startsWith("/")) {

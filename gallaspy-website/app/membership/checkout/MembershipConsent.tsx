@@ -15,7 +15,10 @@ import {
 } from "@/lib/membership/membership-document-registry";
 
 type Props = {
-  sandboxEnrollmentEnabled: boolean;
+  enrollmentEnabled: boolean;
+  productionEnrollment: boolean;
+  initialPlan: StandardMembershipPlan;
+  verifiedEmail: string;
 };
 
 const money = (cents: number) =>
@@ -33,10 +36,13 @@ const documents = [
 ] as const;
 
 export default function MembershipConsent({
-  sandboxEnrollmentEnabled,
+  enrollmentEnabled,
+  productionEnrollment,
+  initialPlan,
+  verifiedEmail,
 }: Props) {
   const [plan, setPlan] =
-    useState<StandardMembershipPlan>("annual");
+    useState<StandardMembershipPlan>(initialPlan);
 
   const [fullName, setFullName] = useState("");
   const [signature, setSignature] = useState("");
@@ -57,14 +63,14 @@ export default function MembershipConsent({
   const quote = getStandardMembershipQuote(plan);
 
   const enabled =
-    sandboxEnrollmentEnabled &&
+    enrollmentEnabled &&
     MEMBERSHIP_DOCUMENTS_APPROVED;
 
   const locked =
     submitting || submitted || submissionStarted.current;
 
   const normalize = (value: string) =>
-    value.trim().replace(/\\s+/g, " ").toLowerCase();
+    value.trim().replace(/\s+/g, " ").toLowerCase();
 
   const validSignature =
     normalize(fullName).split(" ").length >= 2 &&
@@ -106,7 +112,7 @@ export default function MembershipConsent({
       }
 
       token =
-        await cardHandleRef.current.tokenizeForEnrollment();
+        await cardHandleRef.current.tokenizeForEnrollment(fullName, verifiedEmail);
 
     } catch {
       setNotice(
@@ -184,7 +190,9 @@ export default function MembershipConsent({
 
       setSubmitted(true);
       setNotice(
-        "Enrollment received. Membership remains pending until all required payments are independently verified. This is a Sandbox test."
+        productionEnrollment
+          ? "Enrollment received. Your membership will activate once all required payments are verified."
+          : "Enrollment received. Membership remains pending until all required payments are independently verified. This is a Sandbox test."
       );
 
     } catch {
@@ -408,7 +416,9 @@ export default function MembershipConsent({
         {submitting
           ? "Verifying Enrollment..."
           : enabled
-            ? "SUBMIT SANDBOX ENROLLMENT"
+            ? (productionEnrollment
+              ? "CONFIRM MEMBERSHIP & AUTHORIZE PAYMENT"
+              : "SUBMIT SANDBOX ENROLLMENT")
             : "ENROLLMENT COMING SOON"}
       </button>
 
@@ -416,7 +426,9 @@ export default function MembershipConsent({
         className="text-sm leading-6 text-[#526174]">
         {notice || (
           enabled
-            ? "Square Sandbox test. No real funds are collected."
+            ? (productionEnrollment
+                ? "Submitting authorizes your initial payment and recurring membership dues."
+                : "Square Sandbox test. No real funds are collected.")
             : "Enrollment is not available yet. No payment will be collected."
         )}
       </p>

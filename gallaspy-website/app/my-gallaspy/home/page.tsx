@@ -82,6 +82,12 @@ export default async function MyGallaspyHomePage() {
   if (!player) {
     return (
       <main className="min-h-screen bg-[#10263F] px-5 pb-28 pt-32 text-white">
+      <div className="mx-auto max-w-5xl px-5 py-4">
+        <Link href="/my-gallaspy/documents"
+          className="inline-block rounded-xl bg-[#164B3A] px-5 py-3 text-sm font-semibold text-white">
+          MEMBERSHIP DOCUMENTS
+        </Link>
+      </div>
         <div className="mx-auto max-w-2xl border border-white/20 p-8">
           <p className="text-[9px] font-black uppercase tracking-[0.3em] text-[#FFD76A]">
             My Gallaspy
@@ -202,6 +208,12 @@ export default async function MyGallaspyHomePage() {
 
   return (
     <main className="min-h-screen bg-[#F4F0E7] pb-28 pt-28 text-[#10263F] sm:pt-32">
+      <div className="mx-auto max-w-5xl px-5 py-4">
+        <Link href="/my-gallaspy/documents"
+          className="inline-block rounded-xl bg-[#164B3A] px-5 py-3 text-sm font-semibold text-white">
+          MEMBERSHIP DOCUMENTS
+        </Link>
+      </div>
       {/* PLAYER HEADER */}
       <section className="border-b border-[#10263F]/10 px-5 pb-10 sm:px-8 lg:px-10">
         <div className="mx-auto max-w-7xl">

@@ -12,9 +12,20 @@ type SquareTokenizeResult = {
   }>;
 };
 
+type StoreVerificationDetails = {
+  intent: "STORE";
+  customerInitiated: true;
+  sellerKeyedIn: false;
+  billingContact: {
+    givenName: string;
+    familyName: string;
+    email: string;
+  };
+};
+
 type SquareCard = {
   attach: (selector: string) => Promise<void>;
-  tokenize: () => Promise<SquareTokenizeResult>;
+  tokenize: (details?: StoreVerificationDetails) => Promise<SquareTokenizeResult>;
   destroy?: () => Promise<void>;
 };
 
@@ -31,7 +42,7 @@ type SquareWindow = Window & {
 
 export type MembershipCardHandle = {
   testTokenization: () => Promise<boolean>;
-  tokenizeForEnrollment: () => Promise<string>;
+  tokenizeForEnrollment: (fullName: string, email: string) => Promise<string>;
 };
 
 export default function SquareMembershipCard({
@@ -56,14 +67,15 @@ export default function SquareMembershipCard({
         process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID;
 
       if (
-        process.env.NEXT_PUBLIC_SQUARE_ENVIRONMENT !== "sandbox"
+        process.env.NEXT_PUBLIC_SQUARE_ENVIRONMENT !== "sandbox" &&
+        process.env.NEXT_PUBLIC_SQUARE_ENVIRONMENT !== "production"
       ) {
-        setStatus("Card enrollment is available in sandbox only.");
+        setStatus("Invalid Square payment environment.");
         return;
       }
 
       if (!applicationId || !locationId) {
-        setStatus("Square sandbox configuration is missing.");
+        setStatus("Square payment configuration is missing.");
         return;
       }
 
@@ -97,7 +109,7 @@ export default function SquareMembershipCard({
         }
 
         cardRef.current = card;
-        setStatus("Secure sandbox card form ready.");
+        setStatus("Secure card form ready.");
       } catch {
         if (!cancelled) {
           setStatus("Unable to initialize secure card form.");
@@ -117,19 +129,36 @@ export default function SquareMembershipCard({
   }, []);
 
   useImperativeHandle(cardHandleRef, () => ({
-    async tokenizeForEnrollment() {
+    async tokenizeForEnrollment(fullName, email) {
       if (testing || !cardRef.current) {
         throw new Error("Secure card form is not ready.");
       }
 
-      if (process.env.NEXT_PUBLIC_SQUARE_ENVIRONMENT !== "sandbox") {
-        throw new Error("Enrollment is restricted to Square Sandbox.");
+      const environment = process.env.NEXT_PUBLIC_SQUARE_ENVIRONMENT;
+
+      if (environment !== "sandbox" && environment !== "production") {
+        throw new Error("Invalid payment environment.");
       }
 
-      setStatus("Preparing secure Sandbox payment method...");
+      const names = fullName.trim().split(/\s+/);
+
+      if (names.length < 2 || !email) {
+        throw new Error("Verified billing identity required.");
+      }
+
+      setStatus("Verifying secure payment method...");
 
       try {
-        const result = await cardRef.current.tokenize();
+        const result = await cardRef.current.tokenize({
+          intent: "STORE",
+          customerInitiated: true,
+          sellerKeyedIn: false,
+          billingContact: {
+            givenName: names[0],
+            familyName: names.slice(1).join(" "),
+            email,
+          },
+        });
 
         if (result.status !== "OK" || !result.token) {
           throw new Error("Card validation failed. Check the card details.");
@@ -187,7 +216,9 @@ export default function SquareMembershipCard({
         {status}
       </p>
       <p className="text-xs text-[#526174]">
-        Square Sandbox only. Testing a card does not charge it. Submitting an enabled Sandbox enrollment saves a test card and may create a simulated recurring $100 charge; no real money is charged.
+        {process.env.NEXT_PUBLIC_SQUARE_ENVIRONMENT === "production"
+          ? "Your payment method is securely processed by Square for the authorized initial and recurring membership payments."
+          : "Square Sandbox only. No real funds are collected."}
       </p>
     </div>
   );

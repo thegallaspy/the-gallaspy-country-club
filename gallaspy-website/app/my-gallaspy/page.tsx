@@ -9,7 +9,9 @@ export default function MyGallaspyPage() {
   const searchParams = useSearchParams();
   const requestedNext = searchParams.get("next");
   const next =
-    requestedNext === "/membership/checkout"
+    (requestedNext === "/membership/checkout" ||
+      requestedNext === "/membership/checkout?plan=monthly" ||
+      requestedNext === "/membership/checkout?plan=annual")
       ? requestedNext
       : "/my-gallaspy/home";
 

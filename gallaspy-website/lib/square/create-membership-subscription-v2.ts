@@ -1,3 +1,4 @@
+import { isProductionMembershipEnrollmentEnabled } from "./membership-client";
 import {
   getSquareMembershipConfig,
   sendSquareMembershipRequest,
@@ -18,7 +19,7 @@ export async function createMembershipSubscriptionV2(
   const config = getSquareMembershipConfig();
 
   if (
-    config.environment !== "sandbox" ||
+    (config.environment !== "sandbox" && !isProductionMembershipEnrollmentEnabled()) ||
     process.env.SQUARE_MEMBERSHIP_ENROLLMENT_ENABLED !== "true"
   ) {
     throw new Error("Sandbox enrollment required");

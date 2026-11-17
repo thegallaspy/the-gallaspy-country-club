@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { reconcileStandardMembershipRefund } from "@/lib/square/reconcile-standard-membership-refund";
 import { reconcileMembershipRefundV2 } from "@/lib/square/reconcile-membership-refund-v2";
+import { isMembershipV2WebhookEnabled } from "@/lib/square/membership-client";
 import { verifySquareRefund } from "@/lib/square/verify-refund";
 import { reconcileApparelRefund } from "@/lib/square/reconcile-apparel-refund";
 
@@ -38,7 +39,7 @@ export async function POST(request: NextRequest) {
   if (!event || typeof event !== "object" || typeof event.type !== "string") {
     return respond({error: "Invalid Square event"}, 400);
   }
-  if (event.type !== "refund.updated") return respond({success: true, ignored: true});
+  if (event.type !== "refund.updated" && !(event.type === "refund.created" && isMembershipV2WebhookEnabled())) return respond({success: true, ignored: true});
   const refundId = event.data?.object?.refund?.id;
   if (event.data?.type !== "refund" || typeof refundId !== "string" ||
       !/^[A-Za-z0-9_-]{1,255}$/.test(refundId) ||
@@ -52,8 +53,7 @@ export async function POST(request: NextRequest) {
     const admin = createClient(url, secret, {auth:{persistSession:false, autoRefreshToken:false}});
     // Billing V2 must classify membership refunds before apparel.
     if (
-      process.env.SQUARE_ENVIRONMENT === "sandbox" &&
-      process.env.GALLASPY_MEMBERSHIP_V2_WEBHOOK_ENABLED === "true"
+      isMembershipV2WebhookEnabled()
     ) {
       const outcome = await reconcileMembershipRefundV2(
         admin,
@@ -65,6 +65,7 @@ export async function POST(request: NextRequest) {
       }
 
       if (
+        process.env.SQUARE_ENVIRONMENT === "sandbox" &&
         process.env.GALLASPY_APPAREL_REFUND_TEST_MODE !== "true"
       ) {
         return respond({success: true, ignored: true});

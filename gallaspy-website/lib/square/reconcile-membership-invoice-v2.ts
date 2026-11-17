@@ -1,7 +1,8 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { queueMembershipNotification } from "../membership/queue-membership-notification";
 
 import { verifyMembershipInvoicePaymentV2 } from "./verify-membership-invoice-payment-v2";
-import { getSquareMembershipConfig } from "./membership-client";
+import { isMembershipV2WebhookEnabled } from "./membership-client";
 import { getStandardMembershipQuote, isStandardMembershipPlan } from "../membership/standard-plan-policy";
 import {
   MEMBERSHIP_DOCUMENTS,
@@ -13,8 +14,8 @@ export async function reconcileMembershipInvoiceV2(
   invoiceId: string,
   subscriptionId: string
 ) {
-  if (getSquareMembershipConfig().environment !== "sandbox") {
-    throw new Error("Billing V2 reconciliation is sandbox-only");
+  if (!isMembershipV2WebhookEnabled()) {
+    throw new Error("Membership payment reconciliation is disabled");
   }
 
   if (!MEMBERSHIP_DOCUMENTS_APPROVED) {
@@ -121,6 +122,18 @@ export async function reconcileMembershipInvoiceV2(
     throw new Error("Verified dues recording failed");
   }
 
+  await queueMembershipNotification(admin, {
+    userId: local.user_id,
+    type: "payment_confirmation",
+    reference: verified.squarePaymentId,
+    details: [
+      "Membership dues payment: $" + (verified.amountCents / 100).toFixed(2),
+      "Plan: " + plan,
+      "Paid period ends: " + periodEnd.slice(0, 10),
+      "Payment reference: " + verified.squarePaymentId,
+    ].join("\\n"),
+  });
+
   const { data: current, error: currentError } =
     await admin.from("gallaspy_standard_subscriptions")
       .select("subscription_status")
@@ -162,6 +175,21 @@ export async function reconcileMembershipInvoiceV2(
   ) {
     throw new Error("Membership activation requires reconciliation");
   }
+
+  await queueMembershipNotification(admin, {
+    userId: local.user_id,
+    type: "enrollment_confirmation",
+    reference: subscriptionId,
+    details: [
+      "Standard Membership number: " + memberNumber,
+      "Plan: " + plan,
+      "Initial payment total: $" + (quote.initialPaymentCents / 100).toFixed(2),
+      "Automatic renewal: $" + (quote.renewalAmountCents / 100).toFixed(2)
+        + " / " + quote.renewalInterval,
+      "Membership renews automatically unless canceled.",
+      "Review and download your signed agreements through My Gallaspy.",
+    ].join("\\n"),
+  });
 
   return {
     paymentStatus: recorded,

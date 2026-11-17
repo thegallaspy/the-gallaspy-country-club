@@ -2,6 +2,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 
 import {
   getSquareMembershipConfig,
+  isMembershipV2WebhookEnabled,
   retrieveSquareMembershipRecord,
 } from "./membership-client";
 
@@ -15,8 +16,7 @@ export async function dispatchMembershipInvoiceV2(
   const config = getSquareMembershipConfig();
 
   if (
-    config.environment !== "sandbox" ||
-    process.env.GALLASPY_MEMBERSHIP_V2_WEBHOOK_ENABLED !== "true"
+    !isMembershipV2WebhookEnabled()
   ) {
     throw new Error("Billing V2 webhook testing disabled");
   }

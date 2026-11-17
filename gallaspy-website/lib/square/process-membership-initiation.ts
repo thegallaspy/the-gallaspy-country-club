@@ -1,4 +1,6 @@
+import { isProductionMembershipEnrollmentEnabled } from "./membership-client";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { queueMembershipNotification } from "../membership/queue-membership-notification";
 import {
   getSquareMembershipConfig,
   sendSquareMembershipRequest
@@ -17,7 +19,7 @@ export async function processMembershipInitiation(
   const config = getSquareMembershipConfig();
 
   if (
-    config.environment !== "sandbox" ||
+    (config.environment !== "sandbox" && !isProductionMembershipEnrollmentEnabled()) ||
     process.env.SQUARE_MEMBERSHIP_ENROLLMENT_ENABLED !== "true"
   ) {
     throw new Error("Sandbox membership enrollment required");
@@ -68,7 +70,7 @@ export async function processMembershipInitiation(
     args.attemptId
   );
 
-  const { error: recordError } =
+  const { data: recorded, error: recordError } =
     await admin.rpc("gallaspy_record_verified_initiation_v3", {
       p_user_id: args.userId,
       p_enrollment_attempt_id: args.attemptId,
@@ -78,9 +80,21 @@ export async function processMembershipInitiation(
       p_paid_at: verified.paidAt,
     });
 
-  if (recordError) {
+  if (recordError || !["recorded", "already_recorded"].includes(recorded)) {
     throw new Error("Verified payment requires reconciliation");
   }
+
+  await queueMembershipNotification(admin, {
+    userId: args.userId,
+    type: "payment_confirmation",
+    reference: verified.paymentId,
+    details: [
+      "Standard Monthly Membership initiation fee: $250.00",
+      "Payment reference: " + verified.paymentId,
+      "This is the one-time initiation fee, separate from recurring dues.",
+      "Membership activation requires verification of all initial payments.",
+    ].join("\\n"),
+  });
 
   return verified;
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { isProductionMembershipEnrollmentEnabled } from "@/lib/square/membership-client";
 import MembershipConsent from "./MembershipConsent";
 import {
   STANDARD_MEMBERSHIP_LIVE_ENROLLMENT_READY
@@ -31,7 +32,13 @@ const benefits = [
   "Digital membership identification",
 ];
 
-export default async function MembershipCheckoutPage() {
+export default async function MembershipCheckoutPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ plan?: string | string[] }>;
+}) {
+  const query = await searchParams;
+  const selectedPlan = query.plan === "monthly" ? "monthly" : "annual";
   const supabase = await createClient();
 
   const {
@@ -39,11 +46,17 @@ export default async function MembershipCheckoutPage() {
     error,
   } = await supabase.auth.getUser();
 
-  if (error || !user || !user.email_confirmed_at) {
-    redirect("/my-gallaspy?next=/membership/checkout");
+  if (error || !user || !user.email || !user.email_confirmed_at) {
+    redirect("/my-gallaspy?next=" + encodeURIComponent(
+      "/membership/checkout?plan=" + selectedPlan
+    ));
   }
 
+  const productionEnrollmentEnabled =
+    isProductionMembershipEnrollmentEnabled();
+
   const sandboxEnrollmentEnabled =
+    process.env.VERCEL_ENV !== "production" &&
     process.env.SQUARE_ENVIRONMENT === "sandbox" &&
     process.env.NEXT_PUBLIC_SQUARE_ENVIRONMENT === "sandbox" &&
     process.env.SQUARE_MEMBERSHIP_ENROLLMENT_ENABLED === "true" &&
@@ -222,14 +235,21 @@ export default async function MembershipCheckoutPage() {
           role="status"
           className="mt-6 rounded-xl border border-[#D7E1E7] bg-[#F1F5F7] p-5 text-sm leading-6 text-[#334B5B]"
         >
-          Secure enrollment for the new monthly and annual
-          plans is being integrated with Square. Payment collection remains disabled until legal approval
-          and payment verification testing are complete. No payment is
-          being collected on this page.
+          {productionEnrollmentEnabled
+            ? "Secure membership enrollment is available. Membership activates after successful payment verification."
+            : sandboxEnrollmentEnabled
+              ? "Sandbox enrollment is available for testing. No real money is collected."
+              : "Membership enrollment is being prepared. Payment collection is currently disabled."}
         </p>
 
         <MembershipConsent
-          sandboxEnrollmentEnabled={sandboxEnrollmentEnabled}
+          key={selectedPlan}
+          initialPlan={selectedPlan}
+          verifiedEmail={user.email}
+          enrollmentEnabled={
+            productionEnrollmentEnabled || sandboxEnrollmentEnabled
+          }
+          productionEnrollment={productionEnrollmentEnabled}
         />
 
         <section className="mt-14">

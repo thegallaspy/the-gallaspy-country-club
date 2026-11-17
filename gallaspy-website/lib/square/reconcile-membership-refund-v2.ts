@@ -1,7 +1,9 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { queueMembershipNotification } from "../membership/queue-membership-notification";
 import { verifySquareRefund } from "./verify-refund";
 import {
   getSquareMembershipConfig,
+  isMembershipV2WebhookEnabled,
   retrieveSquareMembershipRecord,
 } from "./membership-client";
 
@@ -39,8 +41,7 @@ export async function reconcileMembershipRefundV2(
   const cfg = getSquareMembershipConfig();
 
   if (
-    cfg.environment !== "sandbox" ||
-    process.env.GALLASPY_MEMBERSHIP_V2_WEBHOOK_ENABLED !== "true"
+    !isMembershipV2WebhookEnabled()
   ) {
     throw new Error("Membership V2 refund testing is disabled");
   }
@@ -56,7 +57,7 @@ export async function reconcileMembershipRefundV2(
 
     admin
       .from("gallaspy_membership_initiation_payments")
-      .select("id,enrollment_attempt_id,square_payment_id,square_customer_id,membership_plan,amount_cents,currency,verified_at")
+      .select("id,user_id,enrollment_attempt_id,square_payment_id,square_customer_id,membership_plan,amount_cents,currency,verified_at")
       .eq("square_payment_id", refund.paymentId)
       .maybeSingle(),
   ]);
@@ -101,9 +102,11 @@ export async function reconcileMembershipRefundV2(
   }
 
   let rpc: string;
+  let memberUserId: string;
 
   if (initiation.data) {
     const local = initiation.data;
+    memberUserId = local.user_id;
 
     if (
       local.membership_plan !== "monthly" ||
@@ -126,13 +129,15 @@ export async function reconcileMembershipRefundV2(
 
     const { data: sub, error } = await admin
       .from("gallaspy_standard_subscriptions")
-      .select("id,square_subscription_id,square_customer_id,membership_plan,renewal_amount_cents,renewal_interval,currency")
+      .select("id,user_id,square_subscription_id,square_customer_id,membership_plan,renewal_amount_cents,renewal_interval,currency")
       .eq("id", local.subscription_id)
       .maybeSingle();
 
     if (error || !sub) {
       throw new Error("Linked subscription unavailable");
     }
+
+    memberUserId = sub.user_id;
 
     const monthlyPlan =
       process.env.SQUARE_STANDARD_MONTHLY_PLAN_VARIATION_ID ||
@@ -203,6 +208,18 @@ export async function reconcileMembershipRefundV2(
   ) {
     throw new Error("Membership refund settlement failed");
   }
+
+  await queueMembershipNotification(admin, {
+    userId: memberUserId,
+    type: "refund_confirmation",
+    reference: refund.id,
+    details: [
+      "Verified refund amount: $" + (refund.amountCents / 100).toFixed(2),
+      "Refund reference: " + refund.id,
+      "Original payment reference: " + refund.paymentId,
+      "Membership eligibility remains subject to verified, unrefunded payments.",
+    ].join("\\n"),
+  });
 
   return data as Outcome;
 }

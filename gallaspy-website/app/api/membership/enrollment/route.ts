@@ -1,3 +1,4 @@
+import { isProductionMembershipEnrollmentEnabled } from "@/lib/square/membership-client";
 import { NextResponse } from "next/server";
 import { createClient as createAdminClient } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
@@ -24,7 +25,7 @@ export async function POST(request: Request) {
     }
 
     const square = getSquareMembershipConfig();
-    if (square.environment !== "sandbox" ||
+    if ((square.environment !== "sandbox" && !isProductionMembershipEnrollmentEnabled()) ||
         process.env.SQUARE_MEMBERSHIP_ENROLLMENT_ENABLED !== "true") {
       return NextResponse.json({error: "Enrollment is not enabled"}, {status: 503});
     }

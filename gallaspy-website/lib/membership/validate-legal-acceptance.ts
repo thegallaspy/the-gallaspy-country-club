@@ -2,18 +2,10 @@ import type {
   StandardMembershipPlan
 } from "./standard-plan-policy";
 
-type ApprovedDocuments = Readonly<{
-  agreement: string;
-  clubRules: string;
-  activityWaiver: string;
-}>;
-
-/**
- * Remains null until the documents receive legal approval,
- * immutable versions are recorded, and the signing workflow
- * is ready for controlled testing.
- */
-const APPROVED_DOCUMENTS: ApprovedDocuments | null = null;
+import {
+  MEMBERSHIP_DOCUMENTS,
+  MEMBERSHIP_DOCUMENTS_APPROVED,
+} from "./membership-document-registry";
 
 export function validateMembershipLegalAcceptance(
   body: Record<string, unknown>,
@@ -43,19 +35,24 @@ export function validateMembershipLegalAcceptance(
     return "Signed membership plan does not match enrollment";
   }
 
-  // Fail closed: draft legal documents are not approved versions.
-  const documents = APPROVED_DOCUMENTS as ApprovedDocuments | null;
-
-  if (documents === null) {
+  if (!MEMBERSHIP_DOCUMENTS_APPROVED) {
     return "Membership legal documents are awaiting approval";
   }
 
   if (
-    body.membershipAgreementVersion !== documents.agreement ||
-    body.clubRulesVersion !== documents.clubRules ||
-    body.activityWaiverVersion !== documents.activityWaiver
+    body.membershipAgreementVersion !==
+      MEMBERSHIP_DOCUMENTS["membership-agreement.md"].version ||
+    body.clubRulesVersion !==
+      MEMBERSHIP_DOCUMENTS["club-rules.md"].version ||
+    body.activityWaiverVersion !==
+      MEMBERSHIP_DOCUMENTS["activity-waiver.md"].version ||
+    body.billingDisclosureVersion !==
+      MEMBERSHIP_DOCUMENTS["billing-disclosure.md"].version ||
+    body.electronicConsentVersion !==
+      MEMBERSHIP_DOCUMENTS["electronic-consent.md"].version ||
+    body.consent !== true
   ) {
-    return "Membership document versions do not match";
+    return "Membership document versions or billing consent do not match";
   }
 
   return null;
