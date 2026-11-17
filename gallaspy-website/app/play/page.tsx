@@ -1,7 +1,6 @@
 import Link from "next/link";
 import {
   getUpcomingEvents,
-  getEventsByCategory,
   type GallaspyEvent,
 } from "@/data/club";
 
@@ -23,8 +22,8 @@ export default function PlayPage() {
   const upcoming = getUpcomingEvents(3);
 
   const nextRound =
-    getEventsByCategory("GALLASPY_ROUND").find(
-      (event) => event.status !== "COMPLETED",
+    getUpcomingEvents().find(
+      (event) => event.category === "GALLASPY_ROUND",
     ) ?? null;
 
   return (
