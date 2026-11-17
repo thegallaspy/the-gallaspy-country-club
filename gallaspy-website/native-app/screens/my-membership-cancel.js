@@ -28,7 +28,7 @@
   const confirm = el("div", "gallaspy-cancel-confirm");
   confirm.hidden = true;
   const question = el("p", "gallaspy-cancel-question",
-    "Cancel your $100/month Standard Membership? This requests that Square stop future recurring payments. It does not issue a refund. Verified, unrefunded paid-period benefits continue until their eligible period ends.");
+    "Cancel future renewals of your Standard Membership? This requests that Square stop future recurring payments. It does not issue a refund. Verified, unrefunded paid-period benefits continue until their eligible period ends.");
   const actions = el("div", "gallaspy-cancel-actions");
   const keepButton = el("button", "gallaspy-cancel-keep", "Keep membership");
   keepButton.type = "button";
@@ -102,14 +102,27 @@
       ? `Current billing period ends ${endDate}. Eligibility still requires a verified, unrefunded payment.`
       : "Your eligible paid-through date is being verified. Contact the club if you need help.";
 
+    const billingLabel =
+      data.membership_plan === "annual" &&
+      data.renewal_amount_cents === 100000
+        ? "$1,000/year"
+        : data.membership_plan === "monthly" &&
+          data.renewal_amount_cents === 10000
+            ? "$100/month"
+            : null;
+
+    question.textContent = billingLabel
+      ? `Cancel your ${billingLabel} Standard Membership? This stops future renewals and does not issue a refund. Verified paid-period benefits remain available until their eligible period ends.`
+      : "Cancel future Standard Membership renewals? This does not issue a refund.";
+
     const scheduled = data.cancellation_scheduled === true;
-    eligible = !scheduled && data.can_request_cancellation === true;
+    eligible = Boolean(billingLabel) && !scheduled && data.can_request_cancellation === true;
     requestButton.hidden = !eligible;
     requestButton.disabled = false;
     if (scheduled) {
-      summary.textContent = "Cancellation scheduled. Future $100 monthly renewals have been requested to stop.";
+      summary.textContent = "Cancellation scheduled. Future membership renewals have been requested to stop.";
     } else if (eligible) {
-      summary.textContent = "Standard Membership · $100/month recurring. You can stop future renewals here.";
+      summary.textContent = `Standard Membership · ${billingLabel} recurring. You can stop future renewals here.`;
     } else {
       summary.textContent = "This subscription needs assistance to manage billing. Contact the club to request cancellation.";
     }
@@ -166,7 +179,7 @@
       }
       confirm.hidden = true;
       requestButton.hidden = true;
-      summary.textContent = "Cancellation confirmed with Square. Future monthly renewals have been scheduled to stop.";
+      summary.textContent = "Cancellation confirmed with Square. Future membership renewals have been scheduled to stop.";
       const until = formatDate(data.current_period_end);
       note.textContent = until
         ? `Current billing period ends ${until}. Eligible benefits depend on a verified, unrefunded payment.`

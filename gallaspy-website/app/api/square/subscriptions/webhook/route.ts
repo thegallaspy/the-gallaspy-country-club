@@ -1,3 +1,5 @@
+import { getStandardMembershipSquarePlan } from "@/lib/square/standard-membership-config";
+import { dispatchMembershipInvoiceV2 } from "@/lib/square/dispatch-membership-invoice-v2";
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
@@ -171,7 +173,14 @@ export async function POST(request: NextRequest) {
     if (invoiceEvent) {
       // This branch uses the exact same signed-event idempotency functions.
       // Other merchant invoices are ignored after a fresh Square lookup.
-      await reconcileStandardMembershipInvoice(admin, objectId);
+      if (
+        getSquareMembershipConfig().environment === "sandbox" &&
+        process.env.GALLASPY_MEMBERSHIP_V2_WEBHOOK_ENABLED === "true"
+      ) {
+        await dispatchMembershipInvoiceV2(admin, objectId);
+      } else {
+        await reconcileStandardMembershipInvoice(admin, objectId);
+      }
       succeeded = true;
     } else {
       const subscriptionId = objectId;
@@ -188,9 +197,22 @@ export async function POST(request: NextRequest) {
       }
 
       // Events for other subscription plans must never affect club membership.
-      const approvedPlan = process.env.SQUARE_STANDARD_MEMBERSHIP_PLAN_VARIATION_ID;
+      const billingV2 =
+        config.environment === "sandbox" &&
+        process.env.GALLASPY_MEMBERSHIP_V2_WEBHOOK_ENABLED === "true";
+
+      const approvedPlan = billingV2
+        ? getStandardMembershipSquarePlan("monthly").planVariationId
+        : process.env.SQUARE_STANDARD_MEMBERSHIP_PLAN_VARIATION_ID;
+
+      const annualPlan = billingV2
+        ? getStandardMembershipSquarePlan("annual").planVariationId
+        : undefined;
       if (!approvedPlan) throw new Error("Membership plan not configured");
-      if (square.plan_variation_id !== approvedPlan) {
+      if (
+        square.plan_variation_id !== approvedPlan &&
+        (!annualPlan || square.plan_variation_id !== annualPlan)
+      ) {
         succeeded = true;
       } else {
         if (square.price_override_money != null) {
@@ -198,7 +220,7 @@ export async function POST(request: NextRequest) {
         }
         const { data, error } = await admin
           .from("gallaspy_standard_subscriptions")
-          .select("id, square_subscription_id, square_customer_id, subscription_status, current_period_start, current_period_end")
+          .select("id, square_subscription_id, square_customer_id, subscription_status, current_period_start, current_period_end, membership_plan, renewal_amount_cents, renewal_interval, currency")
           .eq("square_subscription_id", subscriptionId)
           .maybeSingle();
         if (error || !data) {
@@ -206,7 +228,28 @@ export async function POST(request: NextRequest) {
           // Square subscription ID. Never create a membership from a webhook.
           throw new Error("Linked standard subscription not yet available");
         }
-        const local = data as LocalSubscription;
+        const local = data as LocalSubscription & {
+          membership_plan: string;
+          renewal_amount_cents: number;
+          renewal_interval: string;
+          currency: string;
+        };
+
+        const plan = annualPlan &&
+          square.plan_variation_id === annualPlan
+          ? "annual" : "monthly";
+
+        const expectedAmount = plan === "annual"
+          ? 100000 : 10000;
+
+        if (billingV2 && (
+          local.membership_plan !== plan ||
+          local.renewal_amount_cents !== expectedAmount ||
+          local.renewal_interval !== plan ||
+          local.currency !== "USD"
+        )) {
+          throw new Error("Membership billing configuration mismatch");
+        }
         if (local.square_customer_id !== square.customer_id) {
           throw new Error("Subscription customer mismatch");
         }
@@ -218,7 +261,7 @@ export async function POST(request: NextRequest) {
             .select("id")
             .eq("subscription_id", local.id)
             .eq("payment_status", "completed")
-            .eq("amount_cents", 10000)
+            .eq("amount_cents", expectedAmount)
             .eq("currency", "USD")
             .eq("billing_period_start", local.current_period_start)
             .eq("billing_period_end", local.current_period_end)

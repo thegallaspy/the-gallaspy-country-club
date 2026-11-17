@@ -1,4 +1,12 @@
 import Link from "next/link";
+import MembershipConsent from "./MembershipConsent";
+import {
+  STANDARD_MEMBERSHIP_LIVE_ENROLLMENT_READY
+} from "@/lib/membership/standard-plan-policy";
+import {
+  MEMBERSHIP_DOCUMENTS_APPROVED
+} from "@/lib/membership/membership-document-registry";
+
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
@@ -34,6 +42,13 @@ export default async function MembershipCheckoutPage() {
   if (error || !user || !user.email_confirmed_at) {
     redirect("/my-gallaspy?next=/membership/checkout");
   }
+
+  const sandboxEnrollmentEnabled =
+    process.env.SQUARE_ENVIRONMENT === "sandbox" &&
+    process.env.NEXT_PUBLIC_SQUARE_ENVIRONMENT === "sandbox" &&
+    process.env.SQUARE_MEMBERSHIP_ENROLLMENT_ENABLED === "true" &&
+    STANDARD_MEMBERSHIP_LIVE_ENROLLMENT_READY &&
+    MEMBERSHIP_DOCUMENTS_APPROVED;
 
   return (
     <main className="min-h-screen bg-white px-5 py-12 text-[#10263F] sm:px-8 sm:py-20">
@@ -208,11 +223,14 @@ export default async function MembershipCheckoutPage() {
           className="mt-6 rounded-xl border border-[#D7E1E7] bg-[#F1F5F7] p-5 text-sm leading-6 text-[#334B5B]"
         >
           Secure enrollment for the new monthly and annual
-          plans is being integrated with Square. Both purchase
-          buttons remain disabled until the required payment
-          verification safeguards are tested. No payment is
+          plans is being integrated with Square. Payment collection remains disabled until legal approval
+          and payment verification testing are complete. No payment is
           being collected on this page.
         </p>
+
+        <MembershipConsent
+          sandboxEnrollmentEnabled={sandboxEnrollmentEnabled}
+        />
 
         <section className="mt-14">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#164B3A]">

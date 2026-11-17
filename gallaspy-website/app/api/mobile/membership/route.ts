@@ -109,13 +109,41 @@ export async function GET(request: NextRequest) {
 
     let standardActive = false;
 
+    let billing: {
+      plan: string;
+      renewal_amount_cents: number;
+      renewal_interval: string;
+      current_period_end: string | null;
+      cancel_at_period_end: boolean;
+    } | null = null;
+
     if (approved && membership?.membership_type === "standard") {
       const { data: subscription, error: subscriptionError } =
         await supabase
           .from("gallaspy_standard_subscriptions")
-          .select("id, subscription_status, monthly_amount_cents, current_period_start, current_period_end")
+          .select("id, subscription_status, membership_plan, renewal_amount_cents, renewal_interval, currency, current_period_start, current_period_end, cancel_at_period_end")
           .eq("user_id", user.id)
           .maybeSingle();
+
+      const expectedAmount =
+        subscription?.membership_plan === "monthly" ? 10000 :
+        subscription?.membership_plan === "annual" ? 100000 : 0;
+
+      const pricingValid =
+        expectedAmount > 0 &&
+        subscription?.renewal_amount_cents === expectedAmount &&
+        subscription?.renewal_interval === subscription?.membership_plan &&
+        subscription?.currency === "USD";
+
+      if (!subscriptionError && subscription && pricingValid) {
+        billing = {
+          plan: subscription.membership_plan,
+          renewal_amount_cents: expectedAmount,
+          renewal_interval: subscription.renewal_interval,
+          current_period_end: subscription.current_period_end,
+          cancel_at_period_end: subscription.cancel_at_period_end === true,
+        };
+      }
 
       if (subscriptionError) {
         console.error("Subscription verification failed:", subscriptionError.message);
@@ -124,7 +152,7 @@ export async function GET(request: NextRequest) {
         ["active", "canceled"].includes(
           subscription.subscription_status
         ) &&
-        subscription.monthly_amount_cents === 10000 &&
+        pricingValid &&
         subscription.current_period_start &&
         subscription.current_period_end &&
         new Date(subscription.current_period_start).getTime() <= Date.now() &&
@@ -135,7 +163,9 @@ export async function GET(request: NextRequest) {
           .select("id")
           .eq("subscription_id", subscription.id)
           .eq("payment_status", "completed")
-          .eq("amount_cents", 10000)
+          .eq("amount_cents", expectedAmount)
+          .eq("refunded_amount_cents", 0)
+          .not("verified_at", "is", null)
           .eq("currency", "USD")
           .eq("billing_period_start", subscription.current_period_start)
           .eq("billing_period_end", subscription.current_period_end)
@@ -167,6 +197,7 @@ export async function GET(request: NextRequest) {
             membership_number: membership.membership_number,
             founder_number: membership.founder_number,
             approved_at: membership.approved_at,
+            billing,
             is_official_member: officialMember,
             is_falcon_society_member: falcon,
           }

@@ -8,6 +8,9 @@
   const number = $("myMembershipNumber");
   const type = $("myMembershipType");
   const founder = $("myMembershipFounder");
+  const recurringDues = $("myMembershipRecurringDues");
+  const periodEnd = $("myMembershipPeriodEnd");
+  const renewal = $("myMembershipRenewal");
   const benefitsMessage = $("myMembershipBenefitsMessage");
 
   if (!message || !status || !number || !type || !founder) return;
@@ -20,6 +23,7 @@
     membershipNumber = "—",
     membershipType = "—",
     founderNumber = "—",
+    billing = null,
     benefitsText = "Sign in to check your membership benefits."
   }) {
     message.textContent = text;
@@ -27,6 +31,49 @@
     number.textContent = membershipNumber;
     type.textContent = membershipType;
     founder.textContent = founderNumber;
+
+    const validBilling =
+      billing &&
+      (
+        (billing.plan === "monthly" &&
+          billing.renewal_amount_cents === 10000) ||
+        (billing.plan === "annual" &&
+          billing.renewal_amount_cents === 100000)
+      );
+
+    if (recurringDues) {
+      recurringDues.textContent = validBilling
+        ? billing.plan === "annual"
+          ? "$1,000 / YEAR"
+          : "$100 / MONTH"
+        : "—";
+    }
+
+    if (periodEnd) {
+      const date = validBilling && billing.current_period_end
+        ? new Date(billing.current_period_end)
+        : null;
+
+      periodEnd.textContent =
+        date && Number.isFinite(date.getTime())
+          ? new Intl.DateTimeFormat("en-US", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+              timeZone: "UTC"
+            }).format(date)
+          : "—";
+    }
+
+    if (renewal) {
+      renewal.textContent = validBilling
+        ? billing.cancel_at_period_end === true
+          ? "CANCELLATION SCHEDULED"
+          : membershipStatus === "ACTIVE STANDARD MEMBER"
+            ? "ENABLED"
+            : "CHECK BILLING STATUS"
+        : "—";
+    }
     if (benefitsMessage) benefitsMessage.textContent = benefitsText;
   }
 
@@ -71,8 +118,8 @@
 
       if (!result.membership_found || !result.membership) {
         display({
-          text: "You have a free Gallaspy app account. Standard Club Membership is $100 per month. Paid enrollment is being prepared.",
-          membershipStatus: "FREE ACCOUNT",
+          text: "You have a Gallaspy app account. Standard Membership is separate: $100 per month with a $250 initiation fee, or $1,000 annually with initiation waived. Enrollment is being prepared.",
+          membershipStatus: "APP ACCOUNT",
           benefitsText: "Discover what it means to belong to The Gallaspy."
         });
         return;
@@ -98,13 +145,17 @@
 
       display({
         text: membershipMessage,
+        billing: falcon ? null : membership.billing,
         membershipStatus: membershipLabel,
         benefitsText: approved ? (falcon ? "Falcon Society membership verified. Founder privileges apply." : "Standard Membership verified. Eligible benefits are available.") : "No active membership verified. Benefits are unavailable.",
         membershipNumber: approved
           ? membership.membership_number || "—"
           : "—",
         membershipType: approved
-          ? falcon ? "FALCON SOCIETY" : "STANDARD"
+          ? falcon ? "FALCON SOCIETY" :
+            membership.billing?.plan === "annual"
+              ? "STANDARD — ANNUAL"
+              : "STANDARD — MONTHLY"
           : "—",
         founderNumber: approved && falcon &&
           Number.isInteger(membership.founder_number)
@@ -122,8 +173,8 @@
   }
 
   $("myMembership")?.addEventListener("click", () => {
-    // Live enrollment is disabled on the website. Never activate membership client-side.
-    window.openClubRoute?.("/membership");
+    // Open the verified website checkout. Never activate membership client-side.
+    window.openClubRoute?.("/membership/checkout");
   });
 
   window.addEventListener("gallaspy:auth-changed", event => {

@@ -2,6 +2,7 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { reconcileStandardMembershipRefund } from "@/lib/square/reconcile-standard-membership-refund";
+import { reconcileMembershipRefundV2 } from "@/lib/square/reconcile-membership-refund-v2";
 import { verifySquareRefund } from "@/lib/square/verify-refund";
 import { reconcileApparelRefund } from "@/lib/square/reconcile-apparel-refund";
 
@@ -49,6 +50,27 @@ export async function POST(request: NextRequest) {
   if (!url || !secret) return respond({error: "Refund processing unavailable"}, 503);
   try {
     const admin = createClient(url, secret, {auth:{persistSession:false, autoRefreshToken:false}});
+    // Billing V2 must classify membership refunds before apparel.
+    if (
+      process.env.SQUARE_ENVIRONMENT === "sandbox" &&
+      process.env.GALLASPY_MEMBERSHIP_V2_WEBHOOK_ENABLED === "true"
+    ) {
+      const outcome = await reconcileMembershipRefundV2(
+        admin,
+        refundId
+      );
+
+      if (outcome !== "ignored") {
+        return respond({success: true, outcome});
+      }
+
+      if (
+        process.env.GALLASPY_APPAREL_REFUND_TEST_MODE !== "true"
+      ) {
+        return respond({success: true, ignored: true});
+      }
+    }
+
     // Existing production behavior remains unchanged.
     // New apparel handling requires explicit Sandbox opt-in.
     if (
