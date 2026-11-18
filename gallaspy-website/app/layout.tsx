@@ -57,9 +57,9 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest",
 
   icons: {
-    icon: "/logos/official/crest.png",
-    shortcut: "/logos/official/crest.png",
-    apple: "/icons/apple-touch-icon.png",
+    icon: "/gallaspy-falcon-icon.png",
+    shortcut: "/gallaspy-falcon-icon.png",
+    apple: "/gallaspy-falcon-icon.png",
   },
 
   applicationName: "The Gallaspy",

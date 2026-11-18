@@ -3,6 +3,7 @@ import { PRODUCT_CATALOG } from "@/lib/apparel-catalog";
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
+import { createClient as createSessionClient } from "@/lib/supabase/server";
 import {
   getFalconSocietyCookieName,
   verifyFalconSocietySession,
@@ -32,6 +33,8 @@ type ApparelPaymentBody = {
   shippingState?: string;
   shippingPostalCode?: string;
   acceptedTerms?: boolean;
+  rewardsPoints?: number;
+  expectedTotalCents?: number;
 };
 
 type ValidatedItem = {
@@ -283,7 +286,77 @@ export async function POST(request: NextRequest) {
 
     const shippingCents = 895;
     const taxCents = 0;
-    const totalCents = subtotalCents + shippingCents + taxCents;
+    const rewardsPoints = body.rewardsPoints ?? 0;
+
+    if (
+      !Number.isSafeInteger(rewardsPoints) ||
+      rewardsPoints < 0 ||
+      (rewardsPoints !== 0 && rewardsPoints < 500) ||
+      rewardsPoints >= subtotalCents
+    ) {
+      return NextResponse.json(
+        { success: false, error: "Invalid Club Points amount." },
+        { status: 400 }
+      );
+    }
+
+    let rewardsUserId: string | null = null;
+
+    if (rewardsPoints > 0) {
+      if (
+        process.env.GALLASPY_REWARDS_CHECKOUT_ENABLED !== "true" ||
+        squareEnvironment !== "sandbox" ||
+        process.env.VERCEL_ENV === "production"
+      ) {
+        return NextResponse.json(
+          { success: false, error: "Rewards redemption is not available yet." },
+          { status: 403 }
+        );
+      }
+
+      if (!nativeCheckoutToken) {
+        const origin = request.headers.get("origin");
+        if (!origin || new URL(origin).origin !== request.nextUrl.origin) {
+          return NextResponse.json(
+            { success: false, error: "Invalid checkout origin." },
+            { status: 403 }
+          );
+        }
+
+        const sessionClient = await createSessionClient();
+        const { data: { user }, error } =
+          await sessionClient.auth.getUser();
+
+        if (error || !user?.id || !user.email_confirmed_at) {
+          return NextResponse.json(
+            { success: false, error: "Verified MyGallaspy sign-in required." },
+            { status: 401 }
+          );
+        }
+
+        rewardsUserId = user.id;
+      }
+    }
+
+    const totalCents =
+      subtotalCents + shippingCents + taxCents - rewardsPoints;
+
+    if (
+      (rewardsPoints > 0 || body.expectedTotalCents !== undefined) &&
+      (
+        !Number.isSafeInteger(body.expectedTotalCents) ||
+        body.expectedTotalCents !== totalCents
+      )
+    ) {
+      return NextResponse.json(
+        {
+          success: false,
+          error:
+            "Your checkout total has changed. Refresh your shopping bag before continuing.",
+        },
+        { status: 409 }
+      );
+    }
 
     const orderReference =
       `apparel-${Date.now()}-${randomUUID().slice(0, 8)}`;
@@ -362,7 +435,19 @@ export async function POST(request: NextRequest) {
         slug, size, quantity,
       }));
 
-      const { data, error } = await client.rpc(
+      const { data, error } = rewardsPoints > 0
+        ? await client.rpc("prepare_rewards_apparel_payment", {
+            p_native_token_hash: nativeTokenHash,
+            p_website_checkout_id: null,
+            p_user_id: null,
+            p_points: rewardsPoints,
+            p_items: cart,
+            p_order_reference: orderReference,
+            p_order_payload: orderPayload,
+            p_order_items: orderItems,
+            p_amount_cents: totalCents,
+          })
+        : await client.rpc(
         "prepare_native_apparel_payment",
         {
           p_token_hash: nativeTokenHash,
@@ -412,7 +497,19 @@ export async function POST(request: NextRequest) {
         }
       );
 
-      const { data, error } = await websiteClient.rpc(
+      const { data, error } = rewardsPoints > 0
+        ? await websiteClient.rpc("prepare_rewards_apparel_payment", {
+            p_native_token_hash: null,
+            p_website_checkout_id: websiteCheckoutId,
+            p_user_id: rewardsUserId,
+            p_points: rewardsPoints,
+            p_items: null,
+            p_order_reference: orderReference,
+            p_order_payload: orderPayload,
+            p_order_items: orderItems,
+            p_amount_cents: totalCents,
+          })
+        : await websiteClient.rpc(
         "prepare_website_apparel_payment",
         {
           p_website_checkout_id: websiteCheckoutId,
@@ -550,6 +647,101 @@ export async function POST(request: NextRequest) {
       }
     };
 
+    // Restore rewards only after independently verifying
+    // a terminal Square payment failure.
+    const recoverFailedRewards = async (
+      paymentId: unknown
+    ): Promise<boolean> => {
+      if (
+        rewardsPoints <= 0 ||
+        !idempotencyKey ||
+        typeof paymentId !== "string" ||
+        !paymentId.trim()
+      ) {
+        return false;
+      }
+
+      try {
+        const response = await fetch(
+          `${squareBaseUrl}/v2/payments/${encodeURIComponent(paymentId)}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Square-Version": "2026-07-15",
+              Accept: "application/json",
+            },
+            cache: "no-store",
+          }
+        );
+
+        if (!response.ok) return false;
+
+        const verified = (await response.json()).payment;
+
+        if (
+          !verified ||
+          verified.id !== paymentId ||
+          verified.reference_id !== orderReference ||
+          verified.location_id !== locationId ||
+          verified.amount_money?.amount !== totalCents ||
+          verified.amount_money?.currency !== "USD" ||
+          !["FAILED", "CANCELED"].includes(verified.status)
+        ) {
+          return false;
+        }
+
+        const recoveryClient = createClient(
+          supabaseUrl,
+          supabaseSecretKey,
+          {
+            auth: {
+              persistSession: false,
+              autoRefreshToken: false,
+            },
+          }
+        );
+
+        const { data: restored, error } =
+          await recoveryClient.rpc(
+            "release_verified_failed_apparel_rewards",
+            {
+              p_attempt_id: idempotencyKey,
+              p_square_payment_id: verified.id,
+              p_square_status: verified.status,
+              p_verified_amount_cents: totalCents,
+            }
+          );
+
+        if (error || !Number.isSafeInteger(restored) || restored < 0) {
+          console.error("Rewards recovery failed", {
+            orderReference,
+          });
+          return false;
+        }
+
+        return true;
+      } catch {
+        return false;
+      }
+    };
+
+    if (
+      rewardsPoints > 0 &&
+      await recoverFailedRewards(squareResult?.payment?.id)
+    ) {
+      return NextResponse.json(
+        {
+          success: false,
+          paymentStatusUncertain: false,
+          rewardsRestored: true,
+          error:
+            "Payment did not complete. Your Club Points have been restored. Please start a new checkout.",
+        },
+        { status: 402 }
+      );
+    }
+
     if (!squareResponse.ok) {
       console.error("Square apparel payment error:", squareResult);
       await flagUncertainPayment(
@@ -581,7 +773,12 @@ export async function POST(request: NextRequest) {
 
     const payment = squareResult.payment;
 
-    if (!payment?.id || payment.status !== "COMPLETED") {
+    if (
+      !payment?.id ||
+      payment.status !== "COMPLETED" ||
+      payment.amount_money?.amount !== totalCents ||
+      payment.amount_money?.currency !== "USD"
+    ) {
       console.error(
         "Unexpected Square apparel payment result:",
         squareResult
@@ -663,10 +860,14 @@ export async function POST(request: NextRequest) {
     };
 
     const { data: savedOrderId, error: saveError } =
-      await supabase.rpc("save_atomic_apparel_order", {
-        p_order: confirmedOrderPayload,
-        p_items: orderItems,
-      });
+      rewardsPoints > 0
+        ? await supabase.rpc("save_rewards_apparel_order", {
+            p_attempt_id: idempotencyKey,
+          })
+        : await supabase.rpc("save_atomic_apparel_order", {
+            p_order: confirmedOrderPayload,
+            p_items: orderItems,
+          });
 
     if (saveError || !savedOrderId) {
       console.error("Atomic apparel order save failed:", {
@@ -764,10 +965,13 @@ export async function POST(request: NextRequest) {
      * Only verified, completed native purchases qualify.
      * Rewards failures must never invalidate a paid order.
      */
-    if (nativeTokenHash && nativeAttemptId) {
+    if (rewardsPoints > 0 || (nativeTokenHash && nativeAttemptId)) {
       try {
         const { data: pointsAwarded, error: pointsError } =
-          await supabase.rpc("award_apparel_club_points", {
+          await supabase.rpc(
+            rewardsPoints > 0
+              ? "award_discounted_apparel_rewards"
+              : "award_apparel_club_points", {
             p_order_reference: orderReference,
           });
 
@@ -884,6 +1088,19 @@ export async function POST(request: NextRequest) {
                         </td>
                       </tr>
 
+                      ${
+                        rewardsPoints > 0
+                          ? `<tr>
+                              <td style="padding:6px 0;color:#0C352D;">
+                                Gallaspy Rewards (${rewardsPoints.toLocaleString()} points)
+                              </td>
+                              <td style="padding:6px 0;text-align:right;color:#0C352D;">
+                                -${formatCurrency(rewardsPoints)}
+                              </td>
+                            </tr>`
+                          : ""
+                      }
+
                       <tr>
                         <td style="padding:6px 0;">Shipping</td>
                         <td style="padding:6px 0;text-align:right;">
@@ -985,6 +1202,12 @@ export async function POST(request: NextRequest) {
 
                   <div style="margin-top:24px;padding-top:18px;border-top:2px solid #10263F;">
                     <p><strong>Subtotal:</strong> ${formatCurrency(subtotalCents)}</p>
+                    ${
+                      rewardsPoints > 0
+                        ? `<p><strong>Club Points Redeemed:</strong> ${rewardsPoints.toLocaleString()}</p>
+                           <p><strong>Rewards Discount:</strong> -${formatCurrency(rewardsPoints)}</p>`
+                        : ""
+                    }
                     <p><strong>Shipping:</strong> ${formatCurrency(shippingCents)}</p>
                     <p><strong>Tax:</strong> ${formatCurrency(taxCents)}</p>
                     <p style="font-size:18px;"><strong>Total Paid:</strong> ${formatCurrency(totalCents)}</p>
@@ -1045,6 +1268,8 @@ export async function POST(request: NextRequest) {
           subtotalCents,
           shippingCents,
           taxCents,
+          rewardsPointsUsed: rewardsPoints,
+          rewardsDiscountCents: rewardsPoints,
           totalCents,
         },
       },

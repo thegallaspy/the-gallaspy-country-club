@@ -62,6 +62,55 @@ export default function ApparelCheckoutPage() {
   const [items, setItems] = useState<CartItem[]>([]);
   const [loaded, setLoaded] = useState(false);
 
+  const [rewards, setRewards] = useState<{
+    enabled: boolean;
+    authenticated: boolean;
+    availablePoints: number;
+    redeemablePoints: number;
+  } | null>(null);
+
+  const [rewardsInput, setRewardsInput] = useState("");
+  const [appliedPoints, setAppliedPoints] = useState(0);
+  const [rewardsError, setRewardsError] = useState("");
+  const [nativeCheckout, setNativeCheckout] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const token = new URLSearchParams(
+      window.location.search
+    ).get("nativeCheckout");
+
+    setNativeCheckout(token !== null);
+
+    fetch("/api/apparel/rewards", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      cache: "no-store",
+      body: JSON.stringify({
+        nativeCheckoutToken: token,
+      }),
+    })
+      .then(async (response) => {
+        if (!response.ok) return;
+        const data = await response.json();
+
+        if (!cancelled && data.success) {
+          setRewards({
+            enabled: data.enabled === true,
+            authenticated: data.authenticated === true,
+            availablePoints: Number(data.availablePoints ?? 0),
+            redeemablePoints: Number(data.redeemablePoints ?? 0),
+          });
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -88,6 +137,7 @@ export default function ApparelCheckoutPage() {
     shipping: number;
     tax: number;
     total: number;
+    rewardsDiscount: number;
   } | null>(null);
 
   const cardRef = useRef<SquareCard | null>(null);
@@ -255,19 +305,54 @@ export default function ApparelCheckoutPage() {
 
   const shipping = items.length > 0 ? 8.95 : 0;
   const tax = 0;
-  const total = subtotal + shipping + tax;
+  const maxRewardsPoints = Math.max(
+    0,
+    Math.min(
+      rewards?.redeemablePoints ?? 0,
+      Math.round(subtotal * 100) - 1
+    )
+  );
+
+  const discount = appliedPoints / 100;
+  const total = subtotal + shipping + tax - discount;
+
+  function applyRewards() {
+    const points = Number(rewardsInput);
+
+    if (
+      !Number.isSafeInteger(points) ||
+      points < 500 ||
+      points > maxRewardsPoints
+    ) {
+      setRewardsError(
+        "Enter at least 500 points within your eligible balance."
+      );
+      return;
+    }
+
+    setAppliedPoints(points);
+    setRewardsError("");
+  }
+
+  function removeRewards() {
+    setAppliedPoints(0);
+    setRewardsInput("");
+    setRewardsError("");
+  }
 
   const [paymentNeedsReview, setPaymentNeedsReview] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (submitting) return;
+
     if (paymentNeedsReview) {
       setOrderMessage(
         "Your payment status needs verification. Please contact The Gallaspy before attempting another payment."
       );
       return;
     }
-    event.preventDefault();
-
     setOrderMessage("");
     setCardError("");
 
@@ -369,12 +454,27 @@ export default function ApparelCheckoutPage() {
           shippingPostalCode: shippingPostalCode.trim(),
 
           acceptedTerms,
+          rewardsPoints: appliedPoints,
+          expectedTotalCents: Math.round(total * 100),
         }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
+        if (data?.rewardsRestored === true) {
+          if (!isNativePayment) {
+            localStorage.removeItem("gallaspy-apparel-checkout-id");
+            websiteCheckoutIdRef.current = null;
+          }
+
+          removeRewards();
+          setRewards(null);
+          setPaymentNeedsReview(true);
+          setOrderMessage(data.error || "Please start a new checkout.");
+          return;
+        }
+
         if (
           data?.paymentSucceeded === true ||
           data?.paymentStatusUncertain === true ||
@@ -418,6 +518,8 @@ export default function ApparelCheckoutPage() {
         shipping: Number(data.pricing?.shippingCents || 0) / 100,
         tax: Number(data.pricing?.taxCents || 0) / 100,
         total: Number(data.pricing?.totalCents || 0) / 100,
+        rewardsDiscount:
+          Number(data.pricing?.rewardsDiscountCents || 0) / 100,
       });
       setItems([]);
       setSuccess(true);
@@ -520,6 +622,13 @@ export default function ApparelCheckoutPage() {
                 <span>Subtotal</span>
                 <span>{money(confirmedOrder.subtotal)}</span>
               </div>
+
+              {confirmedOrder.rewardsDiscount > 0 && (
+                <div className="flex justify-between text-[#0C352D]">
+                  <span>Gallaspy Rewards</span>
+                  <span>-{money(confirmedOrder.rewardsDiscount)}</span>
+                </div>
+              )}
               <div className="flex justify-between">
                 <span>Shipping</span>
                 <span>{money(confirmedOrder.shipping)}</span>
@@ -852,6 +961,102 @@ export default function ApparelCheckoutPage() {
             <span className="block">Apparel</span>
           </h2>
 
+          {rewards?.enabled && (
+            <section className="mt-7 border border-white/20 p-5">
+              <p className="text-xs font-black uppercase tracking-widest text-[#FFD76A]">
+                Gallaspy Rewards
+              </p>
+
+              {rewards.authenticated ? (
+                <>
+                  <p className="mt-4 text-xs text-white/75">
+                    Available Club Points
+                  </p>
+
+                  <p className="mt-1 text-3xl font-black">
+                    {rewards.availablePoints.toLocaleString()}
+                  </p>
+
+                  <p className="mt-2 text-xs text-[#FFD76A]">
+                    {money(rewards.redeemablePoints / 100)}
+                    {" "}available in rewards
+                  </p>
+
+                  {maxRewardsPoints >= 500 ? (
+                    <>
+                      <label className="mt-5 block text-xs text-white/80">
+                        Points to redeem
+                        <input
+                          type="number"
+                          min={500}
+                          max={maxRewardsPoints}
+                          step={1}
+                          value={rewardsInput}
+                          disabled={submitting || paymentNeedsReview}
+                          onChange={(e) =>
+                            setRewardsInput(e.target.value)
+                          }
+                          className="mt-2 w-full border border-white/25 bg-white p-3 text-sm text-[#10263F]"
+                        />
+                      </label>
+
+                      <button
+                        type="button"
+                        disabled={submitting || paymentNeedsReview}
+                        onClick={applyRewards}
+                        className="mt-3 w-full bg-[#0C352D] px-4 py-3 text-xs font-black uppercase tracking-widest text-white disabled:opacity-50"
+                      >
+                        Apply Club Points
+                      </button>
+
+                      {appliedPoints > 0 && (
+                        <button
+                          type="button"
+                          onClick={removeRewards}
+                          disabled={submitting || paymentNeedsReview}
+                          className="mt-3 text-xs text-[#FFD76A] underline"
+                        >
+                          Remove Rewards
+                        </button>
+                      )}
+                    </>
+                  ) : (
+                    <p className="mt-4 text-xs text-white/75">
+                      A minimum of 500 eligible points is required.
+                    </p>
+                  )}
+
+                  {rewardsError && (
+                    <p className="mt-3 text-xs text-[#FFD76A]">
+                      {rewardsError}
+                    </p>
+                  )}
+
+                  {appliedPoints > 0 && (
+                    <p className="mt-4 text-xs text-white/80">
+                      Estimated purchase rewards:{" "}
+                      {Math.floor(subtotal - discount)} points
+                    </p>
+                  )}
+                </>
+              ) : (
+                <p className="mt-3 text-sm leading-6 text-white/80">
+                  {nativeCheckout
+                    ? "Sign in within The Gallaspy app before starting a new checkout."
+                    : "Sign in to MyGallaspy to redeem Club Points."}
+                  {!nativeCheckout && (
+                    <Link
+                      href="/my-gallaspy"
+                      className="mt-3 block text-[#FFD76A] underline"
+                    >
+                      MyGallaspy
+                    </Link>
+                  )}
+                </p>
+              )}
+            </section>
+          )}
+
           <div className="mt-7 space-y-4 border-t border-white/15 pt-6 text-sm">
             <SummaryRow
               label="Items"
@@ -874,6 +1079,13 @@ export default function ApparelCheckoutPage() {
             />
 
             <SummaryRow label="Tax" value={money(tax)} />
+
+            {appliedPoints > 0 && (
+              <div className="flex justify-between text-[#FFD76A]">
+                <span>Gallaspy Rewards</span>
+                <span>-{money(discount)}</span>
+              </div>
+            )}
           </div>
 
           <div className="mt-6 flex items-end justify-between border-t border-white/15 pt-6">
@@ -926,7 +1138,7 @@ export default function ApparelCheckoutPage() {
 
           <button
             type="submit"
-            disabled={submitting || !cardReady}
+            disabled={submitting || !cardReady || paymentNeedsReview}
             className="mt-7 flex min-h-[54px] w-full items-center justify-center bg-[#FFD76A] px-6 text-[8px] font-black uppercase tracking-[0.22em] text-[#10263F] transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-45"
           >
             {submitting

@@ -41,7 +41,7 @@ export async function reconcileApparelRefund(
     await admin
       .from("apparel_orders_v2")
       .select(
-        "order_reference,square_payment_id,subtotal_cents,total_cents,payment_status"
+        "order_reference,square_payment_id,subtotal_cents,total_cents,payment_status,rewards_user_id,rewards_points_used"
       )
       .eq("square_payment_id", refund.paymentId)
       .maybeSingle();
@@ -60,7 +60,11 @@ export async function reconcileApparelRefund(
     !Number.isSafeInteger(order.subtotal_cents) ||
     !Number.isSafeInteger(order.total_cents) ||
     order.subtotal_cents <= 0 ||
-    order.total_cents < order.subtotal_cents
+    !Number.isSafeInteger(order.rewards_points_used) ||
+    order.rewards_points_used < 0 ||
+    order.rewards_points_used >= order.subtotal_cents ||
+    order.total_cents <
+      order.subtotal_cents - order.rewards_points_used
   ) {
     throw new Error("Invalid completed apparel order");
   }
@@ -72,6 +76,54 @@ export async function reconcileApparelRefund(
       "Partial apparel refund requires reviewed " +
       "merchandise allocation"
     );
+  }
+
+  // Discounted purchases use atomic rewards settlement.
+  if (order.rewards_points_used > 0) {
+    if (
+      !order.rewards_user_id ||
+      order.rewards_points_used < 500
+    ) {
+      throw new Error("Invalid rewards order");
+    }
+
+    const { data: attempt, error: attemptError } =
+      await admin
+        .from("apparel_payment_attempts")
+        .select(
+          "payment_state,payment_completed_at,amount_cents,rewards_user_id,rewards_points_used"
+        )
+        .eq("order_reference", order.order_reference)
+        .eq("square_payment_id", refund.paymentId)
+        .maybeSingle();
+
+    if (
+      attemptError ||
+      !attempt ||
+      attempt.payment_state !== "completed" ||
+      !attempt.payment_completed_at ||
+      attempt.amount_cents !== order.total_cents ||
+      attempt.rewards_user_id !== order.rewards_user_id ||
+      attempt.rewards_points_used !== order.rewards_points_used
+    ) {
+      throw new Error("Verified rewards payment required");
+    }
+
+    const { data: settledRefundId, error: settlementError } =
+      await admin.rpc(
+        "complete_discounted_apparel_refund",
+        {
+          p_square_refund_id: refund.id,
+          p_square_payment_id: refund.paymentId,
+          p_refund_amount_cents: refund.amountCents,
+        }
+      );
+
+    if (settlementError || typeof settledRefundId !== "string") {
+      throw new Error("Rewards refund settlement failed");
+    }
+
+    return "refunded";
   }
 
   const { data: refundRecordId, error: recordError } =
@@ -95,27 +147,24 @@ export async function reconcileApparelRefund(
     throw new Error("Unable to record apparel refund");
   }
 
-  const { data: marked, error: statusError } =
-    await admin
-      .from("gallaspy_apparel_refunds")
-      .update({ refund_status: "completed" })
-      .eq("id", refundRecordId)
-      .eq("square_refund_id", refund.id)
-      .in("refund_status", ["pending", "completed"])
-      .select("id,refund_status")
-      .maybeSingle();
+  // Preserve the original Square verification timestamp.
+  const { error: verificationError } = await admin
+    .from("gallaspy_apparel_refunds")
+    .update({
+      square_verified_at: new Date().toISOString(),
+      square_refund_status: "COMPLETED",
+    })
+    .eq("id", refundRecordId)
+    .eq("square_refund_id", refund.id)
+    .is("square_verified_at", null);
 
-  if (
-    statusError ||
-    !marked ||
-    marked.refund_status !== "completed"
-  ) {
-    throw new Error("Apparel refund status update failed");
+  if (verificationError) {
+    throw new Error("Apparel refund verification failed");
   }
 
   const { data: reversed, error: settlementError } =
     await admin.rpc(
-      "gallaspy_settle_apparel_refund",
+      "gallaspy_complete_verified_apparel_refund",
       { p_refund_id: refundRecordId }
     );
 
