@@ -45,7 +45,10 @@ export default function HomeRoundHost() {
     event.preventDefault();
     if (busy) return;
     if (!token) {
-      setNotice("Sign in to My Gallaspy to publish this round. A paid club membership is not required.");
+      try {
+        sessionStorage.setItem("gallaspy:round-draft", JSON.stringify(form));
+      } catch {}
+      window.location.assign("/my-gallaspy?mode=create&next=%2Fhost-a-round");
       return;
     }
     if (form.round_date < new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date())) {
@@ -83,8 +86,9 @@ export default function HomeRoundHost() {
           <p className="g5-eyebrow"><span className="g5-spark"/> 03 / PLAY ON YOUR TERMS</p>
           <h2 id="g5-host-title">YOUR ROUND.<br /><em>YOUR CALL.</em></h2>
           <p>Pick a course. Choose a time. Bring golfers together. Host a game straight from the clubhouse—no paid membership required.</p>
+          <p>Earn 200 points when your approved round is completed and verified.</p>
           <div className="g5-host-meta"><span>OPEN TO ALL GOLFERS</span><span>2–4 PLAYERS</span><span>GREEN FEES PAID TO COURSE</span></div>
-          <Link href="/host-a-round" className="g5-host-discover">Browse open rounds <span aria-hidden="true">→</span></Link>
+          <Link href="/host-a-round#open-rounds" className="g5-host-discover">Browse open rounds <span aria-hidden="true">→</span></Link>
         </div>
         <div className="g5-host-card">
           <div className="g5-host-card-head"><div><p>THE GALLASPY / GOLF PARTNERS</p><h3>Host a Round</h3></div><span className="g5-live-indicator">OPEN PLAY</span></div>
@@ -94,9 +98,9 @@ export default function HomeRoundHost() {
             <div className="g5-host-field"><label htmlFor="g5-time">Tee time</label><input id="g5-time" name="tee_time" type="time" value={form.tee_time} onChange={e => update("tee_time", e.target.value)} required /></div>
             <div className="g5-host-field"><label htmlFor="g5-players">Total golfers (including you)</label><select id="g5-players" name="max_players" value={form.max_players} onChange={e => update("max_players", e.target.value)}><option value="2">2 players · 1 open place</option><option value="3">3 players · 2 open places</option><option value="4">4 players · 3 open places</option></select></div>
             <div className="g5-host-field"><label htmlFor="g5-style">Style of play</label><select id="g5-style" name="playing_style" value={form.playing_style} onChange={e => update("playing_style", e.target.value)}><option value="social">Social round</option><option value="beginner">Beginner friendly</option><option value="competitive">Competitive</option><option value="all">All skill levels</option></select></div>
-            <div className="g5-host-bottom"><p>{checking ? "Checking your My Gallaspy session…" : token ? "Signed in · Ready to publish" : "A My Gallaspy account is needed to publish. No paid membership required."}</p><button disabled={busy || checking} type="submit" className="g5-host-submit">{busy ? "Publishing…" : "Publish my round"}<span aria-hidden="true">→</span></button></div>
+            <div className="g5-host-bottom"><p>{checking ? "Checking your My Gallaspy session…" : token ? "Signed in · Ready to publish" : "A My Gallaspy account is needed to publish. No paid membership required."}</p><button disabled={busy || checking} type="submit" className="g5-host-submit">{busy ? "Publishing…" : token ? "Publish my round" : "Continue to My Gallaspy"}<span aria-hidden="true">→</span></button></div>
           </form>
-          {!token && !checking && <p className="g5-host-auth">Already have an account? <Link href="/my-gallaspy">Sign in to publish →</Link></p>}
+          {!token && !checking && <p className="g5-host-auth"><Link href="/my-gallaspy?mode=create&next=%2Fhost-a-round">CREATE AN ACCOUNT</Link> · <Link href="/my-gallaspy?next=%2Fhost-a-round">Sign in to publish →</Link></p>}
           {notice && <p role="status" aria-live="polite" className={success ? "g5-host-notice g5-success" : "g5-host-notice"}>{notice}</p>}
         </div>
       </div>

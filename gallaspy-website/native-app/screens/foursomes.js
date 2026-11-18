@@ -54,9 +54,12 @@
 
     const description = document.createElement("p");
     description.textContent =
-      "Your course. Your time. Your crew. Create a round and find golfers to join you.";
+      "Arrange a tee time with the course, then publish it here and invite golfers to join. Pay green fees directly to the course.";
 
-    intro.append(heading, description);
+    const rewards = document.createElement("p");
+    rewards.textContent = "Earn 200 points when your approved round is completed and verified.";
+
+    intro.append(heading, description, rewards);
     hostingForm.prepend(intro);
   }
 
@@ -80,6 +83,17 @@
   });
 
   const hostForm = $("foursomeHostForm");
+
+  const profileFields = $("foursomePlayerProfile");
+  let returnToHost = false;
+
+  window.addEventListener("gallaspy:auth-changed", event => {
+    if (!returnToHost || !event.detail?.signedIn) return;
+    returnToHost = false;
+    window.openGallaspyPlayFeature?.("playFoursomes");
+    showPanel("host");
+    if (message) message.textContent = "You’re signed in. Review your round and publish it when ready.";
+  });
 
   hostForm.addEventListener("submit", async event => {
     event.preventDefault();
@@ -105,7 +119,42 @@
     if (message) message.textContent = "Publishing your round...";
 
     try {
-      await window.gallaspyAuth.foursomeRequest("", "POST", {
+      const auth = window.gallaspyAuth;
+      const token = await auth.getCheckoutAccessToken();
+      if (!token) {
+        returnToHost = true;
+        window.showNativeScreen?.("my-gallaspy");
+        $("myAuthEmail")?.focus();
+        return;
+      }
+
+      const player = await auth.getPlayer();
+      if (!player.player_found) {
+        if (profileFields.hidden) {
+          profileFields.hidden = false;
+          profileFields.disabled = false;
+          $("foursomePlayerFirst").focus();
+          if (message) message.textContent = "Add your name to set up your player profile and publish.";
+          return;
+        }
+
+        const response = await fetch("https://thegallaspy.com/api/mobile/player", {
+          method: "POST",
+          headers: { Authorization: "Bearer " + token, "Content-Type": "application/json" },
+          body: JSON.stringify({
+            first_name: $("foursomePlayerFirst").value,
+            last_name: $("foursomePlayerLast").value
+          })
+        });
+        const result = await response.json();
+        if (!response.ok || !result.player_found) {
+          throw new Error(result.error || "Could not set up your player profile.");
+        }
+      }
+
+      profileFields.hidden = true;
+      profileFields.disabled = true;
+      const result = await auth.foursomeRequest("", "POST", {
         course_name: course,
         round_date: date,
         tee_time: time,
@@ -126,7 +175,30 @@
 
       if (message) {
         message.textContent =
-          "Round created successfully. Manage your round and join requests in MY ROUNDS.";
+          "Round published. Manage your round and join requests in MY ROUNDS.";
+        if (result.foursome?.id) {
+          const url = new URL("https://thegallaspy.com/host-a-round");
+          url.searchParams.set("round", result.foursome.id);
+          url.hash = "open-rounds";
+          const share = document.createElement("button");
+          share.type = "button";
+          share.textContent = "Share round";
+          share.addEventListener("click", async () => {
+            try {
+              if (navigator.share) {
+                await navigator.share({ title: "Join my Gallaspy round", url: url.href });
+              } else {
+                await navigator.clipboard.writeText(url.href);
+                share.textContent = "Round link copied";
+              }
+            } catch (error) {
+              if (error.name !== "AbortError") {
+                message.textContent = url.href;
+              }
+            }
+          });
+          message.append(" ", share);
+        }
       }
     } catch (error) {
       if (message) {

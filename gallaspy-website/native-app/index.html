@@ -648,8 +648,8 @@
 
         <section class="my-panel my-auth-panel">
           <p class="intro-label">YOUR GALLASPY ACCOUNT</p>
-          <h3>PLAYER SIGN IN.</h3>
-          <p>Access your Gallaspy account securely.</p>
+          <h3>CREATE AN ACCOUNT OR SIGN IN.</h3>
+          <p>Use your email to access My Gallaspy. Accounts are available at no cost.</p>
 
           <div class="auth-method-selector" role="group"
                aria-label="Choose sign-in method">
@@ -1183,8 +1183,8 @@
           <p>Good rounds. Better company. Find golfers, host a game, and get out on the course.</p>
 
           <div class="foursome-tabs">
-            <button type="button" id="foursomeFind">FIND GOLFERS</button>
             <button type="button" id="foursomeHost">HOST A ROUND</button>
+            <button type="button" id="foursomeFind">BROWSE OPEN ROUNDS</button>
             <button type="button" id="foursomeMine">MY ROUNDS</button>
           </div>
 
@@ -1224,12 +1224,19 @@
                 </select>
               </label>
             </div>
+            <fieldset id="foursomePlayerProfile" hidden disabled>
+              <legend>Set up your player profile</legend>
+              <label for="foursomePlayerFirst">First name</label>
+              <input id="foursomePlayerFirst" autocomplete="given-name" maxlength="80" required>
+              <label for="foursomePlayerLast">Last name</label>
+              <input id="foursomePlayerLast" autocomplete="family-name" maxlength="80" required>
+            </fieldset>
             <button type="submit">HOST A ROUND →</button>
           </form>
 
           <div id="foursomeMyRounds" hidden>
             <p class="intro-label">YOUR UPCOMING GAMES</p>
-            <p>Sign in to manage your foursomes once hosting is available.</p>
+            <p>Sign in to manage your hosted rounds and join requests.</p>
           </div>
 
           <p id="foursomeMessage" role="status" aria-live="polite"></p>

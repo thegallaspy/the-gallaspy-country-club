@@ -21,7 +21,7 @@ export default function Home() {
           <p className="g2-eyebrow"><span className="g2-dot"/> THE GALLASPY GOLF CLUB · GEORGIA</p>
           <h1>SOME INHERIT<br/><span>HISTORY.</span><br/>OTHERS <em>CREATE IT.</em></h1>
           <p className="g2-lede">A club built through the game, the people who play it, and the traditions created along the way.</p>
-          <div className="g2-actions"><Link className="g2-btn g2-btn-green" href="/rounds">Explore Gallaspy Rounds <span>→</span></Link><Link className="g2-line-link" href="/the-club">Discover the club <span>→</span></Link></div>
+          <div className="g2-actions"><Link className="g2-btn g2-btn-green" href="/host-a-round">Host Your Own Round <span aria-hidden="true">→</span></Link><Link className="g2-line-link" href="/my-gallaspy?mode=create">CREATE AN ACCOUNT</Link></div>
         </div>
         <aside className="g2-hero-aside" aria-label="Club identity">
           <div className="g2-aside-top"><span>THE CLUB</span><span>EST. 2026</span></div>
@@ -49,10 +49,10 @@ export default function Home() {
           <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-[#47596A]">
             Create your account to explore the digital clubhouse,
             connect with golfers, and discover opportunities to play.
-            An account is separate from paid club membership.
+            Create your account at no cost. No paid club membership required.
           </p>
           <a
-            href="/my-gallaspy"
+            href="/my-gallaspy?mode=create"
             className="mt-7 inline-flex min-h-12 items-center justify-center bg-[#10263F] px-8 py-3 text-sm font-bold tracking-wider text-white"
           >
             CREATE AN ACCOUNT

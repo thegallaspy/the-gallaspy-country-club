@@ -1,19 +1,23 @@
 "use client";
 
 import Image from "next/image";
-import { FormEvent, useState } from "react";
+import { FormEvent, Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { myGallaspyDestination } from "@/lib/my-gallaspy-destination";
 import { createClient } from "@/lib/supabase/client";
 
 export default function MyGallaspyPage() {
+  return (
+    <Suspense fallback={<p role="status">Loading My Gallaspy…</p>}>
+      <MyGallaspyAccess />
+    </Suspense>
+  );
+}
+
+function MyGallaspyAccess() {
   const searchParams = useSearchParams();
-  const requestedNext = searchParams.get("next");
-  const next =
-    (requestedNext === "/membership/checkout" ||
-      requestedNext === "/membership/checkout?plan=monthly" ||
-      requestedNext === "/membership/checkout?plan=annual")
-      ? requestedNext
-      : "/my-gallaspy/home";
+  const next = myGallaspyDestination(searchParams.get("next"), "/my-gallaspy/home");
+  const [creating, setCreating] = useState(searchParams.get("mode") === "create");
 
   const [email, setEmail] = useState("");
   const [pendingEmail, setPendingEmail] = useState("");
@@ -24,7 +28,11 @@ export default function MyGallaspyPage() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (loading) return;
+    await sendCode(email.trim().toLowerCase());
+  }
 
+  async function sendCode(address: string) {
     setMessage("");
     setError("");
     setLoading(true);
@@ -34,10 +42,10 @@ export default function MyGallaspyPage() {
       const origin = window.location.origin;
 
       const { error: signInError } = await supabase.auth.signInWithOtp({
-        email: email.trim().toLowerCase(),
+        email: address,
         options: {
           emailRedirectTo: `${origin}/auth/callback?next=${encodeURIComponent(next)}`,
-          shouldCreateUser: true,
+          shouldCreateUser: creating,
         },
       });
 
@@ -48,7 +56,7 @@ export default function MyGallaspyPage() {
         return;
       }
 
-      setPendingEmail(email.trim().toLowerCase());
+      setPendingEmail(address);
       setCode("");
       setMessage("Enter the six-digit code sent to your email.");
       setLoading(false);
@@ -132,7 +140,7 @@ export default function MyGallaspyPage() {
         {/* MAIN EXPERIENCE */}
         <div className="grid flex-1 items-center gap-14 py-14 lg:grid-cols-[1.12fr_0.88fr] lg:gap-24 lg:py-12">
 
-          <section className="max-w-[760px]">
+          <section className="order-2 max-w-[760px] lg:order-none">
             <p className="text-[10px] font-black uppercase tracking-[0.38em] text-[#C7A55B]">
               My Gallaspy
             </p>
@@ -168,11 +176,11 @@ export default function MyGallaspyPage() {
               <div className="flex items-center justify-between border-b border-[#10263F]/10 pb-6">
                 <div>
                   <p className="text-[8px] font-black uppercase tracking-[0.3em] !text-[#9A7A3D]">
-                    Private Access
+                    My Gallaspy Account
                   </p>
 
                   <h2 className="mt-2 text-2xl font-black uppercase tracking-[-0.035em] !text-[#10263F] sm:text-3xl">
-                    Enter My Gallaspy
+                    {creating ? "Create your account" : "Sign in to My Gallaspy"}
                   </h2>
                 </div>
 
@@ -182,8 +190,9 @@ export default function MyGallaspyPage() {
               </div>
 
               <p className="mt-6 text-sm leading-7 !text-[#10263F]/60">
-                Sign in with the email connected to your Gallaspy
-                participation. No password required.
+                {creating
+                  ? "Create your My Gallaspy account at no cost. No paid club membership required."
+                  : "Enter your account email and we’ll send you a verification code."}
               </p>
 
               {!pendingEmail ? (
@@ -282,12 +291,31 @@ export default function MyGallaspyPage() {
                 >
                   Change Email
                 </button>
+                <button
+                  type="button"
+                  disabled={loading}
+                  onClick={() => void sendCode(pendingEmail)}
+                  className="ml-5 mt-4 text-sm underline !text-[#10263F]"
+                >
+                  Resend code
+                </button>
               </form>
               )}
 
-              <p className="mt-6 text-[10px] leading-5 !text-[#10263F]/40">
-                Secure access for registered players, active participants and members.
-              </p>
+              {!pendingEmail && (
+                <button
+                  type="button"
+                  disabled={loading}
+                  onClick={() => {
+                    setCreating(!creating);
+                    setError("");
+                    setMessage("");
+                  }}
+                  className="mt-6 min-h-11 text-sm underline !text-[#10263F]"
+                >
+                  {creating ? "Already have an account? Sign in" : "New to My Gallaspy? Create an account"}
+                </button>
+              )}
             </div>
           </section>
         </div>
@@ -295,7 +323,7 @@ export default function MyGallaspyPage() {
         {/* FOOT */}
         <footer className="flex flex-col gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[8px] font-black uppercase tracking-[0.28em] text-white/30">
-            My Gallaspy · Private Player Portal
+            My Gallaspy · Digital Clubhouse
           </p>
 
           <p className="text-[8px] font-black uppercase tracking-[0.28em] text-[#C7A55B]/65">

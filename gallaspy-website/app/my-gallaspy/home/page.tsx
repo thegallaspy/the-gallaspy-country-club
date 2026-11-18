@@ -94,21 +94,21 @@ export default async function MyGallaspyHomePage() {
           </p>
 
           <h1 className="mt-5 text-4xl font-black uppercase leading-none tracking-[-0.045em] sm:text-5xl">
-            Player Record
-            <span className="block text-[#FFD76A]">Not Found.</span>
+            Welcome to My Gallaspy.
           </h1>
 
           <p className="mt-6 text-sm leading-7 text-white/65">
-            This email is authenticated, but it is not currently
-            connected to a Gallaspy player record. Sign in using
-            the email used for your Gallaspy Round registration.
+            Set up your player profile to host a round or request a spot in an open round.
           </p>
 
           <Link
-            href="/rounds"
-            className="mt-8 inline-flex min-h-[48px] items-center justify-center bg-[#FFD76A] px-6 text-[8px] font-black uppercase tracking-[0.22em] text-[#10263F]"
+            href="/host-a-round#host-round"
+            className="mt-8 inline-flex min-h-[48px] items-center justify-center bg-[#FFD76A] px-6 text-xs font-black uppercase tracking-wide text-[#10263F]"
           >
-            View Gallaspy Rounds →
+            Set up my player profile →
+          </Link>
+          <Link href="/host-a-round#open-rounds" className="mt-4 block underline">
+            Browse open rounds
           </Link>
         </div>
       </main>
@@ -238,6 +238,15 @@ export default async function MyGallaspyHomePage() {
                 Your Gallaspy participation, upcoming rounds and
                 club history in one private place.
               </p>
+              <div className="mt-6 flex flex-wrap items-center gap-4">
+                <Link href="/host-a-round#host-round"
+                  className="inline-flex min-h-11 items-center bg-[#164B3A] px-4 py-2 text-sm font-semibold text-white">
+                  Host a round
+                </Link>
+                <Link href="/host-a-round#open-rounds" className="text-sm font-semibold underline">
+                  Browse open rounds
+                </Link>
+              </div>
             </div>
 
             <div className="border-l-2 border-[#B89146] pl-5 lg:min-w-[260px]">

@@ -8,7 +8,7 @@ const ALLOWED_ORIGIN = "capacitor://localhost";
 function corsHeaders() {
   return {
     "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
-    "Access-Control-Allow-Methods": "GET, OPTIONS",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Access-Control-Allow-Headers": "Authorization, Content-Type",
     "Cache-Control": "no-store",
     Vary: "Origin",
@@ -30,6 +30,14 @@ export async function OPTIONS() {
 }
 
 export async function GET(request: NextRequest) {
+  return playerRequest(request);
+}
+
+export async function POST(request: NextRequest) {
+  return playerRequest(request);
+}
+
+async function playerRequest(request: NextRequest) {
   const authorization = request.headers.get("authorization");
 
   if (!authorization?.startsWith("Bearer ")) {
@@ -86,12 +94,35 @@ export async function GET(request: NextRequest) {
       },
     });
 
+    const email = user.email.toLowerCase();
+    if (request.method === "POST") {
+      if (!user.email_confirmed_at) {
+        return respond({ success: false, error: "Verify your email first." }, 403);
+      }
+
+      const input = await request.json().catch(() => null);
+      const firstName = typeof input?.first_name === "string" ? input.first_name.trim() : "";
+      const lastName = typeof input?.last_name === "string" ? input.last_name.trim() : "";
+      if (!firstName || !lastName || firstName.length > 80 || lastName.length > 80) {
+        return respond({ success: false, error: "Enter your first and last name." }, 400);
+      }
+
+      const { error } = await admin.from("gallaspy_players").upsert(
+        { email, first_name: firstName, last_name: lastName },
+        { onConflict: "email", ignoreDuplicates: true },
+      );
+      if (error) {
+        console.error("Player setup failed:", error.message);
+        return respond({ success: false, error: "Unable to save your player profile. Please try again." }, 500);
+      }
+    }
+
     const { data: player, error: playerError } = await admin
       .from("gallaspy_players")
       .select(
         "id, golf_id_number, first_name, last_name, city, state, ghin_number, handicap_index",
       )
-      .eq("email", user.email.toLowerCase())
+      .eq("email", email)
       .maybeSingle();
 
     if (playerError) {

@@ -1,18 +1,11 @@
 import { NextResponse } from "next/server";
+import { myGallaspyDestination } from "@/lib/my-gallaspy-destination";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
-  const requestedNext = requestUrl.searchParams.get("next");
-  const next =
-    (requestedNext === "/membership/checkout" ||
-      requestedNext === "/membership/checkout?plan=monthly" ||
-      requestedNext === "/membership/checkout?plan=annual")
-      ? requestedNext
-      : requestedNext === "/my-gallaspy/home"
-        ? "/my-gallaspy/home"
-        : "/my-gallaspy";
+  const next = myGallaspyDestination(requestUrl.searchParams.get("next"), "/my-gallaspy");
 
   if (!code) {
     return NextResponse.redirect(
