@@ -20,12 +20,12 @@ export const metadata = {
 };
 
 const benefits = [
-  "Monthly organized Gallaspy Rounds",
-  "Monthly Gallaspy Range Nights",
+  "One organized Gallaspy Round each month (green fees separate)",
+  "One additional golf activity each month, such as a Range Night",
   "Ongoing Golf Partners access",
-  "Golf Partners and member community",
-  "Eligibility for official club competitions",
-  "Member Priority Access — proposed early registration for eligible club events and activities",
+  "One networking or social opportunity each month",
+  "Official club competition opportunities, subject to eligibility and capacity",
+  "Member Priority Access — normally 72-hour early registration where offered, subject to eligibility and capacity",
   "Gallaspy Rewards and Club Points",
   "Member Benefits Wallet",
   "Up to 25% off select Gallaspy apparel",
@@ -64,8 +64,8 @@ export default async function MembershipCheckoutPage({
     MEMBERSHIP_DOCUMENTS_APPROVED;
 
   return (
-    <main className="min-h-screen bg-white px-5 py-12 text-[#10263F] sm:px-8 sm:py-20">
-      <div className="mx-auto max-w-5xl">
+    <main className="min-h-screen bg-white text-[#10263F]" style={{ padding: "clamp(24px, 5vw, 72px) clamp(20px, 4vw, 48px)" }}>
+      <div className="mx-auto max-w-5xl" style={{ width: "100%", maxWidth: "1024px", marginInline: "auto" }}>
         <Link
           href="/membership"
           className="inline-block text-sm font-semibold text-[#164B3A] underline underline-offset-4"
@@ -73,7 +73,7 @@ export default async function MembershipCheckoutPage({
           ← Back to Membership
         </Link>
 
-        <header className="mb-10 mt-10 max-w-3xl">
+        <header className="mb-10 mt-10 max-w-3xl" style={{ marginBlock: "40px" }}>
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#164B3A]">
             The Gallaspy Golf Club
           </p>
@@ -242,6 +242,7 @@ export default async function MembershipCheckoutPage({
               : "Membership enrollment is being prepared. Payment collection is currently disabled."}
         </p>
 
+        <div style={{ marginBlock: "32px" }}>
         <MembershipConsent
           key={selectedPlan}
           initialPlan={selectedPlan}
@@ -251,6 +252,7 @@ export default async function MembershipCheckoutPage({
           }
           productionEnrollment={productionEnrollmentEnabled}
         />
+        </div>
 
         <section className="mt-14">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#164B3A]">

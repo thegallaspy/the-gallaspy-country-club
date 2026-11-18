@@ -397,7 +397,7 @@ export default function MembershipConsent({
             {" "}{money(quote.initialPaymentCents)} USD,
             followed by automatic payments of
             {" "}{money(quote.renewalAmountCents)}
-            {plan === "annual" ? " each year" : " each month"}
+            {plan === "annual" ? " each year " : " each month "}
             until canceled under the membership terms.
           </span>
         </label>
