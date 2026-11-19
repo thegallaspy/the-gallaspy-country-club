@@ -31,6 +31,7 @@
   const videoInfo = document.getElementById("communityVideoInfo");
   const removeVideo = document.getElementById("communityRemoveVideo");
   let selectedVideo = null;
+  let videoUploadId = null;
   let previewUrl = null;
   let videoOnly = false;
   const allPostsButton = document.getElementById("communityAllPosts");
@@ -47,6 +48,7 @@
 
   function clearVideo() {
     selectedVideo = null;
+    videoUploadId = null;
     if (previewUrl) URL.revokeObjectURL(previewUrl);
     previewUrl = null;
     if (videoInput) videoInput.value = "";
@@ -73,12 +75,14 @@
     const accessToken = await token();
     if (!accessToken || !selectedVideo) throw new Error("Sign in and select a video.");
     const form = new FormData(); form.append("video", selectedVideo); form.append("body", caption || "Golf video");
+    videoUploadId ??= crypto.randomUUID(); form.append("upload_id", videoUploadId);
     await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open("POST", VIDEO_API); xhr.setRequestHeader("Authorization", `Bearer ${accessToken}`); xhr.timeout = 120000;
       xhr.upload.onprogress = event => { if (event.lengthComputable) status.textContent = `Uploading video… ${Math.round(event.loaded/event.total*100)}%`; };
+      xhr.upload.onload = () => { status.textContent = "Upload complete. Confirming publication…"; };
       xhr.onload = () => { try { const result = JSON.parse(xhr.responseText); if (xhr.status < 200 || xhr.status >= 300 || result.success !== true) throw new Error(result.error || "Video publishing unavailable."); resolve(); } catch (error) { reject(error); } };
-      xhr.onerror = xhr.ontimeout = () => reject(new Error("Video upload could not be confirmed. Refresh the feed before retrying."));
+      xhr.onerror = xhr.ontimeout = () => reject(new Error("Video upload could not be confirmed. Retry the same selected video."));
       xhr.send(form);
     });
   }

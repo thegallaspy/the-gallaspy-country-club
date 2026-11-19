@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { GET as membership } from "@/app/api/mobile/membership/route";
@@ -57,15 +57,25 @@ export async function POST(request:NextRequest) {
     if(!(file instanceof File)||form.getAll("video").length!==1||file.type!=="video/mp4"||file.size<12||file.size>maxBytes||typeof caption!=="string"||caption.length>3000)return reply({success:false,error:"Choose one MP4 under 3.5 MB with an optional caption."},400);
     const bytes=new Uint8Array(await file.arrayBuffer());
     if(String.fromCharCode(...bytes.slice(4,8))!=="ftyp")return reply({success:false,error:"Invalid MP4 container."},400);
-    const post=randomUUID(),path=`${ctx.viewer}/${post}.mp4`;
+    const requested=form.get("upload_id");
+    if(requested!==null&&(typeof requested!=="string"||!uuid.test(requested)))return reply({success:false,error:"Invalid upload identifier."},400);
+    const digest=typeof requested==="string"?createHash("sha256").update(`${ctx.viewer}:${requested.toLowerCase()}`).digest("hex"):null;
+    const post=digest?`${digest.slice(0,8)}-${digest.slice(8,12)}-4${digest.slice(13,16)}-8${digest.slice(17,20)}-${digest.slice(20,32)}`:randomUUID(),path=`${ctx.viewer}/${post}.mp4`;
+    const existing=await ctx.admin.from("gallaspy_community_videos").select("post_id").eq("post_id",post).eq("storage_path",path).maybeSingle();
+    if(existing.error)throw existing.error;
+    if(existing.data)return reply({success:true,post:{id:post}});
     const uploaded=await ctx.admin.storage.from(bucket).upload(path,bytes,{contentType:"video/mp4",upsert:false});
-    if(uploaded.error)throw uploaded.error;
+    if(uploaded.error){
+      const retry=await ctx.admin.from("gallaspy_community_videos").select("post_id").eq("post_id",post).eq("storage_path",path).maybeSingle();
+      if(retry.data)return reply({success:true,post:{id:post}});
+      return reply({success:false,error:"Upload could not be confirmed. Wait briefly and retry the same video."},503);
+    }
     const published=await ctx.admin.rpc("gallaspy_publish_community_video",{actor:ctx.viewer,post,caption,bytes:file.size});
     if(published.error||published.data!==post){
       // Only clean up when the post is confirmed absent; an ambiguous RPC response may have committed.
-      const check=await ctx.admin.from("gallaspy_community_posts").select("id").eq("id",post).maybeSingle();
+      const check=await ctx.admin.from("gallaspy_community_posts").select("id,user_id").eq("id",post).maybeSingle();
       if(!check.error&&!check.data)await ctx.admin.storage.from(bucket).remove([path]);
-      if(check.data)return reply({success:true,post:{id:post}},201);
+      if(check.data?.user_id===ctx.viewer)return reply({success:true,post:{id:post}},201);
       const message=published.error?.message||"";
       if(message.includes("60 seconds")||message.includes("Daily posting limit"))return reply({success:false,error:"Posting limit reached. Try again later."},429);
       return reply({success:false,error:"Unable to publish video."},503);

@@ -100,8 +100,9 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
   const [videoPreview,setVideoPreview] = useState("");
   const [videoCaption,setVideoCaption] = useState("");
   const [videoStatus,setVideoStatus] = useState("");
+  const videoUploadId = useRef<string|null>(null);
   const [videoUrls,setVideoUrls] = useState<Record<string,string>>({});
-  useEffect(()=>{if(!videoFile){setVideoPreview("");return;}const url=URL.createObjectURL(videoFile);setVideoPreview(url);return()=>URL.revokeObjectURL(url);},[videoFile]);
+  useEffect(()=>{videoUploadId.current=null;if(!videoFile){setVideoPreview("");return;}const url=URL.createObjectURL(videoFile);setVideoPreview(url);return()=>URL.revokeObjectURL(url);},[videoFile]);
 
   const api = useCallback(async (accessToken: string, path: string, payload?: Record<string, unknown>) => {
     const response = await fetch(path, {
@@ -292,8 +293,14 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
     setBusy(true);setVideoStatus("");
     try {
       const form=new FormData();form.append("video",videoFile);form.append("body",videoCaption.trim()||"Golf video");
-      const response=await fetch("/api/web/community/video",{method:"POST",headers:{Authorization:`Bearer ${token}`},body:form,cache:"no-store"});
-      const data=await response.json();if(!response.ok||!data.success)throw new Error(data.error||"Unable to publish video.");
+      videoUploadId.current ??= crypto.randomUUID();form.append("upload_id",videoUploadId.current);
+      await new Promise<void>((resolve,reject)=>{
+        const xhr=new XMLHttpRequest();xhr.open("POST","/api/web/community/video");xhr.setRequestHeader("Authorization",`Bearer ${token}`);xhr.timeout=120000;
+        xhr.upload.onprogress=event=>{if(event.lengthComputable)setVideoStatus(`Uploading video… ${Math.round(event.loaded/event.total*100)}%`);};
+        xhr.upload.onload=()=>setVideoStatus("Upload complete. Confirming publication…");
+        xhr.onload=()=>{try{const data=JSON.parse(xhr.responseText);if(xhr.status<200||xhr.status>=300||data.success!==true)throw new Error(data.error||"Unable to publish video.");resolve();}catch(error){reject(error);}};
+        xhr.onerror=xhr.ontimeout=()=>reject(new Error("Publication could not be confirmed. Retry the same selected video."));xhr.send(form);
+      });
       setVideoFile(null);setVideoCaption("");setFilter("all");setVideoStatus("Video published.");
       await refresh(token).catch(()=>setVideoStatus("Video published. Refresh the feed to see it."));
     }catch(error){setVideoStatus(error instanceof Error?error.message:"Unable to publish video.");}
