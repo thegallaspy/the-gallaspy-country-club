@@ -81,15 +81,15 @@ export default async function MyGallaspyHomePage() {
 
   if (!player) {
     return (
-      <main className="min-h-screen bg-[#10263F] px-5 pb-28 pt-32 text-white">
+      <main className="g-my-dashboard min-h-screen bg-white px-5 pb-28 pt-32 text-[#10263F]">
       <div className="mx-auto max-w-5xl px-5 py-4">
         <Link href="/my-gallaspy/documents"
           className="inline-block rounded-xl bg-[#164B3A] px-5 py-3 text-sm font-semibold text-white">
           MEMBERSHIP DOCUMENTS
         </Link>
       </div>
-        <div className="mx-auto max-w-2xl border border-white/20 p-8">
-          <p className="text-[9px] font-black uppercase tracking-[0.3em] text-[#FFD76A]">
+        <div className="mx-auto max-w-2xl border border-[#10263F]/15 p-8">
+          <p className="text-xs font-black uppercase tracking-wider text-[#164B3A]">
             My Gallaspy
           </p>
 
@@ -97,13 +97,13 @@ export default async function MyGallaspyHomePage() {
             Welcome to My Gallaspy.
           </h1>
 
-          <p className="mt-6 text-sm leading-7 text-white/65">
+          <p className="mt-6 text-sm leading-7 text-[#47596a]">
             Set up your player profile to host a round or request a spot in an open round.
           </p>
 
           <Link
             href="/host-a-round#host-round"
-            className="mt-8 inline-flex min-h-[48px] items-center justify-center bg-[#FFD76A] px-6 text-xs font-black uppercase tracking-wide text-[#10263F]"
+            className="mt-8 inline-flex min-h-[48px] items-center justify-center bg-[#164B3A] px-6 text-xs font-black uppercase tracking-wide text-white"
           >
             Set up my player profile →
           </Link>
@@ -146,10 +146,12 @@ export default async function MyGallaspyHomePage() {
   const participation =
     (participationData ?? []) as Participation[];
 
+  const clubRoundIds = new Set(getEventsByCategory("GALLASPY_ROUND").map(event => event.id));
+
   const roundParticipation = participation.filter(
     (record) =>
       record.event_category === "GALLASPY_ROUND" ||
-      record.event_id.startsWith("gallaspy-"),
+      clubRoundIds.has(record.event_id),
   );
 
   const today = new Date();
@@ -214,13 +216,7 @@ export default async function MyGallaspyHomePage() {
   const seasonUpcoming = upcomingRegisteredRounds.filter(record => record.event_date?.startsWith(`${seasonYear}-`));
 
   return (
-    <main className="min-h-screen bg-[#F4F0E7] pb-28 pt-28 text-[#10263F] sm:pt-32">
-      <div className="mx-auto max-w-5xl px-5 py-4">
-        <Link href="/my-gallaspy/documents"
-          className="inline-block rounded-xl bg-[#164B3A] px-5 py-3 text-sm font-semibold text-white">
-          MEMBERSHIP DOCUMENTS
-        </Link>
-      </div>
+    <main className="g-my-dashboard min-h-screen bg-white pb-28 pt-28 text-[#10263F] sm:pt-32">
       {/* PLAYER HEADER */}
       <section className="border-b border-[#10263F]/10 px-5 pb-10 sm:px-8 lg:px-10">
         <div className="mx-auto max-w-7xl">
@@ -234,7 +230,7 @@ export default async function MyGallaspyHomePage() {
                 </p>
               </div>
 
-              <h1 className="mt-6 text-[3.3rem] font-black uppercase leading-[0.84] tracking-[-0.06em] sm:text-[4.8rem] lg:text-[6rem]">
+              <h1 className="mt-6 text-[3.3rem] font-black uppercase leading-[0.98] tracking-[-0.06em] sm:text-[4.8rem] lg:text-[6rem]">
                 Welcome,
                 <span className="block text-[#0C352D]">
                   {player.first_name}.
@@ -245,24 +241,9 @@ export default async function MyGallaspyHomePage() {
                 Your Gallaspy participation, upcoming rounds and
                 club history in one private place.
               </p>
-              <div className="mt-6 flex flex-wrap items-center gap-4">
-                <Link href="/my-gallaspy/rewards" className="inline-flex min-h-11 items-center border border-[#164B3A] px-4 py-2 text-sm font-semibold text-[#164B3A]">
-                  My Rewards →
-                </Link>
-                <Link href="/host-a-round#host-round"
-                  className="inline-flex min-h-11 items-center bg-[#164B3A] px-4 py-2 text-sm font-semibold text-white">
-                  Host a round
-                </Link>
-                <Link href="/host-a-round#open-rounds" className="text-sm font-semibold underline">
-                  Browse open rounds
-                </Link>
-                <Link href="/host-a-round#my-rounds" className="text-sm font-semibold underline">
-                  Manage my rounds
-                </Link>
-              </div>
             </div>
 
-            <div className="border-l-2 border-[#B89146] pl-5 lg:min-w-[260px]">
+            <div className="g-my-identity border-l-2 border-[#164B3A] pl-5 lg:min-w-[260px]">
               <p className="text-[7px] font-black uppercase tracking-[0.25em] text-[#8B6A34]">
                 Player Record
               </p>
@@ -277,14 +258,29 @@ export default async function MyGallaspyHomePage() {
                 </p>
               )}
 
-              {player.handicap_index && (
+              {player.handicap_index != null && (
                 <p className="mt-3 text-[8px] font-black uppercase tracking-[0.18em] text-[#0C352D]">
-                  Handicap · {player.handicap_index}
+                  Recorded handicap · {player.handicap_index}
                 </p>
               )}
+              <p className="mt-3 text-xs leading-5 text-[#47596a]">A player record does not establish official club membership.</p>
             </div>
           </div>
         </div>
+      </section>
+
+      <section className="g-my-shortcuts g2-container" aria-labelledby="g-my-shortcuts-title">
+        <p className="g-home-kicker">YOUR GOLF JOURNEY</p><h2 id="g-my-shortcuts-title">Everything golf. All yours.</h2>
+        <nav className="g-home-quick g-play-quick" aria-label="My Gallaspy account shortcuts">
+          {[
+            ["PLAY","Find a round","Discover open rounds and playing groups.","/host-a-round#open-rounds"],
+            ["HOST","Host a round","Earn 200 points after verified completion.","/host-a-round#host-round"],
+            ["YOUR SCHEDULE","My rounds","Manage your hosted rounds, requests and invitations.","/host-a-round#my-rounds"],
+            ["REWARDS","Club Points","View your balance and eligible rewards activity.","/my-gallaspy/rewards"],
+            ["BELONG","Club membership","Explore official membership and privileges.","/membership"],
+            ["ACCOUNT","Membership documents","Access your available membership documents.","/my-gallaspy/documents"],
+          ].map(([label,title,detail,href])=><Link key={label} href={href} className="g-home-quick-link"><span className="g-home-kicker">{label}</span><strong>{title}</strong><span className="g-home-quick-detail">{detail}</span><span className="g-home-quick-arrow" aria-hidden="true">→</span></Link>)}
+        </nav>
       </section>
 
       {/* NEXT ROUND */}
@@ -314,7 +310,7 @@ export default async function MyGallaspyHomePage() {
 
                     {nextRoundParticipation ? (
                       <span className="bg-[#FFD76A] px-3 py-2 text-[7px] font-black uppercase tracking-[0.2em] text-[#10263F]">
-                        ✓ Confirmed
+                        {participationLabel(nextRoundParticipation.participation_status)}
                       </span>
                     ) : (
                       <span className="text-[7px] font-black uppercase tracking-[0.2em] text-white/45">
@@ -353,7 +349,7 @@ export default async function MyGallaspyHomePage() {
                           ? participationLabel(
                               nextRoundParticipation.participation_status,
                             )
-                          : "Registration Available"}
+                          : nextRound.status === "REGISTRATION_OPEN" ? "Registration open" : "Not registered"}
                       </p>
                     </div>
                   </div>
@@ -366,7 +362,7 @@ export default async function MyGallaspyHomePage() {
                       >
                         View Round Details →
                       </Link>
-                    ) : nextRound.registrationHref ? (
+                    ) : nextRound.status === "REGISTRATION_OPEN" && nextRound.registrationHref ? (
                       <Link
                         href={nextRound.registrationHref}
                         className="inline-flex min-h-[46px] items-center justify-center bg-[#FFD76A] px-6 text-[8px] font-black uppercase tracking-[0.2em] text-[#10263F]"
@@ -402,7 +398,7 @@ export default async function MyGallaspyHomePage() {
           <div className="grid gap-px overflow-hidden border border-[#10263F]/10 bg-[#10263F]/10 grid-cols-2 lg:grid-cols-4">
             <div className="bg-white/65 p-5 sm:p-6">
               <p className="text-[7px] font-black uppercase tracking-[0.22em] text-[#8B6A34]">
-                My Rounds
+                Round registrations
               </p>
 
               <p className="mt-3 text-4xl font-black tracking-[-0.05em]">
@@ -432,11 +428,11 @@ export default async function MyGallaspyHomePage() {
 
             <div className="bg-white/65 p-5 sm:p-6">
               <p className="text-[7px] font-black uppercase tracking-[0.22em] text-[#8B6A34]">
-                Passport
+                Golf Passport
               </p>
 
               <p className="mt-3 text-lg font-black uppercase tracking-[-0.02em] text-[#0C352D]">
-                Building
+                On device
               </p>
             </div>
           </div>

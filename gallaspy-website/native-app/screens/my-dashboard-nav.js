@@ -27,6 +27,7 @@
 
   const overviewElements = [
     document.getElementById("myPlayerGreeting"),
+    document.getElementById("myRoundShortcuts"),
     document.getElementById("myGolfPerformance")
   ].filter(Boolean);
 
@@ -107,6 +108,14 @@
   buttons.forEach(button => {
     button.addEventListener("click", () => {
       showView(button.dataset.myView);
+    });
+  });
+
+  screen.querySelectorAll("[data-my-round-mode]").forEach(button => {
+    button.addEventListener("click", () => {
+      if (!window.openGallaspyPlayFeature?.("playFoursomes")) return;
+      const tab = button.dataset.myRoundMode === "mine" ? "foursomeMine" : "foursomeFind";
+      document.getElementById(tab)?.click();
     });
   });
 

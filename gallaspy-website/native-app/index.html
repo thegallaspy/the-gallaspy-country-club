@@ -1667,10 +1667,10 @@
             <h2>MY GALLASPY.</h2>
             <button id="myOpenSettings" type="button"
                     aria-label="Open player settings">
-              ⚙
+              SETTINGS
             </button>
           </div>
-          <p>Your personal space inside the club.</p>
+          <p>Your private golf journey, rewards and account.</p>
         </section>
 
         <section class="my-player-identity"
@@ -1754,16 +1754,20 @@
              aria-label="My Gallaspy sections">
           <button type="button" data-my-view="overview"
                   class="my-v2-nav-active">OVERVIEW</button>
-          <button type="button" data-my-view="golf">MY GOLF</button>
-          <button type="button" data-my-view="points">CLUB POINTS</button>
-          <button type="button" data-my-view="passport">PASSPORT</button>
-          <button type="button" data-my-view="membership">MEMBERSHIP</button>
+          <button type="button" data-my-view="golf">MY GOLF <small>Scorecards &amp; history</small></button>
+          <button type="button" data-my-view="points">CLUB POINTS <small>Rewards &amp; activity</small></button>
+          <button type="button" data-my-view="passport">PASSPORT <small>Courses &amp; milestones</small></button>
+          <button type="button" data-my-view="membership">MEMBERSHIP <small>Official club privileges</small></button>
         </nav>
 
         <section class="my-dashboard-content">
           <h3 id="myPlayerGreeting" class="my-dashboard-greeting">
             WELCOME, GOLFER.
           </h3>
+          <section id="myRoundShortcuts" class="my-round-shortcuts" aria-label="Manage golf rounds">
+            <button type="button" data-my-round-mode="find">FIND A ROUND <small>Discover open groups</small></button>
+            <button type="button" data-my-round-mode="mine">MY ROUNDS <small>Manage rounds &amp; invitations</small></button>
+          </section>
           <nav class="my-quick-nav" aria-label="My Gallaspy shortcuts">
             <a href="#myClubPoints">CLUB POINTS</a>
             <a href="#myGolfPassport">GOLF PASSPORT</a>

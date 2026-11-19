@@ -105,7 +105,7 @@ function MyGallaspyAccess() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#082F29] text-white">
+    <main className="g-my-access relative min-h-screen overflow-hidden bg-[#082F29] text-white">
       {/* SUBTLE BACKGROUND DETAIL */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-[8%] top-0 h-full w-px bg-white/[0.035]" />
@@ -171,7 +171,7 @@ function MyGallaspyAccess() {
 
           {/* ACCESS CARD */}
           <section className="lg:flex lg:justify-end">
-            <div className="w-full max-w-[500px] bg-[#F5F0E6] p-7 text-[#10263F] shadow-[0_30px_90px_rgba(0,0,0,0.22)] sm:p-10 lg:p-11">
+            <div className="w-full max-w-[500px] bg-white p-7 text-[#10263F] border border-white/20 sm:p-10 lg:p-11">
 
               <div className="flex items-center justify-between border-b border-[#10263F]/10 pb-6">
                 <div>
