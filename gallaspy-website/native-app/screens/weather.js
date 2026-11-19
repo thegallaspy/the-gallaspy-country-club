@@ -9,22 +9,28 @@
   const API =
     "https://thegallaspy.com/api/mobile/weather";
 
-  const params = new URLSearchParams({
-    lat: "33.7490",
-    lon: "-84.3880"
-  });
+  const region = $("weatherRegion");
+  let requestVersion = 0;
 
   function formatTime(value) {
-    return new Date(value).toLocaleTimeString("en-US", {
-      hour: "numeric",
-      timeZone: "America/New_York"
-    });
+    // ISO forecast periods include an offset in the forecast location's time zone.
+    const hour = Number(String(value).match(/T(\d{2}):/)?.[1]);
+    return Number.isInteger(hour) && hour >= 0 && hour < 24 ? `${hour % 12 || 12} ${hour < 12 ? "AM" : "PM"}` : "—";
   }
 
   async function loadWeather() {
+    const version = ++requestVersion;
+    const [lat, lon] = (region?.value || "33.7490,-84.3880").split(",");
+    const params = new URLSearchParams({lat, lon});
     const status = $("weatherStatus");
     status.textContent = "Updating playing conditions...";
     refresh.disabled = true;
+    $("weatherLocation").textContent = region?.selectedOptions[0]?.textContent || "Atlanta, GA";
+    $("weatherTemperature").textContent = "—";
+    $("weatherConditions").textContent = "Loading forecast…";
+    $("weatherWind").textContent = "—";
+    $("weatherRain").textContent = "—";
+    $("weatherHourly").replaceChildren();
 
     try {
       const response = await fetch(`${API}?${params}`, {
@@ -36,6 +42,7 @@
       }
 
       const data = await response.json();
+      if (version !== requestVersion) return;
 
       if (!data.success || !data.hourly?.length) {
         throw new Error("Forecast unavailable.");
@@ -48,7 +55,7 @@
           .filter(Boolean).join(", ") || "Course forecast";
 
       $("weatherTemperature").textContent =
-        `${current.temperature}°`;
+        `${current.temperature}°${current.temperatureUnit || "F"}`;
 
       $("weatherConditions").textContent =
         current.conditions || "Conditions unavailable";
@@ -79,13 +86,16 @@
       status.textContent = "Forecast updated.";
 
     } catch (error) {
+      if (version !== requestVersion) return;
+      $("weatherConditions").textContent = "Forecast unavailable";
       status.textContent =
         "Unable to load weather. Please try again.";
     } finally {
-      refresh.disabled = false;
+      if (version === requestVersion) refresh.disabled = false;
     }
   }
 
   refresh.addEventListener("click", loadWeather);
+  region?.addEventListener("change", loadWeather);
   loadWeather();
 })();

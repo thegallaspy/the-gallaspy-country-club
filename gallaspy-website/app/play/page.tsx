@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PlayingConditions from "./PlayingConditions";
 import {
   getUpcomingEvents,
   type GallaspyEvent,
@@ -77,11 +78,14 @@ export default function PlayPage() {
             ["HOST A ROUND","Bring your group together","Earn 200 points after an approved, verified completed round.","/host-a-round#host-round"],
             ["PLAY WITH THE CLUB","Gallaspy Rounds","Explore the club's organized rounds and registration opportunities.","/rounds"],
             ["YOUR SCHEDULE","Club calendar","Explore upcoming rounds, Range Nights and signature events.","/calendar"],
+            ["BEFORE YOU PLAY","Playing Conditions","Check the regional hourly forecast, wind and rain probability.","#playing-conditions"],
             ["YOUR GOLF JOURNEY","My Gallaspy","Manage your rounds and golf record.","/my-gallaspy"],
             ["COMPETE","Championship I","Explore the inaugural Gallaspy Championship and player information.","/the-gallaspy"],
           ].map(([label,title,description,href])=><Link key={label} href={href} className="g-home-quick-link"><span className="g-home-kicker">{label}</span><strong>{title}</strong><span className="g-home-quick-detail">{description}</span><span aria-hidden="true" className="g-home-quick-arrow">→</span></Link>)}
         </nav>
       </div></section>
+
+      <PlayingConditions />
 
       {/* HOW WE PLAY */}
       <section className="border-b border-[#10263F]/10 px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">

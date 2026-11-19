@@ -204,6 +204,19 @@
   gap: 10px;
 }
 
+#nativePlayScreen .weather-region {
+  display:block;
+  width:100%;
+  min-height:44px;
+  margin:6px 0 16px;
+  padding:8px 12px;
+  color:#10263f;
+  background:#fff;
+  border:1px solid #dce5df;
+  border-radius:6px;
+  font-size:16px;
+}
+
 #nativePlayScreen .weather-top h4 {
   font-size: 17px;
   margin: 4px 0;

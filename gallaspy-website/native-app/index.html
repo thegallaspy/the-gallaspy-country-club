@@ -977,7 +977,7 @@
           <p class="intro-label">THE GALLASPY / ON-COURSE ASSISTANT</p>
           <h2>AI CADDIE.</h2>
           <p class="caddie-intro">
-            Your next shot starts with a better decision.
+            Your next shot starts with a better decision. Use advice for practice and casual play; check competition rules before using it during a round.
           </p>
 
           <div class="caddie-panel">
@@ -1085,12 +1085,21 @@
         <section class="play-feature" id="playWeather">
           <p class="intro-label">THE GALLASPY / PLAYING CONDITIONS</p>
           <h3>ROUND FORECAST.</h3>
-          <p>Know the conditions before you tee off.</p>
+          <p>Choose a regional forecast before you tee off. Conditions are not course-specific.</p>
 
           <div class="gallaspy-weather">
+            <label for="weatherRegion" class="weather-label">FORECAST LOCATION</label>
+            <select id="weatherRegion" class="weather-region">
+              <option value="33.7490,-84.3880">Atlanta, GA</option>
+              <option value="33.9519,-83.3576">Athens, GA</option>
+              <option value="33.4735,-82.0105">Augusta, GA</option>
+              <option value="32.0809,-81.0912">Savannah, GA</option>
+              <option value="35.2271,-80.8431">Charlotte, NC</option>
+              <option value="28.5383,-81.3792">Orlando, FL</option>
+            </select>
             <div class="weather-top">
               <div>
-                <span class="weather-label">CURRENT FORECAST</span>
+                <span class="weather-label">NEXT HOURLY FORECAST</span>
                 <h4 id="weatherLocation">Atlanta, GA</h4>
                 <p id="weatherConditions">Loading weather...</p>
               </div>
@@ -1108,7 +1117,7 @@
               </div>
             </div>
 
-            <p class="weather-label">UPCOMING HOURS</p>
+            <p class="weather-label">UPCOMING HOURS · LOCAL TIME</p>
             <div id="weatherHourly" class="weather-hourly"></div>
 
             <button type="button" id="weatherRefresh">
@@ -1135,7 +1144,7 @@
               <label for="shotTracerVideo">↑ IMPORT VIDEO</label>
               <input id="shotTracerVideo" type="file" accept="video/*">
             </div>
-            <p class="gallaspy-shot-capture-note">Record from behind the golfer with the ball and sky in view. Automatic tracking requires further camera and ball-flight testing.</p>
+            <p class="gallaspy-shot-capture-note">Record from behind the golfer with the ball and sky in view. Review and adjust the suggested trajectory before saving your video.</p>
             <div class="shot-tracer-stage" id="shotTracerStage" hidden>
               <video id="shotTracerPreview" controls playsinline></video>
               <svg id="shotTracerOverlay" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-label="Adjustable ball-flight trajectory"></svg>
@@ -1314,7 +1323,7 @@
 
         <section class="play-feature" id="playScorecardLaunch">
           <h3>TRACK YOUR ROUNDS.</h3>
-          <p>Record every hole, save your rounds, and measure your progress.</p>
+          <p>Record every hole, save your rounds, and measure your progress. Personal scorecards are stored on this device; they are not a verified competition result or official handicap.</p>
           <div class="gallaspy-scorecard-launch-actions">
             <button type="button" id="playStartScorecard">START NEW ROUND →</button>
             <button type="button" id="playContinueScorecard" hidden>CONTINUE ROUND →</button>
@@ -1381,7 +1390,7 @@
 
 
             <div class="gallaspy-scoreboard-header">
-              <span>LIVE SCORECARD</span>
+              <span>PERSONAL SCORECARD</span>
               <strong id="scoreboardHoleProgress">HOLE 1 OF 18</strong>
             </div>
 
@@ -1926,7 +1935,7 @@
         <section class="my-panel my-passport" id="myGolfPassport">
           <p class="intro-label">YOUR GOLF JOURNEY</p>
           <h3>GOLF PASSPORT.</h3>
-          <p>Every course. Every round. Your story. Stamps reflect personal scorecards saved on this device.</p>
+          <p>Every course. Every round. Your story. Stamps reflect completed personal scorecards saved on this device, not verified club participation or rewards eligibility.</p>
 
           <div class="my-passport-stats">
             <div>

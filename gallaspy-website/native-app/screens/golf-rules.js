@@ -20,6 +20,7 @@
   ];
 
   let activeCategory = "all";
+  const commonWords = new Set(["a", "an", "the", "my", "i", "me", "in", "on", "into", "to", "of", "is", "it", "what", "if", "can", "do", "does", "went", "happens", "happen", "how", "with"]);
 
   function createRuleCard(rule) {
     const card = document.createElement("details");
@@ -51,6 +52,7 @@
 
   function render() {
     const query = search.value.trim().toLowerCase();
+    const terms = query.replace(/[^a-z0-9]+/g, " ").split(/\s+/).filter(term => term && !commonWords.has(term));
 
     const matches = rules.filter(rule => {
       const categoryMatches =
@@ -66,7 +68,7 @@
       ].join(" ").toLowerCase();
 
       return categoryMatches &&
-        (!query || searchable.includes(query));
+        (!query || searchable.includes(query) || (terms.length > 0 && terms.every(term => searchable.includes(term))));
     });
 
     for (const button of buttons) {
