@@ -153,3 +153,33 @@ main:is([class~="bg-[#F4F0E7]"],[class~="bg-[#F7F4EE]"],[class~="bg-[#F5F0E6]"],
 .g2-community .g2-community-actions button {
   min-height: 44px;
 }
+.gallaspy-cutout-stage,
+.g626-shop .g626-product .g3-product-media.gallaspy-cutout-stage {
+  background: #edf2ef !important;
+  border: 0 !important;
+  border-radius: 8px;
+  box-shadow: none !important;
+  isolation: isolate;
+}
+.gallaspy-cutout-stage img.gallaspy-cutout-image {
+  background: transparent !important;
+  mix-blend-mode: normal;
+  filter: none;
+  object-fit: contain;
+}
+.gallaspy-artwork-pending {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  text-align: center;
+  color: #52605a;
+  font-size: 14px;
+}
+.g626-shop .g626-product:hover h3 { color: #174a38; }
+.g626-shop .g4-shop-nav a:first-child,
+.g626-shop .g4-shop-nav a:hover { background: #174a38; }
+.gallaspy-product-detail h1,
+.gallaspy-product-detail h2,
+.gallaspy-product-detail h3 { font-family: inherit; font-weight: 800; }

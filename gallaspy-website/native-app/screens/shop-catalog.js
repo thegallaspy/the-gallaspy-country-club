@@ -10,6 +10,7 @@
   const detail = document.getElementById("nativeShopDetail");
   const back = document.getElementById("nativeShopBack");
   const filterBar = document.querySelector(".native-shop-filters");
+  const colorFilter = document.getElementById("nativeShopColor");
   const shopHeading = document.querySelector("#nativeShopScreen > .my-heading");
   const memberCollections = document.getElementById("nativeShopMemberCollections");
   const memberEntry = document.querySelector("#nativeShopScreen .native-shop-member-entry");
@@ -18,6 +19,7 @@
     detail.hidden = true;
     grid.hidden = false;
     filterBar.hidden = false;
+    if (colorFilter) colorFilter.parentElement.hidden = false;
     if (shopHeading) shopHeading.hidden = false;
     if (memberEntry) memberEntry.hidden = false;
     if (memberCollections) memberCollections.hidden = true;
@@ -111,6 +113,7 @@
 
     grid.hidden = true;
     filterBar.hidden = true;
+    if (colorFilter) colorFilter.parentElement.hidden = true;
     if (shopHeading) shopHeading.hidden = true;
     if (memberEntry) memberEntry.hidden = true;
     if (memberCollections) memberCollections.hidden = true;
@@ -134,7 +137,7 @@
     grid.replaceChildren();
 
     const selected = products.filter(
-      product => product.collection === category
+      product => product.collection === category && (!colorFilter || colorFilter.value === "all" || product.color === colorFilter.value)
     );
 
     for (const product of selected) {
@@ -142,6 +145,7 @@
       card.className = "native-shop-product";
 
       const image = document.createElement("img");
+      image.className = "native-shop-cutout";
       image.src = "https://thegallaspy.com" + product.image;
       image.alt = product.name + " — " + product.color;
       image.loading = "lazy";
@@ -162,7 +166,7 @@
       card.append(image, info);
       card.tabIndex = 0;
       card.setAttribute("role", "button");
-      card.setAttribute("aria-label", "View " + product.name);
+      card.setAttribute("aria-label", "View " + product.color + " " + product.name);
 
       card.addEventListener("click", () => {
         grid.querySelectorAll("[data-shop-selected]").forEach(item => {
@@ -183,8 +187,8 @@
     }
 
     status.textContent = selected.length
-      ? ""
-      : "No products available in this category.";
+      ? selected.length + " products"
+      : "No products match these filters.";
   }
 
   filters.forEach(button => {
@@ -201,6 +205,7 @@
       render();
     });
   });
+  colorFilter?.addEventListener("change", render);
 
   async function loadCatalog() {
     status.textContent = "Loading The Gallaspy Collection...";

@@ -395,13 +395,13 @@ function ProductTile({ product }: { product: Product }) {
       className="group block"
       aria-label={`View ${product.color} ${product.name}`}
     >
-      <div className="relative aspect-[4/5] overflow-hidden bg-[#EAE6DD]">
+      <div className="gallaspy-cutout-stage relative aspect-[4/5] overflow-hidden">
         <Image
           src={product.image}
           alt={`${product.color} ${product.name}`}
           fill
           sizes="(max-width: 768px) 50vw, 25vw"
-          className="object-contain p-5 transition-transform duration-500 group-hover:scale-[1.04]"
+          className="gallaspy-cutout-image object-contain p-5 transition-transform duration-500 group-hover:scale-[1.04]"
         />
 
         <div className="absolute left-3 top-3 bg-[#10263F] px-3 py-2 text-[7px] font-black uppercase tracking-[0.2em] text-white">
@@ -498,7 +498,7 @@ export default async function ProductPage({
     .slice(0, 4);
 
   return (
-    <main className="bg-[#F3EFE6] text-[#10263F]">
+    <main className="gallaspy-product-detail bg-white text-[#10263F]">
       <section className="border-t-[7px] border-[#B3262D]">
         <div className="mx-auto max-w-7xl px-5 py-7 sm:px-8 lg:px-10">
           <div className="flex flex-wrap items-center justify-between gap-4">
@@ -517,18 +517,18 @@ export default async function ProductPage({
 
         <div className="mx-auto grid max-w-7xl gap-10 px-5 pb-16 sm:px-8 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16 lg:px-10 lg:pb-24">
           <div>
-            <div className="relative aspect-[4/5] overflow-hidden bg-[#EAE6DD]">
+            <div className="gallaspy-cutout-stage relative aspect-[4/5] overflow-hidden">
               <Image
                 src={product.image}
                 alt={`${product.color} ${product.name}`}
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 55vw"
-                className="object-contain p-4 sm:p-8"
+                className="gallaspy-cutout-image object-contain p-4 sm:p-8"
               />
 
               <div className="absolute left-4 top-4 bg-[#10263F] px-4 py-2.5 text-[8px] font-black uppercase tracking-[0.22em] text-white">
-                First Production
+                Pre-Order
               </div>
             </div>
 
@@ -766,13 +766,13 @@ export default async function ProductPage({
                   href={`/apparel/${item.slug}`}
                   className="group block"
                 >
-                  <div className="relative aspect-[4/5] bg-white/[0.06]">
+                  <div className="gallaspy-cutout-stage relative aspect-[4/5] overflow-hidden">
                     <Image
                       src={item.image}
                       alt={`${item.color} ${item.name}`}
                       fill
                       sizes="(max-width: 768px) 50vw, 35vw"
-                      className="object-contain p-5 transition-transform duration-500 group-hover:scale-[1.04]"
+                      className="gallaspy-cutout-image object-contain p-5 transition-transform duration-500 group-hover:scale-[1.04]"
                     />
                   </div>
 

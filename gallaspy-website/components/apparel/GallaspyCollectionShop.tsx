@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-type CollectionView = "men" | "women";
+type CollectionView = "men" | "women" | "headwear";
 
 type CollectionProduct = {
   slug: string;
@@ -354,27 +354,27 @@ function CollectionCard({ product }: { product: CollectionProduct }) {
   return (
     <Link
       href={`/apparel/${product.slug}`}
-      className="group block overflow-hidden rounded-[22px] border border-[#10263F]/10 bg-white transition duration-300 hover:-translate-y-1 hover:border-[#B89146]/35 hover:shadow-[0_20px_50px_rgba(16,38,63,0.1)]"
+      className="group block overflow-hidden rounded-lg border border-[#10263F]/10 bg-white transition duration-300 hover:border-[#174A38]/50"
     >
-      <div className="relative aspect-[4/5] overflow-hidden bg-[#F3EFE6]">
+      <div className="gallaspy-cutout-stage relative aspect-[4/5] overflow-hidden">
         <Image
           src={product.image}
           alt={`${product.color} ${product.name}`}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-contain p-4 transition duration-500 group-hover:scale-[1.015]"
+          className="gallaspy-cutout-image object-contain p-4 transition duration-500 group-hover:scale-[1.015]"
         />
         <div className="absolute left-4 top-4 rounded-full bg-[#10263F]/85 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-white">
           {product.color}
         </div>
       </div>
-      <div className="bg-[#F7F4EE] p-6">
+      <div className="bg-white p-4 sm:p-6">
         <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#B89146]">
           {product.category} · {product.mark}
         </p>
-        <h3 className="mt-3 font-serif text-2xl text-[#10263F]">{product.name}</h3>
+        <h3 className="mt-3 text-lg font-bold text-[#10263F]">{product.name}</h3>
         <p className="mt-3 text-lg font-medium text-[#10263F]">{product.price}</p>
-        <span className="mt-6 inline-flex min-h-[46px] w-full items-center justify-center rounded-full bg-[#10263F] px-6 text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition group-hover:bg-[#B89146]">
+        <span className="mt-6 inline-flex min-h-[46px] w-full items-center justify-center rounded-md bg-[#174A38] px-3 text-[11px] font-semibold uppercase tracking-wide text-white transition group-hover:bg-[#10263F]">
           View Product →
         </span>
       </div>
@@ -384,22 +384,20 @@ function CollectionCard({ product }: { product: CollectionProduct }) {
 
 export default function GallaspyCollectionShop() {
   const [view, setView] = useState<CollectionView>("men");
-  const visibleProducts = products.filter((product) =>
-    view === "men"
-      ? product.collection === "men" || product.collection === "headwear"
-      : product.collection === "women"
-  );
+  const [color, setColor] = useState("All colors");
+  const visibleProducts = products.filter((product) => product.collection === view && (color === "All colors" || color === product.color));
 
   return (
     <section id="products" className="scroll-mt-24 bg-white px-5 py-20 sm:px-8 sm:py-24 lg:px-10 lg:py-28">
       <div className="mx-auto w-full max-w-6xl">
         <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-[#B89146]">Shop the Collection</p>
-        <h2 className="mt-4 font-serif text-4xl font-light text-[#10263F] sm:text-5xl">The Gallaspy Collection</h2>
-        <div className="mt-8 flex gap-3">
-          {(["men", "women"] as const).map((option) => (
+        <h2 className="mt-4 text-4xl font-bold text-[#10263F] sm:text-5xl">The Gallaspy Collection</h2>
+        <div className="mt-8 flex flex-wrap gap-3" role="group" aria-label="Shop categories">
+          {(["men", "women", "headwear"] as const).map((option) => (
             <button
               key={option}
               type="button"
+              aria-pressed={view === option}
               onClick={() => setView(option)}
               className={`min-h-[44px] rounded-full border px-7 text-[10px] font-semibold uppercase tracking-[0.2em] transition ${
                 view === option
@@ -407,16 +405,23 @@ export default function GallaspyCollectionShop() {
                   : "border-[#10263F]/20 text-[#10263F] hover:border-[#10263F]"
               }`}
             >
-              {option === "men" ? "Men" : "Women"}
+              {option === "men" ? "Men" : option === "women" ? "Women" : "Headwear"}
             </button>
           ))}
         </div>
+        <label className="mt-5 flex flex-wrap items-center gap-3 text-sm font-semibold text-[#10263F]">
+          Color
+          <select className="min-h-[44px] rounded-md border border-[#10263F]/20 bg-white px-3" value={color} onChange={(event) => setColor(event.target.value)}>
+            {["All colors", "Navy", "Forest Green", "White"].map((option) => <option key={option}>{option}</option>)}
+          </select>
+        </label>
         <p className="mt-6 max-w-2xl text-sm leading-7 text-[#52605A]">
           {view === "men"
             ? "Performance polos, quarter-zips, and headwear featuring approved Falcon, Crest, and Script designs."
-            : "Women’s performance polos, sleeveless quarter-zips, and golf skirts featuring Falcon and Crest designs."}
+            : view === "women" ? "Women’s performance polos, sleeveless quarter-zips, and golf skirts featuring Falcon and Crest designs." : "Falcon, Crest and Script headwear in the official club colors."}
         </p>
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <p className="mt-4 text-sm text-[#52605A]" role="status">{visibleProducts.length} products</p>
+        <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-3">
           {visibleProducts.map((product) => (
             <CollectionCard key={product.slug} product={product} />
           ))}

@@ -1011,3 +1011,60 @@
   background: #0c352d;
   color: #ffffff;
 }
+
+/* Phase 6E: show the original alpha-channel garment cutouts on a shared
+   editorial surface, rather than painting a white rectangle behind each image. */
+#nativeContent #nativeShopScreen .native-shop-product {
+  background: #edf2ef;
+  border: 1px solid #dce5df;
+  border-radius: 8px;
+  box-shadow: none;
+}
+#nativeContent #nativeShopScreen .native-shop-product img.native-shop-cutout {
+  background: transparent !important;
+  mix-blend-mode: normal;
+  filter: none;
+  object-fit: contain;
+  padding: 12px;
+}
+#nativeContent #nativeShopScreen .native-shop-product-info {
+  background: #fff;
+  border-top: 1px solid #dce5df;
+}
+#nativeContent #nativeShopScreen #nativeShopDetailImage,
+#nativeContent #nativeShopScreen .native-shop-bag-item img {
+  background: #edf2ef;
+  mix-blend-mode: normal;
+  filter: none;
+  object-fit: contain;
+}
+#nativeContent #nativeShopScreen .native-shop-filters button[aria-pressed="true"] {
+  background: #174a38;
+  color: #fff;
+  border-bottom-color: #174a38;
+  box-shadow: none;
+}
+#nativeContent #nativeShopScreen #nativeShopAddToBag:not(:disabled),
+#nativeContent #nativeShopScreen #nativeShopCheckout:not(:disabled) {
+  background: #174a38;
+}
+#nativeContent #nativeShopScreen .native-shop-color-filter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 16px;
+  color: #10263f;
+  font-size: 13px;
+  font-weight: 750;
+}
+#nativeContent #nativeShopScreen .native-shop-color-filter[hidden] { display: none; }
+#nativeContent #nativeShopScreen .native-shop-color-filter select {
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #cbd8d0;
+  border-radius: 6px;
+  background: #fff;
+  color: #10263f;
+  font: inherit;
+}

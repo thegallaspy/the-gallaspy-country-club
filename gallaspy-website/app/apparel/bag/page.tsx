@@ -191,14 +191,14 @@ export default function BagPage() {
                           ? "/falcon-society/members/shop"
                           : `/apparel/${item.slug}`
                       }
-                      className="relative aspect-[4/5] overflow-hidden bg-[#ECE8DF]"
+                      className="gallaspy-cutout-stage relative aspect-[4/5] overflow-hidden"
                     >
                       <Image
                         src={item.image}
                         alt={`${item.color} ${item.name}`}
                         fill
                         sizes="145px"
-                        className="object-contain p-2"
+                        className="gallaspy-cutout-image object-contain p-2"
                       />
                     </Link>
 

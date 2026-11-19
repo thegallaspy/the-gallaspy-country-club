@@ -215,13 +215,13 @@ function SocietyProduct({
 
   return (
     <article>
-      <div className="relative aspect-[4/5] overflow-hidden bg-[#ECE6DB]">
+      <div className="gallaspy-cutout-stage relative aspect-[4/5] overflow-hidden">
         <Image
           src={image}
           alt={`${product.name} — ${color}`}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-contain p-3"
+          className="gallaspy-cutout-image object-contain p-3"
         />
 
         <div className="absolute right-4 top-4 bg-[#10263F] px-3 py-2">

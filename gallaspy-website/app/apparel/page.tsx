@@ -408,13 +408,13 @@ function ProductCard({
       aria-label={`View ${product.color} ${product.name}`}
     >
       <article>
-        <div className="g3-product-media relative aspect-[4/4.5] overflow-hidden bg-transparent">
+        <div className="g3-product-media gallaspy-cutout-stage relative aspect-[4/4.5] overflow-hidden">
           <Image
             src={product.image}
             alt={`${product.color} ${product.name}`}
             fill
             sizes="(max-width: 640px) 48vw, (max-width: 1024px) 33vw, 25vw"
-            className="object-contain p-2 transition-transform duration-500 group-hover:scale-[1.045]"
+            className="gallaspy-cutout-image object-contain p-2 transition-transform duration-500 group-hover:scale-[1.045]"
           />
 
           <div className="absolute inset-x-0 bottom-0 flex translate-y-full items-center justify-between bg-[#10263F] px-4 py-3 text-white transition-transform duration-300 group-hover:translate-y-0">
@@ -445,9 +445,9 @@ function ProductCard({
             </div>
 
             <span
-              className={`mt-1 h-2.5 w-2.5 shrink-0 rounded-full border ${
-                dark ? "border-white/30" : "border-[#10263F]/20"
-              }`}
+              className="mt-1 h-3 w-3 shrink-0 rounded-full border border-[#10263F]/20"
+              style={{ backgroundColor: product.color === "Navy" ? "#10263f" : product.color === "Forest Green" ? "#174a38" : "#fff" }}
+              aria-hidden="true"
             />
           </div>
         </div>

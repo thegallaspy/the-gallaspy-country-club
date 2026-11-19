@@ -11,37 +11,37 @@ const mensProducts = [
     name: "Navy Falcon Polo",
     category: "Polos",
     image:
-      "/images/apparel/members/navy-falcon-polo.jpg",
+      "/images/apparel/men/polos/navy-falcon-mens-polo.png",
   },
   {
     name: "White Falcon Polo",
     category: "Polos",
     image:
-      "/images/apparel/members/white-falcon-polo.jpg",
+      "/images/apparel/men/polos/white-falcon-mens-polo.png",
   },
   {
     name: "Forest Green Falcon Polo",
     category: "Polos",
     image:
-      "/images/apparel/members/forest-green-falcon-polo.jpg",
+      "/images/apparel/men/polos/forest-green-falcon-mens-polo.png",
   },
   {
     name: "Navy Falcon Hat",
     category: "Headwear",
     image:
-      "/images/apparel/members/navy-falcon-hat.jpg",
+      "/images/apparel/headwear/falcon/navy-falcon-hat.png",
   },
   {
     name: "White Falcon Hat",
     category: "Headwear",
     image:
-      "/images/apparel/members/white-falcon-hat.jpg",
+      "/images/apparel/headwear/falcon/white-falcon-hat.png",
   },
   {
     name: "Forest Green Falcon Hat",
     category: "Headwear",
     image:
-      "/images/apparel/members/forest-green-falcon-hat.jpg",
+      "/images/apparel/headwear/falcon/forest-green-falcon-hat.png",
   },
 ];
 
@@ -50,73 +50,73 @@ const womensProducts = [
     name: "Navy Women's Falcon Polo",
     category: "Women's Polos",
     image:
-      "/images/apparel/members/women/navy-womens-falcon-polo.jpg",
+      "/images/apparel/women/polos/navy-falcon-womens-polo.png",
   },
   {
     name: "White Women's Falcon Polo",
     category: "Women's Polos",
     image:
-      "/images/apparel/members/women/white-womens-falcon-polo.jpg",
+      "/images/apparel/women/polos/white-falcon-womens-polo.png",
   },
   {
     name: "Forest Green Women's Falcon Polo",
     category: "Women's Polos",
     image:
-      "/images/apparel/members/women/forest-green-womens-falcon-polo.jpg",
+      "/images/apparel/women/polos/forest-green-falcon-womens-polo.png",
   },
   {
     name: "Navy Women's Sleeveless Falcon Polo",
     category: "Women's Sleeveless Polos",
     image:
-      "/images/apparel/members/women/navy-womens-sleeveless-falcon-polo.jpg",
+      null,
   },
   {
     name: "White Women's Sleeveless Falcon Polo",
     category: "Women's Sleeveless Polos",
     image:
-      "/images/apparel/members/women/white-womens-sleeveless-falcon-polo.jpg",
+      null,
   },
   {
     name: "Forest Green Women's Sleeveless Falcon Polo",
     category: "Women's Sleeveless Polos",
     image:
-      "/images/apparel/members/women/forest-green-womens-sleeveless-falcon-polo.jpg",
+      null,
   },
   {
     name: "Navy Women's Falcon Skirt",
     category: "Women's Skirts",
     image:
-      "/images/apparel/members/women/navy-womens-falcon-skirt.jpg",
+      "/images/apparel/women/skirts/navy-falcon-womens-skirt.png",
   },
   {
     name: "White Women's Falcon Skirt",
     category: "Women's Skirts",
     image:
-      "/images/apparel/members/women/white-womens-falcon-skirt.jpg",
+      "/images/apparel/women/skirts/white-falcon-womens-skirt.png",
   },
   {
     name: "Forest Green Women's Falcon Skirt",
     category: "Women's Skirts",
     image:
-      "/images/apparel/members/women/forest-green-womens-falcon-skirt.jpg",
+      "/images/apparel/women/skirts/forest-green-falcon-womens-skirt.png",
   },
   {
     name: "Navy Women's Falcon Dress",
     category: "Women's Dresses",
     image:
-      "/images/apparel/members/women/navy-womens-falcon-dress.jpg",
+      null,
   },
   {
     name: "White Women's Falcon Dress",
     category: "Women's Dresses",
     image:
-      "/images/apparel/members/women/white-womens-falcon-dress.jpg",
+      null,
   },
   {
     name: "Forest Green Women's Falcon Dress",
     category: "Women's Dresses",
     image:
-      "/images/apparel/members/women/forest-green-womens-falcon-dress.jpg",
+      null,
   },
 ];
 
@@ -133,15 +133,6 @@ export default function MembersCollectionPage() {
     <main className="overflow-hidden bg-[#F7F4EE] text-[#10263F]">
       {/* HERO */}
       <section className="relative flex min-h-[68vh] items-center overflow-hidden bg-[#10263F] px-5 pt-[82px] text-white sm:px-8 lg:px-10">
-        <Image
-          src="/images/apparel/members/member-collection.jpg"
-          alt="The Gallaspy Members Only apparel collection"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-
         <div className="absolute inset-0 bg-[#071827]/68" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#071827]/95 via-[#071827]/76 to-[#071827]/35" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#071827]/75 via-transparent to-[#071827]/20" />
@@ -347,18 +338,18 @@ function MemberProductCard({
 }: {
   name: string;
   category: string;
-  image: string;
+  image: string | null;
 }) {
   return (
     <article className="group overflow-hidden rounded-[22px] border border-[#10263F]/10 bg-[#F7F4EE] transition duration-300 hover:-translate-y-1 hover:border-[#B89146]/35 hover:shadow-[0_20px_50px_rgba(16,38,63,0.1)]">
-      <div className="relative aspect-[4/5] overflow-hidden bg-[#ECE6DB]">
-        <Image
+      <div className="gallaspy-cutout-stage relative aspect-[4/5] overflow-hidden">
+        {image ? <Image
           src={image}
           alt={name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition duration-500 group-hover:scale-[1.02]"
-        />
+          className="gallaspy-cutout-image object-contain p-4"
+        /> : <p className="gallaspy-artwork-pending">Product image pending</p>}
 
         <div className="absolute right-4 top-4 rounded-full border border-white/25 bg-[#10263F]/82 px-3 py-1.5 backdrop-blur-md">
           <p className="text-[8px] font-semibold uppercase tracking-[0.16em] text-[#FFD76A]">

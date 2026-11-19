@@ -11,13 +11,13 @@ const founderPolos = [
     name: "Founder Polo I",
     category: "Founder Polos",
     image:
-      "/images/apparel/falcon-society/red-founder-polo-1.jpg",
+      null,
   },
   {
     name: "Founder Polo II",
     category: "Founder Polos",
     image:
-      "/images/apparel/falcon-society/red-founder-polo-2.jpg",
+      null,
   },
 ];
 
@@ -26,31 +26,31 @@ const womensFounderProducts = [
     name: "Women's Founder Falcon Polo",
     category: "Women's Founder Polos",
     image:
-      "/images/apparel/falcon-society/women/red-founder-womens-falcon-polo.jpg",
+      "/images/apparel/falcon-society/women/red-founder-womens-polo.png",
   },
   {
     name: "Women's Founder Sleeveless Falcon Polo",
     category: "Women's Founder Polos",
     image:
-      "/images/apparel/falcon-society/women/red-founder-womens-sleeveless-falcon-polo.jpg",
+      null,
   },
   {
     name: "Women's Founder Sleeveless Crest Polo",
     category: "Women's Founder Polos",
     image:
-      "/images/apparel/falcon-society/women/red-founder-womens-sleeveless-crest-polo.jpg",
+      null,
   },
   {
     name: "Women's Founder Falcon Skirt",
     category: "Women's Founder Skirts",
     image:
-      "/images/apparel/falcon-society/women/red-founder-womens-falcon-skirt.jpg",
+      "/images/apparel/falcon-society/women/red-founder-womens-skirt.png",
   },
   {
     name: "Women's Founder Falcon Dress",
     category: "Women's Founder Dresses",
     image:
-      "/images/apparel/falcon-society/women/red-founder-womens-falcon-dress.jpg",
+      null,
   },
 ];
 
@@ -58,27 +58,27 @@ const hats = [
   {
     name: "Navy Falcon Society Hat",
     image:
-      "/images/apparel/falcon-society/navy-falcon-society-hat.jpg",
+      "/images/apparel/falcon-society/hats/navy-falcon-society-hat.png",
   },
   {
     name: "Red Falcon Society Hat",
     image:
-      "/images/apparel/falcon-society/red-falcon-society-hat.jpg",
+      "/images/apparel/falcon-society/hats/red-falcon-society-hat.png",
   },
   {
     name: "Forest Green Falcon Society Hat",
     image:
-      "/images/apparel/falcon-society/forest-green-falcon-society-hat.jpg",
+      "/images/apparel/falcon-society/hats/forest-green-falcon-society-hat.png",
   },
   {
     name: "White Falcon Society Hat",
     image:
-      "/images/apparel/falcon-society/white-falcon-society-hat.jpg",
+      "/images/apparel/falcon-society/hats/white-falcon-society-hat.png",
   },
   {
     name: "Falcon Society Hat II",
     image:
-      "/images/apparel/falcon-society/hat-2.jpg",
+      null,
   },
 ];
 
@@ -89,15 +89,7 @@ export default function FalconSocietyCollectionPage() {
   return (
     <main className="overflow-hidden bg-[#F7F4EE] text-[#10263F]">
       {/* HERO */}
-      <section className="relative flex min-h-[76vh] items-center overflow-hidden px-5 pt-[82px] text-white sm:px-8 lg:px-10">
-        <Image
-          src="/images/apparel/falcon-society/falcon-society-collection.jpg"
-          alt="The Falcon Society apparel collection"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
+      <section className="relative flex min-h-[76vh] items-center overflow-hidden bg-[#10263F] px-5 pt-[82px] text-white sm:px-8 lg:px-10">
 
         <div className="absolute inset-0 bg-[#071827]/64" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#071827]/96 via-[#071827]/72 to-[#071827]/30" />
@@ -277,14 +269,14 @@ export default function FalconSocietyCollectionPage() {
                 key={product.name}
                 className="group overflow-hidden rounded-[22px] border border-[#10263F]/10 bg-[#F7F4EE] transition duration-300 hover:-translate-y-1 hover:border-[#B89146]/35 hover:shadow-[0_20px_50px_rgba(16,38,63,0.1)]"
               >
-                <div className="relative aspect-square overflow-hidden bg-[#ECE6DB]">
-                  <Image
+                <div className="gallaspy-cutout-stage relative aspect-square overflow-hidden">
+                  {product.image ? <Image
                     src={product.image}
                     alt={product.name}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover transition duration-500 group-hover:scale-[1.025]"
-                  />
+                    className="gallaspy-cutout-image object-contain p-4"
+                  /> : <p className="gallaspy-artwork-pending">Product image pending</p>}
 
                   <div className="absolute right-4 top-4 rounded-full border border-white/25 bg-[#10263F]/82 px-3 py-1.5 backdrop-blur-md">
                     <p className="text-[8px] font-semibold uppercase tracking-[0.16em] text-[#FFD76A]">
@@ -375,13 +367,13 @@ function FounderProductCard({
 }: {
   name: string;
   category: string;
-  image: string;
+  image: string | null;
   large?: boolean;
 }) {
   return (
     <article className="group overflow-hidden rounded-[24px] border border-[#B89146]/20 bg-white transition duration-300 hover:-translate-y-1 hover:border-[#B89146]/50 hover:shadow-[0_24px_65px_rgba(16,38,63,0.12)]">
-      <div className="relative aspect-[4/5] overflow-hidden bg-[#ECE6DB]">
-        <Image
+      <div className="gallaspy-cutout-stage relative aspect-[4/5] overflow-hidden">
+        {image ? <Image
           src={image}
           alt={name}
           fill
@@ -390,8 +382,8 @@ function FounderProductCard({
               ? "(max-width: 1024px) 100vw, 50vw"
               : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           }
-          className="object-cover transition duration-500 group-hover:scale-[1.02]"
-        />
+          className="gallaspy-cutout-image object-contain p-4"
+        /> : <p className="gallaspy-artwork-pending">Product image pending</p>}
 
         <div className="absolute left-0 top-0 h-1 w-full bg-[#B89146]" />
 
