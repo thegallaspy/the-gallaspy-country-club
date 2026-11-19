@@ -8,7 +8,9 @@ export const dynamic = "force-dynamic";
 const bucket="gallaspy-community-videos";
 const maxBytes=3_500_000;
 const uuid=/^[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}$/i;
-const reply=(body:unknown,status=200)=>NextResponse.json(body,{status,headers:{"Cache-Control":"private, no-store"}});
+const cors={"Access-Control-Allow-Origin":"capacitor://localhost","Access-Control-Allow-Methods":"GET, POST, OPTIONS","Access-Control-Allow-Headers":"Authorization, Content-Type","Cache-Control":"private, no-store","Vary":"Origin"};
+const reply=(body:unknown,status=200)=>NextResponse.json(body,{status,headers:cors});
+export function OPTIONS(){return new NextResponse(null,{status:204,headers:cors});}
 
 async function context(request:NextRequest) {
   const token=request.headers.get("authorization")?.match(/^Bearer (\S+)$/)?.[1];

@@ -932,6 +932,13 @@
             <p id="communityPhotoInfo" role="status" aria-live="polite">Add up to four course or golf photos.</p>
             <div id="communityPhotoPreview" aria-label="Selected photo previews"></div>
             <button type="button" id="communityRemovePhotos" hidden>REMOVE SELECTED PHOTOS</button>
+            <label class="gallaspy-photo-choose" for="communityVideoFile">
+              + ADD VIDEO (MP4)
+              <input id="communityVideoFile" type="file" accept="video/mp4,.mp4" aria-describedby="communityVideoInfo">
+            </label>
+            <p id="communityVideoInfo" role="status" aria-live="polite">Choose a short MP4 or saved Shot Tracer export, up to 3.5 MB.</p>
+            <video id="communityVideoPreview" controls playsinline preload="metadata" hidden></video>
+            <button type="button" id="communityRemoveVideo" hidden>REMOVE VIDEO</button>
             <button type="button" id="communityPublishButton">
               POST →
             </button>
@@ -940,6 +947,10 @@
 
           <section aria-label="Community posts">
             <h3 class="community-feed-heading">Latest posts</h3>
+            <div class="gallaspy-community-media-filters" aria-label="Filter community posts">
+              <button type="button" id="communityAllPosts" aria-pressed="true">Latest</button>
+              <button type="button" id="communityVideoPosts" aria-pressed="false">Videos</button>
+            </div>
             <div id="communityFeed" aria-live="polite">
               <p>Community posts will appear here.</p>
             </div>

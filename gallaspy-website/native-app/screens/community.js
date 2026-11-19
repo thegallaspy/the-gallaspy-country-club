@@ -8,6 +8,7 @@
     "https://thegallaspy.com/api/mobile/community/profile";
   const ENGAGEMENT_API =
     "https://thegallaspy.com/api/mobile/community/engagement";
+  const VIDEO_API = "https://thegallaspy.com/api/web/community/video";
 
   const screen = document.getElementById("nativeCommunityScreen");
   const feed = document.getElementById("communityFeed");
@@ -25,6 +26,62 @@
   let loading = false;
   let posting = false;
   let savingUsername = false;
+  const videoInput = document.getElementById("communityVideoFile");
+  const videoPreview = document.getElementById("communityVideoPreview");
+  const videoInfo = document.getElementById("communityVideoInfo");
+  const removeVideo = document.getElementById("communityRemoveVideo");
+  let selectedVideo = null;
+  let previewUrl = null;
+  let videoOnly = false;
+  const allPostsButton = document.getElementById("communityAllPosts");
+  const videoPostsButton = document.getElementById("communityVideoPosts");
+  function setVideoFilter(value) {
+    if (loading || posting) return;
+    videoOnly = value;
+    allPostsButton?.setAttribute("aria-pressed", String(!value));
+    videoPostsButton?.setAttribute("aria-pressed", String(value));
+    void loadPosts();
+  }
+  allPostsButton?.addEventListener("click",()=>setVideoFilter(false));
+  videoPostsButton?.addEventListener("click",()=>setVideoFilter(true));
+
+  function clearVideo() {
+    selectedVideo = null;
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
+    previewUrl = null;
+    if (videoInput) videoInput.value = "";
+    if (videoPreview) { videoPreview.pause(); videoPreview.removeAttribute("src"); videoPreview.load(); videoPreview.hidden = true; }
+    if (removeVideo) removeVideo.hidden = true;
+    if (videoInfo) videoInfo.textContent = "Choose a short MP4 or saved Shot Tracer export, up to 3.5 MB.";
+  }
+
+  videoInput?.addEventListener("change", () => {
+    const file = videoInput.files?.[0];
+    clearVideo();
+    if (!file || posting) return;
+    if (file.type !== "video/mp4" || file.size > 3500000 || file.size < 12) {
+      videoInfo.textContent = "Choose an MP4 under 3.5 MB."; return;
+    }
+    selectedVideo = file;
+    previewUrl = URL.createObjectURL(file);
+    videoPreview.src = previewUrl; videoPreview.hidden = false; removeVideo.hidden = false;
+    videoInfo.textContent = "Video ready. Add a caption or publish as is. Videos and photos must be separate posts.";
+  });
+  removeVideo?.addEventListener("click", () => { if (!posting) clearVideo(); });
+
+  async function uploadVideo(caption) {
+    const accessToken = await token();
+    if (!accessToken || !selectedVideo) throw new Error("Sign in and select a video.");
+    const form = new FormData(); form.append("video", selectedVideo); form.append("body", caption || "Golf video");
+    await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", VIDEO_API); xhr.setRequestHeader("Authorization", `Bearer ${accessToken}`); xhr.timeout = 120000;
+      xhr.upload.onprogress = event => { if (event.lengthComputable) status.textContent = `Uploading video… ${Math.round(event.loaded/event.total*100)}%`; };
+      xhr.onload = () => { try { const result = JSON.parse(xhr.responseText); if (xhr.status < 200 || xhr.status >= 300 || result.success !== true) throw new Error(result.error || "Video publishing unavailable."); resolve(); } catch (error) { reject(error); } };
+      xhr.onerror = xhr.ontimeout = () => reject(new Error("Video upload could not be confirmed. Refresh the feed before retrying."));
+      xhr.send(form);
+    });
+  }
 
   function message(text) {
     const p = document.createElement("p");
@@ -281,6 +338,18 @@
       }
       if (gallery.childElementCount) article.append(gallery);
     }
+    if (typeof post.video_url === "string" && post.video_url.startsWith("https://")) {
+      const wrap = document.createElement("div"); wrap.className = "gallaspy-community-video";
+      const player = document.createElement("video"); player.controls = true; player.playsInline = true; player.preload = "none"; player.src = post.video_url;
+      const refresh = socialButton("Refresh video access", "gallaspy-social-video-refresh");
+      refresh.addEventListener("click", async () => {
+        refresh.disabled = true;
+        try { const result = await request(`${VIDEO_API}?post_ids=${encodeURIComponent(post.id)}`); const url = result.videos?.[post.id]; if (typeof url !== "string" || !url.startsWith("https://")) throw new Error("Video unavailable."); player.src = url; player.load(); }
+        catch (error) { player.removeAttribute("src"); player.load(); status.textContent = error.message || "Video unavailable."; }
+        finally { refresh.disabled = false; }
+      });
+      wrap.append(player,refresh); article.append(wrap);
+    }
     if (typeof post.id === "string" && /^[a-f0-9-]{36}$/i.test(post.id)) {
       attachSocialActions(article, post);
     }
@@ -499,7 +568,11 @@
           const result = await request(`${ENGAGEMENT_API}?post_ids=${encodeURIComponent(ids.join(","))}`);
           counts = new Map((result.engagement || []).map(item => [item.post_id, item]));
         } catch { /* Posts remain readable even if engagement is unavailable. */ }
-        posts.forEach(post => feed.append(renderPost({...post,engagement:counts.get(post.id)})));
+        let videos = {}, videoAvailable = true;
+        try { const ids = posts.map(post=>post.id).filter(Boolean); const result = await request(`${VIDEO_API}?post_ids=${encodeURIComponent(ids.join(","))}`); videos = result.videos || {}; } catch { videoAvailable = false; /* Existing text and photo posts still work. */ }
+        const visible = videoOnly ? posts.filter(post=>videos[post.id]) : posts;
+        if (videoOnly && !visible.length) feed.append(message(videoAvailable ? "No recent video posts yet." : "Video feed temporarily unavailable."));
+        visible.forEach(post => feed.append(renderPost({...post,engagement:counts.get(post.id),video_url:videos[post.id]})));
       }
     } catch (error) {
       feed.replaceChildren(
@@ -514,6 +587,7 @@
     // GALLASPY R9.6: restore Community on re-entry.
     // Also invalidate any unfinished public-profile request.
     closePublicProfile();
+    if (!posting) clearVideo();
     await Promise.all([loadProfile(), loadPosts()]);
   }
 
@@ -567,10 +641,13 @@
       return;
     }
     const hasPhotos = Boolean(photoBridge?.hasPhotos?.());
+    const hasVideo = Boolean(selectedVideo);
     const text = body.value.trim();
 
-    if ((!text && !hasPhotos) || text.length > 3000) {
-      status.textContent = hasPhotos
+    if (hasVideo && hasPhotos) { status.textContent = "Publish videos and photos as separate posts. Remove one selection first."; return; }
+
+    if ((!text && !hasPhotos && !hasVideo) || text.length > 3000) {
+      status.textContent = hasPhotos || hasVideo
         ? "Caption cannot exceed 3,000 characters."
         : "Write a post or select up to four photos.";
       return;
@@ -578,10 +655,14 @@
 
     posting = true;
     publish.disabled = true;
+    if (videoInput) videoInput.disabled = true;
+    if (removeVideo) removeVideo.disabled = true;
     status.textContent = "Publishing your post...";
 
     try {
-      if (hasPhotos) {
+      if (hasVideo) {
+        await uploadVideo(text); clearVideo();
+      } else if (hasPhotos) {
         await photoBridge.publish(text);
         photoBridge.clear();
       } else {
@@ -598,6 +679,8 @@
     } finally {
       posting = false;
       publish.disabled = false;
+      if (videoInput) videoInput.disabled = false;
+      if (removeVideo) removeVideo.disabled = false;
     }
   });
 
