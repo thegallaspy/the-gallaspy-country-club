@@ -54,6 +54,6 @@
 #nativeCommunityScreen #communityVideoPreview[hidden],#nativeCommunityScreen #communityRemoveVideo[hidden] { display:none; }
 #nativeCommunityScreen #communityRemoveVideo { min-height:44px;padding:8px 12px;color:#154b39;background:white;border:1px solid #aecbc0;border-radius:10px;font-size:12px;font-weight:750; }
 #nativeCommunityScreen .gallaspy-social-video-refresh { min-height:44px;color:#154b39; }
-#nativeCommunityScreen .gallaspy-community-media-filters { display:flex;gap:8px;margin:8px 0 16px; }
-#nativeCommunityScreen .gallaspy-community-media-filters button { min-height:44px;padding:8px 18px;border:1px solid #aecbc0;border-radius:8px;background:white;color:#154b39;font-weight:750; }
+#nativeCommunityScreen .gallaspy-community-media-filters { display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 16px; }
+#nativeCommunityScreen .gallaspy-community-media-filters button { min-height:44px;padding:8px 14px;border:1px solid #aecbc0;border-radius:6px;background:white;color:#154b39;font-weight:750; }
 #nativeCommunityScreen .gallaspy-community-media-filters button[aria-pressed=true] { background:#154b39;color:white; }

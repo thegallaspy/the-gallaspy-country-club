@@ -130,3 +130,26 @@ main:is([class~="bg-[#F4F0E7]"],[class~="bg-[#F7F4EE]"],[class~="bg-[#F5F0E6]"],
     transition-duration: 0.01ms !important;
   }
 }
+.g2-community .g2-profile-disclosure {
+  border: 1px solid #dce5df;
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin-bottom: 24px;
+}
+.g2-community .g2-profile-disclosure > summary {
+  color: #102b43;
+  font-weight: 750;
+  cursor: pointer;
+  line-height: 1.5;
+}
+.g2-community .g2-profile-disclosure[open] > summary {
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #dce5df;
+}
+.g2-community .g2-community-filters button {
+  min-height: 44px;
+}
+.g2-community .g2-community-actions button {
+  min-height: 44px;
+}

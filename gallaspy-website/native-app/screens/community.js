@@ -33,18 +33,22 @@
   let selectedVideo = null;
   let videoUploadId = null;
   let previewUrl = null;
-  let videoOnly = false;
+  let mediaFilter = "all";
   const allPostsButton = document.getElementById("communityAllPosts");
+  const photoPostsButton = document.getElementById("communityPhotoPosts");
   const videoPostsButton = document.getElementById("communityVideoPosts");
-  function setVideoFilter(value) {
+  function setMediaFilter(value) {
     if (loading || posting) return;
-    videoOnly = value;
-    allPostsButton?.setAttribute("aria-pressed", String(!value));
-    videoPostsButton?.setAttribute("aria-pressed", String(value));
+    mediaFilter = value;
+    allPostsButton?.setAttribute("aria-pressed", String(value === "all"));
+    photoPostsButton?.setAttribute("aria-pressed", String(value === "photos"));
+    videoPostsButton?.setAttribute("aria-pressed", String(value === "videos"));
     void loadPosts();
   }
-  allPostsButton?.addEventListener("click",()=>setVideoFilter(false));
-  videoPostsButton?.addEventListener("click",()=>setVideoFilter(true));
+  allPostsButton?.addEventListener("click",()=>setMediaFilter("all"));
+  photoPostsButton?.addEventListener("click",()=>setMediaFilter("photos"));
+  videoPostsButton?.addEventListener("click",()=>setMediaFilter("videos"));
+  document.getElementById("communityRefreshPosts")?.addEventListener("click",()=>{if (!posting) void loadPosts();});
 
   function clearVideo() {
     selectedVideo = null;
@@ -593,8 +597,8 @@
         } catch { /* Posts remain readable even if engagement is unavailable. */ }
         let videos = {}, videoAvailable = true;
         try { const ids = posts.map(post=>post.id).filter(Boolean); const result = await request(`${VIDEO_API}?post_ids=${encodeURIComponent(ids.join(","))}`); videos = result.videos || {}; } catch { videoAvailable = false; /* Existing text and photo posts still work. */ }
-        const visible = videoOnly ? posts.filter(post=>videos[post.id]) : posts;
-        if (videoOnly && !visible.length) feed.append(message(videoAvailable ? "No recent video posts yet." : "Video feed temporarily unavailable."));
+        const visible = mediaFilter === "videos" ? posts.filter(post=>videos[post.id]) : mediaFilter === "photos" ? posts.filter(post=>Array.isArray(post.photos) && post.photos.length) : posts;
+        if (!visible.length) feed.append(message(mediaFilter === "videos" ? (videoAvailable ? "No recent video posts yet." : "Video feed temporarily unavailable.") : "No recent course photos yet."));
         visible.forEach(post => feed.append(renderPost({...post,engagement:counts.get(post.id),video_url:videos[post.id]})));
       }
     } catch (error) {
