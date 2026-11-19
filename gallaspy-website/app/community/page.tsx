@@ -4,7 +4,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 
 type Photo = { url: string; position: number };
-type Post = { id: string; body: string; created_at: string; username?: string | null; photos?: Photo[] };
+type Post = { id: string; user_id: string; body: string; created_at: string; username?: string | null; avatar_url?: string | null; photos?: Photo[] };
 type Comment = { id: string; body: string; created_at: string; username?: string | null };
 type Metrics = { count: number; comments: number; liked: boolean };
 type EngagementRow = Record<string, unknown>;
@@ -19,8 +19,23 @@ function metricsFrom(row: EngagementRow): Metrics {
 }
 
 export default function CommunityPage() {
-  const [token, setToken] = useState<string | null>(null);
+  const [session, setSession] = useState<{ token: string; userId: string } | null>(null);
   const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const supabase = createClient();
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, value) => {
+      setSession(value ? {token: value.access_token, userId: value.user.id} : null);
+      setReady(true);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+  return <main className="g616-interior g2-interior g2-community"><div className="g2-container">
+    <header className="g2-interior-header"><p className="g2-eyebrow">MY GALLASPY / DIGITAL CLUBHOUSE</p><h1>THE COMMUNITY.</h1><p>Good rounds. Great company. Share the moments that make the game yours.</p></header>
+    {!ready ? <p className="g2-auth-panel" role="status">Checking your account…</p> : !session ? <div className="g2-auth-panel"><p>Sign in with an active Gallaspy Golf Club membership to enter the members-only community.</p><Link href="/my-gallaspy" className="g2-line-link">Enter My Gallaspy →</Link></div> : <Clubhouse key={`${session.userId}:${session.token}`} token={session.token} userId={session.userId}/>}
+  </div></main>;
+}
+
+function Clubhouse({token, userId}: {token: string; userId: string}) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [body, setBody] = useState("");
   const [status, setStatus] = useState("");
@@ -30,18 +45,11 @@ export default function CommunityPage() {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
   const [drafts, setDrafts] = useState<Record<string, string>>({});
   const [acting, setActing] = useState<string | null>(null);
-
-  useEffect(() => {
-    let mounted = true;
-    const supabase = createClient();
-    supabase.auth.getSession().then(({data}) => {
-      if (mounted) { setToken(data.session?.access_token ?? null); setReady(true); }
-    }).catch(() => { if (mounted) setReady(true); });
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (mounted) setToken(session?.access_token ?? null);
-    });
-    return () => { mounted = false; subscription.unsubscribe(); };
-  }, []);
+  const [loading, setLoading] = useState(true);
+  const [allowed, setAllowed] = useState(false);
+  const [filter, setFilter] = useState<"all" | "mine" | "photos">("all");
+  const [report, setReport] = useState<string | null>(null);
+  const [reason, setReason] = useState("");
 
   const api = useCallback(async (accessToken: string, path: string, payload?: Record<string, string>) => {
     const response = await fetch(path, {
@@ -72,10 +80,15 @@ export default function CommunityPage() {
   }, [api]);
 
   const refresh = useCallback(async (accessToken: string) => {
+    setLoading(true);
+    try {
     const data = await api(accessToken, "/api/web/community/posts");
     const records = Array.isArray(data.posts) ? data.posts as Post[] : [];
     setPosts(records);
+    setAllowed(true);
     await loadMetrics(accessToken, records).catch(() => {});
+    } catch (error) { setAllowed(false); setPosts([]); setMetrics({}); throw error; }
+    finally { setLoading(false); }
   }, [api, loadMetrics]);
 
   useEffect(() => {
@@ -85,8 +98,25 @@ export default function CommunityPage() {
     return () => { active = false; };
   }, [token, refresh]);
 
+  async function moderate(post: Post, action: "report" | "block") {
+    if (acting || loading || busy || post.user_id === userId) return;
+    if (action === "report" && reason.trim().length < 5) { setStatus("Please include a reason of at least five characters."); return; }
+    if (action === "block" && !window.confirm("Block this golfer and hide each other's posts?")) return;
+    setActing(post.id); setStatus("");
+    try {
+      await api(token, "/api/web/community/engagement", action === "report" ? {action, post_id:post.id, reason:reason.trim()} : {action, user_id:post.user_id});
+      setReport(null); setReason("");
+      if (action === "block") {
+        setPosts(previous => previous.filter(item => item.user_id !== post.user_id));
+        setComments({}); setExpanded({}); setDrafts({});
+        setStatus("Golfer blocked.");
+      } else setStatus("Report submitted for review.");
+    } catch (error) { setStatus(error instanceof Error ? error.message : "Unable to complete request."); }
+    finally { setActing(null); }
+  }
+
   async function publish(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault(); if (!token || busy || !body.trim()) return;
+    event.preventDefault(); if (!token || busy || loading || acting || !body.trim()) return;
     setBusy(true); setStatus("");
     try {
       await api(token, "/api/web/community/posts", {body: body.trim()});
@@ -96,7 +126,7 @@ export default function CommunityPage() {
   }
 
   async function toggleLike(post: Post) {
-    if (!token || acting) return;
+    if (!token || acting || loading || busy || !metrics[post.id]) return;
     setActing(post.id); setStatus("");
     const liked = Boolean(metrics[post.id]?.liked);
     try {
@@ -107,17 +137,18 @@ export default function CommunityPage() {
   }
 
   async function openComments(post: Post) {
-    if (!token) return;
+    if (!token || acting || loading || busy) return;
     if (expanded[post.id]) { setExpanded(previous => ({...previous, [post.id]:false})); return; }
-    setExpanded(previous => ({...previous, [post.id]:true}));
+    setExpanded(previous => ({...previous, [post.id]:true})); setActing(post.id);
     try {
       const data = await api(token, `/api/web/community/engagement?post_id=${encodeURIComponent(post.id)}`);
       setComments(previous => ({...previous, [post.id]: Array.isArray(data.comments) ? data.comments : []}));
-    } catch (error) { setStatus(error instanceof Error ? error.message : "Unable to load comments."); }
+    } catch (error) { setExpanded(previous=>({...previous,[post.id]:false})); setStatus(error instanceof Error ? error.message : "Unable to load comments."); }
+    finally { setActing(null); }
   }
 
   async function submitComment(event: FormEvent<HTMLFormElement>, post: Post) {
-    event.preventDefault(); if (!token || acting || !drafts[post.id]?.trim()) return;
+    event.preventDefault(); if (!token || acting || loading || busy || !drafts[post.id]?.trim()) return;
     setActing(post.id); setStatus("");
     try {
       await api(token, "/api/web/community/engagement", {action:"comment", post_id:post.id, body:drafts[post.id].trim()});
@@ -129,17 +160,16 @@ export default function CommunityPage() {
     finally { setActing(null); }
   }
 
-  return <main className="g616-interior g2-interior"><div className="g2-container">
-    <header className="g2-interior-header"><p className="g2-eyebrow">MY GALLASPY / DIGITAL CLUBHOUSE</p><h1>THE COMMUNITY.</h1><p>Share your rounds. Join conversations. Connect through the game. An exclusive space for active Gallaspy Golf Club members to share, connect, and celebrate the game.</p></header>
-    {!ready ? <p className="g2-auth-panel">Checking your account…</p> : !token ? <div className="g2-auth-panel"><p>Sign in with an active Gallaspy Golf Club membership to access the members-only community.</p><Link href="/my-gallaspy" className="g2-line-link">Enter My Gallaspy →</Link></div> :
-    <div className="g2-feed-layout">
+  const visible = posts.filter(post => filter === "all" || (filter === "mine" ? post.user_id === userId : Boolean(post.photos?.length)));
+  if (!allowed) return <div className="g2-auth-panel" role="status"><p>{loading ? "Opening the clubhouse…" : status || "Community unavailable."}</p>{!loading && <button className="g2-btn g2-btn-green" onClick={()=>refresh(token).catch(error=>setStatus(error.message))}>Try again</button>}</div>;
+  return <div className="g2-feed-layout">
       <aside><p className="g2-eyebrow">SHARE WITH THE CLUB</p><form onSubmit={publish} className="g2-form-card" style={{marginTop:20}}><div className="g2-field"><label htmlFor="g2-post">Your post</label><textarea id="g2-post" rows={6} maxLength={3000} value={body} onChange={event=>setBody(event.target.value)} placeholder="A round worth sharing. A moment from the course." required /></div><button className="g2-btn g2-btn-green" style={{marginTop:22}} type="submit" disabled={busy || !body.trim()}>{busy ? "Publishing…" : "Publish post →"}</button></form><p className="g2-feedback" role="status" aria-live="polite">{status}</p><Link href="/my-gallaspy/home" className="g2-line-link">Back to My Gallaspy →</Link></aside>
-      <section aria-label="Community posts"><p className="g2-eyebrow">FROM THE CLUBHOUSE</p><div style={{marginTop:20}}>{posts.length ? posts.map(post => <article className="g2-feed-post" key={post.id}>
-        <strong>{post.username ? `@${post.username}` : "Gallaspy golfer"}</strong><time dateTime={post.created_at}>{new Date(post.created_at).toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}</time><p>{post.body}</p>
+      <section aria-label="Community posts"><div className="g2-clubhouse-heading"><p className="g2-eyebrow">FROM THE CLUBHOUSE</p><button type="button" disabled={loading || busy || Boolean(acting)} onClick={()=>refresh(token).catch(error=>setStatus(error.message))}>{loading ? "Refreshing…" : "Refresh"}</button></div><div className="g2-community-filters" aria-label="Filter posts">{([ ["all","Latest"], ["photos","Photos"], ["mine","My posts"] ] as const).map(([value,label])=><button key={value} type="button" aria-pressed={filter===value} onClick={()=>setFilter(value)}>{label}</button>)}</div><div style={{marginTop:20}}>{visible.length ? visible.map(post => <article className="g2-feed-post" key={post.id}>
+        <div className="g2-post-author">{post.avatar_url ? <img src={post.avatar_url} alt="" referrerPolicy="no-referrer"/> : <span aria-hidden="true">{(post.username || "G").slice(0,1).toUpperCase()}</span>}<div><strong>{post.username ? `@${post.username}` : "Gallaspy golfer"}{post.user_id===userId ? " · You" : ""}</strong><time dateTime={post.created_at}>{new Date(post.created_at).toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}</time></div></div><p>{post.body}</p>
         {post.photos?.length ? <div className="g2-feed-photos">{post.photos.map((photo,index)=><img key={`${post.id}-${index}`} src={photo.url} alt={`Photo shared with the Gallaspy community ${index + 1}`} loading="lazy" referrerPolicy="no-referrer" />)}</div> : null}
         <div className="g2-community-actions"><button type="button" onClick={()=>toggleLike(post)} disabled={acting===post.id} aria-pressed={metrics[post.id]?.liked ?? false}>{metrics[post.id]?.liked ? "♥ Liked" : "♡ Like"} {metrics[post.id]?.count ?? 0}</button><button type="button" onClick={()=>openComments(post)} aria-expanded={Boolean(expanded[post.id])}>Comments {metrics[post.id]?.comments ?? ""}</button></div>
         {expanded[post.id] && <div><div className="g2-comment-list">{(comments[post.id] ?? []).map(comment=><div className="g2-comment" key={comment.id}><strong>{comment.username ? `@${comment.username}` : "Gallaspy golfer"}</strong><p>{comment.body}</p></div>)}</div><form className="g2-comment-form" onSubmit={event=>submitComment(event,post)}><input aria-label="Write a comment" maxLength={1000} required placeholder="Write a comment…" value={drafts[post.id] ?? ""} onChange={event=>setDrafts(previous=>({...previous,[post.id]:event.target.value}))}/><button type="submit" disabled={acting===post.id || !drafts[post.id]?.trim()}>Post</button></form></div>}
-      </article>) : <p>Community posts will appear here as golfers share.</p>}</div></section>
-    </div>}
-  </div></main>;
+        {post.user_id && post.user_id!==userId && <details className="g2-post-safety"><summary>Post options</summary><button type="button" disabled={Boolean(acting)} onClick={()=>{setReport(post.id);setReason("");}}>Report post</button><button type="button" disabled={Boolean(acting)} onClick={()=>moderate(post,"block")}>Block golfer</button>{report===post.id && <form onSubmit={event=>{event.preventDefault();moderate(post,"report");}}><label htmlFor={`report-${post.id}`}>Reason for report</label><textarea id={`report-${post.id}`} value={reason} onChange={event=>setReason(event.target.value)} maxLength={500} required/><button type="submit" disabled={!reason.trim() || Boolean(acting)}>Submit report</button><button type="button" onClick={()=>setReport(null)}>Cancel</button></form>}</details>}
+      </article>) : <p className="g2-community-empty">{loading ? "Loading posts…" : filter === "mine" ? "Your posts will appear here after you share." : filter === "photos" ? "Course photos will appear here as golfers share." : "Start the conversation. Share a moment from your next round."}</p>}</div></section>
+    </div>;
 }
