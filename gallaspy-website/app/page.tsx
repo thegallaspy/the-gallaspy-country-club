@@ -34,29 +34,19 @@ export default function Home() {
     </section>
 
 
-      <section
-        data-gallaspy-signup="homepage"
-        aria-label="Create a Gallaspy account"
-        className="bg-white px-6 py-12 text-center text-[#10263F]"
-      >
-        <div className="mx-auto max-w-3xl">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#285C45]">
-            Join the Gallaspy Community
-          </p>
-          <h2 className="mt-3 text-3xl font-bold">
-            Your Gallaspy Experience Starts Here.
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-[#47596A]">
-            Create your account to explore the digital clubhouse,
-            connect with golfers, and discover opportunities to play.
-            Create your account at no cost. No paid club membership required.
-          </p>
-          <a
-            href="/my-gallaspy?mode=create"
-            className="mt-7 inline-flex min-h-12 items-center justify-center bg-[#10263F] px-8 py-3 text-sm font-bold tracking-wider text-white"
-          >
-            CREATE AN ACCOUNT
-          </a>
+      <section data-gallaspy-signup="homepage" className="g-home-start" aria-labelledby="g-home-start-title">
+        <div className="g2-container">
+          <div className="g-home-start-head">
+            <div><p className="g-home-kicker">THE DIGITAL CLUBHOUSE</p><h2 id="g-home-start-title">Make the game yours.</h2><p>Discover opportunities to play, build your golf record and find your place in The Gallaspy. A My Gallaspy account is separate from official club membership.</p></div>
+            <Link href="/my-gallaspy?mode=create" className="g-home-account">CREATE AN ACCOUNT <span aria-hidden="true">→</span></Link>
+          </div>
+          <nav className="g-home-quick" aria-label="Explore The Gallaspy">
+            {[
+              {title:"Find a round",detail:"Explore upcoming Gallaspy Rounds.",href:"/rounds",label:"PLAY"},
+              {title:"Digital clubhouse",detail:"Connect and share with the club community. Membership required for the feed.",href:"/community",label:"GATHER"},
+              {title:"My Gallaspy",detail:"Your account, golf journey and rewards.",href:"/my-gallaspy",label:"YOUR GAME"},
+            ].map(item=><Link key={item.href} href={item.href} className="g-home-quick-link"><span className="g-home-kicker">{item.label}</span><strong>{item.title}</strong><span className="g-home-quick-detail">{item.detail}</span><span aria-hidden="true" className="g-home-quick-arrow">→</span></Link>)}
+          </nav>
         </div>
       </section>
 
@@ -79,6 +69,7 @@ export default function Home() {
         />
       </div>
       <div className="g2-cup-teams"><div className="g2-cup-falcon"><Image src="/logos/official/falcon-G.png" width={105} height={105} alt="Official Team Falcon emblem"/><span>TEAM FALCON</span></div><div className="g2-cup-crest"><Image src="/logos/official/crest.png" width={105} height={105} alt="Official Team Crest emblem"/><span>TEAM CREST</span></div></div><h3>A HOUSE<br/><em>DIVIDED.</em></h3><p>October 23, 2027 · 16 players · Eight singles matches · 18 holes.</p><div className="g2-portal-links"><Link href="/gallaspy-cup">Enter the Cup portal →</Link></div></article></div>
+      <article className="g-home-gala"><div><p className="g-home-kicker">THE YEAR-END TRADITION · DECEMBER 2027</p><h3>Night at the Nest.</h3><p>An evening of recognition, celebration and the traditions we build together. Further event details to be announced.</p></div><Link href="/night-at-the-nest" className="g-home-gala-link">Explore the gala <span aria-hidden="true">→</span></Link></article>
     </div></section>
 
     <HomeRoundHost />
