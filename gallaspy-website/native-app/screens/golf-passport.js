@@ -83,6 +83,9 @@
     coursesEl.textContent = collection.length;
     roundsEl.textContent = rounds.length;
     milestonesEl.textContent = unlocked;
+    const next = milestones.find(milestone => collection.length < milestone.count);
+    const nextLabel = $("passportNextMilestone");
+    if (nextLabel) nextLabel.textContent = next ? `${collection.length} of ${next.count} courses · Next milestone: ${next.name}` : "All current course milestones unlocked.";
 
     courseList.replaceChildren();
     badgeList.replaceChildren();

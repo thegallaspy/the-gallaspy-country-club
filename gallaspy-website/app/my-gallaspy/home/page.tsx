@@ -208,6 +208,10 @@ export default async function MyGallaspyHomePage() {
   const location = [player.city, player.state]
     .filter(Boolean)
     .join(", ");
+  const seasonYear = new Intl.DateTimeFormat("en-US", { year: "numeric", timeZone: "America/New_York" }).format(new Date());
+  const seasonRegistrations = roundParticipation.filter(record => record.event_date?.startsWith(`${seasonYear}-`));
+  const seasonPast = completedRounds.filter(record => record.event_date?.startsWith(`${seasonYear}-`));
+  const seasonUpcoming = upcomingRegisteredRounds.filter(record => record.event_date?.startsWith(`${seasonYear}-`));
 
   return (
     <main className="min-h-screen bg-[#F4F0E7] pb-28 pt-28 text-[#10263F] sm:pt-32">
@@ -439,6 +443,17 @@ export default async function MyGallaspyHomePage() {
         </div>
       </section>
 
+      <section className="px-5 pb-10 sm:px-8 lg:px-10" aria-labelledby="season-heading">
+        <div className="mx-auto max-w-7xl rounded-2xl border border-[#10263F]/10 bg-white p-6 sm:p-9">
+          <p className="text-xs font-bold uppercase tracking-widest text-[#164B3A]">{seasonYear} / Gallaspy activity</p>
+          <h2 id="season-heading" className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">Your year in golf.</h2>
+          <p className="mt-2 max-w-xl text-sm leading-6 text-[#10263F]/75">Your club round registrations this year. Personal scorecards and Golf Passport stamps are currently stored on your native app device, not synced here.</p>
+          <div className="mt-6 grid grid-cols-3 gap-2 sm:gap-4">
+            {[{label:"Registrations", value:seasonRegistrations.length},{label:"Past dates",value:seasonPast.length},{label:"Upcoming dates",value:seasonUpcoming.length}].map(metric => <div key={metric.label} className="min-w-0 rounded-lg bg-[#F3F7F4] p-3 sm:p-5"><p className="break-words text-xs font-semibold text-[#164B3A]">{metric.label}</p><p className="mt-2 text-3xl font-black tabular-nums text-[#10263F]">{metric.value}</p></div>)}
+          </div>
+          <Link href="/host-a-round#open-rounds" className="mt-6 inline-flex min-h-11 items-center bg-[#164B3A] px-5 text-sm font-semibold !text-white">Find your next round →</Link>
+        </div>
+      </section>
       {/* ROUND HISTORY */}
       <section className="px-5 pb-16 sm:px-8 lg:px-10">
         <div className="mx-auto max-w-7xl">

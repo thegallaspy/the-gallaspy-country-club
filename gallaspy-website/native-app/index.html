@@ -1697,6 +1697,7 @@
 
         <section class="my-v3-performance" id="myGolfPerformance">
           <h3>YOUR GAME</h3>
+          <p class="my-empty">Personal scorecards saved on this device. Not an official handicap or verified club record.</p>
 <section class="my-stats">
           <div>
             <span>ROUNDS PLAYED</span>
@@ -1861,7 +1862,12 @@
 
         <section class="my-panel">
           <p class="intro-label">YOUR GOLF HISTORY</p>
-          <h3>RECENT ROUNDS.</h3>
+          <h3>YOUR YEAR IN GOLF.</h3>
+          <p>Personal scorecards on this device.</p>
+          <label for="myGolfYear">SEASON</label>
+          <select id="myGolfYear"><option value="all">All time</option></select>
+          <div class="my-season-stats" id="mySeasonStats" aria-live="polite"></div>
+          <h4>ROUND HISTORY</h4>
           <div id="myRecentRounds"></div>
           <button id="myGoToPlay" type="button" class="my-action">
             OPEN SCORECARD →
@@ -1871,7 +1877,7 @@
         <section class="my-panel my-passport" id="myGolfPassport">
           <p class="intro-label">YOUR GOLF JOURNEY</p>
           <h3>GOLF PASSPORT.</h3>
-          <p>Every course. Every round. Your story.</p>
+          <p>Every course. Every round. Your story. Stamps reflect personal scorecards saved on this device.</p>
 
           <div class="my-passport-stats">
             <div>
@@ -1889,6 +1895,7 @@
           </div>
 
           <p class="intro-label">COURSE COLLECTION</p>
+          <p id="passportNextMilestone" role="status"></p>
           <div id="passportCourseList"></div>
 
           <p class="intro-label">YOUR MILESTONES</p>

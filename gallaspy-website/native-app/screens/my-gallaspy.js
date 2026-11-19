@@ -8,6 +8,8 @@
   const nameInput = $("myPlayerName");
   const greeting = $("myPlayerGreeting");
   const recent = $("myRecentRounds");
+  const year = $("myGolfYear");
+  const seasonStats = $("mySeasonStats");
 
   if (!nameInput || !greeting || !recent) return;
 
@@ -43,6 +45,7 @@
     return data.filter(round =>
       round &&
       typeof round.course === "string" &&
+      round.course.trim() &&
       Array.isArray(round.scores) &&
       [9, 18].includes(round.holeCount ?? round.scores.length) &&
       round.scores.length === (round.holeCount ?? round.scores.length) &&
@@ -71,18 +74,38 @@
       ? (totals.reduce((a, b) => a + b, 0) / totals.length).toFixed(1)
       : "—";
 
+    const validYear = round => /^\d{4}-\d{2}-\d{2}$/.test(round.date || "") ? round.date.slice(0,4) : "";
+    if (year) {
+      const selected = year.value;
+      const years = [...new Set(rounds.map(validYear).filter(Boolean))].sort().reverse();
+      year.replaceChildren(new Option("All time", "all"), ...years.map(value => new Option(value, value)));
+      year.value = years.includes(selected) ? selected : "all";
+    }
+    const filtered = rounds.filter(round => !year || year.value === "all" || validYear(round) === year.value);
+    if (seasonStats) {
+      seasonStats.replaceChildren();
+      const nine = filtered.filter(round => round.scores.length === 9).map(round => round.total);
+      const eighteen = filtered.filter(round => round.scores.length === 18).map(round => round.total);
+      const courses = new Set(filtered.map(round => round.course.trim().toLowerCase().replace(/\s+/g, " ")));
+      for (const [label, value] of [["Rounds", filtered.length], ["Courses", courses.size], ["Best 9", nine.length ? Math.min(...nine) : "—"], ["Best 18", eighteen.length ? Math.min(...eighteen) : "—"], ["Avg 9", nine.length ? (nine.reduce((a,b)=>a+b,0)/nine.length).toFixed(1) : "—"], ["Avg 18", eighteen.length ? (eighteen.reduce((a,b)=>a+b,0)/eighteen.length).toFixed(1) : "—"]]) {
+        const item = document.createElement("div");
+        const title = document.createElement("span"); title.textContent = label;
+        const metric = document.createElement("strong"); metric.textContent = value;
+        item.append(title, metric); seasonStats.append(item);
+      }
+    }
     recent.replaceChildren();
 
-    if (!rounds.length) {
+    if (!filtered.length) {
       const empty = document.createElement("p");
       empty.className = "my-empty";
       empty.textContent =
-        "No completed rounds yet. Start recording your golf history.";
+        "No saved scorecards for this period. Start recording your golf history.";
       recent.append(empty);
       return;
     }
 
-    rounds.slice(-5).reverse().forEach(round => {
+    filtered.slice().sort((a,b) => String(b.date || "").localeCompare(String(a.date || ""))).forEach(round => {
       const item = document.createElement("div");
       item.className = "my-round";
 
@@ -169,7 +192,7 @@
   });
 
   $("myGoToPlay")?.addEventListener("click", () => {
-    window.showNativeScreen?.("play");
+    if (!window.openGallaspyPlayFeature?.("playScorecardLaunch")) window.showNativeScreen?.("play");
   });
 
   function openNativeMembership() {
@@ -188,6 +211,7 @@
     });
 
   window.addEventListener("gallaspy:rounds-changed", refresh);
+  year?.addEventListener("change", refresh);
   loadProfile();
   refresh();
 })();
