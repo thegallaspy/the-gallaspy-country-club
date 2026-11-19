@@ -69,6 +69,29 @@ main [id] {
 .g-home-gala p:not(.g-home-kicker) { color: #e3ebf2; font-size: 14px; max-width: 65ch; }
 .g-home-gala-link { display: inline-flex; gap: 12px; align-items: center; min-height: 44px; font-size: 13px; font-weight: 800; color: #fff; white-space: nowrap; }
 .g-home-gala-link:hover { text-decoration: underline; color: #fff; }
+/* PLAY — clear paths to golfer-hosted and club-organized rounds. */
+.g626-play .g626-play-hero h1 { font-size: clamp(3rem,7vw,6.5rem); line-height: .98; }
+.g626-play .g626-play-hero .mt-9 a { font-size: 12px; letter-spacing: .07em; }
+.g-play-explore { padding: clamp(42px,6vw,70px) 0; border-bottom: 1px solid #dce5e7; background: #fff; }
+.g-play-explore h2 { margin: 9px 0 12px; font-weight: 900; }
+.g-play-intro { color: #47596a; max-width: 70ch; font-size: 15px; line-height: 1.65; margin-bottom: 24px; }
+.g-play-quick .g-home-quick-link:nth-child(3n + 1) { border-left: 0; }
+.g-play-quick .g-home-quick-link:nth-child(n + 4) { border-top: 1px solid #dce5e7; }
+.g626-play .g626-play-hero p { color: #e5efeb; }
+
+/* Shared interior-page refresh. Only legacy light surfaces are normalized;
+   intentional dark event panels, official artwork and membership marks stay intact. */
+main:is([class~="bg-[#F4F0E7]"],[class~="bg-[#F7F4EE]"],[class~="bg-[#F5F0E6]"],[class~="bg-[#F3EFE6]"],[class~="bg-[#F5F2EA]"],[class~="bg-[#F7F4EC]"]),
+.g625-page, .g616-interior.g2-interior { background: #fff; }
+main:is([class~="bg-[#F4F0E7]"],[class~="bg-[#F7F4EE]"],[class~="bg-[#F5F0E6]"],[class~="bg-[#F3EFE6]"],[class~="bg-[#F5F2EA]"],[class~="bg-[#F7F4EC]"]) > section:is([class~="bg-[#F4F0E7]"],[class~="bg-[#F7F4EE]"],[class~="bg-[#F5F0E6]"],[class~="bg-[#F3EFE6]"],[class~="bg-[#F5F2EA]"],[class~="bg-[#F7F4EC]"]) { background: #fff; }
+.g625-page { --g625-cream: #fff; }
+.g620-events { --g620-cream: #fff; }
+.g626-shop .g4-shop-hero { background: #fff; }
+main:is([class~="bg-[#F4F0E7]"],[class~="bg-[#F7F4EE]"],[class~="bg-[#F5F0E6]"],[class~="bg-[#F3EFE6]"],[class~="bg-[#F5F2EA]"],[class~="bg-[#F7F4EC]"]) :is(h1,h2,h3).font-serif,
+.g620-events :is(h1,h2) em { font-family: inherit; font-style: normal; font-weight: 850; letter-spacing: -.04em; }
+main:is([class~="bg-[#F4F0E7]"],[class~="bg-[#F7F4EE]"],[class~="bg-[#F5F0E6]"],[class~="bg-[#F3EFE6]"],[class~="bg-[#F5F2EA]"],[class~="bg-[#F7F4EC]"],.g626-play,.g625-page,.g620-events,.g626-shop,.g616-interior) :is(a,button,p,span,small)[class~="text-[7px]"],
+main:is([class~="bg-[#F4F0E7]"],[class~="bg-[#F7F4EE]"],[class~="bg-[#F5F0E6]"],[class~="bg-[#F3EFE6]"],[class~="bg-[#F5F2EA]"],[class~="bg-[#F7F4EC]"],.g626-play,.g625-page,.g620-events,.g626-shop,.g616-interior) :is(a,button,p,span,small)[class~="text-[8px]"] { font-size: 11px; line-height: 1.45; letter-spacing: .065em; }
+.g625-page .g625-eyebrow, .g2-interior .g2-eyebrow { font-size: 11px; letter-spacing: .13em; }
 @media (max-width: 720px) {
   .g-home-start-head { flex-direction: column; align-items: stretch; gap: 18px; }
   .g-home-quick { grid-template-columns: 1fr; }

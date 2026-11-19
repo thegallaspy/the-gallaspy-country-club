@@ -211,6 +211,20 @@ body { background: white; font-family: var(--g4-font); }
 }
 #nativePlayScreen .play-dashboard-nav button.play-dashboard-wide :is(span,small),
 #nativePlayScreen .play-dashboard-nav button.play-dashboard-wide::after { color: white; }
+/* PLAY — primary round actions, followed by a flat tool directory. */
+#nativePlayScreen .play-dashboard-nav { gap: 0; border-block: 1px solid var(--g4-line); }
+#nativePlayScreen .play-dashboard-nav > button { min-height: 88px; justify-content: center; gap: 6px; padding: 15px 25px 15px 12px; border: 0; border-bottom: 1px solid var(--g4-line); border-radius: 0; box-shadow: none; background: #fff; }
+#nativePlayScreen .play-dashboard-nav > button:nth-child(even) { border-left: 1px solid var(--g4-line); }
+#nativePlayScreen .play-dashboard-nav > button:not(.play-primary-action) :is(span,small), #nativePlayScreen .play-dashboard-nav > button:not(.play-primary-action)::after { color: var(--g4-ink); }
+#nativePlayScreen .play-dashboard-nav > button:not(.play-primary-action) small { color: var(--g4-muted); }
+#nativePlayScreen .play-dashboard-nav > button[data-play-target="playScorecardLaunch"] { background: #fff; border-color: var(--g4-line); box-shadow: none; }
+#nativePlayScreen .play-dashboard-nav > button[data-play-target="playScorecardLaunch"] :is(span,small), #nativePlayScreen .play-dashboard-nav > button[data-play-target="playScorecardLaunch"]::after { color: var(--g4-ink); }
+#nativePlayScreen .play-dashboard-nav > button.play-primary-action { background: #0c352d; border-bottom: 0; min-height: 104px; }
+#nativePlayScreen .play-dashboard-nav > button.play-primary-action :is(span,small), #nativePlayScreen .play-dashboard-nav > button.play-primary-action::after { color: white; }
+#nativePlayScreen .play-dashboard-nav > button.play-primary-action:nth-child(2) { background: #10263f; border-left: 1px solid #ffffff35; }
+#nativePlayScreen .play-dashboard-nav > button::after { content: "→"; top: 12px; right: 10px; font-size: 17px; }
+#nativePlayScreen .play-dashboard-nav > button span { font-size: 13px; padding-right: 0; line-height: 1.3; }
+#nativePlayScreen .play-dashboard-nav > button small { font-size: 12px; letter-spacing: 0; line-height: 1.35; }
 #nativePlayScreen .play-feature { margin-top: 18px; border-radius: var(--g4-radius); }
 #nativePlayScreen .play-feature > h3 { color: var(--g4-ink); font-size: 24px; letter-spacing: -.025em; }
 #nativePlayScreen .play-feature p, #nativePlayScreen .play-feature label { line-height: 1.55; }

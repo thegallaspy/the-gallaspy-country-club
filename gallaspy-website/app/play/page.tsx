@@ -27,7 +27,7 @@ export default function PlayPage() {
     ) ?? null;
 
   return (
-    <main className="g616-interior gsite-editorial-page g626-play bg-[#F4F0E7] text-[#10263F]">
+    <main className="g616-interior gsite-editorial-page g626-play bg-white text-[#10263F]">
       {/* HERO */}
       <section className="g626-play-hero relative overflow-hidden bg-[#10263F] px-5 pb-16 pt-36 text-white sm:px-8 sm:pb-20 sm:pt-40 lg:px-10 lg:pb-24 lg:pt-44">
         <div className="g626-play-ghost absolute right-[-4rem] top-20 text-[15rem] font-black leading-none tracking-[-0.1em] text-white/[0.025] sm:text-[22rem]">
@@ -56,19 +56,32 @@ export default function PlayPage() {
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Link
-              href="/rounds"
-              className="inline-flex min-h-[50px] items-center justify-center bg-[#FFD76A] px-7 text-[8px] font-black uppercase tracking-[0.22em] text-[#10263F] transition hover:bg-white"
+              href="/host-a-round#open-rounds"
+              className="inline-flex min-h-[50px] items-center justify-center bg-white px-7 text-[8px] font-black uppercase tracking-[0.22em] text-[#10263F] transition hover:bg-[#e7efe9]"
             >
-              Explore Gallaspy Rounds →
+              Find a Round →
             </Link>
 
-            <Link href="/host-a-round" className="g626-host-link inline-flex min-h-[50px] items-center justify-center border border-white/35 px-7 text-[8px] font-black uppercase tracking-[0.22em] text-white transition hover:border-[#FFD76A] hover:text-[#FFD76A]">Host Your Own Round →</Link>
+            <Link href="/host-a-round#host-round" className="g626-host-link inline-flex min-h-[50px] items-center justify-center border border-white/35 px-7 text-[8px] font-black uppercase tracking-[0.22em] text-white transition hover:border-white">Host Your Own Round →</Link>
             <Link href="/calendar" className="inline-flex min-h-[50px] items-center justify-center border border-white/35 px-7 text-[8px] font-black uppercase tracking-[0.22em] text-white transition hover:border-[#FFD76A] hover:text-[#FFD76A]">Club Calendar</Link>
           </div>
         </div>
       </section>
 
-      <section className="g626-play-access" aria-label="Play through My Gallaspy"><div className="g626-play-access-inner"><span>YOUR GAME. YOUR GROUP.</span><p>Host a round with friends or find new golf partners through My Gallaspy. A paid club membership is not required to host a round.</p><Link href="/host-a-round">HOST A ROUND →</Link></div></section>
+      <section className="g-play-explore" aria-labelledby="g-play-explore-title"><div className="g2-container">
+        <p className="g-home-kicker">YOUR GAME. YOUR GROUP.</p><h2 id="g-play-explore-title">Choose your next round.</h2>
+        <p className="g-play-intro">Find an open group or organize your own. A My Gallaspy account is required to host or request to join; paid club membership is not required to host.</p>
+        <nav aria-label="Round and golf tools" className="g-home-quick g-play-quick">
+          {[
+            ["FIND A ROUND","Golf Partners","Discover golfer-hosted rounds by course, date and playing style.","/host-a-round#open-rounds"],
+            ["HOST A ROUND","Bring your group together","Earn 200 points after an approved, verified completed round.","/host-a-round#host-round"],
+            ["PLAY WITH THE CLUB","Gallaspy Rounds","Explore the club's organized rounds and registration opportunities.","/rounds"],
+            ["YOUR SCHEDULE","Club calendar","Explore upcoming rounds, Range Nights and signature events.","/calendar"],
+            ["YOUR GOLF JOURNEY","My Gallaspy","Manage your rounds and golf record.","/my-gallaspy"],
+            ["COMPETE","Championship I","Explore the inaugural Gallaspy Championship and player information.","/the-gallaspy"],
+          ].map(([label,title,description,href])=><Link key={label} href={href} className="g-home-quick-link"><span className="g-home-kicker">{label}</span><strong>{title}</strong><span className="g-home-quick-detail">{description}</span><span aria-hidden="true" className="g-home-quick-arrow">→</span></Link>)}
+        </nav>
+      </div></section>
 
       {/* HOW WE PLAY */}
       <section className="border-b border-[#10263F]/10 px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">

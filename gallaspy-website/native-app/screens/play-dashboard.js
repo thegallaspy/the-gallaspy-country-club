@@ -146,6 +146,11 @@
   });
 
   nav.addEventListener("click", event => {
+    const caddie = event.target.closest("[data-play-caddie]");
+    if (caddie && nav.contains(caddie)) {
+      window.showNativeScreen?.("ai-caddie");
+      return;
+    }
     const button = event.target.closest("[data-play-target]");
     if (!button || !nav.contains(button)) return;
 
@@ -154,6 +159,11 @@
 
     active = active === target ? null : target;
     render();
+
+    if (active === "playFoursomes") {
+      const tab = {find:"foursomeFind",host:"foursomeHost",mine:"foursomeMine"}[button.dataset.playMode];
+      if (tab) document.getElementById(tab)?.click();
+    }
 
     if (active) {
       const first = panels[active][0];

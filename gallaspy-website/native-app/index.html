@@ -1032,19 +1032,27 @@
       <div class="native-screen" id="nativePlayScreen" hidden>
         <section class="play-heading">
           <p class="intro-label">THE GALLASPY GOLF CLUB</p>
-          <h2>YOUR GAME.<br>YOUR PROGRESS.</h2>
-          <p>Every round counts. Track your scores and build your playing history.</p>
+          <h2>PLAY MORE.<br>TOGETHER.</h2>
+          <p>Find your next round, bring your group together and build your game.</p>
         </section>
 
         <!-- PLAY dashboard navigation -->
         <nav class="play-dashboard-nav" aria-label="Play features">
-          <button type="button" data-play-target="playClubRounds">
-            <span>ROUNDS</span>
-            <small>CLUB EVENTS</small>
+          <button type="button" class="play-primary-action" data-play-target="playFoursomes" data-play-mode="find">
+            <span>FIND A ROUND</span>
+            <small>Browse open rounds</small>
           </button>
-          <button type="button" data-play-target="playFoursomes">
-            <span>GOLF PARTNERS</span>
-            <small>FIND YOUR GROUP</small>
+          <button type="button" class="play-primary-action" data-play-target="playFoursomes" data-play-mode="host">
+            <span>HOST A ROUND</span>
+            <small>+200 points after verified completion</small>
+          </button>
+          <button type="button" data-play-target="playClubRounds">
+            <span>GALLASPY ROUNDS</span>
+            <small>Organized club golf</small>
+          </button>
+          <button type="button" data-play-target="playFoursomes" data-play-mode="mine">
+            <span>MY ROUNDS</span>
+            <small>Manage your golf groups</small>
           </button>
           <button type="button" data-play-target="playGolfCalendar">
             <span>CALENDAR</span>
@@ -1062,8 +1070,11 @@
             <span>SCORECARD</span>
             <small>TRACK YOUR GAME</small>
           </button>
-          <button type="button" data-play-target="playProgressSection"
-                  class="play-dashboard-wide">
+          <button type="button" data-play-caddie>
+            <span>AI CADDIE</span>
+            <small>On-course advice</small>
+          </button>
+          <button type="button" data-play-target="playProgressSection">
             <span>MY PROGRESS</span>
             <small>STATS &amp; ROUND HISTORY</small>
           </button>
