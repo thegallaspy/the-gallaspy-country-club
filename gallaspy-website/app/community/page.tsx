@@ -9,6 +9,8 @@ type Comment = { id: string; body: string; created_at: string; username?: string
 type Metrics = { count: number; comments: number; liked: boolean };
 type EngagementRow = Record<string, unknown>;
 type GolferProfile = { user_id?: string; username: string; avatar_url?: string | null; username_updated_at?: string };
+type GolferDetails = {bio:string;home_course:string;experience:string;playing_style:string;personal_highlight:string;share_details:boolean};
+const emptyDetails: GolferDetails = {bio:"",home_course:"",experience:"",playing_style:"",personal_highlight:"",share_details:false};
 
 function numeric(value: unknown): number { return typeof value === "number" && Number.isFinite(value) ? value : 0; }
 function metricsFrom(row: EngagementRow): Metrics {
@@ -62,8 +64,13 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
   const [connectionMessage, setConnectionMessage] = useState("");
   const [connectionBusy, setConnectionBusy] = useState(false);
   const connectionRequest = useRef(0);
+  const [details,setDetails] = useState<GolferDetails>(emptyDetails);
+  const [detailsReady,setDetailsReady] = useState(false);
+  const [detailsBusy,setDetailsBusy] = useState(false);
+  const [detailsStatus,setDetailsStatus] = useState("");
+  const [viewedDetails,setViewedDetails] = useState<GolferDetails | null>(null);
 
-  const api = useCallback(async (accessToken: string, path: string, payload?: Record<string, string>) => {
+  const api = useCallback(async (accessToken: string, path: string, payload?: Record<string, unknown>) => {
     const response = await fetch(path, {
       method: payload ? "POST" : "GET",
       headers: { Authorization: `Bearer ${accessToken}`, ...(payload ? {"Content-Type": "application/json"} : {}) },
@@ -74,6 +81,36 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
     if (!response.ok || !data.success) throw new Error(data.error || "Community request unavailable.");
     return data;
   }, []);
+
+  useEffect(() => {
+    if (!allowed || !ownProfile) return;
+    let active = true;
+    api(token,"/api/web/community/golfer-details").then(data=>{
+      if (active) {setDetails(data.details ?? emptyDetails);setDetailsReady(true);setDetailsStatus("");}
+    }).catch(()=>{if(active){setDetailsReady(false);setDetailsStatus("Profile details are temporarily unavailable.");}});
+    return ()=>{active=false;};
+  },[allowed,ownProfile?.username,api,token]);
+
+  useEffect(()=>{
+    const id = selectedGolfer?.user_id;
+    if (!allowed || !id) return;
+    let active=true;
+    api(token,`/api/web/community/golfer-details?user_id=${encodeURIComponent(id)}`).then(data=>{
+      if(active)setViewedDetails(data.details ?? null);
+    }).catch(()=>{if(active)setViewedDetails(null);});
+    return ()=>{active=false;};
+  },[allowed,selectedGolfer?.user_id,api,token]);
+
+  async function saveDetails(event:FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!detailsReady || detailsBusy || !ownProfile) return;
+    setDetailsBusy(true);setDetailsStatus("");
+    try {
+      const data=await api(token,"/api/web/community/golfer-details",details);
+      setDetails(data.details);setDetailsStatus("Your golfer details are saved.");
+    } catch(error){setDetailsStatus(error instanceof Error?error.message:"Unable to save profile.");}
+    finally{setDetailsBusy(false);}
+  }
 
   const loadConnections = useCallback(async () => {
     const generation = ++connectionRequest.current;
@@ -125,7 +162,7 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
 
   async function viewGolfer(id: string) {
     if (acting || loading || busy || profileBusy || connectionBusy) return;
-    setProfileBusy(true); setProfileMessage(""); setSelectedGolfer(null);
+    setProfileBusy(true); setProfileMessage(""); setSelectedGolfer(null); setViewedDetails(null);
     try {
       const data = await api(token, `/api/web/community/public-profile?user_id=${encodeURIComponent(id)}`);
       setSelectedGolfer(data.profile);
@@ -179,6 +216,7 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
       if (action === "block") {
         ++connectionRequest.current;
         setSelectedGolfer(null);
+        setViewedDetails(null);
         setConnections(previous=>previous ? {following:previous.following.filter(item=>item.user_id!==post.user_id),followers:previous.followers.filter(item=>item.user_id!==post.user_id)} : null);
         void loadConnections();
         setPosts(previous => previous.filter(item => item.user_id !== post.user_id));
@@ -240,6 +278,22 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
   if (!allowed) return <div className="g2-auth-panel" role="status"><p>{loading ? "Opening the clubhouse…" : status || "Community unavailable."}</p>{!loading && <button className="g2-btn g2-btn-green" onClick={()=>refresh(token).catch(error=>setStatus(error.message))}>Try again</button>}</div>;
   return <div className="g2-feed-layout">
       <aside><p className="g2-eyebrow">SHARE WITH THE CLUB</p><form onSubmit={publish} className="g2-form-card" style={{marginTop:20}}><div className="g2-field"><label htmlFor="g2-post">Your post</label><textarea id="g2-post" rows={6} maxLength={3000} value={body} onChange={event=>setBody(event.target.value)} placeholder="A round worth sharing. A moment from the course." required /></div><button className="g2-btn g2-btn-green" style={{marginTop:22}} type="submit" disabled={busy || !body.trim()}>{busy ? "Publishing…" : "Publish post →"}</button></form><p className="g2-feedback" role="status" aria-live="polite">{status}</p>
+        <section className="g2-golfer-panel g2-social-network" aria-label="Your golfer details">
+          <p className="g2-eyebrow">MY GOLF IDENTITY</p><h2>Your game. Your story.</h2>
+          <p>Personalize your golf profile. These details are private unless you choose to share them with the clubhouse.</p>
+          {!ownProfile ? <p>Create your clubhouse username first.</p> : <form className="g2-field" onSubmit={saveDetails}>
+            <label htmlFor="golfer-bio">Biography</label><textarea id="golfer-bio" maxLength={300} rows={3} value={details.bio} onChange={e=>setDetails({...details,bio:e.target.value})} disabled={!detailsReady||detailsBusy}/>
+            <label htmlFor="golfer-course">Home course (optional)</label><input id="golfer-course" maxLength={100} value={details.home_course} onChange={e=>setDetails({...details,home_course:e.target.value})} disabled={!detailsReady||detailsBusy}/>
+            <label htmlFor="golfer-experience">Golf experience</label><select id="golfer-experience" value={details.experience} onChange={e=>setDetails({...details,experience:e.target.value})} disabled={!detailsReady||detailsBusy}><option value="">Not specified</option><option value="beginner">New to golf</option><option value="recreational">Recreational golfer</option><option value="competitive">Competitive golfer</option></select>
+            <label htmlFor="golfer-style">Preferred playing style</label><select id="golfer-style" value={details.playing_style} onChange={e=>setDetails({...details,playing_style:e.target.value})} disabled={!detailsReady||detailsBusy}><option value="">Not specified</option><option value="casual">Casual rounds</option><option value="practice">Practice and improvement</option><option value="competition">Competitive play</option></select>
+            <label htmlFor="golfer-highlight">Personal golf milestone (self-reported)</label><input id="golfer-highlight" maxLength={180} value={details.personal_highlight} onChange={e=>setDetails({...details,personal_highlight:e.target.value})} disabled={!detailsReady||detailsBusy}/>
+            <label className="g2-profile-privacy"><input type="checkbox" checked={details.share_details} onChange={e=>setDetails({...details,share_details:e.target.checked})} disabled={!detailsReady||detailsBusy}/> Share these optional details with active clubhouse members</label>
+            <p>Your username and existing community posts remain visible under the existing clubhouse rules. Your official performance record stays private.</p>
+            <button type="submit" className="g2-btn g2-btn-green" disabled={!detailsReady||detailsBusy}>{detailsBusy?"Saving…":"Save golfer profile"}</button>
+          </form>}
+          <p className="g2-feedback" role="status">{detailsStatus}</p><Link href="/my-gallaspy/home" className="g2-line-link">View my personal golf record →</Link>
+        </section>
+        {selectedGolfer && viewedDetails && <section className="g2-golfer-panel" aria-label="Shared golfer details"><p className="g2-eyebrow">GOLFER PROFILE</p><h2>@{selectedGolfer.username}</h2>{viewedDetails.bio && <p>{viewedDetails.bio}</p>}<dl className="g2-golfer-facts">{viewedDetails.home_course && <><dt>Home course</dt><dd>{viewedDetails.home_course}</dd></>}{viewedDetails.experience && <><dt>Experience</dt><dd>{viewedDetails.experience}</dd></>}{viewedDetails.playing_style && <><dt>Playing style</dt><dd>{viewedDetails.playing_style}</dd></>}{viewedDetails.personal_highlight && <><dt>Self-reported milestone</dt><dd>{viewedDetails.personal_highlight}</dd></>}</dl></section>}
         <section className="g2-golfer-panel g2-social-network" aria-label="Your social connections">
           <p className="g2-eyebrow">YOUR GOLF NETWORK</p><h2>Better together.</h2>
           <p>Follow golfers you enjoy playing with and keep up with their recent posts.</p>

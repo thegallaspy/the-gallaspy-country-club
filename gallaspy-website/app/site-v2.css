@@ -32,6 +32,9 @@
 .g2-comment-form{display:flex;gap:8px;margin-top:15px}.g2-comment-form input{min-width:0;flex:1;border:1px solid #cddbd3;padding:12px;background:white;color:#0a2443}.g2-comment-form button{padding:10px 16px;background:#154b39;color:#fff;font-weight:700}
 @media(max-width:760px){.g2-hero h1{font-size:clamp(2.65rem,10vw,5rem)}.g2-champ-logo{height:190px;width:min(75%,210px)}.g2-comment-form{flex-wrap:wrap}}
 
+/* Optional golfer identity details. */
+.g2-profile-privacy{display:flex!important;align-items:flex-start;gap:10px;line-height:1.5}.g2-profile-privacy input[type=checkbox]{width:18px;height:18px;flex:none;accent-color:#154b39}.g2-golfer-facts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:12px;margin-top:18px;font-size:13px}.g2-golfer-facts dt{font-weight:700;color:#536b75}.g2-golfer-facts dd{margin:0;overflow-wrap:anywhere;color:#0a2443}.g2-golfer-panel textarea{resize:vertical}.g2-golfer-panel p{overflow-wrap:anywhere}
+
 /* Social connections: compact clubhouse network. */
 .g2-social-network{margin-top:24px}.g2-social-network details{border-top:1px solid #dce5df;padding:14px 0}.g2-social-network summary{font-weight:800;font-size:14px;cursor:pointer;color:#0a2443}.g2-network-person{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px}.g2-network-person button,.g2-network-refresh{background:transparent;border:1px solid #cddbd3;color:#154b39;border-radius:5px;padding:8px 10px;font-weight:700;cursor:pointer;overflow-wrap:anywhere}.g2-network-person button:first-child{border:0;text-align:left;padding-left:0;min-width:0}.g2-social-network .g2-community-filters{margin-bottom:16px}.g2-social-network .g2-golfer-preview{margin-bottom:16px}
 
