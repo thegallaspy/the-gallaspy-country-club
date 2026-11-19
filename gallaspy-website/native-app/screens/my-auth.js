@@ -100,7 +100,7 @@
     }
 
     if (
-      url.origin !== CALLBACK_ORIGIN ||
+      `${url.protocol}//${url.host}` !== CALLBACK_ORIGIN ||
       url.pathname !== CALLBACK_PATH
     ) {
       return;

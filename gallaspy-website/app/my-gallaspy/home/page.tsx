@@ -110,6 +110,9 @@ export default async function MyGallaspyHomePage() {
           <Link href="/host-a-round#open-rounds" className="mt-4 block underline">
             Browse open rounds
           </Link>
+          <Link href="/my-gallaspy/rewards" className="mt-4 block underline">
+            Explore Gallaspy Rewards
+          </Link>
         </div>
       </main>
     );
@@ -239,6 +242,9 @@ export default async function MyGallaspyHomePage() {
                 club history in one private place.
               </p>
               <div className="mt-6 flex flex-wrap items-center gap-4">
+                <Link href="/my-gallaspy/rewards" className="inline-flex min-h-11 items-center border border-[#164B3A] px-4 py-2 text-sm font-semibold text-[#164B3A]">
+                  My Rewards →
+                </Link>
                 <Link href="/host-a-round#host-round"
                   className="inline-flex min-h-11 items-center bg-[#164B3A] px-4 py-2 text-sm font-semibold text-white">
                   Host a round
@@ -399,7 +405,7 @@ export default async function MyGallaspyHomePage() {
 
             <div className="bg-white/65 p-5 sm:p-6">
               <p className="text-[7px] font-black uppercase tracking-[0.22em] text-[#8B6A34]">
-                Completed
+                Past registrations
               </p>
 
               <p className="mt-3 text-4xl font-black tracking-[-0.05em]">

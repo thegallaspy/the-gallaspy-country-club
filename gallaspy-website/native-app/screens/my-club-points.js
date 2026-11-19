@@ -6,6 +6,7 @@
   const lifetime = $("myLifetimePoints");
   const message = $("myPointsMessage");
   const activity = $("myPointsActivity");
+  const refreshButton = $("myPointsRefresh");
   if (!available || !lifetime || !message || !activity) return;
 
   let requestVersion = 0;
@@ -63,10 +64,12 @@
 
   async function refreshPoints() {
     const version = ++requestVersion;
+    if (refreshButton) refreshButton.disabled = true;
     reset("Checking your Club Points account…");
     const auth = window.gallaspyAuth;
     if (!auth?.getUser || !auth?.getClubPoints) {
       reset("Club Points are unavailable right now.");
+      if (refreshButton) refreshButton.disabled = false;
       return;
     }
 
@@ -84,7 +87,8 @@
       if (version !== requestVersion) return;
       const current = await auth.getUser();
       if (version !== requestVersion) return;
-      if (current?.error || current?.data?.user?.id !== user.id) {
+      const currentUser = current?.data?.user ?? current?.user ?? current;
+      if (current?.error || currentUser?.id !== user.id) {
         reset("Account changed. Refresh Club Points to continue.");
         return;
       }
@@ -95,6 +99,8 @@
     } catch (error) {
       if (version !== requestVersion) return;
       reset(error?.message || "Unable to load Club Points. Please try again.");
+    } finally {
+      if (version === requestVersion && refreshButton) refreshButton.disabled = false;
     }
   }
 
@@ -102,6 +108,7 @@
     ++requestVersion;
     if (event?.detail?.signedIn === false) {
       reset("Sign in to view your Club Points.");
+      if (refreshButton) refreshButton.disabled = false;
     } else {
       refreshPoints();
     }
@@ -109,6 +116,7 @@
 
   document.querySelector('[data-route="/my-gallaspy"]')
     ?.addEventListener("click", refreshPoints);
+  refreshButton?.addEventListener("click", refreshPoints);
 
   reset("Sign in to view your Club Points.");
   refreshPoints();

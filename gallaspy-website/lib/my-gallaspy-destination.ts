@@ -1,5 +1,6 @@
 const allowedDestinations = new Set([
   "/my-gallaspy/home",
+  "/my-gallaspy/rewards",
   "/host-a-round",
   "/membership/checkout",
   "/membership/checkout?plan=monthly",

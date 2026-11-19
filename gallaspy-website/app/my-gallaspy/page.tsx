@@ -189,6 +189,10 @@ function MyGallaspyAccess() {
                 </div>
               </div>
 
+              <div aria-label={pendingEmail ? "Step 2 of 2: verify email" : "Step 1 of 2: enter email"} className="mt-6 grid grid-cols-2 gap-2 text-xs font-semibold !text-[#10263F]">
+                <span className="border-t-4 border-[#164B3A] pt-2">01 · Your email</span>
+                <span className={`border-t-4 pt-2 ${pendingEmail ? "border-[#164B3A]" : "border-[#10263F]/15"}`}>02 · Verify</span>
+              </div>
               <p className="mt-6 text-sm leading-7 !text-[#10263F]/60">
                 {creating
                   ? "Create your My Gallaspy account at no cost. No paid club membership required."
@@ -225,7 +229,7 @@ function MyGallaspyAccess() {
                 )}
 
                 {error && (
-                  <p className="mt-5 text-sm !text-[#8E2633]">
+                  <p role="alert" className="mt-5 text-sm !text-[#8E2633]">
                     {error}
                   </p>
                 )}
@@ -261,7 +265,7 @@ function MyGallaspyAccess() {
                   pattern="[0-9]{6}"
                   value={code}
                   onChange={(event) =>
-                    setCode(event.target.value.replace(/\\D/g, ""))
+                    setCode(event.target.value.replace(/[^0-9]/g, "").slice(0, 6))
                   }
                   required
                   className="mt-3 min-h-[58px] w-full border border-[#10263F]/20 bg-white px-4 text-center text-2xl tracking-[0.35em] !text-[#10263F]"
@@ -269,7 +273,7 @@ function MyGallaspyAccess() {
                 <p className="mt-3 text-sm !text-[#10263F]/60">
                   Code sent to {pendingEmail}
                 </p>
-                {message && <p className="mt-4 text-sm !text-[#10263F]">{message}</p>}
+                {message && <p role="status" className="mt-4 text-sm !text-[#10263F]">{message}</p>}
                 {error && <p role="alert" className="mt-4 text-sm !text-[#8E2633]">{error}</p>}
                 <button
                   type="submit"
