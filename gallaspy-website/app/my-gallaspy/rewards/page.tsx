@@ -41,7 +41,13 @@ export default async function RewardsPage() {
           <div><p className="text-xs !text-white/80">Available points</p><p className="mt-2 break-words text-4xl font-black tabular-nums !text-white sm:text-6xl">{balance && !balance.error ? number.format(balance.data?.available_points ?? 0) : "—"}</p></div>
           <div className="border-l border-white/20 pl-5"><p className="text-xs !text-white/80">Lifetime earned</p><p className="mt-2 break-words text-4xl font-black tabular-nums !text-white sm:text-6xl">{balance && !balance.error ? number.format(balance.data?.lifetime_earned ?? 0) : "—"}</p></div>
         </div>
-        <p className="mt-8 text-sm !text-white/80">{balance && !balance.error ? "Redemption is not yet available. Keep building your balance." : "Your balance is temporarily unavailable. Please refresh to try again."}</p>
+        <p className="mt-8 text-sm !text-white/80">{balance && !balance.error ? "Eligible apparel redemptions appear at checkout when available." : "Your balance is temporarily unavailable. Please refresh to try again."}</p>
+      </section>
+      <section className="mt-8 rounded-xl border border-[#10263F]/15 p-5" aria-labelledby="status-heading">
+        <p className="text-xs font-bold uppercase tracking-widest text-[#164B3A]">Planned status program</p>
+        <h2 id="status-heading" className="mt-2 text-xl font-black">Your next chapter.</h2>
+        <ul className="gallaspy-reward-tiers mt-4"><li>Bronze</li><li>Gold</li><li>Platinum</li></ul>
+        <p className="mt-4 text-sm leading-6 text-[#47596A]">Status criteria and tier benefits have not been published. No tier is assigned yet.</p>
       </section>
       <section className="mt-10" aria-labelledby="earn-heading">
         <h2 id="earn-heading" className="text-2xl font-black tracking-tight">Make your next move.</h2>

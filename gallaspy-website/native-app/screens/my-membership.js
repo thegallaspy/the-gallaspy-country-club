@@ -16,6 +16,7 @@
   if (!message || !status || !number || !type || !founder) return;
 
   let requestVersion = 0;
+  let membershipDestination = "/membership";
 
   function display({
     text,
@@ -24,6 +25,7 @@
     membershipType = "—",
     founderNumber = "—",
     billing = null,
+    verified = false,
     benefitsText = "Sign in to check your membership benefits."
   }) {
     message.textContent = text;
@@ -31,6 +33,9 @@
     number.textContent = membershipNumber;
     type.textContent = membershipType;
     founder.textContent = founderNumber;
+    membershipDestination = verified ? "/my-gallaspy/benefits" : "/membership";
+    const action = $("myMembership");
+    if (action) action.textContent = verified ? "VIEW MEMBER BENEFITS →" : "EXPLORE MEMBERSHIP PLANS →";
 
     const validBilling =
       billing &&
@@ -145,6 +150,7 @@
 
       display({
         text: membershipMessage,
+        verified: approved,
         billing: falcon ? null : membership.billing,
         membershipStatus: membershipLabel,
         benefitsText: approved ? (falcon ? "Falcon Society membership verified. Founder privileges apply." : "Standard Membership verified. Eligible benefits are available.") : "No active membership verified. Benefits are unavailable.",
@@ -173,8 +179,8 @@
   }
 
   $("myMembership")?.addEventListener("click", () => {
-    // Open the verified website checkout. Never activate membership client-side.
-    window.openClubRoute?.("/membership/checkout");
+    // The website verifies membership independently. Never activate it client-side.
+    window.openClubRoute?.(membershipDestination);
   });
 
   window.addEventListener("gallaspy:auth-changed", event => {

@@ -11,7 +11,7 @@ const benefits = [
   ["A connected community", "A monthly networking or social opportunity and access to Golf Partners connections."],
   ["Member priority access", "Normally a 72-hour early-registration window where offered, subject to eligibility and event capacity. Gallaspy Cup team selection is never guaranteed."],
   ["The Pro Shop", "Up to 25% off select eligible Gallaspy apparel."],
-  ["Gallaspy Rewards", "Points for eligible, verified activities and apparel purchases. Redemption options are being prepared."],
+  ["Gallaspy Rewards", "Points for eligible, verified activities and apparel purchases. Eligible redemptions appear at checkout when available."],
   ["A club identity", "A distinct membership number and members-only experiences."],
   ["Handicap service · planned", "GHIN handicap access is intended, pending USGA/GSGA authorization and per-member arrangements."],
 ];
@@ -21,11 +21,16 @@ export default function MembershipPage() {
     <main className="g625-page g625-membership">
       <div data-gallaspy-public-account-cta="true" className="mx-auto my-8 flex max-w-5xl flex-col items-center gap-3 rounded-xl border border-[#D7E1E7] bg-white px-6 py-7 text-center text-[#10263F]">
         <p className="text-lg font-semibold">Your Gallaspy experience starts here.</p>
-        <p className="max-w-xl text-sm text-[#47596A]">Create your Gallaspy account to access the digital clubhouse. An account is separate from paid club membership.</p>
+        <p className="max-w-xl text-sm text-[#47596A]">Create your Gallaspy account to explore public golf opportunities and manage your player record. An account is separate from paid club membership.</p>
         <a href="/my-gallaspy" className="inline-flex min-h-12 items-center justify-center rounded-md bg-[#10263F] px-8 py-3 text-sm font-bold tracking-wide text-white">
           CREATE AN ACCOUNT
         </a>
       </div>
+      <section className="gallaspy-membership-options g625-container" aria-label="Ways to participate">
+        <article><p>01 / ACCOUNT</p><h2>My Gallaspy</h2><span>Explore public golf opportunities and manage your player record. Not official membership.</span><Link href="/my-gallaspy">Create an account →</Link></article>
+        <article><p>02 / MEMBERSHIP</p><h2>Standard</h2><span>Official club membership after verified payment. Monthly and annual plans.</span><a href="#membership-pricing">Compare plans →</a></article>
+        <article><p>03 / FOUNDING 100</p><h2>Falcon Society</h2><span>A separate, application-based membership subject to approval.</span><Link href="/falcon-society">Explore Falcon Society →</Link></article>
+      </section>
 
       <section className="g625-member-hero"><div className="g625-container g625-member-hero-grid"><div><p className="g625-eyebrow g625-on-dark">THE GALLASPY GOLF CLUB / MEMBERSHIP</p><h1>A PLACE IN <em>THE STORY.</em></h1><p className="g625-lede">A club built through golf, relationships, and the traditions we create. Membership is one way to take part in what comes next.</p><a href="#membership-privileges" className="g625-button g625-button-light">Explore the privileges <span aria-hidden="true">↓</span></a></div><div className="g625-member-hero-aside"><span>01 / MEMBERSHIP</span><p>THE GALLASPY</p><strong>PLAY.<br/>COMPETE.<br/>GATHER.</strong><small>MEMBERSHIP IS ABOUT PARTICIPATION, NOT OWNERSHIP OF A COURSE.</small></div></div></section>
       <section className="g625-section g625-member-privileges" id="membership-privileges"><div className="g625-container"><div className="g625-split"><div><p className="g625-eyebrow">01 / MEMBER PRIVILEGES</p><h2>GOLF. CONNECTION. <em>ACCESS.</em></h2></div><div className="g625-copy-column"><p className="g625-emphasis">A membership designed around the way we actually play.</p><p>From organized rounds to new connections, the privileges are built to give members meaningful ways to participate. Course green fees are not included in membership.</p></div></div><div className="g625-benefits-grid">{benefits.map(([name, copy], i) => <article key={name}><span>{String(i + 1).padStart(2, "0")}</span><h3>{name}</h3><p>{copy}</p></article>)}</div></div></section>

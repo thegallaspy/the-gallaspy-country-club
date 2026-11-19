@@ -277,7 +277,7 @@ export default async function MyGallaspyHomePage() {
             ["HOST","Host a round","Earn 200 points after verified completion.","/host-a-round#host-round"],
             ["YOUR SCHEDULE","My rounds","Manage your hosted rounds, requests and invitations.","/host-a-round#my-rounds"],
             ["REWARDS","Club Points","View your balance and eligible rewards activity.","/my-gallaspy/rewards"],
-            ["BELONG","Club membership","Explore official membership and privileges.","/membership"],
+            ["BELONG","Member benefits wallet","Check your verified membership and explore club privileges.","/my-gallaspy/benefits"],
             ["ACCOUNT","Membership documents","Access your available membership documents.","/my-gallaspy/documents"],
           ].map(([label,title,detail,href])=><Link key={label} href={href} className="g-home-quick-link"><span className="g-home-kicker">{label}</span><strong>{title}</strong><span className="g-home-quick-detail">{detail}</span><span className="g-home-quick-arrow" aria-hidden="true">→</span></Link>)}
         </nav>

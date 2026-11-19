@@ -236,7 +236,17 @@ main:is([class~="bg-[#F4F0E7]"],[class~="bg-[#F7F4EE]"],[class~="bg-[#F5F0E6]"],
 .gallaspy-event-detail :is(a,button)[class~="text-[8px]"],
 .gallaspy-event-detail :is(a,button)[class~="text-[9px]"] { font-size: 11px; letter-spacing: .06em; }
 .gallaspy-event-nav nav { scrollbar-width: thin; }
+.gallaspy-membership-options { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; padding-block:28px; }
+.gallaspy-membership-options article { display:flex; flex-direction:column; gap:12px; padding:24px; border:1px solid #dce5df; border-top:3px solid #174a38; border-radius:6px; background:#f5f8f6; color:#10263f; }
+.gallaspy-membership-options article p { font-size:11px; font-weight:800; letter-spacing:.1em; color:#174a38; }
+.gallaspy-membership-options article h2 { font-size:clamp(21px,2.4vw,30px); font-weight:850; line-height:1.1; }
+.gallaspy-membership-options article span { font-size:14px; line-height:1.6; }
+.gallaspy-membership-options article a { margin-top:auto; padding-block:8px; color:#174a38; font-size:14px; font-weight:750; }
+.gallaspy-falcon-membership :is(h1,h2,h3).font-serif { font-family:inherit; font-weight:800; }
+.gallaspy-reward-tiers { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; list-style:none; padding:0; }
+.gallaspy-reward-tiers li { border:1px solid #dce5df; border-radius:6px; padding:12px 4px; text-align:center; font-weight:750; font-size:13px; color:#10263f; }
 @media (max-width: 760px) {
+  .gallaspy-membership-options { grid-template-columns:1fr; }
   .gallaspy-calendar-signature-grid { grid-template-columns: 1fr; gap: 10px; }
   .gallaspy-calendar-signature { min-height: 124px; padding: 18px; }
 }

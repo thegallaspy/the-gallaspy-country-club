@@ -52,7 +52,7 @@ export default function FalconSocietyPage() {
       : Math.min(100, Math.max(0, (confirmedCount / goal) * 100));
 
   return (
-    <main className="bg-[#F7F4EE] text-[#10263F]">
+    <main className="gallaspy-falcon-membership bg-white text-[#10263F]">
       {/* HERO */}
       <section className="relative overflow-hidden bg-[#8C1D2C] px-5 pb-20 pt-32 text-white sm:px-8 sm:pb-24 sm:pt-36 lg:pb-28 lg:pt-40">
         <div className="absolute inset-0 opacity-[0.08]">
@@ -66,7 +66,7 @@ export default function FalconSocietyPage() {
               The Founding 100
             </p>
 
-            <h1 className="mt-6 font-serif text-[3.4rem] font-light leading-[0.95] text-white sm:text-6xl lg:text-[5.5rem]">
+            <h1 className="mt-6 text-[3.4rem] font-black tracking-tight leading-[0.95] text-white sm:text-6xl lg:text-[5.5rem]">
               The Falcon
               <span className="block">Society.</span>
             </h1>
@@ -78,6 +78,7 @@ export default function FalconSocietyPage() {
               100 individuals and families selected to become part of the
               community during its opening chapter.
             </p>
+            <p className="mt-4 text-sm leading-6 text-white">Falcon Society is application-based and separate from Standard Membership and My Gallaspy accounts.</p>
 
             <p className="mt-5 max-w-3xl text-sm leading-7 text-white/65">
               Before a permanent first tee, there are rounds to play,
