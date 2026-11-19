@@ -266,8 +266,31 @@
     all: "ALL SKILL LEVELS"
   };
 
+  const filterCourse = $("foursomeSearchCourse");
+  const filterStyle = $("foursomeSearchStyle");
+  const filterDate = $("foursomeSearchDate");
+  const filterCount = $("foursomeFilterCount");
+  function applyFilters() {
+    const cards = [...(listings?.querySelectorAll("[data-round-course]") || [])];
+    let visible = 0;
+    for (const card of cards) {
+      const matches = card.dataset.roundCourse.includes((filterCourse?.value || "").trim().toLowerCase()) &&
+        (!filterStyle?.value || card.dataset.roundStyle === filterStyle.value) &&
+        (!filterDate?.value || card.dataset.roundDate === filterDate.value);
+      card.hidden = !matches;
+      if (matches) visible++;
+    }
+    if (filterCount) filterCount.textContent = cards.length ? `${visible} of ${cards.length} listed rounds${visible ? "" : " — no matches"}` : "";
+  }
+  [filterCourse, filterStyle, filterDate].forEach(control => control?.addEventListener("input", applyFilters));
+  $("foursomeClearFilters")?.addEventListener("click", () => {
+    [filterCourse, filterStyle, filterDate].forEach(control => { if (control) control.value = ""; });
+    applyFilters();
+  });
+
   async function loadFoursomes() {
     if (!listings) return;
+    if (filterCount) filterCount.textContent = "";
 
     listings.replaceChildren(
       element("p", "Loading available rounds...")
@@ -307,6 +330,9 @@
 
       for (const round of rounds) {
         const card = element("article", undefined, "foursome-card");
+        card.dataset.roundCourse = String(round.course_name || "").toLowerCase();
+        card.dataset.roundStyle = String(round.playing_style || "");
+        card.dataset.roundDate = String(round.round_date || "");
 
         card.append(
           element("h4", round.course_name || "Golf Round"),
@@ -370,6 +396,7 @@
 
         listings.append(card);
       }
+      applyFilters();
     } catch (error) {
       listings.replaceChildren(
         element(

@@ -41,8 +41,18 @@ export async function GET(request: NextRequest) {
       .limit(24);
     const { data, error } = await (roundId ? query.eq("id", roundId) : query);
     if (error) throw error;
+    const listed = data ?? [];
+    const approved = listed.length ? await admin
+        .from("gallaspy_foursome_requests")
+        .select("foursome_id", { count: "exact" })
+        .in("foursome_id", listed.map(round => round.id))
+        .eq("status", "approved").limit(500) : null;
+    const counts = new Map<string, number>();
+    const complete = approved && !approved.error && approved.count === approved.data?.length;
+    if (complete) for (const row of approved.data ?? []) counts.set(row.foursome_id, (counts.get(row.foursome_id) ?? 0) + 1);
+    const rounds = listed.map(round => ({ ...round, spots_left: complete ? Math.max(0, round.max_players - 1 - (counts.get(round.id) ?? 0)) : null }));
     return NextResponse.json(
-      { success: true, rounds: data ?? [] },
+      { success: true, rounds },
       { headers: { "Cache-Control": "no-store" } },
     );
   } catch {

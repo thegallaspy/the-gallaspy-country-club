@@ -9,6 +9,7 @@ type Round = {
   tee_time: string;
   playing_style: string;
   max_players: number;
+  spots_left?: number | null;
   status: string;
 };
 export default function HostRoundPage() {
@@ -100,7 +101,15 @@ export default function HostRoundPage() {
   }, [token, playerStatus]);
   const [loadError, setLoadError] = useState("");
   const [publishedRound, setPublishedRound] = useState<string | null>(null);
-  const [requestedRound, setRequestedRound] = useState<string | null>(null);
+  const [requestedRounds, setRequestedRounds] = useState<string[]>([]);
+  const [courseSearch, setCourseSearch] = useState("");
+  const [styleFilter, setStyleFilter] = useState("");
+  const [dateFilter, setDateFilter] = useState("");
+  const styles: Record<string, string> = { social: "Social", beginner: "Beginner friendly", competitive: "Competitive", all: "All levels" };
+  const visibleRounds = rounds.filter(round =>
+    round.course_name.toLowerCase().includes(courseSearch.trim().toLowerCase()) &&
+    (!styleFilter || round.playing_style === styleFilter) &&
+    (!dateFilter || round.round_date === dateFilter));
   const load = () => {
     setLoading(true);
     setLoadError("");
@@ -163,7 +172,7 @@ export default function HostRoundPage() {
       const data = await response.json();
       if (!response.ok || !data.success)
         throw new Error(data.error || "Unable to request a place.");
-      setRequestedRound(id);
+      setRequestedRounds(previous => [...previous, id]);
       setJoinNotice(
         "Request sent to the round host. Your place is not confirmed until approved.",
       );
@@ -421,6 +430,13 @@ export default function HostRoundPage() {
             </div>
             <span>GOLFER-HOSTED</span>
           </div>
+          <div className="g3-round-filters" aria-label="Filter open rounds">
+            <label>Search by course<input type="search" placeholder="Enter a course name" value={courseSearch} onChange={event => setCourseSearch(event.target.value)} /></label>
+            <label>Playing style<select value={styleFilter} onChange={event => setStyleFilter(event.target.value)}><option value="">Any style</option>{Object.entries(styles).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
+            <label>Round date<input type="date" value={dateFilter} onChange={event => setDateFilter(event.target.value)} /></label>
+            <button type="button" onClick={() => { setCourseSearch(""); setStyleFilter(""); setDateFilter(""); }}>Clear filters</button>
+          </div>
+          {!loading && !loadError && <p role="status" className="g3-round-count">{visibleRounds.length} of {rounds.length} listed rounds</p>}
           {loading ? (
             <p>Loading open rounds…</p>
           ) : loadError ? (
@@ -430,8 +446,8 @@ export default function HostRoundPage() {
                 Try again
               </button>
             </p>
-          ) : rounds.length ? (
-            rounds.map((round) => (
+          ) : visibleRounds.length ? (
+            visibleRounds.map((round) => (
               <article className="g2-event" key={round.id}>
                 <div className="g2-event-number">
                   <small>
@@ -446,22 +462,23 @@ export default function HostRoundPage() {
                 <div className="g2-event-info">
                   <h3>{round.course_name}</h3>
                   <p>
-                    {round.tee_time} · {round.playing_style} · Up to{" "}
+                    {round.tee_time.slice(0, 5)} · {styles[round.playing_style] ?? "Golf round"} · Up to{" "}
                     {round.max_players} players
                   </p>
+                  <p className="g3-round-count">{typeof round.spots_left === "number" ? `${round.spots_left} ${round.spots_left === 1 ? "spot" : "spots"} available` : "Availability unavailable"}</p>
                 </div>
-                {token && playerStatus !== "ready" ? (
+                {round.spots_left === 0 ? <span className="g2-event-link">Full</span> : token && playerStatus !== "ready" ? (
                   <Link href="#host-round" className="g2-event-link">
                     Player profile →
                   </Link>
                 ) : token ? (
                   <button
                     type="button"
-                    disabled={busy || requestedRound === round.id}
+                    disabled={busy || requestedRounds.includes(round.id)}
                     onClick={() => requestSeat(round.id)}
                     className="g2-event-link"
                   >
-                    {requestedRound === round.id
+                    {requestedRounds.includes(round.id)
                       ? "Request sent"
                       : "Request to join →"}
                   </button>
@@ -476,7 +493,7 @@ export default function HostRoundPage() {
               </article>
             ))
           ) : (
-            <p>New hosted rounds will appear here when golfers share them.</p>
+            <p>{rounds.length ? "No rounds match your filters. Try another course, style or date." : "New hosted rounds will appear here when golfers share them."}</p>
           )}
         </section>
       </div>

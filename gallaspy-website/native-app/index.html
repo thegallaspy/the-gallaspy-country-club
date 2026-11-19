@@ -1190,6 +1190,13 @@
 
           <div id="foursomeBrowse">
             <p class="intro-label">AVAILABLE ROUNDS</p>
+            <div class="play-fields" aria-label="Filter available rounds">
+              <label>COURSE<input id="foursomeSearchCourse" type="search" placeholder="Search courses"></label>
+              <label>PLAYING STYLE<select id="foursomeSearchStyle"><option value="">Any style</option><option value="social">Social</option><option value="beginner">Beginner friendly</option><option value="competitive">Competitive</option><option value="all">All levels</option></select></label>
+              <label>DATE<input id="foursomeSearchDate" type="date"></label>
+              <button id="foursomeClearFilters" type="button">CLEAR FILTERS</button>
+            </div>
+            <p id="foursomeFilterCount" role="status" aria-live="polite"></p>
             <div id="foursomeListings">
               <p>Round discovery is coming soon.</p>
             </div>
