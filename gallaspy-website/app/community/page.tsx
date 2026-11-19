@@ -1,5 +1,5 @@
 "use client";
-import { FormEvent, useCallback, useEffect, useState } from "react";
+import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 
@@ -48,7 +48,7 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
   const [acting, setActing] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [allowed, setAllowed] = useState(false);
-  const [filter, setFilter] = useState<"all" | "mine" | "photos">("all");
+  const [filter, setFilter] = useState<"all" | "mine" | "photos" | "following">("all");
   const [report, setReport] = useState<string | null>(null);
   const [reason, setReason] = useState("");
   const [ownProfile, setOwnProfile] = useState<GolferProfile | null>(null);
@@ -58,6 +58,10 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
   const [profileBusy, setProfileBusy] = useState(false);
   const [selectedGolfer, setSelectedGolfer] = useState<GolferProfile | null>(null);
   const [golferQuery, setGolferQuery] = useState("");
+  const [connections, setConnections] = useState<{following:GolferProfile[];followers:GolferProfile[]} | null>(null);
+  const [connectionMessage, setConnectionMessage] = useState("");
+  const [connectionBusy, setConnectionBusy] = useState(false);
+  const connectionRequest = useRef(0);
 
   const api = useCallback(async (accessToken: string, path: string, payload?: Record<string, string>) => {
     const response = await fetch(path, {
@@ -70,6 +74,29 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
     if (!response.ok || !data.success) throw new Error(data.error || "Community request unavailable.");
     return data;
   }, []);
+
+  const loadConnections = useCallback(async () => {
+    const generation = ++connectionRequest.current;
+    try {
+      const data = await api(token,"/api/web/community/connections");
+      if (generation !== connectionRequest.current) return;
+      setConnections({following:data.following,followers:data.followers});
+      setConnectionMessage("");
+    } catch { if (generation === connectionRequest.current) { setConnections(null); setConnectionMessage("Connections are temporarily unavailable."); } }
+  }, [api,token]);
+
+  useEffect(() => { if (allowed) void loadConnections(); }, [allowed,loadConnections]);
+
+  async function changeFollow(golfer: GolferProfile) {
+    if (!golfer.user_id || !connections || connectionBusy || acting || loading || busy || profileBusy) return;
+    setConnectionBusy(true); setConnectionMessage("");
+    const following = connections.following.some(item=>item.user_id===golfer.user_id);
+    try {
+      await api(token,"/api/web/community/connections",{action:following?"unfollow":"follow",user_id:golfer.user_id});
+      await loadConnections();
+    } catch (error) { setConnectionMessage(error instanceof Error ? error.message : "Unable to update connection."); }
+    finally { setConnectionBusy(false); }
+  }
 
   useEffect(() => {
     if (!allowed) return;
@@ -97,7 +124,7 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
   }
 
   async function viewGolfer(id: string) {
-    if (acting || loading || busy || profileBusy) return;
+    if (acting || loading || busy || profileBusy || connectionBusy) return;
     setProfileBusy(true); setProfileMessage(""); setSelectedGolfer(null);
     try {
       const data = await api(token, `/api/web/community/public-profile?user_id=${encodeURIComponent(id)}`);
@@ -142,7 +169,7 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
   }, [token, refresh]);
 
   async function moderate(post: Post, action: "report" | "block") {
-    if (acting || loading || busy || profileBusy || post.user_id === userId) return;
+    if (acting || loading || busy || profileBusy || connectionBusy || post.user_id === userId) return;
     if (action === "report" && reason.trim().length < 5) { setStatus("Please include a reason of at least five characters."); return; }
     if (action === "block" && !window.confirm("Block this golfer and hide each other's posts?")) return;
     setActing(post.id); setStatus("");
@@ -150,7 +177,10 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
       await api(token, "/api/web/community/engagement", action === "report" ? {action, post_id:post.id, reason:reason.trim()} : {action, user_id:post.user_id});
       setReport(null); setReason("");
       if (action === "block") {
+        ++connectionRequest.current;
         setSelectedGolfer(null);
+        setConnections(previous=>previous ? {following:previous.following.filter(item=>item.user_id!==post.user_id),followers:previous.followers.filter(item=>item.user_id!==post.user_id)} : null);
+        void loadConnections();
         setPosts(previous => previous.filter(item => item.user_id !== post.user_id));
         setComments({}); setExpanded({}); setDrafts({});
         setStatus("Golfer blocked.");
@@ -204,18 +234,31 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
     finally { setActing(null); }
   }
 
-  const visible = posts.filter(post => filter === "all" || (filter === "mine" ? post.user_id === userId : Boolean(post.photos?.length)));
+  const visible = posts.filter(post => filter === "all" || (filter === "mine" ? post.user_id === userId : filter === "following" ? connections?.following.some(item=>item.user_id===post.user_id) : Boolean(post.photos?.length)));
   const golfers = [...new Map(posts.filter(post=>post.user_id!==userId && post.username).map(post=>[post.user_id,post])).values()].filter(post=>post.username?.toLowerCase().includes(golferQuery.trim().toLowerCase()));
   const nextHandleChange = ownProfile?.username_updated_at ? new Date(new Date(ownProfile.username_updated_at).getTime()+30*86400000) : null;
   if (!allowed) return <div className="g2-auth-panel" role="status"><p>{loading ? "Opening the clubhouse…" : status || "Community unavailable."}</p>{!loading && <button className="g2-btn g2-btn-green" onClick={()=>refresh(token).catch(error=>setStatus(error.message))}>Try again</button>}</div>;
   return <div className="g2-feed-layout">
-      <aside><p className="g2-eyebrow">SHARE WITH THE CLUB</p><form onSubmit={publish} className="g2-form-card" style={{marginTop:20}}><div className="g2-field"><label htmlFor="g2-post">Your post</label><textarea id="g2-post" rows={6} maxLength={3000} value={body} onChange={event=>setBody(event.target.value)} placeholder="A round worth sharing. A moment from the course." required /></div><button className="g2-btn g2-btn-green" style={{marginTop:22}} type="submit" disabled={busy || !body.trim()}>{busy ? "Publishing…" : "Publish post →"}</button></form><p className="g2-feedback" role="status" aria-live="polite">{status}</p><Link href="/my-gallaspy/home" className="g2-line-link">Back to My Gallaspy →</Link></aside>
+      <aside><p className="g2-eyebrow">SHARE WITH THE CLUB</p><form onSubmit={publish} className="g2-form-card" style={{marginTop:20}}><div className="g2-field"><label htmlFor="g2-post">Your post</label><textarea id="g2-post" rows={6} maxLength={3000} value={body} onChange={event=>setBody(event.target.value)} placeholder="A round worth sharing. A moment from the course." required /></div><button className="g2-btn g2-btn-green" style={{marginTop:22}} type="submit" disabled={busy || !body.trim()}>{busy ? "Publishing…" : "Publish post →"}</button></form><p className="g2-feedback" role="status" aria-live="polite">{status}</p>
+        <section className="g2-golfer-panel g2-social-network" aria-label="Your social connections">
+          <p className="g2-eyebrow">YOUR GOLF NETWORK</p><h2>Better together.</h2>
+          <p>Follow golfers you enjoy playing with and keep up with their recent posts.</p>
+          <p className="g2-feedback" role="status">{connectionMessage}</p>
+          {!connections ? <button className="g2-btn g2-btn-green" type="button" onClick={()=>void loadConnections()}>Load connections</button> : <>
+            <div className="g2-community-filters"><button type="button" aria-pressed={filter==="following"} onClick={()=>setFilter(filter==="following"?"all":"following")}>{filter==="following"?"Showing following feed":"Show following feed"}</button></div>
+            {selectedGolfer?.user_id && <div className="g2-golfer-preview"><strong>@{selectedGolfer.username}</strong><button type="button" disabled={connectionBusy || Boolean(acting) || loading || profileBusy} onClick={()=>changeFollow(selectedGolfer)}>{connections.following.some(item=>item.user_id===selectedGolfer.user_id)?"Unfollow":"Follow"}</button></div>}
+            <details open><summary>Following · {connections.following.length}</summary>{connections.following.length ? connections.following.map(golfer=><div className="g2-network-person" key={golfer.user_id}><button type="button" disabled={connectionBusy || profileBusy || Boolean(acting)} onClick={()=>viewGolfer(golfer.user_id!)}>@{golfer.username}</button><button type="button" disabled={connectionBusy || profileBusy || Boolean(acting) || loading} onClick={()=>changeFollow(golfer)}>Unfollow</button></div>) : <p>No golfers followed yet. Select a golfer in Discover Golfers to follow them.</p>}</details>
+            <details><summary>{connections.followers.length===100?"Recent followers · 100+":"Followers · "+connections.followers.length}</summary>{connections.followers.length ? connections.followers.map(golfer=><div className="g2-network-person" key={golfer.user_id}><button type="button" disabled={connectionBusy || profileBusy || Boolean(acting)} onClick={()=>viewGolfer(golfer.user_id!)}>@{golfer.username}</button><button type="button" disabled={connectionBusy || profileBusy || Boolean(acting) || loading} onClick={()=>changeFollow(golfer)}>{connections.following.some(item=>item.user_id===golfer.user_id)?"Unfollow":"Follow back"}</button></div>) : <p>No followers yet.</p>}</details>
+            <button type="button" className="g2-network-refresh" disabled={connectionBusy || Boolean(acting)} onClick={()=>void loadConnections()}>Refresh connections</button>
+          </>}
+        </section><Link href="/my-gallaspy/home" className="g2-line-link">Back to My Gallaspy →</Link></aside>
       <section aria-label="Community posts"><section className="g2-golfer-panel" aria-label="Golfer profiles"><p className="g2-eyebrow">YOUR CLUBHOUSE IDENTITY</p><h2>{ownProfile ? `@${ownProfile.username}` : "Make it yours."}</h2><p>Choose the name other golfers see in the community.</p><form onSubmit={saveHandle} className="g2-field"><label htmlFor="clubhouse-handle">Username</label><input id="clubhouse-handle" value={handle} onChange={event=>setHandle(event.target.value)} maxLength={20} minLength={3} pattern="[A-Za-z0-9_.]{3,20}" required disabled={!profileReady || profileBusy}/><button className="g2-btn g2-btn-green" disabled={!profileReady || profileBusy || handle.trim()===ownProfile?.username}>Save username</button></form>{nextHandleChange && nextHandleChange.getTime()>Date.now() && <p>Username changes available after {nextHandleChange.toLocaleDateString()}.</p>}<p className="g2-feedback" role="status">{profileMessage}</p><hr/><p className="g2-eyebrow">DISCOVER GOLFERS</p><p>Find golfers who have shared a recent clubhouse post.</p><input className="g2-golfer-search" aria-label="Search recent golfers" placeholder="Search usernames" value={golferQuery} onChange={event=>setGolferQuery(event.target.value)}/><div className="g2-golfer-directory">{golfers.length ? golfers.map(golfer=><button key={golfer.user_id} type="button" disabled={profileBusy || loading || Boolean(acting)} onClick={()=>viewGolfer(golfer.user_id)}>@{golfer.username}</button>) : <p>No matching recent golfers.</p>}</div>{selectedGolfer && <div className="g2-golfer-preview"><div className="g2-post-author">{selectedGolfer.avatar_url ? <img src={selectedGolfer.avatar_url} alt="" referrerPolicy="no-referrer"/> : <span aria-hidden="true">{selectedGolfer.username[0].toUpperCase()}</span>}<div><strong>@{selectedGolfer.username}</strong><p>Gallaspy community profile</p></div></div><button type="button" onClick={()=>setSelectedGolfer(null)}>Close profile</button></div>}</section><div className="g2-clubhouse-heading"><p className="g2-eyebrow">FROM THE CLUBHOUSE</p><button type="button" disabled={loading || busy || profileBusy || Boolean(acting)} onClick={()=>{setSelectedGolfer(null);refresh(token).catch(error=>setStatus(error.message));}}>{loading ? "Refreshing…" : "Refresh"}</button></div><div className="g2-community-filters" aria-label="Filter posts">{([ ["all","Latest"], ["photos","Photos"], ["mine","My posts"] ] as const).map(([value,label])=><button key={value} type="button" aria-pressed={filter===value} onClick={()=>setFilter(value)}>{label}</button>)}</div><div style={{marginTop:20}}>{visible.length ? visible.map(post => <article className="g2-feed-post" key={post.id}>
         <div className="g2-post-author">{post.avatar_url ? <img src={post.avatar_url} alt="" referrerPolicy="no-referrer"/> : <span aria-hidden="true">{(post.username || "G").slice(0,1).toUpperCase()}</span>}<div><strong>{post.username ? `@${post.username}` : "Gallaspy golfer"}{post.user_id===userId ? " · You" : ""}</strong><time dateTime={post.created_at}>{new Date(post.created_at).toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}</time></div></div><p>{post.body}</p>
         {post.photos?.length ? <div className="g2-feed-photos">{post.photos.map((photo,index)=><img key={`${post.id}-${index}`} src={photo.url} alt={`Photo shared with the Gallaspy community ${index + 1}`} loading="lazy" referrerPolicy="no-referrer" />)}</div> : null}
+        {connections && post.user_id!==userId && post.username && <div className="g2-community-filters"><button type="button" disabled={connectionBusy || profileBusy || busy || loading || Boolean(acting)} onClick={()=>changeFollow({user_id:post.user_id,username:post.username!})}>{connections.following.some(item=>item.user_id===post.user_id)?"Unfollow":"Follow"} @{post.username}</button></div>}
         <div className="g2-community-actions"><button type="button" onClick={()=>toggleLike(post)} disabled={acting===post.id} aria-pressed={metrics[post.id]?.liked ?? false}>{metrics[post.id]?.liked ? "♥ Liked" : "♡ Like"} {metrics[post.id]?.count ?? 0}</button><button type="button" onClick={()=>openComments(post)} aria-expanded={Boolean(expanded[post.id])}>Comments {metrics[post.id]?.comments ?? ""}</button></div>
         {expanded[post.id] && <div><div className="g2-comment-list">{(comments[post.id] ?? []).map(comment=><div className="g2-comment" key={comment.id}><strong>{comment.username ? `@${comment.username}` : "Gallaspy golfer"}</strong><p>{comment.body}</p></div>)}</div><form className="g2-comment-form" onSubmit={event=>submitComment(event,post)}><input aria-label="Write a comment" maxLength={1000} required placeholder="Write a comment…" value={drafts[post.id] ?? ""} onChange={event=>setDrafts(previous=>({...previous,[post.id]:event.target.value}))}/><button type="submit" disabled={acting===post.id || !drafts[post.id]?.trim()}>Post</button></form></div>}
         {post.user_id && post.user_id!==userId && <details className="g2-post-safety"><summary>Post options</summary><button type="button" disabled={Boolean(acting)} onClick={()=>{setReport(post.id);setReason("");}}>Report post</button><button type="button" disabled={Boolean(acting)} onClick={()=>moderate(post,"block")}>Block golfer</button>{report===post.id && <form onSubmit={event=>{event.preventDefault();moderate(post,"report");}}><label htmlFor={`report-${post.id}`}>Reason for report</label><textarea id={`report-${post.id}`} value={reason} onChange={event=>setReason(event.target.value)} maxLength={500} required/><button type="submit" disabled={!reason.trim() || Boolean(acting)}>Submit report</button><button type="button" onClick={()=>setReport(null)}>Cancel</button></form>}</details>}
-      </article>) : <p className="g2-community-empty">{loading ? "Loading posts…" : filter === "mine" ? "Your posts will appear here after you share." : filter === "photos" ? "Course photos will appear here as golfers share." : "Start the conversation. Share a moment from your next round."}</p>}</div></section>
+      </article>) : <p className="g2-community-empty">{loading ? "Loading posts…" : filter === "mine" ? "Your posts will appear here after you share." : filter === "photos" ? "Course photos will appear here as golfers share." : filter === "following" ? "No recent posts from golfers you follow. Discover golfers or switch to Latest." : "Start the conversation. Share a moment from your next round."}</p>}</div></section>
     </div>;
 }
