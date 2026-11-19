@@ -32,6 +32,9 @@
 .g2-comment-form{display:flex;gap:8px;margin-top:15px}.g2-comment-form input{min-width:0;flex:1;border:1px solid #cddbd3;padding:12px;background:white;color:#0a2443}.g2-comment-form button{padding:10px 16px;background:#154b39;color:#fff;font-weight:700}
 @media(max-width:760px){.g2-hero h1{font-size:clamp(2.65rem,10vw,5rem)}.g2-champ-logo{height:190px;width:min(75%,210px)}.g2-comment-form{flex-wrap:wrap}}
 
+/* Community video composer and playback. */
+.g2-video-composer{margin-top:24px}.g2-video-composer video,.g2-feed-video video{display:block;width:100%;max-height:520px;background:#081d2c;border-radius:8px;object-fit:contain}.g2-video-composer input[type=file]{max-width:100%;font-size:12px}.g2-video-composer button[type=button],.g2-feed-video button{background:white;color:#154b39;border:1px solid #cddbd3;border-radius:5px;padding:9px 12px;font-weight:700;cursor:pointer}.g2-feed-video{margin-top:16px;display:grid;gap:8px}.g2-feed-video button{justify-self:start;font-size:12px}.g2-video-composer p[role=status]:empty{display:none}
+
 /* Community photo composer. */
 .g2-photo-composer{margin-top:20px}.g2-photo-composer input[type=file]{font-size:12px;padding:10px;max-width:100%}.g2-photo-composer input::file-selector-button{border:1px solid #cddbd3;background:#fff;color:#154b39;padding:8px;font-weight:700;margin-right:8px;cursor:pointer}.g2-photo-composer p{font-size:12px;line-height:1.5;color:#536b75;margin:0}.g2-photo-composer p:empty{display:none}.g2-photo-preview{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.g2-photo-preview:empty{display:none}.g2-photo-preview>div{border:1px solid #dce5df;background:#f4f8f5;border-radius:6px;overflow:hidden}.g2-photo-preview img{display:block;width:100%;aspect-ratio:1;object-fit:cover}.g2-photo-preview button{width:100%;background:white;color:#154b39;border:0;padding:10px;font-size:12px;font-weight:700;cursor:pointer}
 

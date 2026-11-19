@@ -96,6 +96,12 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
   const [photos,setPhotos] = useState<PreparedPhoto[]>([]);
   const [preparingPhotos,setPreparingPhotos] = useState(false);
   const [photoStatus,setPhotoStatus] = useState("");
+  const [videoFile,setVideoFile] = useState<File|null>(null);
+  const [videoPreview,setVideoPreview] = useState("");
+  const [videoCaption,setVideoCaption] = useState("");
+  const [videoStatus,setVideoStatus] = useState("");
+  const [videoUrls,setVideoUrls] = useState<Record<string,string>>({});
+  useEffect(()=>{if(!videoFile){setVideoPreview("");return;}const url=URL.createObjectURL(videoFile);setVideoPreview(url);return()=>URL.revokeObjectURL(url);},[videoFile]);
 
   const api = useCallback(async (accessToken: string, path: string, payload?: Record<string, unknown>) => {
     const response = await fetch(path, {
@@ -220,6 +226,8 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
     const records = Array.isArray(data.posts) ? data.posts as Post[] : [];
     setPosts(records);
     setAllowed(true);
+    setVideoUrls({});
+    if(records.length)await api(accessToken,`/api/web/community/video?post_ids=${encodeURIComponent(records.map(post=>post.id).join(","))}`).then(data=>setVideoUrls(data.videos??{})).catch(()=>{});
     await loadMetrics(accessToken, records).catch(() => {});
     } catch (error) { setAllowed(false); setPosts([]); setMetrics({}); throw error; }
     finally { setLoading(false); }
@@ -279,6 +287,24 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
     finally{setPreparingPhotos(false);}
   }
 
+  async function publishVideo(event:FormEvent<HTMLFormElement>) {
+    event.preventDefault();if(!videoFile||busy||loading||acting||preparingPhotos)return;
+    setBusy(true);setVideoStatus("");
+    try {
+      const form=new FormData();form.append("video",videoFile);form.append("body",videoCaption.trim()||"Golf video");
+      const response=await fetch("/api/web/community/video",{method:"POST",headers:{Authorization:`Bearer ${token}`},body:form,cache:"no-store"});
+      const data=await response.json();if(!response.ok||!data.success)throw new Error(data.error||"Unable to publish video.");
+      setVideoFile(null);setVideoCaption("");setFilter("all");setVideoStatus("Video published.");
+      await refresh(token).catch(()=>setVideoStatus("Video published. Refresh the feed to see it."));
+    }catch(error){setVideoStatus(error instanceof Error?error.message:"Unable to publish video.");}
+    finally{setBusy(false);}
+  }
+
+  async function renewVideo(postId:string) {
+    try {const data=await api(token,`/api/web/community/video?post_ids=${encodeURIComponent(postId)}`);const url=data.videos?.[postId];if(!url)throw new Error("Video unavailable.");setVideoUrls(previous=>({...previous,[postId]:url}));}
+    catch(error){setVideoUrls(previous=>{const next={...previous};delete next[postId];return next;});setStatus(error instanceof Error?error.message:"Video unavailable.");}
+  }
+
   async function toggleLike(post: Post) {
     if (!token || acting || loading || busy || !metrics[post.id]) return;
     setActing(post.id); setStatus("");
@@ -320,6 +346,13 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
   if (!allowed) return <div className="g2-auth-panel" role="status"><p>{loading ? "Opening the clubhouse…" : status || "Community unavailable."}</p>{!loading && <button className="g2-btn g2-btn-green" onClick={()=>refresh(token).catch(error=>setStatus(error.message))}>Try again</button>}</div>;
   return <div className="g2-feed-layout">
       <aside><p className="g2-eyebrow">SHARE WITH THE CLUB</p><form onSubmit={publish} className="g2-form-card" style={{marginTop:20}}><div className="g2-field"><label htmlFor="g2-post">Your post {photos.length?"(optional caption)":""}</label><textarea id="g2-post" rows={6} maxLength={3000} value={body} onChange={event=>setBody(event.target.value)} placeholder="A round worth sharing. A moment from the course." disabled={busy} required={!photos.length}/></div><div className="g2-field g2-photo-composer"><label htmlFor="clubhouse-photo">Add course photos · {photos.length}/4</label><input id="clubhouse-photo" type="file" multiple accept="image/jpeg,image/png,image/webp" disabled={busy||preparingPhotos||photos.length>=4} onChange={e=>{const files=Array.from(e.target.files||[]);e.target.value="";void choosePhotos(files);}}/><p>JPEG, PNG or WebP. Photos are optimized before upload.</p><div className="g2-photo-preview">{photos.map((photo,index)=><div key={index}><img src={photo.preview} alt={`Selected golf photo ${index+1}`}/><button type="button" disabled={busy||preparingPhotos} aria-label={`Remove photo ${index+1}`} onClick={()=>setPhotos(previous=>previous.filter((_,i)=>i!==index))}>Remove</button></div>)}</div><p role="status">{photoStatus}</p></div><button className="g2-btn g2-btn-green" style={{marginTop:22}} type="submit" disabled={busy || loading || Boolean(acting) || preparingPhotos || (!body.trim()&&!photos.length)}>{busy ? "Publishing…" : "Publish post →"}</button></form><p className="g2-feedback" role="status" aria-live="polite">{status}</p>
+        <section className="g2-golfer-panel g2-video-composer" aria-label="Share a golf video">
+          <p className="g2-eyebrow">FROM THE COURSE</p><h2>Golf video.</h2><p>Share a short MP4, including a saved Shot Tracer export. Initial upload limit: 3.5 MB.</p>
+          <form className="g2-field" onSubmit={publishVideo}><label htmlFor="clubhouse-video">Choose MP4</label><input type="file" id="clubhouse-video" accept="video/mp4,.mp4" disabled={busy} onChange={event=>{const file=event.target.files?.[0];event.target.value="";if(!file)return;if(file.type!=="video/mp4"||file.size>3_500_000||file.size<12){setVideoStatus("Choose an MP4 under 3.5 MB.");return;}setVideoFile(file);setVideoStatus("");}}/>
+            {videoFile && <><video key={videoPreview} src={videoPreview||undefined} controls playsInline preload="metadata" onError={()=>setVideoStatus("This preview could not be played on your device.")}/><button type="button" disabled={busy} onClick={()=>setVideoFile(null)}>Remove video</button></>}
+            <label htmlFor="clubhouse-video-caption">Caption (optional)</label><textarea id="clubhouse-video-caption" rows={3} maxLength={3000} value={videoCaption} disabled={busy} onChange={event=>setVideoCaption(event.target.value)}/><button className="g2-btn g2-btn-green" type="submit" disabled={!videoFile||busy||loading||Boolean(acting)||preparingPhotos}>{busy?"Publishing…":"Publish video"}</button><p role="status">{videoStatus}</p>
+          </form>
+        </section>
         <section className="g2-golfer-panel g2-social-network" aria-label="Your golfer details">
           <p className="g2-eyebrow">MY GOLF IDENTITY</p><h2>Your game. Your story.</h2>
           <p>Personalize your golf profile. These details are private unless you choose to share them with the clubhouse.</p>
@@ -351,6 +384,7 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
       <section aria-label="Community posts"><section className="g2-golfer-panel" aria-label="Golfer profiles"><p className="g2-eyebrow">YOUR CLUBHOUSE IDENTITY</p><h2>{ownProfile ? `@${ownProfile.username}` : "Make it yours."}</h2><p>Choose the name other golfers see in the community.</p><form onSubmit={saveHandle} className="g2-field"><label htmlFor="clubhouse-handle">Username</label><input id="clubhouse-handle" value={handle} onChange={event=>setHandle(event.target.value)} maxLength={20} minLength={3} pattern="[A-Za-z0-9_.]{3,20}" required disabled={!profileReady || profileBusy}/><button className="g2-btn g2-btn-green" disabled={!profileReady || profileBusy || handle.trim()===ownProfile?.username}>Save username</button></form>{nextHandleChange && nextHandleChange.getTime()>Date.now() && <p>Username changes available after {nextHandleChange.toLocaleDateString()}.</p>}<p className="g2-feedback" role="status">{profileMessage}</p><hr/><p className="g2-eyebrow">DISCOVER GOLFERS</p><p>Find golfers who have shared a recent clubhouse post.</p><input className="g2-golfer-search" aria-label="Search recent golfers" placeholder="Search usernames" value={golferQuery} onChange={event=>setGolferQuery(event.target.value)}/><div className="g2-golfer-directory">{golfers.length ? golfers.map(golfer=><button key={golfer.user_id} type="button" disabled={profileBusy || loading || Boolean(acting)} onClick={()=>viewGolfer(golfer.user_id)}>@{golfer.username}</button>) : <p>No matching recent golfers.</p>}</div>{selectedGolfer && <div className="g2-golfer-preview"><div className="g2-post-author">{selectedGolfer.avatar_url ? <img src={selectedGolfer.avatar_url} alt="" referrerPolicy="no-referrer"/> : <span aria-hidden="true">{selectedGolfer.username[0].toUpperCase()}</span>}<div><strong>@{selectedGolfer.username}</strong><p>Gallaspy community profile</p></div></div><button type="button" onClick={()=>setSelectedGolfer(null)}>Close profile</button></div>}</section><div className="g2-clubhouse-heading"><p className="g2-eyebrow">FROM THE CLUBHOUSE</p><button type="button" disabled={loading || busy || profileBusy || Boolean(acting)} onClick={()=>{setSelectedGolfer(null);refresh(token).catch(error=>setStatus(error.message));}}>{loading ? "Refreshing…" : "Refresh"}</button></div><div className="g2-community-filters" aria-label="Filter posts">{([ ["all","Latest"], ["photos","Photos"], ["mine","My posts"] ] as const).map(([value,label])=><button key={value} type="button" aria-pressed={filter===value} onClick={()=>setFilter(value)}>{label}</button>)}</div><div style={{marginTop:20}}>{visible.length ? visible.map(post => <article className="g2-feed-post" key={post.id}>
         <div className="g2-post-author">{post.avatar_url ? <img src={post.avatar_url} alt="" referrerPolicy="no-referrer"/> : <span aria-hidden="true">{(post.username || "G").slice(0,1).toUpperCase()}</span>}<div><strong>{post.username ? `@${post.username}` : "Gallaspy golfer"}{post.user_id===userId ? " · You" : ""}</strong><time dateTime={post.created_at}>{new Date(post.created_at).toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}</time></div></div><p>{post.body}</p>
         {post.photos?.length ? <div className="g2-feed-photos">{post.photos.map((photo,index)=><img key={`${post.id}-${index}`} src={photo.url} alt={`Photo shared with the Gallaspy community ${index + 1}`} loading="lazy" referrerPolicy="no-referrer" />)}</div> : null}
+        {videoUrls[post.id] && <div className="g2-feed-video"><video key={videoUrls[post.id]} src={videoUrls[post.id]} controls playsInline preload="none"/><button type="button" onClick={()=>renewVideo(post.id)}>Refresh video access</button></div>}
         {connections && post.user_id!==userId && post.username && <div className="g2-community-filters"><button type="button" disabled={connectionBusy || profileBusy || busy || loading || Boolean(acting)} onClick={()=>changeFollow({user_id:post.user_id,username:post.username!})}>{connections.following.some(item=>item.user_id===post.user_id)?"Unfollow":"Follow"} @{post.username}</button></div>}
         <div className="g2-community-actions"><button type="button" onClick={()=>toggleLike(post)} disabled={acting===post.id} aria-pressed={metrics[post.id]?.liked ?? false}>{metrics[post.id]?.liked ? "♥ Liked" : "♡ Like"} {metrics[post.id]?.count ?? 0}</button><button type="button" onClick={()=>openComments(post)} aria-expanded={Boolean(expanded[post.id])}>Comments {metrics[post.id]?.comments ?? ""}</button></div>
         {expanded[post.id] && <div><div className="g2-comment-list">{(comments[post.id] ?? []).map(comment=><div className="g2-comment" key={comment.id}><strong>{comment.username ? `@${comment.username}` : "Gallaspy golfer"}</strong><p>{comment.body}</p></div>)}</div><form className="g2-comment-form" onSubmit={event=>submitComment(event,post)}><input aria-label="Write a comment" maxLength={1000} required placeholder="Write a comment…" value={drafts[post.id] ?? ""} onChange={event=>setDrafts(previous=>({...previous,[post.id]:event.target.value}))}/><button type="submit" disabled={acting===post.id || !drafts[post.id]?.trim()}>Post</button></form></div>}
