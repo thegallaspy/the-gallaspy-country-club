@@ -3,7 +3,8 @@ export const dynamic = "force-dynamic";
 const noStore = {"Cache-Control":"private, no-store"};
 async function proxy(request:NextRequest,context:{params:Promise<{endpoint:string[]}>}){
  const {endpoint}=await context.params;
- if (endpoint.length!==1 || !["posts","engagement"].includes(endpoint[0]))return NextResponse.json({success:false,error:"Unknown service."},{status:404,headers:noStore});
+ if (endpoint.length!==1 || !["posts","engagement","profile","public-profile"].includes(endpoint[0]))return NextResponse.json({success:false,error:"Unknown service."},{status:404,headers:noStore});
+ if (endpoint[0]==="public-profile" && request.method!=="GET")return NextResponse.json({success:false,error:"Method not allowed."},{status:405,headers:noStore});
  const authorization=request.headers.get("authorization");
  if (!authorization?.startsWith("Bearer "))return NextResponse.json({success:false,error:"Sign in to My Gallaspy."},{status:401,headers:noStore});
  try{

@@ -8,6 +8,7 @@ type Post = { id: string; user_id: string; body: string; created_at: string; use
 type Comment = { id: string; body: string; created_at: string; username?: string | null };
 type Metrics = { count: number; comments: number; liked: boolean };
 type EngagementRow = Record<string, unknown>;
+type GolferProfile = { user_id?: string; username: string; avatar_url?: string | null; username_updated_at?: string };
 
 function numeric(value: unknown): number { return typeof value === "number" && Number.isFinite(value) ? value : 0; }
 function metricsFrom(row: EngagementRow): Metrics {
@@ -50,6 +51,13 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
   const [filter, setFilter] = useState<"all" | "mine" | "photos">("all");
   const [report, setReport] = useState<string | null>(null);
   const [reason, setReason] = useState("");
+  const [ownProfile, setOwnProfile] = useState<GolferProfile | null>(null);
+  const [profileReady, setProfileReady] = useState(false);
+  const [handle, setHandle] = useState("");
+  const [profileMessage, setProfileMessage] = useState("");
+  const [profileBusy, setProfileBusy] = useState(false);
+  const [selectedGolfer, setSelectedGolfer] = useState<GolferProfile | null>(null);
+  const [golferQuery, setGolferQuery] = useState("");
 
   const api = useCallback(async (accessToken: string, path: string, payload?: Record<string, string>) => {
     const response = await fetch(path, {
@@ -62,6 +70,41 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
     if (!response.ok || !data.success) throw new Error(data.error || "Community request unavailable.");
     return data;
   }, []);
+
+  useEffect(() => {
+    if (!allowed) return;
+    let active = true;
+    api(token, "/api/web/community/profile").then(data => {
+      if (!active) return;
+      setOwnProfile(data.profile ?? null);
+      setHandle(data.profile?.username ?? "");
+      setProfileReady(true);
+    }).catch(error => { if (active) setProfileMessage(error.message); });
+    return () => { active = false; };
+  }, [allowed, api, token]);
+
+  async function saveHandle(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (profileBusy || !profileReady || !allowed) return;
+    setProfileBusy(true); setProfileMessage("");
+    try {
+      const data = await api(token, "/api/web/community/profile", {username:handle.trim()});
+      setOwnProfile(data.profile); setHandle(data.profile.username);
+      setProfileMessage("Your clubhouse username is saved.");
+      setPosts(previous=>previous.map(post=>post.user_id===userId ? {...post,username:data.profile.username} : post));
+    } catch (error) { setProfileMessage(error instanceof Error ? error.message : "Unable to save your profile."); }
+    finally { setProfileBusy(false); }
+  }
+
+  async function viewGolfer(id: string) {
+    if (acting || loading || busy || profileBusy) return;
+    setProfileBusy(true); setProfileMessage(""); setSelectedGolfer(null);
+    try {
+      const data = await api(token, `/api/web/community/public-profile?user_id=${encodeURIComponent(id)}`);
+      setSelectedGolfer(data.profile);
+    } catch (error) { setProfileMessage(error instanceof Error ? error.message : "Golfer unavailable."); }
+    finally { setProfileBusy(false); }
+  }
 
   const loadMetrics = useCallback(async (accessToken: string, records: Post[]) => {
     // Engagement endpoint deliberately limits batches to 20 identifiers.
@@ -99,7 +142,7 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
   }, [token, refresh]);
 
   async function moderate(post: Post, action: "report" | "block") {
-    if (acting || loading || busy || post.user_id === userId) return;
+    if (acting || loading || busy || profileBusy || post.user_id === userId) return;
     if (action === "report" && reason.trim().length < 5) { setStatus("Please include a reason of at least five characters."); return; }
     if (action === "block" && !window.confirm("Block this golfer and hide each other's posts?")) return;
     setActing(post.id); setStatus("");
@@ -107,6 +150,7 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
       await api(token, "/api/web/community/engagement", action === "report" ? {action, post_id:post.id, reason:reason.trim()} : {action, user_id:post.user_id});
       setReport(null); setReason("");
       if (action === "block") {
+        setSelectedGolfer(null);
         setPosts(previous => previous.filter(item => item.user_id !== post.user_id));
         setComments({}); setExpanded({}); setDrafts({});
         setStatus("Golfer blocked.");
@@ -161,10 +205,12 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
   }
 
   const visible = posts.filter(post => filter === "all" || (filter === "mine" ? post.user_id === userId : Boolean(post.photos?.length)));
+  const golfers = [...new Map(posts.filter(post=>post.user_id!==userId && post.username).map(post=>[post.user_id,post])).values()].filter(post=>post.username?.toLowerCase().includes(golferQuery.trim().toLowerCase()));
+  const nextHandleChange = ownProfile?.username_updated_at ? new Date(new Date(ownProfile.username_updated_at).getTime()+30*86400000) : null;
   if (!allowed) return <div className="g2-auth-panel" role="status"><p>{loading ? "Opening the clubhouse…" : status || "Community unavailable."}</p>{!loading && <button className="g2-btn g2-btn-green" onClick={()=>refresh(token).catch(error=>setStatus(error.message))}>Try again</button>}</div>;
   return <div className="g2-feed-layout">
       <aside><p className="g2-eyebrow">SHARE WITH THE CLUB</p><form onSubmit={publish} className="g2-form-card" style={{marginTop:20}}><div className="g2-field"><label htmlFor="g2-post">Your post</label><textarea id="g2-post" rows={6} maxLength={3000} value={body} onChange={event=>setBody(event.target.value)} placeholder="A round worth sharing. A moment from the course." required /></div><button className="g2-btn g2-btn-green" style={{marginTop:22}} type="submit" disabled={busy || !body.trim()}>{busy ? "Publishing…" : "Publish post →"}</button></form><p className="g2-feedback" role="status" aria-live="polite">{status}</p><Link href="/my-gallaspy/home" className="g2-line-link">Back to My Gallaspy →</Link></aside>
-      <section aria-label="Community posts"><div className="g2-clubhouse-heading"><p className="g2-eyebrow">FROM THE CLUBHOUSE</p><button type="button" disabled={loading || busy || Boolean(acting)} onClick={()=>refresh(token).catch(error=>setStatus(error.message))}>{loading ? "Refreshing…" : "Refresh"}</button></div><div className="g2-community-filters" aria-label="Filter posts">{([ ["all","Latest"], ["photos","Photos"], ["mine","My posts"] ] as const).map(([value,label])=><button key={value} type="button" aria-pressed={filter===value} onClick={()=>setFilter(value)}>{label}</button>)}</div><div style={{marginTop:20}}>{visible.length ? visible.map(post => <article className="g2-feed-post" key={post.id}>
+      <section aria-label="Community posts"><section className="g2-golfer-panel" aria-label="Golfer profiles"><p className="g2-eyebrow">YOUR CLUBHOUSE IDENTITY</p><h2>{ownProfile ? `@${ownProfile.username}` : "Make it yours."}</h2><p>Choose the name other golfers see in the community.</p><form onSubmit={saveHandle} className="g2-field"><label htmlFor="clubhouse-handle">Username</label><input id="clubhouse-handle" value={handle} onChange={event=>setHandle(event.target.value)} maxLength={20} minLength={3} pattern="[A-Za-z0-9_.]{3,20}" required disabled={!profileReady || profileBusy}/><button className="g2-btn g2-btn-green" disabled={!profileReady || profileBusy || handle.trim()===ownProfile?.username}>Save username</button></form>{nextHandleChange && nextHandleChange.getTime()>Date.now() && <p>Username changes available after {nextHandleChange.toLocaleDateString()}.</p>}<p className="g2-feedback" role="status">{profileMessage}</p><hr/><p className="g2-eyebrow">DISCOVER GOLFERS</p><p>Find golfers who have shared a recent clubhouse post.</p><input className="g2-golfer-search" aria-label="Search recent golfers" placeholder="Search usernames" value={golferQuery} onChange={event=>setGolferQuery(event.target.value)}/><div className="g2-golfer-directory">{golfers.length ? golfers.map(golfer=><button key={golfer.user_id} type="button" disabled={profileBusy || loading || Boolean(acting)} onClick={()=>viewGolfer(golfer.user_id)}>@{golfer.username}</button>) : <p>No matching recent golfers.</p>}</div>{selectedGolfer && <div className="g2-golfer-preview"><div className="g2-post-author">{selectedGolfer.avatar_url ? <img src={selectedGolfer.avatar_url} alt="" referrerPolicy="no-referrer"/> : <span aria-hidden="true">{selectedGolfer.username[0].toUpperCase()}</span>}<div><strong>@{selectedGolfer.username}</strong><p>Gallaspy community profile</p></div></div><button type="button" onClick={()=>setSelectedGolfer(null)}>Close profile</button></div>}</section><div className="g2-clubhouse-heading"><p className="g2-eyebrow">FROM THE CLUBHOUSE</p><button type="button" disabled={loading || busy || profileBusy || Boolean(acting)} onClick={()=>{setSelectedGolfer(null);refresh(token).catch(error=>setStatus(error.message));}}>{loading ? "Refreshing…" : "Refresh"}</button></div><div className="g2-community-filters" aria-label="Filter posts">{([ ["all","Latest"], ["photos","Photos"], ["mine","My posts"] ] as const).map(([value,label])=><button key={value} type="button" aria-pressed={filter===value} onClick={()=>setFilter(value)}>{label}</button>)}</div><div style={{marginTop:20}}>{visible.length ? visible.map(post => <article className="g2-feed-post" key={post.id}>
         <div className="g2-post-author">{post.avatar_url ? <img src={post.avatar_url} alt="" referrerPolicy="no-referrer"/> : <span aria-hidden="true">{(post.username || "G").slice(0,1).toUpperCase()}</span>}<div><strong>{post.username ? `@${post.username}` : "Gallaspy golfer"}{post.user_id===userId ? " · You" : ""}</strong><time dateTime={post.created_at}>{new Date(post.created_at).toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}</time></div></div><p>{post.body}</p>
         {post.photos?.length ? <div className="g2-feed-photos">{post.photos.map((photo,index)=><img key={`${post.id}-${index}`} src={photo.url} alt={`Photo shared with the Gallaspy community ${index + 1}`} loading="lazy" referrerPolicy="no-referrer" />)}</div> : null}
         <div className="g2-community-actions"><button type="button" onClick={()=>toggleLike(post)} disabled={acting===post.id} aria-pressed={metrics[post.id]?.liked ?? false}>{metrics[post.id]?.liked ? "♥ Liked" : "♡ Like"} {metrics[post.id]?.count ?? 0}</button><button type="button" onClick={()=>openComments(post)} aria-expanded={Boolean(expanded[post.id])}>Comments {metrics[post.id]?.comments ?? ""}</button></div>
