@@ -183,3 +183,60 @@ main:is([class~="bg-[#F4F0E7]"],[class~="bg-[#F7F4EE]"],[class~="bg-[#F5F0E6]"],
 .gallaspy-product-detail h1,
 .gallaspy-product-detail h2,
 .gallaspy-product-detail h3 { font-family: inherit; font-weight: 800; }
+.gallaspy-calendar-shortcuts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+.gallaspy-calendar-shortcuts a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid #d3dfd8;
+  border-radius: 6px;
+  background: #fff;
+  color: #174a38;
+  font-size: 13px;
+  font-weight: 750;
+}
+.gallaspy-calendar-shortcuts a:hover { background: #174a38; color: #fff; }
+.gallaspy-club-calendar #signature-dates,
+.gallaspy-club-calendar #season-schedule { scroll-margin-top: 110px; }
+.gallaspy-calendar-signature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.gallaspy-calendar-signature {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: 164px;
+  padding: 22px;
+  border: 1px solid #dce5df;
+  border-top: 3px solid #174a38;
+  border-radius: 6px;
+  color: #10263f;
+  background: #f5f8f6;
+}
+.gallaspy-calendar-signature time { color: #174a38; font-size: 13px; font-weight: 800; }
+.gallaspy-calendar-signature strong { font-size: clamp(17px, 2vw, 25px); line-height: 1.2; }
+.gallaspy-calendar-signature span { margin-top: auto; font-size: 13px; font-weight: 750; color: #174a38; }
+.gallaspy-calendar-signature:hover { border-color: #174a38; background: #edf2ef; }
+.gallaspy-event-detail section a:is([class*="rounded-full"],[class*="rounded-xl"]) { border-radius: 6px; }
+.gallaspy-event-detail h1,
+.gallaspy-event-detail h2,
+.gallaspy-event-detail h3,
+.g3-gala-page h2 em { font-family: inherit; font-style: normal; }
+.g3-gala-page h2 em { font-weight: 850; }
+.gallaspy-event-detail :is(a,button)[class~="text-[8px]"],
+.gallaspy-event-detail :is(a,button)[class~="text-[9px]"] { font-size: 11px; letter-spacing: .06em; }
+.gallaspy-event-nav nav { scrollbar-width: thin; }
+@media (max-width: 760px) {
+  .gallaspy-calendar-signature-grid { grid-template-columns: 1fr; gap: 10px; }
+  .gallaspy-calendar-signature { min-height: 124px; padding: 18px; }
+}

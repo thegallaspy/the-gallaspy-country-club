@@ -27,7 +27,7 @@
         loading="lazy" />
       <span class="gallaspy-signature-event-title">THE GALLASPY</span>
       <span class="gallaspy-signature-event-subtitle">
-        CHAMPIONSHIP &amp; SUMMER FESTIVAL
+        CHAMPIONSHIP I &amp; SUMMER FESTIVAL
       </span>
       <span class="gallaspy-signature-event-detail">
         JUNE 21, 2027 · METRO ATLANTA
@@ -64,11 +64,17 @@
         </span>
       </span>
       <span class="gallaspy-signature-event-detail">
-        TEAM MATCH PLAY
+        OCTOBER 23, 2027 · TEAM MATCH PLAY
       </span>
       <span class="gallaspy-signature-event-action">
         EXPLORE THE CUP <span aria-hidden="true">↗</span>
       </span>
+    </button>
+    <button type="button" class="gallaspy-gala-feature" data-gallaspy-hub-view="gala">
+      <span class="gallaspy-signature-number">SIGNATURE EVENT 03</span>
+      <span class="gallaspy-signature-cup-heading">NIGHT AT THE NEST</span>
+      <span class="gallaspy-signature-event-detail">DECEMBER 11, 2027 · END-OF-YEAR GALA</span>
+      <span class="gallaspy-signature-event-action">EXPLORE THE GALA <span aria-hidden="true">↗</span></span>
     </button>
   `;
 
@@ -129,6 +135,8 @@
           data-gallaspy-hub-view="visitors">VISITORS</button>
         <button type="button"
           data-gallaspy-hub-view="cup">THE CUP</button>
+        <button type="button"
+          data-gallaspy-hub-view="gala">THE GALA</button>
       </nav>
 
       <section class="gallaspy-hub-panel"
@@ -192,12 +200,15 @@
             <b aria-hidden="true">→</b>
           </button>
         </div>
+        <div class="gallaspy-hub-actions">
+          <button type="button" data-gallaspy-web-route="/calendar">2027 CLUB CALENDAR →</button>
+        </div>
       </section>
 
       <section class="gallaspy-hub-panel"
         data-gallaspy-hub-panel="championship" hidden>
         <p class="gallaspy-hub-eyebrow">OFFICIAL COMPETITION</p>
-        <h2>THE GALLASPY CHAMPIONSHIP.</h2>
+        <h2>THE GALLASPY CHAMPIONSHIP I.</h2>
 
         <img
           class="gallaspy-hub-championship-mark"
@@ -296,14 +307,13 @@
         </p>
 
         <p class="gallaspy-hub-note">
-          The vendor application process is being developed.
-          Availability, assigned spaces, and fees
-          are not yet confirmed.
+          Submit an inquiry through the sponsorship and vendor page.
+          Availability and assigned spaces remain subject to confirmation.
         </p>
 
         <div class="gallaspy-hub-actions">
           <button type="button"
-            data-gallaspy-web-route="/contact">
+            data-gallaspy-web-route="/invitational/sponsors">
             ASK ABOUT VENDOR OPPORTUNITIES →
           </button>
         </div>
@@ -359,6 +369,20 @@
           will be connected to the existing competition
           system after verification.
         </p>
+        <div class="gallaspy-hub-actions">
+          <button type="button" data-gallaspy-web-route="/gallaspy-cup">CUP FORMAT &amp; DETAILS →</button>
+        </div>
+      </section>
+
+      <section class="gallaspy-hub-panel" data-gallaspy-hub-panel="gala" hidden>
+        <p class="gallaspy-hub-eyebrow">END-OF-YEAR GALA</p>
+        <h2>NIGHT AT THE NEST.</h2>
+        <p>Celebrate the golf season, recognize the people behind it, and connect with The Gallaspy community.</p>
+        <p class="gallaspy-hub-note">December 11, 2027. Venue, admission and programming details will be published as confirmed.</p>
+        <div class="gallaspy-hub-actions">
+          <button type="button" data-gallaspy-web-route="/night-at-the-nest">GALA INFORMATION &amp; INQUIRIES →</button>
+          <button type="button" data-gallaspy-web-route="/calendar">CLUB CALENDAR →</button>
+        </div>
       </section>
 
       <p class="gallaspy-hub-feedback"
@@ -372,7 +396,7 @@
 
   const views = new Set([
     "overview", "championship", "festival",
-    "sponsors", "vendors", "visitors", "cup"
+    "sponsors", "vendors", "visitors", "cup", "gala"
   ]);
 
   const allowedRoutes = new Set([
@@ -381,7 +405,7 @@
     "/invitational/schedule",
     "/invitational/faq",
     "/invitational/sponsors",
-    "/contact"
+    "/contact", "/calendar", "/gallaspy-cup", "/night-at-the-nest"
   ]);
 
   const heading = screen.querySelector("#gallaspyHubTitle");
@@ -392,16 +416,18 @@
   function showView(target) {
     const view = views.has(target) ? target : "overview";
     const cup = view === "cup";
+    const gala = view === "gala";
 
     heading.textContent = cup
       ? "THE GALLASPY CUP"
-      : "THE GALLASPY";
+      : gala ? "NIGHT AT THE NEST" : "THE GALLASPY";
 
     subtitle.textContent = cup
       ? "TEAM MATCH COMPETITION"
-      : "CHAMPIONSHIP & SUMMER FESTIVAL";
+      : gala ? "END-OF-YEAR GALA" : "CHAMPIONSHIP I & SUMMER FESTIVAL";
 
-    date.hidden = cup;
+    date.hidden = false;
+    date.textContent = cup ? "OCTOBER 23, 2027" : gala ? "DECEMBER 11, 2027" : "JUNE 21, 2027 · METRO ATLANTA";
 
     screen.querySelectorAll(
       "[data-gallaspy-hub-panel]"

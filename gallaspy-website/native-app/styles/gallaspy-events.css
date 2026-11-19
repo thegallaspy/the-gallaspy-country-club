@@ -484,3 +484,26 @@
     height: 48px;
   }
 }
+.gallaspy-event-entry > .gallaspy-gala-feature {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  width: 100%;
+  padding: 24px 22px;
+  border: 1px solid #243e53;
+  border-radius: 12px;
+  background: #10263f;
+  color: #fff;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+.gallaspy-event-entry > .gallaspy-event-feature,
+.gallaspy-event-entry > .gallaspy-cup-feature { border-radius: 12px; }
+#nativeEventScreen .gallaspy-hub-hero { border-radius: 8px; }
+#nativeEventScreen .gallaspy-hub-tabs button { min-height: 44px; border-radius: 6px; }
+#nativeEventScreen .gallaspy-hub-card { background: #fff; box-shadow: none; border-radius: 6px; }
+#nativeEventScreen .gallaspy-hub-card b,
+#nativeEventScreen .gallaspy-hub-panel .gallaspy-hub-eyebrow { color: #174a38; }
+#nativeEventScreen .gallaspy-hub-actions button { min-height: 48px; border-radius: 6px; }

@@ -515,7 +515,7 @@ export const events: GallaspyEvent[] = [
     venue: {
       confirmed: false,
     },
-    href: "/calendar",
+    href: "/night-at-the-nest",
     featured: true,
     traditionId: "night-at-the-nest",
   },

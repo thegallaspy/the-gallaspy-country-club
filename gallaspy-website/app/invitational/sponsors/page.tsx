@@ -93,7 +93,7 @@ export default function SponsorsPage() {
     process.env.GALLASPY_SPONSORSHIP_INQUIRIES_ENABLED === "true";
 
   return (
-    <main className="min-h-screen bg-white text-[#10263F]">
+    <main className="gallaspy-event-detail min-h-screen bg-white text-[#10263F]">
       <InvitationalNav />
 
       <header className="bg-[#10263F] px-5 pb-20 pt-32 text-white sm:px-8 lg:px-12">
@@ -121,7 +121,7 @@ export default function SponsorsPage() {
           </p>
 
           <p className="mt-8 max-w-2xl text-base leading-8 text-white/80">
-            Be part of a new tradition in golf. Partner with THE GALLASPY
+            Be part of a new tradition in golf. Partner with THE GALLASPY CHAMPIONSHIP I
             to connect your brand with championship competition,
             culture, hospitality, and community.
           </p>

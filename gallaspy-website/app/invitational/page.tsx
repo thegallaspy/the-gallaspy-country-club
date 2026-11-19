@@ -107,7 +107,7 @@ const eventResources = [
 
 export default function TheGallaspyEventPage() {
   return (
-    <main className="min-h-screen bg-white text-[#10263F]">
+    <main className="gallaspy-event-detail min-h-screen bg-white text-[#10263F]">
       <InvitationalNav />
 
       {/* THE GALLASPY — EVENT HERO */}
@@ -174,14 +174,14 @@ export default function TheGallaspyEventPage() {
           </div>
 
           <div className="flex items-center justify-center">
-            <div className="relative aspect-square w-full max-w-[360px] rounded-full border border-white/15 bg-white/[0.04] p-8">
+            <div className="relative aspect-square w-full max-w-[360px] rounded-lg bg-white p-8">
               <Image
-                src="/logos/official/falcon-G.png"
-                alt="Official Gallaspy Falcon G brandmark"
+                src="/logos/official/the-gallaspy-championship.png"
+                alt="Official Gallaspy Championship mark"
                 fill
                 priority
                 sizes="(min-width: 1024px) 360px, 75vw"
-                className="object-contain p-9"
+                className="object-contain p-6"
               />
             </div>
           </div>
@@ -192,7 +192,7 @@ export default function TheGallaspyEventPage() {
       <section className="bg-[#B32635] px-5 py-6 text-white sm:px-8">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-8 gap-y-3">
           <p className="text-xs font-bold uppercase tracking-[0.15em]">
-            THE GALLASPY CHAMPIONSHIP
+            THE GALLASPY CHAMPIONSHIP I
           </p>
           <p className="text-xs font-bold uppercase tracking-[0.15em]">
             THE GOLDEN FALCON

@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function InvitationalRegisterPage() {
   return (
-    <main className="min-h-screen bg-white text-[#10263F]">
+    <main className="gallaspy-event-detail min-h-screen bg-white text-[#10263F]">
       <InvitationalNav />
 
       {/* HERO */}
@@ -25,12 +25,12 @@ export default function InvitationalRegisterPage() {
 
           <div className="mt-10">
             <Image
-              src="/logos/official/falcon-G.png"
-              alt="Official Gallaspy Falcon G brandmark"
+              src="/logos/official/the-gallaspy-championship.png"
+              alt="Official Gallaspy Championship mark"
               width={300}
               height={300}
               priority
-              className="h-auto w-[150px] sm:w-[180px] lg:w-[205px]"
+              className="h-auto w-[150px] rounded-md bg-white p-3 sm:w-[180px] lg:w-[205px]"
             />
           </div>
 
@@ -41,11 +41,12 @@ export default function InvitationalRegisterPage() {
           <h1 className="mt-5 max-w-4xl font-sans text-5xl leading-[0.98] sm:text-6xl lg:text-7xl">
             THE GALLASPY
             <span className="block text-[#FFD76A]">
-              CHAMPIONSHIP
+              CHAMPIONSHIP I
             </span>
           </h1>
 
           <div className="mt-8 h-px w-20 bg-[#B89146]" />
+          <p className="mt-5 text-sm font-bold uppercase tracking-wide text-white">June 21, 2027 · Greater Atlanta, Georgia</p>
 
           <p className="mt-8 max-w-2xl text-base leading-8 text-white/70">
             Secure your position in the inaugural field of

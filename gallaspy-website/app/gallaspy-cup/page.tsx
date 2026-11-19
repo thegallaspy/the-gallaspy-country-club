@@ -20,7 +20,7 @@ const matches = Array.from({ length: 8 }, (_, index) => ({
 
 export default function GallaspyCupPage() {
   return (
-    <main className="g616-interior gsite-editorial-page bg-[#F7F4EE] text-[#10263F]">
+    <main className="g616-interior gsite-editorial-page gallaspy-event-detail bg-white text-[#10263F]">
       {/* HERO */}
       <section className="relative overflow-hidden bg-[#10263F] px-5 pb-14 pt-24 text-white sm:px-8 sm:pt-28 lg:pb-20 lg:pt-32">
         <div className="absolute inset-y-0 right-0 hidden w-[38%] bg-[#0C352D] lg:block" />

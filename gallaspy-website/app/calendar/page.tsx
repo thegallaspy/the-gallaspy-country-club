@@ -79,7 +79,7 @@ export default function CalendarPage() {
   );
 
   return (
-    <main className="g616-interior gsite-editorial-page bg-[#F4F0E7] text-[#10263F]">
+    <main className="g616-interior gsite-editorial-page gallaspy-club-calendar bg-white text-[#10263F]">
       {/* HERO */}
       <section className="border-b border-[#10263F]/10 px-5 pb-14 pt-32 sm:px-8 sm:pb-16 sm:pt-36 lg:px-10 lg:pb-20 lg:pt-40">
         <div className="mx-auto max-w-7xl">
@@ -87,7 +87,7 @@ export default function CalendarPage() {
             <span className="h-2 w-2 bg-[#B89146]" />
 
             <p className="text-[8px] font-black uppercase tracking-[0.32em] text-[#8B6A34] sm:text-[9px]">
-              The Digital Clubhouse
+              The 2027 Club Season
             </p>
           </div>
 
@@ -118,11 +118,31 @@ export default function CalendarPage() {
               </div>
             </div>
           </div>
+          <nav className="gallaspy-calendar-shortcuts" aria-label="Calendar shortcuts">
+            <a href="#signature-dates">Signature events</a>
+            <a href="#season-schedule">Full schedule</a>
+            <Link href="/rounds">Gallaspy Rounds</Link>
+          </nav>
         </div>
       </section>
 
       {/* CALENDAR */}
-      <section className="px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
+      <section id="signature-dates" className="px-5 pt-10 sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-7xl">
+          <p className="g2-eyebrow">2027 / SIGNATURE EVENTS</p>
+          <h2 className="mt-3 text-3xl font-black text-[#10263F] sm:text-4xl">Save the dates.</h2>
+          <div className="gallaspy-calendar-signature-grid">
+            {sortedEvents.filter(event => event.year === 2027 && ["/the-gallaspy", "/gallaspy-cup", "/night-at-the-nest"].includes(event.href)).map(event => (
+              <Link key={event.id} href={event.href} className="gallaspy-calendar-signature">
+                <time dateTime={event.date || undefined}>{event.dateLabel}</time>
+                <strong>{displayEventName(event)}</strong>
+                <span>Explore event →</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section id="season-schedule" className="px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 border border-[#10263F]/15 bg-white p-6 sm:p-8">
             <p className="text-[9px] font-black uppercase tracking-[0.28em] text-[#8B6A34]">2027 Club Programming</p>
@@ -222,7 +242,7 @@ export default function CalendarPage() {
                             event.venue.name ? (
                               <span>{event.venue.name}</span>
                             ) : (
-                              <span>Location TBA</span>
+                              <span>{event.href === "/the-gallaspy" ? "Metro Atlanta · venue TBA" : "Location TBA"}</span>
                             )}
 
                             {event.format && (
@@ -239,10 +259,10 @@ export default function CalendarPage() {
                         {/* CTA */}
                         <div className="sm:text-right">
                           <Link
-                            href={canonicalEventHref(event.href)}
+                            href={event.status === "REGISTRATION_OPEN" && event.registrationHref ? event.registrationHref : canonicalEventHref(event.href)}
                             className="inline-flex min-h-[42px] items-center justify-center bg-[#10263F] px-5 text-[7px] font-black uppercase tracking-[0.2em] text-white transition duration-300 hover:bg-[#0C352D]"
                           >
-                            View Event
+                            {event.status === "REGISTRATION_OPEN" && event.registrationHref ? "Registration details" : "View Event"}
                             <span className="ml-3">→</span>
                           </Link>
                         </div>
