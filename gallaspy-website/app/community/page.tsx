@@ -11,6 +11,30 @@ type EngagementRow = Record<string, unknown>;
 type GolferProfile = { user_id?: string; username: string; avatar_url?: string | null; username_updated_at?: string };
 type GolferDetails = {bio:string;home_course:string;experience:string;playing_style:string;personal_highlight:string;share_details:boolean};
 const emptyDetails: GolferDetails = {bio:"",home_course:"",experience:"",playing_style:"",personal_highlight:"",share_details:false};
+type PreparedPhoto = {blob:Blob;preview:string};
+
+async function preparePhoto(file:File):Promise<PreparedPhoto> {
+  if (!/^image\/(jpeg|png|webp)$/i.test(file.type) || file.size > 12_000_000) throw new Error("Choose JPEG, PNG or WebP photos under 12 MB each.");
+  const url=URL.createObjectURL(file);
+  try {
+    const image=new Image();
+    await new Promise<void>((resolve,reject)=>{image.onload=()=>resolve();image.onerror=()=>reject(new Error("This photo could not be opened."));image.src=url;});
+    if(!image.naturalWidth || !image.naturalHeight || image.naturalWidth*image.naturalHeight>50_000_000)throw new Error("Photo resolution is too large.");
+    const canvas=document.createElement("canvas");const context=canvas.getContext("2d");
+    if(!context)throw new Error("Photo preparation unavailable.");
+    for(const side of [1600,1280,960,640]) {
+      const scale=Math.min(1,side/Math.max(image.naturalWidth,image.naturalHeight));
+      canvas.width=Math.max(1,Math.round(image.naturalWidth*scale));canvas.height=Math.max(1,Math.round(image.naturalHeight*scale));
+      context.fillStyle="#fff";context.fillRect(0,0,canvas.width,canvas.height);context.drawImage(image,0,0,canvas.width,canvas.height);
+      const blob=await new Promise<Blob|null>(resolve=>canvas.toBlob(resolve,"image/jpeg",0.8));
+      if(blob && blob.size>=100 && blob.size<=850_000) {
+        const preview=await new Promise<string>((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result));reader.onerror=()=>reject(new Error("Unable to preview photo."));reader.readAsDataURL(blob);});
+        return {blob,preview};
+      }
+    }
+    throw new Error("Unable to compress this photo. Choose a smaller image.");
+  } finally {URL.revokeObjectURL(url);}
+}
 
 function numeric(value: unknown): number { return typeof value === "number" && Number.isFinite(value) ? value : 0; }
 function metricsFrom(row: EngagementRow): Metrics {
@@ -69,6 +93,9 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
   const [detailsBusy,setDetailsBusy] = useState(false);
   const [detailsStatus,setDetailsStatus] = useState("");
   const [viewedDetails,setViewedDetails] = useState<GolferDetails | null>(null);
+  const [photos,setPhotos] = useState<PreparedPhoto[]>([]);
+  const [preparingPhotos,setPreparingPhotos] = useState(false);
+  const [photoStatus,setPhotoStatus] = useState("");
 
   const api = useCallback(async (accessToken: string, path: string, payload?: Record<string, unknown>) => {
     const response = await fetch(path, {
@@ -228,13 +255,28 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
   }
 
   async function publish(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault(); if (!token || busy || loading || acting || !body.trim()) return;
+    event.preventDefault(); if (!token || busy || loading || acting || preparingPhotos || (!body.trim() && !photos.length)) return;
     setBusy(true); setStatus("");
     try {
-      await api(token, "/api/web/community/posts", {body: body.trim()});
-      setBody(""); setStatus("Your post is published."); await refresh(token);
+      if (photos.length) {
+        const form=new FormData();form.append("body",body.trim());
+        photos.forEach((photo,index)=>form.append("photos",photo.blob,`golf-photo-${index+1}.jpg`));
+        const response=await fetch("/api/web/community/photo-post",{method:"POST",headers:{Authorization:`Bearer ${token}`},body:form,cache:"no-store"});
+        const data=await response.json();if(!response.ok || !data.success)throw new Error(data.error||"Unable to publish photos.");
+      } else await api(token, "/api/web/community/posts", {body: body.trim()});
+      setBody("");setPhotos([]);setPhotoStatus("");setFilter("all");setStatus("Your post is published.");
+      await refresh(token).catch(()=>setStatus("Your post was published. Refresh the feed to see it."));
     } catch (error) { setStatus(error instanceof Error ? error.message : "Unable to publish."); }
     finally { setBusy(false); }
+  }
+
+  async function choosePhotos(files:File[]) {
+    if(busy||preparingPhotos||!files.length)return;
+    if(files.length+photos.length>4){setPhotoStatus("Choose up to four photos in total.");return;}
+    setPreparingPhotos(true);setPhotoStatus("Preparing photos…");
+    try {const prepared:PreparedPhoto[]=[];for(const file of files)prepared.push(await preparePhoto(file));setPhotos(previous=>[...previous,...prepared]);setPhotoStatus("");}
+    catch(error){setPhotoStatus(error instanceof Error?error.message:"Unable to prepare photos.");}
+    finally{setPreparingPhotos(false);}
   }
 
   async function toggleLike(post: Post) {
@@ -277,7 +319,7 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
   const nextHandleChange = ownProfile?.username_updated_at ? new Date(new Date(ownProfile.username_updated_at).getTime()+30*86400000) : null;
   if (!allowed) return <div className="g2-auth-panel" role="status"><p>{loading ? "Opening the clubhouse…" : status || "Community unavailable."}</p>{!loading && <button className="g2-btn g2-btn-green" onClick={()=>refresh(token).catch(error=>setStatus(error.message))}>Try again</button>}</div>;
   return <div className="g2-feed-layout">
-      <aside><p className="g2-eyebrow">SHARE WITH THE CLUB</p><form onSubmit={publish} className="g2-form-card" style={{marginTop:20}}><div className="g2-field"><label htmlFor="g2-post">Your post</label><textarea id="g2-post" rows={6} maxLength={3000} value={body} onChange={event=>setBody(event.target.value)} placeholder="A round worth sharing. A moment from the course." required /></div><button className="g2-btn g2-btn-green" style={{marginTop:22}} type="submit" disabled={busy || !body.trim()}>{busy ? "Publishing…" : "Publish post →"}</button></form><p className="g2-feedback" role="status" aria-live="polite">{status}</p>
+      <aside><p className="g2-eyebrow">SHARE WITH THE CLUB</p><form onSubmit={publish} className="g2-form-card" style={{marginTop:20}}><div className="g2-field"><label htmlFor="g2-post">Your post {photos.length?"(optional caption)":""}</label><textarea id="g2-post" rows={6} maxLength={3000} value={body} onChange={event=>setBody(event.target.value)} placeholder="A round worth sharing. A moment from the course." disabled={busy} required={!photos.length}/></div><div className="g2-field g2-photo-composer"><label htmlFor="clubhouse-photo">Add course photos · {photos.length}/4</label><input id="clubhouse-photo" type="file" multiple accept="image/jpeg,image/png,image/webp" disabled={busy||preparingPhotos||photos.length>=4} onChange={e=>{const files=Array.from(e.target.files||[]);e.target.value="";void choosePhotos(files);}}/><p>JPEG, PNG or WebP. Photos are optimized before upload.</p><div className="g2-photo-preview">{photos.map((photo,index)=><div key={index}><img src={photo.preview} alt={`Selected golf photo ${index+1}`}/><button type="button" disabled={busy||preparingPhotos} aria-label={`Remove photo ${index+1}`} onClick={()=>setPhotos(previous=>previous.filter((_,i)=>i!==index))}>Remove</button></div>)}</div><p role="status">{photoStatus}</p></div><button className="g2-btn g2-btn-green" style={{marginTop:22}} type="submit" disabled={busy || loading || Boolean(acting) || preparingPhotos || (!body.trim()&&!photos.length)}>{busy ? "Publishing…" : "Publish post →"}</button></form><p className="g2-feedback" role="status" aria-live="polite">{status}</p>
         <section className="g2-golfer-panel g2-social-network" aria-label="Your golfer details">
           <p className="g2-eyebrow">MY GOLF IDENTITY</p><h2>Your game. Your story.</h2>
           <p>Personalize your golf profile. These details are private unless you choose to share them with the clubhouse.</p>
