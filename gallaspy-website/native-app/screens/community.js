@@ -54,15 +54,15 @@
     if (videoInput) videoInput.value = "";
     if (videoPreview) { videoPreview.pause(); videoPreview.removeAttribute("src"); videoPreview.load(); videoPreview.hidden = true; }
     if (removeVideo) removeVideo.hidden = true;
-    if (videoInfo) videoInfo.textContent = "Choose a short MP4 or saved Shot Tracer export, up to 3.5 MB.";
+    if (videoInfo) videoInfo.textContent = "Choose a short MP4 or saved Shot Tracer export, up to 20 MB.";
   }
 
   videoInput?.addEventListener("change", () => {
     const file = videoInput.files?.[0];
     clearVideo();
     if (!file || posting) return;
-    if (file.type !== "video/mp4" || file.size > 3500000 || file.size < 12) {
-      videoInfo.textContent = "Choose an MP4 under 3.5 MB."; return;
+    if (file.type !== "video/mp4" || file.size > 20000000 || file.size < 12) {
+      videoInfo.textContent = "Choose an MP4 up to 20 MB."; return;
     }
     selectedVideo = file;
     previewUrl = URL.createObjectURL(file);
@@ -74,8 +74,27 @@
   async function uploadVideo(caption) {
     const accessToken = await token();
     if (!accessToken || !selectedVideo) throw new Error("Sign in and select a video.");
+    videoUploadId ??= crypto.randomUUID();
+    if(selectedVideo.size>3500000){
+      const payload={upload_id:videoUploadId,bytes:selectedVideo.size,caption:caption||"Golf video"};
+      const direct=async action=>{
+        const response=await fetch(VIDEO_API,{method:"POST",headers:{Authorization:`Bearer ${accessToken}`,"Content-Type":"application/json"},body:JSON.stringify({...payload,action})});
+        const result=await response.json();if(!response.ok||result.success!==true)throw new Error(result.error||"Video publishing unavailable.");return result;
+      };
+      const reserve=await direct("reserve");if(reserve.published)return;
+      if(!reserve.uploaded){
+        if(typeof reserve.upload_url!=="string"||!reserve.upload_url.startsWith("https://"))throw new Error("Upload unavailable.");
+        await new Promise((resolve,reject)=>{
+          const xhr=new XMLHttpRequest();xhr.open("PUT",reserve.upload_url);xhr.setRequestHeader("Content-Type","video/mp4");xhr.setRequestHeader("x-upsert","false");xhr.timeout=240000;
+          xhr.upload.onprogress=event=>{if(event.lengthComputable)status.textContent=`Uploading video… ${Math.round(event.loaded/event.total*100)}%`;};
+          xhr.onload=()=>xhr.status>=200&&xhr.status<300?resolve():reject(new Error("Upload not confirmed. Retry the same selected video."));
+          xhr.onerror=xhr.ontimeout=()=>reject(new Error("Upload interrupted. Retry the same selected video."));xhr.send(selectedVideo);
+        });
+      }
+      status.textContent="Upload complete. Confirming publication…";await direct("finalize");return;
+    }
     const form = new FormData(); form.append("video", selectedVideo); form.append("body", caption || "Golf video");
-    videoUploadId ??= crypto.randomUUID(); form.append("upload_id", videoUploadId);
+    form.append("upload_id", videoUploadId);
     await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open("POST", VIDEO_API); xhr.setRequestHeader("Authorization", `Bearer ${accessToken}`); xhr.timeout = 120000;

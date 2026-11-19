@@ -7,6 +7,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 const bucket="gallaspy-community-videos";
 const maxBytes=3_500_000;
+const directMaxBytes=20_000_000;
 const uuid=/^[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}$/i;
 const cors={"Access-Control-Allow-Origin":"capacitor://localhost","Access-Control-Allow-Methods":"GET, POST, OPTIONS","Access-Control-Allow-Headers":"Authorization, Content-Type","Cache-Control":"private, no-store","Vary":"Origin"};
 const reply=(body:unknown,status=200)=>NextResponse.json(body,{status,headers:cors});
@@ -24,6 +25,41 @@ async function context(request:NextRequest) {
   if(!verified.ok)return {error:reply({success:false,error:"Membership verification unavailable."},verified.status)};
   if((await verified.json()).membership?.is_official_member!==true)return {error:reply({success:false,error:"Active club membership required."},403)};
   return {viewer:data.user.id,admin:createClient(url,secret,{auth:{persistSession:false,autoRefreshToken:false}})};
+}
+
+async function directUpload(request:NextRequest,ctx:Extract<Awaited<ReturnType<typeof context>>,{admin:unknown}>) {
+  const raw=await request.text();
+  if(raw.length>8000)return reply({success:false,error:"Invalid upload request."},400);
+  const input=JSON.parse(raw);
+  const {action,upload_id,bytes,caption}=input??{};
+  if(!["reserve","finalize"].includes(action)||typeof upload_id!=="string"||!uuid.test(upload_id)||!Number.isInteger(bytes)||bytes<=maxBytes||bytes>directMaxBytes||typeof caption!=="string"||caption.length>3000)return reply({success:false,error:"Invalid large video request."},400);
+  const digest=createHash("sha256").update(`${ctx.viewer}:direct:${upload_id.toLowerCase()}`).digest("hex");
+  const post=`${digest.slice(0,8)}-${digest.slice(8,12)}-4${digest.slice(13,16)}-8${digest.slice(17,20)}-${digest.slice(20,32)}`;
+  const path=`${ctx.viewer}/${post}.mp4`;
+  const {data:existing,error:lookupError}=await ctx.admin.from("gallaspy_community_videos").select("post_id").eq("post_id",post).eq("storage_path",path).maybeSingle();
+  if(lookupError)throw lookupError;
+  if(existing)return reply({success:true,published:true,post:{id:post}});
+  const store=ctx.admin.storage.from(bucket);
+  if(action==="reserve"){
+    const result=await ctx.admin.rpc("gallaspy_reserve_video_upload",{p_actor:ctx.viewer,p_post:post,p_bytes:bytes});
+    if(result.error)return reply({success:false,error:result.error.message.includes("limit")?"Large video upload limit reached. Try again later or contact club support.":"Unable to reserve upload."},result.error.message.includes("limit")?429:503);
+    if(result.data==="published")return reply({success:true,published:true,post:{id:post}});
+    const info=await store.info(path);
+    if(info.data)return reply({success:true,uploaded:true});
+    if(result.data!=="reserved")return reply({success:false,error:"Upload reservation expired. Select the video again."},409);
+    const signed=await store.createSignedUploadUrl(path,{upsert:false});
+    if(signed.error)throw signed.error;
+    return reply({success:true,upload_url:signed.data.signedUrl});
+  }
+  const reservation=await ctx.admin.from("gallaspy_video_upload_reservations").select("byte_size,created_at").eq("actor",ctx.viewer).eq("post_id",post).maybeSingle();
+  if(reservation.error)throw reservation.error;
+  if(!reservation.data||reservation.data.byte_size!==bytes||Date.now()-Date.parse(reservation.data.created_at)>3*60*60*1000)return reply({success:false,error:"Missing or expired upload reservation."},409);
+  const downloaded=await store.download(path);
+  if(downloaded.error||!downloaded.data)return reply({success:false,error:"Upload not yet confirmed. Retry the same video."},409);
+  if(downloaded.data.size!==bytes||String.fromCharCode(...new Uint8Array(await downloaded.data.slice(4,8).arrayBuffer()))!=="ftyp")return reply({success:false,error:"Invalid MP4 or file size. Select another video."},400);
+  const published=await ctx.admin.rpc("gallaspy_publish_community_video",{actor:ctx.viewer,post,caption,bytes});
+  if(published.error||published.data!==post)return reply({success:false,error:published.error?.message.includes("limit")||published.error?.message.includes("60 seconds")?"Posting limit reached. Retry the same video later.":"Publication not yet confirmed. Retry the same video."},409);
+  return reply({success:true,published:true,post:{id:post}},201);
 }
 
 export async function GET(request:NextRequest) {
@@ -47,6 +83,7 @@ export async function POST(request:NextRequest) {
   try {
     const ctx=await context(request);if(ctx.error)return ctx.error;
     const type=request.headers.get("content-type")||"";
+    if(/^application\/json(?:;|$)/i.test(type))return await directUpload(request,ctx);
     const limit=maxBytes+30_000;
     if(!/^multipart\/form-data\s*;\s*boundary=/i.test(type)||!request.body)return reply({success:false,error:"Video upload required."},415);
     if(Number(request.headers.get("content-length"))>limit)return reply({success:false,error:"Video exceeds 3.5 MB."},413);

@@ -292,8 +292,26 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
     event.preventDefault();if(!videoFile||busy||loading||acting||preparingPhotos)return;
     setBusy(true);setVideoStatus("");
     try {
+      videoUploadId.current ??= crypto.randomUUID();
+      if(videoFile.size>3_500_000){
+        const payload={upload_id:videoUploadId.current,bytes:videoFile.size,caption:videoCaption.trim()||"Golf video"};
+        const reserve=await api(token,"/api/web/community/video",{...payload,action:"reserve"});
+        if(!reserve.published){
+          if(!reserve.uploaded){
+            if(typeof reserve.upload_url!=="string"||!reserve.upload_url.startsWith("https://"))throw new Error("Upload unavailable.");
+            await new Promise<void>((resolve,reject)=>{
+              const xhr=new XMLHttpRequest();xhr.open("PUT",reserve.upload_url);xhr.setRequestHeader("Content-Type","video/mp4");xhr.setRequestHeader("x-upsert","false");xhr.timeout=240000;
+              xhr.upload.onprogress=event=>{if(event.lengthComputable)setVideoStatus(`Uploading video… ${Math.round(event.loaded/event.total*100)}%`);};
+              xhr.onload=()=>xhr.status>=200&&xhr.status<300?resolve():reject(new Error("Upload not confirmed. Retry the same selected video."));
+              xhr.onerror=xhr.ontimeout=()=>reject(new Error("Upload interrupted. Retry the same selected video."));xhr.send(videoFile);
+            });
+          }
+          setVideoStatus("Upload complete. Confirming publication…");
+          await api(token,"/api/web/community/video",{...payload,action:"finalize"});
+        }
+      }else{
       const form=new FormData();form.append("video",videoFile);form.append("body",videoCaption.trim()||"Golf video");
-      videoUploadId.current ??= crypto.randomUUID();form.append("upload_id",videoUploadId.current);
+      form.append("upload_id",videoUploadId.current);
       await new Promise<void>((resolve,reject)=>{
         const xhr=new XMLHttpRequest();xhr.open("POST","/api/web/community/video");xhr.setRequestHeader("Authorization",`Bearer ${token}`);xhr.timeout=120000;
         xhr.upload.onprogress=event=>{if(event.lengthComputable)setVideoStatus(`Uploading video… ${Math.round(event.loaded/event.total*100)}%`);};
@@ -301,6 +319,7 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
         xhr.onload=()=>{try{const data=JSON.parse(xhr.responseText);if(xhr.status<200||xhr.status>=300||data.success!==true)throw new Error(data.error||"Unable to publish video.");resolve();}catch(error){reject(error);}};
         xhr.onerror=xhr.ontimeout=()=>reject(new Error("Publication could not be confirmed. Retry the same selected video."));xhr.send(form);
       });
+      }
       setVideoFile(null);setVideoCaption("");setFilter("all");setVideoStatus("Video published.");
       await refresh(token).catch(()=>setVideoStatus("Video published. Refresh the feed to see it."));
     }catch(error){setVideoStatus(error instanceof Error?error.message:"Unable to publish video.");}
@@ -354,8 +373,8 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
   return <div className="g2-feed-layout">
       <aside><p className="g2-eyebrow">SHARE WITH THE CLUB</p><form onSubmit={publish} className="g2-form-card" style={{marginTop:20}}><div className="g2-field"><label htmlFor="g2-post">Your post {photos.length?"(optional caption)":""}</label><textarea id="g2-post" rows={6} maxLength={3000} value={body} onChange={event=>setBody(event.target.value)} placeholder="A round worth sharing. A moment from the course." disabled={busy} required={!photos.length}/></div><div className="g2-field g2-photo-composer"><label htmlFor="clubhouse-photo">Add course photos · {photos.length}/4</label><input id="clubhouse-photo" type="file" multiple accept="image/jpeg,image/png,image/webp" disabled={busy||preparingPhotos||photos.length>=4} onChange={e=>{const files=Array.from(e.target.files||[]);e.target.value="";void choosePhotos(files);}}/><p>JPEG, PNG or WebP. Photos are optimized before upload.</p><div className="g2-photo-preview">{photos.map((photo,index)=><div key={index}><img src={photo.preview} alt={`Selected golf photo ${index+1}`}/><button type="button" disabled={busy||preparingPhotos} aria-label={`Remove photo ${index+1}`} onClick={()=>setPhotos(previous=>previous.filter((_,i)=>i!==index))}>Remove</button></div>)}</div><p role="status">{photoStatus}</p></div><button className="g2-btn g2-btn-green" style={{marginTop:22}} type="submit" disabled={busy || loading || Boolean(acting) || preparingPhotos || (!body.trim()&&!photos.length)}>{busy ? "Publishing…" : "Publish post →"}</button></form><p className="g2-feedback" role="status" aria-live="polite">{status}</p>
         <section className="g2-golfer-panel g2-video-composer" aria-label="Share a golf video">
-          <p className="g2-eyebrow">FROM THE COURSE</p><h2>Golf video.</h2><p>Share a short MP4, including a saved Shot Tracer export. Initial upload limit: 3.5 MB.</p>
-          <form className="g2-field" onSubmit={publishVideo}><label htmlFor="clubhouse-video">Choose MP4</label><input type="file" id="clubhouse-video" accept="video/mp4,.mp4" disabled={busy} onChange={event=>{const file=event.target.files?.[0];event.target.value="";if(!file)return;if(file.type!=="video/mp4"||file.size>3_500_000||file.size<12){setVideoStatus("Choose an MP4 under 3.5 MB.");return;}setVideoFile(file);setVideoStatus("");}}/>
+          <p className="g2-eyebrow">FROM THE COURSE</p><h2>Golf video.</h2><p>Share a short MP4, including a saved Shot Tracer export, up to 20 MB.</p>
+          <form className="g2-field" onSubmit={publishVideo}><label htmlFor="clubhouse-video">Choose MP4</label><input type="file" id="clubhouse-video" accept="video/mp4,.mp4" disabled={busy} onChange={event=>{const file=event.target.files?.[0];event.target.value="";if(!file)return;if(file.type!=="video/mp4"||file.size>20_000_000||file.size<12){setVideoFile(null);setVideoStatus("Choose an MP4 up to 20 MB.");return;}setVideoFile(file);setVideoStatus("");}}/>
             {videoFile && <><video key={videoPreview} src={videoPreview||undefined} controls playsInline preload="metadata" onError={()=>setVideoStatus("This preview could not be played on your device.")}/><button type="button" disabled={busy} onClick={()=>setVideoFile(null)}>Remove video</button></>}
             <label htmlFor="clubhouse-video-caption">Caption (optional)</label><textarea id="clubhouse-video-caption" rows={3} maxLength={3000} value={videoCaption} disabled={busy} onChange={event=>setVideoCaption(event.target.value)}/><button className="g2-btn g2-btn-green" type="submit" disabled={!videoFile||busy||loading||Boolean(acting)||preparingPhotos}>{busy?"Publishing…":"Publish video"}</button><p role="status">{videoStatus}</p>
           </form>
