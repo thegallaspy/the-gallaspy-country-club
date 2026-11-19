@@ -2,6 +2,7 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import MyHostedRounds from "@/components/home/MyHostedRounds";
 type Round = {
   id: string;
   course_name: string;
@@ -102,6 +103,7 @@ export default function HostRoundPage() {
   const [loadError, setLoadError] = useState("");
   const [publishedRound, setPublishedRound] = useState<string | null>(null);
   const [requestedRounds, setRequestedRounds] = useState<string[]>([]);
+  const [scheduleRevision, setScheduleRevision] = useState(0);
   const [courseSearch, setCourseSearch] = useState("");
   const [styleFilter, setStyleFilter] = useState("");
   const [dateFilter, setDateFilter] = useState("");
@@ -173,6 +175,7 @@ export default function HostRoundPage() {
       if (!response.ok || !data.success)
         throw new Error(data.error || "Unable to request a place.");
       setRequestedRounds(previous => [...previous, id]);
+      setScheduleRevision(value => value + 1);
       setJoinNotice(
         "Request sent to the round host. Your place is not confirmed until approved.",
       );
@@ -208,6 +211,7 @@ export default function HostRoundPage() {
       if (!r.ok || !data.success)
         throw new Error(data.error || "Could not create your round.");
       setPublishedRound(data.foursome.id);
+      setScheduleRevision(value => value + 1);
       setNotice("Your round is open for golfers to discover.");
       form.reset();
       try {
@@ -263,6 +267,7 @@ export default function HostRoundPage() {
             <Link href="#open-rounds" className="g2-line-link">
               Browse open rounds →
             </Link>
+            {token && playerStatus === "ready" && <Link href="#my-rounds" className="g2-line-link">My rounds →</Link>}
           </div>
         </header>
         <section className="g3-host-section" id="host-round">
@@ -421,6 +426,7 @@ export default function HostRoundPage() {
             </div>
           )}
         </section>
+        {token && playerStatus === "ready" && <MyHostedRounds key={token} token={token} revision={scheduleRevision} onChange={load} />}
         <section className="g3-open-rounds" id="open-rounds">
           {joinNotice && <p role="status">{joinNotice}</p>}
           <div className="g3-rounds-heading">

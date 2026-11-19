@@ -480,6 +480,21 @@
             )
           : [];
 
+        if (round.status === "open") {
+          const invite = element("button", "SHARE INVITATION →");
+          invite.type = "button";
+          invite.addEventListener("click", async () => {
+            const url = new URL("https://thegallaspy.com/host-a-round");
+            url.searchParams.set("round", round.id);
+            url.hash = "open-rounds";
+            try {
+              if (navigator.share) await navigator.share({ title: "Join my Gallaspy round", url: url.href });
+              else { await navigator.clipboard.writeText(url.href); if (message) message.textContent = "Invitation link copied."; }
+            } catch (error) { if (error?.name !== "AbortError" && message) message.textContent = url.href; }
+          });
+          card.append(invite);
+        }
+
         card.append(
           element(
             "p",

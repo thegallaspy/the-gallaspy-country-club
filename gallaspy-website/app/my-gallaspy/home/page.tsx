@@ -252,6 +252,9 @@ export default async function MyGallaspyHomePage() {
                 <Link href="/host-a-round#open-rounds" className="text-sm font-semibold underline">
                   Browse open rounds
                 </Link>
+                <Link href="/host-a-round#my-rounds" className="text-sm font-semibold underline">
+                  Manage my rounds
+                </Link>
               </div>
             </div>
 

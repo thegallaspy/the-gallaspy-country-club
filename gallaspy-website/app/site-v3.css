@@ -32,3 +32,9 @@
 .g3-round-filters :focus-visible{outline:2px solid #164b3a;outline-offset:2px}
 .g3-round-count{font-size:13px;color:#164b3a;margin-bottom:16px}
 @media(max-width:760px){.g3-round-filters{grid-template-columns:1fr 1fr;padding:14px}.g3-round-filters label:first-child{grid-column:1/-1}.g3-round-filters button{grid-column:1/-1}}
+.g3-management-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:26px;color:#10263f}
+.g3-management-grid h3{font-weight:800;font-size:22px;margin-bottom:8px}.g3-management-grid h4{font-weight:800;font-size:23px;margin:6px 0 12px}.g3-management-grid h5{font-size:13px;font-weight:800;margin:20px 0 10px}
+.g3-management-card{padding:22px;border:1px solid #d2dfd6;border-radius:12px;background:#fff;margin-top:16px}.g3-management-card p{margin:8px 0;color:#10263f}.g3-management-card p svg,.g3-management-button svg{display:inline-block;vertical-align:middle;margin-right:5px;color:#164b3a}
+.g3-management-card .g3-status{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#164b3a}
+.g3-management-button,.g3-request-actions button{min-height:44px;padding:10px 14px;border:1px solid #164b3a;background:#fff;color:#164b3a;font-size:13px;font-weight:700;border-radius:6px;cursor:pointer}.g3-request-actions button:first-child{background:#164b3a;color:#fff}.g3-request-actions button:disabled{opacity:.45;cursor:not-allowed}.g3-request-actions{display:flex;flex-wrap:wrap;gap:8px}.g3-request-row{border-top:1px solid #d2dfd6;padding:12px 0}.g3-management-card button:focus-visible{outline:2px solid #164b3a;outline-offset:2px}
+@media(max-width:760px){.g3-management-grid{grid-template-columns:1fr;gap:30px}.g3-management-card{padding:16px}}
