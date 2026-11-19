@@ -37,8 +37,8 @@ const memberAreas = [
     eyebrow: "Play",
     title: "Gallaspy Rounds",
     description:
-      "Member information and access for upcoming Gallaspy golf gatherings.",
-    href: "/falcon-society/members/rounds",
+      "Explore upcoming Gallaspy golf gatherings on the club rounds page.",
+    href: "/rounds",
     action: "View Rounds",
   },
   {
@@ -56,14 +56,6 @@ const memberAreas = [
       "A permanent record of the founding chapter of the Falcon Society.",
     href: "/falcon-society/members/ledger",
     action: "View Ledger",
-  },
-  {
-    eyebrow: "Member Library",
-    title: "Resources",
-    description:
-      "Club information, event materials, policies, guides, and member documents.",
-    href: "/falcon-society/members/resources",
-    action: "View Resources",
   },
 ];
 

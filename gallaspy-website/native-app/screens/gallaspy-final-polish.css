@@ -1,0 +1,16 @@
+/* Phase 6I: shared navigation and readable editorial accents. */
+.tab.active::before { background:#164b3a; }
+.tab-label { font-size:11px; letter-spacing:0; }
+.gallaspy-header-signout { min-height:44px; font-size:11px; }
+#nativeContent .intro-label { font-size:11px; }
+#nativeHomeScreen .home-personal-welcome, #nativeHomeScreen .home-club-card-label { color:#164b3a; }
+#nativePlayScreen .play-dashboard-nav button[data-play-target="playScorecardLaunch"] { background:#164b3a; border-color:#164b3a; box-shadow:none; }
+#nativePlayScreen .play-dashboard-nav button small { font-size:12px; line-height:1.4; }
+#nativeContent :is(button,a):focus-visible { outline-offset:3px; }
+@media(max-width:360px) {
+  .tab-label { font-size:10px; }
+  .gallaspy-header-signout { font-size:10px; padding-inline:8px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .tab, .gallaspy-play-back, .play-dashboard-nav button { transition:none; }
+}

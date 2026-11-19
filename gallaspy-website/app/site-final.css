@@ -245,6 +245,21 @@ main:is([class~="bg-[#F4F0E7]"],[class~="bg-[#F7F4EE]"],[class~="bg-[#F5F0E6]"],
 .gallaspy-falcon-membership :is(h1,h2,h3).font-serif { font-family:inherit; font-weight:800; }
 .gallaspy-reward-tiers { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; list-style:none; padding:0; }
 .gallaspy-reward-tiers li { border:1px solid #dce5df; border-radius:6px; padding:12px 4px; text-align:center; font-weight:750; font-size:13px; color:#10263f; }
+
+/* Phase 6I: finish legacy editorial surfaces without touching artwork or checkout. */
+.gallaspy-skip-link { position:fixed; top:8px; left:8px; z-index:200; padding:12px 18px; background:#164b3a; color:white; font-weight:700; transform:translateY(-150%); }
+.gallaspy-skip-link:focus { transform:translateY(0); }
+.gsite-nav-group > a:hover, .gsite-nav-group > a[aria-current="page"], .gsite-mobile-account { color:var(--gg-forest); }
+main:is([class~="bg-[#F4F0E7]"],[class~="bg-[#F7F4EE]"],[class~="bg-[#F7F4EC]"],.gallaspy-falcon-membership) :is(p,span,blockquote,summary).font-serif { font-family:Arial,sans-serif; font-weight:600; }
+main:is([class~="bg-[#F4F0E7]"],[class~="bg-[#F7F4EE]"],[class~="bg-[#F7F4EC]"],.gallaspy-falcon-membership) :is(a,button,p,span,small)[class~="text-[9px]"] { font-size:11px; line-height:1.45; letter-spacing:.06em; }
+main:is([class~="bg-[#F4F0E7]"],[class~="bg-[#F7F4EE]"],[class~="bg-[#F7F4EC]"]) > section:first-child h1 { font-size:clamp(2.75rem,7vw,5.75rem); line-height:1.04; }
+@media (max-width:1080px) {
+  .gsite-mobile-menu { top:100%; height:calc(100dvh - 82px); overscroll-behavior:contain; }
+  .gsite-mobile-submenu > a { min-height:44px; display:flex; align-items:center; }
+  .gsite-menu-toggle { width:44px; height:44px; }
+}
+@media (max-width:767px) { .gsite-mobile-menu { height:calc(100dvh - 72px); } }
+@media (prefers-reduced-motion:reduce) { html.scroll-smooth { scroll-behavior:auto; } }
 @media (max-width: 760px) {
   .gallaspy-membership-options { grid-template-columns:1fr; }
   .gallaspy-calendar-signature-grid { grid-template-columns: 1fr; gap: 10px; }

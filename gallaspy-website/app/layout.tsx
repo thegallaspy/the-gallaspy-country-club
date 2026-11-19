@@ -106,12 +106,13 @@ export default function RootLayout({
 }: RootLayoutProps) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className="bg-[#F7F4EE] text-[#10263F] antialiased selection:bg-[#B89146] selection:text-white">
+      <body className="bg-white text-[#10263F] antialiased selection:bg-[#B89146] selection:text-white">
+        <a href="#gallaspy-page-content" className="gallaspy-skip-link">Skip to content</a>
         <LoadingScreen />
 
         <Navbar />
 
-        <main className="min-h-screen w-full overflow-x-hidden">
+        <main id="gallaspy-page-content" tabIndex={-1} className="min-h-screen w-full overflow-x-hidden">
           {children}
         </main>
 

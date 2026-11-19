@@ -18,6 +18,7 @@ const sections = [
     { label: "Gallaspy Rounds", href: "/rounds" },
     { label: "Host a Round", href: "/host-a-round" },
     { label: "Register For A Round", href: "/rounds/register" },
+    { label: "Playing Conditions", href: "/play#playing-conditions" },
   ] },
   { label: "Events", href: "/events", links: [
     { label: "THE GALLASPY™", href: "/the-gallaspy" },
@@ -54,9 +55,17 @@ export function Navbar() {
     return () => { window.removeEventListener("gallaspy-cart-updated", update); window.removeEventListener("storage", update); };
   }, []);
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = previous; };
   }, [open]);
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1081px)");
+    const closeOnDesktop = () => { if (desktop.matches) { setOpen(false); setExpanded(null); } };
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => desktop.removeEventListener("change", closeOnDesktop);
+  }, []);
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); };
     window.addEventListener("keydown", onKey);
@@ -83,7 +92,7 @@ export function Navbar() {
           <button type="button" className="gsite-menu-toggle" onClick={() => setOpen(!open)} aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} aria-controls="gsite-mobile-menu"><span /><span /><span /></button>
         </div>
       </div>
-      <nav id="gsite-mobile-menu" className={`gsite-mobile-menu ${open ? "is-open" : ""}`} aria-label="Mobile navigation" aria-hidden={!open}>
+      <nav id="gsite-mobile-menu" className={`gsite-mobile-menu ${open ? "is-open" : ""}`} aria-label="Mobile navigation" aria-hidden={!open} inert={!open}>
         <div className="gsite-mobile-links">
           {sections.map(item => <div className="gsite-mobile-group" key={item.label}>
             <div className="gsite-mobile-heading"><Link href={item.href} onClick={() => setOpen(false)}>{item.label}</Link>{item.links.length > 0 && <button type="button" aria-label={`Toggle ${item.label} menu`} aria-expanded={expanded === item.label} onClick={() => setExpanded(expanded === item.label ? null : item.label)}>{expanded === item.label ? "−" : "+"}</button>}</div>

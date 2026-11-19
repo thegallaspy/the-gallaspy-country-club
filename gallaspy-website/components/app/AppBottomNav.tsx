@@ -50,7 +50,7 @@ const items = [
 
 function routeIsActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
-  if (href === "/play" && (pathname === "/rounds" || pathname.startsWith("/rounds/") || pathname === "/calendar" || pathname.startsWith("/calendar/"))) return true;
+  if (href === "/play" && ["/rounds", "/host-a-round", "/calendar", "/events", "/the-gallaspy", "/invitational", "/gallaspy-cup", "/talaria-cup", "/night-at-the-nest"].some(route => pathname === route || pathname.startsWith(`${route}/`))) return true;
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
@@ -75,7 +75,7 @@ export default function AppBottomNav() {
 
       <nav
         aria-label="App navigation"
-        className="fixed inset-x-0 bottom-0 z-[70] border-t border-white/10 bg-[#10263F]/98 pb-[env(safe-area-inset-bottom)] shadow-[0_-12px_35px_rgba(0,0,0,0.18)] backdrop-blur-xl xl:hidden"
+        className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#10263F]/15 bg-white pb-[env(safe-area-inset-bottom)] xl:hidden"
       >
         <div className="mx-auto grid min-h-[68px] max-w-lg grid-cols-4">
           {items.map((item) => {
@@ -88,11 +88,11 @@ export default function AppBottomNav() {
                 aria-current={active ? "page" : undefined}
                 className={[
                   "relative flex min-h-[68px] flex-col items-center justify-center gap-1.5 px-1 transition-colors",
-                  active ? "text-[#FFD76A]" : "text-white/80",
+                  active ? "text-[#164B3A]" : "text-[#47596A]",
                 ].join(" ")}
               >
                 {active && (
-                  <span className="absolute inset-x-5 top-0 h-px bg-[#FFD76A]" />
+                  <span className="absolute inset-x-5 top-0 h-[3px] bg-[#164B3A]" />
                 )}
 
                 {item.icon}
