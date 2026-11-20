@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { GET as membership } from "@/app/api/mobile/membership/route";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -54,8 +55,10 @@ export async function GET(request: NextRequest) {
     }
 
     const targetId = request.nextUrl.searchParams.get("user_id");
+    const search = request.nextUrl.searchParams.get("q");
+    const username = search?.trim().replace(/^@/, "") ?? "";
 
-    if (!targetId || !UUID.test(targetId)) {
+    if (search !== null ? (targetId !== null || !/^[A-Za-z0-9_.]{3,20}$/.test(username)) : (!targetId || !UUID.test(targetId))) {
       return respond(
         { success: false, error: "Invalid golfer." },
         400,
@@ -94,6 +97,25 @@ export async function GET(request: NextRequest) {
 
     const viewerId = authData.user.id;
     const admin = createClient(url, secret, options);
+
+    if (search !== null) {
+      const verification = await membership(request);
+      if (!verification.ok) return respond({success:false,error:"Membership verification unavailable."},verification.status);
+      if ((await verification.json()).membership?.is_official_member !== true) return respond({success:false,error:"Active club membership required."},403);
+      const {data: blocked, error: blockError} = await admin
+        .from("gallaspy_community_blocks").select("blocker_id,blocked_id")
+        .or(`blocker_id.eq.${viewerId},blocked_id.eq.${viewerId}`);
+      if (blockError || !blocked) return respond({success:false,error:"Golfer search unavailable."},503);
+      const hidden = [...new Set([viewerId,...blocked.map(row=>row.blocker_id===viewerId?row.blocked_id:row.blocker_id)])];
+      const {data: golfers, error: searchError} = await admin
+        .from("gallaspy_community_profiles").select("user_id,username")
+        .ilike("username", username.replace(/_/g,"\\_")+"%")
+        .not("user_id","in",`(${hidden.join(",")})`)
+        .order("username").limit(20);
+      if (searchError) return respond({success:false,error:"Golfer search unavailable."},503);
+      return respond({success:true,golfers:golfers ?? []});
+    }
+    if (!targetId) return respond({success:false,error:"Invalid golfer."},400);
 
     // Blocking must be enforced server-side in both directions.
     const { data: blocks, error: blockError } = await admin

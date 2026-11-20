@@ -189,6 +189,42 @@
   }
 
   let publicProfileRequestId = 0;
+  let golferSearchId = 0;
+  const golferSearchForm = document.getElementById("communityGolferSearch");
+  const golferQueryInput = document.getElementById("communityGolferQuery");
+  const golferSearchStatus = document.getElementById("communityGolferStatus");
+  const golferResults = document.getElementById("communityGolferResults");
+  function clearGolferSearch() {
+    golferSearchId++;
+    golferResults?.replaceChildren();
+    if (golferSearchStatus) golferSearchStatus.textContent = "";
+  }
+  golferQueryInput?.addEventListener("input", clearGolferSearch);
+  golferSearchForm?.addEventListener("submit", async event => {
+    event.preventDefault();
+    if (!golferQueryInput || !golferResults || !golferSearchStatus) return;
+    clearGolferSearch();
+    const query = golferQueryInput.value.trim().replace(/^@/, "");
+    if (!/^[A-Za-z0-9_.]{3,20}$/.test(query)) {
+      golferSearchStatus.textContent = "Enter 3–20 username characters.";
+      return;
+    }
+    const generation = golferSearchId;
+    golferSearchStatus.textContent = "Searching golfers…";
+    try {
+      const result = await request("https://thegallaspy.com/api/mobile/community/public-profile?q=" + encodeURIComponent(query));
+      if (generation !== golferSearchId) return;
+      const golfers = Array.isArray(result.golfers) ? result.golfers : [];
+      golferSearchStatus.textContent = golfers.length ? golfers.length + " matching golfers." : "No matching golfers.";
+      golfers.forEach(golfer => {
+        const button = socialButton("@" + golfer.username, "gallaspy-golfer-search-result");
+        button.addEventListener("click", () => void openPublicProfile(golfer));
+        golferResults.append(button);
+      });
+    } catch (error) {
+      if (generation === golferSearchId) golferSearchStatus.textContent = error.message || "Golfer search unavailable.";
+    }
+  });
 
   async function openPublicProfile(post) {
     if (!publicProfileView || !publicProfileContent) return;
@@ -543,6 +579,7 @@
       block.disabled = true;
       try {
         await request(ENGAGEMENT_API,"POST",{action:"block",user_id:post.user_id});
+        clearGolferSearch();
         await loadPosts();
       } catch (error) {
         feedback.textContent = error.message || "Could not block golfer.";
@@ -624,6 +661,7 @@
     // GALLASPY R9.6: restore Community on re-entry.
     // Also invalidate any unfinished public-profile request.
     closePublicProfile();
+    clearGolferSearch();
     if (!posting) clearVideo();
     await Promise.all([loadProfile(), loadPosts()]);
   }

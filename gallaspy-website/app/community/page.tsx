@@ -85,6 +85,8 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
   const [profileBusy, setProfileBusy] = useState(false);
   const [selectedGolfer, setSelectedGolfer] = useState<GolferProfile | null>(null);
   const [golferQuery, setGolferQuery] = useState("");
+  const [directory, setDirectory] = useState<GolferProfile[]>([]);
+  const [directoryStatus, setDirectoryStatus] = useState("Enter at least three username characters.");
   const [connections, setConnections] = useState<{following:GolferProfile[];followers:GolferProfile[]} | null>(null);
   const [connectionMessage, setConnectionMessage] = useState("");
   const [connectionBusy, setConnectionBusy] = useState(false);
@@ -116,6 +118,26 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
     if (!response.ok || !data.success) throw new Error(data.error || "Community request unavailable.");
     return data;
   }, []);
+
+  useEffect(() => {
+    const username = golferQuery.trim().replace(/^@/, "");
+    let active = true;
+    setDirectory([]);
+    if (!allowed || !/^[A-Za-z0-9_.]{3,20}$/.test(username)) {
+      setDirectoryStatus("Enter 3–20 username characters.");
+      return;
+    }
+    setDirectoryStatus("Searching golfers…");
+    const timer = window.setTimeout(() => {
+      api(token, `/api/web/community/public-profile?q=${encodeURIComponent(username)}`).then(data => {
+        if (!active) return;
+        const results = Array.isArray(data.golfers) ? data.golfers : [];
+        setDirectory(results);
+        setDirectoryStatus(results.length ? `${results.length} matching golfers${results.length===20 ? " · refine your search" : ""}.` : "No matching golfers.");
+      }).catch(error => { if (active) setDirectoryStatus(error instanceof Error ? error.message : "Golfer search unavailable."); });
+    }, 350);
+    return () => { active = false; window.clearTimeout(timer); };
+  }, [allowed, api, golferQuery, token]);
 
   useEffect(() => {
     if (!allowed || !ownProfile) return;
@@ -277,6 +299,8 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
         setConnections(previous=>previous ? {following:previous.following.filter(item=>item.user_id!==post.user_id),followers:previous.followers.filter(item=>item.user_id!==post.user_id)} : null);
         void loadConnections();
         setPosts(previous => previous.filter(item => item.user_id !== post.user_id));
+        setGolferQuery("");
+        setDirectory([]);
         setComments({}); setExpanded({}); setDrafts({});
         setStatus("Golfer blocked.");
       } else setStatus("Report submitted for review.");
@@ -388,7 +412,7 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
   }
 
   const visible = posts.filter(post => filter === "all" || (filter === "mine" ? post.user_id === userId : filter === "following" ? connections?.following.some(item=>item.user_id===post.user_id) : filter === "videos" ? Boolean(videoUrls[post.id]) : Boolean(post.photos?.length)));
-  const golfers = [...new Map(posts.filter(post=>post.user_id!==userId && post.username).map(post=>[post.user_id,post])).values()].filter(post=>post.username?.toLowerCase().includes(golferQuery.trim().toLowerCase()));
+  const golfers = directory;
   const nextHandleChange = ownProfile?.username_updated_at ? new Date(new Date(ownProfile.username_updated_at).getTime()+30*86400000) : null;
   if (!allowed) return <div className="g2-auth-panel" role="status"><p>{loading ? "Opening the clubhouse…" : status || "Community unavailable."}</p>{!loading && <button className="g2-btn g2-btn-green" onClick={()=>refresh(token).catch(error=>setStatus(error.message))}>Try again</button>}</div>;
   return <div className="g2-feed-layout">
@@ -428,7 +452,7 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
             <button type="button" className="g2-network-refresh" disabled={connectionBusy || Boolean(acting)} onClick={()=>void loadConnections()}>Refresh connections</button>
           </>}
         </section><Link href="/my-gallaspy/home" className="g2-line-link">Back to My Gallaspy →</Link></aside>
-      <section aria-label="Community posts"><details className="g2-golfer-panel g2-profile-disclosure" open={!ownProfile || Boolean(selectedGolfer)}><summary>My golfer profile &amp; discovery</summary><p className="g2-eyebrow">YOUR CLUBHOUSE IDENTITY</p><h2>{ownProfile ? `@${ownProfile.username}` : "Make it yours."}</h2><p>Choose the name other golfers see in the community.</p><form onSubmit={saveHandle} className="g2-field"><label htmlFor="clubhouse-handle">Username</label><input id="clubhouse-handle" value={handle} onChange={event=>setHandle(event.target.value)} maxLength={20} minLength={3} pattern="[A-Za-z0-9_.]{3,20}" required disabled={!profileReady || profileBusy}/><button className="g2-btn g2-btn-green" disabled={!profileReady || profileBusy || handle.trim()===ownProfile?.username}>Save username</button></form>{nextHandleChange && nextHandleChange.getTime()>Date.now() && <p>Username changes available after {nextHandleChange.toLocaleDateString()}.</p>}<p className="g2-feedback" role="status">{profileMessage}</p><hr/><p className="g2-eyebrow">DISCOVER GOLFERS</p><p>Find golfers who have shared a recent clubhouse post.</p><input className="g2-golfer-search" aria-label="Search recent golfers" placeholder="Search usernames" value={golferQuery} onChange={event=>setGolferQuery(event.target.value)}/><div className="g2-golfer-directory">{golfers.length ? golfers.map(golfer=><button key={golfer.user_id} type="button" disabled={profileBusy || loading || Boolean(acting)} onClick={()=>viewGolfer(golfer.user_id)}>@{golfer.username}</button>) : <p>No matching recent golfers.</p>}</div>{selectedGolfer && <div className="g2-golfer-preview"><div className="g2-post-author">{selectedGolfer.avatar_url ? <img src={selectedGolfer.avatar_url} alt="" referrerPolicy="no-referrer"/> : <span aria-hidden="true">{selectedGolfer.username[0].toUpperCase()}</span>}<div><strong>@{selectedGolfer.username}</strong><p>Gallaspy community profile</p></div></div><button type="button" onClick={()=>setSelectedGolfer(null)}>Close profile</button></div>}</details><div className="g2-clubhouse-heading"><p className="g2-eyebrow">FROM THE CLUBHOUSE</p><button type="button" disabled={loading || busy || profileBusy || Boolean(acting)} onClick={()=>{setSelectedGolfer(null);refresh(token).catch(error=>setStatus(error.message));}}>{loading ? "Refreshing…" : "Refresh"}</button></div><div className="g2-community-filters" aria-label="Filter posts">{([ ["all","Latest"], ["following","Following"], ["photos","Photos"], ["videos","Videos"], ["mine","My posts"] ] as const).map(([value,label])=><button key={value} type="button" disabled={value==="following" && !connections} aria-pressed={filter===value} onClick={()=>setFilter(value)}>{label}</button>)}</div><div style={{marginTop:20}}>{visible.length ? visible.map(post => <article className="g2-feed-post" key={post.id}>
+      <section aria-label="Community posts"><details className="g2-golfer-panel g2-profile-disclosure" open={!ownProfile || Boolean(selectedGolfer)}><summary>My golfer profile &amp; discovery</summary><p className="g2-eyebrow">YOUR CLUBHOUSE IDENTITY</p><h2>{ownProfile ? `@${ownProfile.username}` : "Make it yours."}</h2><p>Choose the name other golfers see in the community.</p><form onSubmit={saveHandle} className="g2-field"><label htmlFor="clubhouse-handle">Username</label><input id="clubhouse-handle" value={handle} onChange={event=>setHandle(event.target.value)} maxLength={20} minLength={3} pattern="[A-Za-z0-9_.]{3,20}" required disabled={!profileReady || profileBusy}/><button className="g2-btn g2-btn-green" disabled={!profileReady || profileBusy || handle.trim()===ownProfile?.username}>Save username</button></form>{nextHandleChange && nextHandleChange.getTime()>Date.now() && <p>Username changes available after {nextHandleChange.toLocaleDateString()}.</p>}<p className="g2-feedback" role="status">{profileMessage}</p><hr/><p className="g2-eyebrow">DISCOVER GOLFERS</p><p>Find golfers by their clubhouse username, even if they have not posted recently.</p><input className="g2-golfer-search" aria-label="Search golfers by username" placeholder="Enter 3 or more characters" maxLength={21} value={golferQuery} onChange={event=>setGolferQuery(event.target.value)}/><p className="g2-feedback" role="status">{directoryStatus}</p><div className="g2-golfer-directory">{golfers.length ? golfers.map(golfer=><button key={golfer.user_id} type="button" disabled={profileBusy || loading || Boolean(acting)} onClick={()=>viewGolfer(golfer.user_id!)}>@{golfer.username}</button>) : null}</div>{selectedGolfer && <div className="g2-golfer-preview"><div className="g2-post-author">{selectedGolfer.avatar_url ? <img src={selectedGolfer.avatar_url} alt="" referrerPolicy="no-referrer"/> : <span aria-hidden="true">{selectedGolfer.username[0].toUpperCase()}</span>}<div><strong>@{selectedGolfer.username}</strong><p>Gallaspy community profile</p></div></div><button type="button" onClick={()=>setSelectedGolfer(null)}>Close profile</button></div>}</details><div className="g2-clubhouse-heading"><p className="g2-eyebrow">FROM THE CLUBHOUSE</p><button type="button" disabled={loading || busy || profileBusy || Boolean(acting)} onClick={()=>{setSelectedGolfer(null);refresh(token).catch(error=>setStatus(error.message));}}>{loading ? "Refreshing…" : "Refresh"}</button></div><div className="g2-community-filters" aria-label="Filter posts">{([ ["all","Latest"], ["following","Following"], ["photos","Photos"], ["videos","Videos"], ["mine","My posts"] ] as const).map(([value,label])=><button key={value} type="button" disabled={value==="following" && !connections} aria-pressed={filter===value} onClick={()=>setFilter(value)}>{label}</button>)}</div><div style={{marginTop:20}}>{visible.length ? visible.map(post => <article className="g2-feed-post" key={post.id}>
         <div className="g2-post-author">{post.avatar_url ? <img src={post.avatar_url} alt="" referrerPolicy="no-referrer"/> : <span aria-hidden="true">{(post.username || "G").slice(0,1).toUpperCase()}</span>}<div><strong>{post.username ? `@${post.username}` : "Gallaspy golfer"}{post.user_id===userId ? " · You" : ""}</strong><time dateTime={post.created_at}>{new Date(post.created_at).toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}</time></div></div><p>{post.body}</p>
         {post.photos?.length ? <div className="g2-feed-photos">{post.photos.map((photo,index)=><img key={`${post.id}-${index}`} src={photo.url} alt={`Photo shared with the Gallaspy community ${index + 1}`} loading="lazy" referrerPolicy="no-referrer" />)}</div> : null}
         {videoUrls[post.id] && <div className="g2-feed-video"><video key={videoUrls[post.id]} src={videoUrls[post.id]} controls playsInline preload="none"/><button type="button" onClick={()=>renewVideo(post.id)}>Refresh video access</button></div>}

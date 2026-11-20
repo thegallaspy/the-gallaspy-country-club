@@ -956,6 +956,16 @@
 
           <section aria-label="Community posts">
             <h3 class="community-feed-heading">From the clubhouse</h3>
+            <details>
+              <summary>Discover golfers</summary>
+              <form id="communityGolferSearch">
+                <label for="communityGolferQuery">Clubhouse username</label>
+                <input id="communityGolferQuery" type="search" maxlength="21" placeholder="At least 3 characters" autocomplete="off" required>
+                <button type="submit">Search golfers</button>
+              </form>
+              <p id="communityGolferStatus" role="status" aria-live="polite"></p>
+              <div id="communityGolferResults"></div>
+            </details>
             <div class="gallaspy-community-media-filters" aria-label="Filter community posts">
               <button type="button" id="communityAllPosts" aria-pressed="true">Latest</button>
               <button type="button" id="communityPhotoPosts" aria-pressed="false">Photos</button>
