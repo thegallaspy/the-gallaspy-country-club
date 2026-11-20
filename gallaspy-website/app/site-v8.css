@@ -20,13 +20,13 @@
 .g2-home .g5-host-card {box-shadow:0 14px 34px rgba(12,36,45,.09);}
 .g2-home .g5-host h2 {max-width:11ch;}
 @media (max-width:767px) {
-  .g2-home .g5-member {padding:48px 0 52px;}
-  .g2-home .g5-member h2 {font-size:clamp(2.35rem,10vw,3.4rem);line-height:1.02;}
+  .g2-home .g5-member {padding:33.6px 0 36.4px;}
+  .g2-home .g5-member h2 {font-size:clamp(1.645rem,7vw,2.38rem);line-height:1.02;}
   .g2-home .g5-member-intro {font-size:14px;line-height:1.6;}
   .g2-home .g5-member-grid {gap:22px;}
   .g2-home .g5-member-button {min-height:46px;}
-  .g2-home .g5-host {padding:47px 0 56px;}
-  .g2-home .g5-host h2 {font-size:clamp(2.5rem,10vw,3.5rem);line-height:1.02;}
+  .g2-home .g5-host {padding:32.9px 0 39.2px;}
+  .g2-home .g5-host h2 {font-size:clamp(1.75rem,7vw,2.45rem);line-height:1.02;}
   .g2-home .g5-host-intro>p:not(.g5-eyebrow) {font-size:14px;line-height:1.6;}
   .g2-home .g5-host-shell {gap:20px;grid-template-columns:minmax(0,1fr)}
   .g2-home .g5-host-card {width:100%;min-width:0;padding:18px 15px;}

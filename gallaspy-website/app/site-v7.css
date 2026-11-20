@@ -6,17 +6,17 @@
   .g2-home, .g616-interior { overflow-x:clip; }
   .g2-home *, .g616-interior * { box-sizing:border-box; }
   .g2-container { width:calc(100% - 40px); max-width:none; }
-  .g2-section { padding-block:54px; }
+  .g2-section { padding-block:37.8px; }
   .g2-heading { display:block; margin-bottom:25px; }
-  .g2-heading h2 { font-size:clamp(2.15rem,8.2vw,3.3rem); line-height:1.05; letter-spacing:-.055em; margin-block:12px 16px; }
+  .g2-heading h2 { font-size:clamp(1.505rem,5.74vw,2.31rem); line-height:1.05; letter-spacing:-.055em; margin-block:12px 16px; }
   .g2-heading > a, .g2-heading .g2-line-link { display:inline-flex; margin-top:14px; }
   .g2-eyebrow, .g5-eyebrow { font-size:10px;letter-spacing:.14em;line-height:1.6; }
 
   /* First impression: no oversized headline, no billboard-height CTA or crest tile. */
   .g2-hero { background-position:59% center; }
   .g2-hero-grid { min-height:0; gap:0; }
-  .g2-hero-main { padding:55px 0 36px; }
-  .g2-hero h1 { font-size:clamp(2.55rem,10.1vw,4.05rem);line-height:1.01;letter-spacing:-.061em;max-width:100%;margin:20px 0 22px; }
+  .g2-hero-main { padding:38.5px 0 25.2px; }
+  .g2-hero h1 { font-size:clamp(1.785rem,7.07vw,2.835rem);line-height:1.01;letter-spacing:-.061em;max-width:100%;margin:20px 0 22px; }
   .g2-hero .g2-lede { font-size:15px;line-height:1.58;max-width:36ch; }
   .g2-actions { gap:14px;margin-top:23px;align-items:flex-start; }
   .g2-actions .g2-btn { width:auto;min-width:0;max-width:100%;padding:13px 16px;gap:20px;font-size:10px;letter-spacing:.08em; }
@@ -30,10 +30,10 @@
   .g2-hero-ticker {display:none;}
 
   /* Calendar: clear dates, tight rows, no long blank gaps. */
-  .g2-calendar {padding-block:54px 52px;}
+  .g2-calendar {padding-block:37.8px 36.4px;}
   .g2-event-list .g2-event {display:grid;grid-template-columns:52px minmax(0,1fr);gap:9px 14px;padding:19px 0;align-items:start;}
   .g2-event-number {grid-column:1;grid-row:1 / span 2;}
-  .g2-event-number strong {font-size:2.1rem;line-height:1.1;}
+  .g2-event-number strong {font-size:1.47rem;line-height:1.1;}
   .g2-event-info {grid-column:2;min-width:0;}
   .g2-event-info h3 {font-size:clamp(1.15rem,4.8vw,1.5rem);line-height:1.2;margin:5px 0;}
   .g2-event-info p {font-size:13px;line-height:1.45;margin:0;}
@@ -43,26 +43,26 @@
   .g2-calendar-bottom p {font-size:13px;line-height:1.5;margin-bottom:12px;}
 
   /* The three event experiences retain their own brands, with measured mobile scale. */
-  .g2-portals {padding-block:55px;}
+  .g2-portals {padding-block:38.5px;}
   .g2-portal-grid {grid-template-columns:minmax(0,1fr);gap:14px;}
   .g2-portal {min-height:0;padding:24px 22px;}
   .g2-portal-top {font-size:9px;gap:12px;line-height:1.5;}
-  .g2-portal h3 {font-size:clamp(2rem,9vw,3.35rem);line-height:1.01;letter-spacing:-.055em;}
+  .g2-portal h3 {font-size:clamp(1.4rem,6.3vw,2.345rem);line-height:1.01;letter-spacing:-.055em;}
   .g2-portal p {font-size:14px;line-height:1.5;}
   .g2-champ-logo {width:min(77%,240px)!important;height:165px!important;margin-block:16px!important;object-fit:contain;}
   .g2-cup-teams {margin-block:20px;}
   .g2-cup-teams img {width:clamp(66px,24vw,105px);height:auto;}
   .g2-portal-links {gap:12px 18px;}
   .g2-portal-links a {font-size:10px;line-height:1.5;}
-  .g3-gala-home {padding:54px 0;}
+  .g3-gala-home {padding:37.8px 0;}
   .g3-gala-home .g6-gala-official-logo {width:min(100%,410px);margin:18px 0;}
   .g3-gala-home p {font-size:14px;line-height:1.6;}
   .g3-gala-meta {margin-top:18px;padding-top:18px;}
 
   /* Membership: premium, readable, and no oversized empty billboard sections. */
-  .g5-member {padding:58px 0;}
-  .g5-member-grid {gap:32px;}
-  .g5-member h2 {font-size:clamp(2.8rem,11vw,4.4rem);line-height:.99;letter-spacing:-.065em;margin:15px 0 21px;}
+  .g5-member {padding:40.6px 0;}
+  .g5-member-grid {gap:22.4px;}
+  .g5-member h2 {font-size:clamp(1.96rem,7.7vw,3.08rem);line-height:.99;letter-spacing:-.065em;margin:15px 0 21px;}
   .g5-member-intro {font-size:15px;line-height:1.6;}
   .g5-member-cta {margin-top:22px;gap:11px;}
   .g5-member-button {font-size:10px;padding:14px 17px;gap:15px;}
@@ -75,9 +75,9 @@
   .g5-benefit-arrow {display:none;}
 
   /* Hosting: no fields extending outside the panel on iPhone Safari. */
-  .g5-host {padding:58px 0;}
+  .g5-host {padding:40.6px 0;}
   .g5-host-shell {display:grid;grid-template-columns:minmax(0,1fr);gap:24px;}
-  .g5-host h2 {font-size:clamp(2.8rem,11vw,4.1rem);line-height:1.02;margin:17px 0;}
+  .g5-host h2 {font-size:clamp(1.96rem,7.7vw,2.87rem);line-height:1.02;margin:17px 0;}
   .g5-host-intro>p:not(.g5-eyebrow) {font-size:15px;line-height:1.6;}
   .g5-host-meta {gap:8px;}
   .g5-host-meta span {font-size:9px;letter-spacing:0;padding:8px 10px;}
@@ -92,20 +92,20 @@
 
   /* Interior pages: reduce typography and spacing proportionally. */
   .g616-interior :is(h1,h2) {overflow-wrap:normal;}
-  .g616-interior .g3-events-hero {padding-block:56px 38px;}
-  .g616-interior .g3-events-hero h1 {font-size:clamp(2.6rem,12vw,4.4rem);line-height:.99;}
+  .g616-interior .g3-events-hero {padding-block:39.2px 26.6px;}
+  .g616-interior .g3-events-hero h1 {font-size:clamp(1.82rem,8.4vw,3.08rem);line-height:.99;}
   .g616-interior.g3-events-page .g3-events-card {min-height:0;padding:26px 20px;gap:18px;}
-  .g616-interior.g3-events-page .g3-events-copy h2 {font-size:clamp(2.1rem,9vw,3.2rem);}
-  .g616-interior.g3-member .g3-member-hero {padding-block:58px 46px;}
-  .g616-interior.g3-member .g3-member-section {padding-block:50px;}
-  .g616-interior.g3-gala-page .g3-gala-hero {padding-block:55px;}
+  .g616-interior.g3-events-page .g3-events-copy h2 {font-size:clamp(1.47rem,6.3vw,2.24rem);}
+  .g616-interior.g3-member .g3-member-hero {padding-block:40.6px 32.2px;}
+  .g616-interior.g3-member .g3-member-section {padding-block:35px;}
+  .g616-interior.g3-gala-page .g3-gala-hero {padding-block:38.5px;}
   .g616-interior.g2-interior :is(input,select,textarea) {max-width:100%;box-sizing:border-box;}
 }
 @media (max-width:390px) {
  .g2-container {width:calc(100% - 32px);}
- .g2-hero h1 {font-size:clamp(2.35rem,10vw,3rem);}
- .g2-hero-main {padding-top:43px;}
- .g5-member h2,.g5-host h2 {font-size:2.65rem;}
+ .g2-hero h1 {font-size:clamp(1.645rem,7vw,2.1rem);}
+ .g2-hero-main {padding-top:30.1px;}
+ .g5-member h2,.g5-host h2 {font-size:1.855rem;}
 }
 @media (prefers-reduced-motion:reduce) {
  .g2-home :is(a,button,img,article),.g616-interior :is(a,button,img,article) {transition:none!important;animation:none!important;}

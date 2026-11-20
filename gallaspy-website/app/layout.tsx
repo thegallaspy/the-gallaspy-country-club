@@ -20,6 +20,7 @@ import "./site-v10.css";
 import "./site-v11.css";
 import "./site-v12.css";
 import "./site-final.css";
+import "./site-compact.css";
 
 export const dynamic = "force-dynamic";
 
@@ -57,9 +58,9 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest",
 
   icons: {
-    icon: "/gallaspy-falcon-icon.png",
-    shortcut: "/gallaspy-falcon-icon.png",
-    apple: "/gallaspy-falcon-icon.png",
+    icon: [{ url: "/icons/falcon-web-32.png", sizes: "32x32", type: "image/png" }],
+    shortcut: "/icons/falcon-web-32.png",
+    apple: "/icons/falcon-web-180.png",
   },
 
   applicationName: "The Gallaspy",

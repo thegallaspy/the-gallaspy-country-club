@@ -1,14 +1,14 @@
 /* Gallaspy Step 599. Scope to homepage, no changes to event/payment/account styling. */
-.g5-member{position:relative;isolation:isolate;overflow:hidden;background:#113c30;color:#fff;padding:clamp(70px,8vw,126px) 0}
+.g5-member{position:relative;isolation:isolate;overflow:hidden;background:#113c30;color:#fff;padding:clamp(49px,5.6vw,88.2px) 0}
 .g5-member:before{content:"";position:absolute;inset:0;z-index:-2;background:radial-gradient(ellipse at 82% 35%,#2a6952 0%,#113c30 47%,#0e302b 100%)}
 .g5-member:after{content:"G";position:absolute;right:-.05em;top:-.34em;font:900 clamp(350px,48vw,850px)/1 Georgia,serif;color:#ffffff06;pointer-events:none;z-index:-1}
-.g5-member-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);gap:clamp(40px,7vw,120px);align-items:center}
+.g5-member-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);gap:clamp(28px,4.9vw,84px);align-items:center}
 .g5-eyebrow{font:800 11px/1.5 Arial,sans-serif;letter-spacing:.21em;text-transform:uppercase}.g5-spark{display:inline-block;background:#dc3b4c;width:8px;height:8px;margin-right:10px}
 .g5-member .g5-eyebrow{color:#ead5ac}
 .g5-member h2{font:900 clamp(3.7rem,7vw,8rem)/.96 Arial,sans-serif;letter-spacing:-.075em;margin:22px 0 30px}
 .g5-member h2 em{font:italic 400 .95em/1 Georgia,serif;letter-spacing:-.06em;color:#f0dbae}
 .g5-member-intro{font-size:clamp(17px,1.6vw,21px);line-height:1.65;color:#e9f0ec;max-width:590px}
-.g5-member-cta{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:32px}
+.g5-member-cta{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:22.4px}
 .g5-member-button{background:#fff;color:#12392f;display:inline-flex;align-items:center;gap:26px;justify-content:space-between;padding:18px 23px;font:800 12px Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;transition:transform .3s,background .3s}
 .g5-member-button:hover{transform:translateY(-4px);background:#f3dfb8}.g5-member-caption{font-size:12px;color:#d7e5dd}
 .g5-benefit-stack{border-top:1px solid #ffffff5e;max-width:620px}
@@ -16,13 +16,13 @@
 .g5-benefit:hover{padding-left:9px;background:#ffffff09}.g5-benefit>span:first-child{color:#e1c99b;font:800 12px Arial,sans-serif;letter-spacing:.1em}
 .g5-benefit h3{font:800 clamp(18px,1.65vw,23px)/1.2 Arial,sans-serif;letter-spacing:-.025em;margin:0 0 6px}.g5-benefit p{font:400 13px/1.55 Arial,sans-serif;color:#cee0d5;margin:0}.g5-benefit-arrow{color:#e1c99b;font-size:19px}
 .g5-plan-strip{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}.g5-plan-strip span{font:800 10px Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase;background:#ffffff14;border:1px solid #ffffff44;padding:11px 14px;color:#fff}
-.g5-host{background:#f7f9f7;color:#10263f;padding:clamp(72px,8vw,120px) 0}
-.g5-host-shell{display:grid;grid-template-columns:minmax(0,.83fr) minmax(440px,1.17fr);gap:clamp(36px,6vw,105px);align-items:center}
+.g5-host{background:#f7f9f7;color:#10263f;padding:clamp(50.4px,5.6vw,84px) 0}
+.g5-host-shell{display:grid;grid-template-columns:minmax(0,.83fr) minmax(440px,1.17fr);gap:clamp(25.2px,4.2vw,73.5px);align-items:center}
 .g5-host .g5-eyebrow{color:#ad2840}.g5-host h2{font:900 clamp(3.8rem,6vw,7rem)/.95 Arial,sans-serif;letter-spacing:-.075em;margin:26px 0 26px}.g5-host h2 em{font:italic 400 .94em Georgia,serif;letter-spacing:-.07em;color:#18503b}
 .g5-host-intro>p:not(.g5-eyebrow){font-size:clamp(16px,1.4vw,19px);line-height:1.78;color:#4c626b;max-width:480px}
-.g5-host-meta{display:flex;flex-wrap:wrap;gap:9px;margin-top:35px}.g5-host-meta span{font:800 10px Arial,sans-serif;letter-spacing:.09em;border:1px solid #d5deda;padding:10px 11px;color:#315846}
+.g5-host-meta{display:flex;flex-wrap:wrap;gap:9px;margin-top:24.5px}.g5-host-meta span{font:800 10px Arial,sans-serif;letter-spacing:.09em;border:1px solid #d5deda;padding:10px 11px;color:#315846}
 .g5-host-discover{display:inline-flex;align-items:center;gap:28px;border-bottom:1px solid currentColor;text-decoration:none;color:#10263f;text-transform:uppercase;letter-spacing:.11em;font:800 11px Arial,sans-serif;margin-top:26px;padding-bottom:8px}
-.g5-host-card{box-shadow:0 25px 70px #0b2a2420;background:#fff;border:1px solid #dce7e0;padding:clamp(22px,3.8vw,48px)}
+.g5-host-card{box-shadow:0 25px 70px #0b2a2420;background:#fff;border:1px solid #dce7e0;padding:clamp(22px,2.66vw,33.6px)}
 .g5-host-card-head{display:flex;align-items:start;justify-content:space-between;gap:12px;border-bottom:1px solid #dae3df;padding-bottom:23px;margin-bottom:26px}
 .g5-host-card-head p{font:800 10px Arial,sans-serif;letter-spacing:.15em;color:#687b72}.g5-host-card-head h3{font:900 clamp(26px,2.6vw,36px)/1.2 Arial,sans-serif;letter-spacing:-.04em;margin:5px 0 0}
 .g5-live-indicator{white-space:nowrap;background:#e7f2ec;color:#164b3a;padding:8px 10px;font:800 9px Arial,sans-serif;letter-spacing:.12em}
@@ -37,7 +37,7 @@
 .g5-host-auth,.g5-host-notice{font:500 13px/1.55 Arial,sans-serif;margin-top:18px}.g5-host-auth a{font-weight:800;color:#164b3a;text-decoration:underline}.g5-host-notice{padding:13px;background:#fff1e9;color:#74330f}.g5-host-notice.g5-success{background:#e4f3e8;color:#194b33}
 @keyframes g5-arrive{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:1000px){.g5-member-grid,.g5-host-shell{grid-template-columns:1fr}.g5-host-card{max-width:780px}.g5-benefit-stack{max-width:none}}
-@media(max-width:600px){.g5-member h2,.g5-host h2{font-size:clamp(3.4rem,13vw,5rem)}.g5-host-form{grid-template-columns:1fr}.g5-host-field,.g5-host-bottom{grid-column:1/-1}.g5-host-bottom{align-items:stretch}.g5-host-submit{width:100%}.g5-host-card{padding:22px}.g5-host-meta span{font-size:9px}.g5-benefit{grid-template-columns:29px 1fr 18px}}
+@media(max-width:600px){.g5-member h2,.g5-host h2{font-size:clamp(2.38rem,9.1vw,3.5rem)}.g5-host-form{grid-template-columns:1fr}.g5-host-field,.g5-host-bottom{grid-column:1/-1}.g5-host-bottom{align-items:stretch}.g5-host-submit{width:100%}.g5-host-card{padding:22px}.g5-host-meta span{font-size:9px}.g5-benefit{grid-template-columns:29px 1fr 18px}}
 @media(prefers-reduced-motion:reduce){.g5-member *,.g5-host *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 
@@ -77,5 +77,5 @@
 /* Step 601 — original official Night at the Nest logo; no image editing. */
 .g6-gala-screenreader { position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important; }
 .g3-gala-home .g6-gala-official-logo { display:block; width:min(100%, 560px); height:auto; object-fit:contain; margin:1.1rem 0 1.5rem; filter:drop-shadow(0 9px 18px rgba(1,10,30,.13)); }
-.g3-gala-page .g6-gala-portal-logo { display:block; width:min(100%, 740px); height:auto; object-fit:contain; margin:1.4rem 0 2rem; }
+.g3-gala-page .g6-gala-portal-logo { display:block; width:min(100%, 740px); height:auto; object-fit:contain; margin:1.4rem 0 1.4rem; }
 @media (max-width:680px) { .g3-gala-home .g6-gala-official-logo { width:100%; } }

@@ -1,0 +1,20 @@
+
+#gallaspy-page-content {
+  --spacing: .175rem;
+  --text-3xl: 1.5rem;
+  --text-4xl: 1.575rem;
+  --text-5xl: 2.1rem;
+  --text-6xl: 2.625rem;
+  --text-7xl: 3.15rem;
+  --text-8xl: 4.2rem;
+  --text-9xl: 5.6rem;
+  min-height: 0;
+}
+
+#gallaspy-page-content :is(input:not([type=checkbox]):not([type=radio]):not([type=hidden]), select, textarea) {
+  min-height: 44px;
+}
+
+#gallaspy-page-content :is(button, a)[class*="min-h-"] {
+  min-height: 44px;
+}

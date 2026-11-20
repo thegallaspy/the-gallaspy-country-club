@@ -142,12 +142,12 @@ main section .mx-auto {
 
 .section-shell {
   width: 100%;
-  padding-block: 60px;
+  padding-block: 42px;
 }
 
 .section-shell-tight {
   width: 100%;
-  padding-block: 46px;
+  padding-block: 32.2px;
 }
 
 /* =========================================================
@@ -173,12 +173,12 @@ h4 {
 }
 
 h1 {
-  font-size: clamp(2.6rem, 4.5vw, 4.35rem);
+  font-size: clamp(1.82rem, 3.15vw, 3.045rem);
   line-height: 1;
 }
 
 h2 {
-  font-size: clamp(2rem, 3.3vw, 3rem);
+  font-size: clamp(1.4rem, 2.31vw, 2.1rem);
   line-height: 1.07;
 }
 
@@ -548,7 +548,7 @@ p {
 
 .premium-card {
   min-width: 0;
-  min-height: 160px;
+  min-height: 112px;
   padding: 22px;
 
   background: var(--white);
@@ -629,11 +629,11 @@ p {
   }
 
   .section-shell {
-    padding-block: 54px;
+    padding-block: 37.8px;
   }
 
   .section-shell-tight {
-    padding-block: 42px;
+    padding-block: 29.4px;
   }
 
   .card-grid {
@@ -649,23 +649,23 @@ p {
   }
 
   .section-shell {
-    padding-block: 46px;
+    padding-block: 32.2px;
   }
 
   .section-shell-tight {
-    padding-block: 36px;
+    padding-block: 25.2px;
   }
 
   h1 {
-    font-size: clamp(2.25rem, 10vw, 3.2rem);
+    font-size: clamp(1.575rem, 7vw, 2.24rem);
   }
 
   h2 {
-    font-size: clamp(1.85rem, 8vw, 2.55rem);
+    font-size: clamp(1.375rem, 5.6vw, 1.785rem);
   }
 
   h3 {
-    font-size: clamp(1.35rem, 5.5vw, 1.75rem);
+    font-size: clamp(1.375rem, 3.85vw, 1.375rem);
   }
 
   p {
@@ -697,11 +697,11 @@ p {
   }
 
   .section-shell {
-    padding-block: 40px;
+    padding-block: 28px;
   }
 
   .section-shell-tight {
-    padding-block: 32px;
+    padding-block: 22.4px;
   }
 
   .eyebrow {

@@ -33,21 +33,21 @@
 .g616-interior :is(input,textarea,select) { max-width:100%; }
 .g616-interior :is(input,textarea,select):focus { outline-color:var(--g616-forest); }
 /* Events: three chapters, not three lookalike marketing cards. */
-.g616-interior.g3-events-page .g3-events-hero { background:#f8f9f6; border-bottom:1px solid var(--g616-rule);padding-block:clamp(90px,10vw,150px) clamp(65px,8vw,110px); }
+.g616-interior.g3-events-page .g3-events-hero { background:#f8f9f6; border-bottom:1px solid var(--g616-rule);padding-block:clamp(63px,7vw,105px) clamp(45.5px,5.6vw,77px); }
 .g616-interior.g3-events-page .g3-events-list { background:#fff; }
-.g616-interior.g3-events-page .g3-events-card { position:relative;min-height:390px;margin:0;border:0;border-bottom:1px solid rgba(16,38,63,.12);padding:clamp(42px,6vw,90px) clamp(26px,5vw,68px);grid-template-columns:minmax(0,1fr) minmax(200px,34%);gap:clamp(28px,5vw,78px); }
+.g616-interior.g3-events-page .g3-events-card { position:relative;min-height:273px;margin:0;border:0;border-bottom:1px solid rgba(16,38,63,.12);padding:clamp(29.4px,4.2vw,63px) clamp(18.2px,3.5vw,47.6px);grid-template-columns:minmax(0,1fr) minmax(200px,34%);gap:clamp(19.6px,3.5vw,54.6px); }
 .g616-interior.g3-events-page .g3-events-card.g3-events-champ {background:#10263f;}
 .g616-interior.g3-events-page .g3-events-card.g3-events-cup {background:#eff4f0;border-left:0;}
 .g616-interior.g3-events-page .g3-events-card.g3-events-nest {background:#164b3a;}
-.g616-interior.g3-events-page .g3-events-card .g3-events-logo {max-width:100%;width:100%;max-height:340px;object-fit:contain;transition:transform .5s ease;}
+.g616-interior.g3-events-page .g3-events-card .g3-events-logo {max-width:100%;width:100%;max-height:238px;object-fit:contain;transition:transform .5s ease;}
 .g616-interior.g3-events-page .g3-events-card:hover .g3-events-logo {transform:scale(1.035);}
 .g616-interior.g3-events-page .g3-events-card.g3-events-nest .g3-events-logo {filter:drop-shadow(0 12px 28px rgba(0,0,0,.13));}
-.g616-interior.g3-events-page .g3-events-copy h2 {font-size:clamp(2.7rem,4.8vw,5.3rem);}
+.g616-interior.g3-events-page .g3-events-copy h2 {font-size:clamp(1.89rem,3.36vw,3.71rem);}
 .g616-interior.g3-events-page .g3-events-copy a {display:inline-flex;min-height:40px;align-items:center;}
 /* Membership becomes a measured invitation, with benefits as a gallery of privileges. */
-.g616-interior.g3-member .g3-member-hero {background:linear-gradient(120deg,#10263f 0%,#10263f 62%,#164b3a 100%);padding-block:clamp(120px,13vw,190px) clamp(80px,8vw,125px);}
-.g616-interior.g3-member .g3-member-section {background:#fff;padding-block:clamp(75px,8vw,125px);}
-.g616-interior.g3-member .g3-member-benefit {border-color:#dce4df;padding-block:clamp(24px,3vw,38px);}
+.g616-interior.g3-member .g3-member-hero {background:linear-gradient(120deg,#10263f 0%,#10263f 62%,#164b3a 100%);padding-block:clamp(84px,9.1vw,133px) clamp(56px,5.6vw,87.5px);}
+.g616-interior.g3-member .g3-member-section {background:#fff;padding-block:clamp(52.5px,5.6vw,87.5px);}
+.g616-interior.g3-member .g3-member-benefit {border-color:#dce4df;padding-block:clamp(16.8px,2.1vw,26.6px);}
 .g616-interior.g3-member .g3-member-benefit:hover {background:#f8fbf8;}
 .g616-interior.g3-member .g3-member-benefit small {color:var(--g616-red);}
 .g616-interior.g3-member .g3-pricing-option {border-color:rgba(255,255,255,.36);background:rgba(255,255,255,.035);transition:background .3s,transform .3s;}
@@ -65,10 +65,10 @@
 .g616-interior.g2-interior :is(input,select,textarea) {transition:border-color .2s,box-shadow .2s;}
 .g616-interior.g2-interior :is(input,select,textarea):focus {box-shadow:0 0 0 3px rgba(22,75,58,.10);}
 @media (max-width:760px) {
- .g616-interior.g3-events-page .g3-events-card {grid-template-columns:1fr;gap:24px;padding:36px 24px;}
- .g616-interior.g3-events-page .g3-events-card .g3-events-logo {width:min(68vw,250px);max-height:240px;justify-self:start;}
- .g616-interior.g3-events-page .g3-events-copy h2 {font-size:clamp(2.4rem,9.5vw,4.2rem);}
- .g616-interior.g3-member .g3-member-hero {padding-block:110px 76px;}
+ .g616-interior.g3-events-page .g3-events-card {grid-template-columns:1fr;gap:24px;padding:25.2px 16.8px;}
+ .g616-interior.g3-events-page .g3-events-card .g3-events-logo {width:min(68vw,250px);max-height:168px;justify-self:start;}
+ .g616-interior.g3-events-page .g3-events-copy h2 {font-size:clamp(1.68rem,6.65vw,2.94rem);}
+ .g616-interior.g3-member .g3-member-hero {padding-block:77px 53.2px;}
 }
 @media (prefers-reduced-motion:reduce){
  .g616-interior :is(article,a,button,img,input,textarea,select){transition:none!important;animation:none!important;}
