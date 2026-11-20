@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/home-hero.jpg",
+        url: "/gallaspy-social-preview.png",
         width: 1200,
         height: 630,
         alt: "The Gallaspy Golf Club",
@@ -94,7 +94,7 @@ export const metadata: Metadata = {
     title: "The Gallaspy Golf Club",
     description:
       "A golf club being built through the game, the people who play it, and the traditions created along the way.",
-    images: ["/images/home-hero.jpg"],
+    images: ["/gallaspy-social-preview.png"],
   },
 };
 
