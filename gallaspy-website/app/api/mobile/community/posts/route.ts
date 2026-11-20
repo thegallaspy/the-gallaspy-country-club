@@ -115,7 +115,15 @@ export async function GET(request: NextRequest) {
       // Avoid reassigning the generic builder: TS can recurse on that type.
       query.not("user_id", "in", `(${hiddenIds.join(",")})`);
     }
-    const {data,error} = await query.order("created_at", { ascending: false }).limit(20);
+    const cursor = request.nextUrl.searchParams.get("before");
+    if (cursor !== null) {
+      const [time, id, extra] = cursor.split("~");
+      if (extra !== undefined || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,6})?(Z|[+-]\d{2}:\d{2})$/.test(time) || !Number.isFinite(Date.parse(time)) || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id || "")) {
+        return respond({success:false,error:"Invalid feed cursor."},400);
+      }
+      query.or(`created_at.lt.${time},and(created_at.eq.${time},id.lt.${id})`);
+    }
+    const {data,error} = await query.order("created_at", { ascending: false }).order("id", {ascending:false}).limit(21);
 
     if (error) {
       console.error("Community feed error:", error.message);
@@ -125,9 +133,11 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const posts = data ?? [];
+    const posts = (data ?? []).slice(0,20);
+    const last = posts.at(-1);
+    const next_cursor = (data?.length ?? 0) > 20 && last ? `${last.created_at}~${last.id}` : null;
     if (posts.length === 0) {
-      return respond({ success: true, posts: [] });
+      return respond({ success: true, posts: [], next_cursor: null });
     }
 
     const authorIds = [...new Set(posts.map((post) => post.user_id))];
@@ -222,6 +232,7 @@ export async function GET(request: NextRequest) {
 
     return respond({
       success: true,
+      next_cursor,
       posts: posts.map((post) => ({
         ...post,
         username: usernames.get(post.user_id) ?? null,

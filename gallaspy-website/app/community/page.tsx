@@ -64,6 +64,7 @@ export default function CommunityPage() {
 
 function Clubhouse({token, userId}: {token: string; userId: string}) {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [body, setBody] = useState("");
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
@@ -204,7 +205,7 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
     finally { setProfileBusy(false); }
   }
 
-  const loadMetrics = useCallback(async (accessToken: string, records: Post[]) => {
+  const loadMetrics = useCallback(async (accessToken: string, records: Post[], append = false) => {
     // Engagement endpoint deliberately limits batches to 20 identifiers.
     const all: Record<string, Metrics> = {};
     for (let i = 0; i < records.length; i += 20) {
@@ -217,7 +218,7 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
         if (typeof id === "string") all[id] = metricsFrom(row);
       }
     }
-    setMetrics(all);
+    setMetrics(previous => append ? {...previous,...all} : all);
   }, [api]);
 
   const refresh = useCallback(async (accessToken: string) => {
@@ -226,13 +227,33 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
     const data = await api(accessToken, "/api/web/community/posts");
     const records = Array.isArray(data.posts) ? data.posts as Post[] : [];
     setPosts(records);
+    setNextCursor(typeof data.next_cursor === "string" ? data.next_cursor : null);
     setAllowed(true);
     setVideoUrls({});
     if(records.length)await api(accessToken,`/api/web/community/video?post_ids=${encodeURIComponent(records.map(post=>post.id).join(","))}`).then(data=>setVideoUrls(data.videos??{})).catch(()=>{});
     await loadMetrics(accessToken, records).catch(() => {});
-    } catch (error) { setAllowed(false); setPosts([]); setMetrics({}); throw error; }
+    } catch (error) { setAllowed(false); setPosts([]); setMetrics({}); setNextCursor(null); throw error; }
     finally { setLoading(false); }
   }, [api, loadMetrics]);
+
+  async function loadOlder() {
+    if (!nextCursor || loading || busy || acting || profileBusy || connectionBusy) return;
+    setLoading(true); setStatus("");
+    try {
+      const data = await api(token, `/api/web/community/posts?before=${encodeURIComponent(nextCursor)}`);
+      const records = Array.isArray(data.posts) ? data.posts as Post[] : [];
+      setPosts(previous => [...previous, ...records.filter(post => !previous.some(existing => existing.id === post.id))]);
+      setNextCursor(typeof data.next_cursor === "string" ? data.next_cursor : null);
+      if (records.length) {
+        await Promise.all([
+          loadMetrics(token, records, true).catch(() => {}),
+          api(token,`/api/web/community/video?post_ids=${encodeURIComponent(records.map(post=>post.id).join(","))}`)
+            .then(data=>setVideoUrls(previous=>({...previous,...(data.videos ?? {})}))).catch(()=>{}),
+        ]);
+      }
+    } catch (error) { setStatus(error instanceof Error ? error.message : "Unable to load older posts. Try again."); }
+    finally { setLoading(false); }
+  }
 
   useEffect(() => {
     if (!token) { setPosts([]); setMetrics({}); return; }
@@ -415,6 +436,6 @@ function Clubhouse({token, userId}: {token: string; userId: string}) {
         <div className="g2-community-actions"><button type="button" onClick={()=>toggleLike(post)} disabled={acting===post.id} aria-pressed={metrics[post.id]?.liked ?? false}>{metrics[post.id]?.liked ? "♥ Liked" : "♡ Like"} {metrics[post.id]?.count ?? 0}</button><button type="button" onClick={()=>openComments(post)} aria-expanded={Boolean(expanded[post.id])}>Comments {metrics[post.id]?.comments ?? ""}</button></div>
         {expanded[post.id] && <div><div className="g2-comment-list">{(comments[post.id] ?? []).map(comment=><div className="g2-comment" key={comment.id}><strong>{comment.username ? `@${comment.username}` : "Gallaspy golfer"}</strong><p>{comment.body}</p></div>)}</div><form className="g2-comment-form" onSubmit={event=>submitComment(event,post)}><input aria-label="Write a comment" maxLength={1000} required placeholder="Write a comment…" value={drafts[post.id] ?? ""} onChange={event=>setDrafts(previous=>({...previous,[post.id]:event.target.value}))}/><button type="submit" disabled={acting===post.id || !drafts[post.id]?.trim()}>Post</button></form></div>}
         {post.user_id && post.user_id!==userId && <details className="g2-post-safety"><summary>Post options</summary><button type="button" disabled={Boolean(acting)} onClick={()=>{setReport(post.id);setReason("");}}>Report post</button><button type="button" disabled={Boolean(acting)} onClick={()=>moderate(post,"block")}>Block golfer</button>{report===post.id && <form onSubmit={event=>{event.preventDefault();moderate(post,"report");}}><label htmlFor={`report-${post.id}`}>Reason for report</label><textarea id={`report-${post.id}`} value={reason} onChange={event=>setReason(event.target.value)} maxLength={500} required/><button type="submit" disabled={!reason.trim() || Boolean(acting)}>Submit report</button><button type="button" onClick={()=>setReport(null)}>Cancel</button></form>}</details>}
-      </article>) : <p className="g2-community-empty">{loading ? "Loading posts…" : filter === "mine" ? "Your posts will appear here after you share." : filter === "photos" ? "Course photos will appear here as golfers share." : filter === "videos" ? "No recent playable videos. Try refreshing the feed." : filter === "following" ? "No recent posts from golfers you follow. Discover golfers or switch to Latest." : "Start the conversation. Share a moment from your next round."}</p>}</div></section>
+      </article>) : <p className="g2-community-empty">{loading ? "Loading posts…" : nextCursor ? "No matching posts in the loaded results. Load older posts to keep exploring." : filter === "mine" ? "Your posts will appear here after you share." : filter === "photos" ? "Course photos will appear here as golfers share." : filter === "videos" ? "No recent playable videos. Try refreshing the feed." : filter === "following" ? "No recent posts from golfers you follow. Discover golfers or switch to Latest." : "Start the conversation. Share a moment from your next round."}</p>}</div>{nextCursor && <button type="button" className="g2-btn g2-btn-green" disabled={loading || busy || Boolean(acting) || profileBusy || connectionBusy} onClick={()=>void loadOlder()}>{loading ? "Loading…" : "Load older posts"}</button>}</section>
     </div>;
 }

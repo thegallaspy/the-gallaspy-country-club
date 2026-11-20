@@ -574,17 +574,20 @@
     }
   }
 
-  async function loadPosts() {
+  async function loadPosts(before = null) {
     if (loading) return;
     loading = true;
 
-    feed.replaceChildren(message("Loading Community posts..."));
+    if (!before) feed.replaceChildren(message("Loading Community posts..."));
+    const olderButton = feed.querySelector("[data-load-older-posts]");
+    if (olderButton) olderButton.disabled = true;
 
     try {
-      const result = await request(POSTS_API);
+      const result = await request(before ? `${POSTS_API}?before=${encodeURIComponent(before)}` : POSTS_API);
       const posts = Array.isArray(result.posts) ? result.posts : [];
 
-      feed.replaceChildren();
+      if (!before) feed.replaceChildren();
+      else olderButton?.remove();
 
       if (!posts.length) {
         feed.append(message("No posts yet. Start the conversation."));
@@ -598,13 +601,20 @@
         let videos = {}, videoAvailable = true;
         try { const ids = posts.map(post=>post.id).filter(Boolean); const result = await request(`${VIDEO_API}?post_ids=${encodeURIComponent(ids.join(","))}`); videos = result.videos || {}; } catch { videoAvailable = false; /* Existing text and photo posts still work. */ }
         const visible = mediaFilter === "videos" ? posts.filter(post=>videos[post.id]) : mediaFilter === "photos" ? posts.filter(post=>Array.isArray(post.photos) && post.photos.length) : posts;
-        if (!visible.length) feed.append(message(mediaFilter === "videos" ? (videoAvailable ? "No recent video posts yet." : "Video feed temporarily unavailable.") : "No recent course photos yet."));
+        if (!visible.length && !result.next_cursor && !feed.querySelector("article")) feed.append(message(mediaFilter === "videos" ? (videoAvailable ? "No matching video posts." : "Video feed temporarily unavailable.") : "No matching course photos."));
         visible.forEach(post => feed.append(renderPost({...post,engagement:counts.get(post.id),video_url:videos[post.id]})));
       }
+      if (typeof result.next_cursor === "string") {
+        const more = socialButton("Load older posts", "gallaspy-social-load-older");
+        more.dataset.loadOlderPosts = "true";
+        more.addEventListener("click", () => void loadPosts(result.next_cursor));
+        feed.append(more);
+      }
     } catch (error) {
-      feed.replaceChildren(
-        message(error.message || "Unable to load Community.")
-      );
+      if (before && olderButton) {
+        olderButton.disabled = false;
+        status.textContent = error.message || "Unable to load older posts. Try again.";
+      } else feed.replaceChildren(message(error.message || "Unable to load Community."));
     } finally {
       loading = false;
     }
