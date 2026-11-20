@@ -362,7 +362,14 @@
           )
         );
 
-        if (!isHost && !isFull) {
+        const requestStatus = round.my_request_status;
+        const requestLabels = {pending:"AWAITING HOST APPROVAL",approved:"PLACE CONFIRMED",declined:"REQUEST DECLINED",cancelled:"REQUEST CANCELLED"};
+        if (isHost || requestStatus) {
+          const button = element("button", isHost ? "MANAGE YOUR ROUND →" : (requestLabels[requestStatus] || "REQUEST RECORDED") + " →");
+          button.type = "button";
+          button.addEventListener("click", () => tabs.mine.click());
+          card.append(button);
+        } else if (!isFull) {
           const button = element("button", "REQUEST TO JOIN →");
           button.type = "button";
 
@@ -377,7 +384,7 @@
                 { foursome_id: round.id }
               );
 
-              button.textContent = "REQUEST SENT";
+              button.textContent = "AWAITING HOST APPROVAL";
               if (message) {
                 message.textContent = "Your request has been sent to the host.";
               }

@@ -112,7 +112,11 @@ export async function GET(request: NextRequest) {
       day: "2-digit",
     }).format(new Date());
 
-    const { data, error } = await admin
+    const roundId = request.nextUrl.searchParams.get("round");
+    if (roundId && !/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/i.test(roundId)) {
+      return respond({success:false,error:"Invalid round link."},400);
+    }
+    const query = admin
       .from("gallaspy_foursomes")
       .select(
         "id, host_player_id, course_name, round_date, tee_time, playing_style, max_players, status",
@@ -122,6 +126,7 @@ export async function GET(request: NextRequest) {
       .order("round_date", { ascending: true })
       .order("tee_time", { ascending: true })
       .limit(100);
+    const {data,error} = await (roundId ? query.eq("id",roundId) : query);
 
     if (error) {
       console.error("Foursome discovery failed:", error.message);
@@ -135,6 +140,7 @@ export async function GET(request: NextRequest) {
     const roundIds = rounds.map(round => round.id);
 
     const approvedCount = new Map<string, number>();
+    const ownRequests = new Map<string, string>();
 
     if (roundIds.length) {
       // Batch the counts for the displayed rounds instead of issuing one
@@ -163,6 +169,11 @@ export async function GET(request: NextRequest) {
           (approvedCount.get(request.foursome_id) ?? 0) + 1,
         );
       }
+      const {data: personal, error: personalError} = await admin
+        .from("gallaspy_foursome_requests").select("foursome_id,status")
+        .eq("player_id",player.id).in("foursome_id",roundIds).limit(100);
+      if (personalError || !personal) return respond({success:false,error:"Unable to verify your round requests."},503);
+      for (const item of personal) ownRequests.set(item.foursome_id,item.status);
     }
 
     return respond({
@@ -180,6 +191,8 @@ export async function GET(request: NextRequest) {
           ...round,
           confirmed_players: confirmedPlayers,
           spots_left: round.status === "open" ? spotsLeft : 0,
+          is_host: round.host_player_id === player.id,
+          my_request_status: ownRequests.get(round.id) ?? null,
         };
       }),
       player_id: player.id,

@@ -1,5 +1,5 @@
 "use client";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import MyHostedRounds from "@/components/home/MyHostedRounds";
@@ -12,9 +12,13 @@ type Round = {
   max_players: number;
   spots_left?: number | null;
   status: string;
+  is_host?: boolean;
+  my_request_status?: string | null;
 };
+const requestLabels: Record<string,string> = {pending:"Awaiting host approval",approved:"Place confirmed",declined:"Request declined",cancelled:"Request cancelled"};
 export default function HostRoundPage() {
   const [token, setToken] = useState<string | null>(null);
+  const activeToken = useRef<string | null>(null);
   const [checking, setChecking] = useState(true);
   const [rounds, setRounds] = useState<Round[]>([]);
   const [notice, setNotice] = useState("");
@@ -27,6 +31,7 @@ export default function HostRoundPage() {
   const [profileRetry, setProfileRetry] = useState(0);
   useEffect(() => {
     if (!token) return;
+    setPlayerStatus("checking");
     const controller = new AbortController();
     fetch("/api/mobile/player", {
       headers: { Authorization: `Bearer ${token}` },
@@ -102,7 +107,8 @@ export default function HostRoundPage() {
   }, [token, playerStatus]);
   const [loadError, setLoadError] = useState("");
   const [publishedRound, setPublishedRound] = useState<string | null>(null);
-  const [requestedRounds, setRequestedRounds] = useState<string[]>([]);
+  const [roundAccount, setRoundAccount] = useState<string | null>(null);
+  const listingRequest = useRef<AbortController | null>(null);
   const [scheduleRevision, setScheduleRevision] = useState(0);
   const [courseSearch, setCourseSearch] = useState("");
   const [styleFilter, setStyleFilter] = useState("");
@@ -112,32 +118,41 @@ export default function HostRoundPage() {
     round.course_name.toLowerCase().includes(courseSearch.trim().toLowerCase()) &&
     (!styleFilter || round.playing_style === styleFilter) &&
     (!dateFilter || round.round_date === dateFilter));
-  const load = () => {
+  const load = useCallback(() => {
+    if (activeToken.current !== token) return;
+    listingRequest.current?.abort();
+    const controller = new AbortController();
+    listingRequest.current = controller;
+    const account = playerStatus === "ready" ? token : null;
     setLoading(true);
     setLoadError("");
     const roundId = new URLSearchParams(window.location.search).get("round");
-    const endpoint = roundId
-      ? "/api/web/rounds?round=" + encodeURIComponent(roundId)
-      : "/api/web/rounds";
-    fetch(endpoint, { cache: "no-store" })
+    const endpoint = (account ? "/api/mobile/foursomes" : "/api/web/rounds") +
+      (roundId ? "?round=" + encodeURIComponent(roundId) : "");
+    fetch(endpoint, { cache: "no-store", signal: controller.signal, ...(account ? {headers:{Authorization:`Bearer ${account}`}} : {}) })
       .then((r) => r.json())
       .then((data) => {
-        if (data.success)
-          setRounds(Array.isArray(data.rounds) ? data.rounds : []);
+        if (controller.signal.aborted) return;
+        if (data.success) {
+          const records = account ? data.foursomes : data.rounds;
+          setRounds(Array.isArray(records) ? records : []);
+          setRoundAccount(account);
+        }
         else setLoadError(data.error || "Unable to load hosted rounds.");
       })
-      .catch(() => setLoadError("Unable to load open rounds."))
-      .finally(() => setLoading(false));
-  };
+      .catch(() => {if (!controller.signal.aborted) setLoadError("Unable to load open rounds.");})
+      .finally(() => {if (!controller.signal.aborted) setLoading(false);});
+  }, [token,playerStatus]);
+  useEffect(() => { load(); return () => listingRequest.current?.abort(); }, [load]);
   useEffect(() => {
-    load();
     let alive = true;
     const db = createClient();
     db.auth
       .getSession()
       .then(({ data }) => {
         if (alive) {
-          setToken(data.session?.access_token ?? null);
+          activeToken.current = data.session?.access_token ?? null;
+          setToken(activeToken.current);
           setChecking(false);
         }
       })
@@ -147,7 +162,10 @@ export default function HostRoundPage() {
     const {
       data: { subscription },
     } = db.auth.onAuthStateChange((_event, session) => {
-      if (alive) setToken(session?.access_token ?? null);
+      if (alive) {
+        activeToken.current = session?.access_token ?? null;
+        setToken(activeToken.current);
+      }
     });
     return () => {
       alive = false;
@@ -159,7 +177,7 @@ export default function HostRoundPage() {
       setJoinNotice("Sign in to My Gallaspy to request a place in this round.");
       return;
     }
-    if (busy) return;
+    if (busy || loading || loadError || roundAccount !== token || playerStatus !== "ready") return;
     setBusy(true);
     setJoinNotice("");
     try {
@@ -174,15 +192,17 @@ export default function HostRoundPage() {
       const data = await response.json();
       if (!response.ok || !data.success)
         throw new Error(data.error || "Unable to request a place.");
-      setRequestedRounds(previous => [...previous, id]);
+      if (activeToken.current !== token) return;
+      setRounds(previous => previous.map(round => round.id === id ? {...round,my_request_status:"pending"} : round));
       setScheduleRevision(value => value + 1);
       setJoinNotice(
         "Request sent to the round host. Your place is not confirmed until approved.",
       );
     } catch (e) {
-      setJoinNotice(e instanceof Error ? e.message : "Unable to request a place.");
+      if (activeToken.current === token) setJoinNotice(e instanceof Error ? e.message : "Unable to request a place.");
     } finally {
       setBusy(false);
+      load();
     }
   }
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -441,6 +461,7 @@ export default function HostRoundPage() {
             <label>Playing style<select value={styleFilter} onChange={event => setStyleFilter(event.target.value)}><option value="">Any style</option>{Object.entries(styles).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
             <label>Round date<input type="date" value={dateFilter} onChange={event => setDateFilter(event.target.value)} /></label>
             <button type="button" onClick={() => { setCourseSearch(""); setStyleFilter(""); setDateFilter(""); }}>Clear filters</button>
+            <button type="button" disabled={loading || busy} onClick={load}>Refresh rounds</button>
           </div>
           {!loading && !loadError && <p role="status" className="g3-round-count">{visibleRounds.length} of {rounds.length} listed rounds</p>}
           {loading ? (
@@ -473,20 +494,22 @@ export default function HostRoundPage() {
                   </p>
                   <p className="g3-round-count">{typeof round.spots_left === "number" ? `${round.spots_left} ${round.spots_left === 1 ? "spot" : "spots"} available` : "Availability unavailable"}</p>
                 </div>
-                {round.spots_left === 0 ? <span className="g2-event-link">Full</span> : token && playerStatus !== "ready" ? (
+                {token && roundAccount === token && round.is_host ? (
+                  <Link href="#my-rounds" className="g2-event-link">Your round →</Link>
+                ) : token && roundAccount === token && round.my_request_status ? (
+                  <Link href="#my-rounds" className="g2-event-link">{requestLabels[round.my_request_status] || "Request recorded"} →</Link>
+                ) : round.spots_left === 0 ? <span className="g2-event-link">Full</span> : token && playerStatus !== "ready" ? (
                   <Link href="#host-round" className="g2-event-link">
                     Player profile →
                   </Link>
                 ) : token ? (
                   <button
                     type="button"
-                    disabled={busy || requestedRounds.includes(round.id)}
+                    disabled={busy || loading || Boolean(loadError) || roundAccount !== token || typeof round.spots_left !== "number"}
                     onClick={() => requestSeat(round.id)}
                     className="g2-event-link"
                   >
-                    {requestedRounds.includes(round.id)
-                      ? "Request sent"
-                      : "Request to join →"}
+                    Request to join →
                   </button>
                 ) : (
                   <Link
