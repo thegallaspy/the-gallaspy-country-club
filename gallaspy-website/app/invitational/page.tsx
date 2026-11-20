@@ -174,9 +174,9 @@ export default function TheGallaspyEventPage() {
           </div>
 
           <div className="flex items-center justify-center">
-            <div className="relative aspect-square w-full max-w-[360px] rounded-lg bg-white p-8">
+            <div className="relative aspect-square w-full max-w-[360px] rounded-lg bg-transparent p-8">
               <Image
-                src="/logos/official/the-gallaspy-championship.png"
+                src="/logos/official/the-gallaspy-championship.png?v=2" unoptimized
                 alt="Official Gallaspy Championship mark"
                 fill
                 priority

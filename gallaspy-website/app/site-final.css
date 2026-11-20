@@ -265,3 +265,8 @@ main:is([class~="bg-[#F4F0E7]"],[class~="bg-[#F7F4EE]"],[class~="bg-[#F7F4EC]"])
   .gallaspy-calendar-signature-grid { grid-template-columns: 1fr; gap: 10px; }
   .gallaspy-calendar-signature { min-height: 124px; padding: 18px; }
 }
+
+.gallaspy-event-detail a.bg-white,
+.gallaspy-event-detail a.bg-white span {
+    color: #10263f !important;
+}
