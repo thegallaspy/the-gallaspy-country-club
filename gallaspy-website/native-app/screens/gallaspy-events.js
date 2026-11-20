@@ -20,12 +20,11 @@
       class="gallaspy-event-feature"
       data-gallaspy-hub-view="overview"
       aria-label="Explore The Gallaspy Championship and Summer Festival">
-      <span class="gallaspy-signature-number">SIGNATURE EVENT 01</span>
       <img class="gallaspy-signature-event-logo"
         src="./assets/gallaspy-events/the-gallaspy-championship.png"
         alt="Official The Gallaspy Championship logo"
         loading="lazy" />
-      <span class="gallaspy-signature-event-title">THE GALLASPY</span>
+      <span class="gallaspy-signature-event-title">THE GALLASPY™</span>
       <span class="gallaspy-signature-event-subtitle">
         CHAMPIONSHIP I &amp; SUMMER FESTIVAL
       </span>
@@ -41,12 +40,11 @@
       class="gallaspy-cup-feature"
       data-gallaspy-hub-view="cup"
       aria-label="Explore The Gallaspy Cup team match play competition">
-      <span class="gallaspy-signature-number">SIGNATURE EVENT 02</span>
       <img class="gallaspy-signature-cup-logo"
         src="./assets/gallaspy-events/the-gallaspy-cup.png"
         alt="Official The Gallaspy Cup logo"
         loading="lazy" />
-      <span class="gallaspy-signature-cup-heading">THE GALLASPY CUP</span>
+      <span class="gallaspy-signature-cup-heading">THE GALLASPY CUP™</span>
       <span class="gallaspy-signature-cup-tagline">
         TWO TEAMS. ONE CUP.
       </span>
@@ -71,7 +69,6 @@
       </span>
     </button>
     <button type="button" class="gallaspy-gala-feature" data-gallaspy-hub-view="gala">
-      <span class="gallaspy-signature-number">SIGNATURE EVENT 03</span>
       <span class="gallaspy-signature-cup-heading">NIGHT AT THE NEST</span>
       <span class="gallaspy-signature-event-detail">DECEMBER 11, 2027 · END-OF-YEAR GALA</span>
       <span class="gallaspy-signature-event-action">EXPLORE THE GALA <span aria-hidden="true">↗</span></span>
@@ -107,7 +104,7 @@
         </div>
 
         <h1 id="gallaspyHubTitle" tabindex="-1">
-          THE GALLASPY
+          THE GALLASPY™
         </h1>
 
         <p id="gallaspyHubSubtitle">
@@ -195,7 +192,7 @@
 
           <button type="button" class="gallaspy-hub-card"
             data-gallaspy-hub-view="cup">
-            <strong>THE GALLASPY CUP</strong>
+            <strong>THE GALLASPY CUP™</strong>
             <span>Team Crest vs. Team Falcon</span>
             <b aria-hidden="true">→</b>
           </button>
@@ -419,8 +416,8 @@
     const gala = view === "gala";
 
     heading.textContent = cup
-      ? "THE GALLASPY CUP"
-      : gala ? "NIGHT AT THE NEST" : "THE GALLASPY";
+      ? "THE GALLASPY CUP™"
+      : gala ? "NIGHT AT THE NEST" : "THE GALLASPY™";
 
     subtitle.textContent = cup
       ? "TEAM MATCH COMPETITION"

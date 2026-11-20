@@ -54,6 +54,12 @@
     button.addEventListener("click", () => {
       window.showNativeScreen?.("my-gallaspy");
 
+      // Open the actual points view, which is hidden in the overview.
+      if (typeof window.gallaspyMyDashboard?.showView === "function") {
+        window.gallaspyMyDashboard.showView("points");
+        return;
+      }
+
       const content = document.getElementById("nativeContent");
       const points = document.getElementById("myClubPoints");
 

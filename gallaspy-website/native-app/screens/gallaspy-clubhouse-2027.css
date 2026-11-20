@@ -1,0 +1,179 @@
+/* Digital Clubhouse 2027 — athletic editorial system, native only. */
+:root {
+  --club-navy: #14243c;
+  --club-green: #174a38;
+  --club-mint: #dcebe3;
+  --club-gold: #e7bd76;
+  --club-paper: #f4f6f4;
+  --club-line: #dce3df;
+  --club-muted: #536370;
+  --g4-ink: var(--club-navy);
+  --g4-forest: var(--club-green);
+  --g4-line: var(--club-line);
+  --g4-muted: var(--club-muted);
+  --g4-paper: var(--club-paper);
+  --tab-height: 64px;
+}
+
+.topbar { min-height: 62px; padding-block: 8px; border-color: var(--club-line); box-shadow: none; }
+.identity-copy .eyebrow { font-size: 9px; letter-spacing: .09em; }
+.identity-copy .club-name { font-size: 13px; font-weight: 800; }
+.gallaspy-header-signout { font-size: 10px; min-height: 44px; }
+.content { padding-top: 15px; background: #fff; }
+.tabbar { background: #fff; box-shadow: 0 -4px 18px #14243c0b; }
+.tab { gap: 4px; }
+.tab.active::before { height: 3px; background: var(--club-green); }
+.tab-label { font-size: 10px; }
+.tab.active svg { stroke-width: 2.4; }
+#nativeContent :is(button,a):focus-visible { outline: 3px solid #aa803c; outline-offset: 2px; }
+
+/* Welcome and daily dashboard — the Falcon performs a single reveal. */
+@keyframes clubhouse-falcon-reveal {
+  from { transform: perspective(550px) rotateY(-180deg); opacity: .3; }
+  to { transform: perspective(550px) rotateY(0); opacity: 1; }
+}
+.gallaspy-welcome-logo, .home-rotating-falcon {
+  animation: clubhouse-falcon-reveal 1.25s cubic-bezier(.2,.65,.3,1) both;
+}
+#nativeContent #nativeHomeScreen .course-home-heading {
+  grid-template-columns: minmax(0,1fr) minmax(65px,25%);
+  padding: 21px 17px 23px;
+  gap: 10px;
+  background: var(--club-navy);
+  border-radius: 20px;
+  isolation: isolate;
+}
+#nativeHomeScreen .course-home-heading::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: repeating-linear-gradient(130deg,transparent 0 20px,#ffffff08 20px 21px,transparent 21px 42px);
+  mask-image: linear-gradient(90deg,transparent 25%,#000);
+  pointer-events: none;
+}
+#nativeContent #nativeHomeScreen .course-home-heading h1 {
+  margin: 12px 0 0; font-size: clamp(31px,9vw,43px);
+  font-weight: 900; line-height: .99; letter-spacing: -.065em;
+  text-wrap: initial;
+}
+#nativeContent #nativeHomeScreen .course-home-heading .intro-label { color: var(--club-gold); font-size: 10px; margin-bottom: 4px; }
+#nativeContent #nativeHomeScreen .course-home-heading .home-personal-welcome { color: #e5eaf0; font-size: 10px; letter-spacing: .055em; margin: 0; }
+#nativeContent #nativeHomeScreen .course-home-heading .home-compete { color: #9bd5bc; }
+#nativeContent #nativeHomeScreen .course-home-heading .home-gather { color: #ff7885; }
+#nativeContent #nativeHomeScreen .home-mission { margin-top: 12px; font-size: 12px; color: #e4e9ed; }
+#nativeContent .home-rotating-falcon { width: 100%; max-width: 100px; justify-self: center; }
+#nativeContent #nativeHomeScreen .course-home-feature {
+  background: var(--club-green); border: 0; border-radius: 18px;
+  margin-top: 10px; padding: 16px; box-shadow: none;
+}
+#nativeContent #nativeHomeScreen .course-home-feature h2 { font-size: 25px; line-height: 1.03; margin: 6px 0; max-width: none; }
+#nativeContent #nativeHomeScreen .course-home-feature p:not(.course-home-eyebrow) { font-size: 13px; margin: 9px 0 14px; }
+.clubhouse-reward { color: var(--club-gold); font-size: 21px; font-weight: 900; letter-spacing: -.04em; }
+#nativeContent #nativeHomeScreen .course-home-start { min-height: 44px; border-radius: 10px; padding: 10px 13px; font-size: 13px; }
+.clubhouse-daily-links {
+  display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px;
+  margin-top: 10px;
+}
+.clubhouse-daily-links button {
+  min-height: 68px; min-width: 0; display: grid; gap: 5px; align-content: center;
+  text-align: left; border: 1px solid var(--club-line); background: var(--club-paper);
+  border-radius: 13px; color: var(--club-navy); padding: 10px 12px;
+}
+.clubhouse-daily-links button:first-child { background: var(--club-mint); border-color: var(--club-mint); }
+.clubhouse-daily-links span { font-size: 9px; font-weight: 800; letter-spacing: .09em; color: var(--club-green); }
+.clubhouse-daily-links strong { font-size: 14px; line-height: 1.15; font-weight: 800; }
+#nativeContent #nativeHomeScreen .course-home-label { font-size: 12px; letter-spacing: .06em; margin: 24px 0 10px; }
+#nativeContent #nativeHomeScreen .course-home-grid { gap: 7px; border: 0; }
+#nativeContent #nativeHomeScreen .course-home-grid > .course-home-tile:not([data-home-community]) {
+  border: 1px solid var(--club-line); background: var(--club-paper); border-radius: 12px;
+  min-height: 78px; padding: 11px 22px 10px 11px; gap: 4px;
+}
+#nativeContent #nativeHomeScreen .course-home-grid > .course-home-tile:not([data-home-community]) strong { font-size: 12px; letter-spacing: 0; }
+#nativeContent #nativeHomeScreen .course-home-grid > .course-home-tile:not([data-home-community]) small { font-size: 11px; font-weight: 500; }
+#nativeContent #nativeHomeScreen .course-home-grid > .course-home-tile::after { right: 8px; top: 10px; }
+#nativeContent #nativeHomeScreen .course-home-grid > [data-home-community] {
+  background: var(--club-navy); border-radius: 12px; min-height: 58px; padding: 11px 13px;
+}
+#nativeContent #nativeHomeScreen .home-section { margin-top: 22px; }
+#nativeContent #nativeHomeScreen .home-section-title { font-size: 17px; font-weight: 900; letter-spacing: -.025em; }
+#nativeContent #nativeHomeScreen .home-club-card { padding: 16px; border-radius: 14px; box-shadow: none; }
+#nativeContent #nativeHomeScreen .home-club-card h3 { font-size: 22px; line-height: 1.12; }
+#nativeContent #nativeHomeScreen .home-club-card p:not(.home-club-card-label) { font-size: 13px; line-height: 1.45; }
+#nativeContent #nativeHomeScreen .home-community-card { background: var(--club-mint); border: 0; }
+#nativeContent #nativeHomeScreen .home-snapshot-grid { gap: 6px; }
+#nativeContent #nativeHomeScreen .home-stat { background: var(--club-paper); border: 1px solid var(--club-line); border-radius: 12px; }
+#nativeContent #nativeHomeScreen .gallaspy-event-entry { margin-block: 25px; }
+#nativeContent #nativeHomeScreen .gallaspy-event-entry > button { border-radius: 18px; padding: 16px; }
+#nativeContent #nativeHomeScreen .gallaspy-event-entry > button .gallaspy-signature-event-action { min-height: 44px; display: flex; align-items: center; justify-content: space-between; }
+#nativeEventScreen #gallaspyHubMark[data-mark="gala"] { width: 105px; height: 70px; object-fit: contain; background: transparent; }
+
+/* PLAY — two lead actions, then a compact equipment locker. */
+#nativeContent #nativePlayScreen .play-heading { padding: 3px 0 14px; }
+#nativeContent #nativePlayScreen .play-heading h2 { font-size: clamp(32px,9vw,42px); line-height: .98; letter-spacing: -.065em; }
+#nativeContent #nativePlayScreen .play-heading > p:last-child { display: block; font-size: 13px; margin-top: 9px; color: var(--club-muted); }
+#nativeContent #nativePlayScreen .play-dashboard-nav { gap: 8px; border: 0; }
+#nativeContent #nativePlayScreen .play-dashboard-nav > button {
+  min-height: 76px; border: 1px solid var(--club-line); background: var(--club-paper);
+  border-radius: 13px; padding: 12px 23px 12px 11px; gap: 5px;
+}
+#nativeContent #nativePlayScreen .play-dashboard-nav > button span { font-size: 12px; font-weight: 850; }
+#nativeContent #nativePlayScreen .play-dashboard-nav > button small { text-transform: none; font-size: 11px; font-weight: 500; }
+#nativeContent #nativePlayScreen .play-dashboard-nav > button.play-primary-action { min-height: 112px; background: var(--club-green); border-color: var(--club-green); }
+#nativeContent #nativePlayScreen .play-dashboard-nav > button.play-primary-action[data-play-mode="host"] { background: var(--club-navy); border-color: var(--club-navy); }
+#nativeContent #nativePlayScreen .play-dashboard-nav > button.play-primary-action span { font-size: 17px; letter-spacing: -.035em; }
+#nativeContent #nativePlayScreen .play-dashboard-nav > button.play-primary-action small { font-size: 12px; color: #e5eee9; }
+#nativeContent #nativePlayScreen .play-dashboard-nav > button[data-play-target="playScorecardLaunch"] { background: var(--club-mint); border-color: var(--club-mint); }
+#nativeContent #nativePlayScreen .play-dashboard-nav > button[data-play-target="playScorecardLaunch"] :is(span,small),
+#nativeContent #nativePlayScreen .play-dashboard-nav > button[data-play-target="playScorecardLaunch"]::after { color: var(--club-green) !important; }
+#nativeContent #nativePlayScreen #playWeather { padding: 15px; border-radius: 17px; margin-top: 17px; box-shadow: none; }
+#nativeContent #nativePlayScreen #playWeather .gallaspy-weather { padding: 13px; border-radius: 13px; }
+
+/* SHOP — use the actual collection image and retain catalog / eligibility logic. */
+#nativeContent #nativeShopScreen > .my-heading { border-bottom: 0; padding-bottom: 12px; }
+#nativeContent #nativeShopScreen > .my-heading h2 { font-size: clamp(28px,8vw,37px); letter-spacing: -.055em; }
+#nativeContent #nativeShopScreen .shop-editorial {
+  background: var(--club-navy); border-radius: 18px;
+  grid-template-columns: minmax(0,1.15fr) minmax(0,.85fr); gap: 12px 5px;
+  padding: 17px 14px; min-height: 195px;
+}
+#nativeContent #nativeShopScreen .shop-editorial h3 { font-size: clamp(24px,7vw,34px); letter-spacing: -.05em; line-height: .99; }
+#nativeContent #nativeShopScreen .shop-editorial img { height: 155px; }
+#nativeContent #nativeShopScreen .shop-editorial button { font-size: 11px; border-radius: 9px; }
+#nativeContent #nativeShopScreen .shop-landing-categories button { background: var(--club-mint); border: 0; border-radius: 10px; min-height: 48px; }
+#nativeContent #nativeShopScreen .native-shop-member-entry { border-radius: 15px; padding: 16px; box-shadow: none; }
+#nativeContent #nativeShopScreen .native-shop-product { border-radius: 13px; box-shadow: none; }
+
+/* Player card — visually distinct from membership, no fabricated stats. */
+#nativeContent #nativeMyGallaspyScreen .my-player-identity { background: var(--club-navy) !important; border-radius: 17px !important; padding: 17px !important; }
+#nativeContent #nativeMyGallaspyScreen #myIdentityName { font-size: clamp(20px,6vw,28px); letter-spacing: -.045em; line-height: 1.1; }
+#nativeContent #nativeMyGallaspyScreen #myIdentityStatus { font-size: 11px; line-height: 1.4; }
+#nativeContent #nativeMyGallaspyScreen .my-identity-footer { margin-top: 12px; padding-top: 12px; }
+#nativeContent #nativeMyGallaspyScreen .my-identity-note { margin-top: 10px; }
+#nativeContent #nativeMyGallaspyScreen .my-v3-performance .my-stats > div { min-height: 78px; background: var(--club-paper); border-radius: 12px; padding: 9px 5px; }
+#nativeContent #nativeMyGallaspyScreen .my-v3-performance .my-stats span { font-size: 9px; }
+#nativeContent #nativeMyGallaspyScreen .my-v2-navigation:not(.my-v3-detail-open) { gap: 7px !important; border: 0 !important; }
+#nativeContent #nativeMyGallaspyScreen .my-v2-navigation:not(.my-v3-detail-open) button {
+  background: var(--club-paper) !important; border: 1px solid var(--club-line) !important;
+  border-radius: 11px !important; min-height: 72px !important; padding: 11px !important;
+}
+#nativeContent #nativeMyGallaspyScreen .my-v2-navigation:not(.my-v3-detail-open) button[data-my-view="overview"] { background: var(--club-mint) !important; min-height: 44px !important; }
+#nativeContent #nativeMyGallaspyScreen .my-v2-navigation button small { font-size: 11px; }
+
+/* Community — lighter composer and a familiar social feed. */
+#nativeContent #nativeCommunityScreen .community-header { padding-bottom: 12px; margin-bottom: 12px; }
+#nativeContent #nativeCommunityScreen .community-title { font-size: clamp(23px,6.5vw,30px); letter-spacing: -.045em; }
+#nativeContent #nativeCommunityScreen .community-composer { padding: 14px; box-shadow: none; border-radius: 16px; }
+#nativeContent #nativeCommunityScreen #communityPostBody { background: var(--club-paper); min-height: 76px; border: 1px solid var(--club-line); font-size: 16px; padding: 12px; }
+#nativeContent #nativeCommunityScreen .gallaspy-photo-choose { border-radius: 10px; min-height: 44px; font-size: 12px; color: var(--club-green); background: var(--club-mint); border-color: var(--club-line); }
+#nativeContent #nativeCommunityScreen :is(#communityPhotoInfo,#communityVideoInfo) { font-size: 11px; line-height: 1.4; color: var(--club-muted); margin-block: 5px 10px; }
+#nativeContent #nativeCommunityScreen #communityPublishButton { background: var(--club-green); border-radius: 10px; min-height: 44px; }
+#nativeContent #nativeCommunityScreen .gallaspy-community-media-filters { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 5px; }
+#nativeContent #nativeCommunityScreen .gallaspy-community-media-filters button { min-width: 0; min-height: 44px; padding-inline: 4px; font-size: 12px; border-radius: 9px; }
+#nativeContent #nativeCommunityScreen .community-post { box-shadow: none; }
+
+@media (max-width: 360px) {
+  #nativeContent #nativeHomeScreen .course-home-heading { padding: 16px 13px; grid-template-columns: minmax(0,1fr) 62px; }
+  #nativeContent #nativeHomeScreen .course-home-heading h1 { font-size: 29px; }
+  .tab-label { font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallaspy-welcome-logo, .home-rotating-falcon { animation: none !important; }
+}

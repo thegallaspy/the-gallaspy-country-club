@@ -4,10 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
 import { createClient as createSessionClient } from "@/lib/supabase/server";
-import {
-  getFalconSocietyCookieName,
-  verifyFalconSocietySession,
-} from "@/lib/falcon-society-auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -218,23 +214,7 @@ export async function POST(request: NextRequest) {
     );
 
     if (containsFalconSocietyItem) {
-      const sessionToken = request.cookies.get(
-        getFalconSocietyCookieName()
-      )?.value;
-
-      const hasFalconSocietyAccess =
-        await verifyFalconSocietySession(sessionToken);
-
-      if (!hasFalconSocietyAccess) {
-        return NextResponse.json(
-          {
-            success: false,
-            error:
-              "Falcon Society merchandise is available only to authenticated Society members.",
-          },
-          { status: 403 }
-        );
-      }
+      return NextResponse.json({success:false,error:"Members Locker checkout is not yet available."},{status:403});
     }
 
     if (!firstName || !lastName || !email || !phone) {
