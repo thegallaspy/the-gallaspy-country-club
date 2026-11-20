@@ -576,6 +576,7 @@
   <link rel="stylesheet" href="./screens/shot-tracer-preview.css">
   <link rel="stylesheet" href="./screens/shot-tracer-studio.css">
   <link rel="stylesheet" href="./screens/gallaspy-final-polish.css">
+<link rel="stylesheet" href="./screens/gallaspy-experience.css">
 </head>
 
 <body>
@@ -754,8 +755,8 @@
             <div>
               <p class="intro-label">THE DIGITAL CLUBHOUSE</p>
               <p id="homePersonalWelcome" class="home-personal-welcome" aria-live="polite">WELCOME TO YOUR CLUBHOUSE</p>
-              <h1>PLAY.<span>COMPETE. GATHER.</span></h1>
-              <p class="home-mission">Play better. Play together. Belong to something greater.</p>
+              <h1>PLAY. <span class="home-compete">COMPETE.</span> <span class="home-gather">GATHER.</span></h1>
+              <p class="home-mission">Play better. Play together. Belong to something greater.</p><img class="home-rotating-falcon" src="./assets/falcon-G.png" alt="The Gallaspy Falcon">
             </div>
           </div>
 
@@ -1521,7 +1522,22 @@
 
 
 
-        <section class="native-shop-catalog" id="nativeShopCatalog">
+        <section id="nativeShopLanding" class="shop-landing">
+      <div class="shop-editorial">
+        <p>THE GALLASPY COLLECTION</p>
+        <h3>MADE FOR<br>THE GAME.</h3>
+        <img src="https://thegallaspy.com/images/apparel/men/polos/navy-falcon-mens-polo.png" alt="Falcon performance polo">
+        <button type="button" data-shop-landing-category="men">EXPLORE COLLECTION →</button>
+      </div>
+      <p class="intro-label">SHOP BY COLLECTION</p>
+      <div class="shop-landing-categories">
+        <button type="button" data-shop-landing-category="men">MEN →</button>
+        <button type="button" data-shop-landing-category="women">WOMEN →</button>
+        <button type="button" data-shop-landing-category="headwear">HATS →</button>
+      </div>
+    </section>
+    <section class="native-shop-catalog" id="nativeShopCatalog" hidden>
+      <button type="button" id="nativeShopLandingBack">← THE PRO SHOP</button>
           <div class="native-shop-filters" role="group"
                aria-label="Shop categories">
             <button type="button" data-shop-category="men"
@@ -2206,6 +2222,7 @@
   <script src="./screens/shop.js"></script>
   <script src="./screens/shop-bag.js"></script>
   <script src="./screens/shop-catalog.js"></script>
+<script src="./screens/gallaspy-experience.js"></script>
   <script src="./screens/shop-bag-view.js"></script>
   <script src="./screens/checkout.js"></script>
   <script src="./screens/my-gallaspy.js"></script>

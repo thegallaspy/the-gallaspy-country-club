@@ -14,3 +14,11 @@
 @media(prefers-reduced-motion:reduce) {
   .tab, .gallaspy-play-back, .play-dashboard-nav button { transition:none; }
 }
+
+#nativeHomeScreen .course-home-heading h1 .home-compete {
+    color: #164B3A;
+}
+
+#nativeHomeScreen .course-home-heading h1 .home-gather {
+    color: #B32635;
+}
