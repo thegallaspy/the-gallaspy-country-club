@@ -23,7 +23,7 @@ function MyGallaspyAccess() {
   const [pendingEmail, setPendingEmail] = useState("");
   const [code, setCode] = useState("");
   const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(() => ["missing_code", "auth_failed"].includes(searchParams.get("error") ?? "") ? "This sign-in link is invalid or expired. Request a new verification code." : "");
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {

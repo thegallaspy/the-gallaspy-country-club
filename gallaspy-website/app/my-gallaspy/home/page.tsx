@@ -3,6 +3,7 @@ import { createClient as createAdminClient } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getEventsByCategory } from "@/data/club";
+import SignOut from "./SignOut";
 
 export const dynamic = "force-dynamic";
 
@@ -82,11 +83,12 @@ export default async function MyGallaspyHomePage() {
   if (!player) {
     return (
       <main className="g-my-dashboard min-h-screen bg-white px-5 pb-28 pt-32 text-[#10263F]">
-      <div className="mx-auto max-w-5xl px-5 py-4">
+      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-5 py-4">
         <Link href="/my-gallaspy/documents"
           className="inline-block rounded-xl bg-[#164B3A] px-5 py-3 text-sm font-semibold text-white">
           MEMBERSHIP DOCUMENTS
         </Link>
+        <SignOut />
       </div>
         <div className="mx-auto max-w-2xl border border-[#10263F]/15 p-8">
           <p className="text-xs font-black uppercase tracking-wider text-[#164B3A]">
@@ -113,6 +115,7 @@ export default async function MyGallaspyHomePage() {
           <Link href="/my-gallaspy/rewards" className="mt-4 block underline">
             Explore Gallaspy Rewards
           </Link>
+          <Link href="/my-gallaspy/benefits" className="mt-4 block underline">Explore member benefits</Link>
         </div>
       </main>
     );
@@ -264,6 +267,7 @@ export default async function MyGallaspyHomePage() {
                 </p>
               )}
               <p className="mt-3 text-xs leading-5 text-[#47596a]">A player record does not establish official club membership.</p>
+              <div className="mt-4"><SignOut /></div>
             </div>
           </div>
         </div>
