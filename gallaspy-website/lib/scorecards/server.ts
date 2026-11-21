@@ -115,8 +115,8 @@ export async function authenticate(request: Request) {
   }
 
   const { data: enabled, error: flagError } =
-    await db.rpc("gallaspy_feature_enabled", {
-      p_feature: "scorecard_sync",
+    await db.rpc("gallaspy_scorecard_access", {
+      p_auth_user_id: data.user.id,
     });
 
   if (flagError) {
